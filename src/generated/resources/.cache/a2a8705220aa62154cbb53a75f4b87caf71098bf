@@ -1,0 +1,14 @@
+// 1.21.1	2025-08-13T22:40:09.3926609	Tags for minecraft:block mod id arsmagicalegacy
+9d1222c96750dd2905a15f534a0492165f0f5f18 data/c/tags/block/ores.json
+0cfa5b473056ef4e219ce978c6b1fd5a947ed556 data/c/tags/block/ores/chimerite.json
+e60ce640b03c19e40fc4fd591174c0bb5f6849d1 data/c/tags/block/ores/moonstone.json
+74f13af5245edcd85eb79b9ddba0e16a3b9dcff4 data/c/tags/block/ores/sunstone.json
+d601eb2422bbbb9e026d8ff13e1e102aa6a2e794 data/c/tags/block/ores/topaz.json
+3411592573e08ce8589c59292dd1db64c65057d2 data/c/tags/block/ores/vinteum.json
+24e7a1363fbff953de97cade7b66f61a3ddc764e data/c/tags/block/storage_blocks.json
+a5efaf624ecc4e7aa79239bfda857f660c06c552 data/c/tags/block/storage_blocks/chimerite.json
+92cb1537d82e26e6146281141600e9d640113080 data/c/tags/block/storage_blocks/moonstone.json
+44a23cc79dc5ba635c2c0cab92dcdf6d05104734 data/c/tags/block/storage_blocks/sunstone.json
+76df3f25234406bbe4c797c04449e8b9683eefcd data/c/tags/block/storage_blocks/topaz.json
+1b98676a20688653887cd8966162861777356e7e data/c/tags/block/storage_blocks/vinteum.json
+09b1a20fde0305f87f9861ad5eb62debb1397734 data/minecraft/tags/block/mineable/pickaxe.json

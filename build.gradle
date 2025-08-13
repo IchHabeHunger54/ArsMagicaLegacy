@@ -1,0 +1,94 @@
+plugins {
+    id 'net.neoforged.moddev' version '2.0.99'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+sourceSets {
+    api
+    data
+}
+
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
+}
+
+dependencies {
+    implementation sourceSets.api.output
+    dataImplementation sourceSets.api.output
+    dataImplementation sourceSets.main.output
+    testImplementation "org.junit.jupiter:junit-jupiter:${project.junit_version}"
+    testImplementation "net.neoforged:testframework:${project.neo_version}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+neoForge {
+    version = project.neo_version
+    addModdingDependenciesTo(sourceSets.api)
+    addModdingDependenciesTo(sourceSets.data)
+
+    mods {
+        arsmagicalegacy {
+            sourceSet sourceSets.api
+            sourceSet sourceSets.main
+        }
+        arsmagicalegacydata {
+            sourceSet sourceSets.api
+            sourceSet sourceSets.main
+            sourceSet sourceSets.data
+        }
+    }
+
+    runs {
+        configureEach {
+            systemProperty 'forge.logging.console.level', 'debug'
+        }
+        client {
+            client()
+        }
+        data {
+            data()
+            sourceSet = sourceSets.data
+            loadedMods = [neoForge.mods.arsmagicalegacydata]
+            programArguments = [
+                    '--mod', 'arsmagicalegacy',
+                    '--all',
+                    '--output', file('src/generated/resources/').absolutePath,
+                    '--existing', file('src/main/resources').absolutePath
+            ]
+        }
+        server {
+            server()
+        }
+    }
+
+    unitTest {
+        enable()
+        testedMod = mods.arsmagicalegacy
+    }
+}
+
+tasks.named('processResources', ProcessResources) {
+    var replaceProperties = [
+            mc_version      : mc_version,
+            neo_version     : neo_version,
+            loader_version  : loader_version,
+            mod_id          : mod_id,
+            mod_version     : mod_version,
+            mod_name        : mod_name,
+            mod_authors     : mod_authors,
+            mod_description : mod_description,
+            mod_license     : mod_license,
+    ]
+    inputs.properties replaceProperties
+    filesMatching('META-INF/neoforge.mods.toml') {
+        expand replaceProperties
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

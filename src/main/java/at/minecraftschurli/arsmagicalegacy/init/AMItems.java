@@ -4,6 +4,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.item.SignItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 
@@ -44,6 +45,11 @@ public interface AMItems {
     DeferredItem<BlockItem> WITCHWOOD_PRESSURE_PLATE = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.WITCHWOOD_PRESSURE_PLATE);
     DeferredItem<BlockItem> WITCHWOOD_SIGN           = AMRegistries.ITEMS.registerItem("witchwood_sign", p -> new SignItem(p, AMBlocks.WITCHWOOD_SIGN.get(), AMBlocks.WITCHWOOD_WALL_SIGN.get()), new Item.Properties().stacksTo(16));
     DeferredItem<BlockItem> WITCHWOOD_HANGING_SIGN   = AMRegistries.ITEMS.registerItem("witchwood_hanging_sign", p -> new HangingSignItem(AMBlocks.WITCHWOOD_HANGING_SIGN.get(), AMBlocks.WITCHWOOD_WALL_HANGING_SIGN.get(), p), new Item.Properties().stacksTo(16));
+    DeferredItem<BlockItem> AUM                      = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.AUM);
+    DeferredItem<BlockItem> CERUBLOSSOM              = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.CERUBLOSSOM);
+    DeferredItem<BlockItem> DESERT_NOVA              = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.DESERT_NOVA);
+    DeferredItem<BlockItem> TARMA_ROOT               = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.TARMA_ROOT);
+    DeferredItem<BlockItem> WAKEBLOOM                = AMRegistries.ITEMS.registerItem("wakebloom", p -> new PlaceOnWaterBlockItem(AMBlocks.WAKEBLOOM.get(), p));
 
     static void init() {
     }

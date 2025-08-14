@@ -19,6 +19,10 @@ public interface AMTags {
         TagKey<Block> STORAGE_BLOCKS_MOONSTONE = cTag("storage_blocks/moonstone");
         TagKey<Block> STORAGE_BLOCKS_SUNSTONE = cTag("storage_blocks/sunstone");
         TagKey<Block> WITCHWOOD_LOGS = tag("witchwood_logs");
+        TagKey<Block> AUM_PLANTABLE_ON = tag("aum_plantable_on");
+        TagKey<Block> CERUBLOSSOM_PLANTABLE_ON = tag("cerublossom_plantable_on");
+        TagKey<Block> DESERT_NOVA_PLANTABLE_ON = tag("desert_nova_plantable_on");
+        TagKey<Block> TARMA_ROOT_PLANTABLE_ON = tag("tarma_root_plantable_on");
 
         private static TagKey<Block> cTag(String name) {
             return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", name));

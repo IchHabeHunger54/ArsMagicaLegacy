@@ -1,4 +1,8 @@
-// 1.21.1	2025-08-14T03:22:45.9665797	Tags for minecraft:block mod id arsmagicalegacy
+// 1.21.1	2025-08-14T14:50:51.9235742	Tags for minecraft:block mod id arsmagicalegacy
+69c396cb051bbe9a130e6979b67065e5041b179d data/arsmagicalegacy/tags/block/aum_plantable_on.json
+69c396cb051bbe9a130e6979b67065e5041b179d data/arsmagicalegacy/tags/block/cerublossom_plantable_on.json
+c1b2a217bb3fcb7e1d67f5bc45409796720bd171 data/arsmagicalegacy/tags/block/desert_nova_plantable_on.json
+4c1bbc9a9b255ebcb379692a068dd9bbc9863000 data/arsmagicalegacy/tags/block/tarma_root_plantable_on.json
 09a8495f82a08691d533f5301ffce0cc0afe0bcf data/arsmagicalegacy/tags/block/witchwood_logs.json
 75597f58eaad48b98e64ba095c0e13b1573e0f4e data/c/tags/block/fences/wooden.json
 4509a6dbe8b8c6353fbe06cefd812efe1dca2727 data/c/tags/block/fence_gates/wooden.json
@@ -16,7 +20,7 @@ a5efaf624ecc4e7aa79239bfda857f660c06c552 data/c/tags/block/storage_blocks/chimer
 1b98676a20688653887cd8966162861777356e7e data/c/tags/block/storage_blocks/vinteum.json
 d9eb014cca9e9eb1edefc2e7b423dacb98df705a data/minecraft/tags/block/ceiling_hanging_signs.json
 4509a6dbe8b8c6353fbe06cefd812efe1dca2727 data/minecraft/tags/block/fence_gates.json
-6b3e88531182c9c2a959a86d1abc1136a7720e17 data/minecraft/tags/block/flower_pots.json
+dbe9773da22a20dd3089a9aac5ed7aa9cf81495c data/minecraft/tags/block/flower_pots.json
 cd4ee8afe25cbc17263f3bcd49ba4402450d4b66 data/minecraft/tags/block/leaves.json
 cc20d8d43b66ef761c1f2d6f55740085c58a35f3 data/minecraft/tags/block/logs.json
 09b1a20fde0305f87f9861ad5eb62debb1397734 data/minecraft/tags/block/mineable/pickaxe.json
@@ -25,6 +29,7 @@ e60ce640b03c19e40fc4fd591174c0bb5f6849d1 data/minecraft/tags/block/needs_iron_to
 f6c680cbfc60669a0327e55fe8ab003710752a68 data/minecraft/tags/block/needs_stone_tool.json
 638b279febd41d749f4abb6380caa1aeb19c0d00 data/minecraft/tags/block/planks.json
 a5cc6f3a50fcd1f61d2ba94c42b27f82e25e2c8e data/minecraft/tags/block/saplings.json
+4646c92ac03ea27d3a443cb64e53ee5b9a6de33c data/minecraft/tags/block/small_flowers.json
 c03fe02c08be18b1f15dcfbd3e923baed847268a data/minecraft/tags/block/standing_signs.json
 bf9a8cf1f89cd7a3754be41e6c5e4f71198804c8 data/minecraft/tags/block/wall_hanging_signs.json
 d0df540ca957aa8f45eab82096a849542c152d5f data/minecraft/tags/block/wall_signs.json

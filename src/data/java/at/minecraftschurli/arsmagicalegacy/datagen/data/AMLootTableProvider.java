@@ -67,6 +67,16 @@ public final class AMLootTableProvider extends LootTableProvider {
             dropOther(AMBlocks.WITCHWOOD_WALL_SIGN.get(), AMBlocks.WITCHWOOD_SIGN.get());
             dropSelf(AMBlocks.WITCHWOOD_HANGING_SIGN.get());
             dropOther(AMBlocks.WITCHWOOD_WALL_HANGING_SIGN.get(), AMBlocks.WITCHWOOD_HANGING_SIGN.get());
+            dropSelf(AMBlocks.AUM.get());
+            dropPottedContents(AMBlocks.POTTED_AUM.get());
+            dropSelf(AMBlocks.CERUBLOSSOM.get());
+            dropPottedContents(AMBlocks.POTTED_CERUBLOSSOM.get());
+            dropSelf(AMBlocks.DESERT_NOVA.get());
+            dropPottedContents(AMBlocks.POTTED_DESERT_NOVA.get());
+            dropSelf(AMBlocks.TARMA_ROOT.get());
+            dropPottedContents(AMBlocks.POTTED_TARMA_ROOT.get());
+            dropSelf(AMBlocks.WAKEBLOOM.get());
+            dropPottedContents(AMBlocks.POTTED_WAKEBLOOM.get());
         }
     }
 }

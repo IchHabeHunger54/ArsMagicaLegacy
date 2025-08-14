@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.assets;
 
+import at.minecraftschurli.arsmagicalegacy.api.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
@@ -52,6 +53,47 @@ public final class AMLanguageProvider extends LanguageProvider {
         blockIdTranslation(AMBlocks.WITCHWOOD_PRESSURE_PLATE);
         addBlock(AMBlocks.WITCHWOOD_WALL_SIGN, idTranslation(AMBlocks.WITCHWOOD_SIGN.getId().getPath()));
         addBlock(AMBlocks.WITCHWOOD_WALL_HANGING_SIGN, idTranslation(AMBlocks.WITCHWOOD_HANGING_SIGN.getId().getPath()));
+        blockIdTranslation(AMBlocks.AUM);
+        blockIdTranslation(AMBlocks.POTTED_AUM);
+        blockIdTranslation(AMBlocks.CERUBLOSSOM);
+        blockIdTranslation(AMBlocks.POTTED_CERUBLOSSOM);
+        blockIdTranslation(AMBlocks.DESERT_NOVA);
+        blockIdTranslation(AMBlocks.POTTED_DESERT_NOVA);
+        blockIdTranslation(AMBlocks.TARMA_ROOT);
+        blockIdTranslation(AMBlocks.POTTED_TARMA_ROOT);
+        blockIdTranslation(AMBlocks.WAKEBLOOM);
+        blockIdTranslation(AMBlocks.POTTED_WAKEBLOOM);
+        add(AMTags.Blocks.ORES_CHIMERITE, "Chimerite Ores");
+        add(AMTags.Blocks.ORES_TOPAZ, "Topaz Ores");
+        add(AMTags.Blocks.ORES_VINTEUM, "Vinteum Ores");
+        add(AMTags.Blocks.ORES_MOONSTONE, "Moonstone Ores");
+        add(AMTags.Blocks.ORES_SUNSTONE, "Sunstone Ores");
+        add(AMTags.Blocks.STORAGE_BLOCKS_CHIMERITE, "Chimerite Storage Blocks");
+        add(AMTags.Blocks.STORAGE_BLOCKS_TOPAZ, "Topaz Storage Blocks");
+        add(AMTags.Blocks.STORAGE_BLOCKS_VINTEUM, "Vinteum Storage Blocks");
+        add(AMTags.Blocks.STORAGE_BLOCKS_MOONSTONE, "Moonstone Storage Blocks");
+        add(AMTags.Blocks.STORAGE_BLOCKS_SUNSTONE, "Sunstone Storage Blocks");
+        add(AMTags.Blocks.WITCHWOOD_LOGS, "Witchwood Logs");
+        add(AMTags.Blocks.AUM_PLANTABLE_ON, "Soil for Aum");
+        add(AMTags.Blocks.CERUBLOSSOM_PLANTABLE_ON, "Soil for Cerublossom");
+        add(AMTags.Blocks.DESERT_NOVA_PLANTABLE_ON, "Soil for Desert Nova");
+        add(AMTags.Blocks.TARMA_ROOT_PLANTABLE_ON, "Soil for Tarma Root");
+        add(AMTags.Items.ORES_CHIMERITE, "Chimerite Ores");
+        add(AMTags.Items.ORES_TOPAZ, "Topaz Ores");
+        add(AMTags.Items.ORES_VINTEUM, "Vinteum Ores");
+        add(AMTags.Items.ORES_MOONSTONE, "Moonstone Ores");
+        add(AMTags.Items.ORES_SUNSTONE, "Sunstone Ores");
+        add(AMTags.Items.STORAGE_BLOCKS_CHIMERITE, "Chimerite Storage Blocks");
+        add(AMTags.Items.STORAGE_BLOCKS_TOPAZ, "Topaz Storage Blocks");
+        add(AMTags.Items.STORAGE_BLOCKS_VINTEUM, "Vinteum Storage Blocks");
+        add(AMTags.Items.STORAGE_BLOCKS_MOONSTONE, "Moonstone Storage Blocks");
+        add(AMTags.Items.STORAGE_BLOCKS_SUNSTONE, "Sunstone Storage Blocks");
+        add(AMTags.Items.GEMS_CHIMERITE, "Chimerite Gems");
+        add(AMTags.Items.GEMS_TOPAZ, "Topaz Gems");
+        add(AMTags.Items.DUSTS_VINTEUM, "Vinteum Dusts");
+        add(AMTags.Items.GEMS_MOONSTONE, "Moonstone Gems");
+        add(AMTags.Items.GEMS_SUNSTONE, "Sunstone Gems");
+        add(AMTags.Items.WITCHWOOD_LOGS, "Witchwood Logs");
         add("itemGroup." + ArsMagicaApi.MOD_ID, "Ars Magica: Legacy");
     }
 

@@ -46,6 +46,11 @@ public interface AMCreativeTabs {
                 output.accept(AMItems.WITCHWOOD_PRESSURE_PLATE);
                 output.accept(AMItems.WITCHWOOD_SIGN);
                 output.accept(AMItems.WITCHWOOD_HANGING_SIGN);
+                output.accept(AMItems.AUM);
+                output.accept(AMItems.CERUBLOSSOM);
+                output.accept(AMItems.DESERT_NOVA);
+                output.accept(AMItems.TARMA_ROOT);
+                output.accept(AMItems.WAKEBLOOM);
             })
             .build());
 

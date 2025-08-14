@@ -16,6 +16,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.BlastingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -23,6 +24,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.ItemLike;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -51,6 +53,11 @@ public final class AMRecipeProvider extends RecipeProvider {
         oreBlasting(output, List.of(AMItems.TOPAZ_ORE.get(), AMItems.DEEPSLATE_TOPAZ_ORE.get()), AMItems.TOPAZ.get(), 0.7f, 100, "topaz");
         oreBlasting(output, List.of(AMItems.VINTEUM_ORE.get(), AMItems.DEEPSLATE_VINTEUM_ORE.get()), AMItems.VINTEUM_DUST.get(), 0.7f, 100, "vinteum_dust");
         oreBlasting(output, List.of(AMItems.MOONSTONE_ORE.get(), AMItems.DEEPSLATE_MOONSTONE_ORE.get()), AMItems.MOONSTONE.get(), 0.7f, 100, "moonstone");
+        oneToOneConversion(output, Items.PINK_DYE, AMItems.AUM.get(), "pink_dye");
+        oneToOneConversion(output, Items.BLUE_DYE, AMItems.CERUBLOSSOM.get(), "blue_dye");
+        oneToOneConversion(output, Items.RED_DYE, AMItems.DESERT_NOVA.get(), "red_dye");
+        oneToOneConversion(output, Items.BROWN_DYE, AMItems.TARMA_ROOT.get(), "brown_dye");
+        oneToOneConversion(output, Items.MAGENTA_DYE, AMItems.WAKEBLOOM.get(), "magenta_dye");
     }
 
     private void oreSmelting(RecipeOutput output, List<ItemLike> ingredients, ItemLike result, float experience, int cookingTime, String group) {
@@ -82,5 +89,13 @@ public final class AMRecipeProvider extends RecipeProvider {
                 .pattern("###")
                 .unlockedBy(getHasName(unpacked), has(unpacked))
                 .save(output, ArsMagicaApi.modLoc(getSimpleRecipeName(packed)));
+    }
+
+    private void oneToOneConversion(RecipeOutput output, ItemLike result, ItemLike ingredient, @Nullable String group) {
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, result, 1)
+                .requires(ingredient)
+                .group(group)
+                .unlockedBy(getHasName(ingredient), has(ingredient))
+                .save(output, ArsMagicaApi.modLoc(getConversionRecipeName(result, ingredient)));
     }
 }

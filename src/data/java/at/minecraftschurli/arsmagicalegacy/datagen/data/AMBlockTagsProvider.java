@@ -6,6 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -36,7 +37,6 @@ public final class AMBlockTagsProvider extends BlockTagsProvider {
         tag(BlockTags.LOGS).addTag(AMTags.Blocks.WITCHWOOD_LOGS);
         tag(BlockTags.LEAVES).add(AMBlocks.WITCHWOOD_LEAVES.get());
         tag(BlockTags.SAPLINGS).add(AMBlocks.WITCHWOOD_SAPLING.get());
-        tag(BlockTags.FLOWER_POTS).add(AMBlocks.POTTED_WITCHWOOD_SAPLING.get());
         tag(BlockTags.PLANKS).add(AMBlocks.WITCHWOOD_PLANKS.get());
         tag(BlockTags.WOODEN_SLABS).add(AMBlocks.WITCHWOOD_SLAB.get());
         tag(BlockTags.WOODEN_STAIRS).add(AMBlocks.WITCHWOOD_STAIRS.get());
@@ -52,6 +52,12 @@ public final class AMBlockTagsProvider extends BlockTagsProvider {
         tag(BlockTags.WALL_SIGNS).add(AMBlocks.WITCHWOOD_WALL_SIGN.get());
         tag(BlockTags.CEILING_HANGING_SIGNS).add(AMBlocks.WITCHWOOD_HANGING_SIGN.get());
         tag(BlockTags.WALL_HANGING_SIGNS).add(AMBlocks.WITCHWOOD_WALL_HANGING_SIGN.get());
+        tag(AMTags.Blocks.AUM_PLANTABLE_ON).addTag(BlockTags.DIRT);
+        tag(AMTags.Blocks.CERUBLOSSOM_PLANTABLE_ON).addTag(BlockTags.DIRT);
+        tag(AMTags.Blocks.DESERT_NOVA_PLANTABLE_ON).addTag(BlockTags.SAND);
+        tag(AMTags.Blocks.TARMA_ROOT_PLANTABLE_ON).add(Blocks.CLAY, Blocks.GRAVEL).addTags(BlockTags.DIRT, BlockTags.SAND, BlockTags.STONE_ORE_REPLACEABLES, BlockTags.DEEPSLATE_ORE_REPLACEABLES);
+        tag(BlockTags.SMALL_FLOWERS).add(AMBlocks.AUM.get(), AMBlocks.CERUBLOSSOM.get(), AMBlocks.DESERT_NOVA.get(), AMBlocks.TARMA_ROOT.get(), AMBlocks.WAKEBLOOM.get());
+        tag(BlockTags.FLOWER_POTS).add(AMBlocks.POTTED_WITCHWOOD_SAPLING.get(), AMBlocks.POTTED_AUM.get(), AMBlocks.POTTED_CERUBLOSSOM.get(), AMBlocks.POTTED_DESERT_NOVA.get(), AMBlocks.POTTED_TARMA_ROOT.get(), AMBlocks.POTTED_WAKEBLOOM.get());
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(AMBlocks.CHIMERITE_ORE.get(), AMBlocks.DEEPSLATE_CHIMERITE_ORE.get(), AMBlocks.CHIMERITE_BLOCK.get(), AMBlocks.TOPAZ_ORE.get(), AMBlocks.DEEPSLATE_TOPAZ_ORE.get(), AMBlocks.TOPAZ_BLOCK.get(), AMBlocks.VINTEUM_ORE.get(), AMBlocks.DEEPSLATE_VINTEUM_ORE.get(), AMBlocks.VINTEUM_BLOCK.get(), AMBlocks.MOONSTONE_ORE.get(), AMBlocks.DEEPSLATE_MOONSTONE_ORE.get(), AMBlocks.MOONSTONE_BLOCK.get(), AMBlocks.SUNSTONE_ORE.get(), AMBlocks.SUNSTONE_BLOCK.get());
         tag(BlockTags.NEEDS_STONE_TOOL).add(AMBlocks.CHIMERITE_BLOCK.get(), AMBlocks.CHIMERITE_ORE.get(), AMBlocks.DEEPSLATE_CHIMERITE_ORE.get(), AMBlocks.TOPAZ_BLOCK.get(), AMBlocks.TOPAZ_ORE.get(), AMBlocks.DEEPSLATE_TOPAZ_ORE.get(), AMBlocks.VINTEUM_BLOCK.get(), AMBlocks.VINTEUM_ORE.get(), AMBlocks.DEEPSLATE_VINTEUM_ORE.get(), AMBlocks.MOONSTONE_BLOCK.get(), AMBlocks.SUNSTONE_BLOCK.get());
         tag(BlockTags.NEEDS_IRON_TOOL).add(AMBlocks.MOONSTONE_ORE.get(), AMBlocks.DEEPSLATE_MOONSTONE_ORE.get());

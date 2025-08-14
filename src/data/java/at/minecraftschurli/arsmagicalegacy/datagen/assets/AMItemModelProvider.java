@@ -6,6 +6,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.BlockItem;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 public final class AMItemModelProvider extends ItemModelProvider {
@@ -39,7 +40,7 @@ public final class AMItemModelProvider extends ItemModelProvider {
         blockItem(AMItems.STRIPPED_WITCHWOOD_LOG);
         blockItem(AMItems.STRIPPED_WITCHWOOD);
         blockItem(AMItems.WITCHWOOD_LEAVES);
-        withExistingParent(AMItems.WITCHWOOD_SAPLING.getId().getPath(), mcLoc("item/generated")).texture("layer0", modLoc("block/witchwood_sapling"));
+        basicBlockItem(AMItems.WITCHWOOD_SAPLING);
         blockItem(AMItems.WITCHWOOD_PLANKS);
         blockItem(AMItems.WITCHWOOD_SLAB);
         blockItem(AMItems.WITCHWOOD_STAIRS);
@@ -51,6 +52,11 @@ public final class AMItemModelProvider extends ItemModelProvider {
         blockItem(AMItems.WITCHWOOD_PRESSURE_PLATE);
         basicItem(AMItems.WITCHWOOD_SIGN);
         basicItem(AMItems.WITCHWOOD_HANGING_SIGN);
+        basicBlockItem(AMItems.AUM);
+        basicBlockItem(AMItems.CERUBLOSSOM);
+        basicBlockItem(AMItems.DESERT_NOVA);
+        basicBlockItem(AMItems.TARMA_ROOT);
+        basicBlockItem(AMItems.WAKEBLOOM);
     }
 
     private void blockItem(DeferredItem<? extends BlockItem> item) {
@@ -59,5 +65,9 @@ public final class AMItemModelProvider extends ItemModelProvider {
 
     private void basicItem(DeferredItem<?> item) {
         basicItem(item.get());
+    }
+
+    private void basicBlockItem(DeferredItem<?> item) {
+        withExistingParent(item.getId().getPath(), mcLoc("item/generated")).texture("layer0", modLoc("block/" + item.getId().getPath()));
     }
 }

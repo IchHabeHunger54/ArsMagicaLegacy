@@ -51,6 +51,16 @@ public final class AMBlockStateProvider extends BlockStateProvider {
         pressurePlateBlock(AMBlocks.WITCHWOOD_PRESSURE_PLATE.get(), planksTexture);
         signBlock(AMBlocks.WITCHWOOD_SIGN.get(), AMBlocks.WITCHWOOD_WALL_SIGN.get(), planksTexture);
         hangingSignBlock(AMBlocks.WITCHWOOD_HANGING_SIGN.get(), AMBlocks.WITCHWOOD_WALL_HANGING_SIGN.get(), blockTexture(AMBlocks.STRIPPED_WITCHWOOD_LOG.get()));
+        crossBlock(AMBlocks.AUM);
+        flowerPotBlock(AMBlocks.POTTED_AUM, AMBlocks.AUM);
+        crossBlock(AMBlocks.CERUBLOSSOM);
+        flowerPotBlock(AMBlocks.POTTED_CERUBLOSSOM, AMBlocks.CERUBLOSSOM);
+        crossBlock(AMBlocks.DESERT_NOVA);
+        flowerPotBlock(AMBlocks.POTTED_DESERT_NOVA, AMBlocks.DESERT_NOVA);
+        crossBlock(AMBlocks.TARMA_ROOT);
+        flowerPotBlock(AMBlocks.POTTED_TARMA_ROOT, AMBlocks.TARMA_ROOT);
+        crossBlock(AMBlocks.WAKEBLOOM);
+        flowerPotBlock(AMBlocks.POTTED_WAKEBLOOM, AMBlocks.WAKEBLOOM);
     }
 
     /**

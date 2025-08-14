@@ -1,6 +1,9 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
+import at.minecraftschurli.arsmagicalegacy.api.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.block.AMFlowerBlock;
+import at.minecraftschurli.arsmagicalegacy.block.WakebloomBlock;
 import at.minecraftschurli.arsmagicalegacy.block.sign.WitchwoodCeilingHangingSignBlock;
 import at.minecraftschurli.arsmagicalegacy.block.sign.WitchwoodStandingSignBlock;
 import at.minecraftschurli.arsmagicalegacy.block.sign.WitchwoodWallHangingSignBlock;
@@ -8,6 +11,7 @@ import at.minecraftschurli.arsmagicalegacy.block.sign.WitchwoodWallSignBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ButtonBlock;
@@ -20,7 +24,6 @@ import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SaplingBlock;
-import net.minecraft.world.level.block.SignBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
@@ -85,6 +88,16 @@ public interface AMBlocks {
     DeferredBlock<WitchwoodWallSignBlock>           WITCHWOOD_WALL_SIGN         = register("witchwood_wall_sign",         WitchwoodWallSignBlock::new, copyProperties(Blocks.OAK_WALL_SIGN).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE).lootFrom(WITCHWOOD_SIGN));
     DeferredBlock<WitchwoodCeilingHangingSignBlock> WITCHWOOD_HANGING_SIGN      = register("witchwood_hanging_sign",      WitchwoodCeilingHangingSignBlock::new, copyProperties(Blocks.OAK_HANGING_SIGN).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
     DeferredBlock<WitchwoodWallHangingSignBlock>    WITCHWOOD_WALL_HANGING_SIGN = register("witchwood_wall_hanging_sign", WitchwoodWallHangingSignBlock::new, copyProperties(Blocks.OAK_WALL_HANGING_SIGN).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE).lootFrom(WITCHWOOD_HANGING_SIGN));
+    DeferredBlock<AMFlowerBlock>                    AUM                         = register("aum",                         p -> new AMFlowerBlock(MobEffects.REGENERATION, 7, AMTags.Blocks.AUM_PLANTABLE_ON, p), copyProperties(Blocks.POPPY)); //TODO mana regeneration
+    DeferredBlock<FlowerPotBlock>                   POTTED_AUM                  = register("potted_aum",                  p -> flowerPot(AUM, p).get(), copyProperties(Blocks.FLOWER_POT));
+    DeferredBlock<AMFlowerBlock>                    CERUBLOSSOM                 = register("cerublossom",                 p -> new AMFlowerBlock(MobEffects.LEVITATION, 7, AMTags.Blocks.CERUBLOSSOM_PLANTABLE_ON, p), copyProperties(Blocks.POPPY));
+    DeferredBlock<FlowerPotBlock>                   POTTED_CERUBLOSSOM          = register("potted_cerublossom",          p -> flowerPot(CERUBLOSSOM, p).get(), copyProperties(Blocks.FLOWER_POT));
+    DeferredBlock<AMFlowerBlock>                    DESERT_NOVA                 = register("desert_nova",                 p -> new AMFlowerBlock(MobEffects.FIRE_RESISTANCE, 7, AMTags.Blocks.DESERT_NOVA_PLANTABLE_ON, p), copyProperties(Blocks.POPPY));
+    DeferredBlock<FlowerPotBlock>                   POTTED_DESERT_NOVA          = register("potted_desert_nova",          p -> flowerPot(DESERT_NOVA, p).get(), copyProperties(Blocks.FLOWER_POT));
+    DeferredBlock<AMFlowerBlock>                    TARMA_ROOT                  = register("tarma_root",                  p -> new AMFlowerBlock(MobEffects.DIG_SLOWDOWN, 7, AMTags.Blocks.TARMA_ROOT_PLANTABLE_ON, p), copyProperties(Blocks.POPPY));
+    DeferredBlock<FlowerPotBlock>                   POTTED_TARMA_ROOT           = register("potted_tarma_root",           p -> flowerPot(TARMA_ROOT, p).get(), copyProperties(Blocks.FLOWER_POT));
+    DeferredBlock<WakebloomBlock>                   WAKEBLOOM                   = register("wakebloom",                   WakebloomBlock::new, copyProperties(Blocks.POPPY));
+    DeferredBlock<FlowerPotBlock>                   POTTED_WAKEBLOOM            = register("potted_wakebloom",            p -> flowerPot(WAKEBLOOM, p).get(), copyProperties(Blocks.FLOWER_POT));
 
     // @formatter:on
 

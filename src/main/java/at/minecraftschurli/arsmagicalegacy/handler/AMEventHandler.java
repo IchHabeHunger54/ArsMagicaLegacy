@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
+import net.neoforged.neoforge.registries.NewRegistryEvent;
 
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID)
 final class AMEventHandler {
@@ -16,5 +17,11 @@ final class AMEventHandler {
     private static void addBlockEntities(BlockEntityTypeAddBlocksEvent event) {
         event.modify(BlockEntityType.SIGN, AMBlocks.WITCHWOOD_SIGN.get(), AMBlocks.WITCHWOOD_WALL_SIGN.get());
         event.modify(BlockEntityType.HANGING_SIGN, AMBlocks.WITCHWOOD_HANGING_SIGN.get(), AMBlocks.WITCHWOOD_WALL_HANGING_SIGN.get());
+    }
+
+    @SubscribeEvent
+    private static void newRegistry(NewRegistryEvent event) {
+        event.register(ArsMagicaApi.getSpellPartRegistry());
+        event.register(ArsMagicaApi.getSpellDataComponentRegistry());
     }
 }

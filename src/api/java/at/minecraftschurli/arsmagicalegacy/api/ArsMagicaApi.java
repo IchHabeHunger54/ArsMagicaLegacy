@@ -49,9 +49,19 @@ public abstract class ArsMagicaApi {
         return INSTANCE.get()._getSpellDataComponentRegistry();
     }
 
+    /**
+     * @return The {@link SpellHelper} instance.
+     */
+    public static SpellHelper getSpellHelper() {
+        return INSTANCE.get()._getSpellHelper();
+    }
+
     @ApiStatus.Internal
     protected abstract Registry<SpellPart> _getSpellPartRegistry();
 
     @ApiStatus.Internal
     protected abstract Registry<DataComponentType<?>> _getSpellDataComponentRegistry();
+
+    @ApiStatus.Internal
+    protected abstract SpellHelper _getSpellHelper();
 }

@@ -1,7 +1,8 @@
-package at.minecraftschurli.arsmagicalegacy;
+package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.api.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
@@ -19,5 +20,10 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     @Override
     protected Registry<DataComponentType<?>> _getSpellDataComponentRegistry() {
         return SPELL_DATA_COMPONENT_REGISTRY;
+    }
+
+    @Override
+    protected SpellHelper _getSpellHelper() {
+        return SpellHelperImpl.INSTANCE;
     }
 }

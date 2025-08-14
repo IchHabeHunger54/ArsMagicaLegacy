@@ -4,10 +4,6 @@ import at.minecraftschurli.arsmagicalegacy.api.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.block.AMFlowerBlock;
 import at.minecraftschurli.arsmagicalegacy.block.WakebloomBlock;
-import at.minecraftschurli.arsmagicalegacy.block.sign.WitchwoodCeilingHangingSignBlock;
-import at.minecraftschurli.arsmagicalegacy.block.sign.WitchwoodStandingSignBlock;
-import at.minecraftschurli.arsmagicalegacy.block.sign.WitchwoodWallHangingSignBlock;
-import at.minecraftschurli.arsmagicalegacy.block.sign.WitchwoodWallSignBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.BlockFamily;
@@ -91,10 +87,10 @@ public interface AMBlocks {
     DeferredBlock<TrapDoorBlock>           WITCHWOOD_TRAPDOOR          = register("witchwood_trapdoor",          p -> new TrapDoorBlock(WITCHWOOD_BLOCK_SET_TYPE, p), copyProperties(Blocks.OAK_TRAPDOOR).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
     DeferredBlock<ButtonBlock>             WITCHWOOD_BUTTON            = register("witchwood_button",            p -> new ButtonBlock(WITCHWOOD_BLOCK_SET_TYPE, 30, p), copyProperties(Blocks.OAK_BUTTON));
     DeferredBlock<PressurePlateBlock>      WITCHWOOD_PRESSURE_PLATE    = register("witchwood_pressure_plate",    p -> new PressurePlateBlock(WITCHWOOD_BLOCK_SET_TYPE, p), copyProperties(Blocks.OAK_PRESSURE_PLATE).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
-    DeferredBlock<StandingSignBlock>       WITCHWOOD_SIGN              = register("witchwood_sign",              WitchwoodStandingSignBlock::new, copyProperties(Blocks.OAK_SIGN).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
-    DeferredBlock<WallSignBlock>           WITCHWOOD_WALL_SIGN         = register("witchwood_wall_sign",         WitchwoodWallSignBlock::new, copyProperties(Blocks.OAK_WALL_SIGN).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE).lootFrom(WITCHWOOD_SIGN));
-    DeferredBlock<CeilingHangingSignBlock> WITCHWOOD_HANGING_SIGN      = register("witchwood_hanging_sign",      WitchwoodCeilingHangingSignBlock::new, copyProperties(Blocks.OAK_HANGING_SIGN).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
-    DeferredBlock<WallHangingSignBlock>    WITCHWOOD_WALL_HANGING_SIGN = register("witchwood_wall_hanging_sign", WitchwoodWallHangingSignBlock::new, copyProperties(Blocks.OAK_WALL_HANGING_SIGN).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE).lootFrom(WITCHWOOD_HANGING_SIGN));
+    DeferredBlock<StandingSignBlock>       WITCHWOOD_SIGN              = register("witchwood_sign",              p -> new StandingSignBlock(WITCHWOOD_WOOD_TYPE, p), copyProperties(Blocks.OAK_SIGN).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
+    DeferredBlock<WallSignBlock>           WITCHWOOD_WALL_SIGN         = register("witchwood_wall_sign",         p -> new WallSignBlock(WITCHWOOD_WOOD_TYPE, p), copyProperties(Blocks.OAK_WALL_SIGN).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE).lootFrom(WITCHWOOD_SIGN));
+    DeferredBlock<CeilingHangingSignBlock> WITCHWOOD_HANGING_SIGN      = register("witchwood_hanging_sign",      p -> new CeilingHangingSignBlock(WITCHWOOD_WOOD_TYPE, p), copyProperties(Blocks.OAK_HANGING_SIGN).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
+    DeferredBlock<WallHangingSignBlock>    WITCHWOOD_WALL_HANGING_SIGN = register("witchwood_wall_hanging_sign", p -> new WallHangingSignBlock(WITCHWOOD_WOOD_TYPE, p), copyProperties(Blocks.OAK_WALL_HANGING_SIGN).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE).lootFrom(WITCHWOOD_HANGING_SIGN));
     DeferredBlock<AMFlowerBlock>           AUM                         = register("aum",                         p -> new AMFlowerBlock(MobEffects.REGENERATION, 7, AMTags.Blocks.AUM_PLANTABLE_ON, p), copyProperties(Blocks.POPPY)); //TODO mana regeneration
     DeferredBlock<FlowerPotBlock>          POTTED_AUM                  = register("potted_aum",                  p -> flowerPot(AUM, p).get(), copyProperties(Blocks.FLOWER_POT));
     DeferredBlock<AMFlowerBlock>           CERUBLOSSOM                 = register("cerublossom",                 p -> new AMFlowerBlock(MobEffects.LEVITATION, 7, AMTags.Blocks.CERUBLOSSOM_PLANTABLE_ON, p), copyProperties(Blocks.POPPY));

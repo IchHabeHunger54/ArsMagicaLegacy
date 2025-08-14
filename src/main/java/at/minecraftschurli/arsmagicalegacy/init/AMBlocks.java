@@ -45,16 +45,16 @@ public interface AMBlocks {
     BlockSetType WITCHWOOD_BLOCK_SET_TYPE = BlockSetType.register(new BlockSetType(ArsMagicaApi.MOD_ID + ":witchwood"));
     WoodType WITCHWOOD_WOOD_TYPE = WoodType.register(new WoodType(ArsMagicaApi.MOD_ID + ":witchwood", WITCHWOOD_BLOCK_SET_TYPE));
     Lazy<BlockFamily> WITCHWOOD_BLOCK_FAMILY = Lazy.of(() -> new BlockFamily.Builder(AMBlocks.WITCHWOOD_PLANKS.get())
-            .slab(AMBlocks.WITCHWOOD_SLAB.get())
-            .stairs(AMBlocks.WITCHWOOD_STAIRS.get())
-            .fence(AMBlocks.WITCHWOOD_FENCE.get())
-            .fenceGate(AMBlocks.WITCHWOOD_FENCE_GATE.get())
-            .door(AMBlocks.WITCHWOOD_DOOR.get())
-            .trapdoor(AMBlocks.WITCHWOOD_TRAPDOOR.get())
-            .button(AMBlocks.WITCHWOOD_BUTTON.get())
-            .pressurePlate(AMBlocks.WITCHWOOD_PRESSURE_PLATE.get())
-            .sign(AMBlocks.WITCHWOOD_SIGN.get(), AMBlocks.WITCHWOOD_WALL_SIGN.get())
-            .getFamily());
+        .slab(AMBlocks.WITCHWOOD_SLAB.get())
+        .stairs(AMBlocks.WITCHWOOD_STAIRS.get())
+        .fence(AMBlocks.WITCHWOOD_FENCE.get())
+        .fenceGate(AMBlocks.WITCHWOOD_FENCE_GATE.get())
+        .door(AMBlocks.WITCHWOOD_DOOR.get())
+        .trapdoor(AMBlocks.WITCHWOOD_TRAPDOOR.get())
+        .button(AMBlocks.WITCHWOOD_BUTTON.get())
+        .pressurePlate(AMBlocks.WITCHWOOD_PRESSURE_PLATE.get())
+        .sign(AMBlocks.WITCHWOOD_SIGN.get(), AMBlocks.WITCHWOOD_WALL_SIGN.get())
+        .getFamily());
 
     // @formatter:off
     DeferredBlock<DropExperienceBlock>     CHIMERITE_ORE               = register("chimerite_ore",               p -> new DropExperienceBlock(UniformInt.of(0, 2), p), properties().requiresCorrectToolForDrops().strength(3f, 3f));
@@ -106,9 +106,6 @@ public interface AMBlocks {
 
     // @formatter:on
 
-    static void init() {
-    }
-
     private static <B extends Block> DeferredBlock<B> register(String name, Function<BlockBehaviour.Properties, B> function, BlockBehaviour.Properties properties) {
         return AMRegistries.BLOCKS.registerBlock(name, function, properties);
     }
@@ -125,9 +122,22 @@ public interface AMBlocks {
         return BlockBehaviour.Properties.ofFullCopy(block);
     }
 
+    /**
+     * Creates a {@link FlowerPotBlock} and registers it to the flower pot conversion map.
+     *
+     * @param flower     The flower to use.
+     * @param properties The {@link Block.Properties} to use.
+     * @return The created {@link FlowerPotBlock}.
+     */
     private static Supplier<FlowerPotBlock> flowerPot(DeferredBlock<?> flower, BlockBehaviour.Properties properties) {
         Supplier<FlowerPotBlock> flowerPot = () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, flower, properties);
         ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(flower.getId(), flowerPot);
         return flowerPot;
+    }
+
+    /**
+     * Empty method used for classloading this class.
+     */
+    static void init() {
     }
 }

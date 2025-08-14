@@ -15,37 +15,85 @@ import net.neoforged.neoforge.registries.holdersets.OrHolderSet;
 
 import java.util.Arrays;
 
+/**
+ * Helper class for working with {@link HolderSet}s.
+ */
 public final class HolderSets {
-    private HolderSets() {}
+    private HolderSets() {
+    }
 
+    /**
+     * Creates a {@link HolderSet} containing the looked up values for the given keys.
+     *
+     * @param bootstrap   The {@link BootstrapContext} used for lookups.
+     * @param registryKey The key of the registry to perform the lookups in.
+     * @param keys        The resource keys to lookup.
+     * @param <T>         The type of the registry.
+     * @return A {@link HolderSet}.
+     */
     @SafeVarargs
     public static <T> HolderSet<T> direct(BootstrapContext<?> bootstrap, ResourceKey<? extends Registry<T>> registryKey, ResourceKey<T>... keys) {
         HolderGetter<T> lookup = bootstrap.lookup(registryKey);
         return HolderSet.direct(Arrays.stream(keys).map(lookup::getOrThrow).toList());
     }
 
-    public static HolderSet<Biome> biome(BootstrapContext<?> bootstrap, ResourceKey<Biome> biome) {
-        return HolderSet.direct(bootstrap.lookup(Registries.BIOME).getOrThrow(biome));
+    /**
+     * Variant of {@link HolderSets#direct(BootstrapContext, ResourceKey, ResourceKey[])}, specialized for biomes.
+     *
+     * @param bootstrap The {@link BootstrapContext} used for lookups.
+     * @param biomes    The biome resource keys to lookup.
+     * @return A {@link HolderSet}.
+     */
+    public static HolderSet<Biome> biome(BootstrapContext<?> bootstrap, ResourceKey<Biome>... biomes) {
+        return direct(bootstrap, Registries.BIOME, biomes);
     }
 
+    /**
+     * Like {@link HolderSets#biome(BootstrapContext, ResourceKey[])}, but looks up a biome tag instead of a list of biome resource keys.
+     *
+     * @param bootstrap The {@link BootstrapContext} used for lookups.
+     * @param biome     The biome tag to lookup.
+     * @return A {@link HolderSet}.
+     */
     public static HolderSet<Biome> biomeTag(BootstrapContext<?> bootstrap, TagKey<Biome> biome) {
         return bootstrap.lookup(Registries.BIOME).getOrThrow(biome);
     }
 
+    /**
+     * Groups the given {@link HolderSet}s using an AND operation.
+     *
+     * @param sets The {@link HolderSet}s to group.
+     * @param <T>  The type of the {@link HolderSet}s.
+     * @return A {@link HolderSet}.
+     */
     @SafeVarargs
-    public static <T> HolderSet<T> and(HolderSet<T>... holders) {
-        Preconditions.checkArgument(holders.length > 0);
-        return holders.length == 1 ? holders[0] : new AndHolderSet<>(holders);
+    public static <T> HolderSet<T> and(HolderSet<T>... sets) {
+        Preconditions.checkArgument(sets.length > 0);
+        return sets.length == 1 ? sets[0] : new AndHolderSet<>(sets);
     }
 
+    /**
+     * Groups the given {@link HolderSet}s using an OR operation.
+     *
+     * @param sets The {@link HolderSet}s to group.
+     * @param <T>  The type of the {@link HolderSet}s.
+     * @return A {@link HolderSet}.
+     */
     @SafeVarargs
-    public static <T> HolderSet<T> or(HolderSet<T>... holders) {
-        Preconditions.checkArgument(holders.length > 0);
-        return holders.length == 1 ? holders[0] : new OrHolderSet<>(holders);
+    public static <T> HolderSet<T> or(HolderSet<T>... sets) {
+        Preconditions.checkArgument(sets.length > 0);
+        return sets.length == 1 ? sets[0] : new OrHolderSet<>(sets);
     }
 
+    /**
+     * Inverts the given {@link HolderSet}.
+     *
+     * @param set The {@link HolderSet} to invert.
+     * @param <T> The type of the {@link HolderSet}.
+     * @return A {@link HolderSet}.
+     */
     @SuppressWarnings("DataFlowIssue")
-    public static <T> HolderSet<T> not(HolderSet<T> holder) {
-        return new NotHolderSet<>(null, holder);
+    public static <T> HolderSet<T> not(HolderSet<T> set) {
+        return new NotHolderSet<>(null, set);
     }
 }

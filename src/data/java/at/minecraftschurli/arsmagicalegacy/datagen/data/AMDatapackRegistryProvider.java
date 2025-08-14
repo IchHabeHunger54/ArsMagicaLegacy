@@ -258,6 +258,15 @@ public final class AMDatapackRegistryProvider extends DatapackBuiltinEntriesProv
             Set.of(ArsMagicaApi.MOD_ID));
     }
 
+    /**
+     * Creates a {@link ConfiguredFeature} for an ore.
+     *
+     * @param ore                      The ore block to place.
+     * @param deepslateOre             The deepslate ore block to place.
+     * @param veinSize                 The ore vein size.
+     * @param airExposureDiscardChance The chance that a vein will be discarded if it touches air.
+     * @return A {@link ConfiguredFeature}.
+     */
     private static ConfiguredFeature<OreConfiguration, ?> ore(DeferredBlock<?> ore, DeferredBlock<?> deepslateOre, int veinSize, float airExposureDiscardChance) {
         return new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
             List.of(OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), ore.get().defaultBlockState()), OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), deepslateOre.get().defaultBlockState())),
@@ -266,6 +275,13 @@ public final class AMDatapackRegistryProvider extends DatapackBuiltinEntriesProv
         ));
     }
 
+    /**
+     * Creates a {@link ConfiguredFeature} for a flower.
+     *
+     * @param tries  The amount of placement tries.
+     * @param flower The flower to place.
+     * @return A {@link ConfiguredFeature}.
+     */
     private static ConfiguredFeature<RandomPatchConfiguration, ?> flower(int tries, DeferredBlock<?> flower) {
         return new ConfiguredFeature<>(Feature.FLOWER, FeatureUtils.simpleRandomPatchConfiguration(
             tries,
@@ -273,22 +289,64 @@ public final class AMDatapackRegistryProvider extends DatapackBuiltinEntriesProv
         ));
     }
 
+    /**
+     * Creates a {@link PlacedFeature}.
+     *
+     * @param bootstrap         The {@link BootstrapContext} to use for lookups.
+     * @param configuredFeature The {@link ConfiguredFeature} to use as a base.
+     * @param modifiers         The {@link PlacementModifier}s to apply to the {@link PlacedFeature}.
+     * @return A {@link PlacedFeature}.
+     */
     private static PlacedFeature placedFeature(BootstrapContext<?> bootstrap, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, PlacementModifier... modifiers) {
         return placedFeature(bootstrap, configuredFeature, Arrays.asList(modifiers));
     }
 
+    /**
+     * Creates a {@link PlacedFeature}.
+     *
+     * @param bootstrap         The {@link BootstrapContext} to use for lookups.
+     * @param configuredFeature The {@link ConfiguredFeature} to use as a base.
+     * @param modifiers         The {@link PlacementModifier}s to apply to the {@link PlacedFeature}.
+     * @return A {@link PlacedFeature}.
+     */
     private static PlacedFeature placedFeature(BootstrapContext<?> bootstrap, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, List<PlacementModifier> modifiers) {
         return new PlacedFeature(bootstrap.lookup(Registries.CONFIGURED_FEATURE).getOrThrow(configuredFeature), modifiers);
     }
 
+    /**
+     * Creates a {@link PlacedFeature} for an ore.
+     *
+     * @param bootstrap            The {@link BootstrapContext} to use for lookups.
+     * @param configuredFeature    The {@link ConfiguredFeature} to use as a base.
+     * @param veinCount            How common veins should be.
+     * @param heightRangePlacement The height range distribution to use.
+     * @return A {@link PlacedFeature}.
+     */
     private static PlacedFeature ore(BootstrapContext<?> bootstrap, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, int veinCount, HeightRangePlacement heightRangePlacement) {
         return placedFeature(bootstrap, configuredFeature, CountPlacement.of(veinCount), InSquarePlacement.spread(), heightRangePlacement, BiomeFilter.biome());
     }
 
+    /**
+     * Creates a {@link PlacedFeature} for an ore.
+     *
+     * @param bootstrap         The {@link BootstrapContext} to use for lookups.
+     * @param configuredFeature The {@link ConfiguredFeature} to use as a base.
+     * @param rarity            How rare patches should be.
+     * @return A {@link PlacedFeature}.
+     */
     private static PlacedFeature flower(BootstrapContext<?> bootstrap, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, int rarity) {
         return placedFeature(bootstrap, configuredFeature, RarityFilter.onAverageOnceEvery(rarity), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
     }
 
+    /**
+     * Creates a {@link BiomeModifiers.AddFeaturesBiomeModifier}.
+     *
+     * @param bootstrap The {@link BootstrapContext} to use for lookups.
+     * @param biomes    A {@link HolderSet} of biomes where the features will be added.
+     * @param step      The generation step to use.
+     * @param features  The keys of the features to generate.
+     * @return A {@link BiomeModifiers.AddFeaturesBiomeModifier}.
+     */
     @SafeVarargs
     private static BiomeModifiers.AddFeaturesBiomeModifier addFeatures(BootstrapContext<?> bootstrap, HolderSet<Biome> biomes, GenerationStep.Decoration step, ResourceKey<PlacedFeature>... features) {
         return new BiomeModifiers.AddFeaturesBiomeModifier(biomes, HolderSets.direct(bootstrap, Registries.PLACED_FEATURE, features), step);

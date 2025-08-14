@@ -49,12 +49,12 @@ public class MeteoriteFeature extends Feature<MeteoriteFeature.Configuration> {
 
     public record Configuration(BlockState baseState, BlockState rareState, BlockState fluidState, int width, int height, float rareChance) implements FeatureConfiguration {
         public static final Codec<Configuration> CODEC = RecordCodecBuilder.create(inst -> inst.group(
-                BlockState.CODEC.fieldOf("base_state").forGetter(Configuration::baseState),
-                BlockState.CODEC.fieldOf("rare_state").forGetter(Configuration::rareState),
-                BlockState.CODEC.fieldOf("fluid_state").forGetter(Configuration::fluidState),
-                Codec.intRange(1, 64).fieldOf("width").forGetter(Configuration::width),
-                Codec.intRange(1, 64).fieldOf("height").forGetter(Configuration::height),
-                Codec.floatRange(0f, 1f).fieldOf("rare_chance").forGetter(Configuration::rareChance)
+            BlockState.CODEC.fieldOf("base_state").forGetter(Configuration::baseState),
+            BlockState.CODEC.fieldOf("rare_state").forGetter(Configuration::rareState),
+            BlockState.CODEC.fieldOf("fluid_state").forGetter(Configuration::fluidState),
+            Codec.intRange(1, 64).fieldOf("width").forGetter(Configuration::width),
+            Codec.intRange(1, 64).fieldOf("height").forGetter(Configuration::height),
+            Codec.floatRange(0f, 1f).fieldOf("rare_chance").forGetter(Configuration::rareChance)
         ).apply(inst, Configuration::new));
     }
 }

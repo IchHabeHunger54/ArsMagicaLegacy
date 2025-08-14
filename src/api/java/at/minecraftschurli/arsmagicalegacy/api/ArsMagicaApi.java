@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ServiceLoader;
 
+/**
+ * The main entrypoint for the Ars Magica: Legacy API.
+ */
 @ApiStatus.NonExtendable
 public abstract class ArsMagicaApi {
     /**
@@ -24,6 +27,12 @@ public abstract class ArsMagicaApi {
      */
     public static final String MOD_ID = "arsmagicalegacy";
 
+    /**
+     * Creates a new {@link ResourceLocation} with the mod's namespace.
+     *
+     * @param path The path of the {@link ResourceLocation}.
+     * @return A new {@link ResourceLocation}.
+     */
     public static ResourceLocation modLoc(String path) {
         return ResourceLocation.fromNamespaceAndPath(ArsMagicaApi.MOD_ID, path);
     }

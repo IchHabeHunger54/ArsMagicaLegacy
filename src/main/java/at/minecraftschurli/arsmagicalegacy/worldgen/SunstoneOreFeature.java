@@ -17,22 +17,6 @@ public class SunstoneOreFeature extends Feature<OreConfiguration> {
         super(OreConfiguration.CODEC);
     }
 
-    public static boolean canPlaceOre(BlockState state, Function<BlockPos, BlockState> adjacentStateAccessor, RandomSource random, OreConfiguration.TargetBlockState targetState, BlockPos.MutableBlockPos pos) {
-        if (!targetState.target.test(state, random)) return false;
-        return checkNeighbors(adjacentStateAccessor, pos, s -> {
-            FluidState fluidState = s.getFluidState();
-            return fluidState.is(FluidTags.LAVA) && fluidState.isSource();
-        });
-    }
-
-    private static void offsetTargetPos(BlockPos.MutableBlockPos mutablePos, RandomSource random, BlockPos pos, int magnitude) {
-        mutablePos.setWithOffset(pos, getRandomRelativePlacement(random, magnitude), getRandomRelativePlacement(random, magnitude), getRandomRelativePlacement(random, magnitude));
-    }
-
-    private static int getRandomRelativePlacement(RandomSource random, int magnitude) {
-        return Math.round((random.nextFloat() - random.nextFloat()) * (float) magnitude);
-    }
-
     @Override
     public boolean place(FeaturePlaceContext<OreConfiguration> context) {
         WorldGenLevel level = context.level();
@@ -52,5 +36,21 @@ public class SunstoneOreFeature extends Feature<OreConfiguration> {
             }
         }
         return true;
+    }
+
+    private static boolean canPlaceOre(BlockState state, Function<BlockPos, BlockState> adjacentStateAccessor, RandomSource random, OreConfiguration.TargetBlockState targetState, BlockPos.MutableBlockPos pos) {
+        if (!targetState.target.test(state, random)) return false;
+        return checkNeighbors(adjacentStateAccessor, pos, s -> {
+            FluidState fluidState = s.getFluidState();
+            return fluidState.is(FluidTags.LAVA) && fluidState.isSource();
+        });
+    }
+
+    private static void offsetTargetPos(BlockPos.MutableBlockPos mutablePos, RandomSource random, BlockPos pos, int magnitude) {
+        mutablePos.setWithOffset(pos, getRandomRelativePlacement(random, magnitude), getRandomRelativePlacement(random, magnitude), getRandomRelativePlacement(random, magnitude));
+    }
+
+    private static int getRandomRelativePlacement(RandomSource random, int magnitude) {
+        return Math.round((random.nextFloat() - random.nextFloat()) * (float) magnitude);
     }
 }

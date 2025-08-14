@@ -15,6 +15,11 @@ public interface AMRegistries {
     DeferredRegister<Feature<?>>      FEATURES       = DeferredRegister.create(Registries.FEATURE,           ArsMagicaApi.MOD_ID);
     // @formatter:on
 
+    /**
+     * Classloads the registration classes and registers the {@link DeferredRegister}s.
+     *
+     * @param bus The {@link IEventBus} to use.
+     */
     static void init(IEventBus bus) {
         AMBlocks.init();
         AMItems.init();

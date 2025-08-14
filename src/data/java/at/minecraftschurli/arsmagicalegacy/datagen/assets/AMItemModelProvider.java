@@ -6,7 +6,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.BlockItem;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 public final class AMItemModelProvider extends ItemModelProvider {
@@ -63,14 +62,29 @@ public final class AMItemModelProvider extends ItemModelProvider {
         basicBlockItem(AMItems.VINTEUM_TORCH);
     }
 
+    /**
+     * Adds a block item model.
+     *
+     * @param item The block item to add the model for.
+     */
     private void blockItem(DeferredItem<? extends BlockItem> item) {
         simpleBlockItem(item.get().getBlock());
     }
 
+    /**
+     * Adds a flat item model.
+     *
+     * @param item The item to add the model for.
+     */
     private void basicItem(DeferredItem<?> item) {
         basicItem(item.get());
     }
 
+    /**
+     * Adds a flat block item model.
+     *
+     * @param item The block item to add the model for.
+     */
     private void basicBlockItem(DeferredItem<?> item) {
         withExistingParent(item.getId().getPath(), mcLoc("item/generated")).texture("layer0", modLoc("block/" + item.getId().getPath()));
     }

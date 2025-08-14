@@ -59,6 +59,9 @@ public interface AMItems {
     DeferredItem<BlockItem> VINTEUM_TORCH            = AMRegistries.ITEMS.registerItem("vinteum_torch", p -> new StandingAndWallBlockItem(AMBlocks.VINTEUM_TORCH.get(), AMBlocks.VINTEUM_WALL_TORCH.get(), p, Direction.DOWN));
     // @formatter:on
 
+    /**
+     * Empty method used for classloading this class.
+     */
     static void init() {
     }
 }

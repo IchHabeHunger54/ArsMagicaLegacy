@@ -9,7 +9,8 @@ import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID)
 final class AMEventHandler {
-    private AMEventHandler() {}
+    private AMEventHandler() {
+    }
 
     @SubscribeEvent
     private static void addBlockEntities(BlockEntityTypeAddBlocksEvent event) {

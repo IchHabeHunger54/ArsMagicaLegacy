@@ -84,8 +84,8 @@ public final class AMBlockStateProvider extends BlockStateProvider {
      */
     private void woodBlock(DeferredBlock<? extends RotatedPillarBlock> block, DeferredBlock<?> log) {
         axisBlock(block.get(),
-                models().cubeColumn(block.getId().getPath(), blockTexture(log.get()), blockTexture(log.get())),
-                models().cubeColumnHorizontal(block.getId().getPath(), blockTexture(log.get()), blockTexture(log.get())));
+            models().cubeColumn(block.getId().getPath(), blockTexture(log.get()), blockTexture(log.get())),
+            models().cubeColumnHorizontal(block.getId().getPath(), blockTexture(log.get()), blockTexture(log.get())));
     }
 
     /**

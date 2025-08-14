@@ -58,18 +58,33 @@ public interface AMWorldgen {
     DeferredHolder<Feature<?>, MeteoriteFeature> METEORITE = AMRegistries.FEATURES.register("meteorite", MeteoriteFeature::new);
     DeferredHolder<Feature<?>, SunstoneOreFeature> SUNSTONE_ORE = AMRegistries.FEATURES.register("sunstone_ore", SunstoneOreFeature::new);
 
+    /**
+     * @param name The name of the {@link ResourceKey}.
+     * @return A {@link ResourceKey} for a {@link ConfiguredFeature}.
+     */
     private static ResourceKey<ConfiguredFeature<?, ?>> configuredFeature(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ArsMagicaApi.modLoc(name));
     }
 
+    /**
+     * @param name The name of the {@link ResourceKey}.
+     * @return A {@link ResourceKey} for a {@link PlacedFeature}.
+     */
     private static ResourceKey<PlacedFeature> placedFeature(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, ArsMagicaApi.modLoc(name));
     }
 
+    /**
+     * @param name The name of the {@link ResourceKey}.
+     * @return A {@link ResourceKey} for a {@link BiomeModifier}.
+     */
     private static ResourceKey<BiomeModifier> biomeModifier(String name) {
         return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ArsMagicaApi.modLoc(name));
     }
 
+    /**
+     * Empty method used for classloading this class.
+     */
     static void init() {
     }
 }

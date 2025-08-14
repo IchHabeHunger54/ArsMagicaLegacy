@@ -104,10 +104,20 @@ public final class AMLanguageProvider extends LanguageProvider {
         add("itemGroup." + ArsMagicaApi.MOD_ID, "Ars Magica: Legacy");
     }
 
+    /**
+     * Adds a block translation that matches the block id.
+     *
+     * @param block The block to generate the translation for.
+     */
     private void blockIdTranslation(DeferredBlock<?> block) {
         addBlock(block, idTranslation(block.getId().getPath()));
     }
 
+    /**
+     * Adds an item translation that matches the item id.
+     *
+     * @param item The item to generate the translation for.
+     */
     private void itemIdTranslation(DeferredItem<?> item) {
         addItem(item, idTranslation(item.getId().getPath()));
     }

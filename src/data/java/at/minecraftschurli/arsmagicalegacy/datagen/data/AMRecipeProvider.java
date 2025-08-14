@@ -81,50 +81,100 @@ public final class AMRecipeProvider extends RecipeProvider {
         oneToOneConversion(output, Items.BROWN_DYE, AMItems.TARMA_ROOT.get(), "brown_dye");
         oneToOneConversion(output, Items.MAGENTA_DYE, AMItems.WAKEBLOOM.get(), "magenta_dye");
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, AMItems.VINTEUM_TORCH.get())
-                .pattern("V")
-                .pattern("S")
-                .define('V', AMTags.Items.DUSTS_VINTEUM)
-                .define('S', Tags.Items.RODS_WOODEN)
-                .unlockedBy(getHasName(AMItems.VINTEUM_DUST), has(AMTags.Items.DUSTS_VINTEUM))
-                .save(output);
+            .pattern("V")
+            .pattern("S")
+            .define('V', AMTags.Items.DUSTS_VINTEUM)
+            .define('S', Tags.Items.RODS_WOODEN)
+            .unlockedBy(getHasName(AMItems.VINTEUM_DUST), has(AMTags.Items.DUSTS_VINTEUM))
+            .save(output);
     }
 
+    /**
+     * Adds smelting recipes for the given {@link Ingredient}s.
+     *
+     * @param output      The {@link RecipeOutput} to use.
+     * @param ingredients A list of {@link Ingredient}s.
+     * @param result      The result item to use.
+     * @param experience  The experience to award for this recipe.
+     * @param cookingTime The time this recipe takes.
+     * @param group       The crafting book group to use.
+     */
     private void oreSmelting(RecipeOutput output, List<ItemLike> ingredients, ItemLike result, float experience, int cookingTime, String group) {
         oreCooking(output, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new, ingredients, result, experience, cookingTime, group, "_from_smelting");
     }
 
+    /**
+     * Adds blasting recipes for the given {@link Ingredient}s.
+     *
+     * @param output      The {@link RecipeOutput} to use.
+     * @param ingredients A list of {@link Ingredient}s.
+     * @param result      The result item to use.
+     * @param experience  The experience to award for this recipe.
+     * @param cookingTime The time this recipe takes.
+     * @param group       The crafting book group to use.
+     */
     private void oreBlasting(RecipeOutput output, List<ItemLike> ingredients, ItemLike result, float experience, int cookingTime, String group) {
         oreCooking(output, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new, ingredients, result, experience, cookingTime, group, "_from_blasting");
     }
 
+    /**
+     * Adds generic cooking recipes for the given {@link Ingredient}s.
+     *
+     * @param output        The {@link RecipeOutput} to use.
+     * @param serializer    The {@link RecipeSerializer} to use.
+     * @param recipeFactory The {@link AbstractCookingRecipe.Factory} to use.
+     * @param ingredients   A list of {@link Ingredient}s.
+     * @param result        The result item to use.
+     * @param experience    The experience to award for this recipe.
+     * @param cookingTime   The time this recipe takes.
+     * @param group         The crafting book group to use.
+     * @param suffix        The suffix to append to the recipe name.
+     */
     private <T extends AbstractCookingRecipe> void oreCooking(RecipeOutput output, RecipeSerializer<T> serializer, AbstractCookingRecipe.Factory<T> recipeFactory, List<ItemLike> ingredients, ItemLike result, float experience, int cookingTime, String group, String suffix) {
         for (ItemLike item : ingredients) {
             SimpleCookingRecipeBuilder.generic(Ingredient.of(item), RecipeCategory.MISC, result, experience, cookingTime, serializer, recipeFactory)
-                    .group(group)
-                    .unlockedBy(getHasName(item), has(item))
-                    .save(output, ArsMagicaApi.modLoc(getItemName(result) + suffix + "_" + getItemName(item)));
+                .group(group)
+                .unlockedBy(getHasName(item), has(item))
+                .save(output, ArsMagicaApi.modLoc(getItemName(result) + suffix + "_" + getItemName(item)));
         }
     }
 
+    /**
+     * Creates a block -> item and an item -> block recipe.
+     *
+     * @param output      The {@link RecipeOutput} to use.
+     * @param unpacked    The item to use.
+     * @param unpackedTag The item's associated tag to use.
+     * @param packed      The block to use.
+     * @param packedTag   The block's associated tag to use.
+     */
     private void nineBlockStorageRecipes(RecipeOutput output, ItemLike unpacked, TagKey<Item> unpackedTag, ItemLike packed, TagKey<Item> packedTag) {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, unpacked, 9)
-                .requires(packedTag)
-                .unlockedBy(getHasName(packed), has(packed))
-                .save(output, ArsMagicaApi.modLoc(getSimpleRecipeName(unpacked)));
+            .requires(packedTag)
+            .unlockedBy(getHasName(packed), has(packed))
+            .save(output, ArsMagicaApi.modLoc(getSimpleRecipeName(unpacked)));
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, packed)
-                .define('#', unpackedTag)
-                .pattern("###")
-                .pattern("###")
-                .pattern("###")
-                .unlockedBy(getHasName(unpacked), has(unpacked))
-                .save(output, ArsMagicaApi.modLoc(getSimpleRecipeName(packed)));
+            .define('#', unpackedTag)
+            .pattern("###")
+            .pattern("###")
+            .pattern("###")
+            .unlockedBy(getHasName(unpacked), has(unpacked))
+            .save(output, ArsMagicaApi.modLoc(getSimpleRecipeName(packed)));
     }
 
+    /**
+     * Creates an 1 item -> 1 item recipe.
+     *
+     * @param output     The {@link RecipeOutput} to use.
+     * @param result     The result item to use.
+     * @param ingredient The {@link Ingredient} to use.
+     * @param group      The crafting book group to use.
+     */
     private void oneToOneConversion(RecipeOutput output, ItemLike result, ItemLike ingredient, @Nullable String group) {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, result, 1)
-                .requires(ingredient)
-                .group(group)
-                .unlockedBy(getHasName(ingredient), has(ingredient))
-                .save(output, ArsMagicaApi.modLoc(getConversionRecipeName(result, ingredient)));
+            .requires(ingredient)
+            .group(group)
+            .unlockedBy(getHasName(ingredient), has(ingredient))
+            .save(output, ArsMagicaApi.modLoc(getConversionRecipeName(result, ingredient)));
     }
 }

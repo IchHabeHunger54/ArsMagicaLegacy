@@ -1,9 +1,9 @@
 package at.minecraftschurli.arsmagicalegacy.api.spell;
 
-public abstract non-sealed class SpellModifier extends SpellPart {
+public abstract non-sealed class PrimarySpellShape extends SpellPart {
     @Override
     public final boolean isPrimaryShape() {
-        return false;
+        return true;
     }
 
     @Override
@@ -18,6 +18,6 @@ public abstract non-sealed class SpellModifier extends SpellPart {
 
     @Override
     public final boolean isModifier() {
-        return true;
+        return false;
     }
 }

@@ -1,11 +1,13 @@
 package at.minecraftschurli.arsmagicalegacy.api.spell;
 
-import at.minecraftschurli.arsmagicalegacy.api.AMRegistryKeys;
-import net.minecraft.core.Registry;
-import net.neoforged.neoforge.registries.RegistryBuilder;
+public abstract sealed class SpellPart permits PrimarySpellShape, SecondarySpellShape, SpellComponent, SpellModifier {
+    public final boolean isShape() {
+        return isPrimaryShape() || isSecondaryShape();
+    }
 
-public abstract sealed class SpellPart permits SpellComponent, SpellModifier, SpellShape {
-    public abstract boolean isShape();
+    public abstract boolean isPrimaryShape();
+
+    public abstract boolean isSecondaryShape();
 
     public abstract boolean isComponent();
 

@@ -2,7 +2,12 @@ package at.minecraftschurli.arsmagicalegacy.api.spell;
 
 public abstract non-sealed class SpellComponent extends SpellPart {
     @Override
-    public final boolean isShape() {
+    public final boolean isPrimaryShape() {
+        return false;
+    }
+
+    @Override
+    public final boolean isSecondaryShape() {
         return false;
     }
 

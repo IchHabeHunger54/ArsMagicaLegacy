@@ -77,6 +77,8 @@ public final class AMLootTableProvider extends LootTableProvider {
             dropPottedContents(AMBlocks.POTTED_TARMA_ROOT.get());
             dropSelf(AMBlocks.WAKEBLOOM.get());
             dropPottedContents(AMBlocks.POTTED_WAKEBLOOM.get());
+            dropSelf(AMBlocks.VINTEUM_TORCH.get());
+            dropOther(AMBlocks.VINTEUM_WALL_TORCH.get(), AMBlocks.VINTEUM_TORCH.get());
         }
     }
 }

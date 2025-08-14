@@ -63,6 +63,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         blockIdTranslation(AMBlocks.POTTED_TARMA_ROOT);
         blockIdTranslation(AMBlocks.WAKEBLOOM);
         blockIdTranslation(AMBlocks.POTTED_WAKEBLOOM);
+        addBlock(AMBlocks.VINTEUM_WALL_TORCH, idTranslation(AMBlocks.VINTEUM_TORCH.getId().getPath()));
         add(AMTags.Blocks.ORES_CHIMERITE, "Chimerite Ores");
         add(AMTags.Blocks.ORES_TOPAZ, "Topaz Ores");
         add(AMTags.Blocks.ORES_VINTEUM, "Vinteum Ores");

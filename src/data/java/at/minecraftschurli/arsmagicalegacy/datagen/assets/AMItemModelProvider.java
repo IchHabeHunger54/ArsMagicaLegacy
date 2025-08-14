@@ -57,6 +57,7 @@ public final class AMItemModelProvider extends ItemModelProvider {
         basicBlockItem(AMItems.DESERT_NOVA);
         basicBlockItem(AMItems.TARMA_ROOT);
         basicBlockItem(AMItems.WAKEBLOOM);
+        basicBlockItem(AMItems.VINTEUM_TORCH);
     }
 
     private void blockItem(DeferredItem<? extends BlockItem> item) {

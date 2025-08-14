@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-14T14:50:51.9148046	Item Models: arsmagicalegacy
+// 1.21.1	2025-08-14T17:32:55.402001	Item Models: arsmagicalegacy
 479f46ca80005c14a383332494b60e0b757b4f70 assets/arsmagicalegacy/models/item/aum.json
 28a0fc5d380ab0d239e86927904b7533407f3766 assets/arsmagicalegacy/models/item/cerublossom.json
 6c1eeae7f5e5a36cc5147228704ed8173be15c36 assets/arsmagicalegacy/models/item/chimerite.json
@@ -24,6 +24,7 @@ b22958073963cb86c97a87532b4f0303b8d1c9bf assets/arsmagicalegacy/models/item/topa
 fb6dcd13d8d51669f3015ba2ae81dad58fb9ca38 assets/arsmagicalegacy/models/item/vinteum_block.json
 b8bfbbec0501d1cb57247ead9a025848e5d96658 assets/arsmagicalegacy/models/item/vinteum_dust.json
 1fac3efb11845e6e4072ac6eaaf3402c68e48a72 assets/arsmagicalegacy/models/item/vinteum_ore.json
+04923c0a58b7162cdfd4a0ad66e79d828a763a27 assets/arsmagicalegacy/models/item/vinteum_torch.json
 f2c8838af0eaefe17fe25f241608ea5e986931c7 assets/arsmagicalegacy/models/item/wakebloom.json
 9bb6569ea537aa9699038bd8dddc4f5dcc8a3751 assets/arsmagicalegacy/models/item/witchwood.json
 0d18accbe51907f2fe0eba427cfc36726b6ccc31 assets/arsmagicalegacy/models/item/witchwood_button.json

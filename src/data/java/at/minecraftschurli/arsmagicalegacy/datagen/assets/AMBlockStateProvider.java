@@ -5,7 +5,10 @@ import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 
@@ -61,6 +64,7 @@ public final class AMBlockStateProvider extends BlockStateProvider {
         flowerPotBlock(AMBlocks.POTTED_TARMA_ROOT, AMBlocks.TARMA_ROOT);
         crossBlock(AMBlocks.WAKEBLOOM);
         flowerPotBlock(AMBlocks.POTTED_WAKEBLOOM, AMBlocks.WAKEBLOOM);
+        torchBlock(AMBlocks.VINTEUM_TORCH, AMBlocks.VINTEUM_WALL_TORCH);
     }
 
     /**
@@ -101,5 +105,24 @@ public final class AMBlockStateProvider extends BlockStateProvider {
      */
     private void flowerPotBlock(DeferredBlock<?> pot, DeferredBlock<?> plant) {
         simpleBlock(pot.get(), models().withExistingParent(pot.getId().getPath(), "block/flower_pot_cross").texture("plant", blockTexture(plant.get())).renderType("cutout"));
+    }
+
+    /**
+     * Adds a torch/wall torch model. Uses the normal torch block id as the texture name.
+     *
+     * @param torch     The torch block to generate the model for.
+     * @param wallTorch The wall torch block to generate the model for.
+     */
+    private void torchBlock(DeferredBlock<?> torch, DeferredBlock<?> wallTorch) {
+        ModelFile file = models().withExistingParent(torch.getId().getPath(), "block/template_torch").texture("torch", modLoc("block/" + torch.getId().getPath())).renderType("cutout");
+        ModelFile wallFile = models().withExistingParent(wallTorch.getId().getPath(), "block/template_torch_wall").texture("torch", modLoc("block/" + torch.getId().getPath())).renderType("cutout");
+        getVariantBuilder(torch.get()).partialState().setModels(ConfiguredModel.builder().modelFile(file).build());
+        getVariantBuilder(wallTorch.get()).forAllStates(state -> switch (state.getValue(BlockStateProperties.HORIZONTAL_FACING)) {
+            case EAST -> ConfiguredModel.builder().modelFile(wallFile).build();
+            case SOUTH -> ConfiguredModel.builder().modelFile(wallFile).rotationY(90).build();
+            case WEST -> ConfiguredModel.builder().modelFile(wallFile).rotationY(180).build();
+            case NORTH -> ConfiguredModel.builder().modelFile(wallFile).rotationY(270).build();
+            default -> new ConfiguredModel[0];
+        });
     }
 }

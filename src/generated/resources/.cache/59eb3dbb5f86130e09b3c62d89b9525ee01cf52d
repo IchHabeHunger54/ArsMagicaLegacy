@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-14T14:50:51.9148046	Loot Tables
+// 1.21.1	2025-08-14T17:32:55.4070009	Loot Tables
 32900dde32312718365d978d0183dc6f16140e5e data/arsmagicalegacy/loot_table/blocks/aum.json
 daf97df4684b563e6463619dc0c459960aa239d5 data/arsmagicalegacy/loot_table/blocks/cerublossom.json
 8a4deec9686b20594baed24fcf1768c27608a89c data/arsmagicalegacy/loot_table/blocks/chimerite_block.json
@@ -25,6 +25,7 @@ a536dfa2ebab55bbbb1e7afcda5d939af42430ff data/arsmagicalegacy/loot_table/blocks/
 24f4e719b01c2da5627d84006d04f0608d0b43b1 data/arsmagicalegacy/loot_table/blocks/topaz_ore.json
 a976cb8613647185d03fa2917f8dae740fdf916e data/arsmagicalegacy/loot_table/blocks/vinteum_block.json
 4dd01d4f622026c1501070b75136819e3fdacbcc data/arsmagicalegacy/loot_table/blocks/vinteum_ore.json
+33232edd49429a5867f751612931cba14c4a7220 data/arsmagicalegacy/loot_table/blocks/vinteum_torch.json
 c79a1168913aad941b10b6c8ec68970a12b5a2f1 data/arsmagicalegacy/loot_table/blocks/wakebloom.json
 894fe8687bc4d3a31de58a5ef4601c55904ffa85 data/arsmagicalegacy/loot_table/blocks/witchwood.json
 2ad050764f9d1f2e4b22b3fb1469063a4e7bd1c1 data/arsmagicalegacy/loot_table/blocks/witchwood_button.json

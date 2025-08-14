@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-14T14:50:51.9148046	Block States: arsmagicalegacy
+// 1.21.1	2025-08-14T17:32:55.404001	Block States: arsmagicalegacy
 beb7ab7de7f6ae890282ef38e36400685d083d78 assets/arsmagicalegacy/blockstates/aum.json
 41a6820d81a4f10a322441df3d03bd96ce3efecc assets/arsmagicalegacy/blockstates/cerublossom.json
 ceceed48dd9d01498eedc67f1dcd1052b88d2d62 assets/arsmagicalegacy/blockstates/chimerite_block.json
@@ -25,6 +25,8 @@ b493006d6795d122cabcbd8dbe8ab595a92c5ecc assets/arsmagicalegacy/blockstates/suns
 fc4c89dcb66a7fb6d9c0143d53bc65b427aeb370 assets/arsmagicalegacy/blockstates/topaz_ore.json
 caea3caf665880c5a2c9e07fe5581557a36fdba3 assets/arsmagicalegacy/blockstates/vinteum_block.json
 16a541592a4f9ceb651c431e46e9d8a2533c0a3a assets/arsmagicalegacy/blockstates/vinteum_ore.json
+2fe9d24950a9a28204d3ba30568f33868649579d assets/arsmagicalegacy/blockstates/vinteum_torch.json
+6a063b6a5c8e41a4c02531e4b2d7d5fccb9e009c assets/arsmagicalegacy/blockstates/vinteum_wall_torch.json
 b36ed86dfcaf47f3c93d5eb430917b3c24b47225 assets/arsmagicalegacy/blockstates/wakebloom.json
 03c8a0d7cc5a6fd1e02c9a60fdced9165a08400d assets/arsmagicalegacy/blockstates/witchwood.json
 81a0845e9aaa45f3e75fdf4894dda3b56a1d3114 assets/arsmagicalegacy/blockstates/witchwood_button.json
@@ -70,6 +72,8 @@ d0a014418b5f6aa77c87db723740f2b4aa04c2e2 assets/arsmagicalegacy/models/block/top
 f72d454c34bb488bb42faa373095d60b6f2bbb34 assets/arsmagicalegacy/models/block/topaz_ore.json
 e167f35cf038d559dc1db28c273d7973b9dc3078 assets/arsmagicalegacy/models/block/vinteum_block.json
 e369b133d2979938aaf7cdc044682f1898bf1093 assets/arsmagicalegacy/models/block/vinteum_ore.json
+a22181d1923c899a0f0bbfffc55a4d92549ca506 assets/arsmagicalegacy/models/block/vinteum_torch.json
+6592d0fe16abadc33d981e27f694fae90a5af7f7 assets/arsmagicalegacy/models/block/vinteum_wall_torch.json
 e510b4c7c45ece3e9f58b54ad168832e6b33662c assets/arsmagicalegacy/models/block/wakebloom.json
 1c03464f98ea52f4d832f9d8be8b1b55d143de30 assets/arsmagicalegacy/models/block/witchwood.json
 7758853365158e73dd9e13358cccdd7138b36f94 assets/arsmagicalegacy/models/block/witchwood_button.json

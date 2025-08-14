@@ -1,11 +1,13 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.item.SignItem;
+import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 public interface AMItems {
@@ -50,6 +52,7 @@ public interface AMItems {
     DeferredItem<BlockItem> DESERT_NOVA              = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.DESERT_NOVA);
     DeferredItem<BlockItem> TARMA_ROOT               = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.TARMA_ROOT);
     DeferredItem<BlockItem> WAKEBLOOM                = AMRegistries.ITEMS.registerItem("wakebloom", p -> new PlaceOnWaterBlockItem(AMBlocks.WAKEBLOOM.get(), p));
+    DeferredItem<BlockItem> VINTEUM_TORCH            = AMRegistries.ITEMS.registerItem("vinteum_torch", p -> new StandingAndWallBlockItem(AMBlocks.VINTEUM_TORCH.get(), AMBlocks.VINTEUM_WALL_TORCH.get(), p, Direction.DOWN));
 
     static void init() {
     }

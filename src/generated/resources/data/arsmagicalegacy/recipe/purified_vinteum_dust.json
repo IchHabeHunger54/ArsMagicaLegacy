@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:dusts/arcane_ash"
+    },
+    {
+      "item": "arsmagicalegacy:cerublossom"
+    },
+    {
+      "item": "arsmagicalegacy:desert_nova"
+    },
+    {
+      "tag": "c:dusts/vinteum"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "arsmagicalegacy:purified_vinteum_dust"
+  }
+}

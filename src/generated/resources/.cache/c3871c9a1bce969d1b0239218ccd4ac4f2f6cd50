@@ -1,6 +1,9 @@
-// 1.21.1	2025-08-14T14:50:51.9148046	Tags for minecraft:item mod id arsmagicalegacy
+// 1.21.1	2025-08-14T17:57:26.8440787	Tags for minecraft:item mod id arsmagicalegacy
 09a8495f82a08691d533f5301ffce0cc0afe0bcf data/arsmagicalegacy/tags/item/witchwood_logs.json
-a90fc8ac8708193c377c1515b34cc52dab004e52 data/c/tags/item/dusts.json
+2b474bddac72d2e3d1b77a944dae997433c251d3 data/c/tags/item/dusts.json
+e46d2848fb8306c4399c2c45c6da8992ce815b98 data/c/tags/item/dusts/arcane_ash.json
+a0db303737f01768da20a014bb01858549331f0a data/c/tags/item/dusts/arcane_compound.json
+1d0eecda30f363a8510e676ee89b4270cf39125b data/c/tags/item/dusts/purified_vinteum.json
 7fcd32eacf9a02dc1b26ab6b609517b78238e1b9 data/c/tags/item/dusts/vinteum.json
 75597f58eaad48b98e64ba095c0e13b1573e0f4e data/c/tags/item/fences/wooden.json
 4509a6dbe8b8c6353fbe06cefd812efe1dca2727 data/c/tags/item/fence_gates/wooden.json

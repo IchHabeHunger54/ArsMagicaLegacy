@@ -35,6 +35,9 @@ public final class AMItemModelProvider extends ItemModelProvider {
         blockItem(AMItems.SUNSTONE_ORE);
         basicItem(AMItems.SUNSTONE);
         blockItem(AMItems.SUNSTONE_BLOCK);
+        basicItem(AMItems.ARCANE_COMPOUND);
+        basicItem(AMItems.ARCANE_ASH);
+        basicItem(AMItems.PURIFIED_VINTEUM_DUST);
         blockItem(AMItems.WITCHWOOD_LOG);
         blockItem(AMItems.WITCHWOOD);
         blockItem(AMItems.STRIPPED_WITCHWOOD_LOG);

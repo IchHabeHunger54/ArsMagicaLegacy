@@ -35,6 +35,9 @@ public final class AMLanguageProvider extends LanguageProvider {
         blockIdTranslation(AMBlocks.SUNSTONE_ORE);
         itemIdTranslation(AMItems.SUNSTONE);
         addBlock(AMBlocks.SUNSTONE_BLOCK, "Block of Sunstone");
+        itemIdTranslation(AMItems.ARCANE_COMPOUND);
+        itemIdTranslation(AMItems.ARCANE_ASH);
+        itemIdTranslation(AMItems.PURIFIED_VINTEUM_DUST);
         blockIdTranslation(AMBlocks.WITCHWOOD_LOG);
         blockIdTranslation(AMBlocks.WITCHWOOD);
         blockIdTranslation(AMBlocks.STRIPPED_WITCHWOOD_LOG);
@@ -94,6 +97,9 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTags.Items.DUSTS_VINTEUM, "Vinteum Dusts");
         add(AMTags.Items.GEMS_MOONSTONE, "Moonstone Gems");
         add(AMTags.Items.GEMS_SUNSTONE, "Sunstone Gems");
+        add(AMTags.Items.DUSTS_ARCANE_COMPOUND, "Arcane Compound Dusts");
+        add(AMTags.Items.DUSTS_ARCANE_ASH, "Arcane Ash Dusts");
+        add(AMTags.Items.DUSTS_PURIFIED_VINTEUM, "Purified Vinteum Dusts");
         add(AMTags.Items.WITCHWOOD_LOGS, "Witchwood Logs");
         add("itemGroup." + ArsMagicaApi.MOD_ID, "Ars Magica: Legacy");
     }

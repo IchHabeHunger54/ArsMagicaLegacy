@@ -37,10 +37,13 @@ public final class AMItemTagsProvider extends ItemTagsProvider {
         tag(AMTags.Items.DUSTS_VINTEUM).add(AMItems.VINTEUM_DUST.get());
         tag(AMTags.Items.GEMS_MOONSTONE).add(AMItems.MOONSTONE.get());
         tag(AMTags.Items.GEMS_SUNSTONE).add(AMItems.SUNSTONE.get());
+        tag(AMTags.Items.DUSTS_ARCANE_COMPOUND).add(AMItems.ARCANE_COMPOUND.get());
+        tag(AMTags.Items.DUSTS_ARCANE_ASH).add(AMItems.ARCANE_ASH.get());
+        tag(AMTags.Items.DUSTS_PURIFIED_VINTEUM).add(AMItems.PURIFIED_VINTEUM_DUST.get());
         tag(Tags.Items.ORES).addTags(AMTags.Items.ORES_CHIMERITE, AMTags.Items.ORES_TOPAZ, AMTags.Items.ORES_VINTEUM, AMTags.Items.ORES_MOONSTONE, AMTags.Items.ORES_SUNSTONE);
         tag(Tags.Items.STORAGE_BLOCKS).addTags(AMTags.Items.STORAGE_BLOCKS_CHIMERITE, AMTags.Items.STORAGE_BLOCKS_TOPAZ, AMTags.Items.STORAGE_BLOCKS_VINTEUM, AMTags.Items.STORAGE_BLOCKS_MOONSTONE, AMTags.Items.STORAGE_BLOCKS_SUNSTONE);
         tag(Tags.Items.GEMS).addTags(AMTags.Items.GEMS_CHIMERITE, AMTags.Items.GEMS_TOPAZ, AMTags.Items.GEMS_MOONSTONE, AMTags.Items.GEMS_SUNSTONE);
-        tag(Tags.Items.DUSTS).addTag(AMTags.Items.DUSTS_VINTEUM);
+        tag(Tags.Items.DUSTS).addTags(AMTags.Items.DUSTS_VINTEUM, AMTags.Items.DUSTS_ARCANE_COMPOUND, AMTags.Items.DUSTS_ARCANE_ASH, AMTags.Items.DUSTS_PURIFIED_VINTEUM);
         copy(AMTags.Blocks.WITCHWOOD_LOGS, AMTags.Items.WITCHWOOD_LOGS);
         tag(ItemTags.LOGS).addTag(AMTags.Items.WITCHWOOD_LOGS);
         tag(ItemTags.LEAVES).add(AMItems.WITCHWOOD_LEAVES.get());

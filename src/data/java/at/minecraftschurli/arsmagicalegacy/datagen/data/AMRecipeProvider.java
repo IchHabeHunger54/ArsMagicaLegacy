@@ -36,24 +36,45 @@ public final class AMRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildRecipes(RecipeOutput output) {
+        oreSmelting(output, List.of(AMItems.CHIMERITE_ORE.get(), AMItems.DEEPSLATE_CHIMERITE_ORE.get()), AMItems.CHIMERITE.get(), 0.7f, 200, "chimerite");
+        oreBlasting(output, List.of(AMItems.CHIMERITE_ORE.get(), AMItems.DEEPSLATE_CHIMERITE_ORE.get()), AMItems.CHIMERITE.get(), 0.7f, 100, "chimerite");
+        nineBlockStorageRecipes(output, AMItems.CHIMERITE, AMTags.Items.GEMS_CHIMERITE, AMItems.CHIMERITE_BLOCK, AMTags.Items.STORAGE_BLOCKS_CHIMERITE);
+        oreSmelting(output, List.of(AMItems.TOPAZ_ORE.get(), AMItems.DEEPSLATE_TOPAZ_ORE.get()), AMItems.TOPAZ.get(), 0.7f, 200, "topaz");
+        oreBlasting(output, List.of(AMItems.TOPAZ_ORE.get(), AMItems.DEEPSLATE_TOPAZ_ORE.get()), AMItems.TOPAZ.get(), 0.7f, 100, "topaz");
+        nineBlockStorageRecipes(output, AMItems.TOPAZ, AMTags.Items.GEMS_TOPAZ, AMItems.TOPAZ_BLOCK, AMTags.Items.STORAGE_BLOCKS_TOPAZ);
+        oreSmelting(output, List.of(AMItems.VINTEUM_ORE.get(), AMItems.DEEPSLATE_VINTEUM_ORE.get()), AMItems.VINTEUM_DUST.get(), 0.7f, 200, "vinteum_dust");
+        oreBlasting(output, List.of(AMItems.VINTEUM_ORE.get(), AMItems.DEEPSLATE_VINTEUM_ORE.get()), AMItems.VINTEUM_DUST.get(), 0.7f, 100, "vinteum_dust");
+        nineBlockStorageRecipes(output, AMItems.VINTEUM_DUST, AMTags.Items.DUSTS_VINTEUM, AMItems.VINTEUM_BLOCK, AMTags.Items.STORAGE_BLOCKS_VINTEUM);
+        oreSmelting(output, List.of(AMItems.MOONSTONE_ORE.get(), AMItems.DEEPSLATE_MOONSTONE_ORE.get()), AMItems.MOONSTONE.get(), 0.7f, 200, "moonstone");
+        oreBlasting(output, List.of(AMItems.MOONSTONE_ORE.get(), AMItems.DEEPSLATE_MOONSTONE_ORE.get()), AMItems.MOONSTONE.get(), 0.7f, 100, "moonstone");
+        nineBlockStorageRecipes(output, AMItems.MOONSTONE, AMTags.Items.GEMS_MOONSTONE, AMItems.MOONSTONE_BLOCK, AMTags.Items.STORAGE_BLOCKS_MOONSTONE);
+        nineBlockStorageRecipes(output, AMItems.SUNSTONE, AMTags.Items.GEMS_SUNSTONE, AMItems.SUNSTONE_BLOCK, AMTags.Items.STORAGE_BLOCKS_SUNSTONE);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.ARCANE_COMPOUND.get())
+            .requires(Tags.Items.DUSTS_GLOWSTONE)
+            .requires(Tags.Items.DUSTS_GLOWSTONE)
+            .requires(Tags.Items.DUSTS_REDSTONE)
+            .requires(Tags.Items.DUSTS_REDSTONE)
+            .requires(Tags.Items.NETHERRACKS)
+            .requires(Tags.Items.NETHERRACKS)
+            .requires(Tags.Items.STONES)
+            .requires(Tags.Items.STONES)
+            .unlockedBy(getHasName(Items.GLOWSTONE_DUST), has(Tags.Items.DUSTS_GLOWSTONE))
+            .save(output);
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(AMTags.Items.DUSTS_ARCANE_COMPOUND), RecipeCategory.MISC, AMItems.ARCANE_ASH.get(), 0.2f, 200)
+            .unlockedBy(getHasName(AMItems.ARCANE_COMPOUND), has(AMTags.Items.DUSTS_ARCANE_COMPOUND))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.PURIFIED_VINTEUM_DUST.get())
+            .requires(AMTags.Items.DUSTS_ARCANE_ASH)
+            .requires(AMItems.CERUBLOSSOM.get())
+            .requires(AMItems.DESERT_NOVA.get())
+            .requires(AMTags.Items.DUSTS_VINTEUM)
+            .unlockedBy(getHasName(AMItems.VINTEUM_DUST), has(AMTags.Items.DUSTS_VINTEUM))
+            .save(output);
         generateRecipes(output, AMBlocks.WITCHWOOD_BLOCK_FAMILY.get(), FeatureFlagSet.of(FeatureFlags.VANILLA));
         hangingSign(output, AMItems.WITCHWOOD_HANGING_SIGN.get(), AMItems.STRIPPED_WITCHWOOD_LOG.get());
         planksFromLogs(output, AMItems.WITCHWOOD_PLANKS.get(), AMTags.Items.WITCHWOOD_LOGS, 4);
         woodFromLogs(output, AMBlocks.WITCHWOOD.get(), AMBlocks.WITCHWOOD_LOG.get());
         woodFromLogs(output, AMBlocks.STRIPPED_WITCHWOOD.get(), AMBlocks.STRIPPED_WITCHWOOD_LOG.get());
-        nineBlockStorageRecipes(output, AMItems.VINTEUM_DUST, AMTags.Items.DUSTS_VINTEUM, AMItems.VINTEUM_BLOCK, AMTags.Items.STORAGE_BLOCKS_VINTEUM);
-        nineBlockStorageRecipes(output, AMItems.CHIMERITE, AMTags.Items.GEMS_CHIMERITE, AMItems.CHIMERITE_BLOCK, AMTags.Items.STORAGE_BLOCKS_CHIMERITE);
-        nineBlockStorageRecipes(output, AMItems.TOPAZ, AMTags.Items.GEMS_TOPAZ, AMItems.TOPAZ_BLOCK, AMTags.Items.STORAGE_BLOCKS_TOPAZ);
-        nineBlockStorageRecipes(output, AMItems.MOONSTONE, AMTags.Items.GEMS_MOONSTONE, AMItems.MOONSTONE_BLOCK, AMTags.Items.STORAGE_BLOCKS_MOONSTONE);
-        nineBlockStorageRecipes(output, AMItems.SUNSTONE, AMTags.Items.GEMS_SUNSTONE, AMItems.SUNSTONE_BLOCK, AMTags.Items.STORAGE_BLOCKS_SUNSTONE);
-        oreSmelting(output, List.of(AMItems.CHIMERITE_ORE.get(), AMItems.DEEPSLATE_CHIMERITE_ORE.get()), AMItems.CHIMERITE.get(), 0.7f, 200, "chimerite");
-        oreSmelting(output, List.of(AMItems.TOPAZ_ORE.get(), AMItems.DEEPSLATE_TOPAZ_ORE.get()), AMItems.TOPAZ.get(), 0.7f, 200, "topaz");
-        oreSmelting(output, List.of(AMItems.VINTEUM_ORE.get(), AMItems.DEEPSLATE_VINTEUM_ORE.get()), AMItems.VINTEUM_DUST.get(), 0.7f, 200, "vinteum_dust");
-        oreSmelting(output, List.of(AMItems.MOONSTONE_ORE.get(), AMItems.DEEPSLATE_MOONSTONE_ORE.get()), AMItems.MOONSTONE.get(), 0.7f, 200, "moonstone");
-        oreBlasting(output, List.of(AMItems.CHIMERITE_ORE.get(), AMItems.DEEPSLATE_CHIMERITE_ORE.get()), AMItems.CHIMERITE.get(), 0.7f, 100, "chimerite");
-        oreBlasting(output, List.of(AMItems.TOPAZ_ORE.get(), AMItems.DEEPSLATE_TOPAZ_ORE.get()), AMItems.TOPAZ.get(), 0.7f, 100, "topaz");
-        oreBlasting(output, List.of(AMItems.VINTEUM_ORE.get(), AMItems.DEEPSLATE_VINTEUM_ORE.get()), AMItems.VINTEUM_DUST.get(), 0.7f, 100, "vinteum_dust");
-        oreBlasting(output, List.of(AMItems.MOONSTONE_ORE.get(), AMItems.DEEPSLATE_MOONSTONE_ORE.get()), AMItems.MOONSTONE.get(), 0.7f, 100, "moonstone");
         oneToOneConversion(output, Items.PINK_DYE, AMItems.AUM.get(), "pink_dye");
         oneToOneConversion(output, Items.BLUE_DYE, AMItems.CERUBLOSSOM.get(), "blue_dye");
         oneToOneConversion(output, Items.RED_DYE, AMItems.DESERT_NOVA.get(), "red_dye");

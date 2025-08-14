@@ -11,6 +11,7 @@ import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 public interface AMItems {
+    // @formatter:off
     DeferredItem<BlockItem> CHIMERITE_ORE            = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.CHIMERITE_ORE);
     DeferredItem<BlockItem> DEEPSLATE_CHIMERITE_ORE  = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.DEEPSLATE_CHIMERITE_ORE);
     DeferredItem<Item>      CHIMERITE                = AMRegistries.ITEMS.registerSimpleItem("chimerite");
@@ -30,6 +31,9 @@ public interface AMItems {
     DeferredItem<BlockItem> SUNSTONE_ORE             = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.SUNSTONE_ORE);
     DeferredItem<Item>      SUNSTONE                 = AMRegistries.ITEMS.registerSimpleItem("sunstone");
     DeferredItem<BlockItem> SUNSTONE_BLOCK           = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.SUNSTONE_BLOCK);
+    DeferredItem<Item>      ARCANE_COMPOUND          = AMRegistries.ITEMS.registerSimpleItem("arcane_compound");
+    DeferredItem<Item>      ARCANE_ASH               = AMRegistries.ITEMS.registerSimpleItem("arcane_ash");
+    DeferredItem<Item>      PURIFIED_VINTEUM_DUST    = AMRegistries.ITEMS.registerSimpleItem("purified_vinteum_dust");
     DeferredItem<BlockItem> WITCHWOOD_LOG            = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.WITCHWOOD_LOG);
     DeferredItem<BlockItem> WITCHWOOD                = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.WITCHWOOD);
     DeferredItem<BlockItem> STRIPPED_WITCHWOOD_LOG   = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.STRIPPED_WITCHWOOD_LOG);
@@ -53,6 +57,7 @@ public interface AMItems {
     DeferredItem<BlockItem> TARMA_ROOT               = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.TARMA_ROOT);
     DeferredItem<BlockItem> WAKEBLOOM                = AMRegistries.ITEMS.registerItem("wakebloom", p -> new PlaceOnWaterBlockItem(AMBlocks.WAKEBLOOM.get(), p));
     DeferredItem<BlockItem> VINTEUM_TORCH            = AMRegistries.ITEMS.registerItem("vinteum_torch", p -> new StandingAndWallBlockItem(AMBlocks.VINTEUM_TORCH.get(), AMBlocks.VINTEUM_WALL_TORCH.get(), p, Direction.DOWN));
+    // @formatter:on
 
     static void init() {
     }

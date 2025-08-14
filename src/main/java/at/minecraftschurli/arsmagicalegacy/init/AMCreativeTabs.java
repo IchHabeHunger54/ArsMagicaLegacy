@@ -29,6 +29,9 @@ public interface AMCreativeTabs {
                 output.accept(AMItems.SUNSTONE_ORE);
                 output.accept(AMItems.SUNSTONE);
                 output.accept(AMItems.SUNSTONE_BLOCK);
+                output.accept(AMItems.ARCANE_COMPOUND);
+                output.accept(AMItems.ARCANE_ASH);
+                output.accept(AMItems.PURIFIED_VINTEUM_DUST);
                 output.accept(AMItems.WITCHWOOD_LOG);
                 output.accept(AMItems.WITCHWOOD);
                 output.accept(AMItems.STRIPPED_WITCHWOOD_LOG);

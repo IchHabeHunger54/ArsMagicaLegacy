@@ -21,7 +21,7 @@ public record Spell(Optional<Component> name, List<SpellShapeGroup> shapeGroups,
     public static final Spell EMPTY = new Spell(Optional.empty(), List.of(SpellShapeGroup.EMPTY), 0, SpellGrammar.EMPTY, new PatchedDataComponentMap(DataComponentMap.EMPTY));
     public static final Codec<Spell> CODEC = RecordCodecBuilder.create(inst -> inst.group(
         ComponentSerialization.CODEC.optionalFieldOf("name").forGetter(Spell::name),
-        SpellShapeGroup.CODEC.listOf().fieldOf("shape_groups").forGetter(Spell::shapeGroups),
+        SpellShapeGroup.CODEC.listOf(0, MAX_SHAPE_GROUPS).fieldOf("shape_groups").forGetter(Spell::shapeGroups),
         ExtraCodecs.intRange(0, MAX_SHAPE_GROUPS - 1).fieldOf("current_shape_group").forGetter(Spell::currentShapeGroup),
         SpellGrammar.CODEC.fieldOf("grammar").forGetter(Spell::grammar),
         DataComponentPatch.CODEC.fieldOf("data_components").forGetter(Spell::getComponentsPatch)

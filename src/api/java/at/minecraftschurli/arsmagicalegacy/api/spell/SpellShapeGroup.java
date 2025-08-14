@@ -16,7 +16,7 @@ public record SpellShapeGroup(List<SpellPart> parts, @Nullable PrimarySpellShape
     public static final int MAX_PARTS = 4;
     public static final SpellShapeGroup EMPTY = new SpellShapeGroup(List.of(), null, List.of(), null, List.of());
     public static final Codec<SpellShapeGroup> CODEC = RecordCodecBuilder.create(inst -> inst.group(
-        ArsMagicaApi.getSpellPartRegistry().byNameCodec().listOf().fieldOf("parts").forGetter(SpellShapeGroup::parts)
+        ArsMagicaApi.getSpellPartRegistry().byNameCodec().listOf(0, MAX_PARTS).fieldOf("parts").forGetter(SpellShapeGroup::parts)
     ).apply(inst, SpellShapeGroup::of));
     public static final StreamCodec<RegistryFriendlyByteBuf, SpellShapeGroup> STREAM_CODEC = StreamCodec.composite(
         ByteBufCodecs.registry(AMRegistryKeys.SPELL_PART).apply(ByteBufCodecs.list()), SpellShapeGroup::parts,

@@ -18,9 +18,14 @@ public interface AMTags {
         TagKey<Block> STORAGE_BLOCKS_VINTEUM = cTag("storage_blocks/vinteum");
         TagKey<Block> STORAGE_BLOCKS_MOONSTONE = cTag("storage_blocks/moonstone");
         TagKey<Block> STORAGE_BLOCKS_SUNSTONE = cTag("storage_blocks/sunstone");
+        TagKey<Block> WITCHWOOD_LOGS = tag("witchwood_logs");
 
         private static TagKey<Block> cTag(String name) {
             return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", name));
+        }
+
+        private static TagKey<Block> tag(String name) {
+            return TagKey.create(Registries.BLOCK, ArsMagicaApi.modLoc(name));
         }
     }
 
@@ -40,9 +45,14 @@ public interface AMTags {
         TagKey<Item> DUSTS_VINTEUM = cTag("dusts/vinteum");
         TagKey<Item> GEMS_MOONSTONE = cTag("gems/moonstone");
         TagKey<Item> GEMS_SUNSTONE = cTag("gems/sunstone");
+        TagKey<Item> WITCHWOOD_LOGS = tag("witchwood_logs");
 
         private static TagKey<Item> cTag(String name) {
             return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", name));
+        }
+
+        private static TagKey<Item> tag(String name) {
+            return TagKey.create(Registries.ITEM, ArsMagicaApi.modLoc(name));
         }
     }
 }

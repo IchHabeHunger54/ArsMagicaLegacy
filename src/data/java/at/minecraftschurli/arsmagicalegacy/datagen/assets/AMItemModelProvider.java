@@ -15,28 +15,45 @@ public final class AMItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        simpleBlockItem(AMItems.CHIMERITE_ORE);
-        simpleBlockItem(AMItems.DEEPSLATE_CHIMERITE_ORE);
+        blockItem(AMItems.CHIMERITE_ORE);
+        blockItem(AMItems.DEEPSLATE_CHIMERITE_ORE);
         basicItem(AMItems.CHIMERITE);
-        simpleBlockItem(AMItems.CHIMERITE_BLOCK);
-        simpleBlockItem(AMItems.TOPAZ_ORE);
-        simpleBlockItem(AMItems.DEEPSLATE_TOPAZ_ORE);
+        blockItem(AMItems.CHIMERITE_BLOCK);
+        blockItem(AMItems.TOPAZ_ORE);
+        blockItem(AMItems.DEEPSLATE_TOPAZ_ORE);
         basicItem(AMItems.TOPAZ);
-        simpleBlockItem(AMItems.TOPAZ_BLOCK);
-        simpleBlockItem(AMItems.VINTEUM_ORE);
-        simpleBlockItem(AMItems.DEEPSLATE_VINTEUM_ORE);
+        blockItem(AMItems.TOPAZ_BLOCK);
+        blockItem(AMItems.VINTEUM_ORE);
+        blockItem(AMItems.DEEPSLATE_VINTEUM_ORE);
         basicItem(AMItems.VINTEUM_DUST);
-        simpleBlockItem(AMItems.VINTEUM_BLOCK);
-        simpleBlockItem(AMItems.MOONSTONE_ORE);
-        simpleBlockItem(AMItems.DEEPSLATE_MOONSTONE_ORE);
+        blockItem(AMItems.VINTEUM_BLOCK);
+        blockItem(AMItems.MOONSTONE_ORE);
+        blockItem(AMItems.DEEPSLATE_MOONSTONE_ORE);
         basicItem(AMItems.MOONSTONE);
-        simpleBlockItem(AMItems.MOONSTONE_BLOCK);
-        simpleBlockItem(AMItems.SUNSTONE_ORE);
+        blockItem(AMItems.MOONSTONE_BLOCK);
+        blockItem(AMItems.SUNSTONE_ORE);
         basicItem(AMItems.SUNSTONE);
-        simpleBlockItem(AMItems.SUNSTONE_BLOCK);
+        blockItem(AMItems.SUNSTONE_BLOCK);
+        blockItem(AMItems.WITCHWOOD_LOG);
+        blockItem(AMItems.WITCHWOOD);
+        blockItem(AMItems.STRIPPED_WITCHWOOD_LOG);
+        blockItem(AMItems.STRIPPED_WITCHWOOD);
+        blockItem(AMItems.WITCHWOOD_LEAVES);
+        withExistingParent(AMItems.WITCHWOOD_SAPLING.getId().getPath(), mcLoc("item/generated")).texture("layer0", modLoc("block/witchwood_sapling"));
+        blockItem(AMItems.WITCHWOOD_PLANKS);
+        blockItem(AMItems.WITCHWOOD_SLAB);
+        blockItem(AMItems.WITCHWOOD_STAIRS);
+        withExistingParent(AMItems.WITCHWOOD_FENCE.getId().getPath(), modLoc("block/witchwood_fence_inventory"));
+        blockItem(AMItems.WITCHWOOD_FENCE_GATE);
+        basicItem(AMItems.WITCHWOOD_DOOR);
+        withExistingParent(AMItems.WITCHWOOD_TRAPDOOR.getId().getPath(), modLoc("block/witchwood_trapdoor_bottom"));
+        withExistingParent(AMItems.WITCHWOOD_BUTTON.getId().getPath(), modLoc("block/witchwood_button_inventory"));
+        blockItem(AMItems.WITCHWOOD_PRESSURE_PLATE);
+        basicItem(AMItems.WITCHWOOD_SIGN);
+        basicItem(AMItems.WITCHWOOD_HANGING_SIGN);
     }
 
-    private void simpleBlockItem(DeferredItem<? extends BlockItem> item) {
+    private void blockItem(DeferredItem<? extends BlockItem> item) {
         simpleBlockItem(item.get().getBlock());
     }
 

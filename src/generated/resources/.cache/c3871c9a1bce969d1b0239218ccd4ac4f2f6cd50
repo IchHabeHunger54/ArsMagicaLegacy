@@ -1,6 +1,9 @@
-// 1.21.1	2025-08-13T22:59:39.8390699	Tags for minecraft:item mod id arsmagicalegacy
+// 1.21.1	2025-08-14T03:22:45.9625338	Tags for minecraft:item mod id arsmagicalegacy
+09a8495f82a08691d533f5301ffce0cc0afe0bcf data/arsmagicalegacy/tags/item/witchwood_logs.json
 a90fc8ac8708193c377c1515b34cc52dab004e52 data/c/tags/item/dusts.json
 7fcd32eacf9a02dc1b26ab6b609517b78238e1b9 data/c/tags/item/dusts/vinteum.json
+75597f58eaad48b98e64ba095c0e13b1573e0f4e data/c/tags/item/fences/wooden.json
+4509a6dbe8b8c6353fbe06cefd812efe1dca2727 data/c/tags/item/fence_gates/wooden.json
 50be428dc4cb81185d16cb3b017471b0e27b6d95 data/c/tags/item/gems.json
 d498a45e33548db20878c11a7e960e316d6a1df0 data/c/tags/item/gems/chimerite.json
 488d0bdfa28de16b2566d3bab85ea861e7506b3c data/c/tags/item/gems/moonstone.json
@@ -18,3 +21,17 @@ a5efaf624ecc4e7aa79239bfda857f660c06c552 data/c/tags/item/storage_blocks/chimeri
 44a23cc79dc5ba635c2c0cab92dcdf6d05104734 data/c/tags/item/storage_blocks/sunstone.json
 76df3f25234406bbe4c797c04449e8b9683eefcd data/c/tags/item/storage_blocks/topaz.json
 1b98676a20688653887cd8966162861777356e7e data/c/tags/item/storage_blocks/vinteum.json
+4509a6dbe8b8c6353fbe06cefd812efe1dca2727 data/minecraft/tags/item/fence_gates.json
+d9eb014cca9e9eb1edefc2e7b423dacb98df705a data/minecraft/tags/item/hanging_signs.json
+cd4ee8afe25cbc17263f3bcd49ba4402450d4b66 data/minecraft/tags/item/leaves.json
+cc20d8d43b66ef761c1f2d6f55740085c58a35f3 data/minecraft/tags/item/logs.json
+638b279febd41d749f4abb6380caa1aeb19c0d00 data/minecraft/tags/item/planks.json
+a5cc6f3a50fcd1f61d2ba94c42b27f82e25e2c8e data/minecraft/tags/item/saplings.json
+c03fe02c08be18b1f15dcfbd3e923baed847268a data/minecraft/tags/item/signs.json
+277695cc2f20524f716a39aaee2b5a0f411d8af9 data/minecraft/tags/item/wooden_buttons.json
+86b8cf4f20c521d1ddc7dbf8cf710466ebb12bdd data/minecraft/tags/item/wooden_doors.json
+75597f58eaad48b98e64ba095c0e13b1573e0f4e data/minecraft/tags/item/wooden_fences.json
+802bce3671f3f3da836547e7885bfa388fe753d1 data/minecraft/tags/item/wooden_pressure_plates.json
+4ebb96267c6c38a793210c2c8d39acb8e40281df data/minecraft/tags/item/wooden_slabs.json
+df0cd475149984fc3cf4cef962ef40707c439454 data/minecraft/tags/item/wooden_stairs.json
+604d97418c492d03d2afdf186aca7668415cc6c8 data/minecraft/tags/item/wooden_trapdoors.json

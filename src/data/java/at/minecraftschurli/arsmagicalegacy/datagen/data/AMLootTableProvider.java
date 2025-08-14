@@ -47,6 +47,26 @@ public final class AMLootTableProvider extends LootTableProvider {
             dropSelf(AMBlocks.MOONSTONE_BLOCK.get());
             add(AMBlocks.SUNSTONE_ORE.get(), b -> createOreDrop(b, AMItems.SUNSTONE.get()));
             dropSelf(AMBlocks.SUNSTONE_BLOCK.get());
+            dropSelf(AMBlocks.WITCHWOOD_LOG.get());
+            dropSelf(AMBlocks.WITCHWOOD.get());
+            dropSelf(AMBlocks.STRIPPED_WITCHWOOD_LOG.get());
+            dropSelf(AMBlocks.STRIPPED_WITCHWOOD.get());
+            add(AMBlocks.WITCHWOOD_LEAVES.get(), p -> createLeavesDrops(p, AMBlocks.WITCHWOOD_SAPLING.get(), 0.05f, 0.0625f, 0.083333336f, 0.1f));
+            dropSelf(AMBlocks.WITCHWOOD_SAPLING.get());
+            dropPottedContents(AMBlocks.POTTED_WITCHWOOD_SAPLING.get());
+            dropSelf(AMBlocks.WITCHWOOD_PLANKS.get());
+            dropSelf(AMBlocks.WITCHWOOD_SLAB.get());
+            dropSelf(AMBlocks.WITCHWOOD_STAIRS.get());
+            dropSelf(AMBlocks.WITCHWOOD_FENCE.get());
+            dropSelf(AMBlocks.WITCHWOOD_FENCE_GATE.get());
+            add(AMBlocks.WITCHWOOD_DOOR.get(), this::createDoorTable);
+            dropSelf(AMBlocks.WITCHWOOD_TRAPDOOR.get());
+            dropSelf(AMBlocks.WITCHWOOD_BUTTON.get());
+            dropSelf(AMBlocks.WITCHWOOD_PRESSURE_PLATE.get());
+            dropSelf(AMBlocks.WITCHWOOD_SIGN.get());
+            dropOther(AMBlocks.WITCHWOOD_WALL_SIGN.get(), AMBlocks.WITCHWOOD_SIGN.get());
+            dropSelf(AMBlocks.WITCHWOOD_HANGING_SIGN.get());
+            dropOther(AMBlocks.WITCHWOOD_WALL_HANGING_SIGN.get(), AMBlocks.WITCHWOOD_HANGING_SIGN.get());
         }
     }
 }

@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -12,6 +13,8 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.BlastingRecipe;
@@ -30,6 +33,11 @@ public final class AMRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildRecipes(RecipeOutput output) {
+        generateRecipes(output, AMBlocks.WITCHWOOD_BLOCK_FAMILY.get(), FeatureFlagSet.of(FeatureFlags.VANILLA));
+        hangingSign(output, AMItems.WITCHWOOD_HANGING_SIGN.get(), AMItems.STRIPPED_WITCHWOOD_LOG.get());
+        planksFromLogs(output, AMItems.WITCHWOOD_PLANKS.get(), AMTags.Items.WITCHWOOD_LOGS, 4);
+        woodFromLogs(output, AMBlocks.WITCHWOOD.get(), AMBlocks.WITCHWOOD_LOG.get());
+        woodFromLogs(output, AMBlocks.STRIPPED_WITCHWOOD.get(), AMBlocks.STRIPPED_WITCHWOOD_LOG.get());
         nineBlockStorageRecipes(output, AMItems.VINTEUM_DUST, AMTags.Items.DUSTS_VINTEUM, AMItems.VINTEUM_BLOCK, AMTags.Items.STORAGE_BLOCKS_VINTEUM);
         nineBlockStorageRecipes(output, AMItems.CHIMERITE, AMTags.Items.GEMS_CHIMERITE, AMItems.CHIMERITE_BLOCK, AMTags.Items.STORAGE_BLOCKS_CHIMERITE);
         nineBlockStorageRecipes(output, AMItems.TOPAZ, AMTags.Items.GEMS_TOPAZ, AMItems.TOPAZ_BLOCK, AMTags.Items.STORAGE_BLOCKS_TOPAZ);

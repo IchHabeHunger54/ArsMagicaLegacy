@@ -3,6 +3,8 @@ package at.minecraftschurli.arsmagicalegacy.datagen.assets;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -28,9 +30,66 @@ public final class AMBlockStateProvider extends BlockStateProvider {
         simpleBlock(AMBlocks.MOONSTONE_BLOCK);
         simpleBlock(AMBlocks.SUNSTONE_ORE);
         simpleBlock(AMBlocks.SUNSTONE_BLOCK);
+        logBlock(AMBlocks.WITCHWOOD_LOG.get());
+        woodBlock(AMBlocks.WITCHWOOD, AMBlocks.WITCHWOOD_LOG);
+        logBlock(AMBlocks.STRIPPED_WITCHWOOD_LOG.get());
+        woodBlock(AMBlocks.STRIPPED_WITCHWOOD, AMBlocks.STRIPPED_WITCHWOOD_LOG);
+        simpleBlock(AMBlocks.WITCHWOOD_LEAVES);
+        crossBlock(AMBlocks.WITCHWOOD_SAPLING);
+        flowerPotBlock(AMBlocks.POTTED_WITCHWOOD_SAPLING, AMBlocks.WITCHWOOD_SAPLING);
+        simpleBlock(AMBlocks.WITCHWOOD_PLANKS);
+        ResourceLocation planksTexture = blockTexture(AMBlocks.WITCHWOOD_PLANKS.get());
+        slabBlock(AMBlocks.WITCHWOOD_SLAB.get(), cubeAll(AMBlocks.WITCHWOOD_PLANKS.get()).getLocation(), planksTexture);
+        stairsBlock(AMBlocks.WITCHWOOD_STAIRS.get(), planksTexture);
+        fenceBlock(AMBlocks.WITCHWOOD_FENCE.get(), planksTexture);
+        models().fenceInventory(AMBlocks.WITCHWOOD_FENCE.getId().getPath() + "_inventory", planksTexture);
+        fenceGateBlock(AMBlocks.WITCHWOOD_FENCE_GATE.get(), planksTexture);
+        doorBlockWithRenderType(AMBlocks.WITCHWOOD_DOOR.get(), "witchwood", modLoc("block/witchwood_door_bottom"), modLoc("block/witchwood_door_top"), "cutout");
+        trapdoorBlockWithRenderType(AMBlocks.WITCHWOOD_TRAPDOOR.get(), planksTexture, true, "cutout");
+        buttonBlock(AMBlocks.WITCHWOOD_BUTTON.get(), planksTexture);
+        models().withExistingParent(AMBlocks.WITCHWOOD_BUTTON.getId().getPath() + "_inventory", "block/button_inventory").texture("texture", planksTexture);
+        pressurePlateBlock(AMBlocks.WITCHWOOD_PRESSURE_PLATE.get(), planksTexture);
+        signBlock(AMBlocks.WITCHWOOD_SIGN.get(), AMBlocks.WITCHWOOD_WALL_SIGN.get(), planksTexture);
+        hangingSignBlock(AMBlocks.WITCHWOOD_HANGING_SIGN.get(), AMBlocks.WITCHWOOD_WALL_HANGING_SIGN.get(), blockTexture(AMBlocks.STRIPPED_WITCHWOOD_LOG.get()));
     }
 
+    /**
+     * Adds a simple block model that uses its block id as the texture name on all six sides.
+     *
+     * @param block The block to generate the model for.
+     */
     private void simpleBlock(DeferredBlock<?> block) {
         simpleBlock(block.get());
+    }
+
+    /**
+     * Adds a block model that uses its block id as the texture name on all six sides. Rotates accordingly.
+     *
+     * @param block The block to generate the model for.
+     * @param log   The corresponding log block.
+     */
+    private void woodBlock(DeferredBlock<? extends RotatedPillarBlock> block, DeferredBlock<?> log) {
+        axisBlock(block.get(),
+                models().cubeColumn(block.getId().getPath(), blockTexture(log.get()), blockTexture(log.get())),
+                models().cubeColumnHorizontal(block.getId().getPath(), blockTexture(log.get()), blockTexture(log.get())));
+    }
+
+    /**
+     * Adds a cross block model, as seen on flowers and saplings. Uses the block id as the texture name.
+     *
+     * @param block The block to generate the model for.
+     */
+    private void crossBlock(DeferredBlock<?> block) {
+        simpleBlock(block.get(), models().cross(block.getId().getPath(), blockTexture(block.get())).renderType("cutout"));
+    }
+
+    /**
+     * Adds a flower pot model with a plant inside.
+     *
+     * @param pot   The flower pot block to generate the model for.
+     * @param plant The plant to place inside the flower pot.
+     */
+    private void flowerPotBlock(DeferredBlock<?> pot, DeferredBlock<?> plant) {
+        simpleBlock(pot.get(), models().withExistingParent(pot.getId().getPath(), "block/flower_pot_cross").texture("plant", blockTexture(plant.get())).renderType("cutout"));
     }
 }

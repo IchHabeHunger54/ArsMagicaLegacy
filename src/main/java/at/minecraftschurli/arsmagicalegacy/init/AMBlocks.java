@@ -1,42 +1,115 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
+import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.block.sign.WitchwoodCeilingHangingSignBlock;
+import at.minecraftschurli.arsmagicalegacy.block.sign.WitchwoodStandingSignBlock;
+import at.minecraftschurli.arsmagicalegacy.block.sign.WitchwoodWallHangingSignBlock;
+import at.minecraftschurli.arsmagicalegacy.block.sign.WitchwoodWallSignBlock;
+import net.minecraft.core.Direction;
+import net.minecraft.data.BlockFamily;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.DropExperienceBlock;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.PressurePlateBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.SignBlock;
+import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
+import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.registries.DeferredBlock;
 
 import java.util.function.Function;
-import java.util.function.UnaryOperator;
+import java.util.function.Supplier;
 
 public interface AMBlocks {
+    BlockSetType WITCHWOOD_BLOCK_SET_TYPE = BlockSetType.register(new BlockSetType(ArsMagicaApi.MOD_ID + ":witchwood"));
+    WoodType WITCHWOOD_WOOD_TYPE = WoodType.register(new WoodType(ArsMagicaApi.MOD_ID + ":witchwood", WITCHWOOD_BLOCK_SET_TYPE));
+    Lazy<BlockFamily> WITCHWOOD_BLOCK_FAMILY = Lazy.of(() -> new BlockFamily.Builder(AMBlocks.WITCHWOOD_PLANKS.get())
+            .slab(AMBlocks.WITCHWOOD_SLAB.get())
+            .stairs(AMBlocks.WITCHWOOD_STAIRS.get())
+            .fence(AMBlocks.WITCHWOOD_FENCE.get())
+            .fenceGate(AMBlocks.WITCHWOOD_FENCE_GATE.get())
+            .door(AMBlocks.WITCHWOOD_DOOR.get())
+            .trapdoor(AMBlocks.WITCHWOOD_TRAPDOOR.get())
+            .button(AMBlocks.WITCHWOOD_BUTTON.get())
+            .pressurePlate(AMBlocks.WITCHWOOD_PRESSURE_PLATE.get())
+            .sign(AMBlocks.WITCHWOOD_SIGN.get(), AMBlocks.WITCHWOOD_WALL_SIGN.get())
+            .getFamily());
+
     // @formatter:off
-    DeferredBlock<DropExperienceBlock> CHIMERITE_ORE           = register("chimerite_ore",           p -> new DropExperienceBlock(UniformInt.of(0, 2), p), p -> p.requiresCorrectToolForDrops().strength(3f, 3f));
-    DeferredBlock<DropExperienceBlock> DEEPSLATE_CHIMERITE_ORE = register("deepslate_chimerite_ore", p -> new DropExperienceBlock(UniformInt.of(0, 2), p), p -> p.mapColor(MapColor.DEEPSLATE).requiresCorrectToolForDrops().strength(4.5f, 3f).sound(SoundType.DEEPSLATE));
-    DeferredBlock<Block>               CHIMERITE_BLOCK         = register("chimerite_block",         p -> p.mapColor(MapColor.COLOR_PINK).requiresCorrectToolForDrops().strength(3f, 3f));
-    DeferredBlock<DropExperienceBlock> TOPAZ_ORE               = register("topaz_ore",               p -> new DropExperienceBlock(UniformInt.of(0, 2), p), p -> p.requiresCorrectToolForDrops().strength(3f, 3f));
-    DeferredBlock<DropExperienceBlock> DEEPSLATE_TOPAZ_ORE     = register("deepslate_topaz_ore",     p -> new DropExperienceBlock(UniformInt.of(0, 2), p), p -> p.mapColor(MapColor.DEEPSLATE).requiresCorrectToolForDrops().strength(4.5f, 3f).sound(SoundType.DEEPSLATE));
-    DeferredBlock<Block>               TOPAZ_BLOCK             = register("topaz_block",             p -> p.mapColor(MapColor.DIAMOND).requiresCorrectToolForDrops().strength(3f, 3f));
-    DeferredBlock<DropExperienceBlock> VINTEUM_ORE             = register("vinteum_ore",             p -> new DropExperienceBlock(UniformInt.of(1, 3), p), p -> p.requiresCorrectToolForDrops().strength(3f, 3f));
-    DeferredBlock<DropExperienceBlock> DEEPSLATE_VINTEUM_ORE   = register("deepslate_vinteum_ore",   p -> new DropExperienceBlock(UniformInt.of(1, 3), p), p -> p.mapColor(MapColor.DEEPSLATE).requiresCorrectToolForDrops().strength(4.5f, 3f).sound(SoundType.DEEPSLATE));
-    DeferredBlock<Block>               VINTEUM_BLOCK           = register("vinteum_block",           p -> p.mapColor(MapColor.LAPIS).requiresCorrectToolForDrops().strength(3f, 3f));
-    DeferredBlock<DropExperienceBlock> MOONSTONE_ORE           = register("moonstone_ore",           p -> new DropExperienceBlock(UniformInt.of(3, 7), p), p -> p.requiresCorrectToolForDrops().strength(3f, 3f));
-    DeferredBlock<DropExperienceBlock> DEEPSLATE_MOONSTONE_ORE = register("deepslate_moonstone_ore", p -> new DropExperienceBlock(UniformInt.of(3, 7), p), p -> p.mapColor(MapColor.DEEPSLATE).requiresCorrectToolForDrops().strength(4.5f, 3f).sound(SoundType.DEEPSLATE));
-    DeferredBlock<Block>               MOONSTONE_BLOCK         = register("moonstone_block",         p -> p.mapColor(MapColor.COLOR_LIGHT_BLUE).requiresCorrectToolForDrops().strength(3f, 3f));
-    DeferredBlock<DropExperienceBlock> SUNSTONE_ORE            = register("sunstone_ore",            p -> new DropExperienceBlock(UniformInt.of(0, 1), p), p -> p.mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(50f, 1200f));
-    DeferredBlock<Block>               SUNSTONE_BLOCK          = register("sunstone_block",          p -> p.mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3f, 3f));
+    DeferredBlock<DropExperienceBlock>              CHIMERITE_ORE               = register("chimerite_ore",               p -> new DropExperienceBlock(UniformInt.of(0, 2), p), properties().requiresCorrectToolForDrops().strength(3f, 3f));
+    DeferredBlock<DropExperienceBlock>              DEEPSLATE_CHIMERITE_ORE     = register("deepslate_chimerite_ore",     p -> new DropExperienceBlock(UniformInt.of(0, 2), p), properties().mapColor(MapColor.DEEPSLATE).requiresCorrectToolForDrops().strength(4.5f, 3f).sound(SoundType.DEEPSLATE));
+    DeferredBlock<Block>                            CHIMERITE_BLOCK             = register("chimerite_block",             properties().mapColor(MapColor.COLOR_PINK).requiresCorrectToolForDrops().strength(3f, 3f));
+    DeferredBlock<DropExperienceBlock>              TOPAZ_ORE                   = register("topaz_ore",                   p -> new DropExperienceBlock(UniformInt.of(0, 2), p), properties().requiresCorrectToolForDrops().strength(3f, 3f));
+    DeferredBlock<DropExperienceBlock>              DEEPSLATE_TOPAZ_ORE         = register("deepslate_topaz_ore",         p -> new DropExperienceBlock(UniformInt.of(0, 2), p), properties().mapColor(MapColor.DEEPSLATE).requiresCorrectToolForDrops().strength(4.5f, 3f).sound(SoundType.DEEPSLATE));
+    DeferredBlock<Block>                            TOPAZ_BLOCK                 = register("topaz_block",                 properties().mapColor(MapColor.DIAMOND).requiresCorrectToolForDrops().strength(3f, 3f));
+    DeferredBlock<DropExperienceBlock>              VINTEUM_ORE                 = register("vinteum_ore",                 p -> new DropExperienceBlock(UniformInt.of(1, 3), p), properties().requiresCorrectToolForDrops().strength(3f, 3f));
+    DeferredBlock<DropExperienceBlock>              DEEPSLATE_VINTEUM_ORE       = register("deepslate_vinteum_ore",       p -> new DropExperienceBlock(UniformInt.of(1, 3), p), properties().mapColor(MapColor.DEEPSLATE).requiresCorrectToolForDrops().strength(4.5f, 3f).sound(SoundType.DEEPSLATE));
+    DeferredBlock<Block>                            VINTEUM_BLOCK               = register("vinteum_block",               properties().mapColor(MapColor.LAPIS).requiresCorrectToolForDrops().strength(3f, 3f));
+    DeferredBlock<DropExperienceBlock>              MOONSTONE_ORE               = register("moonstone_ore",               p -> new DropExperienceBlock(UniformInt.of(3, 7), p), properties().requiresCorrectToolForDrops().strength(3f, 3f));
+    DeferredBlock<DropExperienceBlock>              DEEPSLATE_MOONSTONE_ORE     = register("deepslate_moonstone_ore",     p -> new DropExperienceBlock(UniformInt.of(3, 7), p), properties().mapColor(MapColor.DEEPSLATE).requiresCorrectToolForDrops().strength(4.5f, 3f).sound(SoundType.DEEPSLATE));
+    DeferredBlock<Block>                            MOONSTONE_BLOCK             = register("moonstone_block",             properties().mapColor(MapColor.COLOR_LIGHT_BLUE).requiresCorrectToolForDrops().strength(3f, 3f));
+    DeferredBlock<DropExperienceBlock>              SUNSTONE_ORE                = register("sunstone_ore",                p -> new DropExperienceBlock(UniformInt.of(0, 1), p), properties().mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(50f, 1200f));
+    DeferredBlock<Block>                            SUNSTONE_BLOCK              = register("sunstone_block",              properties().mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3f, 3f));
+    DeferredBlock<RotatedPillarBlock>               WITCHWOOD_LOG               = register("witchwood_log",               RotatedPillarBlock::new, copyProperties(Blocks.OAK_LOG).mapColor(s -> s.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.TERRACOTTA_LIGHT_BLUE : MapColor.TERRACOTTA_BLUE));
+    DeferredBlock<RotatedPillarBlock>               WITCHWOOD                   = register("witchwood",                   RotatedPillarBlock::new, copyProperties(Blocks.OAK_WOOD).mapColor(MapColor.TERRACOTTA_BLUE));
+    DeferredBlock<RotatedPillarBlock>               STRIPPED_WITCHWOOD_LOG      = register("stripped_witchwood_log",      RotatedPillarBlock::new, copyProperties(Blocks.STRIPPED_OAK_LOG).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
+    DeferredBlock<RotatedPillarBlock>               STRIPPED_WITCHWOOD          = register("stripped_witchwood",          RotatedPillarBlock::new, copyProperties(Blocks.STRIPPED_OAK_WOOD).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
+    DeferredBlock<LeavesBlock>                      WITCHWOOD_LEAVES            = register("witchwood_leaves",            LeavesBlock::new, copyProperties(Blocks.OAK_LEAVES).mapColor(MapColor.QUARTZ));
+    DeferredBlock<SaplingBlock>                     WITCHWOOD_SAPLING           = register("witchwood_sapling",           p -> new SaplingBlock(AMWorldgen.WITCHWOOD_TREE_GROWER, p), copyProperties(Blocks.OAK_SAPLING));
+    DeferredBlock<FlowerPotBlock>                   POTTED_WITCHWOOD_SAPLING    = register("potted_witchwood_sapling",    p -> flowerPot(WITCHWOOD_SAPLING, p).get(), copyProperties(Blocks.FLOWER_POT));
+    DeferredBlock<Block>                            WITCHWOOD_PLANKS            = register("witchwood_planks",            copyProperties(Blocks.OAK_PLANKS).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
+    DeferredBlock<SlabBlock>                        WITCHWOOD_SLAB              = register("witchwood_slab",              SlabBlock::new, copyProperties(Blocks.OAK_SLAB).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
+    DeferredBlock<StairBlock>                       WITCHWOOD_STAIRS            = register("witchwood_stairs",            p -> new StairBlock(WITCHWOOD_PLANKS.get().defaultBlockState(), p), copyProperties(Blocks.OAK_STAIRS).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
+    DeferredBlock<FenceBlock>                       WITCHWOOD_FENCE             = register("witchwood_fence",             FenceBlock::new, copyProperties(Blocks.OAK_FENCE).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
+    DeferredBlock<FenceGateBlock>                   WITCHWOOD_FENCE_GATE        = register("witchwood_fence_gate",        p -> new FenceGateBlock(WITCHWOOD_WOOD_TYPE, p), copyProperties(Blocks.OAK_FENCE_GATE).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
+    DeferredBlock<DoorBlock>                        WITCHWOOD_DOOR              = register("witchwood_door",              p -> new DoorBlock(WITCHWOOD_BLOCK_SET_TYPE, p), copyProperties(Blocks.OAK_DOOR).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
+    DeferredBlock<TrapDoorBlock>                    WITCHWOOD_TRAPDOOR          = register("witchwood_trapdoor",          p -> new TrapDoorBlock(WITCHWOOD_BLOCK_SET_TYPE, p), copyProperties(Blocks.OAK_TRAPDOOR).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
+    DeferredBlock<ButtonBlock>                      WITCHWOOD_BUTTON            = register("witchwood_button",            p -> new ButtonBlock(WITCHWOOD_BLOCK_SET_TYPE, 30, p), copyProperties(Blocks.OAK_BUTTON));
+    DeferredBlock<PressurePlateBlock>               WITCHWOOD_PRESSURE_PLATE    = register("witchwood_pressure_plate",    p -> new PressurePlateBlock(WITCHWOOD_BLOCK_SET_TYPE, p), copyProperties(Blocks.OAK_PRESSURE_PLATE).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
+    DeferredBlock<WitchwoodStandingSignBlock>       WITCHWOOD_SIGN              = register("witchwood_sign",              WitchwoodStandingSignBlock::new, copyProperties(Blocks.OAK_SIGN).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
+    DeferredBlock<WitchwoodWallSignBlock>           WITCHWOOD_WALL_SIGN         = register("witchwood_wall_sign",         WitchwoodWallSignBlock::new, copyProperties(Blocks.OAK_WALL_SIGN).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE).lootFrom(WITCHWOOD_SIGN));
+    DeferredBlock<WitchwoodCeilingHangingSignBlock> WITCHWOOD_HANGING_SIGN      = register("witchwood_hanging_sign",      WitchwoodCeilingHangingSignBlock::new, copyProperties(Blocks.OAK_HANGING_SIGN).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
+    DeferredBlock<WitchwoodWallHangingSignBlock>    WITCHWOOD_WALL_HANGING_SIGN = register("witchwood_wall_hanging_sign", WitchwoodWallHangingSignBlock::new, copyProperties(Blocks.OAK_WALL_HANGING_SIGN).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE).lootFrom(WITCHWOOD_HANGING_SIGN));
+
     // @formatter:on
 
-    static <B extends Block> DeferredBlock<B> register(String name, Function<BlockBehaviour.Properties, B> function, UnaryOperator<BlockBehaviour.Properties> properties) {
-        return AMRegistries.BLOCKS.registerBlock(name, function, properties.apply(BlockBehaviour.Properties.of()));
-    }
-
-    static DeferredBlock<Block> register(String name, UnaryOperator<BlockBehaviour.Properties> properties) {
-        return AMRegistries.BLOCKS.registerSimpleBlock(name, properties.apply(BlockBehaviour.Properties.of()));
-    }
-
     static void init() {
+    }
+
+    private static <B extends Block> DeferredBlock<B> register(String name, Function<BlockBehaviour.Properties, B> function, BlockBehaviour.Properties properties) {
+        return AMRegistries.BLOCKS.registerBlock(name, function, properties);
+    }
+
+    private static DeferredBlock<Block> register(String name, BlockBehaviour.Properties properties) {
+        return AMRegistries.BLOCKS.registerSimpleBlock(name, properties);
+    }
+
+    private static BlockBehaviour.Properties properties() {
+        return BlockBehaviour.Properties.of();
+    }
+
+    private static BlockBehaviour.Properties copyProperties(Block block) {
+        return BlockBehaviour.Properties.ofFullCopy(block);
+    }
+
+    private static Supplier<FlowerPotBlock> flowerPot(DeferredBlock<?> flower, BlockBehaviour.Properties properties) {
+        Supplier<FlowerPotBlock> flowerPot = () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, flower, properties);
+        ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(flower.getId(), flowerPot);
+        return flowerPot;
     }
 }

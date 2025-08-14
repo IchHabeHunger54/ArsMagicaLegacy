@@ -29,6 +29,23 @@ public interface AMCreativeTabs {
                 output.accept(AMItems.SUNSTONE_ORE);
                 output.accept(AMItems.SUNSTONE);
                 output.accept(AMItems.SUNSTONE_BLOCK);
+                output.accept(AMItems.WITCHWOOD_LOG);
+                output.accept(AMItems.WITCHWOOD);
+                output.accept(AMItems.STRIPPED_WITCHWOOD_LOG);
+                output.accept(AMItems.STRIPPED_WITCHWOOD);
+                output.accept(AMItems.WITCHWOOD_LEAVES);
+                output.accept(AMItems.WITCHWOOD_SAPLING);
+                output.accept(AMItems.WITCHWOOD_PLANKS);
+                output.accept(AMItems.WITCHWOOD_SLAB);
+                output.accept(AMItems.WITCHWOOD_STAIRS);
+                output.accept(AMItems.WITCHWOOD_FENCE);
+                output.accept(AMItems.WITCHWOOD_FENCE_GATE);
+                output.accept(AMItems.WITCHWOOD_DOOR);
+                output.accept(AMItems.WITCHWOOD_TRAPDOOR);
+                output.accept(AMItems.WITCHWOOD_BUTTON);
+                output.accept(AMItems.WITCHWOOD_PRESSURE_PLATE);
+                output.accept(AMItems.WITCHWOOD_SIGN);
+                output.accept(AMItems.WITCHWOOD_HANGING_SIGN);
             })
             .build());
 

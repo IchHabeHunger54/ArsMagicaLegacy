@@ -16,10 +16,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 final class SpellHelperImpl implements SpellHelper {
-    static final SpellHelperImpl INSTANCE = new SpellHelperImpl();
-
-    private SpellHelperImpl() {}
-
     @Override
     public SpellCastResult castPrimary(Spell spell, LivingEntity caster) {
         PrimarySpellShape primary = spell.currentShapeGroup().primaryShape();

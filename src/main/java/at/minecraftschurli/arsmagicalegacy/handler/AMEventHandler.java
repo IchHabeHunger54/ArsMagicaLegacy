@@ -2,9 +2,11 @@ package at.minecraftschurli.arsmagicalegacy.handler;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
+import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 
@@ -23,5 +25,10 @@ final class AMEventHandler {
     private static void newRegistry(NewRegistryEvent event) {
         event.register(ArsMagicaApi.getSpellPartRegistry());
         event.register(ArsMagicaApi.getSpellDataComponentRegistry());
+    }
+
+    @SubscribeEvent
+    private static void addReloadListener(AddReloadListenerEvent event) {
+        event.addListener((PreparableReloadListener) ArsMagicaApi.getSpellPartDataManager());
     }
 }

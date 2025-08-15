@@ -9,6 +9,7 @@ import at.minecraftschurli.arsmagicalegacy.datagen.data.AMDatapackRegistryProvid
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMItemTagsProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMLootTableProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMRecipeProvider;
+import at.minecraftschurli.arsmagicalegacy.datagen.data.AMSpellPartDataProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -35,5 +36,6 @@ final class AMDataGenerator {
         generator.addProvider(event.includeServer(), new AMItemTagsProvider(output, lookupProvider, blockTags.contentsGetter(), existingFileHelper));
         generator.addProvider(event.includeServer(), new AMLootTableProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), new AMRecipeProvider(output, lookupProvider));
+        generator.addProvider(event.includeServer(), new AMSpellPartDataProvider(output, lookupProvider));
     }
 }

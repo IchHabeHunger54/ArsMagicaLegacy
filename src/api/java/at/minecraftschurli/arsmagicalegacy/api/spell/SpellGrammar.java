@@ -43,6 +43,7 @@ public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List
                 currentComponent = (SpellComponent) part;
             }
         }
+        components.add(Pair.of(currentComponent, Collections.unmodifiableList(currentModifiers)));
         return new SpellGrammar(parts, Collections.unmodifiableList(components));
     }
 

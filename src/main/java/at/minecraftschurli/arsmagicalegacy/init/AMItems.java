@@ -1,5 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
+import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.item.SpellItem;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DoubleHighBlockItem;
@@ -12,6 +14,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 
 public interface AMItems {
     // @formatter:off
+    DeferredItem<SpellItem> SPELL                    = AMRegistries.ITEMS.registerItem("spell", p -> new SpellItem(p.component(AMDataComponents.SPELL, Spell.EMPTY)));
     DeferredItem<BlockItem> CHIMERITE_ORE            = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.CHIMERITE_ORE);
     DeferredItem<BlockItem> DEEPSLATE_CHIMERITE_ORE  = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.DEEPSLATE_CHIMERITE_ORE);
     DeferredItem<Item>      CHIMERITE                = AMRegistries.ITEMS.registerSimpleItem("chimerite");

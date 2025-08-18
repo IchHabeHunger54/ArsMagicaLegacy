@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.handler;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.api.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
@@ -43,8 +44,10 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void entityAttributeModification(EntityAttributeModificationEvent event) {
-        event.add(EntityType.PLAYER, AMAttributes.MAX_MANA);
+        event.add(EntityType.PLAYER, AMAttributes.BURNOUT_REGENERATION);
         event.add(EntityType.PLAYER, AMAttributes.MANA_REGENERATION);
+        event.add(EntityType.PLAYER, AMAttributes.MAX_BURNOUT);
+        event.add(EntityType.PLAYER, AMAttributes.MAX_MANA);
     }
 
     @SubscribeEvent
@@ -55,6 +58,10 @@ final class AMEventHandler {
         manaHelper.setMaxMana(player, manaHelper.getManaBase());
         manaHelper.setMana(player, manaHelper.getManaBase());
         manaHelper.setManaRegeneration(player, manaHelper.getManaBase() * manaHelper.getManaRegenerationMultiplier());
+        BurnoutHelper burnoutHelper = ArsMagicaApi.getBurnoutHelper();
+        burnoutHelper.setMaxBurnout(player, burnoutHelper.getBurnoutBase());
+        burnoutHelper.setBurnout(player, 0);
+        burnoutHelper.setBurnoutRegeneration(player, burnoutHelper.getBurnoutBase() * burnoutHelper.getBurnoutRegenerationMultiplier());
     }
 
     @SubscribeEvent
@@ -62,5 +69,7 @@ final class AMEventHandler {
         if (!(event.getEntity() instanceof LivingEntity living)) return;
         ManaHelper manaHelper = ArsMagicaApi.getManaHelper();
         manaHelper.increaseMana(living, manaHelper.getManaRegeneration(living));
+        BurnoutHelper burnoutHelper = ArsMagicaApi.getBurnoutHelper();
+        burnoutHelper.decreaseBurnout(living, burnoutHelper.getBurnoutRegeneration(living));
     }
 }

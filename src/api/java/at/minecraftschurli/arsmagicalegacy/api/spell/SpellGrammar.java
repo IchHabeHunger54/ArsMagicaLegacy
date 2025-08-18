@@ -68,6 +68,14 @@ public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List
             .sum();
     }
 
+    public double getBurnoutCost() {
+        return components.stream()
+            .map(Pair::getFirst)
+            .map(ArsMagicaApi.getSpellPartDataManager()::get)
+            .mapToDouble(SpellPartData::burnoutOrGenerated)
+            .sum();
+    }
+
     private static double getManaCost(Pair<SpellComponent, List<SpellModifier>> pair) {
         SpellPartDataManager manager = ArsMagicaApi.getSpellPartDataManager();
         return manager.get(pair.getFirst()).mana() * pair.getSecond().stream().mapToDouble(e -> manager.get(e).mana()).reduce(1, (a, b) -> a * b);

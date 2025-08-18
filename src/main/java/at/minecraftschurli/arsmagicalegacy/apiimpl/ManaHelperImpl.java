@@ -6,7 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import net.minecraft.world.entity.LivingEntity;
 
-public class ManaHelperImpl implements ManaHelper {
+public final class ManaHelperImpl implements ManaHelper {
     @Override
     public double getManaBase() {
         return AMServerConfig.MANA_BASE.get();

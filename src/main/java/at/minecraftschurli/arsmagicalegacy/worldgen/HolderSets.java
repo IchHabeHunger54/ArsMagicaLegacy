@@ -44,6 +44,7 @@ public final class HolderSets {
      * @param biomes    The biome resource keys to lookup.
      * @return A {@link HolderSet}.
      */
+    @SafeVarargs
     public static HolderSet<Biome> biome(BootstrapContext<?> bootstrap, ResourceKey<Biome>... biomes) {
         return direct(bootstrap, Registries.BIOME, biomes);
     }

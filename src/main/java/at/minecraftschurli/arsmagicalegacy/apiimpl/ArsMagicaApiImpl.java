@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.api.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.SpellPartDataManager;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
@@ -13,6 +14,7 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     private static final Registry<SpellPart> SPELL_PART_REGISTRY = new RegistryBuilder<>(AMRegistryKeys.SPELL_PART).sync(true).create();
     private static final Registry<DataComponentType<?>> SPELL_DATA_COMPONENT_REGISTRY = new RegistryBuilder<>(AMRegistryKeys.SPELL_DATA_COMPONENT).sync(true).create();
     private static final SpellPartDataManager SPELL_PART_DATA_MANAGER = new SpellPartDataManagerImpl();
+    private static final ManaHelper MANA_HELPER = new ManaHelperImpl();
     private static final SpellHelper SPELL_HELPER = new SpellHelperImpl();
 
     @Override
@@ -28,6 +30,11 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     @Override
     protected SpellPartDataManager _getSpellPartDataManager() {
         return SPELL_PART_DATA_MANAGER;
+    }
+
+    @Override
+    protected ManaHelper _getManaHelper() {
+        return MANA_HELPER;
     }
 
     @Override

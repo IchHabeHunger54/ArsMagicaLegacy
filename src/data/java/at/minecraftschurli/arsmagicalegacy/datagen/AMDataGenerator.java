@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMBlockStateProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMItemModelProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMLanguageProvider;
+import at.minecraftschurli.arsmagicalegacy.datagen.data.AMAdvancementProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMBlockTagsProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMDatapackRegistryProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMItemTagsProvider;
@@ -31,6 +32,7 @@ final class AMDataGenerator {
         generator.addProvider(event.includeClient(), new AMBlockStateProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new AMItemModelProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new AMLanguageProvider(output));
+        generator.addProvider(event.includeServer(), new AMAdvancementProvider(output, lookupProvider, existingFileHelper));
         AMBlockTagsProvider blockTags = generator.addProvider(event.includeServer(), new AMBlockTagsProvider(output, lookupProvider, existingFileHelper));
         generator.addProvider(event.includeServer(), new AMDatapackRegistryProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), new AMItemTagsProvider(output, lookupProvider, blockTags.contentsGetter(), existingFileHelper));

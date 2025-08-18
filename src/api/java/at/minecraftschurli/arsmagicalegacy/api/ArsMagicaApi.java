@@ -57,6 +57,13 @@ public abstract class ArsMagicaApi {
     }
 
     /**
+     * @return The {@link ManaHelper} instance.
+     */
+    public static ManaHelper getManaHelper() {
+        return INSTANCE.get()._getManaHelper();
+    }
+
+    /**
      * @return The {@link SpellHelper} instance.
      */
     public static SpellHelper getSpellHelper() {
@@ -71,6 +78,9 @@ public abstract class ArsMagicaApi {
 
     @ApiStatus.Internal
     protected abstract SpellPartDataManager _getSpellPartDataManager();
+
+    @ApiStatus.Internal
+    protected abstract ManaHelper _getManaHelper();
 
     @ApiStatus.Internal
     protected abstract SpellHelper _getSpellHelper();

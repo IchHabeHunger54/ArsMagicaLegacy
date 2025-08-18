@@ -13,7 +13,7 @@ public abstract class SpellPartDataProvider extends AbstractDataProvider<SpellPa
         super("spell_part", "Spell Part Data", SpellPartData.CODEC, output, lookupProvider, modId);
     }
 
-    public SpellPartData.Builder builder(DeferredHolder<SpellPart, ?> part, float mana) {
+    public SpellPartData.Builder builder(DeferredHolder<SpellPart, ?> part, double mana) {
         return new SpellPartData.Builder(part.getId(), mana);
     }
 }

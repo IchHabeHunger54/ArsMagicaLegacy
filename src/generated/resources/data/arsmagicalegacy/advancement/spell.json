@@ -1,0 +1,33 @@
+{
+  "parent": "arsmagicalegacy:root",
+  "criteria": {
+    "spell": {
+      "conditions": {
+        "items": [
+          {
+            "items": "arsmagicalegacy:spell"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.arsmagicalegacy.spell.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "arsmagicalegacy:spell"
+    },
+    "title": {
+      "translate": "advancements.arsmagicalegacy.spell.title"
+    }
+  },
+  "requirements": [
+    [
+      "spell"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.api.spell;
 
 import at.minecraftschurli.arsmagicalegacy.api.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.SpellPartDataManager;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -59,5 +60,16 @@ public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List
     @Override
     public int hashCode() {
         return parts.hashCode();
+    }
+
+    public double getManaCost() {
+        return components.stream()
+            .mapToDouble(SpellGrammar::getManaCost)
+            .sum();
+    }
+
+    private static double getManaCost(Pair<SpellComponent, List<SpellModifier>> pair) {
+        SpellPartDataManager manager = ArsMagicaApi.getSpellPartDataManager();
+        return manager.get(pair.getFirst()).mana() * pair.getSecond().stream().mapToDouble(e -> manager.get(e).mana()).reduce(1, (a, b) -> a * b);
     }
 }

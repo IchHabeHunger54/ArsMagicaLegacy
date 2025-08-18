@@ -45,4 +45,8 @@ public record Spell(Optional<Component> name, List<SpellShapeGroup> shapeGroups,
     public SpellShapeGroup currentShapeGroup() {
         return shapeGroups.get(activeShapeGroup);
     }
+
+    public double getManaCost() {
+        return currentShapeGroup().getManaCost() * grammar.getManaCost();
+    }
 }

@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.client.layer;
 
+import at.minecraftschurli.arsmagicalegacy.api.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.client.AMClientConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.ManaHelper;
@@ -28,9 +29,11 @@ public class BarsLayer implements LayeredDraw.Layer {
     public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
         Player player = Minecraft.getInstance().player;
         ManaHelper manaHelper = ArsMagicaApi.getManaHelper();
+        BurnoutHelper burnoutHelper = ArsMagicaApi.getBurnoutHelper();
         int xLocation = xAnchor.get().getLocation(x);
         int yLocation = yAnchor.get().getLocation(y);
         renderBar(guiGraphics, xLocation, yLocation + 10, manaHelper.getMana(player), manaHelper.getMaxMana(player), 0x99FFFF);
+        renderBar(guiGraphics, xLocation, yLocation + 20, burnoutHelper.getBurnout(player), burnoutHelper.getMaxBurnout(player), 0x880000);
     }
 
     protected void renderBar(GuiGraphics guiGraphics, int x, int y, double value, double maxValue, int color) {

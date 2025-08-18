@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.api.spell;
 
+import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.data.AbstractDataProvider;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -13,6 +14,10 @@ public record SpellPartData(double mana, Optional<Double> burnout) {
         Codec.DOUBLE.fieldOf("mana").forGetter(SpellPartData::mana),
         Codec.DOUBLE.optionalFieldOf("burnout").forGetter(SpellPartData::burnout)
     ).apply(inst, SpellPartData::new));
+
+    public double burnoutOrGenerated() {
+        return burnout.orElse(mana * ArsMagicaApi.getBurnoutHelper().getManaToBurnoutRatio());
+    }
 
     public static class Builder extends AbstractDataProvider.Builder<SpellPartData> {
         private final double mana;

@@ -112,6 +112,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("bars_y", "Vertical position of the mana, burnout and level bars.");
         configTranslation("bars_anchor_x", "Horizontal anchor of the mana, burnout and level bars.");
         configTranslation("bars_anchor_y", "Vertical anchor of the mana, burnout and level bars.");
+        add(AMTranslations.SPELL_CAST_BURNED_OUT, "Spell is malformed and cannot be cast!");
         add(AMTranslations.SPELL_CAST_MALFORMED, "Spell is malformed and cannot be cast!");
         add(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA, "Not enough mana to cast the spell!");
         add("itemGroup." + ArsMagicaApi.MOD_ID, "Ars Magica: Legacy");

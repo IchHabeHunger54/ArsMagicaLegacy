@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.api.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.PrimarySpellShape;
@@ -22,14 +23,20 @@ import java.util.List;
 final class SpellHelperImpl implements SpellHelper {
     @Override
     public SpellCastResult cast(Spell spell, LivingEntity caster, boolean consume) {
-        double manaCost = spell.getManaCost();
         ManaHelper manaHelper = ArsMagicaApi.getManaHelper();
+        BurnoutHelper burnoutHelper = ArsMagicaApi.getBurnoutHelper();
+        double manaCost = spell.getManaCost() + burnoutHelper.getBurnout(caster);
+        double burnoutCost = spell.grammar().getBurnoutCost();
         if (consume && !(caster instanceof Player player && player.isCreative())) {
-            if (manaHelper.getMana(caster) < manaCost) return SpellCastResult.fail(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA);
+            if (manaHelper.getMana(caster) < manaCost)
+                return SpellCastResult.fail(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA);
+            if (burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) < burnoutCost)
+                return SpellCastResult.fail(AMTranslations.SPELL_CAST_BURNED_OUT);
         }
         SpellCastResult result = castPrimary(spell, caster);
         if (consume && !(caster instanceof Player player && player.isCreative())) {
             manaHelper.decreaseMana(caster, manaCost);
+            burnoutHelper.increaseBurnout(caster, burnoutCost);
         }
         return result;
     }

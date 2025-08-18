@@ -31,7 +31,12 @@ public class SpellItem extends Item implements SpellHoldingItem {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack stack = player.getItemInHand(usedHand);
         SpellCastResult result = ArsMagicaApi.getSpellHelper().cast(getActiveSpell(stack), player, true);
-        setActiveSpell(stack, result.spell());
+        if (result.spell() != null) {
+            setActiveSpell(stack, result.spell());
+        }
+        if (result.message() != null) {
+            player.displayClientMessage(result.message(), true);
+        }
         return result.result().isFalse() ? InteractionResultHolder.fail(stack) : InteractionResultHolder.success(stack);
     }
 }

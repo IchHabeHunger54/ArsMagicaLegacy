@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
-import at.minecraftschurli.arsmagicalegacy.api.AMTags;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.block.AMFlowerBlock;
 import at.minecraftschurli.arsmagicalegacy.block.WakebloomBlock;

@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
-import at.minecraftschurli.arsmagicalegacy.api.AMTags;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import net.minecraft.core.HolderLookup;

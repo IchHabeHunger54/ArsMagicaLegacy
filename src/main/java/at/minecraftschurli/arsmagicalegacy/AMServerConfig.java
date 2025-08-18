@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.util.Translations;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
@@ -20,17 +20,17 @@ public final class AMServerConfig {
         builder.push("mana");
         MANA_BASE = builder
             .comment("The base value for mana calculation. Mana is calculated as base + multiplier * (level - 1).")
-            .translation(Translations.CONFIG + "mana.base")
+            .translation(AMTranslations.CONFIG + "mana.base")
             .worldRestart()
             .defineInRange("base", 200., 0, 1000000);
         MANA_MULTIPLIER = builder
             .comment("The multiplier for mana calculation. Mana is calculated as base + multiplier * (level - 1).")
-            .translation(Translations.CONFIG + "mana.multiplier")
+            .translation(AMTranslations.CONFIG + "mana.multiplier")
             .worldRestart()
             .defineInRange("multiplier", 25., 0, 1000000);
         MANA_REGENERATION = builder
             .comment("The multiplier for mana regeneration. Mana regen is calculated as (base + multiplier * (level - 1)) * regeneration.")
-            .translation(Translations.CONFIG + "mana.regeneration")
+            .translation(AMTranslations.CONFIG + "mana.regeneration")
             .worldRestart()
             .defineInRange("regeneration", 0.001, 0, 1000000);
         builder.pop();

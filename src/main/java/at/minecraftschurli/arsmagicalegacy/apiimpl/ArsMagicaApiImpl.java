@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
-import at.minecraftschurli.arsmagicalegacy.api.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.SpellHelper;

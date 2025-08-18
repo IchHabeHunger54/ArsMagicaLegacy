@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
+import at.minecraftschurli.arsmagicalegacy.util.Translations;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -102,6 +103,17 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTags.Items.DUSTS_ARCANE_ASH, "Arcane Ash Dusts");
         add(AMTags.Items.DUSTS_PURIFIED_VINTEUM, "Purified Vinteum Dusts");
         add(AMTags.Items.WITCHWOOD_LOGS, "Witchwood Logs");
+        advancementTranslation("root", "Ars Magica: Legacy", "A renewed look into Minecraft with a splash of magic...");
+        advancementTranslation("spell", "You're a wizard, Harry!", "Get your first spell");
+        configTranslation("mana.base", "The base value for mana calculation. Mana is calculated as base + multiplier * (level - 1).");
+        configTranslation("mana.multiplier", "The multiplier for mana calculation. Mana is calculated as base + multiplier * (level - 1).");
+        configTranslation("mana.regeneration", "The multiplier for mana regeneration. Mana regen is calculated as (base + multiplier * (level - 1)) * regeneration.");
+        configTranslation("bars_x", "Horizontal position of the mana, burnout and level bars.");
+        configTranslation("bars_y", "Vertical position of the mana, burnout and level bars.");
+        configTranslation("bars_anchor_x", "Horizontal anchor of the mana, burnout and level bars.");
+        configTranslation("bars_anchor_y", "Vertical anchor of the mana, burnout and level bars.");
+        add(Translations.SPELL_CAST_MALFORMED, "Spell is malformed and cannot be cast!");
+        add(Translations.SPELL_CAST_NOT_ENOUGH_MANA, "Not enough mana to cast the spell!");
         add("itemGroup." + ArsMagicaApi.MOD_ID, "Ars Magica: Legacy");
     }
 
@@ -121,6 +133,28 @@ public final class AMLanguageProvider extends LanguageProvider {
      */
     private void itemIdTranslation(DeferredItem<?> item) {
         addItem(item, idTranslation(item.getId().getPath()));
+    }
+
+    /**
+     * Adds an advancement translation.
+     *
+     * @param name        The name of the advancement to generate the translation for.
+     * @param title       The translation of the advancement's title.
+     * @param description The translation of the advancement's description.
+     */
+    private void advancementTranslation(String name, String title, String description) {
+        add("advancements." + ArsMagicaApi.MOD_ID + "." + name + ".title", title);
+        add("advancements." + ArsMagicaApi.MOD_ID + "." + name + ".description", description);
+    }
+
+    /**
+     * Adds a config translation.
+     *
+     * @param name        The name of the config value to generate the translation for.
+     * @param translation The translation of the config value.
+     */
+    private void configTranslation(String name, String translation) {
+        add(Translations.CONFIG + name, translation);
     }
 
     /**

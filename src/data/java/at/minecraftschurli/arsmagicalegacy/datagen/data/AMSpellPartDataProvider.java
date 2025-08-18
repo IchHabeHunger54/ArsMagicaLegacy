@@ -15,7 +15,7 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
 
     @Override
     public void generate(HolderLookup.Provider provider) {
-        add(builder(AMSpells.SELF, 0.5f));
-        add(builder(AMSpells.HEAL, 60f));
+        add(builder(AMSpells.SELF, 0.5));
+        add(builder(AMSpells.HEAL, 60));
     }
 }

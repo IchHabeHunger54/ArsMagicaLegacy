@@ -1,0 +1,36 @@
+{
+  "criteria": {
+    "vinteum_dust": {
+      "conditions": {
+        "items": [
+          {
+            "items": "arsmagicalegacy:vinteum_dust"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "arsmagicalegacy:textures/gui/advancements/background.png",
+    "description": {
+      "translate": "advancements.arsmagicalegacy.root.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "arsmagicalegacy:vinteum_dust"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.arsmagicalegacy.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "vinteum_dust"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

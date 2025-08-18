@@ -1,13 +1,22 @@
 package at.minecraftschurli.arsmagicalegacy.handler;
 
+import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.ManaHelper;
+import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
+import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
+import net.neoforged.neoforge.event.entity.player.AdvancementEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID)
@@ -30,5 +39,28 @@ final class AMEventHandler {
     @SubscribeEvent
     private static void addReloadListener(AddReloadListenerEvent event) {
         event.addListener((PreparableReloadListener) ArsMagicaApi.getSpellPartDataManager());
+    }
+
+    @SubscribeEvent
+    private static void entityAttributeModification(EntityAttributeModificationEvent event) {
+        event.add(EntityType.PLAYER, AMAttributes.MAX_MANA);
+        event.add(EntityType.PLAYER, AMAttributes.MANA_REGENERATION);
+    }
+
+    @SubscribeEvent
+    private static void advancementEarn(AdvancementEvent.AdvancementEarnEvent event) {
+        if (!event.getAdvancement().id().toString().equals(AMServerConfig.MAGIC_ADVANCEMENT.get())) return;
+        Player player = event.getEntity();
+        ManaHelper manaHelper = ArsMagicaApi.getManaHelper();
+        manaHelper.setMaxMana(player, manaHelper.getManaBase());
+        manaHelper.setMana(player, manaHelper.getManaBase());
+        manaHelper.setManaRegeneration(player, manaHelper.getManaBase() * manaHelper.getManaRegenerationMultiplier());
+    }
+
+    @SubscribeEvent
+    private static void entityTickPost(EntityTickEvent.Post event) {
+        if (!(event.getEntity() instanceof LivingEntity living)) return;
+        ManaHelper manaHelper = ArsMagicaApi.getManaHelper();
+        manaHelper.increaseMana(living, manaHelper.getManaRegeneration(living));
     }
 }

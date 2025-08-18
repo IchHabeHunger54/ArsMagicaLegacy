@@ -7,23 +7,23 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.Optional;
 
-public record SpellPartData(float mana, Optional<Float> burnout) {
+public record SpellPartData(double mana, Optional<Double> burnout) {
     public static final SpellPartData DEFAULT = new SpellPartData(0f, Optional.empty());
     public static final Codec<SpellPartData> CODEC = RecordCodecBuilder.create(inst -> inst.group(
-        Codec.FLOAT.fieldOf("mana").forGetter(SpellPartData::mana),
-        Codec.FLOAT.optionalFieldOf("burnout").forGetter(SpellPartData::burnout)
+        Codec.DOUBLE.fieldOf("mana").forGetter(SpellPartData::mana),
+        Codec.DOUBLE.optionalFieldOf("burnout").forGetter(SpellPartData::burnout)
     ).apply(inst, SpellPartData::new));
 
     public static class Builder extends AbstractDataProvider.Builder<SpellPartData> {
-        private final float mana;
-        private Float burnout;
+        private final double mana;
+        private Double burnout;
 
-        public Builder(ResourceLocation id, float mana) {
+        public Builder(ResourceLocation id, double mana) {
             super(id);
             this.mana = mana;
         }
 
-        public Builder burnout(float burnout) {
+        public Builder burnout(double burnout) {
             this.burnout = burnout;
             return this;
         }

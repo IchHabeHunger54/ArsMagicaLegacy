@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.client;
 
 import at.minecraftschurli.arsmagicalegacy.client.layer.LayerAnchor;
-import at.minecraftschurli.arsmagicalegacy.util.Translations;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 public final class AMClientConfig {
@@ -17,19 +17,19 @@ public final class AMClientConfig {
         builder.comment("Positions of the mana, burnout and level bars. The size of the layer is 80x30.").push("bars");
         BARS_X = builder
                 .comment("Horizontal position of the mana, burnout and level bars.")
-                .translation(Translations.CONFIG + "bars_x")
+                .translation(AMTranslations.CONFIG + "bars_x")
                 .defineInRange("x", 6, Short.MIN_VALUE, Short.MAX_VALUE);
         BARS_Y = builder
                 .comment("Vertical position of the mana, burnout and level bars.")
-                .translation(Translations.CONFIG + "bars_y")
+                .translation(AMTranslations.CONFIG + "bars_y")
                 .defineInRange("y", -34, Short.MIN_VALUE, Short.MAX_VALUE);
         BARS_X_ANCHOR = builder
                 .comment("Horizontal anchor of the mana, burnout and level bars.")
-                .translation(Translations.CONFIG + "bars_anchor_x")
+                .translation(AMTranslations.CONFIG + "bars_anchor_x")
                 .defineEnum("bars_anchor_x", LayerAnchor.X.LEFT);
         BARS_Y_ANCHOR = builder
                 .comment("Vertical anchor of the mana, burnout and level bars.")
-                .translation(Translations.CONFIG + "bars_anchor_y")
+                .translation(AMTranslations.CONFIG + "bars_anchor_y")
                 .defineEnum("bars_anchor_y", LayerAnchor.Y.BOTTOM);
         SPEC = builder.build();
     }

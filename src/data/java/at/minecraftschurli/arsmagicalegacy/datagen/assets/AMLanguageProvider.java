@@ -1,10 +1,10 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.assets;
 
-import at.minecraftschurli.arsmagicalegacy.api.AMTags;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
-import at.minecraftschurli.arsmagicalegacy.util.Translations;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -112,8 +112,8 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("bars_y", "Vertical position of the mana, burnout and level bars.");
         configTranslation("bars_anchor_x", "Horizontal anchor of the mana, burnout and level bars.");
         configTranslation("bars_anchor_y", "Vertical anchor of the mana, burnout and level bars.");
-        add(Translations.SPELL_CAST_MALFORMED, "Spell is malformed and cannot be cast!");
-        add(Translations.SPELL_CAST_NOT_ENOUGH_MANA, "Not enough mana to cast the spell!");
+        add(AMTranslations.SPELL_CAST_MALFORMED, "Spell is malformed and cannot be cast!");
+        add(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA, "Not enough mana to cast the spell!");
         add("itemGroup." + ArsMagicaApi.MOD_ID, "Ars Magica: Legacy");
     }
 
@@ -154,7 +154,7 @@ public final class AMLanguageProvider extends LanguageProvider {
      * @param translation The translation of the config value.
      */
     private void configTranslation(String name, String translation) {
-        add(Translations.CONFIG + name, translation);
+        add(AMTranslations.CONFIG + name, translation);
     }
 
     /**

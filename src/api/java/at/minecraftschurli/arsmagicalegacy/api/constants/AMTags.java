@@ -1,5 +1,6 @@
-package at.minecraftschurli.arsmagicalegacy.api;
+package at.minecraftschurli.arsmagicalegacy.api.constants;
 
+import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;

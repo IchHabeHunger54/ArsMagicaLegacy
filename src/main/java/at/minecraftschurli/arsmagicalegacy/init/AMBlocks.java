@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.init;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.block.AMFlowerBlock;
+import at.minecraftschurli.arsmagicalegacy.block.OcculusBlock;
 import at.minecraftschurli.arsmagicalegacy.block.WakebloomBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -57,6 +58,7 @@ public interface AMBlocks {
         .getFamily());
 
     // @formatter:off
+    DeferredBlock<OcculusBlock>            OCCULUS                     = register("occulus",                     OcculusBlock::new, properties().strength(3, 5));
     DeferredBlock<DropExperienceBlock>     CHIMERITE_ORE               = register("chimerite_ore",               p -> new DropExperienceBlock(UniformInt.of(0, 2), p), properties().requiresCorrectToolForDrops().strength(3f, 3f));
     DeferredBlock<DropExperienceBlock>     DEEPSLATE_CHIMERITE_ORE     = register("deepslate_chimerite_ore",     p -> new DropExperienceBlock(UniformInt.of(0, 2), p), properties().mapColor(MapColor.DEEPSLATE).requiresCorrectToolForDrops().strength(4.5f, 3f).sound(SoundType.DEEPSLATE));
     DeferredBlock<Block>                   CHIMERITE_BLOCK             = register("chimerite_block",             properties().mapColor(MapColor.COLOR_PINK).requiresCorrectToolForDrops().strength(3f, 3f));

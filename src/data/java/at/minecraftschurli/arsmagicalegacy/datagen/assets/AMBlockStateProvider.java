@@ -19,6 +19,7 @@ public final class AMBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
+        horizontalBlock(AMBlocks.OCCULUS.get(), models().getExistingFile(ArsMagicaApi.modLoc("block/occulus")));
         simpleBlock(AMBlocks.CHIMERITE_ORE);
         simpleBlock(AMBlocks.DEEPSLATE_CHIMERITE_ORE);
         simpleBlock(AMBlocks.CHIMERITE_BLOCK);

@@ -9,7 +9,9 @@ import java.util.function.Supplier;
 public interface AMCreativeTabs {
     Supplier<CreativeModeTab> MAIN = AMRegistries.CREATIVE_TABS.register("main", () -> CreativeModeTab.builder()
         .title(Component.translatable("itemGroup." + ArsMagicaApi.MOD_ID))
+        .icon(AMItems.OCCULUS::toStack)
         .displayItems((display, output) -> {
+            output.accept(AMItems.OCCULUS);
             output.accept(AMItems.CHIMERITE_ORE);
             output.accept(AMItems.DEEPSLATE_CHIMERITE_ORE);
             output.accept(AMItems.CHIMERITE);

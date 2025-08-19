@@ -33,6 +33,7 @@ public final class AMLootTableProvider extends LootTableProvider {
 
         @Override
         protected void generate() {
+            dropSelf(AMBlocks.OCCULUS.get());
             add(AMBlocks.CHIMERITE_ORE.get(), b -> createOreDrop(b, AMItems.CHIMERITE.get()));
             add(AMBlocks.DEEPSLATE_CHIMERITE_ORE.get(), b -> createOreDrop(b, AMItems.CHIMERITE.get()));
             dropSelf(AMBlocks.CHIMERITE_BLOCK.get());

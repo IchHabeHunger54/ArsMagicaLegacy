@@ -2,11 +2,14 @@ package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.event.LevelChangeEvent;
 import at.minecraftschurli.arsmagicalegacy.api.helper.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.ManaHelper;
+import at.minecraftschurli.arsmagicalegacy.api.magic.MagicLevel;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import net.minecraft.world.entity.player.Player;
+import net.neoforged.neoforge.common.NeoForge;
 
 final class MagicHelperImpl implements MagicHelper {
     @Override
@@ -31,7 +34,9 @@ final class MagicHelperImpl implements MagicHelper {
 
     @Override
     public void setLevel(Player player, int level) {
-        player.setData(AMAttachments.MAGIC_LEVEL, player.getData(AMAttachments.MAGIC_LEVEL).setLevel(level));
+        MagicLevel data = player.getData(AMAttachments.MAGIC_LEVEL);
+        NeoForge.EVENT_BUS.post(new LevelChangeEvent(player, data.level(), level));
+        player.setData(AMAttachments.MAGIC_LEVEL, data.setLevel(level));
         //TODO add skill points
         ManaHelper manaHelper = ArsMagicaApi.getManaHelper();
         double oldMaxMana = manaHelper.getMaxMana(player);

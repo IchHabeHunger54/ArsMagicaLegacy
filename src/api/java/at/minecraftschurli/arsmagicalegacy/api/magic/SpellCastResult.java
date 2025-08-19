@@ -13,7 +13,11 @@ public record SpellCastResult(TriState result, @Nullable Spell spell, @Nullable 
         return new SpellCastResult(TriState.DEFAULT, spell, null);
     }
 
+    public static SpellCastResult fail(Component message) {
+        return new SpellCastResult(TriState.FALSE, null, message);
+    }
+
     public static SpellCastResult fail(String messageKey) {
-        return new SpellCastResult(TriState.FALSE, null, Component.translatable(messageKey));
+        return fail(Component.translatable(messageKey));
     }
 }

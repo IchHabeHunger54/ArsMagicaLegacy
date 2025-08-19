@@ -14,13 +14,16 @@ public final class AMServerConfig {
     public static final ModConfigSpec.DoubleValue BURNOUT_BASE;
     public static final ModConfigSpec.DoubleValue BURNOUT_MULTIPLIER;
     public static final ModConfigSpec.DoubleValue BURNOUT_REGENERATION;
+    public static final ModConfigSpec.DoubleValue LEVEL_BASE;
+    public static final ModConfigSpec.DoubleValue LEVEL_MULTIPLIER;
+    public static final ModConfigSpec.IntValue EXTRA_SKILL_POINTS;
     static final ModConfigSpec SPEC;
 
     static {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
         MAGIC_ADVANCEMENT = builder
-            .comment("Completing this advancement will unlock magic for the player.")
-            .define("magic_advancement", ArsMagicaApi.modLoc("root").toString(), AMServerConfig::isValidResourceLocation);
+            .comment("Completing this advancement will unlock magic for the player. Leave empty to not require an advancement and have magic unlocked from the start.")
+            .define("magic_advancement", ArsMagicaApi.modLoc("root").toString(), AMServerConfig::isValidResourceLocationOrEmpty);
         MANA_TO_BURNOUT_RATIO = builder
             .comment("The default mana to burnout ratio, used in calculating spell costs.")
             .translation(AMTranslations.CONFIG + "mana_to_burnout_ratio")
@@ -37,7 +40,7 @@ public final class AMServerConfig {
             .worldRestart()
             .defineInRange("multiplier", 25., 0, 1000000);
         MANA_REGENERATION = builder
-            .comment("The multiplier for mana regeneration. Mana regen is calculated as (base + multiplier * (level - 1)) * regeneration.")
+            .comment("The multiplier for mana regeneration. Mana regeneration is calculated as (base + multiplier * (level - 1)) * regeneration.")
             .translation(AMTranslations.CONFIG + "mana.regeneration")
             .worldRestart()
             .defineInRange("regeneration", 0.001, 0, 1000000);
@@ -54,17 +57,34 @@ public final class AMServerConfig {
             .worldRestart()
             .defineInRange("multiplier", 25., 0, 1000000);
         BURNOUT_REGENERATION = builder
-            .comment("The multiplier for burnout regeneration. Burnout regen is calculated as (base + multiplier * (level - 1)) * regeneration.")
+            .comment("The multiplier for burnout regeneration. Burnout regeneration is calculated as (base + multiplier * (level - 1)) * regeneration.")
             .translation(AMTranslations.CONFIG + "burnout.regeneration")
             .worldRestart()
             .defineInRange("regeneration", 0.001, 0, 1000000);
         builder.pop();
+        builder.push("level");
+        LEVEL_BASE = builder
+            .comment("The base value for leveling calculation. XP cost is calculated as multiplier * base ^ (level - 1).")
+            .translation(AMTranslations.CONFIG + "level.base")
+            .worldRestart()
+            .defineInRange("base", 1.2, 0, 10000);
+        LEVEL_MULTIPLIER = builder
+            .comment("The multiplier for leveling calculation. XP cost is calculated as multiplier * base ^ (level - 1).")
+            .translation(AMTranslations.CONFIG + "level.multiplier")
+            .worldRestart()
+            .defineInRange("multiplier", 2.4, 0, 10000);
+        EXTRA_SKILL_POINTS = builder
+            .comment("The extra blue skill points a player gets at level 1, in addition to the one they already get.")
+            .translation(AMTranslations.CONFIG + "level.extra_skill_points")
+            .defineInRange("extra_skill_points", 2, 0, Short.MAX_VALUE);
+        builder.pop();
         SPEC = builder.build();
     }
 
-    private static boolean isValidResourceLocation(Object o) {
+    private static boolean isValidResourceLocationOrEmpty(Object o) {
         if (o == null) return false;
         String s = o.toString();
+        if (s.isEmpty()) return true;
         if (!s.contains(":")) return ResourceLocation.isValidPath(s);
         String[] split = s.split(":");
         return split.length == 2 && ResourceLocation.isValidNamespace(split[0]) && ResourceLocation.isValidPath(split[1]);

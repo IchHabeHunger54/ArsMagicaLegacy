@@ -31,51 +31,51 @@ public final class AMServerConfig {
         builder.push("mana");
         MANA_BASE = builder
             .comment("The base value for mana calculation. Mana is calculated as base + multiplier * (level - 1).")
-            .translation(AMTranslations.CONFIG + "mana.base")
+            .translation(AMTranslations.CONFIG + "mana_base")
             .worldRestart()
             .defineInRange("base", 200., 0, 1000000);
         MANA_MULTIPLIER = builder
             .comment("The multiplier for mana calculation. Mana is calculated as base + multiplier * (level - 1).")
-            .translation(AMTranslations.CONFIG + "mana.multiplier")
+            .translation(AMTranslations.CONFIG + "mana_multiplier")
             .worldRestart()
             .defineInRange("multiplier", 25., 0, 1000000);
         MANA_REGENERATION = builder
             .comment("The multiplier for mana regeneration. Mana regeneration is calculated as (base + multiplier * (level - 1)) * regeneration.")
-            .translation(AMTranslations.CONFIG + "mana.regeneration")
+            .translation(AMTranslations.CONFIG + "mana_regeneration")
             .worldRestart()
             .defineInRange("regeneration", 0.001, 0, 1000000);
         builder.pop();
         builder.push("burnout");
         BURNOUT_BASE = builder
             .comment("The base value for burnout calculation. Burnout is calculated as base + multiplier * (level - 1).")
-            .translation(AMTranslations.CONFIG + "burnout.base")
+            .translation(AMTranslations.CONFIG + "burnout_base")
             .worldRestart()
             .defineInRange("base", 200., 0, 1000000);
         BURNOUT_MULTIPLIER = builder
             .comment("The multiplier for burnout calculation. Burnout is calculated as base + multiplier * (level - 1).")
-            .translation(AMTranslations.CONFIG + "burnout.multiplier")
+            .translation(AMTranslations.CONFIG + "burnout_multiplier")
             .worldRestart()
             .defineInRange("multiplier", 25., 0, 1000000);
         BURNOUT_REGENERATION = builder
             .comment("The multiplier for burnout regeneration. Burnout regeneration is calculated as (base + multiplier * (level - 1)) * regeneration.")
-            .translation(AMTranslations.CONFIG + "burnout.regeneration")
+            .translation(AMTranslations.CONFIG + "burnout_regeneration")
             .worldRestart()
             .defineInRange("regeneration", 0.001, 0, 1000000);
         builder.pop();
         builder.push("level");
         LEVEL_BASE = builder
             .comment("The base value for leveling calculation. XP cost is calculated as multiplier * base ^ (level - 1).")
-            .translation(AMTranslations.CONFIG + "level.base")
+            .translation(AMTranslations.CONFIG + "level_base")
             .worldRestart()
             .defineInRange("base", 1.2, 0, 10000);
         LEVEL_MULTIPLIER = builder
             .comment("The multiplier for leveling calculation. XP cost is calculated as multiplier * base ^ (level - 1).")
-            .translation(AMTranslations.CONFIG + "level.multiplier")
+            .translation(AMTranslations.CONFIG + "level_multiplier")
             .worldRestart()
             .defineInRange("multiplier", 2.4, 0, 10000);
         EXTRA_SKILL_POINTS = builder
             .comment("The extra blue skill points a player gets at level 1, in addition to the one they already get.")
-            .translation(AMTranslations.CONFIG + "level.extra_skill_points")
+            .translation(AMTranslations.CONFIG + "extra_skill_points")
             .defineInRange("extra_skill_points", 2, 0, Short.MAX_VALUE);
         builder.pop();
         SPEC = builder.build();

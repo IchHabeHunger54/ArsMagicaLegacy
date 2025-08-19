@@ -120,12 +120,16 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("level_multiplier", "Level Multiplier", "The multiplier for leveling calculation. XP cost per level is calculated as multiplier * base ^ (level - 1).");
         configTranslation("extra_skill_points", "Extra Skill Points", "The extra blue skill points a player gets at level 1, in addition to the one they already get.");
         configTranslation("gui_layers", "GUI Layers", "Configuration for the various GUI layers in this mod.");
-        configTranslation("bars", "Mana/Burnout/Level Bars", "Configuration for the mana, burnout and level bars.");
+        configTranslation("bars", "Mana/Burnout/Level Bars", "Configuration for the mana, burnout and level bars. The size of the layer is 80x40.");
         configTranslation("bars_x", "Horizontal Position", "Horizontal position of the mana, burnout and level bars.");
         configTranslation("bars_y", "Vertical Position", "Vertical position of the mana, burnout and level bars.");
         configTranslation("bars_anchor_x", "Horizontal Anchor", "Horizontal anchor of the mana, burnout and level bars.");
         configTranslation("bars_anchor_y", "Vertical Anchor", "Vertical anchor of the mana, burnout and level bars.");
         configTranslation("render_level_at_top", "Render Level At Top", "If true, renders the bars in order level number -> level bar -> mana bar -> burnout bar.\nIf false, renders the bars in order mana bar -> burnout bar -> level bar -> level number.");
+        configTranslation("show_values", "Show Values", "Whether to show the exact values for mana, burnout and xp.");
+        add(AMTranslations.BARS_VALUE_BURNOUT, "%s / %s");
+        add(AMTranslations.BARS_VALUE_MANA, "%s / %s");
+        add(AMTranslations.BARS_VALUE_XP, "%s / %s");
         add(AMTranslations.SPELL_CAST_BURNED_OUT, "Burned out!");
         add(AMTranslations.SPELL_CAST_MALFORMED, "Spell is malformed and cannot be cast!");
         add(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA, "Not enough mana to cast the spell!");

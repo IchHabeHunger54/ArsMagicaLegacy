@@ -18,6 +18,7 @@ public final class AMLanguageProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         itemIdTranslation(AMItems.SPELL);
+        blockIdTranslation(AMBlocks.OCCULUS);
         blockIdTranslation(AMBlocks.CHIMERITE_ORE);
         blockIdTranslation(AMBlocks.DEEPSLATE_CHIMERITE_ORE);
         itemIdTranslation(AMItems.CHIMERITE);

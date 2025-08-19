@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-14T17:32:55.404001	Block States: arsmagicalegacy
+// 1.21.1	2025-08-19T22:06:59.243139238	Block States: arsmagicalegacy
 beb7ab7de7f6ae890282ef38e36400685d083d78 assets/arsmagicalegacy/blockstates/aum.json
 41a6820d81a4f10a322441df3d03bd96ce3efecc assets/arsmagicalegacy/blockstates/cerublossom.json
 ceceed48dd9d01498eedc67f1dcd1052b88d2d62 assets/arsmagicalegacy/blockstates/chimerite_block.json
@@ -10,6 +10,7 @@ c3a58e44c492a0628efe6a8247b330cdef358886 assets/arsmagicalegacy/blockstates/deep
 2b8a5ca05f8b1618544a0b4b93112dd9e803e01f assets/arsmagicalegacy/blockstates/desert_nova.json
 7cae732aa1a031540d4d291df27eb98115c8bac5 assets/arsmagicalegacy/blockstates/moonstone_block.json
 b7adcf17a7e4c5b1df798c2b817f13b8846a4f5a assets/arsmagicalegacy/blockstates/moonstone_ore.json
+f5b0ca45bc530e0a7dc45235befd62c679dea925 assets/arsmagicalegacy/blockstates/occulus.json
 b2a87a378e81583ca59905000831a8bc6b3317d8 assets/arsmagicalegacy/blockstates/potted_aum.json
 750e200e72f8c92bdee038f4115c42d3c206a4df assets/arsmagicalegacy/blockstates/potted_cerublossom.json
 36cce7a5c9b0fd78f43cb15a7734505f7cecab7a assets/arsmagicalegacy/blockstates/potted_desert_nova.json

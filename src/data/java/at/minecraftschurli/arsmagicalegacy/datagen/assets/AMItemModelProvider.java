@@ -16,6 +16,7 @@ public final class AMItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         basicItem(AMItems.SPELL);
+        blockItem(AMItems.OCCULUS);
         blockItem(AMItems.CHIMERITE_ORE);
         blockItem(AMItems.DEEPSLATE_CHIMERITE_ORE);
         basicItem(AMItems.CHIMERITE);

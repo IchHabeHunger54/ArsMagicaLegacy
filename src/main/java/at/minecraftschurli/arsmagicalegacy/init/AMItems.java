@@ -15,6 +15,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 public interface AMItems {
     // @formatter:off
     DeferredItem<SpellItem> SPELL                    = AMRegistries.ITEMS.registerItem("spell", p -> new SpellItem(p.component(AMDataComponents.SPELL, Spell.EMPTY)));
+    DeferredItem<BlockItem> OCCULUS                  = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.OCCULUS);
     DeferredItem<BlockItem> CHIMERITE_ORE            = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.CHIMERITE_ORE);
     DeferredItem<BlockItem> DEEPSLATE_CHIMERITE_ORE  = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.DEEPSLATE_CHIMERITE_ORE);
     DeferredItem<Item>      CHIMERITE                = AMRegistries.ITEMS.registerSimpleItem("chimerite");

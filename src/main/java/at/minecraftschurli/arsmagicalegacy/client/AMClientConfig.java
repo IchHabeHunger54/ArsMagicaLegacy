@@ -10,12 +10,13 @@ public final class AMClientConfig {
     public static final ModConfigSpec.EnumValue<LayerAnchor.X> BARS_X_ANCHOR;
     public static final ModConfigSpec.EnumValue<LayerAnchor.Y> BARS_Y_ANCHOR;
     public static final ModConfigSpec.BooleanValue RENDER_LEVEL_AT_TOP;
+    public static final ModConfigSpec.BooleanValue SHOW_VALUES;
     static final ModConfigSpec SPEC;
 
     static {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
         builder.push("gui_layers");
-        builder.comment("Positions of the mana, burnout and level bars. The size of the layer is 80x30.").push("bars");
+        builder.push("bars");
         BARS_X = builder
             .comment("Horizontal position of the mana, burnout and level bars.")
             .translation(AMTranslations.CONFIG + "bars_x")
@@ -37,6 +38,10 @@ public final class AMClientConfig {
             .comment("If false, renders the bars in order mana bar -> burnout bar -> level bar -> level number.")
             .translation(AMTranslations.CONFIG + "render_level_at_top")
             .define("render_level_at_top", true);
+        SHOW_VALUES = builder
+            .comment("Whether to show the exact values for mana, burnout and xp.")
+            .translation(AMTranslations.CONFIG + "show_values")
+            .define("show_values", false);
         SPEC = builder.build();
     }
 }

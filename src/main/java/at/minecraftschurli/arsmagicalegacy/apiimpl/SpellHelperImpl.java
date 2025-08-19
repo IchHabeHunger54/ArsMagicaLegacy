@@ -22,7 +22,7 @@ import java.util.List;
 
 final class SpellHelperImpl implements SpellHelper {
     @Override
-    public SpellCastResult cast(Spell spell, LivingEntity caster, boolean consume) {
+    public SpellCastResult cast(Spell spell, LivingEntity caster, boolean consume, boolean awardXp) {
         ManaHelper manaHelper = ArsMagicaApi.getManaHelper();
         BurnoutHelper burnoutHelper = ArsMagicaApi.getBurnoutHelper();
         double manaCost = spell.getManaCost() + burnoutHelper.getBurnout(caster);
@@ -37,6 +37,9 @@ final class SpellHelperImpl implements SpellHelper {
         if (consume && !(caster instanceof Player player && player.isCreative())) {
             manaHelper.decreaseMana(caster, manaCost);
             burnoutHelper.increaseBurnout(caster, burnoutCost);
+        }
+        if (awardXp && !result.result().isFalse() && caster instanceof Player player) {
+            ArsMagicaApi.getMagicHelper().awardXp(player, result.spell().getManaCost() / 10);
         }
         return result;
     }

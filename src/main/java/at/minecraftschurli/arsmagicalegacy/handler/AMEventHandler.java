@@ -52,16 +52,10 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void advancementEarn(AdvancementEvent.AdvancementEarnEvent event) {
-        if (!event.getAdvancement().id().toString().equals(AMServerConfig.MAGIC_ADVANCEMENT.get())) return;
-        Player player = event.getEntity();
-        ManaHelper manaHelper = ArsMagicaApi.getManaHelper();
-        manaHelper.setMaxMana(player, manaHelper.getManaBase());
-        manaHelper.setMana(player, manaHelper.getManaBase());
-        manaHelper.setManaRegeneration(player, manaHelper.getManaBase() * manaHelper.getManaRegenerationMultiplier());
-        BurnoutHelper burnoutHelper = ArsMagicaApi.getBurnoutHelper();
-        burnoutHelper.setMaxBurnout(player, burnoutHelper.getBurnoutBase());
-        burnoutHelper.setBurnout(player, 0);
-        burnoutHelper.setBurnoutRegeneration(player, burnoutHelper.getBurnoutBase() * burnoutHelper.getBurnoutRegenerationMultiplier());
+        String advancement = AMServerConfig.MAGIC_ADVANCEMENT.get();
+        if (!advancement.isEmpty() && event.getAdvancement().id().toString().equals(advancement)) {
+            ArsMagicaApi.getMagicHelper().initiateMagic(event.getEntity());
+        }
     }
 
     @SubscribeEvent

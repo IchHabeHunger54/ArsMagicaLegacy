@@ -8,7 +8,7 @@ import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 
 public interface SpellHelper {
-    SpellCastResult cast(Spell spell, LivingEntity caster, boolean consume);
+    SpellCastResult cast(Spell spell, LivingEntity caster, boolean consume, boolean awardXp);
 
     SpellCastResult castPrimary(Spell spell, LivingEntity caster);
 

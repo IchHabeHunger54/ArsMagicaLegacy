@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.api.BurnoutHelper;
+import at.minecraftschurli.arsmagicalegacy.api.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.ManaHelper;
@@ -16,6 +17,7 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     private static final Registry<DataComponentType<?>> SPELL_DATA_COMPONENT_REGISTRY = new RegistryBuilder<>(AMRegistryKeys.SPELL_DATA_COMPONENT).sync(true).create();
     private static final SpellPartDataManager SPELL_PART_DATA_MANAGER = new SpellPartDataManagerImpl();
     private static final BurnoutHelper BURNOUT_HELPER = new BurnoutHelperImpl();
+    private static final MagicHelper MAGIC_HELPER = new MagicHelperImpl();
     private static final ManaHelper MANA_HELPER = new ManaHelperImpl();
     private static final SpellHelper SPELL_HELPER = new SpellHelperImpl();
 
@@ -37,6 +39,11 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     @Override
     protected BurnoutHelper _getBurnoutHelper() {
         return BURNOUT_HELPER;
+    }
+
+    @Override
+    protected MagicHelper _getMagicHelper() {
+        return MAGIC_HELPER;
     }
 
     @Override

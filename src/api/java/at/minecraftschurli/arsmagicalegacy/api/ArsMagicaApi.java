@@ -66,6 +66,13 @@ public abstract class ArsMagicaApi {
     /**
      * @return The {@link ManaHelper} instance.
      */
+    public static MagicHelper getMagicHelper() {
+        return INSTANCE.get()._getMagicHelper();
+    }
+
+    /**
+     * @return The {@link ManaHelper} instance.
+     */
     public static ManaHelper getManaHelper() {
         return INSTANCE.get()._getManaHelper();
     }
@@ -88,6 +95,9 @@ public abstract class ArsMagicaApi {
 
     @ApiStatus.Internal
     protected abstract BurnoutHelper _getBurnoutHelper();
+
+    @ApiStatus.Internal
+    protected abstract MagicHelper _getMagicHelper();
 
     @ApiStatus.Internal
     protected abstract ManaHelper _getManaHelper();

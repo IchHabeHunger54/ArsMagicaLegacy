@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.api.skill;
+package at.minecraftschurli.arsmagicalegacy.api.magic;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

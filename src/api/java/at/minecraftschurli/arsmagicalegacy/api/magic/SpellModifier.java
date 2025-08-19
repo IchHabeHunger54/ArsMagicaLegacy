@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.api.spell;
+package at.minecraftschurli.arsmagicalegacy.api.magic;
 
 public abstract non-sealed class SpellModifier extends SpellPart {
     @Override

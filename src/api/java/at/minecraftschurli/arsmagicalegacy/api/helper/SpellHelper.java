@@ -1,7 +1,7 @@
-package at.minecraftschurli.arsmagicalegacy.api;
+package at.minecraftschurli.arsmagicalegacy.api.helper;
 
-import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.magic.SpellCastResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.HitResult;

@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
-import at.minecraftschurli.arsmagicalegacy.api.skill.MagicLevel;
+import at.minecraftschurli.arsmagicalegacy.api.magic.MagicLevel;
 import com.mojang.serialization.Codec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;

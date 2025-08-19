@@ -1,9 +1,9 @@
 package at.minecraftschurli.arsmagicalegacy.item;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHoldingItem;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.magic.SpellCastResult;
+import at.minecraftschurli.arsmagicalegacy.api.magic.SpellHoldingItem;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;

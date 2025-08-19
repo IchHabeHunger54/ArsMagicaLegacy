@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.api.magic.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Heal;
 import at.minecraftschurli.arsmagicalegacy.spell.shape.Self;
 import net.neoforged.neoforge.registries.DeferredHolder;

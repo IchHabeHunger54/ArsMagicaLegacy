@@ -1,13 +1,13 @@
 package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
-import at.minecraftschurli.arsmagicalegacy.api.BurnoutHelper;
-import at.minecraftschurli.arsmagicalegacy.api.MagicHelper;
+import at.minecraftschurli.arsmagicalegacy.api.helper.BurnoutHelper;
+import at.minecraftschurli.arsmagicalegacy.api.helper.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.ManaHelper;
-import at.minecraftschurli.arsmagicalegacy.api.SpellHelper;
+import at.minecraftschurli.arsmagicalegacy.api.helper.ManaHelper;
+import at.minecraftschurli.arsmagicalegacy.api.helper.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.SpellPartDataManager;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.api.magic.SpellPart;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.neoforged.neoforge.registries.RegistryBuilder;

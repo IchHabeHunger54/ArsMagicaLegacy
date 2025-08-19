@@ -2,13 +2,13 @@ package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.BurnoutHelper;
-import at.minecraftschurli.arsmagicalegacy.api.MagicHelper;
-import at.minecraftschurli.arsmagicalegacy.api.ManaHelper;
+import at.minecraftschurli.arsmagicalegacy.api.helper.BurnoutHelper;
+import at.minecraftschurli.arsmagicalegacy.api.helper.MagicHelper;
+import at.minecraftschurli.arsmagicalegacy.api.helper.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import net.minecraft.world.entity.player.Player;
 
-public final class MagicHelperImpl implements MagicHelper {
+final class MagicHelperImpl implements MagicHelper {
     @Override
     public int getLevel(Player player) {
         return player.getData(AMAttachments.MAGIC_LEVEL).level();

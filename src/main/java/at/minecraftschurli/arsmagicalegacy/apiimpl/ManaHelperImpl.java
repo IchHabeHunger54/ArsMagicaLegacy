@@ -1,12 +1,12 @@
 package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
-import at.minecraftschurli.arsmagicalegacy.api.ManaHelper;
+import at.minecraftschurli.arsmagicalegacy.api.helper.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import net.minecraft.world.entity.LivingEntity;
 
-public final class ManaHelperImpl implements ManaHelper {
+final class ManaHelperImpl implements ManaHelper {
     @Override
     public double getManaBase() {
         return AMServerConfig.MANA_BASE.get();

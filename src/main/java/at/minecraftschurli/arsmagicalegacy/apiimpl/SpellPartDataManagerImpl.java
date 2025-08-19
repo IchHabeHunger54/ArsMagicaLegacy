@@ -2,8 +2,8 @@ package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.SpellPartDataManager;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
+import at.minecraftschurli.arsmagicalegacy.api.magic.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.api.magic.SpellPartData;
 import at.minecraftschurli.arsmagicalegacy.util.AMDataManager;
 import org.slf4j.LoggerFactory;
 

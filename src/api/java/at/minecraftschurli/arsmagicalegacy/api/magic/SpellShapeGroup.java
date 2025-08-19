@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.api.spell;
+package at.minecraftschurli.arsmagicalegacy.api.magic;
 
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
@@ -66,13 +66,13 @@ public record SpellShapeGroup(List<SpellPart> parts, @Nullable PrimarySpellShape
     public double getManaCost() {
         if (primaryShape == null) return 0;
         SpellPartDataManager manager = ArsMagicaApi.getSpellPartDataManager();
-        double cost = manager.get(primaryShape).mana() * primaryModifiers
+        double cost = primaryShape.getData().mana() * primaryModifiers
             .stream()
-            .mapToDouble(e -> manager.get(e).mana())
+            .mapToDouble(e -> e.getData().mana())
             .reduce(1, (a, b) -> a * b);
-        return secondaryShape == null ? cost : cost + manager.get(secondaryShape).mana() * secondaryModifiers
+        return secondaryShape == null ? cost : cost + secondaryShape.getData().mana() * secondaryModifiers
             .stream()
-            .mapToDouble(e -> manager.get(e).mana())
+            .mapToDouble(e -> e.getData().mana())
             .reduce(1, (a, b) -> a * b);
     }
 }

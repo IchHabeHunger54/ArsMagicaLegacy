@@ -1,15 +1,15 @@
 package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.BurnoutHelper;
-import at.minecraftschurli.arsmagicalegacy.api.ManaHelper;
-import at.minecraftschurli.arsmagicalegacy.api.SpellHelper;
-import at.minecraftschurli.arsmagicalegacy.api.spell.PrimarySpellShape;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SecondarySpellShape;
-import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
+import at.minecraftschurli.arsmagicalegacy.api.helper.BurnoutHelper;
+import at.minecraftschurli.arsmagicalegacy.api.helper.ManaHelper;
+import at.minecraftschurli.arsmagicalegacy.api.helper.SpellHelper;
+import at.minecraftschurli.arsmagicalegacy.api.magic.PrimarySpellShape;
+import at.minecraftschurli.arsmagicalegacy.api.magic.SecondarySpellShape;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.magic.SpellCastResult;
+import at.minecraftschurli.arsmagicalegacy.api.magic.SpellComponent;
+import at.minecraftschurli.arsmagicalegacy.api.magic.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.entity.Entity;

@@ -1,8 +1,7 @@
-package at.minecraftschurli.arsmagicalegacy.api.spell;
+package at.minecraftschurli.arsmagicalegacy.api.magic;
 
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.SpellPartDataManager;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -48,10 +47,6 @@ public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List
         return new SpellGrammar(parts, Collections.unmodifiableList(components));
     }
 
-    public static SpellGrammar of(SpellPart... parts) {
-        return of(List.of(parts));
-    }
-
     @Override
     public boolean equals(Object o) {
         return this == o || o != null && getClass() == o.getClass() && parts.equals(((SpellGrammar) o).parts);
@@ -64,20 +59,13 @@ public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List
 
     public double getManaCost() {
         return components.stream()
-            .mapToDouble(SpellGrammar::getManaCost)
+            .mapToDouble(pair -> pair.getFirst().getData().mana() * pair.getSecond().stream().mapToDouble(e -> e.getData().mana()).reduce(1, (a, b) -> a * b))
             .sum();
     }
 
     public double getBurnoutCost() {
         return components.stream()
-            .map(Pair::getFirst)
-            .map(ArsMagicaApi.getSpellPartDataManager()::get)
-            .mapToDouble(SpellPartData::burnoutOrGenerated)
+            .mapToDouble(pair -> pair.getFirst().getData().burnoutOrGenerated())
             .sum();
-    }
-
-    private static double getManaCost(Pair<SpellComponent, List<SpellModifier>> pair) {
-        SpellPartDataManager manager = ArsMagicaApi.getSpellPartDataManager();
-        return manager.get(pair.getFirst()).mana() * pair.getSecond().stream().mapToDouble(e -> manager.get(e).mana()).reduce(1, (a, b) -> a * b);
     }
 }

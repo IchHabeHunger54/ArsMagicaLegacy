@@ -1,4 +1,12 @@
-// 1.21.1	2025-08-14T17:03:34.462981	Registries
+// 1.21.1	2025-08-20T12:45:07.321149341	Registries
+2f88ae34bd5277a9b204cabcc093b45f4a5a6dc6 data/arsmagicalegacy/arsmagicalegacy/occulus_tab/affinity.json
+f05aa429bacc8bc4abc75d345a36d02f04aa1fb7 data/arsmagicalegacy/arsmagicalegacy/occulus_tab/defense.json
+c1bfb4808d4d7c9db9b22769a0d9af0ac4771624 data/arsmagicalegacy/arsmagicalegacy/occulus_tab/offense.json
+4983c6aa2c3f87f5156aeb66a2059e2d80db7296 data/arsmagicalegacy/arsmagicalegacy/occulus_tab/talent.json
+cafabd42c087ef6e372b9888592a277aba4cdcf7 data/arsmagicalegacy/arsmagicalegacy/occulus_tab/utility.json
+0fc58817e25941ade82d89801cef0b7f65002943 data/arsmagicalegacy/arsmagicalegacy/skill_point/blue.json
+ea33375c8970c1c4263b3359a2bdf44635cfc20b data/arsmagicalegacy/arsmagicalegacy/skill_point/green.json
+b508bb0a95371bb105fa246d120332bb1beceb73 data/arsmagicalegacy/arsmagicalegacy/skill_point/red.json
 1af933e6bdd63d767911d99a51dcb9903a7bc92b data/arsmagicalegacy/neoforge/biome_modifier/forest.json
 7e9fee72574aad1a066045f796730f51e2c850d7 data/arsmagicalegacy/neoforge/biome_modifier/jungle_or_swamp.json
 55f48c168b51e8c2c0d0f81401be2282396b3ad9 data/arsmagicalegacy/neoforge/biome_modifier/mountain.json

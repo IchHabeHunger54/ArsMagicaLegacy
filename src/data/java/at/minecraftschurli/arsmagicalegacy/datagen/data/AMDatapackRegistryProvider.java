@@ -1,6 +1,9 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
+import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMWorldgen;
 import at.minecraftschurli.arsmagicalegacy.worldgen.HolderSets;
@@ -53,6 +56,15 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 public final class AMDatapackRegistryProvider extends DatapackBuiltinEntriesProvider {
+    private static final ResourceKey<OcculusTab> OFFENSE = ResourceKey.create(AMRegistryKeys.OCCULUS_TAB, ArsMagicaApi.modLoc("offense"));
+    private static final ResourceKey<OcculusTab> DEFENSE = ResourceKey.create(AMRegistryKeys.OCCULUS_TAB, ArsMagicaApi.modLoc("defense"));
+    private static final ResourceKey<OcculusTab> UTILITY = ResourceKey.create(AMRegistryKeys.OCCULUS_TAB, ArsMagicaApi.modLoc("utility"));
+    private static final ResourceKey<OcculusTab> TALENT = ResourceKey.create(AMRegistryKeys.OCCULUS_TAB, ArsMagicaApi.modLoc("talent"));
+    private static final ResourceKey<OcculusTab> AFFINITY = ResourceKey.create(AMRegistryKeys.OCCULUS_TAB, ArsMagicaApi.modLoc("affinity"));
+    private static final ResourceKey<SkillPoint> BLUE_POINT = ResourceKey.create(AMRegistryKeys.SKILL_POINT, ArsMagicaApi.modLoc("blue"));
+    private static final ResourceKey<SkillPoint> GREEN_POINT = ResourceKey.create(AMRegistryKeys.SKILL_POINT, ArsMagicaApi.modLoc("green"));
+    private static final ResourceKey<SkillPoint> RED_POINT = ResourceKey.create(AMRegistryKeys.SKILL_POINT, ArsMagicaApi.modLoc("red"));
+
     public AMDatapackRegistryProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(output, lookupProvider, new RegistrySetBuilder()
                 .add(Registries.CONFIGURED_FEATURE, bootstrap -> {
@@ -253,6 +265,45 @@ public final class AMDatapackRegistryProvider extends DatapackBuiltinEntriesProv
                             GenerationStep.Decoration.VEGETAL_DECORATION,
                             AMWorldgen.TARMA_ROOT_PLACED_FEATURE
                         )
+                    );
+                })
+                .add(AMRegistryKeys.OCCULUS_TAB, bootstrap -> {
+                    bootstrap.register(
+                        OFFENSE,
+                        new OcculusTab(1024, 1024, 226, 46, 0, ArsMagicaApi.modLoc("default"))
+                    );
+                    bootstrap.register(
+                        DEFENSE,
+                        new OcculusTab(1024, 1024, 181, 46, 1, ArsMagicaApi.modLoc("default"))
+                    );
+                    bootstrap.register(
+                        UTILITY,
+                        new OcculusTab(1024, 1024, 136, 46, 2, ArsMagicaApi.modLoc("default"))
+                    );
+                    bootstrap.register(
+                        TALENT,
+                        new OcculusTab(1024, 1024, 91, 46, 3, ArsMagicaApi.modLoc("default"))
+                    );
+                    bootstrap.register(
+                        AFFINITY,
+                        new OcculusTab(1024, 1024, 0, 0, 4, ArsMagicaApi.modLoc("affinity"))
+                    );
+                })
+                .add(AMRegistryKeys.SKILL, bootstrap -> {
+
+                })
+                .add(AMRegistryKeys.SKILL_POINT, bootstrap -> {
+                    bootstrap.register(
+                        BLUE_POINT,
+                        new SkillPoint(0x0000ff, 0, 1)
+                    );
+                    bootstrap.register(
+                        GREEN_POINT,
+                        new SkillPoint(0x00ff00, 10, 2)
+                    );
+                    bootstrap.register(
+                        RED_POINT,
+                        new SkillPoint(0xff0000, 20, 3)
                     );
                 }),
             Set.of(ArsMagicaApi.MOD_ID));

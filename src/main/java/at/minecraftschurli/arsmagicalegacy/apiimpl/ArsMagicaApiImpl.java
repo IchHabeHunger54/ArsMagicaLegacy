@@ -6,8 +6,9 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.helper.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.SpellHelper;
-import at.minecraftschurli.arsmagicalegacy.api.SpellPartDataManager;
-import at.minecraftschurli.arsmagicalegacy.api.magic.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
+import at.minecraftschurli.arsmagicalegacy.spell.SpellPartDataManager;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.neoforged.neoforge.registries.RegistryBuilder;
@@ -15,7 +16,6 @@ import net.neoforged.neoforge.registries.RegistryBuilder;
 public final class ArsMagicaApiImpl extends ArsMagicaApi {
     private static final Registry<SpellPart> SPELL_PART_REGISTRY = new RegistryBuilder<>(AMRegistryKeys.SPELL_PART).sync(true).create();
     private static final Registry<DataComponentType<?>> SPELL_DATA_COMPONENT_REGISTRY = new RegistryBuilder<>(AMRegistryKeys.SPELL_DATA_COMPONENT).sync(true).create();
-    private static final SpellPartDataManager SPELL_PART_DATA_MANAGER = new SpellPartDataManagerImpl();
     private static final BurnoutHelper BURNOUT_HELPER = new BurnoutHelperImpl();
     private static final MagicHelper MAGIC_HELPER = new MagicHelperImpl();
     private static final ManaHelper MANA_HELPER = new ManaHelperImpl();
@@ -29,11 +29,6 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     @Override
     protected Registry<DataComponentType<?>> _getSpellDataComponentRegistry() {
         return SPELL_DATA_COMPONENT_REGISTRY;
-    }
-
-    @Override
-    protected SpellPartDataManager _getSpellPartDataManager() {
-        return SPELL_PART_DATA_MANAGER;
     }
 
     @Override
@@ -54,5 +49,10 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     @Override
     protected SpellHelper _getSpellHelper() {
         return SPELL_HELPER;
+    }
+
+    @Override
+    protected SpellPartData _getSpellPartData(SpellPart part) {
+        return SpellPartDataManager.INSTANCE.get(getSpellPartRegistry().getKey(part));
     }
 }

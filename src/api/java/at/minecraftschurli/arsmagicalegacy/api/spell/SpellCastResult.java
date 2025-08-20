@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.api.magic;
+package at.minecraftschurli.arsmagicalegacy.api.spell;
 
 import net.minecraft.network.chat.Component;
 import net.neoforged.neoforge.common.util.TriState;

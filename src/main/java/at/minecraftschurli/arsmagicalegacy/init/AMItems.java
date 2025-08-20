@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
-import at.minecraftschurli.arsmagicalegacy.api.magic.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.item.SpellItem;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;

@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.api.magic;
+package at.minecraftschurli.arsmagicalegacy.api.spell;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 
@@ -16,6 +16,6 @@ public abstract sealed class SpellPart permits PrimarySpellShape, SecondarySpell
     public abstract boolean isModifier();
 
     public SpellPartData getData() {
-        return ArsMagicaApi.getSpellPartDataManager().get(this);
+        return ArsMagicaApi.getSpellPartData(this);
     }
 }

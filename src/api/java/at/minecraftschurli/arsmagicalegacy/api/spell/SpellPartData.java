@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.api.magic;
+package at.minecraftschurli.arsmagicalegacy.api.spell;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.data.AbstractDataProvider;

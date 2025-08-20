@@ -1,10 +1,10 @@
 package at.minecraftschurli.arsmagicalegacy.spell.shape;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.magic.PrimarySpellShape;
-import at.minecraftschurli.arsmagicalegacy.api.magic.Spell;
-import at.minecraftschurli.arsmagicalegacy.api.magic.SpellCastResult;
-import at.minecraftschurli.arsmagicalegacy.api.magic.SpellModifier;
+import at.minecraftschurli.arsmagicalegacy.api.spell.PrimarySpellShape;
+import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.EntityHitResult;
 

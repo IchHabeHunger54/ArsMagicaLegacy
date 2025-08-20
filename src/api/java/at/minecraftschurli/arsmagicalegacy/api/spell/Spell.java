@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.api.magic;
+package at.minecraftschurli.arsmagicalegacy.api.spell;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

@@ -4,7 +4,8 @@ import at.minecraftschurli.arsmagicalegacy.api.helper.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.SpellHelper;
-import at.minecraftschurli.arsmagicalegacy.api.magic.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceLocation;
@@ -54,13 +55,6 @@ public abstract class ArsMagicaApi {
     }
 
     /**
-     * @return The {@link SpellPartDataManager} instance.
-     */
-    public static SpellPartDataManager getSpellPartDataManager() {
-        return INSTANCE.get()._getSpellPartDataManager();
-    }
-
-    /**
      * @return The {@link ManaHelper} instance.
      */
     public static BurnoutHelper getBurnoutHelper() {
@@ -88,14 +82,19 @@ public abstract class ArsMagicaApi {
         return INSTANCE.get()._getSpellHelper();
     }
 
+    /**
+     * @param part The {@link SpellPart} to get the {@link SpellPartData} for.
+     * @return A {@link SpellPartData} instance.
+     */
+    public static SpellPartData getSpellPartData(SpellPart part) {
+        return INSTANCE.get()._getSpellPartData(part);
+    }
+
     @ApiStatus.Internal
     protected abstract Registry<SpellPart> _getSpellPartRegistry();
 
     @ApiStatus.Internal
     protected abstract Registry<DataComponentType<?>> _getSpellDataComponentRegistry();
-
-    @ApiStatus.Internal
-    protected abstract SpellPartDataManager _getSpellPartDataManager();
 
     @ApiStatus.Internal
     protected abstract BurnoutHelper _getBurnoutHelper();
@@ -108,4 +107,7 @@ public abstract class ArsMagicaApi {
 
     @ApiStatus.Internal
     protected abstract SpellHelper _getSpellHelper();
+
+    @ApiStatus.Internal
+    protected abstract SpellPartData _getSpellPartData(SpellPart part);
 }

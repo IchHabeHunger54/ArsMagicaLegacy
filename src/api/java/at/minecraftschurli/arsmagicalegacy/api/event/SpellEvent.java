@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.api.event;
 
-import at.minecraftschurli.arsmagicalegacy.api.magic.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
 

@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.api.data;
 
-import at.minecraftschurli.arsmagicalegacy.api.magic.SpellPart;
-import at.minecraftschurli.arsmagicalegacy.api.magic.SpellPartData;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.registries.DeferredHolder;

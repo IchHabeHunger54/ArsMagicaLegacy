@@ -1,8 +1,12 @@
 package at.minecraftschurli.arsmagicalegacy;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.helper.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.ManaHelper;
+import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
+import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
@@ -16,6 +20,7 @@ import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import net.neoforged.neoforge.event.entity.player.AdvancementEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID)
@@ -33,6 +38,13 @@ final class AMEventHandler {
     private static void newRegistry(NewRegistryEvent event) {
         event.register(ArsMagicaApi.getSpellPartRegistry());
         event.register(ArsMagicaApi.getSpellDataComponentRegistry());
+    }
+
+    @SubscribeEvent
+    private static void newDataPackRegistry(DataPackRegistryEvent.NewRegistry event) {
+        event.dataPackRegistry(AMRegistryKeys.OCCULUS_TAB, OcculusTab.CODEC, OcculusTab.CODEC);
+        event.dataPackRegistry(AMRegistryKeys.SKILL, Skill.CODEC, Skill.CODEC);
+        event.dataPackRegistry(AMRegistryKeys.SKILL_POINT, SkillPoint.DIRECT_CODEC, SkillPoint.DIRECT_CODEC);
     }
 
     @SubscribeEvent

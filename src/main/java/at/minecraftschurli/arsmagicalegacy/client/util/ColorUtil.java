@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.client;
+package at.minecraftschurli.arsmagicalegacy.client.util;
 
 public final class ColorUtil {
     private ColorUtil() {

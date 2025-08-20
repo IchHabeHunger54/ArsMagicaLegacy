@@ -9,7 +9,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
-import net.minecraft.server.packs.resources.PreparableReloadListener;
+import at.minecraftschurli.arsmagicalegacy.spell.SpellPartDataManager;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -49,7 +49,7 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void addReloadListener(AddReloadListenerEvent event) {
-        event.addListener((PreparableReloadListener) ArsMagicaApi.getSpellPartDataManager());
+        event.addListener(SpellPartDataManager.INSTANCE);
     }
 
     @SubscribeEvent

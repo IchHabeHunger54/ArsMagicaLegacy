@@ -5,6 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
+import net.minecraft.Util;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -128,12 +129,24 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("bars_anchor_y", "Vertical Anchor", "Vertical anchor of the mana, burnout and level bars.");
         configTranslation("render_level_at_top", "Render Level At Top", "If true, renders the bars in order level number -> level bar -> mana bar -> burnout bar.\nIf false, renders the bars in order mana bar -> burnout bar -> level bar -> level number.");
         configTranslation("show_values", "Show Values", "Whether to show the exact values for mana, burnout and xp.");
+        add("occulus_tab", "offense", "Offense");
+        add("occulus_tab", "defense", "Defense");
+        add("occulus_tab", "utility", "Utility");
+        add("occulus_tab", "talent", "Talent");
+        add("occulus_tab", "affinity", "Affinity");
+        add("skill_point", "blue", "Blue");
+        add("skill_point", "green", "Green");
+        add("skill_point", "red", "Red");
         add(AMTranslations.BARS_VALUE_BURNOUT, "%s / %s");
         add(AMTranslations.BARS_VALUE_MANA, "%s / %s");
         add(AMTranslations.BARS_VALUE_XP, "%s / %s");
+        add(AMTranslations.PREVENT_BLOCK, "Mystical forces prevent you from using this block! Try crafting an Arcane Compendium to learn more.");
         add(AMTranslations.SPELL_CAST_BURNED_OUT, "Burned out!");
         add(AMTranslations.SPELL_CAST_MALFORMED, "Spell is malformed and cannot be cast!");
         add(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA, "Not enough mana to cast the spell!");
+        add(AMTranslations.GUI_OCCULUS, "Occulus");
+        add(AMTranslations.GUI_OCCULUS_NEXT, ">");
+        add(AMTranslations.GUI_OCCULUS_PREV, "<");
         add("itemGroup." + ArsMagicaApi.MOD_ID, "Ars Magica: Legacy");
     }
 
@@ -177,6 +190,16 @@ public final class AMLanguageProvider extends LanguageProvider {
     private void configTranslation(String name, String translation, String tooltip) {
         add(AMTranslations.CONFIG + name, translation);
         add(AMTranslations.CONFIG + name + ".tooltip", tooltip);
+    }
+
+    /**
+     * Adds a translation with the key format "[type].arsmagicalegacy.[name]".
+     * @param type        The type part of the key.
+     * @param name        The name part of the key.
+     * @param translation The translation to add.
+     */
+    private void add(String type, String name, String translation) {
+        add(Util.makeDescriptionId(type, ArsMagicaApi.modLoc(name)), translation);
     }
 
     /**

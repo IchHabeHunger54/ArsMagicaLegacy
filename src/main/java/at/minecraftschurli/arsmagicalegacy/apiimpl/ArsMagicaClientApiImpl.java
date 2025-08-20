@@ -5,6 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.client.OcculusTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.api.client.RegisterOcculusTabRenderersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.fml.ModLoader;
 import net.neoforged.neoforge.common.NeoForge;
 
 import java.util.HashMap;
@@ -19,6 +20,6 @@ public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
     }
 
     public static void postEvent() {
-        RENDERERS.putAll(NeoForge.EVENT_BUS.post(new RegisterOcculusTabRenderersEvent()).getRenderers());
+        RENDERERS.putAll(ModLoader.postEventWithReturn(new RegisterOcculusTabRenderersEvent()).getRenderers());
     }
 }

@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.api.client;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.Event;
+import net.neoforged.fml.event.IModBusEvent;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -11,10 +12,10 @@ import java.util.Map;
 /**
  * Event that fires when {@link OcculusTabRenderer.Factory}s are registered.
  * <p>
- * This event is not cancelable. This event is fired on the main event bus, only on the physical client.
+ * This event is not cancelable. This event is fired on the mod event bus, only on the physical client.
  */
 @SuppressWarnings("unused")
-public class RegisterOcculusTabRenderersEvent extends Event {
+public class RegisterOcculusTabRenderersEvent extends Event implements IModBusEvent {
     private final Map<ResourceLocation, OcculusTabRenderer.Factory> renderers = new HashMap<>();
 
     /**
@@ -23,7 +24,7 @@ public class RegisterOcculusTabRenderersEvent extends Event {
      * @param key     The id of the {@link OcculusTabRenderer.Factory}. May be referenced in {@link OcculusTab}s.
      * @param factory The {@link OcculusTabRenderer.Factory} to register.
      */
-    public void register(ResourceLocation key, OcculusTabRenderer.Factory factory) {
+    public synchronized void register(ResourceLocation key, OcculusTabRenderer.Factory factory) {
         renderers.put(key, factory);
     }
 

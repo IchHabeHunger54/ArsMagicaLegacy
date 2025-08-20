@@ -6,7 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.api.helper.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.client.AMClientConfig;
-import at.minecraftschurli.arsmagicalegacy.client.ColorUtil;
+import at.minecraftschurli.arsmagicalegacy.client.util.ColorUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;

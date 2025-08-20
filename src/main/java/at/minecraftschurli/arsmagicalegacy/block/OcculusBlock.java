@@ -1,15 +1,23 @@
 package at.minecraftschurli.arsmagicalegacy.block;
 
+import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
+import at.minecraftschurli.arsmagicalegacy.client.util.AMClientHooks;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -89,5 +97,18 @@ public class OcculusBlock extends HorizontalDirectionalBlock {
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPES.get(state.getValue(FACING));
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        if (level.isClientSide()) {
+            if (ArsMagicaApi.getMagicHelper().knowsMagic(player)) {
+                AMClientHooks.setOcculusScreen();
+            } else {
+                player.displayClientMessage(Component.translatable(AMTranslations.PREVENT_BLOCK), true);
+            }
+            return InteractionResult.SUCCESS;
+        }
+        return super.useWithoutItem(state, level, pos, player, hitResult);
     }
 }

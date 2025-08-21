@@ -6,6 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.api.client.OcculusTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
+import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
@@ -33,6 +34,8 @@ public class OcculusScreen extends Screen {
     private OcculusTabRenderer renderer;
     private int posX;
     private int posY;
+    private int tabX;
+    private int tabY;
     private int tab = 0;
     private int page = 0;
     private int maxPage = 0;
@@ -45,6 +48,8 @@ public class OcculusScreen extends Screen {
     protected void init() {
         posX = (width - SIZE) / 2;
         posY = (height - SIZE - OcculusTabButton.SIZE - 24) / 2;
+        tabX = posX + FRAME_SIZE;
+        tabY = posY + OcculusTabButton.SIZE + FRAME_SIZE;
         addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, $ -> onClose()).bounds(width / 2 - 100, posY + SIZE + OcculusTabButton.SIZE + 4, 200, 20).build());
         tabs.clear();
         buttons.clear();
@@ -85,12 +90,10 @@ public class OcculusScreen extends Screen {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         guiGraphics.blit(FRAME, posX, posY + OcculusTabButton.SIZE, 0, 0, SIZE, SIZE);
         guiGraphics.blit(BUTTON_INDICATOR, maxPage == 0 ? posX + 6 + tab * OcculusTabButton.SIZE : posX + 28 + tab % 7 * OcculusTabButton.SIZE, posY + OcculusTabButton.SIZE, 0, 0, OcculusTabButton.SIZE, FRAME_SIZE, OcculusTabButton.SIZE, FRAME_SIZE);
-        int minX = posX + FRAME_SIZE;
-        int minY = posY + OcculusTabButton.SIZE + FRAME_SIZE;
-        guiGraphics.enableScissor(minX, minY, minX + OcculusTabRenderer.TAB_SIZE, minY + OcculusTabRenderer.TAB_SIZE);
+        guiGraphics.enableScissor(tabX, tabY, tabX + OcculusTabRenderer.TAB_SIZE, tabY + OcculusTabRenderer.TAB_SIZE);
         guiGraphics.pose().pushPose();
-        guiGraphics.pose().translate(minX, minY, 0);
-        renderer.render(guiGraphics, mouseX - minX, mouseY - minY, partialTick);
+        guiGraphics.pose().translate(tabX, tabY, 0);
+        renderer.render(guiGraphics, mouseX - tabX, mouseY - tabY, partialTick);
         guiGraphics.pose().popPose();
         guiGraphics.disableScissor();
         renderer.renderTooltip(guiGraphics, mouseX, mouseY, partialTick);
@@ -99,7 +102,7 @@ public class OcculusScreen extends Screen {
     private void setTab(int tab) {
         this.tab = tab;
         OcculusTab occulusTab = tabs.get(tab);
-        renderer = ArsMagicaClientApi.getOcculusTabRendererFactory(occulusTab).create(occulusTab, minecraft.level.registryAccess().registryOrThrow(AMRegistryKeys.OCCULUS_TAB).getKey(occulusTab));
+        renderer = ArsMagicaClientApi.getOcculusTabRendererFactory(occulusTab).create(occulusTab, ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.OCCULUS_TAB).getKey(occulusTab));
     }
 
     private void nextPage() {
@@ -119,5 +122,15 @@ public class OcculusScreen extends Screen {
         for (int i = page * 7; i < (page + 1) * 7 && i < buttons.size(); i++) {
             buttons.get(i).visible = true;
         }
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        return super.mouseClicked(mouseX, mouseY, button) || renderer.mouseClicked(mouseX - tabX, mouseY - tabY, button);
+    }
+
+    @Override
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+        return super.mouseDragged(mouseX, mouseY, button, dragX, dragY) || renderer.mouseDragged(mouseX - tabX, mouseY - tabY, button, dragX, dragY);
     }
 }

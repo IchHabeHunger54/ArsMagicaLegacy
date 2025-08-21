@@ -19,9 +19,9 @@ import java.util.Optional;
 public class DefaultTabRenderer extends OcculusTabRenderer {
     private static final int SKILL_SIZE = 32;
     private final List<Skill> skills;
-    private float offsetX;
-    private float offsetY;
-    private Skill tooltipSkill;
+    private double offsetX;
+    private double offsetY;
+    private Skill hoveredSkill;
 
     public DefaultTabRenderer(OcculusTab tab, ResourceLocation tabId) {
         super(tab, tabId);
@@ -37,16 +37,16 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
-        mouseX += offsetX;
-        mouseY += offsetY;
-        tooltipSkill = null;
+        mouseX += (int) offsetX;
+        mouseY += (int) offsetY;
+        hoveredSkill = null;
         PoseStack stack = guiGraphics.pose();
         stack.pushPose();
         stack.translate(-offsetX, -offsetY, 0);
         for (Skill skill : skills) {
             guiGraphics.blit(skill.x(), skill.y(), 16, SKILL_SIZE, SKILL_SIZE, SkillAtlasHolder.INSTANCE.get().getSprite(skill));
             if (mouseX >= skill.x() && mouseX <= skill.x() + SKILL_SIZE && mouseY >= skill.y() && mouseY <= skill.y() + SKILL_SIZE) {
-                tooltipSkill = skill;
+                hoveredSkill = skill;
             }
         }
         stack.popPose();
@@ -54,11 +54,27 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
 
     @Override
     public void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        if (tooltipSkill == null) return;
-        ResourceLocation id = ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).getKey(tooltipSkill);
+        if (hoveredSkill == null) return;
+        ResourceLocation id = ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).getKey(hoveredSkill);
         guiGraphics.renderTooltip(ClientUtil.font(), List.of(
-            Skill.getName(id).withColor(tooltipSkill.cost().map(Holder::value).map(SkillPoint::color).orElse(0xffffff) | 0xff000000),
+            Skill.getName(id).withColor(hoveredSkill.cost().map(Holder::value).map(SkillPoint::color).orElse(0xffffff) | 0xff000000),
             Skill.getDescription(id).withStyle(ChatFormatting.DARK_GRAY)
         ), Optional.empty(), mouseX, mouseY);
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == 0 && mouseX > 0 && mouseX < TAB_SIZE && mouseY > 0 && mouseY < TAB_SIZE) {
+            setDragging(true);
+            return true;
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    @Override
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+        offsetX = Math.clamp(offsetX - dragX, 0, tab.width());
+        offsetY = Math.clamp(offsetY - dragY, 0, tab.height());
+        return true;
     }
 }

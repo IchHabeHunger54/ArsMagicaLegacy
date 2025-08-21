@@ -1,0 +1,9 @@
+{
+  "cost": "arsmagicalegacy:red",
+  "parents": [
+    "arsmagicalegacy:spell_motion"
+  ],
+  "tab": "arsmagicalegacy:talent",
+  "x": 30,
+  "y": 120
+}

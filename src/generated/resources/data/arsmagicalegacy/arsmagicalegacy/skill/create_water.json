@@ -1,0 +1,9 @@
+{
+  "cost": "arsmagicalegacy:green",
+  "parents": [
+    "arsmagicalegacy:plant"
+  ],
+  "tab": "arsmagicalegacy:utility",
+  "x": 210,
+  "y": 255
+}

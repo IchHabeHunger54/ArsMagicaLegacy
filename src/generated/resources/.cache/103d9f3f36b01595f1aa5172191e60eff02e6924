@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-21T15:30:39.710169477	Registries
+// 1.21.1	2025-08-21T16:35:45.193882273	Registries
 f7fa3f5f5165798683dc501bf25f640e84abf5c8 data/arsmagicalegacy/arsmagicalegacy/occulus_tab/affinity.json
 0216fd8ccee79133903aaf4a87052d22e62f8d84 data/arsmagicalegacy/arsmagicalegacy/occulus_tab/defense.json
 71abd57b9e5d3b78059bf005a74d56acc66e91e1 data/arsmagicalegacy/arsmagicalegacy/occulus_tab/offense.json
@@ -31,7 +31,6 @@ a026e7b3f96d6462255a1849054bc60404b57e06 data/arsmagicalegacy/arsmagicalegacy/sk
 530175a162369bb55e55b7548c665d9ef1907a78 data/arsmagicalegacy/arsmagicalegacy/skill/daylight.json
 8ad9fdd63245f18d39c0a43db38dae2c53ff1548 data/arsmagicalegacy/arsmagicalegacy/skill/dig.json
 1ff608a86eba9cd77822fef9ee7bdaa6aa5787d4 data/arsmagicalegacy/arsmagicalegacy/skill/disarm.json
-0bb6161257c64effa03520516565317ddc1d8652 data/arsmagicalegacy/arsmagicalegacy/skill/dismembering.json
 4924213f267dd6ed9192aca296fd7cdf6c21ef0f data/arsmagicalegacy/arsmagicalegacy/skill/dispel.json
 2721716e8d4fd4f4ce189a0f18653f9976bf7b1e data/arsmagicalegacy/arsmagicalegacy/skill/divine_intervention.json
 906cc907c45e5d9e6d188a99f1942754ba37d98a data/arsmagicalegacy/arsmagicalegacy/skill/drought.json
@@ -106,7 +105,6 @@ a75c8a94bde4a2a96ded676a46ba7b26d6211eac data/arsmagicalegacy/arsmagicalegacy/sk
 1c0c26ae8cba2d52308314ed4d2e8311e06b3c1a data/arsmagicalegacy/arsmagicalegacy/skill/summon.json
 31af7a8deec8acb729f50ddbee8ab65e4d38e0df data/arsmagicalegacy/arsmagicalegacy/skill/swift_swim.json
 4bc81853eee31c32594049f1969a4a8332df12f5 data/arsmagicalegacy/arsmagicalegacy/skill/target_non_solid.json
-4682158f23698617435de841668be7a543f04b2a data/arsmagicalegacy/arsmagicalegacy/skill/telekinesis.json
 40c85d3443b3fbd9a9440568e9e98f37e43bebc8 data/arsmagicalegacy/arsmagicalegacy/skill/temporal_anchor.json
 5c0770ada13ef45d4dbf59e9293737301d7a1c82 data/arsmagicalegacy/arsmagicalegacy/skill/touch.json
 bd328a809363ff19725ac29c626b4d149874a8c6 data/arsmagicalegacy/arsmagicalegacy/skill/transplace.json

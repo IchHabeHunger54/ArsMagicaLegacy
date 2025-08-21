@@ -125,7 +125,7 @@ public final class AMMagicProvider {
         Holder<Skill> rift               = addSkill(bootstrap, AMSpells.RIFT,                AMMagic.GREEN_POINT, AMMagic.UTILITY, 120, 255, light);
         Holder<Skill> channel            = addSkill(bootstrap, AMSpells.CHANNEL,             AMMagic.GREEN_POINT, AMMagic.UTILITY, 165, 255, rift);
         Holder<Skill> attract            = addSkill(bootstrap, AMSpells.ATTRACT,             AMMagic.GREEN_POINT, AMMagic.UTILITY, 120, 300, rift);
-        Holder<Skill> telekinesis        = addSkill(bootstrap, AMSpells.TELEKINESIS,         AMMagic.GREEN_POINT, AMMagic.UTILITY, 165, 300, attract);
+        //Holder<Skill> telekinesis        = addSkill(bootstrap, AMSpells.TELEKINESIS,         AMMagic.GREEN_POINT, AMMagic.UTILITY, 165, 300, attract);
         Holder<Skill> plant              = addSkill(bootstrap, AMSpells.PLANT,               AMMagic.BLUE_POINT,  AMMagic.UTILITY, 210, 210, light);
         Holder<Skill> grow               = addSkill(bootstrap, AMSpells.GROW,                AMMagic.GREEN_POINT, AMMagic.UTILITY, 255, 210, plant);
         Holder<Skill> plow               = addSkill(bootstrap, AMSpells.PLOW,                AMMagic.BLUE_POINT,  AMMagic.UTILITY, 210, 165, plant);
@@ -140,24 +140,32 @@ public final class AMMagicProvider {
         Holder<Skill> manaRegenerationBoost2 = addSkill(bootstrap, AMMagic.MANA_REGENERATION_BOOST_2, AMMagic.GREEN_POINT, AMMagic.TALENT,  75,  75, manaRegenerationBoost1);
         Holder<Skill> manaRegenerationBoost3 = addSkill(bootstrap, AMMagic.MANA_REGENERATION_BOOST_3, AMMagic.RED_POINT,   AMMagic.TALENT,  75, 120, manaRegenerationBoost2);
         Holder<Skill> affinityGainsBoost     = addSkill(bootstrap, AMMagic.AFFINITY_GAINS_BOOST,      AMMagic.BLUE_POINT,  AMMagic.TALENT, 120,  30, manaRegenerationBoost1);
+        //Holder<Skill> mageBand1              = addSkill(bootstrap, AMMagic.MAGE_BAND_1,               AMMagic.GREEN_POINT, AMMagic.TALENT, 120,  75, manaRegenerationBoost2);
+        //Holder<Skill> mageBand2              = addSkill(bootstrap, AMMagic.MAGE_BAND_2,               AMMagic.RED_POINT,   AMMagic.TALENT, 120, 120, mageBand1);
         Holder<Skill> spellMotion            = addSkill(bootstrap, AMMagic.SPELL_MOTION,              AMMagic.GREEN_POINT, AMMagic.TALENT,  30,  75, manaRegenerationBoost2);
         Holder<Skill> augmentedCasting       = addSkill(bootstrap, AMMagic.AUGMENTED_CASTING,         AMMagic.RED_POINT,   AMMagic.TALENT,  30, 120, spellMotion);
+        //Holder<Skill> extraSummons           = addSkill(bootstrap, AMMagic.EXTRA_SUMMONS,             AMMagic.RED_POINT,   AMMagic.TALENT,  30, 165, augmentedCasting);
 
-        addHiddenSkill(bootstrap, AMSpells.BLIZZARD,     AMMagic.OFFENSE, 30,  30);
-        addHiddenSkill(bootstrap, AMSpells.DAYLIGHT,     AMMagic.UTILITY, 30,  30);
-        addHiddenSkill(bootstrap, AMSpells.FALLING_STAR, AMMagic.OFFENSE, 30,  75);
-        addHiddenSkill(bootstrap, AMSpells.FIRE_RAIN,    AMMagic.OFFENSE, 30, 120);
-        addHiddenSkill(bootstrap, AMSpells.HEALTH_BOOST, AMMagic.DEFENSE, 30,  30);
-        addHiddenSkill(bootstrap, AMSpells.MANA_BLAST,   AMMagic.OFFENSE, 30, 165);
-        addHiddenSkill(bootstrap, AMSpells.MOONRISE,     AMMagic.UTILITY, 30,  75);
-        addHiddenSkill(bootstrap, AMSpells.DISMEMBERING, AMMagic.OFFENSE, 30, 210);
-        addHiddenSkill(bootstrap, AMSpells.EFFECT_POWER, AMMagic.DEFENSE, 30,  75);
-        addHiddenSkill(bootstrap, AMSpells.PROSPERITY,   AMMagic.UTILITY, 30, 120);
+        addHiddenSkill(bootstrap, AMSpells.BLIZZARD,       AMMagic.OFFENSE, 30,  30);
+        addHiddenSkill(bootstrap, AMSpells.DAYLIGHT,       AMMagic.UTILITY, 30,  30);
+        addHiddenSkill(bootstrap, AMSpells.FALLING_STAR,   AMMagic.OFFENSE, 30,  75);
+        addHiddenSkill(bootstrap, AMSpells.FIRE_RAIN,      AMMagic.OFFENSE, 30, 120);
+        addHiddenSkill(bootstrap, AMSpells.HEALTH_BOOST,   AMMagic.DEFENSE, 30,  30);
+        addHiddenSkill(bootstrap, AMSpells.MANA_BLAST,     AMMagic.OFFENSE, 30, 165);
+        addHiddenSkill(bootstrap, AMSpells.MOONRISE,       AMMagic.UTILITY, 30,  75);
+        //addHiddenSkill(bootstrap, AMSpells.DISMEMBERING,   AMMagic.OFFENSE, 30, 210);
+        addHiddenSkill(bootstrap, AMSpells.EFFECT_POWER,   AMMagic.DEFENSE, 30,  75);
+        addHiddenSkill(bootstrap, AMSpells.PROSPERITY,     AMMagic.UTILITY, 30, 120);
+        //addHiddenSkill(bootstrap, AMMagic.SHIELD_OVERLOAD, AMMagic.TALENT, 165,  30);
         // @formatter:on
     }
 
+    private static void addHiddenSkill(BootstrapContext<Skill> bootstrap, ResourceKey<Skill> key, ResourceKey<OcculusTab> tab, int x, int y) {
+        bootstrap.register(key, new Skill(List.of(), Optional.empty(), bootstrap.lookup(AMRegistryKeys.OCCULUS_TAB).getOrThrow(tab), x, y, true));
+    }
+
     private static void addHiddenSkill(BootstrapContext<Skill> bootstrap, DeferredHolder<SpellPart, ?> part, ResourceKey<OcculusTab> tab, int x, int y) {
-        bootstrap.register(fromPart(part), new Skill(List.of(), Optional.empty(), bootstrap.lookup(AMRegistryKeys.OCCULUS_TAB).getOrThrow(tab), x, y, true));
+        addHiddenSkill(bootstrap, fromPart(part), tab, x, y);
     }
 
     @SafeVarargs

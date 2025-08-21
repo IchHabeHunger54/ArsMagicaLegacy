@@ -53,6 +53,6 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
 
     @Override
     protected SpellPartData _getSpellPartData(SpellPart part) {
-        return SpellPartDataManager.INSTANCE.get(getSpellPartRegistry().getKey(part));
+        return SpellPartDataManager.INSTANCE.getOrDefault(getSpellPartRegistry().getKey(part), SpellPartData.DEFAULT);
     }
 }

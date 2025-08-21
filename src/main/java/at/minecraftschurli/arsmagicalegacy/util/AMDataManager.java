@@ -31,6 +31,10 @@ public class AMDataManager<T> extends SimpleJsonResourceReloadListener {
         return values.get(id);
     }
 
+    public T getOrDefault(ResourceLocation id, T defaultValue) {
+        return values.getOrDefault(id, defaultValue);
+    }
+
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager, ProfilerFiller profiler) {
         values.clear();

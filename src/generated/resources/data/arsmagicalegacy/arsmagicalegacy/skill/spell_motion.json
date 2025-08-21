@@ -1,0 +1,9 @@
+{
+  "cost": "arsmagicalegacy:green",
+  "parents": [
+    "arsmagicalegacy:mana_regeneration_boost_2"
+  ],
+  "tab": "arsmagicalegacy:talent",
+  "x": 30,
+  "y": 75
+}

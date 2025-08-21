@@ -1,0 +1,10 @@
+{
+  "cost": "arsmagicalegacy:green",
+  "parents": [
+    "arsmagicalegacy:agility",
+    "arsmagicalegacy:entangle"
+  ],
+  "tab": "arsmagicalegacy:defense",
+  "x": 120,
+  "y": 300
+}

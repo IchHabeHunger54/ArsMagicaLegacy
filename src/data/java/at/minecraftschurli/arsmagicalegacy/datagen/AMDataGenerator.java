@@ -50,7 +50,8 @@ final class AMDataGenerator {
             .add(Registries.PLACED_FEATURE, AMWorldgenProvider::addPlacedFeatures)
             .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, AMWorldgenProvider::addBiomeModifiers)
             .add(AMRegistryKeys.OCCULUS_TAB, AMMagicProvider::addOcculusTabs)
-            .add(AMRegistryKeys.SKILL_POINT, AMMagicProvider::addSkillPoints),
+            .add(AMRegistryKeys.SKILL_POINT, AMMagicProvider::addSkillPoints)
+            .add(AMRegistryKeys.SKILL, AMMagicProvider::addSkills),
             Set.of(ArsMagicaApi.MOD_ID)));
     }
 }

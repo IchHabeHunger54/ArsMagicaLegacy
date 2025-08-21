@@ -42,8 +42,8 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void newDataPackRegistry(DataPackRegistryEvent.NewRegistry event) {
-        event.dataPackRegistry(AMRegistryKeys.OCCULUS_TAB, OcculusTab.CODEC, OcculusTab.CODEC);
-        event.dataPackRegistry(AMRegistryKeys.SKILL, Skill.CODEC, Skill.CODEC);
+        event.dataPackRegistry(AMRegistryKeys.OCCULUS_TAB, OcculusTab.DIRECT_CODEC, OcculusTab.DIRECT_CODEC);
+        event.dataPackRegistry(AMRegistryKeys.SKILL, Skill.DIRECT_CODEC, Skill.DIRECT_CODEC);
         event.dataPackRegistry(AMRegistryKeys.SKILL_POINT, SkillPoint.DIRECT_CODEC, SkillPoint.DIRECT_CODEC);
     }
 

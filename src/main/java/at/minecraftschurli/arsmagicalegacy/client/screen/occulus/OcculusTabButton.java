@@ -16,16 +16,12 @@ public class OcculusTabButton extends Button {
     public OcculusTabButton(ResourceLocation tab, int x, int y, OnPress onPress) {
         super(x, y, SIZE, SIZE, OcculusTab.name(tab), onPress, DEFAULT_NARRATION);
         this.tab = tab;
+        setTooltip(Tooltip.create(getMessage()));
     }
 
     @Override
     protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         guiGraphics.blit(TEXTURE, getX(), getY(), 0, 0, SIZE, SIZE, SIZE, SIZE);
         guiGraphics.blit(OcculusTab.icon(tab), getX() + 1, getY() + 1, 0, 0, ICON_SIZE, ICON_SIZE, ICON_SIZE, ICON_SIZE);
-    }
-
-    @Override
-    public Tooltip getTooltip() {
-        return Tooltip.create(getMessage());
     }
 }

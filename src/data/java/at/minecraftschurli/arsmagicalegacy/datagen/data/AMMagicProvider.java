@@ -19,11 +19,11 @@ import java.util.Optional;
 
 public final class AMMagicProvider {
     public static void addOcculusTabs(BootstrapContext<OcculusTab> bootstrap) {
-        bootstrap.register(AMMagic.OFFENSE, new OcculusTab(1024, 1024, 226, 46, 0, ArsMagicaApi.modLoc("default")));
-        bootstrap.register(AMMagic.DEFENSE, new OcculusTab(1024, 1024, 181, 46, 1, ArsMagicaApi.modLoc("default")));
-        bootstrap.register(AMMagic.UTILITY, new OcculusTab(1024, 1024, 136, 46, 2, ArsMagicaApi.modLoc("default")));
-        bootstrap.register(AMMagic.TALENT, new OcculusTab(1024, 1024, 91, 46, 3, ArsMagicaApi.modLoc("default")));
-        bootstrap.register(AMMagic.AFFINITY, new OcculusTab(1024, 1024, 0, 0, 4, ArsMagicaApi.modLoc("affinity")));
+        bootstrap.register(AMMagic.OFFENSE, new OcculusTab(512, 512, 130, 0, 0, ArsMagicaApi.modLoc("default")));
+        bootstrap.register(AMMagic.DEFENSE, new OcculusTab(512, 512, 85, 0, 1, ArsMagicaApi.modLoc("default")));
+        bootstrap.register(AMMagic.UTILITY, new OcculusTab(512, 512, 38, 0, 2, ArsMagicaApi.modLoc("default")));
+        bootstrap.register(AMMagic.TALENT, new OcculusTab(256, 256, 0, 0, 3, ArsMagicaApi.modLoc("default")));
+        bootstrap.register(AMMagic.AFFINITY, new OcculusTab(0, 0, 0, 0, 4, ArsMagicaApi.modLoc("affinity")));
     }
 
     public static void addSkillPoints(BootstrapContext<SkillPoint> bootstrap) {
@@ -32,6 +32,7 @@ public final class AMMagicProvider {
         bootstrap.register(AMMagic.RED_POINT, new SkillPoint(0xff0000, 20, 3));
     }
 
+    @SuppressWarnings("unused")
     public static void addSkills(BootstrapContext<Skill> bootstrap) {
         // @formatter:off
         Holder<Skill> projectile       = addSkill(bootstrap, AMSpells.PROJECTILE,          AMMagic.BLUE_POINT,  AMMagic.OFFENSE, 210,  30);
@@ -146,6 +147,7 @@ public final class AMMagicProvider {
         addHiddenSkill(bootstrap, AMSpells.DAYLIGHT,     AMMagic.UTILITY, 30,  30);
         addHiddenSkill(bootstrap, AMSpells.FALLING_STAR, AMMagic.OFFENSE, 30,  75);
         addHiddenSkill(bootstrap, AMSpells.FIRE_RAIN,    AMMagic.OFFENSE, 30, 120);
+        addHiddenSkill(bootstrap, AMSpells.HEALTH_BOOST, AMMagic.DEFENSE, 30,  30);
         addHiddenSkill(bootstrap, AMSpells.MANA_BLAST,   AMMagic.OFFENSE, 30, 165);
         addHiddenSkill(bootstrap, AMSpells.MOONRISE,     AMMagic.UTILITY, 30,  75);
         addHiddenSkill(bootstrap, AMSpells.DISMEMBERING, AMMagic.OFFENSE, 30, 210);

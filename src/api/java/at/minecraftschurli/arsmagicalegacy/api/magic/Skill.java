@@ -3,8 +3,11 @@ package at.minecraftschurli.arsmagicalegacy.api.magic;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
 
@@ -26,5 +29,21 @@ public record Skill(List<ResourceLocation> parents, Optional<Holder<SkillPoint>>
         return parents.stream()
             .map(registryAccess.registryOrThrow(AMRegistryKeys.SKILL)::get)
             .toList();
+    }
+
+    public static String getNameKey(ResourceLocation id) {
+        return Util.makeDescriptionId("skill", id) + ".name";
+    }
+
+    public static String getDescriptionKey(ResourceLocation id) {
+        return Util.makeDescriptionId("skill", id) + ".description";
+    }
+
+    public static MutableComponent getName(ResourceLocation id) {
+        return Component.translatable(getNameKey(id));
+    }
+
+    public static MutableComponent getDescription(ResourceLocation id) {
+        return Component.translatable(getDescriptionKey(id));
     }
 }

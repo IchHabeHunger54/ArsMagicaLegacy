@@ -9,6 +9,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
+import at.minecraftschurli.arsmagicalegacy.packet.LearnSkillPacket;
 import at.minecraftschurli.arsmagicalegacy.spell.SpellPartDataManager;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,6 +21,7 @@ import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import net.neoforged.neoforge.event.entity.player.AdvancementEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 
@@ -58,6 +60,11 @@ final class AMEventHandler {
         event.add(EntityType.PLAYER, AMAttributes.MANA_REGENERATION);
         event.add(EntityType.PLAYER, AMAttributes.MAX_BURNOUT);
         event.add(EntityType.PLAYER, AMAttributes.MAX_MANA);
+    }
+
+    @SubscribeEvent
+    private static void registerPayloadHandlers(RegisterPayloadHandlersEvent event) {
+        event.registrar("1").playToServer(LearnSkillPacket.TYPE, LearnSkillPacket.STREAM_CODEC, LearnSkillPacket::handle);
     }
 
     @SubscribeEvent

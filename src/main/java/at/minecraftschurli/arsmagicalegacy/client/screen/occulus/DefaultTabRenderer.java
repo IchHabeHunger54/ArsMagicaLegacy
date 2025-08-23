@@ -92,11 +92,11 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
         PoseStack stack = graphics.pose();
         stack.pushPose();
         stack.translate(startX, startY, z);
-        Vec2 original = new Vec2(endX - startX, endY - startY);
-        float length = original.length();
-        stack.mulPose(Axis.ZP.rotation((float) Math.acos(new Vec2(1, 0).dot(original.normalized()))));
+        Vec2 vec = new Vec2(endX - startX, endY - startY);
+        float length = vec.length();
+        stack.mulPose(Axis.ZP.rotation((float) Math.acos(new Vec2(1, 0).dot(vec.y < 0 ? vec.normalized().negated() : vec.normalized()))));
         stack.translate(0, -size / 2f, 0);
-        graphics.fill(0, 0, (int) length, size, color);
+        graphics.fill(0, 0, (int) (vec.y < 0 ? -length : length), size, color);
         stack.popPose();
     }
 }

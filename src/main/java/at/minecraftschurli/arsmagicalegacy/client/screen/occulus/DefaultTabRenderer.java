@@ -8,10 +8,12 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.Vec2;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +45,14 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
         PoseStack stack = guiGraphics.pose();
         stack.pushPose();
         stack.translate(-offsetX, -offsetY, 0);
+        for (Skill skill : skills) {
+            List<Skill> parents = skill.getParents(ClientUtil.registryAccess());
+            float skillX = skill.x() + SKILL_SIZE / 2f;
+            float skillY = skill.y() + SKILL_SIZE / 2f;
+            for (Skill parent : parents) {
+                drawLine(guiGraphics, parent.x() + SKILL_SIZE / 2f, parent.y() + SKILL_SIZE / 2f, skillX, skillY, 8, 0xff00ff00, 1);
+            }
+        }
         for (Skill skill : skills) {
             guiGraphics.blit(skill.x(), skill.y(), 16, SKILL_SIZE, SKILL_SIZE, SkillAtlasHolder.INSTANCE.get().getSprite(skill));
             if (mouseX >= skill.x() && mouseX <= skill.x() + SKILL_SIZE && mouseY >= skill.y() && mouseY <= skill.y() + SKILL_SIZE) {
@@ -76,5 +86,17 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
         offsetX = Math.clamp(offsetX - dragX, 0, tab.width() - TAB_SIZE);
         offsetY = Math.clamp(offsetY - dragY, 0, tab.height() - TAB_SIZE);
         return true;
+    }
+
+    private static void drawLine(GuiGraphics graphics, float startX, float startY, float endX, float endY, int z, int color, int size) {
+        PoseStack stack = graphics.pose();
+        stack.pushPose();
+        stack.translate(startX, startY, z);
+        Vec2 original = new Vec2(endX - startX, endY - startY);
+        float length = original.length();
+        stack.mulPose(Axis.ZP.rotation((float) Math.acos(new Vec2(1, 0).dot(original.normalized()))));
+        stack.translate(0, -size / 2f, 0);
+        graphics.fill(0, 0, (int) length, size, color);
+        stack.popPose();
     }
 }

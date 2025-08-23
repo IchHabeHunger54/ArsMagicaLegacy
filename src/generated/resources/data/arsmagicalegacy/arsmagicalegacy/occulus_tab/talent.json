@@ -1,8 +1,8 @@
 {
-  "height": 256,
+  "height": 0,
   "index": 3,
   "renderer": "arsmagicalegacy:default",
-  "start_x": 0,
+  "start_x": 20,
   "start_y": 0,
-  "width": 256
+  "width": 40
 }

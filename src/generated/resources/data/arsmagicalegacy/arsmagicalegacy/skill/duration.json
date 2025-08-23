@@ -1,9 +1,9 @@
 {
-  "cost": "arsmagicalegacy:red",
+  "cost": "arsmagicalegacy:green",
   "parents": [
     "arsmagicalegacy:temporal_anchor"
   ],
   "tab": "arsmagicalegacy:defense",
-  "x": 210,
-  "y": 345
+  "x": 168,
+  "y": 312
 }

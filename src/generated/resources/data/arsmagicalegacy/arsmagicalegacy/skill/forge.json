@@ -1,9 +1,9 @@
 {
-  "cost": "arsmagicalegacy:green",
+  "cost": "arsmagicalegacy:blue",
   "parents": [
     "arsmagicalegacy:ignition"
   ],
   "tab": "arsmagicalegacy:offense",
-  "x": 75,
-  "y": 120
+  "x": 24,
+  "y": 72
 }

@@ -3,7 +3,7 @@
   "parents": [
     "arsmagicalegacy:shield"
   ],
-  "tab": "arsmagicalegacy:offense",
-  "x": 300,
-  "y": 255
+  "tab": "arsmagicalegacy:defense",
+  "x": 264,
+  "y": 216
 }

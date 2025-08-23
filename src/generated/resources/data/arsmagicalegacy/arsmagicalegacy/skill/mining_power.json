@@ -1,9 +1,9 @@
 {
-  "cost": "arsmagicalegacy:green",
+  "cost": "arsmagicalegacy:blue",
   "parents": [
     "arsmagicalegacy:silk_touch"
   ],
   "tab": "arsmagicalegacy:utility",
-  "x": 75,
-  "y": 120
+  "x": 24,
+  "y": 72
 }

@@ -11,6 +11,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
 import at.minecraftschurli.arsmagicalegacy.client.util.ColorUtil;
+import at.minecraftschurli.arsmagicalegacy.packet.LearnSkillPacket;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -23,6 +24,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec2;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.List;
 import java.util.Optional;
@@ -112,11 +114,17 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (button == 0 && mouseX > 0 && mouseX < TAB_SIZE && mouseY > 0 && mouseY < TAB_SIZE) {
-            setDragging(true);
-            return true;
+        if (button != 0 || !(mouseX > 0) || !(mouseX < TAB_SIZE) || !(mouseY > 0) || !(mouseY < TAB_SIZE)) return super.mouseClicked(mouseX, mouseY, button);
+        if (hoveredSkill != null) {
+            Holder<Skill> holder = ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).wrapAsHolder(hoveredSkill);
+            LocalPlayer player = ClientUtil.player();
+            if (ArsMagicaApi.getMagicHelper().canLearn(player, holder) || player.isCreative()) {
+                PacketDistributor.sendToServer(new LearnSkillPacket(holder));
+                return true;
+            }
         }
-        return super.mouseClicked(mouseX, mouseY, button);
+        setDragging(true);
+        return true;
     }
 
     @Override

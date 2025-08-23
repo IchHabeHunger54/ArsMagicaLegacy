@@ -19,11 +19,11 @@ import java.util.Optional;
 
 public final class AMMagicProvider {
     public static void addOcculusTabs(BootstrapContext<OcculusTab> bootstrap) {
-        bootstrap.register(AMMagic.OFFENSE, new OcculusTab(164, 164, 85, 0, 0, ArsMagicaApi.modLoc("default")));
-        bootstrap.register(AMMagic.DEFENSE, new OcculusTab(116, 164, 38, 0, 1, ArsMagicaApi.modLoc("default")));
-        bootstrap.register(AMMagic.UTILITY, new OcculusTab(116, 164, 38, 0, 2, ArsMagicaApi.modLoc("default")));
-        bootstrap.register(AMMagic.TALENT, new OcculusTab(40, 0, 20, 0, 3, ArsMagicaApi.modLoc("default")));
-        bootstrap.register(AMMagic.AFFINITY, new OcculusTab(0, 0, 0, 0, 4, ArsMagicaApi.modLoc("affinity")));
+        bootstrap.register(AMMagic.OFFENSE, new OcculusTab(360, 360, 85, 0, 0, ArsMagicaApi.modLoc("default")));
+        bootstrap.register(AMMagic.DEFENSE, new OcculusTab(312, 360, 38, 0, 1, ArsMagicaApi.modLoc("default")));
+        bootstrap.register(AMMagic.UTILITY, new OcculusTab(312, 360, 38, 0, 2, ArsMagicaApi.modLoc("default")));
+        bootstrap.register(AMMagic.TALENT, new OcculusTab(236, 196, 20, 0, 3, ArsMagicaApi.modLoc("default")));
+        bootstrap.register(AMMagic.AFFINITY, new OcculusTab(196, 196, 0, 0, 4, ArsMagicaApi.modLoc("affinity")));
     }
 
     public static void addSkillPoints(BootstrapContext<SkillPoint> bootstrap) {

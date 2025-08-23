@@ -96,7 +96,9 @@ public class OcculusScreen extends Screen {
         renderer.render(guiGraphics, mouseX - tabX, mouseY - tabY, partialTick);
         guiGraphics.pose().popPose();
         guiGraphics.disableScissor();
-        renderer.renderTooltip(guiGraphics, mouseX, mouseY, partialTick);
+        if (mouseX >= tabX && mouseX < tabX + OcculusTabRenderer.TAB_SIZE && mouseY >= tabY && mouseY < tabY + OcculusTabRenderer.TAB_SIZE) {
+            renderer.renderTooltip(guiGraphics, mouseX, mouseY, partialTick);
+        }
     }
 
     private void setTab(int tab) {

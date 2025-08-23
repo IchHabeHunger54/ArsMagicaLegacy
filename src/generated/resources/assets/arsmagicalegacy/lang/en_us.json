@@ -99,6 +99,7 @@
   "block.arsmagicalegacy.witchwood_stairs": "Witchwood Stairs",
   "block.arsmagicalegacy.witchwood_trapdoor": "Witchwood Trapdoor",
   "gui.arsmagicalegacy.occulus": "Occulus",
+  "gui.arsmagicalegacy.occulus.missing": "You lack the skill points or parent skills to learn this skill!",
   "gui.arsmagicalegacy.occulus.next": ">",
   "gui.arsmagicalegacy.occulus.prev": "<",
   "item.arsmagicalegacy.arcane_ash": "Arcane Ash",

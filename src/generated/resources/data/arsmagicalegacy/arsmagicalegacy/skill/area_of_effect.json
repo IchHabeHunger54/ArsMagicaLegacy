@@ -1,5 +1,5 @@
 {
-  "cost": "arsmagicalegacy:green",
+  "cost": "arsmagicalegacy:blue",
   "parents": [
     "arsmagicalegacy:fire_damage",
     "arsmagicalegacy:frost_damage",
@@ -7,6 +7,6 @@
     "arsmagicalegacy:magic_damage"
   ],
   "tab": "arsmagicalegacy:offense",
-  "x": 210,
-  "y": 165
+  "x": 168,
+  "y": 120
 }

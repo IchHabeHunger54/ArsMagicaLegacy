@@ -99,8 +99,8 @@ public interface AMSpells {
     DeferredHolder<SpellPart, Effect>             REGENERATION        = register("regeneration",        Effect::new);
     DeferredHolder<SpellPart, Effect>             SLOWNESS            = register("slowness",            Effect::new);
     DeferredHolder<SpellPart, Effect>             SLOW_FALLING        = register("slow_falling",        Effect::new);
+    DeferredHolder<SpellPart, Effect>             SWIFTNESS           = register("swiftness",           Effect::new);
     DeferredHolder<SpellPart, Effect>             WATER_BREATHING     = register("water_breathing",     Effect::new);
-    DeferredHolder<SpellPart, Effect>             AGILITY             = register("agility",             Effect::new);
     DeferredHolder<SpellPart, Effect>             ASTRAL_DISTORTION   = register("astral_distortion",   Effect::new);
     DeferredHolder<SpellPart, Effect>             ENTANGLE            = register("entangle",            Effect::new);
     DeferredHolder<SpellPart, Effect>             FLIGHT              = register("flight",              Effect::new);
@@ -155,7 +155,7 @@ public interface AMSpells {
     DeferredHolder<SpellPart, Rift>               RIFT                = register("rift",                Rift::new);
     DeferredHolder<SpellPart, Storm>              STORM               = register("storm",               Storm::new);
     DeferredHolder<SpellPart, Summon>             SUMMON              = register("summon",              Summon::new);
-    DeferredHolder<SpellPart, Telekinesis>        TELEKINESIS         = register("telekinesis",         Telekinesis::new);
+    //DeferredHolder<SpellPart, Telekinesis>        TELEKINESIS         = register("telekinesis",         Telekinesis::new);
     DeferredHolder<SpellPart, Transplace>         TRANSPLACE          = register("transplace",          Transplace::new);
     DeferredHolder<SpellPart, WizardsAutumn>      WIZARDS_AUTUMN      = register("wizards_autumn",      WizardsAutumn::new);
 

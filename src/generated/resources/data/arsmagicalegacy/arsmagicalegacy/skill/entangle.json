@@ -1,9 +1,9 @@
 {
-  "cost": "arsmagicalegacy:green",
+  "cost": "arsmagicalegacy:blue",
   "parents": [
     "arsmagicalegacy:repel"
   ],
   "tab": "arsmagicalegacy:defense",
-  "x": 75,
-  "y": 255
+  "x": 24,
+  "y": 216
 }

@@ -13,6 +13,7 @@ public interface AMTranslations {
     String SPELL_CAST_MALFORMED       = ArsMagicaApi.MOD_ID + ".spell_cast.malformed";
     String SPELL_CAST_NOT_ENOUGH_MANA = ArsMagicaApi.MOD_ID + ".spell_cast.not_enough_mana";
     String GUI_OCCULUS                = "gui." + ArsMagicaApi.MOD_ID + ".occulus";
+    String GUI_OCCULUS_MISSING        = "gui." + ArsMagicaApi.MOD_ID + ".occulus.missing";
     String GUI_OCCULUS_NEXT           = "gui." + ArsMagicaApi.MOD_ID + ".occulus.next";
     String GUI_OCCULUS_PREV           = "gui." + ArsMagicaApi.MOD_ID + ".occulus.prev";
     // @formatter:on

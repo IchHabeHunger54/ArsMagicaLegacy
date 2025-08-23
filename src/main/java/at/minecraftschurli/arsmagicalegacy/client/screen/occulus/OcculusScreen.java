@@ -53,9 +53,7 @@ public class OcculusScreen extends Screen {
         addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, $ -> onClose()).bounds(width / 2 - 100, posY + SIZE + OcculusTabButton.SIZE + 4, 200, 20).build());
         tabs.clear();
         buttons.clear();
-        Registry<OcculusTab> registry = minecraft.level
-            .registryAccess()
-            .registryOrThrow(AMRegistryKeys.OCCULUS_TAB);
+        Registry<OcculusTab> registry = ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.OCCULUS_TAB);
         List<ResourceLocation> list = registry
             .entrySet()
             .stream()
@@ -82,7 +80,7 @@ public class OcculusScreen extends Screen {
             prevButton = Button.builder(PREV, $ -> prevPage()).bounds(posX, posY, 20, 20).build();
             onPageChange();
         }
-        setTab(0);
+        setRenderer(tabs.getFirst());
     }
 
     @Override
@@ -101,9 +99,18 @@ public class OcculusScreen extends Screen {
         }
     }
 
+    @Override
+    public boolean isPauseScreen() {
+        return false;
+    }
+
     private void setTab(int tab) {
+        if (this.tab == tab) return;
         this.tab = tab;
-        OcculusTab occulusTab = tabs.get(tab);
+        setRenderer(tabs.get(tab));
+    }
+
+    private void setRenderer(OcculusTab occulusTab) {
         renderer = ArsMagicaClientApi.getOcculusTabRendererFactory(occulusTab).create(occulusTab, ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.OCCULUS_TAB).getKey(occulusTab));
     }
 

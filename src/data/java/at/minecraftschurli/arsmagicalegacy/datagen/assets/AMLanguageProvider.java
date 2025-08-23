@@ -266,6 +266,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.SPELL_CAST_MALFORMED, "Spell is malformed and cannot be cast!");
         add(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA, "Not enough mana to cast the spell!");
         add(AMTranslations.GUI_OCCULUS, "Occulus");
+        add(AMTranslations.GUI_OCCULUS_MISSING, "You lack the skill points or parent skills to learn this skill!");
         add(AMTranslations.GUI_OCCULUS_NEXT, ">");
         add(AMTranslations.GUI_OCCULUS_PREV, "<");
         add("itemGroup." + ArsMagicaApi.MOD_ID, "Ars Magica: Legacy");

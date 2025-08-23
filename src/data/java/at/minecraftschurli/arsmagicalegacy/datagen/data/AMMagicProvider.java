@@ -19,10 +19,10 @@ import java.util.Optional;
 
 public final class AMMagicProvider {
     public static void addOcculusTabs(BootstrapContext<OcculusTab> bootstrap) {
-        bootstrap.register(AMMagic.OFFENSE, new OcculusTab(360, 360, 85, 0, 0, ArsMagicaApi.modLoc("default")));
-        bootstrap.register(AMMagic.DEFENSE, new OcculusTab(312, 360, 38, 0, 1, ArsMagicaApi.modLoc("default")));
-        bootstrap.register(AMMagic.UTILITY, new OcculusTab(312, 360, 38, 0, 2, ArsMagicaApi.modLoc("default")));
-        bootstrap.register(AMMagic.TALENT, new OcculusTab(236, 196, 20, 0, 3, ArsMagicaApi.modLoc("default")));
+        bootstrap.register(AMMagic.OFFENSE, new OcculusTab(368, 368, 85, 0, 0, ArsMagicaApi.modLoc("default")));
+        bootstrap.register(AMMagic.DEFENSE, new OcculusTab(320, 368, 38, 0, 1, ArsMagicaApi.modLoc("default")));
+        bootstrap.register(AMMagic.UTILITY, new OcculusTab(320, 368, 38, 0, 2, ArsMagicaApi.modLoc("default")));
+        bootstrap.register(AMMagic.TALENT, new OcculusTab(224, 196, 24, 0, 3, ArsMagicaApi.modLoc("default")));
         bootstrap.register(AMMagic.AFFINITY, new OcculusTab(196, 196, 0, 0, 4, ArsMagicaApi.modLoc("affinity")));
     }
 
@@ -109,7 +109,7 @@ public final class AMMagicProvider {
         Holder<Skill> silkTouch          = addSkill(bootstrap, AMSpells.SILK_TOUCH,          AMMagic.BLUE_POINT,  AMMagic.UTILITY,  72,  72, dig);
         Holder<Skill> miningPower        = addSkill(bootstrap, AMSpells.MINING_POWER,        AMMagic.BLUE_POINT,  AMMagic.UTILITY,  24,  72, silkTouch);
         Holder<Skill> light              = addSkill(bootstrap, AMSpells.LIGHT,               AMMagic.BLUE_POINT,  AMMagic.UTILITY, 120, 120, dig);
-        Holder<Skill> rift               = addSkill(bootstrap, AMSpells.RIFT,                AMMagic.GREEN_POINT, AMMagic.UTILITY, 120, 164, light);
+        Holder<Skill> rift               = addSkill(bootstrap, AMSpells.RIFT,                AMMagic.GREEN_POINT, AMMagic.UTILITY, 120, 168, light);
         Holder<Skill> channel            = addSkill(bootstrap, AMSpells.CHANNEL,             AMMagic.GREEN_POINT, AMMagic.UTILITY, 120, 216, rift);
         Holder<Skill> nightVision        = addSkill(bootstrap, AMSpells.NIGHT_VISION,        AMMagic.BLUE_POINT,  AMMagic.UTILITY,  72, 120, light);
         Holder<Skill> lunar              = addSkill(bootstrap, AMSpells.LUNAR,               AMMagic.RED_POINT,   AMMagic.UTILITY,  24, 120, nightVision);
@@ -139,9 +139,9 @@ public final class AMMagicProvider {
         Holder<Skill> manaRegenerationBoost1 = addSkill(bootstrap, AMMagic.MANA_REGENERATION_BOOST_1, AMMagic.BLUE_POINT,  AMMagic.TALENT, 120,  24);
         Holder<Skill> manaRegenerationBoost2 = addSkill(bootstrap, AMMagic.MANA_REGENERATION_BOOST_2, AMMagic.GREEN_POINT, AMMagic.TALENT, 120,  72, manaRegenerationBoost1);
         Holder<Skill> manaRegenerationBoost3 = addSkill(bootstrap, AMMagic.MANA_REGENERATION_BOOST_3, AMMagic.RED_POINT,   AMMagic.TALENT, 120, 120, manaRegenerationBoost2);
-        Holder<Skill> affinityGainsBoost     = addSkill(bootstrap, AMMagic.AFFINITY_GAINS_BOOST,      AMMagic.BLUE_POINT,  AMMagic.TALENT, 164,  24, manaRegenerationBoost1);
-        //Holder<Skill> mageBand1              = addSkill(bootstrap, AMMagic.MAGE_BAND_1,               AMMagic.GREEN_POINT, AMMagic.TALENT, 164,  72, manaRegenerationBoost2);
-        //Holder<Skill> mageBand2              = addSkill(bootstrap, AMMagic.MAGE_BAND_2,               AMMagic.RED_POINT,   AMMagic.TALENT, 164, 120, mageBand1);
+        Holder<Skill> affinityGainsBoost     = addSkill(bootstrap, AMMagic.AFFINITY_GAINS_BOOST,      AMMagic.BLUE_POINT,  AMMagic.TALENT, 168,  24, manaRegenerationBoost1);
+        //Holder<Skill> mageBand1              = addSkill(bootstrap, AMMagic.MAGE_BAND_1,               AMMagic.GREEN_POINT, AMMagic.TALENT, 168,  72, manaRegenerationBoost2);
+        //Holder<Skill> mageBand2              = addSkill(bootstrap, AMMagic.MAGE_BAND_2,               AMMagic.RED_POINT,   AMMagic.TALENT, 168, 120, mageBand1);
         Holder<Skill> spellMotion            = addSkill(bootstrap, AMMagic.SPELL_MOTION,              AMMagic.BLUE_POINT,  AMMagic.TALENT,  72,  24, manaRegenerationBoost1);
         Holder<Skill> augmentedCasting       = addSkill(bootstrap, AMMagic.AUGMENTED_CASTING,         AMMagic.GREEN_POINT, AMMagic.TALENT,  72,  72, spellMotion);
         Holder<Skill> extraSummons           = addSkill(bootstrap, AMMagic.EXTRA_SUMMONS,             AMMagic.RED_POINT,   AMMagic.TALENT,  72, 120, augmentedCasting);

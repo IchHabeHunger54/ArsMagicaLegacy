@@ -73,8 +73,8 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
 
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
-        offsetX = Math.clamp(offsetX - dragX, 0, tab.width());
-        offsetY = Math.clamp(offsetY - dragY, 0, tab.height());
+        offsetX = Math.clamp(offsetX - dragX, 0, tab.width() - TAB_SIZE);
+        offsetY = Math.clamp(offsetY - dragY, 0, tab.height() - TAB_SIZE);
         return true;
     }
 }

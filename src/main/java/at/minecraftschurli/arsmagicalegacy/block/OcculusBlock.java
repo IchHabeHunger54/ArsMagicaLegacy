@@ -101,14 +101,12 @@ public class OcculusBlock extends HorizontalDirectionalBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (level.isClientSide()) {
-            if (ArsMagicaApi.getMagicHelper().knowsMagic(player)) {
-                AMClientHooks.setOcculusScreen();
-            } else {
-                player.displayClientMessage(Component.translatable(AMTranslations.PREVENT_BLOCK), true);
-            }
-            return InteractionResult.SUCCESS;
+        if (!level.isClientSide()) return InteractionResult.SUCCESS;
+        if (ArsMagicaApi.getMagicHelper().knowsMagic(player)) {
+            AMClientHooks.setOcculusScreen();
+        } else {
+            player.displayClientMessage(Component.translatable(AMTranslations.PREVENT_BLOCK), true);
         }
-        return super.useWithoutItem(state, level, pos, player, hitResult);
+        return InteractionResult.SUCCESS;
     }
 }

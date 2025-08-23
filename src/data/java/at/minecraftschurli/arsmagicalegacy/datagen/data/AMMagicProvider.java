@@ -19,10 +19,10 @@ import java.util.Optional;
 
 public final class AMMagicProvider {
     public static void addOcculusTabs(BootstrapContext<OcculusTab> bootstrap) {
-        bootstrap.register(AMMagic.OFFENSE, new OcculusTab(368, 368, 85, 0, 0, ArsMagicaApi.modLoc("default")));
+        bootstrap.register(AMMagic.OFFENSE, new OcculusTab(368, 320, 85, 0, 0, ArsMagicaApi.modLoc("default")));
         bootstrap.register(AMMagic.DEFENSE, new OcculusTab(320, 368, 38, 0, 1, ArsMagicaApi.modLoc("default")));
         bootstrap.register(AMMagic.UTILITY, new OcculusTab(320, 368, 38, 0, 2, ArsMagicaApi.modLoc("default")));
-        bootstrap.register(AMMagic.TALENT, new OcculusTab(224, 196, 24, 0, 3, ArsMagicaApi.modLoc("default")));
+        bootstrap.register(AMMagic.TALENT, new OcculusTab(224, 196, 14, 0, 3, ArsMagicaApi.modLoc("default")));
         bootstrap.register(AMMagic.AFFINITY, new OcculusTab(196, 196, 0, 0, 4, ArsMagicaApi.modLoc("affinity")));
     }
 
@@ -54,7 +54,7 @@ public final class AMMagicProvider {
         Holder<Skill> contingencyFire  = addSkill(bootstrap, AMSpells.CONTINGENCY_FIRE,  AMMagic.RED_POINT,   AMMagic.OFFENSE,  24, 120, forge);
         Holder<Skill> storm            = addSkill(bootstrap, AMSpells.STORM,             AMMagic.RED_POINT,   AMMagic.OFFENSE,  72, 120, lightningDamage);
         Holder<Skill> blindness        = addSkill(bootstrap, AMSpells.BLINDNESS,         AMMagic.BLUE_POINT,  AMMagic.OFFENSE, 120, 168, lightningDamage);
-        Holder<Skill> solar            = addSkill(bootstrap, AMSpells.SOLAR,             AMMagic.RED_POINT,   AMMagic.OFFENSE,  72, 168, blindness);
+        Holder<Skill> solar            = addSkill(bootstrap, AMSpells.SOLAR,             AMMagic.RED_POINT,   AMMagic.OFFENSE, 120, 216, blindness);
         Holder<Skill> frost            = addSkill(bootstrap, AMSpells.FROST,             AMMagic.BLUE_POINT,  AMMagic.OFFENSE, 264,  72, frostDamage);
         Holder<Skill> piercing         = addSkill(bootstrap, AMSpells.PIERCING,          AMMagic.GREEN_POINT, AMMagic.OFFENSE, 312,  72, frost);
         Holder<Skill> drowningDamage   = addSkill(bootstrap, AMSpells.DROWNING_DAMAGE,   AMMagic.BLUE_POINT,  AMMagic.OFFENSE, 264, 120, magicDamage);
@@ -146,14 +146,14 @@ public final class AMMagicProvider {
         Holder<Skill> augmentedCasting       = addSkill(bootstrap, AMMagic.AUGMENTED_CASTING,         AMMagic.GREEN_POINT, AMMagic.TALENT,  72,  72, spellMotion);
         Holder<Skill> extraSummons           = addSkill(bootstrap, AMMagic.EXTRA_SUMMONS,             AMMagic.RED_POINT,   AMMagic.TALENT,  72, 120, augmentedCasting);
 
-        addHiddenSkill(bootstrap, AMSpells.BLIZZARD,       AMMagic.OFFENSE,  72, 312);
+        addHiddenSkill(bootstrap, AMSpells.BLIZZARD,       AMMagic.OFFENSE,  24, 168);
         addHiddenSkill(bootstrap, AMSpells.DAYLIGHT,       AMMagic.UTILITY, 216,  24);
-        addHiddenSkill(bootstrap, AMSpells.FALLING_STAR,   AMMagic.OFFENSE, 120, 312);
-        addHiddenSkill(bootstrap, AMSpells.FIRE_RAIN,      AMMagic.OFFENSE, 168, 312);
+        addHiddenSkill(bootstrap, AMSpells.FALLING_STAR,   AMMagic.OFFENSE,  72, 168);
+        addHiddenSkill(bootstrap, AMSpells.FIRE_RAIN,      AMMagic.OFFENSE,  24, 216);
         addHiddenSkill(bootstrap, AMSpells.HEALTH_BOOST,   AMMagic.DEFENSE,  24,  24);
-        addHiddenSkill(bootstrap, AMSpells.MANA_BLAST,     AMMagic.OFFENSE, 216, 312);
+        addHiddenSkill(bootstrap, AMSpells.MANA_BLAST,     AMMagic.OFFENSE,  72, 216);
         addHiddenSkill(bootstrap, AMSpells.MOONRISE,       AMMagic.UTILITY, 264,  24);
-        addHiddenSkill(bootstrap, AMSpells.DISMEMBERING,   AMMagic.OFFENSE, 264, 312);
+        addHiddenSkill(bootstrap, AMSpells.DISMEMBERING,   AMMagic.OFFENSE,  24, 264);
         addHiddenSkill(bootstrap, AMSpells.EFFECT_POWER,   AMMagic.DEFENSE, 264,  24);
         addHiddenSkill(bootstrap, AMSpells.PROSPERITY,     AMMagic.UTILITY,  24,  24);
         addHiddenSkill(bootstrap, AMMagic.SHIELD_OVERLOAD, AMMagic.TALENT,   24,  72);

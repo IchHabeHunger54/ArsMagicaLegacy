@@ -42,9 +42,9 @@ public class BarsLayer implements LayeredDraw.Layer {
         String text = String.valueOf(level);
         Font font = ClientUtil.font();
         renderOutlineText(guiGraphics, font, Component.literal(text), x + (WIDTH - font.width(text)) / 2, renderLevelAtTop ? y : y + 30, 0x7777FF);
-        renderBar(guiGraphics, font, x, renderLevelAtTop ? y + 10 : y + 20, xp, xpForNextLevel, AMTranslations.BARS_VALUE_XP, 0x7777FF);
-        renderBar(guiGraphics, font, x, renderLevelAtTop ? y + 20 : y, mana, maxMana, AMTranslations.BARS_VALUE_MANA, 0x99FFFF);
-        renderBar(guiGraphics, font, x, renderLevelAtTop ? y + 30 : y + 10, burnout, maxBurnout, AMTranslations.BARS_VALUE_BURNOUT, 0x880000);
+        renderBar(guiGraphics, font, x, renderLevelAtTop ? y + 10 : y + 20, xp, xpForNextLevel, AMTranslations.BARS_VALUE_XP_KEY, 0x7777FF);
+        renderBar(guiGraphics, font, x, renderLevelAtTop ? y + 20 : y, mana, maxMana, AMTranslations.BARS_VALUE_MANA_KEY, 0x99FFFF);
+        renderBar(guiGraphics, font, x, renderLevelAtTop ? y + 30 : y + 10, burnout, maxBurnout, AMTranslations.BARS_VALUE_BURNOUT_KEY, 0x880000);
     }
 
     private static void renderBar(GuiGraphics guiGraphics, Font font, int x, int y, double value, double maxValue, String translationKey, int color) {

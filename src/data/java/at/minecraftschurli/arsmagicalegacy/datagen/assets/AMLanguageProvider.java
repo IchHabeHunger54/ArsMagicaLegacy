@@ -262,17 +262,17 @@ public final class AMLanguageProvider extends LanguageProvider {
         add("skill_point", "blue", "Blue");
         add("skill_point", "green", "Green");
         add("skill_point", "red", "Red");
-        add(AMTranslations.BARS_VALUE_BURNOUT, "%s / %s");
-        add(AMTranslations.BARS_VALUE_MANA, "%s / %s");
-        add(AMTranslations.BARS_VALUE_XP, "%s / %s");
-        add(AMTranslations.PREVENT_BLOCK, "Mystical forces prevent you from using this block! Try crafting an Arcane Compendium to learn more.");
-        add(AMTranslations.SPELL_CAST_BURNED_OUT, "Burned out!");
-        add(AMTranslations.SPELL_CAST_MALFORMED, "Spell is malformed and cannot be cast!");
-        add(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA, "Not enough mana to cast the spell!");
-        add(AMTranslations.GUI_OCCULUS, "Occulus");
-        add(AMTranslations.GUI_OCCULUS_MISSING, "You lack the skill points or parent skills to learn this skill!");
-        add(AMTranslations.GUI_OCCULUS_NEXT, ">");
-        add(AMTranslations.GUI_OCCULUS_PREV, "<");
+        add(AMTranslations.BARS_VALUE_BURNOUT_KEY, "%s / %s");
+        add(AMTranslations.BARS_VALUE_MANA_KEY, "%s / %s");
+        add(AMTranslations.BARS_VALUE_XP_KEY, "%s / %s");
+        add(AMTranslations.PREVENT_BLOCK_KEY, "Mystical forces prevent you from using this block! Try crafting an Arcane Compendium to learn more.");
+        add(AMTranslations.SPELL_CAST_BURNED_OUT_KEY, "Burned out!");
+        add(AMTranslations.SPELL_CAST_MALFORMED_KEY, "Spell is malformed and cannot be cast!");
+        add(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA_KEY, "Not enough mana to cast the spell!");
+        add(AMTranslations.OCCULUS_KEY, "Occulus");
+        add(AMTranslations.OCCULUS_MISSING_KEY, "You lack the skill points or parent skills to learn this skill!");
+        add(AMTranslations.OCCULUS_NEXT_KEY, ">");
+        add(AMTranslations.OCCULUS_PREV_KEY, "<");
         add("itemGroup." + ArsMagicaApi.MOD_ID, "Ars Magica: Legacy");
     }
 
@@ -325,8 +325,8 @@ public final class AMLanguageProvider extends LanguageProvider {
      * @param tooltip     The translation of the config value's tooltip.
      */
     private void configTranslation(String name, String translation, String tooltip) {
-        add(AMTranslations.CONFIG + name, translation);
-        add(AMTranslations.CONFIG + name + ".tooltip", tooltip);
+        add(AMTranslations.CONFIG_KEY + name, translation);
+        add(AMTranslations.CONFIG_KEY + name + ".tooltip", tooltip);
     }
 
     /**

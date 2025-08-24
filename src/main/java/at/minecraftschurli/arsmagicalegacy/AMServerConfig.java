@@ -26,56 +26,56 @@ public final class AMServerConfig {
             .define("magic_advancement", ArsMagicaApi.modLoc("root").toString(), AMServerConfig::isValidResourceLocationOrEmpty);
         MANA_TO_BURNOUT_RATIO = builder
             .comment("The default mana to burnout ratio, used in calculating spell costs.")
-            .translation(AMTranslations.CONFIG + "mana_to_burnout_ratio")
+            .translation(AMTranslations.CONFIG_KEY + "mana_to_burnout_ratio")
             .defineInRange("mana_to_burnout_ratio", 0.5, 0, 10);
         builder.push("mana");
         MANA_BASE = builder
             .comment("The base value for mana calculation. Mana is calculated as base + multiplier * (level - 1).")
-            .translation(AMTranslations.CONFIG + "mana_base")
+            .translation(AMTranslations.CONFIG_KEY + "mana_base")
             .worldRestart()
             .defineInRange("base", 200., 0, 1000000);
         MANA_MULTIPLIER = builder
             .comment("The multiplier for mana calculation. Mana is calculated as base + multiplier * (level - 1).")
-            .translation(AMTranslations.CONFIG + "mana_multiplier")
+            .translation(AMTranslations.CONFIG_KEY + "mana_multiplier")
             .worldRestart()
             .defineInRange("multiplier", 25., 0, 1000000);
         MANA_REGENERATION = builder
             .comment("The multiplier for mana regeneration. Mana regeneration is calculated as (base + multiplier * (level - 1)) * regeneration.")
-            .translation(AMTranslations.CONFIG + "mana_regeneration")
+            .translation(AMTranslations.CONFIG_KEY + "mana_regeneration")
             .worldRestart()
             .defineInRange("regeneration", 0.001, 0, 1000000);
         builder.pop();
         builder.push("burnout");
         BURNOUT_BASE = builder
             .comment("The base value for burnout calculation. Burnout is calculated as base + multiplier * (level - 1).")
-            .translation(AMTranslations.CONFIG + "burnout_base")
+            .translation(AMTranslations.CONFIG_KEY + "burnout_base")
             .worldRestart()
             .defineInRange("base", 200., 0, 1000000);
         BURNOUT_MULTIPLIER = builder
             .comment("The multiplier for burnout calculation. Burnout is calculated as base + multiplier * (level - 1).")
-            .translation(AMTranslations.CONFIG + "burnout_multiplier")
+            .translation(AMTranslations.CONFIG_KEY + "burnout_multiplier")
             .worldRestart()
             .defineInRange("multiplier", 25., 0, 1000000);
         BURNOUT_REGENERATION = builder
             .comment("The multiplier for burnout regeneration. Burnout regeneration is calculated as (base + multiplier * (level - 1)) * regeneration.")
-            .translation(AMTranslations.CONFIG + "burnout_regeneration")
+            .translation(AMTranslations.CONFIG_KEY + "burnout_regeneration")
             .worldRestart()
             .defineInRange("regeneration", 0.001, 0, 1000000);
         builder.pop();
         builder.push("level");
         LEVEL_BASE = builder
             .comment("The base value for leveling calculation. XP cost is calculated as multiplier * base ^ (level - 1).")
-            .translation(AMTranslations.CONFIG + "level_base")
+            .translation(AMTranslations.CONFIG_KEY + "level_base")
             .worldRestart()
             .defineInRange("base", 1.2, 0, 10000);
         LEVEL_MULTIPLIER = builder
             .comment("The multiplier for leveling calculation. XP cost is calculated as multiplier * base ^ (level - 1).")
-            .translation(AMTranslations.CONFIG + "level_multiplier")
+            .translation(AMTranslations.CONFIG_KEY + "level_multiplier")
             .worldRestart()
             .defineInRange("multiplier", 2.4, 0, 10000);
         EXTRA_SKILL_POINTS = builder
             .comment("The extra blue skill points a player gets at level 1, in addition to the one they already get.")
-            .translation(AMTranslations.CONFIG + "extra_skill_points")
+            .translation(AMTranslations.CONFIG_KEY + "extra_skill_points")
             .defineInRange("extra_skill_points", 2, 0, Short.MAX_VALUE);
         builder.pop();
         SPEC = builder.build();

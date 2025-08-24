@@ -16,8 +16,4 @@ public record SpellCastResult(TriState result, @Nullable Spell spell, @Nullable 
     public static SpellCastResult fail(Component message) {
         return new SpellCastResult(TriState.FALSE, null, message);
     }
-
-    public static SpellCastResult fail(String messageKey) {
-        return fail(Component.translatable(messageKey));
-    }
 }

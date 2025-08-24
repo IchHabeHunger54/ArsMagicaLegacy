@@ -1,9 +1,16 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.registries.DeferredItem;
 
+import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 public interface AMCreativeTabs {
@@ -12,6 +19,7 @@ public interface AMCreativeTabs {
         .icon(AMItems.OCCULUS::toStack)
         .displayItems((display, output) -> {
             output.accept(AMItems.OCCULUS);
+            acceptVariants(display, output, AMItems.INFINITY_ORB, AMRegistryKeys.SKILL_POINT, (stack, holder) -> stack.set(AMDataComponents.SKILL_POINT, holder));
             output.accept(AMItems.CHIMERITE_ORE);
             output.accept(AMItems.DEEPSLATE_CHIMERITE_ORE);
             output.accept(AMItems.CHIMERITE);
@@ -64,5 +72,13 @@ public interface AMCreativeTabs {
      * Empty method used for classloading this class.
      */
     static void init() {
+    }
+
+    private static <T> void acceptVariants(CreativeModeTab.ItemDisplayParameters display, CreativeModeTab.Output output, DeferredItem<?> item, ResourceKey<Registry<T>> registryKey, BiConsumer<ItemStack, Holder<T>> consumer) {
+        display.holders().lookup(registryKey).ifPresent(registry -> registry.listElements().forEach(holder -> {
+            ItemStack stack = item.toStack();
+            consumer.accept(stack, holder);
+            output.accept(stack);
+        }));
     }
 }

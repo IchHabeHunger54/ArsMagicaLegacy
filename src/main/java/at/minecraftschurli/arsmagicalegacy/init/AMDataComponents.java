@@ -1,15 +1,27 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
+import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import com.mojang.serialization.Codec;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 public interface AMDataComponents {
-    DeferredHolder<DataComponentType<?>, DataComponentType<Spell>> SPELL = AMRegistries.DATA_COMPONENTS.registerComponentType("spell", builder -> builder.persistent(Spell.CODEC).networkSynchronized(Spell.STREAM_CODEC));
+    // @formatter:off
+    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<SkillPoint>>> SKILL_POINT = register("skill_point", SkillPoint.CODEC, SkillPoint.STREAM_CODEC);
+    DeferredHolder<DataComponentType<?>, DataComponentType<Spell>>              SPELL       = register("spell",       Spell.CODEC,      Spell.STREAM_CODEC);
+    // @formatter:on
 
     /**
      * Empty method used for classloading this class.
      */
     static void init() {
+    }
+
+    private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, Codec<T> codec, StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec) {
+        return AMRegistries.DATA_COMPONENTS.registerComponentType(name, builder -> builder.persistent(codec).networkSynchronized(streamCodec));
     }
 }

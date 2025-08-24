@@ -23,6 +23,10 @@ public final class AMLanguageProvider extends LanguageProvider {
     protected void addTranslations() {
         itemIdTranslation(AMItems.SPELL);
         blockIdTranslation(AMBlocks.OCCULUS);
+        itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.BLUE_POINT.location(), "Blue Infinity Orb");
+        itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.GREEN_POINT.location(), "Green Infinity Orb");
+        itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.RED_POINT.location(), "Red Infinity Orb");
+        itemIdTranslation(AMItems.INFINITY_ORB);
         blockIdTranslation(AMBlocks.CHIMERITE_ORE);
         blockIdTranslation(AMBlocks.DEEPSLATE_CHIMERITE_ORE);
         itemIdTranslation(AMItems.CHIMERITE);
@@ -288,6 +292,17 @@ public final class AMLanguageProvider extends LanguageProvider {
      */
     private void itemIdTranslation(DeferredItem<?> item) {
         addItem(item, idTranslation(item.getId().getPath()));
+    }
+
+    /**
+     * Adds an item with variants appended to the regular translation key.
+     *
+     * @param item        The item to generate the translation for.
+     * @param variant     The variant to use.
+     * @param translation The translation to add.
+     */
+    private void itemWithVariantTranslation(DeferredItem<?> item, ResourceLocation variant, String translation) {
+        add(Util.makeDescriptionId(item.toStack().getDescriptionId(), variant), translation);
     }
 
     /**

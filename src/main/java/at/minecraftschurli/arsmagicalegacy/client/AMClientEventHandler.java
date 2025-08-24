@@ -5,12 +5,17 @@ import at.minecraftschurli.arsmagicalegacy.api.client.RegisterOcculusTabRenderer
 import at.minecraftschurli.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.layer.BarsLayer;
+import at.minecraftschurli.arsmagicalegacy.client.model.DataComponentOverrideModel;
 import at.minecraftschurli.arsmagicalegacy.client.screen.occulus.AffinityTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.screen.occulus.DefaultTabRenderer;
+import at.minecraftschurli.arsmagicalegacy.init.AMItems;
+import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 
@@ -35,5 +40,15 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void registerClientReloadListeners(RegisterClientReloadListenersEvent event) {
         event.registerReloadListener(SkillAtlasHolder.INSTANCE.get());
+    }
+
+    @SubscribeEvent
+    private static void modelRegisterAdditional(ModelEvent.RegisterAdditional event) {
+        DataComponentOverrideModel.getAdditionalModels(AMItems.INFINITY_ORB, AMMagic.BLUE_POINT, AMMagic.GREEN_POINT, AMMagic.RED_POINT).forEach(event::register);
+    }
+
+    @SubscribeEvent
+    private static void modelModifyBakingResult(ModelEvent.ModifyBakingResult event) {
+        event.getModels().computeIfPresent(ModelResourceLocation.inventory(AMItems.INFINITY_ORB.getId()), (k, v) -> new DataComponentOverrideModel(v, DataComponentOverrideModel.SKILL_POINT_OVERRIDES));
     }
 }

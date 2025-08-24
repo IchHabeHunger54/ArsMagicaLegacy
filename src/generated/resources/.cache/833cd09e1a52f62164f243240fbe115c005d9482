@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-19T22:06:59.241219821	Item Models: arsmagicalegacy
+// 1.21.1	2025-08-24T13:51:33.0952998	Item Models: arsmagicalegacy
 5ade3f37b24782c7cdf40a3a83a6306d90db510a assets/arsmagicalegacy/models/item/arcane_ash.json
 cc2cb15d367f1057fc85a254ed16a8d5ea9fd02b assets/arsmagicalegacy/models/item/arcane_compound.json
 479f46ca80005c14a383332494b60e0b757b4f70 assets/arsmagicalegacy/models/item/aum.json
@@ -11,6 +11,10 @@ ceb5816f7bffe087aa2d7d3ab4507a55e32a6728 assets/arsmagicalegacy/models/item/deep
 4892dbefcbae56b7dc6c96b81fc878d04e96e1d5 assets/arsmagicalegacy/models/item/deepslate_topaz_ore.json
 9e475bb40fa9e38c089c3a22ad0a5e8a10b2fa9b assets/arsmagicalegacy/models/item/deepslate_vinteum_ore.json
 0d0ca386538be770abcd2f8b8d94c6148e5b3ca9 assets/arsmagicalegacy/models/item/desert_nova.json
+832cfe74bcfb8e9b032906128864fc50d39995db assets/arsmagicalegacy/models/item/infinity_orb.json
+c21f706e116e5b2bf9c64682d65b99589f03a313 assets/arsmagicalegacy/models/item/infinity_orb_blue.json
+201371065f932814e5c3c997f9b6d6c63da0473f assets/arsmagicalegacy/models/item/infinity_orb_green.json
+b8d7707941aa5120979431bb89c54c0f18600ec0 assets/arsmagicalegacy/models/item/infinity_orb_red.json
 29e2e8f8d2a39b2a1650ef1531a047453daf1587 assets/arsmagicalegacy/models/item/moonstone.json
 c53606ff6e745abe68542b67f9898bb41ab0e429 assets/arsmagicalegacy/models/item/moonstone_block.json
 fae4c9c3d165032bf10bd242e080dc1857dd027e assets/arsmagicalegacy/models/item/moonstone_ore.json

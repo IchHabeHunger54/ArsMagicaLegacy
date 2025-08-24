@@ -27,6 +27,10 @@ public abstract class OcculusTabRenderer extends AbstractContainerEventHandler i
     public void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
     }
 
+    public boolean hasSkillPointPanel() {
+        return true;
+    }
+
     @Override
     public List<? extends GuiEventListener> children() {
         return List.of();

@@ -15,4 +15,9 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         //TODO
     }
+
+    @Override
+    public boolean hasSkillPointPanel() {
+        return false;
+    }
 }

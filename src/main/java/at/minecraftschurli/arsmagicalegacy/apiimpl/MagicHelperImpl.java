@@ -12,7 +12,9 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
+import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
 import net.minecraft.core.Holder;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.common.NeoForge;
 
@@ -70,6 +72,7 @@ final class MagicHelperImpl implements MagicHelper {
         burnoutHelper.setMaxBurnout(player, newMaxBurnout);
         burnoutHelper.decreaseBurnout(player, newMaxBurnout - oldMaxBurnout);
         burnoutHelper.setBurnoutRegeneration(player, burnoutHelper.getBurnoutBase() * burnoutHelper.getBurnoutRegenerationMultiplier());
+        player.level().playSound(null, player, AMSounds.LEVEL_UP.get(), SoundSource.PLAYERS, 1, 1);
     }
 
     @Override

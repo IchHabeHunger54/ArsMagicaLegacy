@@ -2,7 +2,10 @@ package at.minecraftschurli.arsmagicalegacy.datagen.assets;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
+import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -17,6 +20,7 @@ public final class AMItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
         basicItem(AMItems.SPELL);
         blockItem(AMItems.OCCULUS);
+        basicItemWithVariants(AMItems.INFINITY_ORB, AMMagic.BLUE_POINT, AMMagic.GREEN_POINT, AMMagic.RED_POINT);
         blockItem(AMItems.CHIMERITE_ORE);
         blockItem(AMItems.DEEPSLATE_CHIMERITE_ORE);
         basicItem(AMItems.CHIMERITE);
@@ -80,6 +84,20 @@ public final class AMItemModelProvider extends ItemModelProvider {
      */
     private void basicItem(DeferredItem<?> item) {
         basicItem(item.get());
+    }
+
+    /**
+     * Adds a flat item model and flat variant item models for an item with variants.
+     *
+     * @param item     The item to add the models for.
+     * @param variants The variants to add models for.
+     */
+    private void basicItemWithVariants(DeferredItem<?> item, ResourceKey<?>... variants) {
+        basicItem(item);
+        for (ResourceKey<?> variant : variants) {
+            ResourceLocation location = variant.location().withPrefix(item.getId().getPath() + "_");
+            singleTexture(location.getPath(), mcLoc("item/generated"), "layer0", location.withPrefix("item/"));
+        }
     }
 
     /**

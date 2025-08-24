@@ -13,6 +13,6 @@ import java.util.List;
 public class Self extends PrimarySpellShape {
     @Override
     public SpellCastResult cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster) {
-        return ArsMagicaApi.getSpellHelper().castSecondaryOrGrammar(spell, caster, caster, new EntityHitResult(caster));
+        return ArsMagicaApi.spellHelper().castSecondaryOrGrammar(spell, caster, caster, new EntityHitResult(caster));
     }
 }

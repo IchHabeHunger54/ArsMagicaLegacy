@@ -17,7 +17,7 @@ public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List
     public static final int MAX_PARTS = 8;
     public static final SpellGrammar EMPTY = new SpellGrammar(List.of(), List.of());
     public static final Codec<SpellGrammar> CODEC = RecordCodecBuilder.create(inst -> inst.group(
-        ArsMagicaApi.getSpellPartRegistry().byNameCodec().listOf(0, MAX_PARTS).fieldOf("parts").forGetter(SpellGrammar::parts)
+        ArsMagicaApi.spellPartRegistry().byNameCodec().listOf(0, MAX_PARTS).fieldOf("parts").forGetter(SpellGrammar::parts)
     ).apply(inst, SpellGrammar::of));
     public static final StreamCodec<RegistryFriendlyByteBuf, SpellGrammar> STREAM_CODEC = StreamCodec.composite(
         ByteBufCodecs.registry(AMRegistryKeys.SPELL_PART).apply(ByteBufCodecs.list()), SpellGrammar::parts,

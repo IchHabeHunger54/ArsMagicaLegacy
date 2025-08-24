@@ -38,8 +38,8 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void newRegistry(NewRegistryEvent event) {
-        event.register(ArsMagicaApi.getSpellPartRegistry());
-        event.register(ArsMagicaApi.getSpellDataComponentRegistry());
+        event.register(ArsMagicaApi.spellPartRegistry());
+        event.register(ArsMagicaApi.spellPartDataComponentRegistry());
     }
 
     @SubscribeEvent
@@ -71,16 +71,16 @@ final class AMEventHandler {
     private static void advancementEarn(AdvancementEvent.AdvancementEarnEvent event) {
         String advancement = AMServerConfig.MAGIC_ADVANCEMENT.get();
         if (!advancement.isEmpty() && event.getAdvancement().id().toString().equals(advancement)) {
-            ArsMagicaApi.getMagicHelper().initiateMagic(event.getEntity());
+            ArsMagicaApi.magicHelper().initiateMagic(event.getEntity());
         }
     }
 
     @SubscribeEvent
     private static void entityTickPost(EntityTickEvent.Post event) {
         if (!(event.getEntity() instanceof LivingEntity living)) return;
-        ManaHelper manaHelper = ArsMagicaApi.getManaHelper();
+        ManaHelper manaHelper = ArsMagicaApi.manaHelper();
         manaHelper.increaseMana(living, manaHelper.getManaRegeneration(living));
-        BurnoutHelper burnoutHelper = ArsMagicaApi.getBurnoutHelper();
+        BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
         burnoutHelper.decreaseBurnout(living, burnoutHelper.getBurnoutRegeneration(living));
     }
 }

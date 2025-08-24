@@ -16,6 +16,6 @@ public abstract sealed class SpellPart permits PrimarySpellShape, SecondarySpell
     public abstract boolean isModifier();
 
     public SpellPartData getData() {
-        return ArsMagicaApi.getSpellPartData(this);
+        return ArsMagicaApi.spellPartData(this);
     }
 }

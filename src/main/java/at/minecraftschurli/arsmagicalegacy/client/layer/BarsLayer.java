@@ -10,7 +10,6 @@ import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
 import at.minecraftschurli.arsmagicalegacy.client.util.ColorUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.DeltaTracker;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
@@ -26,10 +25,10 @@ public class BarsLayer implements LayeredDraw.Layer {
     @Override
     public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
         Player player = ClientUtil.player();
-        MagicHelper magicHelper = ArsMagicaApi.getMagicHelper();
+        MagicHelper magicHelper = ArsMagicaApi.magicHelper();
         if (!magicHelper.knowsMagic(player)) return;
-        ManaHelper manaHelper = ArsMagicaApi.getManaHelper();
-        BurnoutHelper burnoutHelper = ArsMagicaApi.getBurnoutHelper();
+        ManaHelper manaHelper = ArsMagicaApi.manaHelper();
+        BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
         int level = magicHelper.getLevel(player);
         double xp = magicHelper.getXp(player);
         double xpForNextLevel = magicHelper.getXpForNextLevel(level);

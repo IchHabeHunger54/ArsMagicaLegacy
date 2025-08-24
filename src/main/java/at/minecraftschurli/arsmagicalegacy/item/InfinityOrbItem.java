@@ -19,7 +19,7 @@ public class InfinityOrbItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack stack = player.getItemInHand(usedHand);
         if (!stack.has(AMDataComponents.SKILL_POINT)) return super.use(level, player, usedHand);
-        ArsMagicaApi.getMagicHelper().addSkillPoint(player, stack.get(AMDataComponents.SKILL_POINT));
+        ArsMagicaApi.magicHelper().addSkillPoint(player, stack.get(AMDataComponents.SKILL_POINT));
         if (!player.isCreative()) {
             stack.shrink(1);
         }

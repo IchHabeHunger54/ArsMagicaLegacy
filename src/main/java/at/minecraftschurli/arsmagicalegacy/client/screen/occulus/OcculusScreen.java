@@ -102,7 +102,7 @@ public class OcculusScreen extends Screen {
                 .toList();
             List<MutableComponent> components = holders
                 .stream()
-                .map(e -> ArsMagicaApi.getMagicHelper().getSkillPoint(ClientUtil.player(), e))
+                .map(e -> ArsMagicaApi.magicHelper().getSkillPoint(ClientUtil.player(), e))
                 .map(String::valueOf)
                 .map(Component::literal)
                 .toList();
@@ -144,7 +144,7 @@ public class OcculusScreen extends Screen {
     }
 
     private void setRenderer(OcculusTab occulusTab) {
-        renderer = ArsMagicaClientApi.getOcculusTabRendererFactory(occulusTab).create(occulusTab, ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.OCCULUS_TAB).getKey(occulusTab));
+        renderer = ArsMagicaClientApi.occulusTabRendererFactory(occulusTab).create(occulusTab, ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.OCCULUS_TAB).getKey(occulusTab));
     }
 
     private void nextPage() {

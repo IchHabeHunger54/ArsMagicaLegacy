@@ -185,6 +185,6 @@ public final class AMMagicProvider {
     }
 
     private static ResourceKey<Skill> fromPart(DeferredHolder<SpellPart, ?> part) {
-        return ResourceKey.create(AMRegistryKeys.SKILL, ArsMagicaApi.getSpellPartRegistry().getKey(part.get()));
+        return ResourceKey.create(AMRegistryKeys.SKILL, ArsMagicaApi.spellPartRegistry().getKey(part.get()));
     }
 }

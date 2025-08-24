@@ -58,13 +58,13 @@ final class MagicHelperImpl implements MagicHelper {
                 }
             }
         }
-        ManaHelper manaHelper = ArsMagicaApi.getManaHelper();
+        ManaHelper manaHelper = ArsMagicaApi.manaHelper();
         double oldMaxMana = manaHelper.getMaxMana(player);
         double newMaxMana = manaHelper.getManaBase() + manaHelper.getManaMultiplier() * (level - 1);
         manaHelper.setMaxMana(player, newMaxMana);
         manaHelper.increaseMana(player, newMaxMana - oldMaxMana);
         manaHelper.setManaRegeneration(player, newMaxMana * manaHelper.getManaRegenerationMultiplier());
-        BurnoutHelper burnoutHelper = ArsMagicaApi.getBurnoutHelper();
+        BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
         double oldMaxBurnout = burnoutHelper.getMaxBurnout(player);
         double newMaxBurnout = burnoutHelper.getBurnoutBase() + burnoutHelper.getBurnoutMultiplier() * (level - 1);
         burnoutHelper.setMaxBurnout(player, newMaxBurnout);
@@ -100,7 +100,7 @@ final class MagicHelperImpl implements MagicHelper {
     @Override
     public void initiateMagic(Player player) {
         setLevel(player, Math.max(1, getLevel(player)));
-        ManaHelper manaHelper = ArsMagicaApi.getManaHelper();
+        ManaHelper manaHelper = ArsMagicaApi.manaHelper();
         manaHelper.setMana(player, manaHelper.getMaxMana(player));
         player.registryAccess().registryOrThrow(AMRegistryKeys.SKILL_POINT).getHolder(AMMagic.BLUE_POINT).ifPresent(skillPoint -> addSkillPoint(player, skillPoint, AMServerConfig.EXTRA_SKILL_POINTS.get()));
     }

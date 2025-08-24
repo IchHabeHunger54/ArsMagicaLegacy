@@ -22,37 +22,37 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     private static final SpellHelper SPELL_HELPER = new SpellHelperImpl();
 
     @Override
-    protected Registry<SpellPart> _getSpellPartRegistry() {
+    protected Registry<SpellPart> getSpellPartRegistry() {
         return SPELL_PART_REGISTRY;
     }
 
     @Override
-    protected Registry<DataComponentType<?>> _getSpellDataComponentRegistry() {
+    protected Registry<DataComponentType<?>> getSpellDataComponentRegistry() {
         return SPELL_DATA_COMPONENT_REGISTRY;
     }
 
     @Override
-    protected BurnoutHelper _getBurnoutHelper() {
+    protected BurnoutHelper getBurnoutHelper() {
         return BURNOUT_HELPER;
     }
 
     @Override
-    protected MagicHelper _getMagicHelper() {
+    protected MagicHelper getMagicHelper() {
         return MAGIC_HELPER;
     }
 
     @Override
-    protected ManaHelper _getManaHelper() {
+    protected ManaHelper getManaHelper() {
         return MANA_HELPER;
     }
 
     @Override
-    protected SpellHelper _getSpellHelper() {
+    protected SpellHelper getSpellHelper() {
         return SPELL_HELPER;
     }
 
     @Override
-    protected SpellPartData _getSpellPartData(SpellPart part) {
-        return SpellPartDataManager.INSTANCE.getOrDefault(getSpellPartRegistry().getKey(part), SpellPartData.DEFAULT);
+    protected SpellPartData getSpellPartData(SpellPart part) {
+        return SpellPartDataManager.INSTANCE.getOrDefault(spellPartRegistry().getKey(part), SpellPartData.DEFAULT);
     }
 }

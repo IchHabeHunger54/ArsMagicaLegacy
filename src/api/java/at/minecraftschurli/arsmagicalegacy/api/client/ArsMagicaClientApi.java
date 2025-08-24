@@ -21,10 +21,10 @@ public abstract class ArsMagicaClientApi {
      * @param tab The {@link OcculusTab} to get the {@link OcculusTabRenderer.Factory} for.
      * @return The {@link OcculusTabRenderer.Factory} for the specified {@link OcculusTab}.
      */
-    public static OcculusTabRenderer.Factory getOcculusTabRendererFactory(OcculusTab tab) {
-        return INSTANCE.get()._getOcculusTabRendererFactory(tab);
+    public static OcculusTabRenderer.Factory occulusTabRendererFactory(OcculusTab tab) {
+        return INSTANCE.get().getOcculusTabRendererFactory(tab);
     }
 
     @ApiStatus.Internal
-    protected abstract OcculusTabRenderer.Factory _getOcculusTabRendererFactory(OcculusTab tab);
+    protected abstract OcculusTabRenderer.Factory getOcculusTabRendererFactory(OcculusTab tab);
 }

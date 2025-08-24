@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -19,6 +20,7 @@ public interface AMRegistries {
     DeferredRegister.DataComponents     DATA_COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ArsMagicaApi.MOD_ID);
     DeferredRegister<Attribute>         ATTRIBUTES      = DeferredRegister.create(Registries.ATTRIBUTE,                         ArsMagicaApi.MOD_ID);
     DeferredRegister<CreativeModeTab>   CREATIVE_TABS   = DeferredRegister.create(Registries.CREATIVE_MODE_TAB,                 ArsMagicaApi.MOD_ID);
+    DeferredRegister<SoundEvent>        SOUND_EVENTS    = DeferredRegister.create(Registries.SOUND_EVENT,                       ArsMagicaApi.MOD_ID);
     DeferredRegister<Feature<?>>        FEATURES        = DeferredRegister.create(Registries.FEATURE,                           ArsMagicaApi.MOD_ID);
     DeferredRegister<AttachmentType<?>> ATTACHMENTS     = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES,     ArsMagicaApi.MOD_ID);
     DeferredRegister<SpellPart>         SPELL_PARTS     = DeferredRegister.create(AMRegistryKeys.SPELL_PART,                    ArsMagicaApi.MOD_ID);
@@ -35,6 +37,7 @@ public interface AMRegistries {
         AMDataComponents.init();
         AMAttributes.init();
         AMCreativeTabs.init();
+        AMSounds.init();
         AMWorldgen.init();
         AMAttachments.init();
         AMSpells.init();
@@ -43,6 +46,7 @@ public interface AMRegistries {
         DATA_COMPONENTS.register(bus);
         ATTRIBUTES.register(bus);
         CREATIVE_TABS.register(bus);
+        SOUND_EVENTS.register(bus);
         FEATURES.register(bus);
         ATTACHMENTS.register(bus);
         SPELL_PARTS.register(bus);

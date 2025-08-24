@@ -6,12 +6,15 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
+import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import net.minecraft.Util;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 public final class AMLanguageProvider extends LanguageProvider {
@@ -112,6 +115,75 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTags.Items.DUSTS_ARCANE_ASH, "Arcane Ash Dusts");
         add(AMTags.Items.DUSTS_PURIFIED_VINTEUM, "Purified Vinteum Dusts");
         add(AMTags.Items.WITCHWOOD_LOGS, "Witchwood Logs");
+        subtitleTranslation(AMSounds.ARCANE_GUARDIAN_AMBIENT, "Arcane Guardian hisses");
+        subtitleTranslation(AMSounds.ARCANE_GUARDIAN_ATTACK, "Arcane Guardian attacks");
+        subtitleTranslation(AMSounds.ARCANE_GUARDIAN_DEATH, "Arcane Guardian dies");
+        subtitleTranslation(AMSounds.ARCANE_GUARDIAN_HURT, "Arcane Guardian hurts");
+        subtitleTranslation(AMSounds.EARTH_GUARDIAN_AMBIENT, "Earth Guardian rumbles");
+        subtitleTranslation(AMSounds.EARTH_GUARDIAN_ATTACK, "Earth Guardian attacks");
+        subtitleTranslation(AMSounds.EARTH_GUARDIAN_DEATH, "Earth Guardian dies");
+        subtitleTranslation(AMSounds.EARTH_GUARDIAN_HURT, "Earth Guardian hurts");
+        subtitleTranslation(AMSounds.ENDER_GUARDIAN_AMBIENT, "Ender Guardian hisses");
+        subtitleTranslation(AMSounds.ENDER_GUARDIAN_ATTACK, "Ender Guardian attacks");
+        subtitleTranslation(AMSounds.ENDER_GUARDIAN_DEATH, "Ender Guardian dies");
+        subtitleTranslation(AMSounds.ENDER_GUARDIAN_HURT, "Ender Guardian hurts");
+        subtitleTranslation(AMSounds.FIRE_GUARDIAN_AMBIENT, "Fire Guardian cackles");
+        subtitleTranslation(AMSounds.FIRE_GUARDIAN_ATTACK, "Fire Guardian attacks");
+        subtitleTranslation(AMSounds.FIRE_GUARDIAN_DEATH, "Fire Guardian dies");
+        subtitleTranslation(AMSounds.FIRE_GUARDIAN_HURT, "Fire Guardian hurts");
+        subtitleTranslation(AMSounds.ICE_GUARDIAN_AMBIENT, "Ice Guardian cracks");
+        subtitleTranslation(AMSounds.ICE_GUARDIAN_DEATH, "Ice Guardian dies");
+        subtitleTranslation(AMSounds.LIFE_GUARDIAN_AMBIENT, "Life Guardian hums");
+        subtitleTranslation(AMSounds.LIFE_GUARDIAN_ATTACK, "Life Guardian attacks");
+        subtitleTranslation(AMSounds.LIFE_GUARDIAN_DEATH, "Life Guardian dies");
+        subtitleTranslation(AMSounds.LIFE_GUARDIAN_HURT, "Life Guardian hurts");
+        subtitleTranslation(AMSounds.LIGHTNING_GUARDIAN_AMBIENT, "Lightning Guardian zaps");
+        subtitleTranslation(AMSounds.LIGHTNING_GUARDIAN_ATTACK, "Lightning Guardian attacks");
+        subtitleTranslation(AMSounds.LIGHTNING_GUARDIAN_DEATH, "Lightning Guardian dies");
+        subtitleTranslation(AMSounds.LIGHTNING_GUARDIAN_HURT, "Lightning Guardian hurts");
+        subtitleTranslation(AMSounds.NATURE_GUARDIAN_AMBIENT, "Nature Guardian hisses");
+        subtitleTranslation(AMSounds.NATURE_GUARDIAN_ATTACK, "Nature Guardian attacks");
+        subtitleTranslation(AMSounds.NATURE_GUARDIAN_DEATH, "Nature Guardian dies");
+        subtitleTranslation(AMSounds.NATURE_GUARDIAN_HURT, "Nature Guardian hurts");
+        subtitleTranslation(AMSounds.WATER_GUARDIAN_AMBIENT, "Water Guardian bubbles");
+        subtitleTranslation(AMSounds.WATER_GUARDIAN_DEATH, "Water Guardian dies");
+        subtitleTranslation(AMSounds.ENDER_GUARDIAN_FLAP, "Ender Guardian flaps");
+        subtitleTranslation(AMSounds.ENDER_GUARDIAN_ROAR, "Ender Guardian roars");
+        subtitleTranslation(AMSounds.FIRE_GUARDIAN_FLAMETHROWER, "Fire Guardian burns");
+        subtitleTranslation(AMSounds.FIRE_GUARDIAN_NOVA, "Fire Guardian shoots");
+        subtitleTranslation(AMSounds.ICE_GUARDIAN_LAUNCH_ARM, "Ice Guardian launches arm");
+        subtitleTranslation(AMSounds.LIGHTNING_GUARDIAN_LIGHTNING_ROD, "Lightning Guardian summons lightning");
+        subtitleTranslation(AMSounds.LIGHTNING_GUARDIAN_STATIC, "Lightning Guardian thunders");
+        subtitleTranslation(AMSounds.CAST_AIR, "Air spell is cast");
+        subtitleTranslation(AMSounds.CAST_ARCANE, "Arcane spell is cast");
+        subtitleTranslation(AMSounds.CAST_EARTH, "Earth spell is cast");
+        subtitleTranslation(AMSounds.CAST_ENDER, "Ender spell is cast");
+        subtitleTranslation(AMSounds.CAST_FIRE, "Fire spell is cast");
+        subtitleTranslation(AMSounds.CAST_ICE, "Ice spell is cast");
+        subtitleTranslation(AMSounds.CAST_LIFE, "Life spell is cast");
+        subtitleTranslation(AMSounds.CAST_LIGHTNING, "Lightning spell is cast");
+        subtitleTranslation(AMSounds.CAST_NATURE, "Nature spell is cast");
+        subtitleTranslation(AMSounds.CAST_NONE, "Spell is cast");
+        subtitleTranslation(AMSounds.CAST_WATER, "Water spell is cast");
+        subtitleTranslation(AMSounds.LOOP_AIR, "Air spell is looped");
+        subtitleTranslation(AMSounds.LOOP_ARCANE, "Arcane spell is looped");
+        subtitleTranslation(AMSounds.LOOP_EARTH, "Earth spell is looped");
+        subtitleTranslation(AMSounds.LOOP_ENDER, "Ender spell is looped");
+        subtitleTranslation(AMSounds.LOOP_FIRE, "Fire spell is looped");
+        subtitleTranslation(AMSounds.LOOP_ICE, "Ice spell is looped");
+        subtitleTranslation(AMSounds.LOOP_LIFE, "Life spell is looped");
+        subtitleTranslation(AMSounds.LOOP_LIGHTNING, "Lightning spell is looped");
+        subtitleTranslation(AMSounds.LOOP_NATURE, "Nature spell is looped");
+        subtitleTranslation(AMSounds.LOOP_WATER, "Water spell is looped");
+        subtitleTranslation(AMSounds.CONTINGENCY, "Contingency sparkles");
+        subtitleTranslation(AMSounds.FALLING_STAR, "Star falls down");
+        subtitleTranslation(AMSounds.INFINITY_ORB, "Infinity Orb vanishes");
+        subtitleTranslation(AMSounds.LEVEL_UP, "Magic jingle");
+        subtitleTranslation(AMSounds.MANA_SHIELD, "Mana Shield is raised");
+        subtitleTranslation(AMSounds.RUNE, "Rune activates");
+        subtitleTranslation(AMSounds.SPELLCRAFTING_ADD_INGREDIENT, "Spellcrafting Altar blings");
+        subtitleTranslation(AMSounds.SPELLCRAFTING_FINISH, "Spellcrafting Altar jingles");
+        subtitleTranslation(AMSounds.TAKE_BOOK, "Book is taken");
         advancementTranslation("root", "Ars Magica: Legacy", "A renewed look into Minecraft with a splash of magic...");
         advancementTranslation("spell", "You're a wizard, Harry!", "Get your first spell");
         skillTranslation(AMSpells.ABSORPTION.getId(), "Absorption", "Like a slightly flimsier shield.", "components", "You gain absorption hearts, like you would when eating a golden apple. This does not stack with golden apples.");
@@ -327,6 +399,16 @@ public final class AMLanguageProvider extends LanguageProvider {
     private void configTranslation(String name, String translation, String tooltip) {
         add(AMTranslations.CONFIG_KEY + name, translation);
         add(AMTranslations.CONFIG_KEY + name + ".tooltip", tooltip);
+    }
+
+    /**
+     * Adds a subtitle translation.
+     *
+     * @param sound       The sound to add the translation for.
+     * @param translation The translation to use.
+     */
+    private void subtitleTranslation(DeferredHolder<SoundEvent, SoundEvent> sound, String translation) {
+        add(Util.makeDescriptionId("subtitle", sound.getKey().location()), translation);
     }
 
     /**

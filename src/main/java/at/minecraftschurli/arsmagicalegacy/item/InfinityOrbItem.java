@@ -2,7 +2,9 @@ package at.minecraftschurli.arsmagicalegacy.item;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
+import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
 import net.minecraft.Util;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -23,6 +25,7 @@ public class InfinityOrbItem extends Item {
         if (!player.isCreative()) {
             stack.shrink(1);
         }
+        level.playSound(null, player, AMSounds.INFINITY_ORB.get(), SoundSource.PLAYERS, 1, 1);
         return InteractionResultHolder.success(stack);
     }
 

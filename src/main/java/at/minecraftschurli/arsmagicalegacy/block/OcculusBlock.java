@@ -105,7 +105,7 @@ public class OcculusBlock extends HorizontalDirectionalBlock {
         if (ArsMagicaApi.magicHelper().knowsMagic(player)) {
             AMClientHooks.setOcculusScreen();
         } else {
-            player.displayClientMessage(Component.translatable(AMTranslations.PREVENT_BLOCK), true);
+            player.displayClientMessage(AMTranslations.PREVENT_BLOCK, true);
         }
         return InteractionResult.SUCCESS;
     }

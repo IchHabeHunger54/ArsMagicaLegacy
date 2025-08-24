@@ -26,9 +26,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class OcculusScreen extends Screen {
-    private static final Component TITLE = Component.translatable(AMTranslations.GUI_OCCULUS);
-    private static final Component NEXT = Component.translatable(AMTranslations.GUI_OCCULUS_NEXT);
-    private static final Component PREV = Component.translatable(AMTranslations.GUI_OCCULUS_PREV);
     private static final ResourceLocation BUTTON_INDICATOR = ArsMagicaApi.modLoc("textures/gui/occulus/tab_button_indicator.png");
     private static final ResourceLocation FRAME = ArsMagicaApi.modLoc("textures/gui/occulus/frame.png");
     private static final ResourceLocation SKILL_POINTS = ArsMagicaApi.modLoc("textures/gui/occulus/skill_points.png");
@@ -48,7 +45,7 @@ public class OcculusScreen extends Screen {
     private int maxPage = 0;
 
     public OcculusScreen() {
-        super(TITLE);
+        super(AMTranslations.OCCULUS);
     }
 
     @Override
@@ -83,8 +80,8 @@ public class OcculusScreen extends Screen {
                 final int j = i;
                 buttons.add(addRenderableWidget(new OcculusTabButton(list.get(i), posX + 28 + i % 7 * OcculusTabButton.SIZE, posY, $ -> setTab(j))));
             }
-            nextButton = Button.builder(NEXT, $ -> nextPage()).bounds(posX + SIZE - 20, posY, 20, 20).build();
-            prevButton = Button.builder(PREV, $ -> prevPage()).bounds(posX, posY, 20, 20).build();
+            nextButton = Button.builder(AMTranslations.OCCULUS_NEXT, $ -> nextPage()).bounds(posX + SIZE - 20, posY, 20, 20).build();
+            prevButton = Button.builder(AMTranslations.OCCULUS_PREV, $ -> prevPage()).bounds(posX, posY, 20, 20).build();
             onPageChange();
         }
         setRenderer(tabs.getFirst());

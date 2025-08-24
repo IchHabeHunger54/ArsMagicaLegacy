@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class DefaultTabRenderer extends OcculusTabRenderer {
-    private static final Component MISSING = Component.translatable(AMTranslations.GUI_OCCULUS_MISSING).withStyle(ChatFormatting.DARK_RED);
+    private static final Component MISSING = Component.translatable(AMTranslations.OCCULUS_MISSING_KEY).withStyle(ChatFormatting.DARK_RED);
     private static final int SKILL_SIZE = 32;
     private final List<Skill> skills;
     private double offsetX;

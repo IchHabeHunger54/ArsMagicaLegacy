@@ -62,16 +62,23 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
         stack.pushPose();
         stack.translate(-offsetX, -offsetY, 0);
         for (Skill skill : skills) {
-            float skillX = skill.x() + SKILL_SIZE / 2f;
-            float skillY = skill.y() + SKILL_SIZE / 2f;
+            float endX = skill.x() + SKILL_SIZE / 2f;
+            float endY = skill.y() + SKILL_SIZE / 2f;
             boolean knowsSkill = helper.knows(player, registry.wrapAsHolder(skill));
             for (Skill parent : skill.getParents(registryAccess)) {
-                float parentX = parent.x() + SKILL_SIZE / 2f;
-                float parentY = parent.y() + SKILL_SIZE / 2f;
+                float startX = parent.x() + SKILL_SIZE / 2f;
+                float startY = parent.y() + SKILL_SIZE / 2f;
                 boolean knowsParent = helper.knows(player, registry.wrapAsHolder(parent));
-                int startColor = knowsParent && knowsSkill ? 0xffffffff : knowsParent ? getColorForSkill(parent) : knowsSkill ? getColorForSkill(skill) : 0xff000000;
-                int endColor = knowsSkill ? 0xffffffff : 0xff000000;
-                drawLine(guiGraphics, parentX, parentY, skillX, skillY, 8, 1, startColor, endColor);
+                int startColor = knowsParent && knowsSkill ? 0xffffffff : knowsParent ? getColorForSkill(parent) : 0xff000000;
+                int endColor = knowsParent && knowsSkill ? 0xffffffff : knowsParent ? getColorForSkill(skill) : 0xff000000;
+                stack.pushPose();
+                stack.translate(startX, startY, 8);
+                Vec2 vec = new Vec2(endX - startX, endY - startY);
+                float angle = (float) Math.acos(new Vec2(0, 1).dot(vec.normalized()));
+                stack.mulPose(Axis.ZP.rotation(vec.x > 0 ? -angle : angle));
+                stack.translate(-0.5f, 0, 0);
+                guiGraphics.fillGradient(0, 0, 1, (int) vec.length(), startColor, endColor);
+                stack.popPose();
             }
         }
         float tick = 0.75f + ((player.tickCount % 80) >= 40 ? (player.tickCount % 40) / 80f - 0.25f : 0.25f - (player.tickCount % 40) / 80f);
@@ -134,19 +141,7 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
         return true;
     }
 
-    private static void drawLine(GuiGraphics guiGraphics, float startX, float startY, float endX, float endY, int z, int size, int startColor, int endColor) {
-        PoseStack stack = guiGraphics.pose();
-        stack.pushPose();
-        stack.translate(startX, startY, z);
-        Vec2 vec = new Vec2(endX - startX, endY - startY);
-        float length = vec.length();
-        stack.mulPose(Axis.ZP.rotation((float) Math.acos(new Vec2(1, 0).dot(vec.y < 0 ? vec.normalized().negated() : vec.normalized()))));
-        stack.translate(0, -size / 2f, 0);
-        guiGraphics.fillGradient(0, 0, (int) (vec.y < 0 ? -length : length), size, startColor, endColor);
-        stack.popPose();
-    }
-
     private static int getColorForSkill(Skill skill) {
-        return skill.cost().map(Holder::value).map(SkillPoint::color).orElse(0xcccccc);
+        return skill.cost().map(Holder::value).map(SkillPoint::color).orElse(0xcccccc) | 0xff000000;
     }
 }

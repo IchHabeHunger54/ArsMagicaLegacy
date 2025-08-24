@@ -51,7 +51,7 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
-        MagicHelper helper = ArsMagicaApi.getMagicHelper();
+        MagicHelper helper = ArsMagicaApi.magicHelper();
         RegistryAccess registryAccess = ClientUtil.registryAccess();
         Registry<Skill> registry = registryAccess.registryOrThrow(AMRegistryKeys.SKILL);
         LocalPlayer player = ClientUtil.player();
@@ -108,7 +108,7 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
     @Override
     public void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         if (hoveredSkill == null) return;
-        MagicHelper helper = ArsMagicaApi.getMagicHelper();
+        MagicHelper helper = ArsMagicaApi.magicHelper();
         LocalPlayer player = ClientUtil.player();
         Registry<Skill> registry = ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL);
         ResourceLocation id = registry.getKey(hoveredSkill);
@@ -125,7 +125,7 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
         if (hoveredSkill != null) {
             Holder<Skill> holder = ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).wrapAsHolder(hoveredSkill);
             LocalPlayer player = ClientUtil.player();
-            if (ArsMagicaApi.getMagicHelper().canLearn(player, holder) || player.isCreative()) {
+            if (ArsMagicaApi.magicHelper().canLearn(player, holder) || player.isCreative()) {
                 PacketDistributor.sendToServer(new LearnSkillPacket(holder));
                 return true;
             }

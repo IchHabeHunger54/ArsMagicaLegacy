@@ -16,7 +16,7 @@ public record SpellPartData(double mana, Optional<Double> burnout) {
     ).apply(inst, SpellPartData::new));
 
     public double burnoutOrGenerated() {
-        return burnout.orElse(mana * ArsMagicaApi.getBurnoutHelper().getManaToBurnoutRatio());
+        return burnout.orElse(mana * ArsMagicaApi.burnoutHelper().getManaToBurnoutRatio());
     }
 
     public static class Builder extends AbstractDataProvider.Builder<SpellPartData> {

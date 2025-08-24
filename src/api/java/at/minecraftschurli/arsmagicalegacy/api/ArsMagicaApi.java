@@ -43,71 +43,71 @@ public abstract class ArsMagicaApi {
     /**
      * @return The spell part registry.
      */
-    public static Registry<SpellPart> getSpellPartRegistry() {
-        return INSTANCE.get()._getSpellPartRegistry();
+    public static Registry<SpellPart> spellPartRegistry() {
+        return INSTANCE.get().getSpellPartRegistry();
     }
 
     /**
      * @return The data component registry.
      */
-    public static Registry<DataComponentType<?>> getSpellDataComponentRegistry() {
-        return INSTANCE.get()._getSpellDataComponentRegistry();
+    public static Registry<DataComponentType<?>> spellPartDataComponentRegistry() {
+        return INSTANCE.get().getSpellDataComponentRegistry();
     }
 
     /**
      * @return The {@link ManaHelper} instance.
      */
-    public static BurnoutHelper getBurnoutHelper() {
-        return INSTANCE.get()._getBurnoutHelper();
+    public static BurnoutHelper burnoutHelper() {
+        return INSTANCE.get().getBurnoutHelper();
     }
 
     /**
      * @return The {@link ManaHelper} instance.
      */
-    public static MagicHelper getMagicHelper() {
-        return INSTANCE.get()._getMagicHelper();
+    public static MagicHelper magicHelper() {
+        return INSTANCE.get().getMagicHelper();
     }
 
     /**
      * @return The {@link ManaHelper} instance.
      */
-    public static ManaHelper getManaHelper() {
-        return INSTANCE.get()._getManaHelper();
+    public static ManaHelper manaHelper() {
+        return INSTANCE.get().getManaHelper();
     }
 
     /**
      * @return The {@link SpellHelper} instance.
      */
-    public static SpellHelper getSpellHelper() {
-        return INSTANCE.get()._getSpellHelper();
+    public static SpellHelper spellHelper() {
+        return INSTANCE.get().getSpellHelper();
     }
 
     /**
      * @param part The {@link SpellPart} to get the {@link SpellPartData} for.
      * @return A {@link SpellPartData} instance.
      */
-    public static SpellPartData getSpellPartData(SpellPart part) {
-        return INSTANCE.get()._getSpellPartData(part);
+    public static SpellPartData spellPartData(SpellPart part) {
+        return INSTANCE.get().getSpellPartData(part);
     }
 
     @ApiStatus.Internal
-    protected abstract Registry<SpellPart> _getSpellPartRegistry();
+    protected abstract Registry<SpellPart> getSpellPartRegistry();
 
     @ApiStatus.Internal
-    protected abstract Registry<DataComponentType<?>> _getSpellDataComponentRegistry();
+    protected abstract Registry<DataComponentType<?>> getSpellDataComponentRegistry();
 
     @ApiStatus.Internal
-    protected abstract BurnoutHelper _getBurnoutHelper();
+    protected abstract BurnoutHelper getBurnoutHelper();
 
     @ApiStatus.Internal
-    protected abstract MagicHelper _getMagicHelper();
+    protected abstract MagicHelper getMagicHelper();
 
     @ApiStatus.Internal
-    protected abstract ManaHelper _getManaHelper();
+    protected abstract ManaHelper getManaHelper();
 
     @ApiStatus.Internal
-    protected abstract SpellHelper _getSpellHelper();
+    protected abstract SpellHelper getSpellHelper();
 
     @ApiStatus.Internal
-    protected abstract SpellPartData _getSpellPartData(SpellPart part);
+    protected abstract SpellPartData getSpellPartData(SpellPart part);
 }

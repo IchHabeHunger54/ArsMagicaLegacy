@@ -15,7 +15,7 @@ public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
     private static final Map<ResourceLocation, OcculusTabRenderer.Factory> RENDERERS = new HashMap<>();
 
     @Override
-    protected OcculusTabRenderer.Factory _getOcculusTabRendererFactory(OcculusTab tab) {
+    protected OcculusTabRenderer.Factory getOcculusTabRendererFactory(OcculusTab tab) {
         return RENDERERS.get(tab.renderer());
     }
 

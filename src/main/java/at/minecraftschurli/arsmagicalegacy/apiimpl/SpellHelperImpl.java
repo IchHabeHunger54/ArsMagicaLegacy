@@ -28,8 +28,8 @@ import java.util.List;
 final class SpellHelperImpl implements SpellHelper {
     @Override
     public SpellCastResult cast(Spell spell, LivingEntity caster, boolean consume, boolean awardXp) {
-        ManaHelper manaHelper = ArsMagicaApi.getManaHelper();
-        BurnoutHelper burnoutHelper = ArsMagicaApi.getBurnoutHelper();
+        ManaHelper manaHelper = ArsMagicaApi.manaHelper();
+        BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
         double manaCost = NeoForge.EVENT_BUS.post(new ManaCostCalculationEvent(caster, spell, spell.getManaCost(), burnoutHelper.getBurnout(caster))).getResult();
         double burnoutCost = NeoForge.EVENT_BUS.post(new BurnoutCostCalculationEvent(caster, spell, spell.grammar().getBurnoutCost())).getBurnout();
         SpellCastEvent.Pre event = new SpellCastEvent.Pre(caster, spell, manaCost, burnoutCost, consume, awardXp);
@@ -46,7 +46,7 @@ final class SpellHelperImpl implements SpellHelper {
             burnoutHelper.increaseBurnout(caster, burnoutCost);
         }
         if (event.isAwardXp() && !result.result().isFalse() && caster instanceof Player player) {
-            ArsMagicaApi.getMagicHelper().awardXp(player, manaCost / 10);
+            ArsMagicaApi.magicHelper().awardXp(player, manaCost / 10);
         }
         NeoForge.EVENT_BUS.post(new SpellCastEvent.Post(caster, spell, manaCost, burnoutCost, event.isConsume(), event.isAwardXp()));
         return result;

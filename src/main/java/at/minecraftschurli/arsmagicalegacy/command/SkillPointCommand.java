@@ -50,37 +50,37 @@ public final class SkillPointCommand {
     }
 
     private static int addOneSelf(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        return runSelf(context, 1, ArsMagicaApi.magicHelper()::addSkillPoint, (name, holder, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_ADD_SINGLE_KEY, amount, SkillPoint.getName(holder.getKey().location()), name));
+        return runSelf(context, 1, ArsMagicaApi.magicHelper()::addSkillPoint, (name, holder, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_ADD_SINGLE_KEY, amount, SkillPoint.getName(holder), name));
     }
 
     private static int addSelf(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        return runSelf(context, IntegerArgumentType.getInteger(context, "amount"), ArsMagicaApi.magicHelper()::addSkillPoint, (name, holder, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_ADD_SINGLE_KEY, amount, SkillPoint.getName(holder.getKey().location()), name));
+        return runSelf(context, IntegerArgumentType.getInteger(context, "amount"), ArsMagicaApi.magicHelper()::addSkillPoint, (name, holder, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_ADD_SINGLE_KEY, amount, SkillPoint.getName(holder), name));
     }
 
     private static int addOne(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        return runMultiple(context, 1, ArsMagicaApi.magicHelper()::addSkillPoint, (name, holder, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_ADD_SINGLE_KEY, amount, SkillPoint.getName(holder.getKey().location()), name), (size, holder, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_ADD_MULTIPLE_KEY, amount, SkillPoint.getName(holder.getKey().location()), size));
+        return runMultiple(context, 1, ArsMagicaApi.magicHelper()::addSkillPoint, (name, holder, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_ADD_SINGLE_KEY, amount, SkillPoint.getName(holder), name), (size, holder, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_ADD_MULTIPLE_KEY, amount, SkillPoint.getName(holder), size));
     }
 
     private static int add(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        return runMultiple(context, IntegerArgumentType.getInteger(context, "amount"), ArsMagicaApi.magicHelper()::addSkillPoint, (name, holder, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_ADD_SINGLE_KEY, amount, SkillPoint.getName(holder.getKey().location()), name), (size, holder, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_ADD_MULTIPLE_KEY, amount, SkillPoint.getName(holder.getKey().location()), size));
+        return runMultiple(context, IntegerArgumentType.getInteger(context, "amount"), ArsMagicaApi.magicHelper()::addSkillPoint, (name, holder, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_ADD_SINGLE_KEY, amount, SkillPoint.getName(holder), name), (size, holder, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_ADD_MULTIPLE_KEY, amount, SkillPoint.getName(holder), size));
     }
 
     private static int setSelf(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        return runSelf(context, IntegerArgumentType.getInteger(context, "amount"), ArsMagicaApi.magicHelper()::setSkillPoint, (name, holder, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_SET_SINGLE_KEY, amount, SkillPoint.getName(holder.getKey().location()), name));
+        return runSelf(context, IntegerArgumentType.getInteger(context, "amount"), ArsMagicaApi.magicHelper()::setSkillPoint, (name, holder, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_SET_SINGLE_KEY, amount, SkillPoint.getName(holder), name));
     }
 
     private static int set(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        return runMultiple(context, IntegerArgumentType.getInteger(context, "amount"), ArsMagicaApi.magicHelper()::setSkillPoint, (name, holder, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_SET_SINGLE_KEY, amount, SkillPoint.getName(holder.getKey().location()), name), (size, holder, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_SET_MULTIPLE_KEY, amount, SkillPoint.getName(holder.getKey().location()), size));
+        return runMultiple(context, IntegerArgumentType.getInteger(context, "amount"), ArsMagicaApi.magicHelper()::setSkillPoint, (name, holder, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_SET_SINGLE_KEY, amount, SkillPoint.getName(holder), name), (size, holder, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_SET_MULTIPLE_KEY, amount, SkillPoint.getName(holder), size));
     }
 
     private static int getSelf(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Holder<SkillPoint> holder = ResourceArgument.getResource(context, "skill_point", AMRegistryKeys.SKILL_POINT);
-        return AMUtil.getCommandSelf(context, sp -> ArsMagicaApi.magicHelper().getSkillPoint(sp, holder), Integer::intValue, (sp, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_GET_KEY, sp, amount, SkillPoint.getName(holder.getKey().location())));
+        return AMUtil.getCommandSelf(context, sp -> ArsMagicaApi.magicHelper().getSkillPoint(sp, holder), Integer::intValue, (sp, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_GET_KEY, sp, amount, SkillPoint.getName(holder)));
     }
 
     private static int get(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Holder<SkillPoint> holder = ResourceArgument.getResource(context, "skill_point", AMRegistryKeys.SKILL_POINT);
-        return AMUtil.getCommand(context, sp -> ArsMagicaApi.magicHelper().getSkillPoint(sp, holder), Integer::intValue, (sp, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_GET_KEY, sp, amount, SkillPoint.getName(holder.getKey().location())));
+        return AMUtil.getCommand(context, sp -> ArsMagicaApi.magicHelper().getSkillPoint(sp, holder), Integer::intValue, (sp, amount) -> Component.translatable(AMTranslations.COMMAND_SKILL_POINT_GET_KEY, sp, amount, SkillPoint.getName(holder)));
     }
 
     private static int runSelf(CommandContext<CommandSourceStack> context, int amount, TriConsumer<ServerPlayer, Holder<SkillPoint>, Integer> consumer, TriFunction<Component, Holder<SkillPoint>, Integer, Component> messageFactory) throws CommandSyntaxException {

@@ -64,7 +64,7 @@ public final class SkillCommand {
 
     private static int learnSelf(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Holder<Skill> holder = ResourceArgument.getResource(context, "skill", AMRegistryKeys.SKILL);
-        return AMUtil.runCommandSelf(context, player -> ArsMagicaApi.magicHelper().learn(player, holder), name -> Component.translatable(AMTranslations.COMMAND_SKILL_LEARN_SINGLE_KEY, Skill.getName(holder.getKey().location()), name));
+        return AMUtil.runCommandSelf(context, player -> ArsMagicaApi.magicHelper().learn(player, holder), name -> Component.translatable(AMTranslations.COMMAND_SKILL_LEARN_SINGLE_KEY, Skill.getName(holder), name));
     }
 
     private static int learnAll(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
@@ -73,7 +73,7 @@ public final class SkillCommand {
 
     private static int learn(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Holder<Skill> holder = ResourceArgument.getResource(context, "skill", AMRegistryKeys.SKILL);
-        return AMUtil.runCommand(context, player -> ArsMagicaApi.magicHelper().learn(player, holder), name -> Component.translatable(AMTranslations.COMMAND_SKILL_LEARN_SINGLE_KEY, Skill.getName(holder.getKey().location()), name), size -> Component.translatable(AMTranslations.COMMAND_SKILL_LEARN_MULTIPLE_KEY, Skill.getName(holder.getKey().location()), size));
+        return AMUtil.runCommand(context, player -> ArsMagicaApi.magicHelper().learn(player, holder), name -> Component.translatable(AMTranslations.COMMAND_SKILL_LEARN_SINGLE_KEY, Skill.getName(holder), name), size -> Component.translatable(AMTranslations.COMMAND_SKILL_LEARN_MULTIPLE_KEY, Skill.getName(holder), size));
     }
 
     private static int forgetAllSelf(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
@@ -82,7 +82,7 @@ public final class SkillCommand {
 
     private static int forgetSelf(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Holder<Skill> holder = ResourceArgument.getResource(context, "skill", AMRegistryKeys.SKILL);
-        return AMUtil.runCommandSelf(context, player -> ArsMagicaApi.magicHelper().forget(player, holder), name -> Component.translatable(AMTranslations.COMMAND_SKILL_FORGET_SINGLE_KEY, Skill.getName(holder.getKey().location()), name));
+        return AMUtil.runCommandSelf(context, player -> ArsMagicaApi.magicHelper().forget(player, holder), name -> Component.translatable(AMTranslations.COMMAND_SKILL_FORGET_SINGLE_KEY, Skill.getName(holder), name));
     }
 
     private static int forgetAll(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
@@ -91,7 +91,7 @@ public final class SkillCommand {
 
     private static int forget(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Holder<Skill> holder = ResourceArgument.getResource(context, "skill", AMRegistryKeys.SKILL);
-        return AMUtil.runCommand(context, player -> ArsMagicaApi.magicHelper().forget(player, holder), name -> Component.translatable(AMTranslations.COMMAND_SKILL_FORGET_SINGLE_KEY, Skill.getName(holder.getKey().location()), name), size -> Component.translatable(AMTranslations.COMMAND_SKILL_FORGET_MULTIPLE_KEY, Skill.getName(holder.getKey().location()), size));
+        return AMUtil.runCommand(context, player -> ArsMagicaApi.magicHelper().forget(player, holder), name -> Component.translatable(AMTranslations.COMMAND_SKILL_FORGET_SINGLE_KEY, Skill.getName(holder), name), size -> Component.translatable(AMTranslations.COMMAND_SKILL_FORGET_MULTIPLE_KEY, Skill.getName(holder), size));
     }
 
     private static int listAll(CommandContext<CommandSourceStack> context) {
@@ -118,7 +118,7 @@ public final class SkillCommand {
 
     private static Component skillsComponent(List<? extends Holder<Skill>> list) {
         return list.stream()
-            .map(holder -> Skill.getName(holder.getKey().location()))
+            .map(holder -> Skill.getName(holder))
             .reduce((a, b) -> a.copy().append(", ").append(b))
             .orElse(Component.literal(""));
     }

@@ -111,11 +111,10 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
         MagicHelper helper = ArsMagicaApi.magicHelper();
         LocalPlayer player = ClientUtil.player();
         Registry<Skill> registry = ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL);
-        ResourceLocation id = registry.getKey(hoveredSkill);
         Holder<Skill> holder = registry.wrapAsHolder(hoveredSkill);
         guiGraphics.renderTooltip(ClientUtil.font(), List.of(
-            Skill.getName(id).withColor(getColorForSkill(hoveredSkill)),
-            helper.knows(player, holder) || helper.canLearn(player, holder) ? Skill.getDescription(id).withStyle(ChatFormatting.DARK_GRAY) : MISSING
+            Skill.getName(holder).withColor(getColorForSkill(hoveredSkill)),
+            helper.knows(player, holder) || helper.canLearn(player, holder) ? Skill.getDescription(holder).withStyle(ChatFormatting.DARK_GRAY) : MISSING
         ), Optional.empty(), mouseX, mouseY);
     }
 

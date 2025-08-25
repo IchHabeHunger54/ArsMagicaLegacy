@@ -20,6 +20,10 @@ public final class AMItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
         basicItem(AMItems.SPELL);
         blockItem(AMItems.OCCULUS);
+        basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1);
+        basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_2);
+        basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3);
+        basicItem(AMItems.SPELL_PARCHMENT);
         basicItemWithVariants(AMItems.INFINITY_ORB, AMMagic.BLUE_POINT, AMMagic.GREEN_POINT, AMMagic.RED_POINT);
         blockItem(AMItems.CHIMERITE_ORE);
         blockItem(AMItems.DEEPSLATE_CHIMERITE_ORE);

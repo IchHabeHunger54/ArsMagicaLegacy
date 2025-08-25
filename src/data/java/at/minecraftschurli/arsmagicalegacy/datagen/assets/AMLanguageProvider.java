@@ -26,6 +26,11 @@ public final class AMLanguageProvider extends LanguageProvider {
     protected void addTranslations() {
         itemIdTranslation(AMItems.SPELL);
         blockIdTranslation(AMBlocks.OCCULUS);
+        blockIdTranslation(AMBlocks.INSCRIPTION_TABLE);
+        itemIdTranslation(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1);
+        itemIdTranslation(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_2);
+        itemIdTranslation(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3);
+        itemIdTranslation(AMItems.SPELL_PARCHMENT);
         itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.BLUE_POINT.location(), "Blue Infinity Orb");
         itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.GREEN_POINT.location(), "Green Infinity Orb");
         itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.RED_POINT.location(), "Red Infinity Orb");
@@ -305,6 +310,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         skillTranslation(AMMagic.MANA_REGENERATION_BOOST_3.location(), "Mana Regeneration III", "...just to get back every single mana point I have consumed before.", "talents", "Your mana regeneration is boosted by 15%%. This replaces the boosts of $(l:talents/mana_regen_1)Mana Regen I$() and $(l:talents/mana_regen_2)Mana Regen II$().");
         skillTranslation(AMMagic.SHIELD_OVERLOAD.location(), "Shield Overload", "No more wasting excess mana.", "talents", "When your mana bar is full, excess mana regenerated turns into a shield that protects you from 5%% of all incoming damage.");
         skillTranslation(AMMagic.SPELL_MOTION.location(), "Spell Motion", "I like to move it, move it.", "talents", "Manipulating the winds around you, you have found a way to move at normal speed while using spells.");
+        configTranslation("inscription_table_in_world_upgrading", "Inscription Table In-World Upgrading", "Whether inscription table upgrading is allowed in-world. If disabled, the upgrades must be applied through crafting.");
         configTranslation("magic_advancement", "Magic Advancement", "Completing this advancement will unlock magic for the player. Leave empty to not require an advancement and have magic unlocked from the start.");
         configTranslation("mana_to_burnout_ratio", "Mana : Burnout Ratio", "The default mana to burnout ratio, used in calculating spell costs.");
         configTranslation("mana", "Mana", "Configuration for the mana leveling and regeneration of players.");

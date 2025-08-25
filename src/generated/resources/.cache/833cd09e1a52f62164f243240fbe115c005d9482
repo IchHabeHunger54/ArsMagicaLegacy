@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-24T13:51:33.0952998	Item Models: arsmagicalegacy
+// 1.21.1	2025-08-25T22:19:18.4320738	Item Models: arsmagicalegacy
 5ade3f37b24782c7cdf40a3a83a6306d90db510a assets/arsmagicalegacy/models/item/arcane_ash.json
 cc2cb15d367f1057fc85a254ed16a8d5ea9fd02b assets/arsmagicalegacy/models/item/arcane_compound.json
 479f46ca80005c14a383332494b60e0b757b4f70 assets/arsmagicalegacy/models/item/aum.json
@@ -15,12 +15,16 @@ ceb5816f7bffe087aa2d7d3ab4507a55e32a6728 assets/arsmagicalegacy/models/item/deep
 c21f706e116e5b2bf9c64682d65b99589f03a313 assets/arsmagicalegacy/models/item/infinity_orb_blue.json
 201371065f932814e5c3c997f9b6d6c63da0473f assets/arsmagicalegacy/models/item/infinity_orb_green.json
 b8d7707941aa5120979431bb89c54c0f18600ec0 assets/arsmagicalegacy/models/item/infinity_orb_red.json
+7dcd628c4c52ef98feed77db425cf9dc806ec945 assets/arsmagicalegacy/models/item/inscription_table_upgrade_tier_1.json
+a97d8f349dbb1f1c3acd894d9e618214c93a77c6 assets/arsmagicalegacy/models/item/inscription_table_upgrade_tier_2.json
+e5ab563b4ffb87d5a0bc7e67d4f7bb089f5c93ec assets/arsmagicalegacy/models/item/inscription_table_upgrade_tier_3.json
 29e2e8f8d2a39b2a1650ef1531a047453daf1587 assets/arsmagicalegacy/models/item/moonstone.json
 c53606ff6e745abe68542b67f9898bb41ab0e429 assets/arsmagicalegacy/models/item/moonstone_block.json
 fae4c9c3d165032bf10bd242e080dc1857dd027e assets/arsmagicalegacy/models/item/moonstone_ore.json
 7cc3fac8ad4b5a36b4ba649cd3e19527fd7a9c42 assets/arsmagicalegacy/models/item/occulus.json
 fa2a7dbb22b29acdc4051e3568755d8f4546d69f assets/arsmagicalegacy/models/item/purified_vinteum_dust.json
 0d8c388ee73765f5a8be954148b98356391da687 assets/arsmagicalegacy/models/item/spell.json
+9dfdee46a41f56a75b2658592d91d5c901bef09b assets/arsmagicalegacy/models/item/spell_parchment.json
 c5c08fd13cf74672fc67e26c749aeae7346a4ef7 assets/arsmagicalegacy/models/item/stripped_witchwood.json
 9253fce70168a98d5bf234ddb1a5ff0f3258ed73 assets/arsmagicalegacy/models/item/stripped_witchwood_log.json
 db1d131d27c09a93c04d0040d43d1b96d4aaf664 assets/arsmagicalegacy/models/item/sunstone.json

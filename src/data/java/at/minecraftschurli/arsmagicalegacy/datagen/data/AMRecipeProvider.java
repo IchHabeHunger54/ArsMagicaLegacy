@@ -2,9 +2,12 @@ package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
+import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableBlock;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -17,7 +20,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.BlastingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -25,6 +30,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -46,6 +52,61 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('C', ItemTags.COALS)
             .define('T', AMTags.Items.GEMS_TOPAZ)
             .unlockedBy(getHasName(AMItems.TOPAZ), has(AMTags.Items.GEMS_TOPAZ))
+            .save(output);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.INSCRIPTION_TABLE.get())
+            .pattern("TPF")
+            .pattern("SSS")
+            .pattern("W W")
+            .define('T', Items.TORCH)
+            .define('P', AMItems.SPELL_PARCHMENT.get())
+            .define('F', Tags.Items.FEATHERS)
+            .define('S', ItemTags.WOODEN_SLABS)
+            .define('W', ItemTags.PLANKS)
+            .unlockedBy("has_spell_parchment", has(AMItems.SPELL_PARCHMENT.get()))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1.get())
+            .requires(Items.BOOK)
+            .requires(Tags.Items.DYES_BLACK)
+            .requires(Tags.Items.FEATHERS)
+            .requires(Tags.Items.STRINGS)
+            .unlockedBy("has_book", has(Items.BOOK))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_2.get())
+            .requires(Items.BOOK)
+            .requires(Tags.Items.DYES_BLACK)
+            .requires(ItemTags.WOOL_CARPETS)
+            //.requires(AMItems.WIZARDS_CHALK.get())
+            .unlockedBy("has_book", has(Items.BOOK))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3.get())
+            .requires(Items.BOOK)
+            .requires(ItemTags.CANDLES)
+            .requires(Items.HONEYCOMB)
+            .requires(Items.GLASS_BOTTLE)
+            .unlockedBy("has_book", has(Items.BOOK))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, new ItemStack(AMItems.INSCRIPTION_TABLE, 1, DataComponentPatch.builder().set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(InscriptionTableBlock.TIER, 1)).build()))
+            .requires(DataComponentIngredient.of(false, DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(InscriptionTableBlock.TIER, 0), AMItems.INSCRIPTION_TABLE.get()))
+            .requires(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1.get())
+            .unlockedBy("has_inscription_table", has(AMItems.INSCRIPTION_TABLE.get()))
+            .save(output, ArsMagicaApi.modLoc("inscription_table_tier_1"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, new ItemStack(AMItems.INSCRIPTION_TABLE, 1, DataComponentPatch.builder().set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(InscriptionTableBlock.TIER, 2)).build()))
+            .requires(DataComponentIngredient.of(false, DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(InscriptionTableBlock.TIER, 1), AMItems.INSCRIPTION_TABLE.get()))
+            .requires(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_2.get())
+            .unlockedBy("has_inscription_table", has(AMItems.INSCRIPTION_TABLE.get()))
+            .save(output, ArsMagicaApi.modLoc("inscription_table_tier_2"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, new ItemStack(AMItems.INSCRIPTION_TABLE, 1, DataComponentPatch.builder().set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(InscriptionTableBlock.TIER, 3)).build()))
+            .requires(DataComponentIngredient.of(false, DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(InscriptionTableBlock.TIER, 2), AMItems.INSCRIPTION_TABLE.get()))
+            .requires(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3.get())
+            .unlockedBy("has_inscription_table", has(AMItems.INSCRIPTION_TABLE.get()))
+            .save(output, ArsMagicaApi.modLoc("inscription_table_tier_3"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.SPELL_PARCHMENT.get())
+            .pattern("S")
+            .pattern("P")
+            .pattern("S")
+            .define('S', Tags.Items.RODS_WOODEN)
+            .define('P', Items.PAPER)
+            .unlockedBy("has_paper", has(Items.PAPER))
             .save(output);
         oreSmelting(output, List.of(AMItems.CHIMERITE_ORE.get(), AMItems.DEEPSLATE_CHIMERITE_ORE.get()), AMItems.CHIMERITE.get(), 0.7f, 200, "chimerite");
         oreBlasting(output, List.of(AMItems.CHIMERITE_ORE.get(), AMItems.DEEPSLATE_CHIMERITE_ORE.get()), AMItems.CHIMERITE.get(), 0.7f, 100, "chimerite");

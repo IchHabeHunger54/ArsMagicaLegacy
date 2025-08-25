@@ -17,7 +17,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 public final class SkillCommand {
     public static void register(LiteralArgumentBuilder<CommandSourceStack> builder, CommandBuildContext context) {
@@ -95,40 +94,31 @@ public final class SkillCommand {
     }
 
     private static int listAll(CommandContext<CommandSourceStack> context) {
-        List<? extends Holder<Skill>> holders = skillHolders(context, $ -> true);
+        List<? extends Holder<Skill>> holders = context.getSource().registryAccess().registryOrThrow(AMRegistryKeys.SKILL).holders().toList();
         context.getSource().sendSuccess(() -> Component.translatable(AMTranslations.COMMAND_SKILL_LIST_ALL_KEY, skillsComponent(holders)), true);
         return holders.size();
     }
 
     private static int listKnownSelf(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        return AMUtil.getCommandSelf(context, player -> skillHolders(context, e -> ArsMagicaApi.magicHelper().knows(player, e)), List::size, (player, list) -> Component.translatable(AMTranslations.COMMAND_SKILL_LIST_KNOWN_KEY, player, skillsComponent(list)));
+        return AMUtil.getCommandSelf(context, ArsMagicaApi.magicHelper()::getKnown, List::size, (player, list) -> Component.translatable(AMTranslations.COMMAND_SKILL_LIST_KNOWN_KEY, player, skillsComponent(list)));
     }
 
     private static int listUnknownSelf(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        return AMUtil.getCommandSelf(context, player -> skillHolders(context, e -> !ArsMagicaApi.magicHelper().knows(player, e)), List::size, (player, list) -> Component.translatable(AMTranslations.COMMAND_SKILL_LIST_UNKNOWN_KEY, player, skillsComponent(list)));
+        return AMUtil.getCommandSelf(context, ArsMagicaApi.magicHelper()::getUnknown, List::size, (player, list) -> Component.translatable(AMTranslations.COMMAND_SKILL_LIST_UNKNOWN_KEY, player, skillsComponent(list)));
     }
 
     private static int listKnown(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        return AMUtil.getCommand(context, player -> skillHolders(context, e -> ArsMagicaApi.magicHelper().knows(player, e)), List::size, (player, list) -> Component.translatable(AMTranslations.COMMAND_SKILL_LIST_KNOWN_KEY, player, skillsComponent(list)));
+        return AMUtil.getCommand(context, ArsMagicaApi.magicHelper()::getKnown, List::size, (player, list) -> Component.translatable(AMTranslations.COMMAND_SKILL_LIST_KNOWN_KEY, player, skillsComponent(list)));
     }
 
     private static int listUnknown(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        return AMUtil.getCommand(context, player -> skillHolders(context, e -> !ArsMagicaApi.magicHelper().knows(player, e)), List::size, (player, list) -> Component.translatable(AMTranslations.COMMAND_SKILL_LIST_UNKNOWN_KEY, player, skillsComponent(list)));
+        return AMUtil.getCommand(context, ArsMagicaApi.magicHelper()::getUnknown, List::size, (player, list) -> Component.translatable(AMTranslations.COMMAND_SKILL_LIST_UNKNOWN_KEY, player, skillsComponent(list)));
     }
 
     private static Component skillsComponent(List<? extends Holder<Skill>> list) {
         return list.stream()
-            .map(holder -> Skill.getName(holder))
-            .reduce((a, b) -> a.copy().append(", ").append(b))
+            .map(Skill::getName)
+            .reduce((a, b) -> a.copy().append(AMTranslations.COMMAND_SKILL_LIST_SEPARATOR).append(b))
             .orElse(Component.literal(""));
-    }
-
-    private static List<? extends Holder<Skill>> skillHolders(CommandContext<CommandSourceStack> context, Predicate<Holder<Skill>> predicate) {
-        return context.getSource()
-            .registryAccess()
-            .registryOrThrow(AMRegistryKeys.SKILL)
-            .holders()
-            .filter(predicate)
-            .toList();
     }
 }

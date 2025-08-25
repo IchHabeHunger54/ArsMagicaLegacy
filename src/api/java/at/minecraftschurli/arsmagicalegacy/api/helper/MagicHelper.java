@@ -5,6 +5,9 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.player.Player;
 
+import java.util.List;
+import java.util.Set;
+
 public interface MagicHelper {
     int getLevel(Player player);
 
@@ -27,6 +30,10 @@ public interface MagicHelper {
     boolean knows(Player player, Holder<Skill> skill);
 
     boolean canLearn(Player player, Holder<Skill> skill);
+
+    List<? extends Holder<Skill>> getKnown(Player player);
+
+    List<? extends Holder<Skill>> getUnknown(Player player);
 
     void learn(Player player, Holder<Skill> skill);
 

@@ -12,6 +12,7 @@ import at.minecraftschurli.arsmagicalegacy.command.SkillCommand;
 import at.minecraftschurli.arsmagicalegacy.command.SkillPointCommand;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
+import at.minecraftschurli.arsmagicalegacy.packet.ForgetSkillsPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.LearnSkillPacket;
 import at.minecraftschurli.arsmagicalegacy.spell.SpellPartDataManager;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -72,7 +73,9 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void registerPayloadHandlers(RegisterPayloadHandlersEvent event) {
-        event.registrar("1").playToServer(LearnSkillPacket.TYPE, LearnSkillPacket.STREAM_CODEC, LearnSkillPacket::handle);
+        event.registrar("1")
+            .playToServer(ForgetSkillsPacket.TYPE, ForgetSkillsPacket.STREAM_CODEC, ForgetSkillsPacket::handle)
+            .playToServer(LearnSkillPacket.TYPE, LearnSkillPacket.STREAM_CODEC, LearnSkillPacket::handle);
     }
 
     @SubscribeEvent

@@ -62,5 +62,6 @@ public final class AMItemTagsProvider extends ItemTagsProvider {
         tag(ItemTags.SIGNS).add(AMItems.WITCHWOOD_SIGN.get());
         tag(ItemTags.HANGING_SIGNS).add(AMItems.WITCHWOOD_HANGING_SIGN.get());
         tag(ItemTags.SMALL_FLOWERS).add(AMItems.AUM.get(), AMItems.CERUBLOSSOM.get(), AMItems.DESERT_NOVA.get(), AMItems.TARMA_ROOT.get(), AMItems.WAKEBLOOM.get());
+        tag(AMTags.Items.OCCULUS_FORGET_ALL).addTag(AMTags.Items.STORAGE_BLOCKS_VINTEUM);
     }
 }

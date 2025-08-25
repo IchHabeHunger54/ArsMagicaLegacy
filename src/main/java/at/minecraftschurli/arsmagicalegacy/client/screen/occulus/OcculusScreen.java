@@ -4,15 +4,19 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.OcculusTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
+import at.minecraftschurli.arsmagicalegacy.packet.ForgetSkillsPacket;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.CommonComponents;
@@ -20,6 +24,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -54,9 +59,9 @@ public class OcculusScreen extends Screen {
         posY = (height - SIZE - OcculusTabButton.SIZE - 24) / 2;
         tabX = posX + FRAME_SIZE;
         tabY = posY + OcculusTabButton.SIZE + FRAME_SIZE;
-        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, $ -> onClose()).bounds(width / 2 - 100, posY + SIZE + OcculusTabButton.SIZE + 4, 200, 20).build());
         tabs.clear();
         buttons.clear();
+        LocalPlayer player = ClientUtil.player();
         Registry<OcculusTab> registry = ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.OCCULUS_TAB);
         List<ResourceLocation> list = registry
             .entrySet()
@@ -85,6 +90,14 @@ public class OcculusScreen extends Screen {
             onPageChange();
         }
         setRenderer(tabs.getFirst());
+        Button button = addRenderableWidget(Button.builder(AMTranslations.OCCULUS_FORGET_ALL, $ -> forgetAll())
+            .bounds(width / 2 - 100, posY + SIZE + OcculusTabButton.SIZE + 4, 98, 20)
+            .tooltip(Tooltip.create(AMTranslations.OCCULUS_FORGET_ALL_TOOLTIP))
+            .build());
+        button.active = player.getInventory().contains(AMTags.Items.OCCULUS_FORGET_ALL) || player.isCreative();
+        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, $ -> onClose())
+            .bounds(width / 2 + 2, posY + SIZE + OcculusTabButton.SIZE + 4, 98, 20)
+            .build());
     }
 
     @Override
@@ -161,6 +174,10 @@ public class OcculusScreen extends Screen {
         for (int i = page * 7; i < (page + 1) * 7 && i < buttons.size(); i++) {
             buttons.get(i).visible = true;
         }
+    }
+
+    private void forgetAll() {
+        PacketDistributor.sendToServer(new ForgetSkillsPacket());
     }
 
     @Override

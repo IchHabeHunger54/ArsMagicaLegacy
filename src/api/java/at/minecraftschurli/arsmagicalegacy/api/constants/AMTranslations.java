@@ -5,11 +5,37 @@ import net.minecraft.network.chat.Component;
 
 public interface AMTranslations {
     // @formatter:off
-    String CONFIG_KEY             = ArsMagicaApi.MOD_ID + ".configuration.";
-    String BARS_VALUE_BURNOUT_KEY = ArsMagicaApi.MOD_ID + ".bars_value.burnout";
-    String BARS_VALUE_MANA_KEY    = ArsMagicaApi.MOD_ID + ".bars_value.mana";
-    String BARS_VALUE_XP_KEY      = ArsMagicaApi.MOD_ID + ".bars_value.xp";
-    String OCCULUS_MISSING_KEY    = "gui." + ArsMagicaApi.MOD_ID + ".occulus.missing";
+    String CONFIG_KEY                               = ArsMagicaApi.MOD_ID + ".configuration.";
+    String BARS_VALUE_BURNOUT_KEY                   = ArsMagicaApi.MOD_ID + ".bars_value.burnout";
+    String BARS_VALUE_MANA_KEY                      = ArsMagicaApi.MOD_ID + ".bars_value.mana";
+    String BARS_VALUE_XP_KEY                        = ArsMagicaApi.MOD_ID + ".bars_value.xp";
+    String COMMAND_MAGIC_XP_ADD_LEVELS_MULTIPLE_KEY = "commands." + ArsMagicaApi.MOD_ID + ".magic_xp.add.levels.multiple.success";
+    String COMMAND_MAGIC_XP_ADD_LEVELS_SINGLE_KEY   = "commands." + ArsMagicaApi.MOD_ID + ".magic_xp.add.levels.single.success";
+    String COMMAND_MAGIC_XP_ADD_POINTS_MULTIPLE_KEY = "commands." + ArsMagicaApi.MOD_ID + ".magic_xp.add.points.multiple.success";
+    String COMMAND_MAGIC_XP_ADD_POINTS_SINGLE_KEY   = "commands." + ArsMagicaApi.MOD_ID + ".magic_xp.add.points.single.success";
+    String COMMAND_MAGIC_XP_GET_LEVELS_KEY          = "commands." + ArsMagicaApi.MOD_ID + ".magic_xp.get.levels.success";
+    String COMMAND_MAGIC_XP_GET_POINTS_KEY          = "commands." + ArsMagicaApi.MOD_ID + ".magic_xp.get.points.success";
+    String COMMAND_MAGIC_XP_SET_LEVELS_MULTIPLE_KEY = "commands." + ArsMagicaApi.MOD_ID + ".magic_xp.set.levels.multiple.success";
+    String COMMAND_MAGIC_XP_SET_LEVELS_SINGLE_KEY   = "commands." + ArsMagicaApi.MOD_ID + ".magic_xp.set.levels.single.success";
+    String COMMAND_MAGIC_XP_SET_POINTS_MULTIPLE_KEY = "commands." + ArsMagicaApi.MOD_ID + ".magic_xp.set.points.multiple.success";
+    String COMMAND_MAGIC_XP_SET_POINTS_SINGLE_KEY   = "commands." + ArsMagicaApi.MOD_ID + ".magic_xp.set.points.single.success";
+    String COMMAND_SKILL_FORGET_ALL_MULTIPLE_KEY    = "commands." + ArsMagicaApi.MOD_ID + ".skill.forget.all.multiple.success";
+    String COMMAND_SKILL_FORGET_ALL_SINGLE_KEY      = "commands." + ArsMagicaApi.MOD_ID + ".skill.forget.all.single.success";
+    String COMMAND_SKILL_FORGET_MULTIPLE_KEY        = "commands." + ArsMagicaApi.MOD_ID + ".skill.forget.multiple.success";
+    String COMMAND_SKILL_FORGET_SINGLE_KEY          = "commands." + ArsMagicaApi.MOD_ID + ".skill.forget.single.success";
+    String COMMAND_SKILL_LEARN_ALL_MULTIPLE_KEY     = "commands." + ArsMagicaApi.MOD_ID + ".skill.learn.all.multiple.success";
+    String COMMAND_SKILL_LEARN_ALL_SINGLE_KEY       = "commands." + ArsMagicaApi.MOD_ID + ".skill.learn.all.single.success";
+    String COMMAND_SKILL_LEARN_MULTIPLE_KEY         = "commands." + ArsMagicaApi.MOD_ID + ".skill.learn.multiple.success";
+    String COMMAND_SKILL_LEARN_SINGLE_KEY           = "commands." + ArsMagicaApi.MOD_ID + ".skill.learn.single.success";
+    String COMMAND_SKILL_LIST_ALL_KEY               = "commands." + ArsMagicaApi.MOD_ID + ".skill.list.all.success";
+    String COMMAND_SKILL_LIST_KNOWN_KEY             = "commands." + ArsMagicaApi.MOD_ID + ".skill.list.known.success";
+    String COMMAND_SKILL_LIST_UNKNOWN_KEY           = "commands." + ArsMagicaApi.MOD_ID + ".skill.list.unknown.success";
+    String COMMAND_SKILL_POINT_ADD_MULTIPLE_KEY     = "commands." + ArsMagicaApi.MOD_ID + ".skill_point.add.multiple.success";
+    String COMMAND_SKILL_POINT_ADD_SINGLE_KEY       = "commands." + ArsMagicaApi.MOD_ID + ".skill_point.add.single.success";
+    String COMMAND_SKILL_POINT_GET_KEY              = "commands." + ArsMagicaApi.MOD_ID + ".skill_point.get.success";
+    String COMMAND_SKILL_POINT_SET_MULTIPLE_KEY     = "commands." + ArsMagicaApi.MOD_ID + ".skill_point.set.multiple.success";
+    String COMMAND_SKILL_POINT_SET_SINGLE_KEY       = "commands." + ArsMagicaApi.MOD_ID + ".skill_point.set.single.success";
+    String OCCULUS_MISSING_KEY                      = "gui." + ArsMagicaApi.MOD_ID + ".occulus.missing";
 
     String PREVENT_BLOCK_KEY              = ArsMagicaApi.MOD_ID + ".prevent.block";
     String SPELL_CAST_BURNED_OUT_KEY      = ArsMagicaApi.MOD_ID + ".spell_cast.burned_out";

@@ -7,10 +7,17 @@ import at.minecraftschurli.arsmagicalegacy.api.helper.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
+import at.minecraftschurli.arsmagicalegacy.command.MagicXpCommand;
+import at.minecraftschurli.arsmagicalegacy.command.SkillCommand;
+import at.minecraftschurli.arsmagicalegacy.command.SkillPointCommand;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.packet.LearnSkillPacket;
 import at.minecraftschurli.arsmagicalegacy.spell.SpellPartDataManager;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import net.minecraft.commands.CommandBuildContext;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -18,6 +25,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import net.neoforged.neoforge.event.entity.player.AdvancementEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
@@ -65,6 +73,16 @@ final class AMEventHandler {
     @SubscribeEvent
     private static void registerPayloadHandlers(RegisterPayloadHandlersEvent event) {
         event.registrar("1").playToServer(LearnSkillPacket.TYPE, LearnSkillPacket.STREAM_CODEC, LearnSkillPacket::handle);
+    }
+
+    @SubscribeEvent
+    private static void registerCommands(RegisterCommandsEvent event) {
+        CommandBuildContext context = event.getBuildContext();
+        LiteralArgumentBuilder<CommandSourceStack> builder = Commands.literal(ArsMagicaApi.MOD_ID).requires(p -> p.hasPermission(2));
+        MagicXpCommand.register(builder);
+        SkillCommand.register(builder, context);
+        SkillPointCommand.register(builder, context);
+        event.getDispatcher().register(builder);
     }
 
     @SubscribeEvent

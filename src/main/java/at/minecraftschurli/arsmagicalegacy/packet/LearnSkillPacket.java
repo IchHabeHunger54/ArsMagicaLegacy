@@ -29,7 +29,7 @@ public record LearnSkillPacket(Holder<Skill> skill) implements CustomPacketPaylo
         if (helper.canLearn(player, skill)) {
             helper.learn(player, skill);
             if (!player.isCreative()) {
-                skill.value().cost().ifPresent(cost -> helper.removeSkillPoint(player, cost));
+                skill.value().cost().ifPresent(cost -> helper.addSkillPoint(player, cost, -1));
             }
         }
     }

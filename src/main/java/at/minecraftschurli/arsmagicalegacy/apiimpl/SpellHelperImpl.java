@@ -46,7 +46,7 @@ final class SpellHelperImpl implements SpellHelper {
             burnoutHelper.increaseBurnout(caster, burnoutCost);
         }
         if (event.isAwardXp() && !result.result().isFalse() && caster instanceof Player player) {
-            ArsMagicaApi.magicHelper().awardXp(player, manaCost / 10);
+            ArsMagicaApi.magicHelper().addXp(player, manaCost / 10);
         }
         NeoForge.EVENT_BUS.post(new SpellCastEvent.Post(caster, spell, manaCost, burnoutCost, event.isConsume(), event.isAwardXp()));
         return result;

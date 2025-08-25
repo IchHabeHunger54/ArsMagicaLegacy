@@ -3,11 +3,14 @@ package at.minecraftschurli.arsmagicalegacy.api.magic;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
+import net.minecraft.resources.ResourceLocation;
 
 public record SkillPoint(int color, int minEarnLevel, int levelsForPoint) {
     public static final Codec<SkillPoint> DIRECT_CODEC = RecordCodecBuilder.create(inst -> inst.group(
@@ -17,4 +20,8 @@ public record SkillPoint(int color, int minEarnLevel, int levelsForPoint) {
     ).apply(inst, SkillPoint::new));
     public static final Codec<Holder<SkillPoint>> CODEC = RegistryFileCodec.create(AMRegistryKeys.SKILL_POINT, DIRECT_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<SkillPoint>> STREAM_CODEC = ByteBufCodecs.holderRegistry(AMRegistryKeys.SKILL_POINT);
+
+    public static Component getName(ResourceLocation id) {
+        return Component.translatable(Util.makeDescriptionId("skill_point", id));
+    }
 }

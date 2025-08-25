@@ -12,11 +12,11 @@ public interface MagicHelper {
 
     double getXpForNextLevel(int level);
 
-    void awardLevel(Player player, int level);
+    void addLevel(Player player, int level);
 
     void setLevel(Player player, int level);
 
-    void awardXp(Player player, double xp);
+    void addXp(Player player, double xp);
 
     void setXp(Player player, double xp);
 
@@ -42,7 +42,5 @@ public interface MagicHelper {
 
     void addSkillPoint(Player player, Holder<SkillPoint> skillPoint);
 
-    void removeSkillPoint(Player player, Holder<SkillPoint> skillPoint, int amount);
-
-    void removeSkillPoint(Player player, Holder<SkillPoint> skillPoint);
+    void setSkillPoint(Player player, Holder<SkillPoint> skillPoint, int amount);
 }

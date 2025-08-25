@@ -39,12 +39,13 @@ final class MagicHelperImpl implements MagicHelper {
     }
 
     @Override
-    public void awardLevel(Player player, int level) {
+    public void addLevel(Player player, int level) {
         setLevel(player, getLevel(player) + level);
     }
 
     @Override
     public void setLevel(Player player, int level) {
+        level = Math.max(0, level);
         MagicAttachment data = player.getData(AMAttachments.MAGIC);
         int oldLevel = data.level();
         NeoForge.EVENT_BUS.post(new LevelChangeEvent(player, oldLevel, level));
@@ -76,12 +77,13 @@ final class MagicHelperImpl implements MagicHelper {
     }
 
     @Override
-    public void awardXp(Player player, double xp) {
+    public void addXp(Player player, double xp) {
         setXp(player, getXp(player) + xp);
     }
 
     @Override
     public void setXp(Player player, double xp) {
+        xp = Math.max(0, xp);
         int level = getLevel(player);
         double xpForNextLevel = getXpForNextLevel(level);
         while (xp >= xpForNextLevel) {
@@ -157,7 +159,7 @@ final class MagicHelperImpl implements MagicHelper {
 
     @Override
     public void addSkillPoint(Player player, Holder<SkillPoint> skillPoint, int amount) {
-        player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkillPoints(map -> map.compute(skillPoint, (k, v) -> v == null ? amount : v + amount)));
+        player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkillPoints(map -> map.compute(skillPoint, (k, v) -> v == null ? Math.max(0, amount) : Math.max(0, v + amount))));
     }
 
     @Override
@@ -166,12 +168,7 @@ final class MagicHelperImpl implements MagicHelper {
     }
 
     @Override
-    public void removeSkillPoint(Player player, Holder<SkillPoint> skillPoint, int amount) {
-        player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkillPoints(map -> map.computeIfPresent(skillPoint, (k, v) -> Math.max(0, v - amount))));
-    }
-
-    @Override
-    public void removeSkillPoint(Player player, Holder<SkillPoint> skillPoint) {
-        removeSkillPoint(player, skillPoint, 1);
+    public void setSkillPoint(Player player, Holder<SkillPoint> skillPoint, int amount) {
+        player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkillPoints(map -> map.put(skillPoint, amount)));
     }
 }

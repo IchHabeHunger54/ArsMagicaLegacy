@@ -133,6 +133,16 @@ final class MagicHelperImpl implements MagicHelper {
     }
 
     @Override
+    public List<? extends Holder<Skill>> getKnown(Player player) {
+        return player.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).holders().filter(holder -> knows(player, holder)).toList();
+    }
+
+    @Override
+    public List<? extends Holder<Skill>> getUnknown(Player player) {
+        return player.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).holders().filter(holder -> !knows(player, holder)).toList();
+    }
+
+    @Override
     public void learn(Player player, Holder<Skill> skill) {
         player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkills(set -> set.add(skill)));
     }

@@ -37,20 +37,26 @@ public interface AMTranslations {
     String COMMAND_SKILL_POINT_SET_SINGLE_KEY       = "commands." + ArsMagicaApi.MOD_ID + ".skill_point.set.single.success";
     String OCCULUS_MISSING_KEY                      = "gui." + ArsMagicaApi.MOD_ID + ".occulus.missing";
 
-    String PREVENT_BLOCK_KEY              = ArsMagicaApi.MOD_ID + ".prevent.block";
-    String SPELL_CAST_BURNED_OUT_KEY      = ArsMagicaApi.MOD_ID + ".spell_cast.burned_out";
-    String SPELL_CAST_MALFORMED_KEY       = ArsMagicaApi.MOD_ID + ".spell_cast.malformed";
-    String SPELL_CAST_NOT_ENOUGH_MANA_KEY = ArsMagicaApi.MOD_ID + ".spell_cast.not_enough_mana";
-    String OCCULUS_KEY                    = "gui." + ArsMagicaApi.MOD_ID + ".occulus";
-    String OCCULUS_NEXT_KEY               = "gui." + ArsMagicaApi.MOD_ID + ".occulus.next";
-    String OCCULUS_PREV_KEY               = "gui." + ArsMagicaApi.MOD_ID + ".occulus.prev";
+    String PREVENT_BLOCK_KEY                = ArsMagicaApi.MOD_ID + ".prevent.block";
+    String SPELL_CAST_BURNED_OUT_KEY        = ArsMagicaApi.MOD_ID + ".spell_cast.burned_out";
+    String SPELL_CAST_MALFORMED_KEY         = ArsMagicaApi.MOD_ID + ".spell_cast.malformed";
+    String SPELL_CAST_NOT_ENOUGH_MANA_KEY   = ArsMagicaApi.MOD_ID + ".spell_cast.not_enough_mana";
+    String COMMAND_SKILL_LIST_SEPARATOR_KEY = "commands." + ArsMagicaApi.MOD_ID + ".skill.list.separator";
+    String OCCULUS_KEY                      = "gui." + ArsMagicaApi.MOD_ID + ".occulus";
+    String OCCULUS_FORGET_ALL_KEY           = "gui." + ArsMagicaApi.MOD_ID + ".occulus.forget_all";
+    String OCCULUS_FORGET_ALL_TOOLTIP_KEY   = "gui." + ArsMagicaApi.MOD_ID + ".occulus.forget_all.tooltip";
+    String OCCULUS_NEXT_KEY                 = "gui." + ArsMagicaApi.MOD_ID + ".occulus.next";
+    String OCCULUS_PREV_KEY                 = "gui." + ArsMagicaApi.MOD_ID + ".occulus.prev";
 
-    Component PREVENT_BLOCK              = Component.translatable(PREVENT_BLOCK_KEY);
-    Component SPELL_CAST_BURNED_OUT      = Component.translatable(SPELL_CAST_BURNED_OUT_KEY);
-    Component SPELL_CAST_MALFORMED       = Component.translatable(SPELL_CAST_MALFORMED_KEY);
-    Component SPELL_CAST_NOT_ENOUGH_MANA = Component.translatable(SPELL_CAST_NOT_ENOUGH_MANA_KEY);
-    Component OCCULUS                    = Component.translatable(OCCULUS_KEY);
-    Component OCCULUS_NEXT               = Component.translatable(OCCULUS_NEXT_KEY);
-    Component OCCULUS_PREV               = Component.translatable(OCCULUS_PREV_KEY);
+    Component PREVENT_BLOCK                = Component.translatable(PREVENT_BLOCK_KEY);
+    Component SPELL_CAST_BURNED_OUT        = Component.translatable(SPELL_CAST_BURNED_OUT_KEY);
+    Component SPELL_CAST_MALFORMED         = Component.translatable(SPELL_CAST_MALFORMED_KEY);
+    Component SPELL_CAST_NOT_ENOUGH_MANA   = Component.translatable(SPELL_CAST_NOT_ENOUGH_MANA_KEY);
+    Component COMMAND_SKILL_LIST_SEPARATOR = Component.translatable(COMMAND_SKILL_LIST_SEPARATOR_KEY);
+    Component OCCULUS                      = Component.translatable(OCCULUS_KEY);
+    Component OCCULUS_FORGET_ALL           = Component.translatable(OCCULUS_FORGET_ALL_KEY);
+    Component OCCULUS_FORGET_ALL_TOOLTIP   = Component.translatable(OCCULUS_FORGET_ALL_TOOLTIP_KEY);
+    Component OCCULUS_NEXT                 = Component.translatable(OCCULUS_NEXT_KEY);
+    Component OCCULUS_PREV                 = Component.translatable(OCCULUS_PREV_KEY);
     // @formatter:on
 }

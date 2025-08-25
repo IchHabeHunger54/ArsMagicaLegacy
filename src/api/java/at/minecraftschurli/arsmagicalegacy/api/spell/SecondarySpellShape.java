@@ -37,8 +37,8 @@ public abstract non-sealed class SecondarySpellShape extends SpellPart {
      * @param modifiers    The {@link SpellModifier}s to consider.
      * @param caster       The {@link LivingEntity} casting the {@link Spell}.
      * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
-     * @return A {@link SpellCastResult} representing the outcome of the spell cast.
+     * @return The {@link Spell} that was cast, potentially modified.
      * @see SpellHelper#castSecondary(Spell, LivingEntity, Entity)
      */
-    public abstract SpellCastResult cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity);
+    public abstract Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity);
 }

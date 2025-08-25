@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.api.client;
 
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
+import net.minecraft.core.Holder;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.util.Lazy;
 import org.jetbrains.annotations.ApiStatus;
@@ -18,13 +19,13 @@ public abstract class ArsMagicaClientApi {
     private static final Lazy<ArsMagicaClientApi> INSTANCE = Lazy.of(() -> ServiceLoader.load(FMLLoader.getGameLayer(), ArsMagicaClientApi.class).findFirst().orElseThrow());
 
     /**
-     * @param tab The {@link OcculusTab} to get the {@link OcculusTabRenderer.Factory} for.
-     * @return The {@link OcculusTabRenderer.Factory} for the specified {@link OcculusTab}.
+     * @param tab The {@link Holder} to get the {@link OcculusTabRenderer.Factory} for.
+     * @return The {@link OcculusTabRenderer.Factory} for the specified {@link Holder}.
      */
-    public static OcculusTabRenderer.Factory occulusTabRendererFactory(OcculusTab tab) {
+    public static OcculusTabRenderer.Factory occulusTabRendererFactory(Holder<OcculusTab> tab) {
         return INSTANCE.get().getOcculusTabRendererFactory(tab);
     }
 
     @ApiStatus.Internal
-    protected abstract OcculusTabRenderer.Factory getOcculusTabRendererFactory(OcculusTab tab);
+    protected abstract OcculusTabRenderer.Factory getOcculusTabRendererFactory(Holder<OcculusTab> tab);
 }

@@ -3,11 +3,12 @@ package at.minecraftschurli.arsmagicalegacy.client.screen.occulus;
 import at.minecraftschurli.arsmagicalegacy.api.client.OcculusTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 
 public class AffinityTabRenderer extends OcculusTabRenderer {
-    public AffinityTabRenderer(OcculusTab tab, ResourceLocation tabId) {
-        super(tab, tabId);
+    public AffinityTabRenderer(Holder<OcculusTab> occulusTab) {
+        super(occulusTab);
     }
 
     @Override

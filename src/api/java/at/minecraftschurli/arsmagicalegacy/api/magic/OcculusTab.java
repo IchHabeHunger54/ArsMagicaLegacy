@@ -20,15 +20,17 @@ public record OcculusTab(int width, int height, int startX, int startY, int inde
     ).apply(inst, OcculusTab::new));
     public static final Codec<Holder<OcculusTab>> CODEC = RegistryFileCodec.create(AMRegistryKeys.OCCULUS_TAB, DIRECT_CODEC);
 
-    public static ResourceLocation getBackground(ResourceLocation id) {
+    public static ResourceLocation getBackground(Holder<OcculusTab> occulusTab) {
+        ResourceLocation id = occulusTab.getKey().location();
         return ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "textures/gui/occulus/background/" + id.getPath() + ".png");
     }
 
-    public static ResourceLocation getIcon(ResourceLocation id) {
+    public static ResourceLocation getIcon(Holder<OcculusTab> occulusTab) {
+        ResourceLocation id = occulusTab.getKey().location();
         return ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "textures/gui/occulus/icon/" + id.getPath() + ".png");
     }
 
-    public static Component getName(ResourceLocation id) {
-        return Component.translatable(Util.makeDescriptionId("occulus_tab", id));
+    public static Component getName(Holder<OcculusTab> occulusTab) {
+        return Component.translatable(Util.makeDescriptionId("occulus_tab", occulusTab.getKey().location()));
     }
 }

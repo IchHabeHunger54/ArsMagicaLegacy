@@ -21,7 +21,7 @@ public abstract class OcculusTabRenderer extends AbstractContainerEventHandler i
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        guiGraphics.blit(OcculusTab.background(tabId), 0, 0, 0, 0, TAB_SIZE, TAB_SIZE, TAB_SIZE, TAB_SIZE);
+        guiGraphics.blit(OcculusTab.getBackground(tabId), 0, 0, 0, 0, TAB_SIZE, TAB_SIZE, TAB_SIZE, TAB_SIZE);
     }
 
     public void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {

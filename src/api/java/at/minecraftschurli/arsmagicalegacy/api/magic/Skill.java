@@ -31,19 +31,11 @@ public record Skill(List<ResourceLocation> parents, Optional<Holder<SkillPoint>>
             .toList();
     }
 
-    public static String getNameKey(ResourceLocation id) {
-        return Util.makeDescriptionId("skill", id) + ".name";
+    public static MutableComponent getName(Holder<Skill> holder) {
+        return Component.translatable(Util.makeDescriptionId("skill", holder.getKey().location()) + ".name");
     }
 
-    public static String getDescriptionKey(ResourceLocation id) {
-        return Util.makeDescriptionId("skill", id) + ".description";
-    }
-
-    public static MutableComponent getName(ResourceLocation id) {
-        return Component.translatable(getNameKey(id));
-    }
-
-    public static MutableComponent getDescription(ResourceLocation id) {
-        return Component.translatable(getDescriptionKey(id));
+    public static MutableComponent getDescription(Holder<Skill> holder) {
+        return Component.translatable(Util.makeDescriptionId("skill", holder.getKey().location()) + ".description");
     }
 }

@@ -22,7 +22,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec2;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -37,14 +36,14 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
     private double offsetY;
     private Skill hoveredSkill;
 
-    public DefaultTabRenderer(OcculusTab tab, ResourceLocation tabId) {
-        super(tab, tabId);
-        offsetX = Math.max(0, tab.startX());
-        offsetY = Math.max(0, tab.startY());
+    public DefaultTabRenderer(Holder<OcculusTab> occulusTab) {
+        super(occulusTab);
+        offsetX = Math.max(0, occulusTab.value().startX());
+        offsetY = Math.max(0, occulusTab.value().startY());
         skills = ClientUtil.registryAccess()
             .registryOrThrow(AMRegistryKeys.SKILL)
             .stream()
-            .filter(skill -> skill.tab().is(tabId))
+            .filter(skill -> skill.tab().getKey() == occulusTab.getKey())
             .toList();
     }
 
@@ -135,8 +134,8 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
 
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
-        offsetX = Math.clamp(offsetX - dragX, 0, tab.width() - TAB_SIZE);
-        offsetY = Math.clamp(offsetY - dragY, 0, tab.height() - TAB_SIZE);
+        offsetX = Math.clamp(offsetX - dragX, 0, occulusTab.value().width() - TAB_SIZE);
+        offsetY = Math.clamp(offsetY - dragY, 0, occulusTab.value().height() - TAB_SIZE);
         return true;
     }
 

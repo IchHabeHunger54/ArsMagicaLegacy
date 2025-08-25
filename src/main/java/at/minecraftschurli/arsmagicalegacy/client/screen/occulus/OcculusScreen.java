@@ -36,7 +36,7 @@ public class OcculusScreen extends Screen {
     private static final ResourceLocation SKILL_POINTS = ArsMagicaApi.modLoc("textures/gui/occulus/skill_points.png");
     private static final int SIZE = 210;
     private static final int FRAME_SIZE = 7;
-    private final List<OcculusTab> tabs = new ArrayList<>();
+    private final List<Holder<OcculusTab>> tabs = new ArrayList<>();
     private final List<OcculusTabButton> buttons = new ArrayList<>();
     private Button nextButton;
     private Button prevButton;
@@ -63,14 +63,12 @@ public class OcculusScreen extends Screen {
         buttons.clear();
         LocalPlayer player = ClientUtil.player();
         Registry<OcculusTab> registry = ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.OCCULUS_TAB);
-        List<ResourceLocation> list = registry
-            .entrySet()
-            .stream()
-            .sorted(Comparator.comparingInt(e -> e.getValue().index()))
-            .map(e -> e.getKey().location())
+        List<? extends Holder<OcculusTab>> list = registry
+            .holders()
+            .sorted(Comparator.comparingInt(e -> e.value().index()))
             .toList();
         if (list.isEmpty()) return;
-        tabs.addAll(list.stream().map(registry::get).toList());
+        tabs.addAll(list);
         if (list.size() < 10) {
             // we don't need page buttons
             maxPage = 0;
@@ -153,8 +151,8 @@ public class OcculusScreen extends Screen {
         setRenderer(tabs.get(tab));
     }
 
-    private void setRenderer(OcculusTab occulusTab) {
-        renderer = ArsMagicaClientApi.occulusTabRendererFactory(occulusTab).create(occulusTab, ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.OCCULUS_TAB).getKey(occulusTab));
+    private void setRenderer(Holder<OcculusTab> occulusTab) {
+        renderer = ArsMagicaClientApi.occulusTabRendererFactory(occulusTab).create(occulusTab);
     }
 
     private void nextPage() {

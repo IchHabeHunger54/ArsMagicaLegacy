@@ -8,17 +8,22 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.function.BiConsumer;
-import java.util.function.Supplier;
 
 public interface AMCreativeTabs {
-    Supplier<CreativeModeTab> MAIN = AMRegistries.CREATIVE_TABS.register("main", () -> CreativeModeTab.builder()
+    DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN = AMRegistries.CREATIVE_TABS.register("main", () -> CreativeModeTab.builder()
         .title(Component.translatable("itemGroup." + ArsMagicaApi.MOD_ID))
         .icon(AMItems.OCCULUS::toStack)
         .displayItems((display, output) -> {
             output.accept(AMItems.OCCULUS);
+            output.accept(AMItems.INSCRIPTION_TABLE);
+            output.accept(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1);
+            output.accept(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_2);
+            output.accept(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3);
+            output.accept(AMItems.SPELL_PARCHMENT);
             acceptVariants(display, output, AMItems.INFINITY_ORB, AMRegistryKeys.SKILL_POINT, (stack, holder) -> stack.set(AMDataComponents.SKILL_POINT, holder));
             output.accept(AMItems.CHIMERITE_ORE);
             output.accept(AMItems.DEEPSLATE_CHIMERITE_ORE);

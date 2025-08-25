@@ -1,11 +1,11 @@
-// 1.21.1	2025-08-19T22:06:59.247945927	Tags for minecraft:block mod id arsmagicalegacy
+// 1.21.1	2025-08-25T22:19:18.4406918	Tags for minecraft:block mod id arsmagicalegacy
 69c396cb051bbe9a130e6979b67065e5041b179d data/arsmagicalegacy/tags/block/aum_plantable_on.json
 69c396cb051bbe9a130e6979b67065e5041b179d data/arsmagicalegacy/tags/block/cerublossom_plantable_on.json
 c1b2a217bb3fcb7e1d67f5bc45409796720bd171 data/arsmagicalegacy/tags/block/desert_nova_plantable_on.json
 4c1bbc9a9b255ebcb379692a068dd9bbc9863000 data/arsmagicalegacy/tags/block/tarma_root_plantable_on.json
 09a8495f82a08691d533f5301ffce0cc0afe0bcf data/arsmagicalegacy/tags/block/witchwood_logs.json
-4509a6dbe8b8c6353fbe06cefd812efe1dca2727 data/c/tags/block/fence_gates/wooden.json
 75597f58eaad48b98e64ba095c0e13b1573e0f4e data/c/tags/block/fences/wooden.json
+4509a6dbe8b8c6353fbe06cefd812efe1dca2727 data/c/tags/block/fence_gates/wooden.json
 9d1222c96750dd2905a15f534a0492165f0f5f18 data/c/tags/block/ores.json
 0cfa5b473056ef4e219ce978c6b1fd5a947ed556 data/c/tags/block/ores/chimerite.json
 e60ce640b03c19e40fc4fd591174c0bb5f6849d1 data/c/tags/block/ores/moonstone.json
@@ -23,6 +23,7 @@ d9eb014cca9e9eb1edefc2e7b423dacb98df705a data/minecraft/tags/block/ceiling_hangi
 dbe9773da22a20dd3089a9aac5ed7aa9cf81495c data/minecraft/tags/block/flower_pots.json
 cd4ee8afe25cbc17263f3bcd49ba4402450d4b66 data/minecraft/tags/block/leaves.json
 cc20d8d43b66ef761c1f2d6f55740085c58a35f3 data/minecraft/tags/block/logs.json
+13fa2ab7615e61b9438130d4c436430370b2acf0 data/minecraft/tags/block/mineable/axe.json
 ac6bf5bb9ac9b5c1ac86f64d0eec5fc7902237fa data/minecraft/tags/block/mineable/pickaxe.json
 74f13af5245edcd85eb79b9ddba0e16a3b9dcff4 data/minecraft/tags/block/needs_diamond_tool.json
 e60ce640b03c19e40fc4fd591174c0bb5f6849d1 data/minecraft/tags/block/needs_iron_tool.json

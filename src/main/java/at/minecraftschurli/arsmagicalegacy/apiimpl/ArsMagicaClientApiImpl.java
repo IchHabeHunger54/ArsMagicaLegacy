@@ -6,7 +6,6 @@ import at.minecraftschurli.arsmagicalegacy.api.client.RegisterOcculusTabRenderer
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.fml.ModLoader;
-import net.neoforged.neoforge.common.NeoForge;
 
 import java.util.HashMap;
 import java.util.Map;

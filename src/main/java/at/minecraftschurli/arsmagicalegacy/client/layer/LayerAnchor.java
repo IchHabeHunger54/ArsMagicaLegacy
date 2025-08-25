@@ -1,7 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.client.layer;
 
 import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
-import net.minecraft.client.Minecraft;
 
 import java.util.function.IntSupplier;
 

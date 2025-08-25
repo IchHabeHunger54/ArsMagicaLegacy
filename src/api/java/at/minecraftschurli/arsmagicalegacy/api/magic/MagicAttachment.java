@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
-import java.util.function.UnaryOperator;
 
 public record MagicAttachment(int level, double xp, Set<Holder<Skill>> skills, Map<Holder<SkillPoint>, Integer> skillPoints) {
     public static final Codec<MagicAttachment> CODEC = RecordCodecBuilder.create(inst -> inst.group(

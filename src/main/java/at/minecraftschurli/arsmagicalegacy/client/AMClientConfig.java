@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.client;
 
-import at.minecraftschurli.arsmagicalegacy.client.layer.LayerAnchor;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
+import at.minecraftschurli.arsmagicalegacy.client.layer.LayerAnchor;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 public final class AMClientConfig {

@@ -9,6 +9,9 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceKey;
 
+/**
+ * Holds the registry keys of all registries added by Ars Magica: Legacy.
+ */
 public interface AMRegistryKeys {
     // @formatter:off
     // Static registries

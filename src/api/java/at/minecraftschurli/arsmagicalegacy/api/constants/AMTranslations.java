@@ -3,6 +3,9 @@ package at.minecraftschurli.arsmagicalegacy.api.constants;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import net.minecraft.network.chat.Component;
 
+/**
+ * Holds all translation keys and constant {@link Component}s used by Ars Magica: Legacy.
+ */
 public interface AMTranslations {
     // @formatter:off
     String CONFIG_KEY                               = ArsMagicaApi.MOD_ID + ".configuration.";

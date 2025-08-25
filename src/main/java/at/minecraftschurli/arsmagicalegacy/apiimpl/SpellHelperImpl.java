@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
+import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.event.BurnoutCostCalculationEvent;
@@ -88,5 +89,10 @@ final class SpellHelperImpl implements SpellHelper {
     @Override
     public SpellCastResult castSecondaryOrGrammar(Spell spell, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
         return spell.currentShapeGroup().secondaryShape() != null ? castSecondary(spell, caster, directEntity) : castGrammar(spell, caster, directEntity, hitResult);
+    }
+
+    @Override
+    public double getManaToBurnoutRatio() {
+        return AMServerConfig.MANA_TO_BURNOUT_RATIO.get();
     }
 }

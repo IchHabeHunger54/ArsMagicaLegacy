@@ -11,6 +11,13 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
 
+/**
+ * Represents a skill point.
+ *
+ * @param color          The color (RGB) of the skill point.
+ * @param minEarnLevel   The level from which on the skill point will be awarded.
+ * @param levelsForPoint The amount of levels required to get the next skill point.
+ */
 public record SkillPoint(int color, int minEarnLevel, int levelsForPoint) {
     public static final Codec<SkillPoint> DIRECT_CODEC = RecordCodecBuilder.create(inst -> inst.group(
         Codec.INT.fieldOf("color").forGetter(SkillPoint::color),
@@ -20,6 +27,10 @@ public record SkillPoint(int color, int minEarnLevel, int levelsForPoint) {
     public static final Codec<Holder<SkillPoint>> CODEC = RegistryFileCodec.create(AMRegistryKeys.SKILL_POINT, DIRECT_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<SkillPoint>> STREAM_CODEC = ByteBufCodecs.holderRegistry(AMRegistryKeys.SKILL_POINT);
 
+    /**
+     * @param holder The skill point {@link Holder} to query.
+     * @return The display name of the given skill point.
+     */
     public static Component getName(Holder<SkillPoint> holder) {
         return Component.translatable(Util.makeDescriptionId("skill_point", holder.getKey().location()));
     }

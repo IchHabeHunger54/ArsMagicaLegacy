@@ -15,6 +15,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
+/**
+ * Represents an attachment on a player, holding various data related to the mod.
+ * <p>
+ * Keep in mind that due to the immutability contract, any modification must use a new instance.
+ *
+ * @param level       The magic level of the player.
+ * @param xp          The magic xp of the player.
+ * @param skills      The {@link Skill}s the player knows. Immutable by contract.
+ * @param skillPoints The {@link SkillPoint}s the player has. Immutable by contract.
+ */
 public record MagicAttachment(int level, double xp, Set<Holder<Skill>> skills, Map<Holder<SkillPoint>, Integer> skillPoints) {
     public static final Codec<MagicAttachment> CODEC = RecordCodecBuilder.create(inst -> inst.group(
         Codec.INT.fieldOf("level").forGetter(MagicAttachment::level),
@@ -30,20 +40,36 @@ public record MagicAttachment(int level, double xp, Set<Holder<Skill>> skills, M
         MagicAttachment::new);
     public static final MagicAttachment DEFAULT = new MagicAttachment(0, 0, Set.of(), Map.of());
 
+    /**
+     * @param level The new level to set.
+     * @return A new instance with the new level set.
+     */
     public MagicAttachment setLevel(int level) {
         return new MagicAttachment(level, xp, skills, skillPoints);
     }
 
+    /**
+     * @param xp The new xp to set.
+     * @return A new instance with the new xp set.
+     */
     public MagicAttachment setXp(double xp) {
         return new MagicAttachment(level, xp, skills, skillPoints);
     }
 
+    /**
+     * @param consumer The operation to perform on the skills.
+     * @return A new instance with the updated skills set.
+     */
     public MagicAttachment updateSkills(Consumer<Set<Holder<Skill>>> consumer) {
         Set<Holder<Skill>> skills = new HashSet<>(this.skills);
         consumer.accept(skills);
         return new MagicAttachment(level, xp, skills, skillPoints);
     }
 
+    /**
+     * @param consumer The operation to perform on the skill points.
+     * @return A new instance with the updated skill points set.
+     */
     public MagicAttachment updateSkillPoints(Consumer<Map<Holder<SkillPoint>, Integer>> consumer) {
         Map<Holder<SkillPoint>, Integer> skillPoints = new HashMap<>(this.skillPoints);
         consumer.accept(skillPoints);

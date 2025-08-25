@@ -43,17 +43,17 @@ public abstract non-sealed class SpellComponent extends SpellPart {
      * @param caster       The {@link LivingEntity} casting the {@link Spell}.
      * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
      * @param hitResult    The {@link HitResult} of the spell cast.
-     * @return A {@link SpellCastResult} representing the outcome of the spell cast.
+     * @return The {@link Spell} that was cast, potentially modified.
      */
-    public abstract SpellCastResult cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult);
+    public abstract Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult);
 
     /**
      * Represents a spell component that only affects blocks.
      */
     public static abstract class CastBlock extends SpellComponent {
         @Override
-        public SpellCastResult cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
-            return hitResult instanceof BlockHitResult blockHitResult ? castBlock(spell, modifiers, caster, directEntity, blockHitResult) : SpellCastResult.pass(spell);
+        public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+            return hitResult instanceof BlockHitResult blockHitResult ? castBlock(spell, modifiers, caster, directEntity, blockHitResult) : spell;
         }
 
         /**
@@ -64,9 +64,9 @@ public abstract non-sealed class SpellComponent extends SpellPart {
          * @param caster       The {@link LivingEntity} casting the {@link Spell}.
          * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
          * @param hitResult    The {@link BlockHitResult} of the spell cast.
-         * @return A {@link SpellCastResult} representing the outcome of the spell cast.
+         * @return The {@link Spell} that was cast, potentially modified.
          */
-        public abstract SpellCastResult castBlock(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, BlockHitResult hitResult);
+        public abstract Spell castBlock(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, BlockHitResult hitResult);
     }
 
     /**
@@ -74,8 +74,8 @@ public abstract non-sealed class SpellComponent extends SpellPart {
      */
     public static abstract class CastEntity extends SpellComponent {
         @Override
-        public SpellCastResult cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
-            return hitResult instanceof EntityHitResult entityHitResult ? castEntity(spell, modifiers, caster, directEntity, entityHitResult) : SpellCastResult.pass(spell);
+        public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+            return hitResult instanceof EntityHitResult entityHitResult ? castEntity(spell, modifiers, caster, directEntity, entityHitResult) : spell;
         }
 
         /**
@@ -86,9 +86,9 @@ public abstract non-sealed class SpellComponent extends SpellPart {
          * @param caster       The {@link LivingEntity} casting the {@link Spell}.
          * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
          * @param hitResult    The {@link EntityHitResult} of the spell cast.
-         * @return A {@link SpellCastResult} representing the outcome of the spell cast.
+         * @return The {@link Spell} that was cast, potentially modified.
          */
-        public abstract SpellCastResult castEntity(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, EntityHitResult hitResult);
+        public abstract Spell castEntity(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, EntityHitResult hitResult);
     }
 
     /**
@@ -96,11 +96,11 @@ public abstract non-sealed class SpellComponent extends SpellPart {
      */
     public static abstract class CastBoth extends SpellComponent {
         @Override
-        public SpellCastResult cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+        public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
             return switch (hitResult) {
                 case BlockHitResult blockHitResult -> castBlock(spell, modifiers, caster, directEntity, blockHitResult);
                 case EntityHitResult entityHitResult -> castEntity(spell, modifiers, caster, directEntity, entityHitResult);
-                case null, default -> SpellCastResult.pass(spell);
+                case null, default -> spell;
             };
         }
 
@@ -112,9 +112,9 @@ public abstract non-sealed class SpellComponent extends SpellPart {
          * @param caster       The {@link LivingEntity} casting the {@link Spell}.
          * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
          * @param hitResult    The {@link BlockHitResult} of the spell cast.
-         * @return A {@link SpellCastResult} representing the outcome of the spell cast.
+         * @return The {@link Spell} that was cast, potentially modified.
          */
-        public abstract SpellCastResult castBlock(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, BlockHitResult hitResult);
+        public abstract Spell castBlock(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, BlockHitResult hitResult);
 
         /**
          * Casts this part on an entity.
@@ -124,8 +124,8 @@ public abstract non-sealed class SpellComponent extends SpellPart {
          * @param caster       The {@link LivingEntity} casting the {@link Spell}.
          * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
          * @param hitResult    The {@link EntityHitResult} of the spell cast.
-         * @return A {@link SpellCastResult} representing the outcome of the spell cast.
+         * @return The {@link Spell} that was cast, potentially modified.
          */
-        public abstract SpellCastResult castEntity(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, EntityHitResult hitResult);
+        public abstract Spell castEntity(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, EntityHitResult hitResult);
     }
 }

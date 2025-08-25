@@ -15,6 +15,15 @@ import net.minecraft.util.ExtraCodecs;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Represents a spell.
+ *
+ * @param name             The name of the spell.
+ * @param shapeGroups      The {@link SpellShapeGroup}s of the spell.
+ * @param activeShapeGroup The index of the currently active {@link SpellShapeGroup}.
+ * @param grammar          The {@link SpellGrammar} of the spell.
+ * @param dataComponents   The data components of the spell.
+ */
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public record Spell(Optional<Component> name, List<SpellShapeGroup> shapeGroups, int activeShapeGroup, SpellGrammar grammar, PatchedDataComponentMap dataComponents) {
     public static final int MAX_SHAPE_GROUPS = 5;
@@ -42,10 +51,16 @@ public record Spell(Optional<Component> name, List<SpellShapeGroup> shapeGroups,
         return dataComponents.asPatch();
     }
 
+    /**
+     * @return The currently active {@link SpellShapeGroup}.
+     */
     public SpellShapeGroup currentShapeGroup() {
         return shapeGroups.get(activeShapeGroup);
     }
 
+    /**
+     * @return The combined mana cost of the spell.
+     */
     public double getManaCost() {
         return currentShapeGroup().getManaCost() * grammar.getManaCost();
     }

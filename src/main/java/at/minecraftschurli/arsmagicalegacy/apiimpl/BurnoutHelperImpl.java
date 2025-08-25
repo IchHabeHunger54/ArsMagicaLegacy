@@ -77,9 +77,4 @@ final class BurnoutHelperImpl implements BurnoutHelper {
         entity.getAttribute(AMAttributes.BURNOUT_REGENERATION).setBaseValue(amount);
         return true;
     }
-
-    @Override
-    public double getManaToBurnoutRatio() {
-        return AMServerConfig.MANA_TO_BURNOUT_RATIO.get();
-    }
 }

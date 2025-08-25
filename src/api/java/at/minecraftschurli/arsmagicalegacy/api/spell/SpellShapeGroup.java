@@ -12,6 +12,15 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a spell's shape group. One spell may have up to {@link Spell#MAX_SHAPE_GROUPS} different shape groups.
+ *
+ * @param parts              A {@link List} of all parts. Immutable by contract. Used mainly for serialization, use the other fields for gameplay.
+ * @param primaryShape       The {@link PrimarySpellShape} of the shape group.
+ * @param primaryModifiers   A {@link List} of {@link SpellModifier}s for the {@link PrimarySpellShape}.
+ * @param secondaryShape     The {@link SecondarySpellShape} of the shape group.
+ * @param secondaryModifiers A {@link List} of {@link SpellModifier}s for the {@link SecondarySpellShape}.
+ */
 public record SpellShapeGroup(List<SpellPart> parts, @Nullable PrimarySpellShape primaryShape, List<SpellModifier> primaryModifiers, @Nullable SecondarySpellShape secondaryShape, List<SpellModifier> secondaryModifiers) {
     public static final int MAX_PARTS = 4;
     public static final SpellShapeGroup EMPTY = new SpellShapeGroup(List.of(), null, List.of(), null, List.of());
@@ -22,6 +31,20 @@ public record SpellShapeGroup(List<SpellPart> parts, @Nullable PrimarySpellShape
         ByteBufCodecs.registry(AMRegistryKeys.SPELL_PART).apply(ByteBufCodecs.list()), SpellShapeGroup::parts,
         SpellShapeGroup::of);
 
+    /**
+     * @deprecated Use {@link SpellShapeGroup#of(List)} instead.
+     */
+    @SuppressWarnings("DeprecatedIsStillUsed")
+    @Deprecated
+    public SpellShapeGroup {
+    }
+
+    /**
+     * Validates the given {@link List} of {@link SpellPart}s and constructs a {@link SpellShapeGroup} from it.
+     *
+     * @param parts The {@link List} of {@link SpellPart}s.
+     * @return A new {@link SpellShapeGroup}, or {@link SpellShapeGroup#EMPTY} if validation failed.
+     */
     public static SpellShapeGroup of(List<SpellPart> parts) {
         if (parts.isEmpty() || !parts.getFirst().isPrimaryShape()) return EMPTY;
         if (parts.size() > MAX_PARTS) {
@@ -48,10 +71,6 @@ public record SpellShapeGroup(List<SpellPart> parts, @Nullable PrimarySpellShape
         return new SpellShapeGroup(parts, primary, primaryModifiers, secondary, secondaryModifiers);
     }
 
-    public static SpellShapeGroup of(SpellPart... parts) {
-        return of(List.of(parts));
-    }
-
     @Override
     public boolean equals(Object o) {
         return this == o || o != null && getClass() == o.getClass() && parts.equals(((SpellShapeGroup) o).parts);
@@ -62,6 +81,9 @@ public record SpellShapeGroup(List<SpellPart> parts, @Nullable PrimarySpellShape
         return parts.hashCode();
     }
 
+    /**
+     * @return The combined mana cost of the spell shape group.
+     */
     public double getManaCost() {
         if (primaryShape == null) return 0;
         double cost = primaryShape.getData().mana() * primaryModifiers

@@ -7,6 +7,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
+/**
+ * Holds all {@link TagKey}s added by Ars Magica: Legacy.
+ */
 public interface AMTags {
     interface Blocks {
         TagKey<Block> ORES_CHIMERITE = cTag("ores/chimerite");

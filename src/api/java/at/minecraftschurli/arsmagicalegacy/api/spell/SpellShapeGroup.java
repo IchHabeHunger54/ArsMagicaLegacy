@@ -45,6 +45,7 @@ public record SpellShapeGroup(List<SpellPart> parts, @Nullable PrimarySpellShape
      * @param parts The {@link List} of {@link SpellPart}s.
      * @return A new {@link SpellShapeGroup}, or {@link SpellShapeGroup#EMPTY} if validation failed.
      */
+    @SuppressWarnings("DataFlowIssue")
     public static SpellShapeGroup of(List<SpellPart> parts) {
         if (parts.isEmpty() || !parts.getFirst().isPrimaryShape()) return EMPTY;
         if (parts.size() > MAX_PARTS) {

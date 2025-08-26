@@ -29,6 +29,7 @@ public class InfinityOrbItem extends Item {
         return InteractionResultHolder.success(stack);
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Override
     public String getDescriptionId(ItemStack stack) {
         return stack.has(AMDataComponents.SKILL_POINT) ? Util.makeDescriptionId(super.getDescriptionId(stack), stack.get(AMDataComponents.SKILL_POINT).getKey().location()) : super.getDescriptionId(stack);

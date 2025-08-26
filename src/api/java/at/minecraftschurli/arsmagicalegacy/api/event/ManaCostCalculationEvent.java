@@ -19,9 +19,9 @@ import java.util.function.DoubleUnaryOperator;
 public class ManaCostCalculationEvent extends SpellEvent {
     private final double originalMana;
     private final double originalBurnout;
+    private final List<DoubleUnaryOperator> modifiers = new ArrayList<>();
     private double mana;
     private double burnout;
-    private List<DoubleUnaryOperator> modifiers = new ArrayList<>();
 
     public ManaCostCalculationEvent(LivingEntity entity, Spell spell, double mana, double burnout) {
         super(entity, spell);

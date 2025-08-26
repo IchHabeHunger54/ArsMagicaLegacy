@@ -18,6 +18,7 @@ import net.minecraft.resources.RegistryFileCodec;
  * @param minEarnLevel   The level from which on the skill point will be awarded.
  * @param levelsForPoint The amount of levels required to get the next skill point.
  */
+@SuppressWarnings("DataFlowIssue")
 public record SkillPoint(int color, int minEarnLevel, int levelsForPoint) {
     public static final Codec<SkillPoint> DIRECT_CODEC = RecordCodecBuilder.create(inst -> inst.group(
         Codec.INT.fieldOf("color").forGetter(SkillPoint::color),

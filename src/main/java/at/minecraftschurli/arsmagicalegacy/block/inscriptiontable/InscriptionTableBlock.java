@@ -106,6 +106,7 @@ public class InscriptionTableBlock extends Block implements EntityBlock {
         };
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
@@ -124,6 +125,7 @@ public class InscriptionTableBlock extends Block implements EntityBlock {
         super.onPlace(state, level, pos, oldState, movedByPiston);
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         if (stack.has(AMDataComponents.TIER)) {

@@ -45,6 +45,7 @@ public final class AMAdvancementProvider extends AdvancementProvider {
             return Component.translatable("advancements." + ArsMagicaApi.MOD_ID + "." + name + ".description");
         }
 
+        @SuppressWarnings({"SameParameterValue", "UnusedReturnValue"})
         @SafeVarargs
         private AdvancementHolder advancement(Consumer<AdvancementHolder> saver, String name, AdvancementHolder parent, ItemLike icon, Pair<String, Criterion<?>>... criteria) {
             Advancement.Builder builder = Advancement.Builder.advancement()

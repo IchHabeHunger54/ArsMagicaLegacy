@@ -32,6 +32,7 @@ public class DataComponentOverrides<T> extends ItemOverrides {
         return location == null ? super.resolve(model, stack, level, entity, seed) : Minecraft.getInstance().getModelManager().getModel(location);
     }
 
+    @SuppressWarnings("DataFlowIssue")
     public static <T> TriFunction<Holder<T>, BakedModel, ItemStack, ModelResourceLocation> holder() {
         return (holder, model, stack) -> ModelResourceLocation.standalone(holder.getKey().location().withPrefix("item/" + stack.getItemHolder().getKey().location().getPath() + "_"));
     }

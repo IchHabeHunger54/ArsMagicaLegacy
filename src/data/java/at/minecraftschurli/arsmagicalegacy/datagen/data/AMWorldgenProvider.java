@@ -273,6 +273,7 @@ public final class AMWorldgenProvider {
      * @param flower The flower to place.
      * @return A {@link ConfiguredFeature}.
      */
+    @SuppressWarnings("SameParameterValue")
     private static ConfiguredFeature<RandomPatchConfiguration, ?> flower(int tries, DeferredBlock<?> flower) {
         return new ConfiguredFeature<>(Feature.FLOWER, FeatureUtils.simpleRandomPatchConfiguration(
             tries,
@@ -325,6 +326,7 @@ public final class AMWorldgenProvider {
      * @param rarity            How rare patches should be.
      * @return A {@link PlacedFeature}.
      */
+    @SuppressWarnings("SameParameterValue")
     private static PlacedFeature flower(BootstrapContext<?> bootstrap, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, int rarity) {
         return placedFeature(bootstrap, configuredFeature, RarityFilter.onAverageOnceEvery(rarity), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
     }

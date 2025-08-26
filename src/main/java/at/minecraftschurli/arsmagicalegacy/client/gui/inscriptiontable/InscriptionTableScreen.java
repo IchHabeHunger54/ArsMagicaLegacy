@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.client.screen.inscriptiontable;
+package at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;

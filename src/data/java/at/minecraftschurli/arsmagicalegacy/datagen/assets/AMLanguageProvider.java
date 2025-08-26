@@ -120,6 +120,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTags.Items.DUSTS_ARCANE_ASH, "Arcane Ash Dusts");
         add(AMTags.Items.DUSTS_PURIFIED_VINTEUM, "Purified Vinteum Dusts");
         add(AMTags.Items.WITCHWOOD_LOGS, "Witchwood Logs");
+        add(AMTags.Items.INSCRIPTION_TABLE_BOOKS, "Inscription Table Books");
         add(AMTags.Items.OCCULUS_FORGET_ALL, "Occulus Forgetting Items");
         subtitleTranslation(AMSounds.ARCANE_GUARDIAN_AMBIENT, "Arcane Guardian hisses");
         subtitleTranslation(AMSounds.ARCANE_GUARDIAN_ATTACK, "Arcane Guardian attacks");
@@ -371,6 +372,10 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.COMMAND_SKILL_POINT_GET_KEY, "Player %s has %d skill points of type %s");
         add(AMTranslations.COMMAND_SKILL_POINT_SET_MULTIPLE_KEY, "Set %s skill points of type %s on %s players");
         add(AMTranslations.COMMAND_SKILL_POINT_SET_SINGLE_KEY, "Set %s skill points of type %s on player %s");
+        add(AMTranslations.INSCRIPTION_TABLE_CREATE_SPELL_KEY, "Create Spell");
+        add(AMTranslations.INSCRIPTION_TABLE_KEY, "Inscription Table");
+        add(AMTranslations.INSCRIPTION_TABLE_NAME_KEY, "Name");
+        add(AMTranslations.INSCRIPTION_TABLE_SEARCH_KEY, "Search");
         add(AMTranslations.OCCULUS_FORGET_ALL_KEY, "Forget All");
         add(AMTranslations.OCCULUS_FORGET_ALL_TOOLTIP_KEY, "Costs 1 Vinteum Block. Your invested skill points will be returned.");
         add(AMTranslations.OCCULUS_KEY, "Occulus");

@@ -57,6 +57,7 @@ public interface AMTags {
         TagKey<Item> DUSTS_ARCANE_ASH = cTag("dusts/arcane_ash");
         TagKey<Item> DUSTS_PURIFIED_VINTEUM = cTag("dusts/purified_vinteum");
         TagKey<Item> WITCHWOOD_LOGS = tag("witchwood_logs");
+        TagKey<Item> INSCRIPTION_TABLE_BOOKS = tag("inscription_table_books");
         TagKey<Item> OCCULUS_FORGET_ALL = tag("occulus_forget_all");
 
         private static TagKey<Item> cTag(String name) {

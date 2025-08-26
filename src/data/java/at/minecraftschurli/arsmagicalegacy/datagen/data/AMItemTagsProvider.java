@@ -8,6 +8,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -62,6 +63,7 @@ public final class AMItemTagsProvider extends ItemTagsProvider {
         tag(ItemTags.SIGNS).add(AMItems.WITCHWOOD_SIGN.get());
         tag(ItemTags.HANGING_SIGNS).add(AMItems.WITCHWOOD_HANGING_SIGN.get());
         tag(ItemTags.SMALL_FLOWERS).add(AMItems.AUM.get(), AMItems.CERUBLOSSOM.get(), AMItems.DESERT_NOVA.get(), AMItems.TARMA_ROOT.get(), AMItems.WAKEBLOOM.get());
+        tag(AMTags.Items.INSCRIPTION_TABLE_BOOKS).add(Items.WRITABLE_BOOK);
         tag(AMTags.Items.OCCULUS_FORGET_ALL).addTag(AMTags.Items.STORAGE_BLOCKS_VINTEUM);
     }
 }

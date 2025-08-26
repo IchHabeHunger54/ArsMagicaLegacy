@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.client.util;
 
-import at.minecraftschurli.arsmagicalegacy.client.screen.occulus.OcculusScreen;
+import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.OcculusScreen;
 
 public final class AMClientHooks {
     private AMClientHooks() {

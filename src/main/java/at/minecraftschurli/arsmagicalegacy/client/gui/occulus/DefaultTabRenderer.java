@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.client.screen.occulus;
+package at.minecraftschurli.arsmagicalegacy.client.gui.occulus;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.OcculusTabRenderer;

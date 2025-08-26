@@ -1,10 +1,13 @@
 package at.minecraftschurli.arsmagicalegacy.block.inscriptiontable;
 
+import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import at.minecraftschurli.arsmagicalegacy.util.StringRepresentableEnum;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -23,6 +26,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -143,6 +147,23 @@ public class InscriptionTableBlock extends Block implements EntityBlock {
             }
         }
         return super.playerWillDestroy(level, pos, state, player);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        if (player.isSecondaryUseActive()) return InteractionResult.PASS;
+        if (!ArsMagicaApi.magicHelper().knowsMagic(player)) {
+            player.displayClientMessage(AMTranslations.PREVENT_BLOCK, true);
+            return InteractionResult.SUCCESS;
+        }
+        if (!isRight(state)) {
+            pos = pos.relative(state.getValue(FACING).getClockWise());
+        }
+        if (level.getBlockEntity(pos) instanceof InscriptionTableBlockEntity blockEntity) {
+            player.openMenu(blockEntity, pos);
+            return InteractionResult.SUCCESS;
+        }
+        return InteractionResult.PASS;
     }
 
     @Override

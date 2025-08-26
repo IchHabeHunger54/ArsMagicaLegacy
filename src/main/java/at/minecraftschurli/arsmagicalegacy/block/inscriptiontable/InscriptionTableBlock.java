@@ -84,7 +84,7 @@ public class InscriptionTableBlock extends Block implements EntityBlock {
     @Override
     @Nullable
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return null;
+        return state.getValue(HALF) == Half.RIGHT ? new InscriptionTableBlockEntity(pos, state) : null;
     }
 
     @Override

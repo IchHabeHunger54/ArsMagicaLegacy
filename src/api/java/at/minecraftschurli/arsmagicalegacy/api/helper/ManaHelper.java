@@ -5,6 +5,7 @@ import net.minecraft.world.entity.LivingEntity;
 /**
  * Helper for mana-related operations.
  */
+@SuppressWarnings("UnusedReturnValue")
 public interface ManaHelper {
     /**
      * Returns the base value used for calculating the maximum mana of a {@link LivingEntity}.

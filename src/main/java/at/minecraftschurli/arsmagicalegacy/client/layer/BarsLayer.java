@@ -62,8 +62,10 @@ public class BarsLayer implements LayeredDraw.Layer {
         guiGraphics.setColor(1, 1, 1, 1);
         RenderSystem.disableBlend();
         guiGraphics.pose().popPose();
-        Component text = Component.translatable(translationKey, String.format("%.2f", value), String.format("%.2f", maxValue));
-        renderOutlineText(guiGraphics, font, text, AMClientConfig.BARS_X_ANCHOR.get() == LayerAnchor.X.RIGHT ? x - 3 - font.width(text) : x + 4 + WIDTH, y + 1, color);
+        if (AMClientConfig.SHOW_VALUES.get()) {
+            Component text = Component.translatable(translationKey, String.format("%.2f", value), String.format("%.2f", maxValue));
+            renderOutlineText(guiGraphics, font, text, AMClientConfig.BARS_X_ANCHOR.get() == LayerAnchor.X.RIGHT ? x - 3 - font.width(text) : x + 4 + WIDTH, y + 1, color);
+        }
     }
 
     public static void renderOutlineText(GuiGraphics guiGraphics, Font font, Component text, int x, int y, int color) {

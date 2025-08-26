@@ -57,8 +57,10 @@ final class SpellHelperImpl implements SpellHelper {
     public Spell castPrimary(Spell spell, LivingEntity caster) {
         PrimarySpellShape primary = spell.currentShapeGroup().primaryShape();
         List<SpellModifier> modifiers = spell.currentShapeGroup().primaryModifiers();
-        spell = primary.cast(spell, modifiers, caster);
-        NeoForge.EVENT_BUS.post(new SpellPartCastEvent.PrimaryShape(caster, spell, primary, modifiers));
+        if (primary != null) {
+            spell = primary.cast(spell, modifiers, caster);
+            NeoForge.EVENT_BUS.post(new SpellPartCastEvent.PrimaryShape(caster, spell, primary, modifiers));
+        }
         return spell;
     }
 
@@ -66,8 +68,10 @@ final class SpellHelperImpl implements SpellHelper {
     public Spell castSecondary(Spell spell, LivingEntity caster, Entity directEntity) {
         SecondarySpellShape secondary = spell.currentShapeGroup().secondaryShape();
         List<SpellModifier> modifiers = spell.currentShapeGroup().secondaryModifiers();
-        spell = secondary.cast(spell, modifiers, caster, directEntity);
-        NeoForge.EVENT_BUS.post(new SpellPartCastEvent.SecondaryShape(caster, spell, secondary, modifiers, directEntity));
+        if (secondary != null) {
+            spell = secondary.cast(spell, modifiers, caster, directEntity);
+            NeoForge.EVENT_BUS.post(new SpellPartCastEvent.SecondaryShape(caster, spell, secondary, modifiers, directEntity));
+        }
         return spell;
     }
 

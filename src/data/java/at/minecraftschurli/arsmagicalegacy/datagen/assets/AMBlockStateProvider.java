@@ -114,6 +114,7 @@ public final class AMBlockStateProvider extends BlockStateProvider {
      * @param torch     The torch block to generate the model for.
      * @param wallTorch The wall torch block to generate the model for.
      */
+    @SuppressWarnings("SameParameterValue")
     private void torchBlock(DeferredBlock<?> torch, DeferredBlock<?> wallTorch) {
         ModelFile file = models().withExistingParent(torch.getId().getPath(), "block/template_torch").texture("torch", modLoc("block/" + torch.getId().getPath())).renderType("cutout");
         ModelFile wallFile = models().withExistingParent(wallTorch.getId().getPath(), "block/template_torch_wall").texture("torch", modLoc("block/" + torch.getId().getPath())).renderType("cutout");

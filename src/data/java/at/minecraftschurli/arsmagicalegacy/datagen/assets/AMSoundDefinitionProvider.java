@@ -28,9 +28,10 @@ public final class AMSoundDefinitionProvider extends SoundDefinitionsProvider {
         AMRegistries.SOUND_EVENTS.getEntries().forEach(this::sound);
     }
 
+    @SuppressWarnings("DataFlowIssue")
     private void sound(Holder<SoundEvent> sound, int count) {
         if (count <= 0) return;
-        ResourceLocation location = sound.unwrapKey().get().location();
+        ResourceLocation location = sound.getKey().location();
         if (sounds.contains(location)) return;
         sounds.add(location);
         String subtitle = "subtitle." + location.getNamespace() + "." + location.getPath();

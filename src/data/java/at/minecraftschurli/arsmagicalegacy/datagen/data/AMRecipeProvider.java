@@ -171,6 +171,7 @@ public final class AMRecipeProvider extends RecipeProvider {
      * @param cookingTime The time this recipe takes.
      * @param group       The crafting book group to use.
      */
+    @SuppressWarnings("SameParameterValue")
     private void oreSmelting(RecipeOutput output, List<ItemLike> ingredients, ItemLike result, float experience, int cookingTime, String group) {
         oreCooking(output, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new, ingredients, result, experience, cookingTime, group, "_from_smelting");
     }
@@ -185,6 +186,7 @@ public final class AMRecipeProvider extends RecipeProvider {
      * @param cookingTime The time this recipe takes.
      * @param group       The crafting book group to use.
      */
+    @SuppressWarnings("SameParameterValue")
     private void oreBlasting(RecipeOutput output, List<ItemLike> ingredients, ItemLike result, float experience, int cookingTime, String group) {
         oreCooking(output, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new, ingredients, result, experience, cookingTime, group, "_from_blasting");
     }

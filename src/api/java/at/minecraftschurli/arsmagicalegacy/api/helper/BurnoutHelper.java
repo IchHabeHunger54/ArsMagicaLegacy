@@ -5,6 +5,7 @@ import net.minecraft.world.entity.LivingEntity;
 /**
  * Helper for burnout-related operations.
  */
+@SuppressWarnings("UnusedReturnValue")
 public interface BurnoutHelper {
     /**
      * Returns the base value used for calculating the maximum burnout of a {@link LivingEntity}.

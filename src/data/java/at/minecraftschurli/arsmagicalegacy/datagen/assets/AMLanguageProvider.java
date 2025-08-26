@@ -159,6 +159,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         subtitleTranslation(AMSounds.FIRE_GUARDIAN_FLAMETHROWER, "Fire Guardian burns");
         subtitleTranslation(AMSounds.FIRE_GUARDIAN_NOVA, "Fire Guardian shoots");
         subtitleTranslation(AMSounds.ICE_GUARDIAN_LAUNCH_ARM, "Ice Guardian launches arm");
+        subtitleTranslation(AMSounds.LIFE_GUARDIAN_HEAL, "Life Guardian heals");
         subtitleTranslation(AMSounds.LIGHTNING_GUARDIAN_LIGHTNING_ROD, "Lightning Guardian summons lightning");
         subtitleTranslation(AMSounds.LIGHTNING_GUARDIAN_STATIC, "Lightning Guardian thunders");
         subtitleTranslation(AMSounds.CAST_AIR, "Air spell is cast");
@@ -414,6 +415,7 @@ public final class AMLanguageProvider extends LanguageProvider {
      * @param variant     The variant to use.
      * @param translation The translation to add.
      */
+    @SuppressWarnings("SameParameterValue")
     private void itemWithVariantTranslation(DeferredItem<?> item, ResourceLocation variant, String translation) {
         add(Util.makeDescriptionId(item.toStack().getDescriptionId(), variant), translation);
     }

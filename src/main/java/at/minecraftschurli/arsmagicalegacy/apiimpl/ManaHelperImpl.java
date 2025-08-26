@@ -6,6 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import net.minecraft.world.entity.LivingEntity;
 
+@SuppressWarnings("DataFlowIssue")
 final class ManaHelperImpl implements ManaHelper {
     @Override
     public double getManaBase() {

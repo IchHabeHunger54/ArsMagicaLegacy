@@ -15,6 +15,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public final class AMMagicProvider {
@@ -171,7 +172,7 @@ public final class AMMagicProvider {
     @SafeVarargs
     private static Holder<Skill> addSkill(BootstrapContext<Skill> bootstrap, ResourceKey<Skill> key, ResourceKey<SkillPoint> point, ResourceKey<OcculusTab> tab, int x, int y, Holder<Skill>... parents) {
         return bootstrap.register(key, new Skill(
-            Arrays.stream(parents).map(Holder::getKey).map(ResourceKey::location).toList(),
+            Arrays.stream(parents).map(Holder::getKey).filter(Objects::nonNull).map(ResourceKey::location).toList(),
             Optional.of(bootstrap.lookup(AMRegistryKeys.SKILL_POINT).getOrThrow(point)),
             bootstrap.lookup(AMRegistryKeys.OCCULUS_TAB).getOrThrow(tab),
             x,
@@ -184,6 +185,7 @@ public final class AMMagicProvider {
         return addSkill(bootstrap, fromPart(part), point, tab, x, y, parents);
     }
 
+    @SuppressWarnings("DataFlowIssue")
     private static ResourceKey<Skill> fromPart(DeferredHolder<SpellPart, ?> part) {
         return ResourceKey.create(AMRegistryKeys.SKILL, ArsMagicaApi.spellPartRegistry().getKey(part.get()));
     }

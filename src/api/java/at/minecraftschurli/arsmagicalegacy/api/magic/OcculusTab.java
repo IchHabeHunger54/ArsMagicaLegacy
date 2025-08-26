@@ -20,6 +20,7 @@ import net.minecraft.resources.ResourceLocation;
  * @param index    The index of the tab in relation to other tabs.
  * @param renderer The id of the renderer type to use. Get an actual renderer only on the client using {@link ArsMagicaClientApi#occulusTabRendererFactory(Holder)}.
  */
+@SuppressWarnings("DataFlowIssue")
 public record OcculusTab(int width, int height, int startX, int startY, int index, ResourceLocation renderer) {
     public static final Codec<OcculusTab> DIRECT_CODEC = RecordCodecBuilder.create(inst -> inst.group(
         Codec.INT.fieldOf("width").forGetter(OcculusTab::width),

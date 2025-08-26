@@ -26,6 +26,7 @@ public class InscriptionTableMenu extends AbstractContainerMenu {
         }
     }
 
+    @SuppressWarnings("DataFlowIssue")
     public InscriptionTableMenu(int containerId, Inventory inventory, FriendlyByteBuf buf) {
         this(containerId, inventory, (InscriptionTableBlockEntity) inventory.player.level().getBlockEntity(buf.readBlockPos()));
     }

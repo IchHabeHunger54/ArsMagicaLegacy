@@ -13,6 +13,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.function.BiConsumer;
 
+@SuppressWarnings("unused")
 public interface AMCreativeTabs {
     DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN = AMRegistries.CREATIVE_TABS.register("main", () -> CreativeModeTab.builder()
         .title(Component.translatable("itemGroup." + ArsMagicaApi.MOD_ID))
@@ -79,6 +80,7 @@ public interface AMCreativeTabs {
     static void init() {
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static <T> void acceptVariants(CreativeModeTab.ItemDisplayParameters display, CreativeModeTab.Output output, DeferredItem<?> item, ResourceKey<Registry<T>> registryKey, BiConsumer<ItemStack, Holder<T>> consumer) {
         display.holders().lookup(registryKey).ifPresent(registry -> registry.listElements().forEach(holder -> {
             ItemStack stack = item.toStack();

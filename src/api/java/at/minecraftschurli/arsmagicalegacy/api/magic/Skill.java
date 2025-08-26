@@ -24,6 +24,7 @@ import java.util.Optional;
  * @param y       The y position of the skill.
  * @param hidden  Whether the skill is hidden. Hidden skills will only show when learned through means other than within the occulus, e.g. via command.
  */
+@SuppressWarnings("DataFlowIssue")
 public record Skill(List<ResourceLocation> parents, Optional<Holder<SkillPoint>> cost, Holder<OcculusTab> tab, int x, int y, boolean hidden) {
     public static final Codec<Skill> DIRECT_CODEC = RecordCodecBuilder.create(inst -> inst.group(
         ResourceLocation.CODEC.listOf().fieldOf("parents").forGetter(Skill::parents),

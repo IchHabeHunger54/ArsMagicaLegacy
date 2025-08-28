@@ -7,6 +7,7 @@ import at.minecraftschurli.arsmagicalegacy.api.event.LevelChangeEvent;
 import at.minecraftschurli.arsmagicalegacy.api.helper.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.ManaHelper;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicAttachment;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
@@ -19,8 +20,8 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.common.NeoForge;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 final class MagicHelperImpl implements MagicHelper {
     @Override
@@ -175,6 +176,68 @@ final class MagicHelperImpl implements MagicHelper {
 
     @Override
     public void setSkillPoint(Player player, Holder<SkillPoint> skillPoint, int amount) {
-        player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkillPoints(map -> map.put(skillPoint, amount)));
+        player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkillPoints(map -> map.put(skillPoint, Math.max(0, amount))));
+    }
+
+    @Override
+    public double getAffinityDepth(Player player, Holder<Affinity> affinity) {
+        return affinity.is(Affinity.NONE) ? 0 : player.getData(AMAttachments.MAGIC).affinityShifts().get(affinity);
+    }
+
+    @Override
+    public void setAffinityDepth(Player player, Holder<Affinity> affinity, double depth) {
+        if (affinity.is(Affinity.NONE)) return;
+        MagicAttachment data = player.getData(AMAttachments.MAGIC);
+        if (data.affinityLocked()) return;
+        player.setData(AMAttachments.MAGIC, data.updateAffinityShifts(map -> map.put(affinity, Math.clamp(depth, 0, 1))));
+    }
+
+    @Override
+    public void addAffinityDepth(Player player, Holder<Affinity> affinity, double depth) {
+        setAffinityDepth(player, affinity, player.getData(AMAttachments.MAGIC).affinityShifts().get(affinity) + depth);
+    }
+
+    @Override
+    public void applyAffinityShift(Player player, Holder<Affinity> affinity, double shift) {
+        if (affinity.is(Affinity.NONE)) return;
+        MagicAttachment data = player.getData(AMAttachments.MAGIC);
+        if (data.affinityLocked()) return;
+        Affinity value = affinity.value();
+        double direct = shift * AMServerConfig.DIRECT_OPPOSITE_MULTIPLIER.get();
+        double major = shift * AMServerConfig.MAJOR_OPPOSITE_MULTIPLIER.get();
+        double minor = shift * AMServerConfig.MINOR_OPPOSITE_MULTIPLIER.get();
+        double adjacent = shift * AMServerConfig.ADJACENT_MULTIPLIER.get();
+        addAffinityDepth(player, value.directOpposite(), -direct);
+        for (Holder<Affinity> holder : value.majorOpposites()) {
+            addAffinityDepth(player, holder, -major);
+        }
+        for (Holder<Affinity> holder : value.minorOpposites()) {
+            addAffinityDepth(player, holder, -minor);
+        }
+        for (Holder<Affinity> holder : value.adjacents()) {
+            addAffinityDepth(player, holder, adjacent);
+        }
+        updateAffinityLock(player);
+    }
+
+    @Override
+    public void applyAffinityShift(Player player, Map<Holder<Affinity>, Double> affinityShifts) {
+        affinityShifts.forEach((k, v) -> applyAffinityShift(player, k, v));
+    }
+
+    @Override
+    public void lockAffinities(Player player) {
+        player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).setAffinityLocked(true));
+    }
+
+    @Override
+    public void unlockAffinities(Player player) {
+        player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).setAffinityLocked(false));
+    }
+
+    @Override
+    public void updateAffinityLock(Player player) {
+        MagicAttachment data = player.getData(AMAttachments.MAGIC);
+        player.setData(AMAttachments.MAGIC, data.setAffinityLocked(data.affinityShifts().values().stream().anyMatch(e -> e >= 1)));
     }
 }

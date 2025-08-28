@@ -1,14 +1,18 @@
 {
+  "adjacents": [
+    "arsmagicalegacy:fire",
+    "arsmagicalegacy:arcane"
+  ],
   "cast_sound": "arsmagicalegacy:spell.cast.ender",
   "color": 4129853,
   "direct_opposite": "arsmagicalegacy:nature",
   "loop_sound": "arsmagicalegacy:spell.loop.ender",
   "major_opposites": [
-    "arsmagicalegacy:life",
-    "arsmagicalegacy:water"
+    "arsmagicalegacy:water",
+    "arsmagicalegacy:life"
   ],
   "minor_opposites": [
-    "arsmagicalegacy:ice",
-    "arsmagicalegacy:air"
+    "arsmagicalegacy:air",
+    "arsmagicalegacy:ice"
   ]
 }

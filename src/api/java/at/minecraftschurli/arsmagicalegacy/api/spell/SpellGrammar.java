@@ -2,9 +2,11 @@ package at.minecraftschurli.arsmagicalegacy.api.spell;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -12,6 +14,9 @@ import net.minecraft.network.codec.StreamCodec;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Represents a spell's grammar.
@@ -100,5 +105,18 @@ public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List
         return components.stream()
             .mapToDouble(pair -> pair.getFirst().getData().burnoutOrGenerated())
             .sum();
+    }
+
+    /**
+     * @return A {@link Map} of combined {@link Affinity} shifts of the spell grammar.
+     */
+    public Map<Holder<Affinity>, Double> affinityShifts() {
+        return components.stream()
+            .map(Pair::getFirst)
+            .map(SpellPart::getData)
+            .map(SpellPartData::affinityShifts)
+            .map(Map::entrySet)
+            .flatMap(Set::stream)
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, Double::sum));
     }
 }

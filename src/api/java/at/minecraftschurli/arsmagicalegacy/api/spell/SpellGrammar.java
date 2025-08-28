@@ -78,6 +78,13 @@ public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List
     }
 
     /**
+     * @return Whether the spell grammar is considered empty.
+     */
+    public boolean isEmpty() {
+        return parts.isEmpty();
+    }
+
+    /**
      * @return The combined mana cost of the spell grammar.
      */
     public double getManaCost() {

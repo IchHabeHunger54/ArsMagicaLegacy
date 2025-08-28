@@ -25,6 +25,7 @@ public final class AMLanguageProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         itemIdTranslation(AMItems.SPELL);
+        itemIdTranslation(AMItems.SPELL_RECIPE);
         blockIdTranslation(AMBlocks.OCCULUS);
         blockIdTranslation(AMBlocks.INSCRIPTION_TABLE);
         itemIdTranslation(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1);
@@ -384,6 +385,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.OCCULUS_NEXT_KEY, ">");
         add(AMTranslations.OCCULUS_PREV_KEY, "<");
         add(AMTranslations.PREVENT_BLOCK_KEY, "Mystical forces prevent you from using this block! Try crafting an Arcane Compendium to learn more.");
+        add(AMTranslations.PREVENT_ITEM_KEY, "Mystical forces prevent you from using this item! Try crafting an Arcane Compendium to learn more.");
         add(AMTranslations.SPELL_CAST_BURNED_OUT_KEY, "Burned out!");
         add(AMTranslations.SPELL_CAST_MALFORMED_KEY, "Spell is malformed and cannot be cast!");
         add(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA_KEY, "Not enough mana to cast the spell!");

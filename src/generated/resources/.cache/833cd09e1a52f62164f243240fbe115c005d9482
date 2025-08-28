@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-25T22:19:18.4320738	Item Models: arsmagicalegacy
+// 1.21.1	2025-08-28T17:42:34.1406425	Item Models: arsmagicalegacy
 5ade3f37b24782c7cdf40a3a83a6306d90db510a assets/arsmagicalegacy/models/item/arcane_ash.json
 cc2cb15d367f1057fc85a254ed16a8d5ea9fd02b assets/arsmagicalegacy/models/item/arcane_compound.json
 479f46ca80005c14a383332494b60e0b757b4f70 assets/arsmagicalegacy/models/item/aum.json
@@ -25,6 +25,7 @@ fae4c9c3d165032bf10bd242e080dc1857dd027e assets/arsmagicalegacy/models/item/moon
 fa2a7dbb22b29acdc4051e3568755d8f4546d69f assets/arsmagicalegacy/models/item/purified_vinteum_dust.json
 0d8c388ee73765f5a8be954148b98356391da687 assets/arsmagicalegacy/models/item/spell.json
 9dfdee46a41f56a75b2658592d91d5c901bef09b assets/arsmagicalegacy/models/item/spell_parchment.json
+923cdaff5f13580f4d97e75ef18190eb75ecccde assets/arsmagicalegacy/models/item/spell_recipe.json
 c5c08fd13cf74672fc67e26c749aeae7346a4ef7 assets/arsmagicalegacy/models/item/stripped_witchwood.json
 9253fce70168a98d5bf234ddb1a5ff0f3258ed73 assets/arsmagicalegacy/models/item/stripped_witchwood_log.json
 db1d131d27c09a93c04d0040d43d1b96d4aaf664 assets/arsmagicalegacy/models/item/sunstone.json

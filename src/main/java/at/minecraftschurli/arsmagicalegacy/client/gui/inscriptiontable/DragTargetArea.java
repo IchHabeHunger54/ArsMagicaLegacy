@@ -6,10 +6,12 @@ import java.util.List;
 public abstract class DragTargetArea extends DragArea {
     protected final List<Draggable> contents = new ArrayList<>();
     protected final int maxSize;
+    private final Runnable onDrop;
 
-    public DragTargetArea(int x, int y, int width, int height, int maxSize) {
+    public DragTargetArea(int x, int y, int width, int height, int maxSize, Runnable onDrop) {
         super(x, y, width, height);
         this.maxSize = maxSize;
+        this.onDrop = onDrop;
     }
 
     @Override
@@ -30,5 +32,6 @@ public abstract class DragTargetArea extends DragArea {
     @Override
     public void drop(Draggable draggable, int mouseX, int mouseY) {
         contents.add(draggable);
+        onDrop.run();
     }
 }

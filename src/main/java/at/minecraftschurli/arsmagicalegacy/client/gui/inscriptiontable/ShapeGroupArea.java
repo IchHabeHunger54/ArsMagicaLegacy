@@ -7,6 +7,7 @@ import net.minecraft.core.Holder;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ShapeGroupArea extends DragTargetArea {
     public static final int ROWS = 2;
@@ -17,8 +18,8 @@ public class ShapeGroupArea extends DragTargetArea {
     public static final int HEIGHT = 34;
     public boolean locked;
 
-    public ShapeGroupArea(int x, int y) {
-        super(x, y, WIDTH, HEIGHT, ROWS * COLUMNS);
+    public ShapeGroupArea(int x, int y, Runnable onDrop) {
+        super(x, y, WIDTH, HEIGHT, ROWS * COLUMNS, onDrop);
     }
 
     @Override

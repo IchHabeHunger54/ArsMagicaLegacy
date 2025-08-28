@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.item.InfinityOrbItem;
 import at.minecraftschurli.arsmagicalegacy.item.InscriptionTableUpgradeItem;
 import at.minecraftschurli.arsmagicalegacy.item.SpellItem;
+import at.minecraftschurli.arsmagicalegacy.item.SpellRecipeItem;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DoubleHighBlockItem;
@@ -17,6 +18,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 public interface AMItems {
     // @formatter:off
     DeferredItem<SpellItem>                   SPELL                            = AMRegistries.ITEMS.registerItem("spell", p -> new SpellItem(p.stacksTo(1).component(AMDataComponents.SPELL, Spell.EMPTY)));
+    DeferredItem<SpellRecipeItem>             SPELL_RECIPE                     = AMRegistries.ITEMS.registerItem("spell_recipe", p -> new SpellRecipeItem(p.stacksTo(1).component(AMDataComponents.SPELL, Spell.EMPTY)));
     DeferredItem<BlockItem>                   OCCULUS                          = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.OCCULUS);
     DeferredItem<BlockItem>                   INSCRIPTION_TABLE                = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.INSCRIPTION_TABLE);
     DeferredItem<InscriptionTableUpgradeItem> INSCRIPTION_TABLE_UPGRADE_TIER_1 = AMRegistries.ITEMS.registerItem("inscription_table_upgrade_tier_1", p -> new InscriptionTableUpgradeItem(p, 1));

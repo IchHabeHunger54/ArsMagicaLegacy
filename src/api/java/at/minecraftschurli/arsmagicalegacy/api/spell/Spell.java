@@ -59,6 +59,13 @@ public record Spell(Optional<Component> name, List<SpellShapeGroup> shapeGroups,
     }
 
     /**
+     * @return Whether the spell is considered empty.
+     */
+    public boolean isEmpty() {
+        return grammar.isEmpty() || shapeGroups.isEmpty() || shapeGroups.stream().allMatch(SpellShapeGroup::isEmpty);
+    }
+
+    /**
      * @return The combined mana cost of the spell.
      */
     public double getManaCost() {

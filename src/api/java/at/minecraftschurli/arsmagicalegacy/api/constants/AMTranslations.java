@@ -41,6 +41,7 @@ public interface AMTranslations {
     String OCCULUS_MISSING_KEY                      = "gui." + ArsMagicaApi.MOD_ID + ".occulus.missing";
 
     String PREVENT_BLOCK_KEY                  = ArsMagicaApi.MOD_ID + ".prevent.block";
+    String PREVENT_ITEM_KEY                   = ArsMagicaApi.MOD_ID + ".prevent.item";
     String SPELL_CAST_BURNED_OUT_KEY          = ArsMagicaApi.MOD_ID + ".spell_cast.burned_out";
     String SPELL_CAST_MALFORMED_KEY           = ArsMagicaApi.MOD_ID + ".spell_cast.malformed";
     String SPELL_CAST_NOT_ENOUGH_MANA_KEY     = ArsMagicaApi.MOD_ID + ".spell_cast.not_enough_mana";
@@ -56,6 +57,7 @@ public interface AMTranslations {
     String OCCULUS_PREV_KEY                   = "gui." + ArsMagicaApi.MOD_ID + ".occulus.prev";
 
     Component PREVENT_BLOCK                  = Component.translatable(PREVENT_BLOCK_KEY);
+    Component PREVENT_ITEM                   = Component.translatable(PREVENT_ITEM_KEY);
     Component SPELL_CAST_BURNED_OUT          = Component.translatable(SPELL_CAST_BURNED_OUT_KEY);
     Component SPELL_CAST_MALFORMED           = Component.translatable(SPELL_CAST_MALFORMED_KEY);
     Component SPELL_CAST_NOT_ENOUGH_MANA     = Component.translatable(SPELL_CAST_NOT_ENOUGH_MANA_KEY);

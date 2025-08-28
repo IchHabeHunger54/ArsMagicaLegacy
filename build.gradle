@@ -47,8 +47,10 @@ dependencies {
     // Required dependencies: Geckolib, Patchouli
     compileOnly "software.bernie.geckolib:geckolib-neoforge-${mc_version}:${geckolib_version}"
     runtimeOnly "software.bernie.geckolib:geckolib-neoforge-${mc_version}:${geckolib_version}"
+    dataRuntimeOnly("software.bernie.geckolib:geckolib-neoforge-${mc_version}:${geckolib_version}")
     compileOnly "vazkii.patchouli:Patchouli:${patchouli_version}:api"
     runtimeOnly "vazkii.patchouli:Patchouli:${patchouli_version}"
+    dataRuntimeOnly("vazkii.patchouli:Patchouli:${patchouli_version}")
 
     // Optional dependencies: JEI, Curios, Jade
     compileOnly "mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}"

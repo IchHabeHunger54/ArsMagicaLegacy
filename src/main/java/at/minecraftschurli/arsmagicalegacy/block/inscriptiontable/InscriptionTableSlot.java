@@ -2,7 +2,6 @@ package at.minecraftschurli.arsmagicalegacy.block.inscriptiontable;
 
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
-import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
 import net.minecraft.core.BlockPos;

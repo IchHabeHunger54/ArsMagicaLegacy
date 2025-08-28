@@ -7,8 +7,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Holder;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.function.Consumer;
-
 public class GrammarArea extends DragTargetArea {
     private static final int X_PADDING = 4;
 

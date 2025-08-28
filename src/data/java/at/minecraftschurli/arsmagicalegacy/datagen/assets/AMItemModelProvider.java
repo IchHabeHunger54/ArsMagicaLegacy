@@ -19,6 +19,7 @@ public final class AMItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         basicItem(AMItems.SPELL);
+        withExistingParent(AMItems.SPELL_RECIPE.getId().getPath(), mcLoc("item/written_book"));
         blockItem(AMItems.OCCULUS);
         basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1);
         basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_2);

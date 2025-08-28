@@ -7,6 +7,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableData;
 import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableMenu;
 import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
+import at.minecraftschurli.arsmagicalegacy.packet.InscriptionTableCreateSpellPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.InscriptionTableSyncPacket;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
@@ -59,13 +60,13 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     protected void init() {
         super.init();
         if (ClientUtil.player().isCreative()) {
-            addRenderableWidget(Button.builder(AMTranslations.INSCRIPTION_TABLE_CREATE_SPELL, $ -> {}).bounds(leftPos + 72, topPos + 72, 100, 20).build());
+            addRenderableWidget(Button.builder(AMTranslations.INSCRIPTION_TABLE_CREATE_SPELL, $ -> giveSpellRecipe()).bounds(leftPos + 72, topPos + 72, 100, 20).build());
         }
         SpellPartSourceArea sourceArea = new SpellPartSourceArea(leftPos + 42, topPos + 6, 136, 48);
-        grammarArea = new GrammarArea(leftPos + 42, topPos + 144, 136, 16);
+        grammarArea = new GrammarArea(leftPos + 42, topPos + 144, 136, 16, this::sync);
         shapeGroupAreas = new ArrayList<>();
         for (int i = 0; i < menu.getShapeGroups(); i++) {
-            shapeGroupAreas.add(new ShapeGroupArea(leftPos + 20 + i * ShapeGroupArea.WIDTH, topPos + 107));
+            shapeGroupAreas.add(new ShapeGroupArea(leftPos + 20 + i * ShapeGroupArea.WIDTH, topPos + 107, this::sync));
         }
         dragAreas.add(sourceArea);
         dragAreas.add(grammarArea);
@@ -145,12 +146,21 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
 
     @Override
     public void onClose() {
+        sync();
+        super.onClose();
+    }
+
+    private void sync() {
         InscriptionTableData data = new InscriptionTableData(
             Optional.of(Component.literal(nameBar.getValue())),
             grammarArea.getVisible().stream().map(Draggable::getSkill).toList(),
             shapeGroupAreas.stream().map(area -> area.getVisible().stream().map(Draggable::getSkill).toList()).toList());
         menu.getBlockEntity().setData(data);
         PacketDistributor.sendToServer(new InscriptionTableSyncPacket(menu.getBlockEntity().getBlockPos(), data));
-        super.onClose();
+    }
+
+    private void giveSpellRecipe() {
+        sync();
+        PacketDistributor.sendToServer(new InscriptionTableCreateSpellPacket(menu.getBlockEntity().getBlockPos()));
     }
 }

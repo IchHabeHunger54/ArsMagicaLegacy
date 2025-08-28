@@ -7,11 +7,13 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Holder;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.Consumer;
+
 public class GrammarArea extends DragTargetArea {
     private static final int X_PADDING = 4;
 
-    public GrammarArea(int x, int y, int width, int height) {
-        super(x, y, width, height, 8);
+    public GrammarArea(int x, int y, int width, int height, Runnable onDrop) {
+        super(x, y, width, height, 8, onDrop);
     }
 
     @Override

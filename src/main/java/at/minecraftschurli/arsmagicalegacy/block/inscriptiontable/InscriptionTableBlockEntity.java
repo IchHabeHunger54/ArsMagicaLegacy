@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.block.inscriptiontable;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
+import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -37,6 +38,11 @@ public class InscriptionTableBlockEntity extends BlockEntity implements Containe
     public void setData(InscriptionTableData data) {
         this.data = data;
         setChanged();
+    }
+
+    public ItemStack setSpell(ItemStack stack) {
+        stack.set(AMDataComponents.SPELL, getData().toSpell());
+        return stack;
     }
 
     @Override

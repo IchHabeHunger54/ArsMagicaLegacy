@@ -83,6 +83,13 @@ public record SpellShapeGroup(List<SpellPart> parts, @Nullable PrimarySpellShape
     }
 
     /**
+     * @return Whether the spell shape group is considered empty.
+     */
+    public boolean isEmpty() {
+        return parts.isEmpty();
+    }
+
+    /**
      * @return The combined mana cost of the spell shape group.
      */
     public double getManaCost() {

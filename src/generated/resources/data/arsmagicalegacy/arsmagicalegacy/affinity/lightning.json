@@ -1,0 +1,14 @@
+{
+  "cast_sound": "arsmagicalegacy:spell.cast.lightning",
+  "color": 14601753,
+  "direct_opposite": "arsmagicalegacy:ice",
+  "loop_sound": "arsmagicalegacy:spell.loop.lightning",
+  "major_opposites": [
+    "arsmagicalegacy:earth",
+    "arsmagicalegacy:water"
+  ],
+  "minor_opposites": [
+    "arsmagicalegacy:arcane",
+    "arsmagicalegacy:nature"
+  ]
+}

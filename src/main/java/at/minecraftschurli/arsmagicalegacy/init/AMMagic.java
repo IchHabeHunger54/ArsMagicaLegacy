@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
@@ -9,6 +10,16 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 
 public interface AMMagic {
+    ResourceKey<Affinity>   WATER                     = affinity("water");
+    ResourceKey<Affinity>   FIRE                      = affinity("fire");
+    ResourceKey<Affinity>   EARTH                     = affinity("earth");
+    ResourceKey<Affinity>   AIR                       = affinity("air");
+    ResourceKey<Affinity>   ICE                       = affinity("ice");
+    ResourceKey<Affinity>   LIGHTNING                 = affinity("lightning");
+    ResourceKey<Affinity>   NATURE                    = affinity("nature");
+    ResourceKey<Affinity>   LIFE                      = affinity("life");
+    ResourceKey<Affinity>   ARCANE                    = affinity("arcane");
+    ResourceKey<Affinity>   ENDER                     = affinity("ender");
     ResourceKey<OcculusTab> OFFENSE                   = occulusTab("offense");
     ResourceKey<OcculusTab> DEFENSE                   = occulusTab("defense");
     ResourceKey<OcculusTab> UTILITY                   = occulusTab("utility");
@@ -27,6 +38,10 @@ public interface AMMagic {
     ResourceKey<Skill>      MANA_REGENERATION_BOOST_3 = skill("mana_regeneration_boost_3");
     ResourceKey<Skill>      SHIELD_OVERLOAD           = skill("shield_overload");
     ResourceKey<Skill>      SPELL_MOTION              = skill("spell_motion");
+
+    private static ResourceKey<Affinity> affinity(String name) {
+        return key(AMRegistryKeys.AFFINITY, name);
+    }
 
     private static ResourceKey<OcculusTab> occulusTab(String name) {
         return key(AMRegistryKeys.OCCULUS_TAB, name);

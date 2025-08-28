@@ -2,23 +2,58 @@ package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
+import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderOwner;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 public final class AMMagicProvider {
+    public static void addAffinities(BootstrapContext<Affinity> bootstrap) {
+        HolderOwner<Affinity> owner = new HolderOwner<>() {
+            @Override
+            public boolean canSerializeIn(HolderOwner<Affinity> owner) {
+                return true;
+            }
+        };
+        bootstrap.register(Affinity.NONE, new Affinity(Holder.Reference.createStandAlone(owner, Affinity.NONE), Set.of(), Set.of(), 0, Optional.of(AMSounds.CAST_NONE), Optional.empty()));
+        // @formatter:off
+        Holder.Reference<Affinity> water     = Holder.Reference.createStandAlone(owner, AMMagic.WATER);
+        Holder.Reference<Affinity> fire      = Holder.Reference.createStandAlone(owner, AMMagic.FIRE);
+        Holder.Reference<Affinity> earth     = Holder.Reference.createStandAlone(owner, AMMagic.EARTH);
+        Holder.Reference<Affinity> air       = Holder.Reference.createStandAlone(owner, AMMagic.AIR);
+        Holder.Reference<Affinity> ice       = Holder.Reference.createStandAlone(owner, AMMagic.ICE);
+        Holder.Reference<Affinity> lightning = Holder.Reference.createStandAlone(owner, AMMagic.LIGHTNING);
+        Holder.Reference<Affinity> nature    = Holder.Reference.createStandAlone(owner, AMMagic.NATURE);
+        Holder.Reference<Affinity> life      = Holder.Reference.createStandAlone(owner, AMMagic.LIFE);
+        Holder.Reference<Affinity> arcane    = Holder.Reference.createStandAlone(owner, AMMagic.ARCANE);
+        Holder.Reference<Affinity> ender     = Holder.Reference.createStandAlone(owner, AMMagic.ENDER);
+        bootstrap.register(AMMagic.WATER,     new Affinity(fire,      Set.of(lightning, ender), Set.of(air, arcane),      0x0b5cef, AMSounds.CAST_WATER,     AMSounds.LOOP_WATER));
+        bootstrap.register(AMMagic.FIRE,      new Affinity(water,     Set.of(ice, nature),      Set.of(earth, life),      0xef260b, AMSounds.CAST_FIRE,      AMSounds.LOOP_FIRE));
+        bootstrap.register(AMMagic.EARTH,     new Affinity(air,       Set.of(lightning, life),  Set.of(fire, nature),     0x61330b, AMSounds.CAST_EARTH,     AMSounds.LOOP_EARTH));
+        bootstrap.register(AMMagic.AIR,       new Affinity(earth,     Set.of(ice, arcane),      Set.of(water, ender),     0x777777, AMSounds.CAST_AIR,       AMSounds.LOOP_AIR));
+        bootstrap.register(AMMagic.ICE,       new Affinity(lightning, Set.of(fire, air),        Set.of(life, ender),      0xd3e8fc, AMSounds.CAST_ICE,       AMSounds.LOOP_ICE));
+        bootstrap.register(AMMagic.LIGHTNING, new Affinity(ice,       Set.of(water, earth),     Set.of(nature, arcane),   0xdece19, AMSounds.CAST_LIGHTNING, AMSounds.LOOP_LIGHTNING));
+        bootstrap.register(AMMagic.NATURE,    new Affinity(ender,     Set.of(fire, arcane),     Set.of(earth, lightning), 0x228718, AMSounds.CAST_NATURE,    AMSounds.LOOP_NATURE));
+        bootstrap.register(AMMagic.LIFE,      new Affinity(arcane,    Set.of(earth, ender),     Set.of(fire, ice),        0x34e122, AMSounds.CAST_LIFE,      AMSounds.LOOP_LIFE));
+        bootstrap.register(AMMagic.ARCANE,    new Affinity(life,      Set.of(air, nature),      Set.of(water, lightning), 0xb935cd, AMSounds.CAST_ARCANE,    AMSounds.LOOP_ARCANE));
+        bootstrap.register(AMMagic.ENDER,     new Affinity(nature,    Set.of(water, life),      Set.of(air, ice),         0x3f043d, AMSounds.CAST_ENDER,     AMSounds.LOOP_ENDER));
+        // @formatter:on
+    }
+
     public static void addOcculusTabs(BootstrapContext<OcculusTab> bootstrap) {
         bootstrap.register(AMMagic.OFFENSE, new OcculusTab(368, 320, 85, 0, 0, ArsMagicaApi.modLoc("default")));
         bootstrap.register(AMMagic.DEFENSE, new OcculusTab(320, 368, 38, 0, 1, ArsMagicaApi.modLoc("default")));
@@ -172,7 +207,7 @@ public final class AMMagicProvider {
     @SafeVarargs
     private static Holder<Skill> addSkill(BootstrapContext<Skill> bootstrap, ResourceKey<Skill> key, ResourceKey<SkillPoint> point, ResourceKey<OcculusTab> tab, int x, int y, Holder<Skill>... parents) {
         return bootstrap.register(key, new Skill(
-            Arrays.stream(parents).map(Holder::getKey).filter(Objects::nonNull).map(ResourceKey::location).toList(),
+            Arrays.asList(parents),
             Optional.of(bootstrap.lookup(AMRegistryKeys.SKILL_POINT).getOrThrow(point)),
             bootstrap.lookup(AMRegistryKeys.OCCULUS_TAB).getOrThrow(tab),
             x,

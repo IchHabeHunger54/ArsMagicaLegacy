@@ -67,4 +67,8 @@ public class InscriptionTableMenu extends AbstractContainerMenu {
         super.removed(player);
         blockEntity.stopOpen(player);
     }
+
+    public int getShapeGroups() {
+        return blockEntity.getBlockState().getValue(InscriptionTableBlock.TIER) + 2;
+    }
 }

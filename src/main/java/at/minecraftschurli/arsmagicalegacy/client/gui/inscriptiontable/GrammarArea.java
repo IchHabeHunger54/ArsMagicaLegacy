@@ -47,6 +47,7 @@ public class GrammarArea extends DragTargetArea {
     }
 
     public void setFromData(InscriptionTableData data) {
+        contents.clear();
         data.grammar()
             .stream()
             .map(Draggable::new)

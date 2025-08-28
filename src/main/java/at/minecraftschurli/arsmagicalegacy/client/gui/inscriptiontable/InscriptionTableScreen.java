@@ -41,6 +41,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     private GrammarArea grammarArea;
     private EditBox searchBar;
     private EditBox nameBar;
+    private InscriptionTableData cachedData;
 
     public InscriptionTableScreen(InscriptionTableMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -50,6 +51,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+        updateCachedData();
         guiGraphics.blit(BACKGROUND, leftPos, topPos, 0, 0, imageWidth, imageHeight);
         guiGraphics.blit(SLOT, leftPos + (ClientUtil.player().isCreative() ? 47 : 101), topPos + 73, 0, 0, 18, 18, 18, 18);
         for (int i = 0; i < Spell.MAX_SHAPE_GROUPS; i++) {
@@ -82,13 +84,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         }
         nameBar = addRenderableWidget(new EditBox(ClientUtil.font(), leftPos + 40, topPos + 93, 140, 12, nameBar, AMTranslations.INSCRIPTION_TABLE_NAME));
         nameBar.setHint(AMTranslations.INSCRIPTION_TABLE_NAME);
-        InscriptionTableData data = menu.getBlockEntity().getData();
-        data.name().ifPresent(name -> nameBar.setValue(name.getString()));
-        grammarArea.setFromData(data);
-        for (int i = 0; i < data.shapeGroups().size(); i++) {
-            shapeGroupAreas.get(i).setFromData(data.shapeGroups().get(i));
-        }
-        setLocksAndFilters();
+        updateCachedData();
     }
 
     @Override
@@ -225,5 +221,17 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         for (int i = 1; i < Math.min(shapeGroupAreas.size(), menu.getShapeGroups()); i++) {
             shapeGroupAreas.get(i).locked = shapeGroupAreas.get(i - 1).isEmpty();
         }
+    }
+
+    private void updateCachedData() {
+        InscriptionTableData data = menu.getBlockEntity().getData();
+        if (data == cachedData) return;
+        cachedData = data;
+        cachedData.name().ifPresent(name -> nameBar.setValue(name.getString()));
+        grammarArea.setFromData(cachedData);
+        for (int i = 0; i < cachedData.shapeGroups().size(); i++) {
+            shapeGroupAreas.get(i).setFromData(cachedData.shapeGroups().get(i));
+        }
+        onDrop();
     }
 }

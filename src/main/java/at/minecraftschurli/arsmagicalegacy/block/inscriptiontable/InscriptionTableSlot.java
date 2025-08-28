@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.block.inscriptiontable;
 
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
 import net.minecraft.core.BlockPos;
@@ -28,6 +29,15 @@ public class InscriptionTableSlot extends Slot {
     @Override
     public boolean mayPlace(ItemStack stack) {
         return stack.is(AMTags.Items.INSCRIPTION_TABLE_BOOKS);
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @Override
+    public void set(ItemStack stack) {
+        super.set(stack);
+        if (stack.has(AMDataComponents.SPELL)) {
+            blockEntity.setData(InscriptionTableData.fromSpell(stack.get(AMDataComponents.SPELL), blockEntity.getLevel().registryAccess()));
+        }
     }
 
     @Override

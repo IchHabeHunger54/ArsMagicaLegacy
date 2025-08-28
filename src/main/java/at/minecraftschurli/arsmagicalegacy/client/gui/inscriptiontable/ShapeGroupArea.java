@@ -62,6 +62,7 @@ public class ShapeGroupArea extends DragTargetArea {
     }
 
     public void setFromData(List<Holder<Skill>> skills) {
+        contents.clear();
         skills.stream()
             .map(Draggable::new)
             .forEach(contents::add);

@@ -7,7 +7,6 @@ import net.minecraft.core.Holder;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 public class ShapeGroupArea extends DragTargetArea {
     public static final int ROWS = 2;

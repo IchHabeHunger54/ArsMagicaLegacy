@@ -29,7 +29,7 @@ public final class AMMagicProvider {
                 return true;
             }
         };
-        bootstrap.register(Affinity.NONE, new Affinity(Holder.Reference.createStandAlone(owner, Affinity.NONE), Set.of(), Set.of(), 0, Optional.of(AMSounds.CAST_NONE), Optional.empty()));
+        bootstrap.register(Affinity.NONE, new Affinity(Holder.Reference.createStandAlone(owner, Affinity.NONE), Set.of(), Set.of(), Set.of(), 0, Optional.of(AMSounds.CAST_NONE), Optional.empty()));
         // @formatter:off
         Holder.Reference<Affinity> water     = Holder.Reference.createStandAlone(owner, AMMagic.WATER);
         Holder.Reference<Affinity> fire      = Holder.Reference.createStandAlone(owner, AMMagic.FIRE);
@@ -41,16 +41,16 @@ public final class AMMagicProvider {
         Holder.Reference<Affinity> life      = Holder.Reference.createStandAlone(owner, AMMagic.LIFE);
         Holder.Reference<Affinity> arcane    = Holder.Reference.createStandAlone(owner, AMMagic.ARCANE);
         Holder.Reference<Affinity> ender     = Holder.Reference.createStandAlone(owner, AMMagic.ENDER);
-        bootstrap.register(AMMagic.WATER,     new Affinity(fire,      Set.of(lightning, ender), Set.of(air, arcane),      0x0b5cef, AMSounds.CAST_WATER,     AMSounds.LOOP_WATER));
-        bootstrap.register(AMMagic.FIRE,      new Affinity(water,     Set.of(ice, nature),      Set.of(earth, life),      0xef260b, AMSounds.CAST_FIRE,      AMSounds.LOOP_FIRE));
-        bootstrap.register(AMMagic.EARTH,     new Affinity(air,       Set.of(lightning, life),  Set.of(fire, nature),     0x61330b, AMSounds.CAST_EARTH,     AMSounds.LOOP_EARTH));
-        bootstrap.register(AMMagic.AIR,       new Affinity(earth,     Set.of(ice, arcane),      Set.of(water, ender),     0x777777, AMSounds.CAST_AIR,       AMSounds.LOOP_AIR));
-        bootstrap.register(AMMagic.ICE,       new Affinity(lightning, Set.of(fire, air),        Set.of(life, ender),      0xd3e8fc, AMSounds.CAST_ICE,       AMSounds.LOOP_ICE));
-        bootstrap.register(AMMagic.LIGHTNING, new Affinity(ice,       Set.of(water, earth),     Set.of(nature, arcane),   0xdece19, AMSounds.CAST_LIGHTNING, AMSounds.LOOP_LIGHTNING));
-        bootstrap.register(AMMagic.NATURE,    new Affinity(ender,     Set.of(fire, arcane),     Set.of(earth, lightning), 0x228718, AMSounds.CAST_NATURE,    AMSounds.LOOP_NATURE));
-        bootstrap.register(AMMagic.LIFE,      new Affinity(arcane,    Set.of(earth, ender),     Set.of(fire, ice),        0x34e122, AMSounds.CAST_LIFE,      AMSounds.LOOP_LIFE));
-        bootstrap.register(AMMagic.ARCANE,    new Affinity(life,      Set.of(air, nature),      Set.of(water, lightning), 0xb935cd, AMSounds.CAST_ARCANE,    AMSounds.LOOP_ARCANE));
-        bootstrap.register(AMMagic.ENDER,     new Affinity(nature,    Set.of(water, life),      Set.of(air, ice),         0x3f043d, AMSounds.CAST_ENDER,     AMSounds.LOOP_ENDER));
+        bootstrap.register(AMMagic.WATER,     new Affinity(fire,      Set.of(lightning, ender), Set.of(air, arcane),      Set.of(ice, nature),      0x0b5cef, AMSounds.CAST_WATER,     AMSounds.LOOP_WATER));
+        bootstrap.register(AMMagic.FIRE,      new Affinity(water,     Set.of(ice, nature),      Set.of(earth, life),      Set.of(lightning, ender), 0xef260b, AMSounds.CAST_FIRE,      AMSounds.LOOP_FIRE));
+        bootstrap.register(AMMagic.EARTH,     new Affinity(air,       Set.of(lightning, life),  Set.of(fire, nature),     Set.of(ice, arcane),      0x61330b, AMSounds.CAST_EARTH,     AMSounds.LOOP_EARTH));
+        bootstrap.register(AMMagic.AIR,       new Affinity(earth,     Set.of(ice, arcane),      Set.of(water, ender),     Set.of(lightning, life),  0x777777, AMSounds.CAST_AIR,       AMSounds.LOOP_AIR));
+        bootstrap.register(AMMagic.ICE,       new Affinity(lightning, Set.of(fire, air),        Set.of(life, ender),      Set.of(water, earth),     0xd3e8fc, AMSounds.CAST_ICE,       AMSounds.LOOP_ICE));
+        bootstrap.register(AMMagic.LIGHTNING, new Affinity(ice,       Set.of(water, earth),     Set.of(nature, arcane),   Set.of(fire, air),        0xdece19, AMSounds.CAST_LIGHTNING, AMSounds.LOOP_LIGHTNING));
+        bootstrap.register(AMMagic.NATURE,    new Affinity(ender,     Set.of(fire, arcane),     Set.of(earth, lightning), Set.of(water, life),      0x228718, AMSounds.CAST_NATURE,    AMSounds.LOOP_NATURE));
+        bootstrap.register(AMMagic.LIFE,      new Affinity(arcane,    Set.of(earth, ender),     Set.of(fire, ice),        Set.of(air, nature),      0x34e122, AMSounds.CAST_LIFE,      AMSounds.LOOP_LIFE));
+        bootstrap.register(AMMagic.ARCANE,    new Affinity(life,      Set.of(air, nature),      Set.of(water, lightning), Set.of(earth, ender),     0xb935cd, AMSounds.CAST_ARCANE,    AMSounds.LOOP_ARCANE));
+        bootstrap.register(AMMagic.ENDER,     new Affinity(nature,    Set.of(water, life),      Set.of(air, ice),         Set.of(fire, arcane),     0x3f043d, AMSounds.CAST_ENDER,     AMSounds.LOOP_ENDER));
         // @formatter:on
     }
 

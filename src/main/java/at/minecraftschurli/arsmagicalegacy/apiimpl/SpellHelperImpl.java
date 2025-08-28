@@ -2,21 +2,28 @@ package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.event.BurnoutCostCalculationEvent;
 import at.minecraftschurli.arsmagicalegacy.api.event.ManaCostCalculationEvent;
 import at.minecraftschurli.arsmagicalegacy.api.event.SpellCastEvent;
 import at.minecraftschurli.arsmagicalegacy.api.event.SpellPartCastEvent;
 import at.minecraftschurli.arsmagicalegacy.api.helper.BurnoutHelper;
+import at.minecraftschurli.arsmagicalegacy.api.helper.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.SpellHelper;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.PrimarySpellShape;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SecondarySpellShape;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
+import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -26,6 +33,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Map;
 
 final class SpellHelperImpl implements SpellHelper {
     @Override
@@ -47,7 +55,26 @@ final class SpellHelperImpl implements SpellHelper {
             burnoutHelper.increaseBurnout(caster, burnoutCost);
         }
         if (event.isAwardXp() && caster instanceof Player player) {
-            ArsMagicaApi.magicHelper().addXp(player, manaCost / 10);
+            MagicHelper helper = ArsMagicaApi.magicHelper();
+            Registry<Skill> registry = player.registryAccess().registryOrThrow(AMRegistryKeys.SKILL);
+            boolean affinityGains = registry.containsKey(AMMagic.AFFINITY_GAINS_BOOST) && helper.knows(player, registry.getHolderOrThrow(AMMagic.AFFINITY_GAINS_BOOST));
+            boolean continuous = false; // TODO
+            Map<Holder<Affinity>, Double> affinityShifts = spell.grammar().affinityShifts();
+            if (continuous) {
+                affinityShifts.replaceAll((k, v) -> v * AMServerConfig.CONTINUOUS_MODIFIER.get());
+            }
+            if (affinityGains) {
+                affinityShifts.replaceAll((k, v) -> v * AMServerConfig.AFFINITY_GAINS_MODIFIER.get());
+            }
+            helper.applyAffinityShift(player, affinityShifts);
+            double xp = AMServerConfig.AFFINITY_TO_XP_RATIO.get();
+            if (continuous) {
+                xp *= AMServerConfig.CONTINUOUS_MODIFIER.get();
+            }
+            if (affinityGains) {
+                xp *= AMServerConfig.AFFINITY_GAINS_XP_MODIFIER.get();
+            }
+            helper.addXp(player, xp);
         }
         NeoForge.EVENT_BUS.post(new SpellCastEvent.Post(caster, spell, manaCost, burnoutCost, event.isConsume(), event.isAwardXp()));
         return Either.left(spell);

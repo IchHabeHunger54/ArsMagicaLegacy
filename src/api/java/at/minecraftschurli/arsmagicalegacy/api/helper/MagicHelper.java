@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.api.helper;
 
+import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicAttachment;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
@@ -7,6 +8,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Helper for operations related to a {@link Player}'s {@link MagicAttachment}.
@@ -157,4 +159,20 @@ public interface MagicHelper {
      * @param amount     The amount of {@link SkillPoint}s to set.
      */
     void setSkillPoint(Player player, Holder<SkillPoint> skillPoint, int amount);
+
+    double getAffinityDepth(Player player, Holder<Affinity> affinity);
+
+    void setAffinityDepth(Player player, Holder<Affinity> affinity, double depth);
+
+    void addAffinityDepth(Player player, Holder<Affinity> affinity, double depth);
+
+    void applyAffinityShift(Player player, Holder<Affinity> affinity, double shift);
+
+    void applyAffinityShift(Player player, Map<Holder<Affinity>, Double> affinityShifts);
+
+    void lockAffinities(Player player);
+
+    void unlockAffinities(Player player);
+
+    void updateAffinityLock(Player player);
 }

@@ -328,6 +328,16 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("level_base", "Level Base", "The base value for leveling calculation. XP cost per level is calculated as multiplier * base ^ (level - 1).");
         configTranslation("level_multiplier", "Level Multiplier", "The multiplier for leveling calculation. XP cost per level is calculated as multiplier * base ^ (level - 1).");
         configTranslation("extra_skill_points", "Extra Skill Points", "The extra blue skill points a player gets at level 1, in addition to the one they already get.");
+        configTranslation("affinity", "Affinity", "Configuration for affinity shifting.");
+        configTranslation("affinity_to_xp_ratio", "Affinity : XP Ratio", "The affinity to xp ratio. When awarding xp, the amount of used affinities will be multiplied with this modifier.");
+        configTranslation("continuous_ratio", "Continuous Modifier", "By what factor affinity and xp gain will be amplified when a continuous spell shape is used.");
+        configTranslation("direct_opposite_multiplier", "Direct Opposite Multiplier", "When an affinity shift is applied, what portion of it is subtracted from the direct opposite affinity.");
+        configTranslation("major_opposite_multiplier", "Major Opposite Multiplier", "When an affinity shift is applied, what portion of it is subtracted from the major opposite affinities.");
+        configTranslation("minor_opposite_multiplier", "Minor Opposite Multiplier", "When an affinity shift is applied, what portion of it is subtracted from the minor opposite affinities.");
+        configTranslation("adjacent_multiplier", "Adjacent Multiplier", "When an affinity shift is applied, what portion of it is added to the adjacent affinities.");
+        configTranslation("skills", "Skills", "Configuration of various skill-specific values.");
+        configTranslation("affinity_gains_modifier", "Affinity Gains Modifier", "When the Affinity Gains talent is learned, by what factor affinity gain will be amplified.");
+        configTranslation("affinity_gains_xp_modifier", "Affinity Gains XP Modifier", "When the Affinity Gains talent is learned, by what factor XP gain will be amplified.");
         configTranslation("gui_layers", "GUI Layers", "Configuration for the various GUI layers in this mod.");
         configTranslation("bars", "Mana/Burnout/Level Bars", "Configuration for the mana, burnout and level bars. The size of the layer is 80x40.");
         configTranslation("bars_x", "Horizontal Position", "Horizontal position of the mana, burnout and level bars.");

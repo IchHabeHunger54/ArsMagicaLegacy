@@ -22,11 +22,12 @@ import java.util.Set;
  * @param directOpposite The direct opposite affinity. When shifting into an affinity, one will also shift away by a large amount from the direct opposite.
  * @param majorOpposites The major opposite affinities. When shifting into an affinity, one will also shift away by a moderate amount from the major opposites.
  * @param minorOpposites The minor opposite affinities. When shifting into an affinity, one will also shift away by a small amount from the minor opposites.
+ * @param adjacents      The adjacent affinities. When shifting into an affinity, one will also shift towards the adjacents by a small amount.
  * @param color          The color of the affinity.
  * @param castSound      The {@link SoundEvent} to use for casting spells with the affinity.
  * @param loopSound      The {@link SoundEvent} to use for casting continuous spells with the affinity.
  */
-public record Affinity(Holder<Affinity> directOpposite, Set<Holder<Affinity>> majorOpposites, Set<Holder<Affinity>> minorOpposites, int color, Optional<Holder<SoundEvent>> castSound, Optional<Holder<SoundEvent>> loopSound) {
+public record Affinity(Holder<Affinity> directOpposite, Set<Holder<Affinity>> majorOpposites, Set<Holder<Affinity>> minorOpposites, Set<Holder<Affinity>> adjacents, int color, Optional<Holder<SoundEvent>> castSound, Optional<Holder<SoundEvent>> loopSound) {
     // This method is needed to circumvent the javac-imposed static init order and allow CODEC to be used inside DIRECT_CODEC
     // "the biggest obstacle here is javac" - Commoble, developer of More Red
     private static Codec<Holder<Affinity>> getCodec() {
@@ -39,6 +40,7 @@ public record Affinity(Holder<Affinity> directOpposite, Set<Holder<Affinity>> ma
             codec.fieldOf("direct_opposite").forGetter(Affinity::directOpposite),
             codec.listOf().xmap(Set::copyOf, List::copyOf).fieldOf("major_opposites").forGetter(Affinity::majorOpposites),
             codec.listOf().xmap(Set::copyOf, List::copyOf).fieldOf("minor_opposites").forGetter(Affinity::minorOpposites),
+            codec.listOf().xmap(Set::copyOf, List::copyOf).fieldOf("adjacents").forGetter(Affinity::adjacents),
             Codec.INT.fieldOf("color").forGetter(Affinity::color),
             BuiltInRegistries.SOUND_EVENT.holderByNameCodec().optionalFieldOf("cast_sound").forGetter(Affinity::castSound),
             BuiltInRegistries.SOUND_EVENT.holderByNameCodec().optionalFieldOf("loop_sound").forGetter(Affinity::loopSound)
@@ -51,12 +53,13 @@ public record Affinity(Holder<Affinity> directOpposite, Set<Holder<Affinity>> ma
      * @param directOpposite The direct opposite affinity.
      * @param majorOpposites The major opposite affinities.
      * @param minorOpposites The minor opposite affinities.
+     * @param adjacents      The adjacent affinities.
      * @param color          The color of the affinity.
      * @param castSound      The {@link SoundEvent} to use for casting spells with the affinity.
      * @param loopSound      The {@link SoundEvent} to use for casting continuous spells with the affinity.
      */
-    public Affinity(Holder<Affinity> directOpposite, Set<Holder<Affinity>> majorOpposites, Set<Holder<Affinity>> minorOpposites, int color, Holder<SoundEvent> castSound, Holder<SoundEvent> loopSound) {
-        this(directOpposite, majorOpposites, minorOpposites, color, Optional.of(castSound), Optional.of(loopSound));
+    public Affinity(Holder<Affinity> directOpposite, Set<Holder<Affinity>> majorOpposites, Set<Holder<Affinity>> minorOpposites, Set<Holder<Affinity>> adjacents, int color, Holder<SoundEvent> castSound, Holder<SoundEvent> loopSound) {
+        this(directOpposite, majorOpposites, minorOpposites, adjacents, color, Optional.of(castSound), Optional.of(loopSound));
     }
 
     /**

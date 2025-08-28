@@ -4,8 +4,10 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableData;
 import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableMenu;
 import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
+import at.minecraftschurli.arsmagicalegacy.packet.InscriptionTableSyncPacket;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -14,10 +16,12 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionTableMenu> {
     private static final ResourceLocation BACKGROUND = ArsMagicaApi.modLoc("textures/gui/inscription_table/background.png");
@@ -25,7 +29,6 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     private static final ResourceLocation SLOT = ArsMagicaApi.modLoc("textures/gui/inscription_table/slot.png");
     private final List<DragArea> dragAreas = new ArrayList<>();
     private Draggable dragged;
-    private SpellPartSourceArea sourceArea;
     private GrammarArea grammarArea;
     private List<ShapeGroupArea> shapeGroupAreas;
     private EditBox searchBar;
@@ -58,7 +61,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         if (ClientUtil.player().isCreative()) {
             addRenderableWidget(Button.builder(AMTranslations.INSCRIPTION_TABLE_CREATE_SPELL, $ -> {}).bounds(leftPos + 72, topPos + 72, 100, 20).build());
         }
-        sourceArea = new SpellPartSourceArea(leftPos + 42, topPos + 6, 136, 48);
+        SpellPartSourceArea sourceArea = new SpellPartSourceArea(leftPos + 42, topPos + 6, 136, 48);
         grammarArea = new GrammarArea(leftPos + 42, topPos + 144, 136, 16);
         shapeGroupAreas = new ArrayList<>();
         for (int i = 0; i < menu.getShapeGroups(); i++) {
@@ -72,6 +75,12 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         searchBar.setResponder(sourceArea::setNameFilter);
         nameBar = addRenderableWidget(new EditBox(ClientUtil.font(), leftPos + 40, topPos + 93, 140, 12, nameBar, AMTranslations.INSCRIPTION_TABLE_NAME));
         nameBar.setHint(AMTranslations.INSCRIPTION_TABLE_NAME);
+        InscriptionTableData data = menu.getBlockEntity().getData();
+        data.name().ifPresent(name -> nameBar.setValue(name.getString()));
+        grammarArea.setFromData(data);
+        for (int i = 0; i < data.shapeGroups().size(); i++) {
+            shapeGroupAreas.get(i).setFromData(data.shapeGroups().get(i));
+        }
     }
 
     @Override
@@ -132,5 +141,16 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         }
         dragged = null;
         return super.mouseReleased(mouseX, mouseY, button);
+    }
+
+    @Override
+    public void onClose() {
+        InscriptionTableData data = new InscriptionTableData(
+            Optional.of(Component.literal(nameBar.getValue())),
+            grammarArea.getVisible().stream().map(Draggable::getSkill).toList(),
+            shapeGroupAreas.stream().map(area -> area.getVisible().stream().map(Draggable::getSkill).toList()).toList());
+        menu.getBlockEntity().setData(data);
+        PacketDistributor.sendToServer(new InscriptionTableSyncPacket(menu.getBlockEntity().getBlockPos(), data));
+        super.onClose();
     }
 }

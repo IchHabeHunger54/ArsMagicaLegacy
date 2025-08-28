@@ -1,0 +1,70 @@
+package at.minecraftschurli.arsmagicalegacy.api.magic;
+
+import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.Util;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.RegistryFileCodec;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvent;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+/**
+ * Represents an affinity.
+ *
+ * @param directOpposite The direct opposite affinity. When shifting into an affinity, one will also shift away by a large amount from the direct opposite.
+ * @param majorOpposites The major opposite affinities. When shifting into an affinity, one will also shift away by a moderate amount from the major opposites.
+ * @param minorOpposites The minor opposite affinities. When shifting into an affinity, one will also shift away by a small amount from the minor opposites.
+ * @param color          The color of the affinity.
+ * @param castSound      The {@link SoundEvent} to use for casting spells with the affinity.
+ * @param loopSound      The {@link SoundEvent} to use for casting continuous spells with the affinity.
+ */
+public record Affinity(Holder<Affinity> directOpposite, Set<Holder<Affinity>> majorOpposites, Set<Holder<Affinity>> minorOpposites, int color, Optional<Holder<SoundEvent>> castSound, Optional<Holder<SoundEvent>> loopSound) {
+    // This method is needed to circumvent the javac-imposed static init order and allow CODEC to be used inside DIRECT_CODEC
+    // "the biggest obstacle here is javac" - Commoble, developer of More Red
+    private static Codec<Holder<Affinity>> getCodec() {
+        return CODEC;
+    }
+
+    public static final Codec<Affinity> DIRECT_CODEC = Util.make(() -> {
+        Codec<Holder<Affinity>> codec = Codec.lazyInitialized(Affinity::getCodec);
+        return RecordCodecBuilder.create(inst -> inst.group(
+            codec.fieldOf("direct_opposite").forGetter(Affinity::directOpposite),
+            codec.listOf().xmap(Set::copyOf, List::copyOf).fieldOf("major_opposites").forGetter(Affinity::majorOpposites),
+            codec.listOf().xmap(Set::copyOf, List::copyOf).fieldOf("minor_opposites").forGetter(Affinity::minorOpposites),
+            Codec.INT.fieldOf("color").forGetter(Affinity::color),
+            BuiltInRegistries.SOUND_EVENT.holderByNameCodec().optionalFieldOf("cast_sound").forGetter(Affinity::castSound),
+            BuiltInRegistries.SOUND_EVENT.holderByNameCodec().optionalFieldOf("loop_sound").forGetter(Affinity::loopSound)
+        ).apply(inst, Affinity::new));
+    });
+    public static final Codec<Holder<Affinity>> CODEC = RegistryFileCodec.create(AMRegistryKeys.AFFINITY, DIRECT_CODEC);
+    public static final ResourceKey<Affinity> NONE = ResourceKey.create(AMRegistryKeys.AFFINITY, ArsMagicaApi.modLoc("none"));
+
+    /**
+     * @param directOpposite The direct opposite affinity.
+     * @param majorOpposites The major opposite affinities.
+     * @param minorOpposites The minor opposite affinities.
+     * @param color          The color of the affinity.
+     * @param castSound      The {@link SoundEvent} to use for casting spells with the affinity.
+     * @param loopSound      The {@link SoundEvent} to use for casting continuous spells with the affinity.
+     */
+    public Affinity(Holder<Affinity> directOpposite, Set<Holder<Affinity>> majorOpposites, Set<Holder<Affinity>> minorOpposites, int color, Holder<SoundEvent> castSound, Holder<SoundEvent> loopSound) {
+        this(directOpposite, majorOpposites, minorOpposites, color, Optional.of(castSound), Optional.of(loopSound));
+    }
+
+    /**
+     * @param holder The affinity {@link Holder} to query.
+     * @return The display name of the given affinity.
+     */
+    @SuppressWarnings("DataFlowIssue")
+    public static Component getName(Holder<Affinity> holder) {
+        return Component.translatable(Util.makeDescriptionId("affinity", holder.getKey().location()));
+    }
+}

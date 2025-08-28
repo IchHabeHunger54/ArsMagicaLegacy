@@ -1,8 +1,12 @@
 package at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable;
 
+import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.Holder;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class ShapeGroupArea extends DragTargetArea {
     public static final int ROWS = 2;
@@ -55,5 +59,11 @@ public class ShapeGroupArea extends DragTargetArea {
         if (part.isPrimaryShape()) return contents.isEmpty();
         if (part.isSecondaryShape()) return !contents.isEmpty() && contents.stream().noneMatch(e -> spellPart(e.getSkill()).value().isSecondaryShape());
         return !contents.isEmpty() && part.isModifier();
+    }
+
+    public void setFromData(List<Holder<Skill>> skills) {
+        skills.stream()
+            .map(Draggable::new)
+            .forEach(contents::add);
     }
 }

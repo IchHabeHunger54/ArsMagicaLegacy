@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.block.inscriptiontable;
 
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -66,6 +67,10 @@ public class InscriptionTableMenu extends AbstractContainerMenu {
     public void removed(Player player) {
         super.removed(player);
         blockEntity.stopOpen(player);
+    }
+
+    public InscriptionTableBlockEntity getBlockEntity() {
+        return blockEntity;
     }
 
     public int getShapeGroups() {

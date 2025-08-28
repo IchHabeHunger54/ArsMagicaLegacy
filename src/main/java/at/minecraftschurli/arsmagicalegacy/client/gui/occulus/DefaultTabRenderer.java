@@ -64,10 +64,11 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
             float endX = skill.x() + SKILL_SIZE / 2f;
             float endY = skill.y() + SKILL_SIZE / 2f;
             boolean knowsSkill = helper.knows(player, registry.wrapAsHolder(skill));
-            for (Skill parent : skill.getParents(registryAccess)) {
+            for (Holder<Skill> holder : skill.parents()) {
+                Skill parent = holder.value();
                 float startX = parent.x() + SKILL_SIZE / 2f;
                 float startY = parent.y() + SKILL_SIZE / 2f;
-                boolean knowsParent = helper.knows(player, registry.wrapAsHolder(parent));
+                boolean knowsParent = helper.knows(player, holder);
                 int startColor = knowsParent && knowsSkill ? 0xffffffff : knowsParent ? getColorForSkill(parent) : 0xff000000;
                 int endColor = knowsParent && knowsSkill ? 0xffffffff : knowsParent ? getColorForSkill(skill) : 0xff000000;
                 stack.pushPose();

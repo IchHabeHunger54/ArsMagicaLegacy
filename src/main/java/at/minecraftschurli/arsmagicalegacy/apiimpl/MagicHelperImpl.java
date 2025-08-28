@@ -124,11 +124,7 @@ final class MagicHelperImpl implements MagicHelper {
             .cost()
             .filter(e -> getSkillPoint(player, e) > 0)
             .isPresent();
-        boolean hasParents = data.skills()
-            .stream()
-            .map(Holder::value)
-            .collect(Collectors.toSet())
-            .containsAll(skill.value().getParents(player.registryAccess()));
+        boolean hasParents = data.skills().containsAll(skill.value().parents());
         return hasSkillPoints && hasParents;
     }
 

@@ -90,6 +90,13 @@ public record SpellShapeGroup(List<SpellPart> parts, @Nullable PrimarySpellShape
     }
 
     /**
+     * @return Whether this spell shape group is continuous, i.e., can be cast by holding down the spell.
+     */
+    public boolean isContinuous() {
+        return primaryShape != null && primaryShape.isContinuous();
+    }
+
+    /**
      * @return The combined mana cost of the spell shape group.
      */
     public double getManaCost() {

@@ -66,6 +66,13 @@ public record Spell(Optional<Component> name, List<SpellShapeGroup> shapeGroups,
     }
 
     /**
+     * @return Whether this spell is continuous, i.e., can be cast by holding down the spell.
+     */
+    public boolean isContinuous() {
+        return currentShapeGroup().isContinuous();
+    }
+
+    /**
      * @return The combined mana cost of the spell.
      */
     public double getManaCost() {

@@ -5,9 +5,7 @@
     {
       "type": "neoforge:components",
       "components": {
-        "minecraft:block_state": {
-          "tier": "1"
-        }
+        "arsmagicalegacy:tier": 1
       },
       "items": "arsmagicalegacy:inscription_table"
     },
@@ -17,9 +15,7 @@
   ],
   "result": {
     "components": {
-      "minecraft:block_state": {
-        "tier": "2"
-      }
+      "arsmagicalegacy:tier": 2
     },
     "count": 1,
     "id": "arsmagicalegacy:inscription_table"

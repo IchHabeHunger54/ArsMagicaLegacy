@@ -1,5 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import com.mojang.serialization.Codec;
@@ -12,7 +14,8 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 
 public interface AMDataComponents {
     // @formatter:off
-    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<SkillPoint>>> SKILL_POINT = register("skill_point", SkillPoint.CODEC, SkillPoint.STREAM_CODEC);
+    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Affinity>>>   AFFINITY    = register("affinity",    Affinity.CODEC,   ByteBufCodecs.holderRegistry(AMRegistryKeys.AFFINITY));
+    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<SkillPoint>>> SKILL_POINT = register("skill_point", SkillPoint.CODEC, ByteBufCodecs.holderRegistry(AMRegistryKeys.SKILL_POINT));
     DeferredHolder<DataComponentType<?>, DataComponentType<Spell>>              SPELL       = register("spell",       Spell.CODEC,      Spell.STREAM_CODEC);
     DeferredHolder<DataComponentType<?>, DataComponentType<Integer>>            TIER        = register("tier",        Codec.INT,        ByteBufCodecs.INT);
     // @formatter:on

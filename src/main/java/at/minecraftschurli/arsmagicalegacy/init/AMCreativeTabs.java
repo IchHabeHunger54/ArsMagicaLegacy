@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 
+import java.util.Set;
 import java.util.function.BiConsumer;
 
 @SuppressWarnings("unused")
@@ -26,6 +27,7 @@ public interface AMCreativeTabs {
             output.accept(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3);
             output.accept(AMItems.SPELL_PARCHMENT);
             acceptVariants(display, output, AMItems.INFINITY_ORB, AMRegistryKeys.SKILL_POINT, (stack, holder) -> stack.set(AMDataComponents.SKILL_POINT, holder));
+            acceptVariants(display, output, AMItems.AFFINITY_ESSENCE, AMRegistryKeys.AFFINITY, (stack, holder) -> stack.set(AMDataComponents.AFFINITY, holder));
             output.accept(AMItems.BLANK_RUNE);
             output.accept(AMItems.BLACK_RUNE);
             output.accept(AMItems.LIGHT_GRAY_RUNE);
@@ -97,9 +99,11 @@ public interface AMCreativeTabs {
     static void init() {
     }
 
-    @SuppressWarnings("SameParameterValue")
-    private static <T> void acceptVariants(CreativeModeTab.ItemDisplayParameters display, CreativeModeTab.Output output, DeferredItem<?> item, ResourceKey<Registry<T>> registryKey, BiConsumer<ItemStack, Holder<T>> consumer) {
+    @SafeVarargs
+    private static <T> void acceptVariants(CreativeModeTab.ItemDisplayParameters display, CreativeModeTab.Output output, DeferredItem<?> item, ResourceKey<Registry<T>> registryKey, BiConsumer<ItemStack, Holder<T>> consumer, ResourceKey<T>... ignored) {
+        Set<ResourceKey<T>> set = Set.of(ignored);
         display.holders().lookup(registryKey).ifPresent(registry -> registry.listElements().forEach(holder -> {
+            if (set.contains(holder.key())) return;
             ItemStack stack = item.toStack();
             consumer.accept(stack, holder);
             output.accept(stack);

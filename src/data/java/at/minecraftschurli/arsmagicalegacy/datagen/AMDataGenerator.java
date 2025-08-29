@@ -46,10 +46,7 @@ final class AMDataGenerator {
         generator.addProvider(event.includeServer(), new AMAdvancementProvider(output, lookupProvider, existingFileHelper));
         AMBlockTagsProvider blockTags = generator.addProvider(event.includeServer(), new AMBlockTagsProvider(output, lookupProvider, existingFileHelper));
         generator.addProvider(event.includeServer(), new AMItemTagsProvider(output, lookupProvider, blockTags.contentsGetter(), existingFileHelper));
-        generator.addProvider(event.includeServer(), new AMLootTableProvider(output, lookupProvider));
-        generator.addProvider(event.includeServer(), new AMRecipeProvider(output, lookupProvider));
-        generator.addProvider(event.includeServer(), new AMSpellPartDataProvider(output, lookupProvider));
-        generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(output, lookupProvider, new RegistrySetBuilder()
+        lookupProvider = generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(output, lookupProvider, new RegistrySetBuilder()
             .add(Registries.CONFIGURED_FEATURE, AMWorldgenProvider::addConfiguredFeatures)
             .add(Registries.PLACED_FEATURE, AMWorldgenProvider::addPlacedFeatures)
             .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, AMWorldgenProvider::addBiomeModifiers)
@@ -57,6 +54,9 @@ final class AMDataGenerator {
             .add(AMRegistryKeys.OCCULUS_TAB, AMMagicProvider::addOcculusTabs)
             .add(AMRegistryKeys.SKILL_POINT, AMMagicProvider::addSkillPoints)
             .add(AMRegistryKeys.SKILL, AMMagicProvider::addSkills),
-            Set.of(ArsMagicaApi.MOD_ID)));
+            Set.of(ArsMagicaApi.MOD_ID))).getRegistryProvider();
+        generator.addProvider(event.includeServer(), new AMLootTableProvider(output, lookupProvider));
+        generator.addProvider(event.includeServer(), new AMRecipeProvider(output, lookupProvider));
+        generator.addProvider(event.includeServer(), new AMSpellPartDataProvider(output, lookupProvider));
     }
 }

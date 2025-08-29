@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.helper.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.SpellHelper;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
 import net.minecraft.core.Registry;
@@ -48,10 +49,17 @@ public abstract class ArsMagicaApi {
     }
 
     /**
-     * @return The data component registry.
+     * @return The spell data component registry.
      */
-    public static Registry<DataComponentType<?>> spellPartDataComponentRegistry() {
+    public static Registry<DataComponentType<?>> spellDataComponentRegistry() {
         return INSTANCE.get().getSpellDataComponentRegistry();
+    }
+
+    /**
+     * @return The spell ingredient registry.
+     */
+    public static Registry<SpellIngredient.Type<?>> spellIngredientRegistry() {
+        return INSTANCE.get().getSpellIngredientRegistry();
     }
 
     /**
@@ -95,6 +103,9 @@ public abstract class ArsMagicaApi {
 
     @ApiStatus.Internal
     protected abstract Registry<DataComponentType<?>> getSpellDataComponentRegistry();
+
+    @ApiStatus.Internal
+    protected abstract Registry<SpellIngredient.Type<?>> getSpellIngredientRegistry();
 
     @ApiStatus.Internal
     protected abstract BurnoutHelper getBurnoutHelper();

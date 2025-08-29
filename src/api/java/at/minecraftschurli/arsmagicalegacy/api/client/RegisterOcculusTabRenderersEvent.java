@@ -14,7 +14,6 @@ import java.util.Map;
  * <p>
  * This event is not cancelable. This event is fired on the mod event bus, only on the physical client.
  */
-@SuppressWarnings("unused")
 public class RegisterOcculusTabRenderersEvent extends Event implements IModBusEvent {
     private final Map<ResourceLocation, OcculusTabRenderer.Factory> renderers = new HashMap<>();
 
@@ -29,7 +28,7 @@ public class RegisterOcculusTabRenderersEvent extends Event implements IModBusEv
     }
 
     /**
-     * @return An unmodifiable view of all registered {@link OcculusTabRenderer.Factory}.
+     * @return An unmodifiable view of all registered {@link OcculusTabRenderer.Factory}s.
      */
     public Map<ResourceLocation, OcculusTabRenderer.Factory> getRenderers() {
         return Collections.unmodifiableMap(renderers);

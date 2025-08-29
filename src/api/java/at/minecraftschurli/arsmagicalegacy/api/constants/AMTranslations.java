@@ -12,6 +12,7 @@ public interface AMTranslations {
     String BARS_VALUE_BURNOUT_KEY                   = ArsMagicaApi.MOD_ID + ".bars_value.burnout";
     String BARS_VALUE_MANA_KEY                      = ArsMagicaApi.MOD_ID + ".bars_value.mana";
     String BARS_VALUE_XP_KEY                        = ArsMagicaApi.MOD_ID + ".bars_value.xp";
+    String SPELL_INGREDIENT_COUNT_KEY               = ArsMagicaApi.MOD_ID + ".spell_ingredient_count";
     String COMMAND_MAGIC_XP_ADD_LEVELS_MULTIPLE_KEY = "commands." + ArsMagicaApi.MOD_ID + ".magic_xp.add.levels.multiple.success";
     String COMMAND_MAGIC_XP_ADD_LEVELS_SINGLE_KEY   = "commands." + ArsMagicaApi.MOD_ID + ".magic_xp.add.levels.single.success";
     String COMMAND_MAGIC_XP_ADD_POINTS_MULTIPLE_KEY = "commands." + ArsMagicaApi.MOD_ID + ".magic_xp.add.points.multiple.success";

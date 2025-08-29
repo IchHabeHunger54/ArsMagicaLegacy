@@ -1,6 +1,8 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.spell.ItemSpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Attract;
 import at.minecraftschurli.arsmagicalegacy.spell.component.BanishRain;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Blink;
@@ -62,6 +64,8 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import java.util.function.Supplier;
 
 public interface AMSpells {
+    DeferredHolder<SpellIngredient.Type<?>, SpellIngredient.Type<ItemSpellIngredient>> ITEM_SPELL_INGREDIENT = AMRegistries.SPELL_INGREDIENTS.register("item", () -> new SpellIngredient.Type<>(ItemSpellIngredient.CODEC));
+
     // @formatter:off
     DeferredHolder<SpellPart, AreaOfEffect>       AREA_OF_EFFECT      = register("area_of_effect",      AreaOfEffect::new);
     DeferredHolder<SpellPart, Beam>               BEAM                = register("beam",                Beam::new);

@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.client;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.RegisterOcculusTabRenderersEvent;
+import at.minecraftschurli.arsmagicalegacy.api.client.RegisterSpellIngredientRenderersEvent;
 import at.minecraftschurli.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.layer.BarsLayer;
@@ -31,7 +32,7 @@ import java.util.stream.Stream;
 final class AMClientEventHandler {
     @SubscribeEvent
     private static void clientSetup(FMLClientSetupEvent event) {
-        ArsMagicaClientApiImpl.postEvent();
+        ArsMagicaClientApiImpl.postEvents();
     }
 
     @SubscribeEvent
@@ -48,6 +49,10 @@ final class AMClientEventHandler {
     private static void registerOcculusTabRenderers(RegisterOcculusTabRenderersEvent event) {
         event.register(ArsMagicaApi.modLoc("default"), DefaultTabRenderer::new);
         event.register(ArsMagicaApi.modLoc("affinity"), AffinityTabRenderer::new);
+    }
+
+    @SubscribeEvent
+    private static void registerSpellIngredientRenderers(RegisterSpellIngredientRenderersEvent event) {
     }
 
     @SubscribeEvent

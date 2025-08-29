@@ -58,7 +58,7 @@ final class SpellHelperImpl implements SpellHelper {
             MagicHelper helper = ArsMagicaApi.magicHelper();
             Registry<Skill> registry = player.registryAccess().registryOrThrow(AMRegistryKeys.SKILL);
             boolean affinityGains = registry.containsKey(AMMagic.AFFINITY_GAINS_BOOST) && helper.knows(player, registry.getHolderOrThrow(AMMagic.AFFINITY_GAINS_BOOST));
-            boolean continuous = false; // TODO
+            boolean continuous = spell.isContinuous();
             Map<Holder<Affinity>, Double> affinityShifts = spell.grammar().affinityShifts();
             if (continuous) {
                 affinityShifts.replaceAll((k, v) -> v * AMServerConfig.CONTINUOUS_MODIFIER.get());

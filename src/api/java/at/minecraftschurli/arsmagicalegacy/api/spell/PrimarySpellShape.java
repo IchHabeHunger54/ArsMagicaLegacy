@@ -30,6 +30,13 @@ public abstract non-sealed class PrimarySpellShape extends SpellPart {
     }
 
     /**
+     * @return Whether this part is continuous, i.e., can be cast by holding down the spell.
+     */
+    public boolean isContinuous() {
+        return false;
+    }
+
+    /**
      * Casts this part.
      *
      * @param spell     The {@link Spell} being cast.

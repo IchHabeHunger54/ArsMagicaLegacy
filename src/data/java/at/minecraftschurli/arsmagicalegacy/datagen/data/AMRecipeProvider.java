@@ -2,12 +2,11 @@ package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
-import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableBlock;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
+import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -22,7 +21,6 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.BlastingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -62,43 +60,43 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('F', Tags.Items.FEATHERS)
             .define('S', ItemTags.WOODEN_SLABS)
             .define('W', ItemTags.PLANKS)
-            .unlockedBy("has_spell_parchment", has(AMItems.SPELL_PARCHMENT.get()))
+            .unlockedBy(getHasName(AMItems.SPELL_PARCHMENT), has(AMItems.SPELL_PARCHMENT.get()))
             .save(output);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1.get())
             .requires(Items.BOOK)
             .requires(Tags.Items.DYES_BLACK)
             .requires(Tags.Items.FEATHERS)
             .requires(Tags.Items.STRINGS)
-            .unlockedBy("has_book", has(Items.BOOK))
+            .unlockedBy(getHasName(Items.BOOK), has(Items.BOOK))
             .save(output);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_2.get())
             .requires(Items.BOOK)
             .requires(Tags.Items.DYES_BLACK)
             .requires(ItemTags.WOOL_CARPETS)
             //.requires(AMItems.WIZARDS_CHALK.get())
-            .unlockedBy("has_book", has(Items.BOOK))
+            .unlockedBy(getHasName(Items.BOOK), has(Items.BOOK))
             .save(output);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3.get())
             .requires(Items.BOOK)
             .requires(ItemTags.CANDLES)
             .requires(Items.HONEYCOMB)
             .requires(Items.GLASS_BOTTLE)
-            .unlockedBy("has_book", has(Items.BOOK))
+            .unlockedBy(getHasName(Items.BOOK), has(Items.BOOK))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, new ItemStack(AMItems.INSCRIPTION_TABLE, 1, DataComponentPatch.builder().set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(InscriptionTableBlock.TIER, 1)).build()))
-            .requires(DataComponentIngredient.of(false, DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(InscriptionTableBlock.TIER, 0), AMItems.INSCRIPTION_TABLE.get()))
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, new ItemStack(AMItems.INSCRIPTION_TABLE, 1, DataComponentPatch.builder().set(AMDataComponents.TIER.get(), 1).build()))
+            .requires(DataComponentIngredient.of(false, AMDataComponents.TIER, 0, AMItems.INSCRIPTION_TABLE.get()))
             .requires(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1.get())
-            .unlockedBy("has_inscription_table", has(AMItems.INSCRIPTION_TABLE.get()))
+            .unlockedBy(getHasName(AMItems.INSCRIPTION_TABLE), has(AMItems.INSCRIPTION_TABLE.get()))
             .save(output, ArsMagicaApi.modLoc("inscription_table_tier_1"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, new ItemStack(AMItems.INSCRIPTION_TABLE, 1, DataComponentPatch.builder().set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(InscriptionTableBlock.TIER, 2)).build()))
-            .requires(DataComponentIngredient.of(false, DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(InscriptionTableBlock.TIER, 1), AMItems.INSCRIPTION_TABLE.get()))
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, new ItemStack(AMItems.INSCRIPTION_TABLE, 1, DataComponentPatch.builder().set(AMDataComponents.TIER.get(), 2).build()))
+            .requires(DataComponentIngredient.of(false, AMDataComponents.TIER, 1, AMItems.INSCRIPTION_TABLE.get()))
             .requires(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_2.get())
-            .unlockedBy("has_inscription_table", has(AMItems.INSCRIPTION_TABLE.get()))
+            .unlockedBy(getHasName(AMItems.INSCRIPTION_TABLE), has(AMItems.INSCRIPTION_TABLE.get()))
             .save(output, ArsMagicaApi.modLoc("inscription_table_tier_2"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, new ItemStack(AMItems.INSCRIPTION_TABLE, 1, DataComponentPatch.builder().set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(InscriptionTableBlock.TIER, 3)).build()))
-            .requires(DataComponentIngredient.of(false, DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(InscriptionTableBlock.TIER, 2), AMItems.INSCRIPTION_TABLE.get()))
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, new ItemStack(AMItems.INSCRIPTION_TABLE, 1, DataComponentPatch.builder().set(AMDataComponents.TIER.get(), 3).build()))
+            .requires(DataComponentIngredient.of(false, AMDataComponents.TIER, 2, AMItems.INSCRIPTION_TABLE.get()))
             .requires(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3.get())
-            .unlockedBy("has_inscription_table", has(AMItems.INSCRIPTION_TABLE.get()))
+            .unlockedBy(getHasName(AMItems.INSCRIPTION_TABLE), has(AMItems.INSCRIPTION_TABLE.get()))
             .save(output, ArsMagicaApi.modLoc("inscription_table_tier_3"));
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.SPELL_PARCHMENT.get())
             .pattern("S")
@@ -107,6 +105,93 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('S', Tags.Items.RODS_WOODEN)
             .define('P', Items.PAPER)
             .unlockedBy("has_paper", has(Items.PAPER))
+            .save(output);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.BLANK_RUNE.get(), 2)
+            .pattern(" # ")
+            .pattern("###")
+            .pattern("## ")
+            .define('#', Tags.Items.COBBLESTONES)
+            .unlockedBy(getHasName(Items.COBBLESTONE), has(Tags.Items.COBBLESTONES))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.WHITE_RUNE.get())
+            .requires(AMItems.BLANK_RUNE.get())
+            .requires(Tags.Items.DYES_WHITE)
+            .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.ORANGE_RUNE.get())
+            .requires(AMItems.BLANK_RUNE.get())
+            .requires(Tags.Items.DYES_ORANGE)
+            .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.MAGENTA_RUNE.get())
+            .requires(AMItems.BLANK_RUNE.get())
+            .requires(Tags.Items.DYES_MAGENTA)
+            .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.LIGHT_BLUE_RUNE.get())
+            .requires(AMItems.BLANK_RUNE.get())
+            .requires(Tags.Items.DYES_LIGHT_BLUE)
+            .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.YELLOW_RUNE.get())
+            .requires(AMItems.BLANK_RUNE.get())
+            .requires(Tags.Items.DYES_YELLOW)
+            .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.LIME_RUNE.get())
+            .requires(AMItems.BLANK_RUNE.get())
+            .requires(Tags.Items.DYES_LIME)
+            .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.PINK_RUNE.get())
+            .requires(AMItems.BLANK_RUNE.get())
+            .requires(Tags.Items.DYES_PINK)
+            .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.GRAY_RUNE.get())
+            .requires(AMItems.BLANK_RUNE.get())
+            .requires(Tags.Items.DYES_GRAY)
+            .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.LIGHT_GRAY_RUNE.get())
+            .requires(AMItems.BLANK_RUNE.get())
+            .requires(Tags.Items.DYES_LIGHT_GRAY)
+            .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.CYAN_RUNE.get())
+            .requires(AMItems.BLANK_RUNE.get())
+            .requires(Tags.Items.DYES_CYAN)
+            .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.PURPLE_RUNE.get())
+            .requires(AMItems.BLANK_RUNE.get())
+            .requires(Tags.Items.DYES_PURPLE)
+            .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.BLUE_RUNE.get())
+            .requires(AMItems.BLANK_RUNE.get())
+            .requires(Tags.Items.DYES_BLUE)
+            .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.BROWN_RUNE.get())
+            .requires(AMItems.BLANK_RUNE.get())
+            .requires(Tags.Items.DYES_BROWN)
+            .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.GREEN_RUNE.get())
+            .requires(AMItems.BLANK_RUNE.get())
+            .requires(Tags.Items.DYES_GREEN)
+            .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.RED_RUNE.get())
+            .requires(AMItems.BLANK_RUNE.get())
+            .requires(Tags.Items.DYES_RED)
+            .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.BLACK_RUNE.get())
+            .requires(AMItems.BLANK_RUNE.get())
+            .requires(Tags.Items.DYES_BLACK)
+            .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
             .save(output);
         oreSmelting(output, List.of(AMItems.CHIMERITE_ORE.get(), AMItems.DEEPSLATE_CHIMERITE_ORE.get()), AMItems.CHIMERITE.get(), 0.7f, 200, "chimerite");
         oreBlasting(output, List.of(AMItems.CHIMERITE_ORE.get(), AMItems.DEEPSLATE_CHIMERITE_ORE.get()), AMItems.CHIMERITE.get(), 0.7f, 100, "chimerite");

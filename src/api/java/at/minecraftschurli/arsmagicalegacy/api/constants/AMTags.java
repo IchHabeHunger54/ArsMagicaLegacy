@@ -59,6 +59,9 @@ public interface AMTags {
         TagKey<Item> WITCHWOOD_LOGS = tag("witchwood_logs");
         TagKey<Item> INSCRIPTION_TABLE_BOOKS = tag("inscription_table_books");
         TagKey<Item> OCCULUS_FORGET_ALL = tag("occulus_forget_all");
+        TagKey<Item> RUNES = tag("runes");
+        TagKey<Item> SPELLCRAFTING_START = tag("spellcrafting_start");
+        TagKey<Item> SPELLCRAFTING_END = tag("spellcrafting_end");
 
         private static TagKey<Item> cTag(String name) {
             return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", name));

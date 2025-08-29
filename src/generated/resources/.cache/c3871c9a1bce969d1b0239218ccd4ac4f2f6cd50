@@ -1,6 +1,9 @@
-// 1.21.1	2025-08-28T19:38:37.4744223	Tags for minecraft:item mod id arsmagicalegacy
+// 1.21.1	2025-08-29T14:53:25.6648103	Tags for minecraft:item mod id arsmagicalegacy
 c4dd173177d64629d95c113ecc569a6ff6a78016 data/arsmagicalegacy/tags/item/inscription_table_books.json
 23e87de731409e520ca6ab442c9e3172dd91c0a5 data/arsmagicalegacy/tags/item/occulus_forget_all.json
+a39e73ce83524529d509355b75cfd2efc567b472 data/arsmagicalegacy/tags/item/runes.json
+3172b3316d9e9bc7f03efe84082a0da0bbe360d4 data/arsmagicalegacy/tags/item/spellcrafting_end.json
+09af43a7a9cb6962a8d5e9b378368f12aeddbd79 data/arsmagicalegacy/tags/item/spellcrafting_start.json
 09a8495f82a08691d533f5301ffce0cc0afe0bcf data/arsmagicalegacy/tags/item/witchwood_logs.json
 2b474bddac72d2e3d1b77a944dae997433c251d3 data/c/tags/item/dusts.json
 e46d2848fb8306c4399c2c45c6da8992ce815b98 data/c/tags/item/dusts/arcane_ash.json

@@ -28,14 +28,8 @@ import java.util.Set;
  * @param loopSound      The {@link SoundEvent} to use for casting continuous spells with the affinity.
  */
 public record Affinity(Holder<Affinity> directOpposite, Set<Holder<Affinity>> majorOpposites, Set<Holder<Affinity>> minorOpposites, Set<Holder<Affinity>> adjacents, int color, Optional<Holder<SoundEvent>> castSound, Optional<Holder<SoundEvent>> loopSound) {
-    // This method is needed to circumvent the javac-imposed static init order and allow CODEC to be used inside DIRECT_CODEC
-    // "the biggest obstacle here is javac" - Commoble, developer of More Red
-    private static Codec<Holder<Affinity>> getCodec() {
-        return CODEC;
-    }
-
     public static final Codec<Affinity> DIRECT_CODEC = Util.make(() -> {
-        Codec<Holder<Affinity>> codec = Codec.lazyInitialized(Affinity::getCodec);
+        Codec<Holder<Affinity>> codec = Codec.lazyInitialized(() -> Affinity.CODEC);
         return RecordCodecBuilder.create(inst -> inst.group(
             codec.fieldOf("direct_opposite").forGetter(Affinity::directOpposite),
             codec.listOf().xmap(Set::copyOf, List::copyOf).fieldOf("major_opposites").forGetter(Affinity::majorOpposites),

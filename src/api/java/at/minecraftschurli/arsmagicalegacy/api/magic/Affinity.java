@@ -14,7 +14,7 @@ import net.minecraft.sounds.SoundEvent;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Represents an affinity.
@@ -27,14 +27,14 @@ import java.util.Set;
  * @param castSound      The {@link SoundEvent} to use for casting spells with the affinity.
  * @param loopSound      The {@link SoundEvent} to use for casting continuous spells with the affinity.
  */
-public record Affinity(Holder<Affinity> directOpposite, Set<Holder<Affinity>> majorOpposites, Set<Holder<Affinity>> minorOpposites, Set<Holder<Affinity>> adjacents, int color, Optional<Holder<SoundEvent>> castSound, Optional<Holder<SoundEvent>> loopSound) {
+public record Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> majorOpposites, List<Holder<Affinity>> minorOpposites, List<Holder<Affinity>> adjacents, int color, Optional<Holder<SoundEvent>> castSound, Optional<Holder<SoundEvent>> loopSound) {
     public static final Codec<Affinity> DIRECT_CODEC = Util.make(() -> {
         Codec<Holder<Affinity>> codec = Codec.lazyInitialized(() -> Affinity.CODEC);
         return RecordCodecBuilder.create(inst -> inst.group(
             codec.fieldOf("direct_opposite").forGetter(Affinity::directOpposite),
-            codec.listOf().xmap(Set::copyOf, List::copyOf).fieldOf("major_opposites").forGetter(Affinity::majorOpposites),
-            codec.listOf().xmap(Set::copyOf, List::copyOf).fieldOf("minor_opposites").forGetter(Affinity::minorOpposites),
-            codec.listOf().xmap(Set::copyOf, List::copyOf).fieldOf("adjacents").forGetter(Affinity::adjacents),
+            codec.listOf().fieldOf("major_opposites").forGetter(Affinity::majorOpposites),
+            codec.listOf().fieldOf("minor_opposites").forGetter(Affinity::minorOpposites),
+            codec.listOf().fieldOf("adjacents").forGetter(Affinity::adjacents),
             Codec.INT.fieldOf("color").forGetter(Affinity::color),
             BuiltInRegistries.SOUND_EVENT.holderByNameCodec().optionalFieldOf("cast_sound").forGetter(Affinity::castSound),
             BuiltInRegistries.SOUND_EVENT.holderByNameCodec().optionalFieldOf("loop_sound").forGetter(Affinity::loopSound)
@@ -52,7 +52,7 @@ public record Affinity(Holder<Affinity> directOpposite, Set<Holder<Affinity>> ma
      * @param castSound      The {@link SoundEvent} to use for casting spells with the affinity.
      * @param loopSound      The {@link SoundEvent} to use for casting continuous spells with the affinity.
      */
-    public Affinity(Holder<Affinity> directOpposite, Set<Holder<Affinity>> majorOpposites, Set<Holder<Affinity>> minorOpposites, Set<Holder<Affinity>> adjacents, int color, Holder<SoundEvent> castSound, Holder<SoundEvent> loopSound) {
+    public Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> majorOpposites, List<Holder<Affinity>> minorOpposites, List<Holder<Affinity>> adjacents, int color, Holder<SoundEvent> castSound, Holder<SoundEvent> loopSound) {
         this(directOpposite, majorOpposites, minorOpposites, adjacents, color, Optional.of(castSound), Optional.of(loopSound));
     }
 

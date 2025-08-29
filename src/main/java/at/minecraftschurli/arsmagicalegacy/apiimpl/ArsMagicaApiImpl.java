@@ -6,6 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.api.helper.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.SpellHelper;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
 import at.minecraftschurli.arsmagicalegacy.spell.SpellPartDataManager;
@@ -16,6 +17,7 @@ import net.neoforged.neoforge.registries.RegistryBuilder;
 public final class ArsMagicaApiImpl extends ArsMagicaApi {
     private static final Registry<SpellPart> SPELL_PART_REGISTRY = new RegistryBuilder<>(AMRegistryKeys.SPELL_PART).sync(true).create();
     private static final Registry<DataComponentType<?>> SPELL_DATA_COMPONENT_REGISTRY = new RegistryBuilder<>(AMRegistryKeys.SPELL_DATA_COMPONENT).sync(true).create();
+    private static final Registry<SpellIngredient.Type<?>> SPELL_INGREDIENT_REGISTRY = new RegistryBuilder<>(AMRegistryKeys.SPELL_INGREDIENT).sync(true).create();
     private static final BurnoutHelper BURNOUT_HELPER = new BurnoutHelperImpl();
     private static final MagicHelper MAGIC_HELPER = new MagicHelperImpl();
     private static final ManaHelper MANA_HELPER = new ManaHelperImpl();
@@ -29,6 +31,11 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     @Override
     protected Registry<DataComponentType<?>> getSpellDataComponentRegistry() {
         return SPELL_DATA_COMPONENT_REGISTRY;
+    }
+
+    @Override
+    protected Registry<SpellIngredient.Type<?>> getSpellIngredientRegistry() {
+        return SPELL_INGREDIENT_REGISTRY;
     }
 
     @Override

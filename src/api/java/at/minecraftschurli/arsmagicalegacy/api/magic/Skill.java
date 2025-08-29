@@ -24,14 +24,8 @@ import java.util.Optional;
  */
 @SuppressWarnings("DataFlowIssue")
 public record Skill(List<Holder<Skill>> parents, Optional<Holder<SkillPoint>> cost, Holder<OcculusTab> tab, int x, int y, boolean hidden) {
-    // This method is needed to circumvent the javac-imposed static init order and allow CODEC to be used inside DIRECT_CODEC
-    // "the biggest obstacle here is javac" - Commoble, developer of More Red
-    private static Codec<Holder<Skill>> getCodec() {
-        return CODEC;
-    }
-
     public static final Codec<Skill> DIRECT_CODEC = RecordCodecBuilder.create(inst -> inst.group(
-        Codec.lazyInitialized(Skill::getCodec).listOf().fieldOf("parents").forGetter(Skill::parents),
+        Codec.lazyInitialized(() -> Skill.CODEC).listOf().fieldOf("parents").forGetter(Skill::parents),
         SkillPoint.CODEC.optionalFieldOf("cost").forGetter(Skill::cost),
         OcculusTab.CODEC.fieldOf("tab").forGetter(Skill::tab),
         Codec.INT.fieldOf("x").forGetter(Skill::x),

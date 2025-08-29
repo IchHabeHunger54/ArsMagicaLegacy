@@ -9,7 +9,10 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 
+import java.util.List;
+
 public interface AMMagic {
+    // @formatter:off
     ResourceKey<Affinity>   WATER                     = affinity("water");
     ResourceKey<Affinity>   FIRE                      = affinity("fire");
     ResourceKey<Affinity>   EARTH                     = affinity("earth");
@@ -38,6 +41,9 @@ public interface AMMagic {
     ResourceKey<Skill>      MANA_REGENERATION_BOOST_3 = skill("mana_regeneration_boost_3");
     ResourceKey<Skill>      SHIELD_OVERLOAD           = skill("shield_overload");
     ResourceKey<Skill>      SPELL_MOTION              = skill("spell_motion");
+    // @formatter:on
+    List<ResourceKey<Affinity>> AFFINITIES = List.of(WATER, FIRE, EARTH, AIR, ICE, LIGHTNING, NATURE, LIFE, ARCANE, ENDER);
+    List<ResourceKey<SkillPoint>> SKILL_POINTS = List.of(BLUE_POINT, GREEN_POINT, RED_POINT);
 
     private static ResourceKey<Affinity> affinity(String name) {
         return key(AMRegistryKeys.AFFINITY, name);

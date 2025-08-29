@@ -36,6 +36,17 @@ public final class AMLanguageProvider extends LanguageProvider {
         itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.GREEN_POINT.location(), "Green Infinity Orb");
         itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.RED_POINT.location(), "Red Infinity Orb");
         itemIdTranslation(AMItems.INFINITY_ORB);
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.WATER.location(), "Water Affinity Essence");
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.FIRE.location(), "Fire Affinity Essence");
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.EARTH.location(), "Earth Affinity Essence");
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.AIR.location(), "Air Affinity Essence");
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.ICE.location(), "Ice Affinity Essence");
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.LIGHTNING.location(), "Lightning Affinity Essence");
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.NATURE.location(), "Nature Affinity Essence");
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.LIFE.location(), "Life Affinity Essence");
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.ARCANE.location(), "Arcane Affinity Essence");
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.ENDER.location(), "Ender Affinity Essence");
+        itemIdTranslation(AMItems.AFFINITY_ESSENCE);
         itemIdTranslation(AMItems.BLANK_RUNE);
         itemIdTranslation(AMItems.WHITE_RUNE);
         itemIdTranslation(AMItems.ORANGE_RUNE);

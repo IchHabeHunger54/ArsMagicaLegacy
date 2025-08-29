@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.item.AffinityEssenceItem;
 import at.minecraftschurli.arsmagicalegacy.item.InfinityOrbItem;
 import at.minecraftschurli.arsmagicalegacy.item.InscriptionTableUpgradeItem;
 import at.minecraftschurli.arsmagicalegacy.item.SpellItem;
@@ -26,6 +27,7 @@ public interface AMItems {
     DeferredItem<InscriptionTableUpgradeItem> INSCRIPTION_TABLE_UPGRADE_TIER_3 = AMRegistries.ITEMS.registerItem("inscription_table_upgrade_tier_3", p -> new InscriptionTableUpgradeItem(p, 3));
     DeferredItem<Item>                        SPELL_PARCHMENT                  = AMRegistries.ITEMS.registerSimpleItem("spell_parchment");
     DeferredItem<InfinityOrbItem>             INFINITY_ORB                     = AMRegistries.ITEMS.registerItem("infinity_orb", InfinityOrbItem::new);
+    DeferredItem<AffinityEssenceItem>         AFFINITY_ESSENCE                 = AMRegistries.ITEMS.registerItem("affinity_essence", AffinityEssenceItem::new);
     DeferredItem<Item>                        BLANK_RUNE                       = AMRegistries.ITEMS.registerSimpleItem("blank_rune");
     DeferredItem<Item>                        WHITE_RUNE                       = AMRegistries.ITEMS.registerSimpleItem("white_rune");
     DeferredItem<Item>                        ORANGE_RUNE                      = AMRegistries.ITEMS.registerSimpleItem("orange_rune");

@@ -1,10 +1,14 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
+import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
+import at.minecraftschurli.arsmagicalegacy.item.AffinityEssenceItem;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.data.PackOutput;
@@ -40,7 +44,8 @@ public final class AMRecipeProvider extends RecipeProvider {
     }
 
     @Override
-    protected void buildRecipes(RecipeOutput output) {
+    protected void buildRecipes(RecipeOutput output, HolderLookup.Provider registries) {
+        HolderLookup.RegistryLookup<Affinity> affinities = registries.lookupOrThrow(AMRegistryKeys.AFFINITY);
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.OCCULUS.get())
             .pattern("SGS")
             .pattern(" S ")
@@ -106,6 +111,106 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('P', Items.PAPER)
             .unlockedBy("has_paper", has(Items.PAPER))
             .save(output);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), affinities.getOrThrow(AMMagic.WATER)).copyWithCount(2))
+            .pattern("AIA")
+            .pattern("JEJ")
+            .pattern("AIA")
+            .define('A', AMItems.ARCANE_ASH.get())
+            .define('E', DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.WATER), AMItems.AFFINITY_ESSENCE))
+            .define('I', AMItems.WAKEBLOOM.get())
+            .define('J', Items.WATER_BUCKET)
+            .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
+            .save(output, ArsMagicaApi.modLoc("affinity_essence_water"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), affinities.getOrThrow(AMMagic.FIRE)).copyWithCount(2))
+            .pattern("AIA")
+            .pattern("JEJ")
+            .pattern("AIA")
+            .define('A', AMItems.ARCANE_ASH.get())
+            .define('E', DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.FIRE), AMItems.AFFINITY_ESSENCE))
+            .define('I', ItemTags.COALS)
+            .define('J', Items.BLAZE_POWDER)
+            .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
+            .save(output, ArsMagicaApi.modLoc("affinity_essence_fire"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), affinities.getOrThrow(AMMagic.EARTH)).copyWithCount(2))
+            .pattern("AIA")
+            .pattern("JEJ")
+            .pattern("AIA")
+            .define('A', AMItems.ARCANE_ASH.get())
+            .define('E', DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.EARTH), AMItems.AFFINITY_ESSENCE))
+            .define('I', ItemTags.DIRT)
+            .define('J', Tags.Items.STONES)
+            .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
+            .save(output, ArsMagicaApi.modLoc("affinity_essence_earth"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), affinities.getOrThrow(AMMagic.AIR)).copyWithCount(2))
+            .pattern("AIA")
+            .pattern("JEJ")
+            .pattern("AIA")
+            .define('A', AMItems.ARCANE_ASH.get())
+            .define('E', DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.AIR), AMItems.AFFINITY_ESSENCE))
+            .define('I', Items.FEATHER)
+            .define('J', AMItems.TARMA_ROOT.get())
+            .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
+            .save(output, ArsMagicaApi.modLoc("affinity_essence_air"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), affinities.getOrThrow(AMMagic.ICE)).copyWithCount(2))
+            .pattern("AIA")
+            .pattern("JEJ")
+            .pattern("AIA")
+            .define('A', AMItems.ARCANE_ASH.get())
+            .define('E', DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.ICE), AMItems.AFFINITY_ESSENCE))
+            .define('I', Items.SNOW_BLOCK)
+            .define('J', Items.ICE)
+            .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
+            .save(output, ArsMagicaApi.modLoc("affinity_essence_ice"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), affinities.getOrThrow(AMMagic.LIGHTNING)).copyWithCount(2))
+            .pattern("AIA")
+            .pattern("JEJ")
+            .pattern("AIA")
+            .define('A', AMItems.ARCANE_ASH.get())
+            .define('E', DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.LIGHTNING), AMItems.AFFINITY_ESSENCE))
+            .define('I', Tags.Items.DUSTS_REDSTONE)
+            .define('J', Tags.Items.DUSTS_GLOWSTONE)
+            .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
+            .save(output, ArsMagicaApi.modLoc("affinity_essence_lightning"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), affinities.getOrThrow(AMMagic.NATURE)).copyWithCount(2))
+            .pattern("AIA")
+            .pattern("JEK")
+            .pattern("ALA")
+            .define('A', AMItems.ARCANE_ASH.get())
+            .define('E', DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.NATURE), AMItems.AFFINITY_ESSENCE))
+            .define('I', ItemTags.LEAVES)
+            .define('J', Items.LILY_PAD)
+            .define('K', Items.CACTUS)
+            .define('L', Items.VINE)
+            .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
+            .save(output, ArsMagicaApi.modLoc("affinity_essence_nature"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), affinities.getOrThrow(AMMagic.LIFE)).copyWithCount(2))
+            .pattern("AIA")
+            .pattern("JEJ")
+            .pattern("AIA")
+            .define('A', AMItems.ARCANE_ASH.get())
+            .define('E', DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.LIFE), AMItems.AFFINITY_ESSENCE))
+            .define('I', Tags.Items.EGGS)
+            .define('J', Items.GOLDEN_APPLE)
+            .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
+            .save(output, ArsMagicaApi.modLoc("affinity_essence_life"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), affinities.getOrThrow(AMMagic.ARCANE)).copyWithCount(2))
+            .pattern("AAA")
+            .pattern("AEA")
+            .pattern("AAA")
+            .define('A', AMItems.ARCANE_ASH.get())
+            .define('E', DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.ARCANE), AMItems.AFFINITY_ESSENCE))
+            .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
+            .save(output, ArsMagicaApi.modLoc("affinity_essence_arcane"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), affinities.getOrThrow(AMMagic.ENDER)).copyWithCount(2))
+            .pattern("AIA")
+            .pattern("JEJ")
+            .pattern("AIA")
+            .define('A', AMItems.ARCANE_ASH.get())
+            .define('E', DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.ENDER), AMItems.AFFINITY_ESSENCE))
+            .define('I', Tags.Items.ENDER_PEARLS)
+            .define('J', Items.ENDER_EYE)
+            .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
+            .save(output, ArsMagicaApi.modLoc("affinity_essence_ender"));
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.BLANK_RUNE.get(), 2)
             .pattern(" # ")
             .pattern("###")

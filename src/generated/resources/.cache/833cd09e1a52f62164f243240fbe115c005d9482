@@ -1,4 +1,14 @@
-// 1.21.1	2025-08-29T14:53:25.6619293	Item Models: arsmagicalegacy
+// 1.21.1	2025-08-29T22:58:52.6951383	Item Models: arsmagicalegacy
+6e0b262bb6740bdbe7b3564e182497239ff375ac assets/arsmagicalegacy/models/item/affinity_essence_air.json
+84174d0bc6eb1016c4946a0937eb7ec35e19f1d8 assets/arsmagicalegacy/models/item/affinity_essence_arcane.json
+30a8164938d38c30eeb732879d3cd38955490293 assets/arsmagicalegacy/models/item/affinity_essence_earth.json
+60b6706e2eafaea51fab798351728767a34e86c5 assets/arsmagicalegacy/models/item/affinity_essence_ender.json
+abee1bca5887e776d08ec9e1ce60d0b8302abea5 assets/arsmagicalegacy/models/item/affinity_essence_fire.json
+4b32b232981aa85259b0e98bdd3ad144dadd17a1 assets/arsmagicalegacy/models/item/affinity_essence_ice.json
+e5277d92be039622292493c3812839094620fe86 assets/arsmagicalegacy/models/item/affinity_essence_life.json
+fc1beaa4f23800e755d40cf02f0b7cfbf92a798d assets/arsmagicalegacy/models/item/affinity_essence_lightning.json
+fcada4500b163ea0c7abe4a187bebc43c1e328ca assets/arsmagicalegacy/models/item/affinity_essence_nature.json
+48ca1a5b3e9dcf196abc0697fce7c0f3a791baba assets/arsmagicalegacy/models/item/affinity_essence_water.json
 5ade3f37b24782c7cdf40a3a83a6306d90db510a assets/arsmagicalegacy/models/item/arcane_ash.json
 cc2cb15d367f1057fc85a254ed16a8d5ea9fd02b assets/arsmagicalegacy/models/item/arcane_compound.json
 479f46ca80005c14a383332494b60e0b757b4f70 assets/arsmagicalegacy/models/item/aum.json

@@ -11,6 +11,8 @@ import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredItem;
 
+import java.util.List;
+
 public final class AMItemModelProvider extends ItemModelProvider {
     public AMItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, ArsMagicaApi.MOD_ID, existingFileHelper);
@@ -25,7 +27,9 @@ public final class AMItemModelProvider extends ItemModelProvider {
         basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_2);
         basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3);
         basicItem(AMItems.SPELL_PARCHMENT);
-        basicItemWithVariants(AMItems.INFINITY_ORB, AMMagic.BLUE_POINT, AMMagic.GREEN_POINT, AMMagic.RED_POINT);
+        basicItem(AMItems.INFINITY_ORB);
+        basicItemWithVariants(AMItems.INFINITY_ORB, AMMagic.SKILL_POINTS);
+        basicItemWithVariants(AMItems.AFFINITY_ESSENCE, AMMagic.AFFINITIES);
         basicItem(AMItems.BLANK_RUNE);
         basicItem(AMItems.WHITE_RUNE);
         basicItem(AMItems.ORANGE_RUNE);
@@ -114,8 +118,7 @@ public final class AMItemModelProvider extends ItemModelProvider {
      * @param item     The item to add the models for.
      * @param variants The variants to add models for.
      */
-    private void basicItemWithVariants(DeferredItem<?> item, ResourceKey<?>... variants) {
-        basicItem(item);
+    private void basicItemWithVariants(DeferredItem<?> item, List<? extends ResourceKey<?>> variants) {
         for (ResourceKey<?> variant : variants) {
             ResourceLocation location = variant.location().withPrefix(item.getId().getPath() + "_");
             singleTexture(location.getPath(), mcLoc("item/generated"), "layer0", location.withPrefix("item/"));

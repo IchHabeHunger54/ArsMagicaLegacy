@@ -63,12 +63,14 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void modelRegisterAdditional(ModelEvent.RegisterAdditional event) {
         DataComponentOverrides.getAdditionalModels(Stream.of(1, 2, 3).map(i -> ArsMagicaApi.modLoc("tier_" + i)), AMItems.INSCRIPTION_TABLE).forEach(event::register);
-        DataComponentOverrides.getAdditionalModels(Stream.of(AMMagic.BLUE_POINT, AMMagic.GREEN_POINT, AMMagic.RED_POINT).map(ResourceKey::location), AMItems.INFINITY_ORB).forEach(event::register);
+        DataComponentOverrides.getAdditionalModels(AMMagic.SKILL_POINTS.stream().map(ResourceKey::location), AMItems.INFINITY_ORB).forEach(event::register);
+        DataComponentOverrides.getAdditionalModels(AMMagic.AFFINITIES.stream().map(ResourceKey::location), AMItems.AFFINITY_ESSENCE).forEach(event::register);
     }
 
     @SubscribeEvent
     private static void modelModifyBakingResult(ModelEvent.ModifyBakingResult event) {
         ItemOverridesModel.register(event.getModels(), AMItems.INSCRIPTION_TABLE, new DataComponentOverrides<>(AMDataComponents.TIER.get(), (tier, model, stack) -> tier == 0 ? null : ModelResourceLocation.standalone(ArsMagicaApi.modLoc("item/inscription_table_tier_" + tier))));
         ItemOverridesModel.register(event.getModels(), AMItems.INFINITY_ORB, new DataComponentOverrides<>(AMDataComponents.SKILL_POINT.get(), DataComponentOverrides.holder()));
+        ItemOverridesModel.register(event.getModels(), AMItems.AFFINITY_ESSENCE, new DataComponentOverrides<>(AMDataComponents.AFFINITY.get(), DataComponentOverrides.holder()));
     }
 }

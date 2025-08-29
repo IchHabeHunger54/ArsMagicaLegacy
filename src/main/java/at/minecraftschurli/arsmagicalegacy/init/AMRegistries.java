@@ -59,6 +59,7 @@ public interface AMRegistries {
         SOUND_EVENTS.register(bus);
         FEATURES.register(bus);
         ATTACHMENTS.register(bus);
+        SPELL_INGREDIENTS.register(bus);
         SPELL_PARTS.register(bus);
     }
 }

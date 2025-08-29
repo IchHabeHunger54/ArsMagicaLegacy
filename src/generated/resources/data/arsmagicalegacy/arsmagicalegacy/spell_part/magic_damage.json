@@ -1,0 +1,36 @@
+{
+  "affinity_shifts": {
+    "arsmagicalegacy:arcane": 0.0010000000474974513
+  },
+  "mana": 25.0,
+  "recipe": [
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "item": "arsmagicalegacy:magenta_rune"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "item": "arsmagicalegacy:purple_rune"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "tag": "c:gems/chimerite"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "item": "minecraft:book"
+      }
+    }
+  ]
+}

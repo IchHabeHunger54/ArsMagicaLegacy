@@ -1,0 +1,36 @@
+{
+  "affinity_shifts": {
+    "arsmagicalegacy:earth": 0.0010000000474974513
+  },
+  "mana": 25.0,
+  "recipe": [
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "item": "arsmagicalegacy:red_rune"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "item": "arsmagicalegacy:yellow_rune"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "tag": "c:dusts/vinteum"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "tag": "c:ingots/iron"
+      }
+    }
+  ]
+}

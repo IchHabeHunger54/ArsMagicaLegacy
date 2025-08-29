@@ -1,19 +1,12 @@
 {
   "affinity_shifts": {},
-  "mana": 0.5,
+  "mana": 2.5,
   "recipe": [
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
       "item": {
         "tag": "c:dusts/vinteum"
-      }
-    },
-    {
-      "type": "arsmagicalegacy:item",
-      "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:aum"
       }
     }
   ]

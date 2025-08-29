@@ -1,0 +1,41 @@
+{
+  "affinity_shifts": {},
+  "mana": 1.0,
+  "recipe": [
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "tag": "c:gems/topaz"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "item": "arsmagicalegacy:aum"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "tag": "c:strings"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "item": "minecraft:lead"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "item": "minecraft:tripwire_hook"
+      }
+    }
+  ]
+}

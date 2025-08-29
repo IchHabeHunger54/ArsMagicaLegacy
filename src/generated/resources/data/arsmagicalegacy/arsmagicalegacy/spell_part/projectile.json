@@ -1,6 +1,6 @@
 {
   "affinity_shifts": {},
-  "mana": 0.5,
+  "mana": 1.0,
   "recipe": [
     {
       "type": "arsmagicalegacy:item",
@@ -13,7 +13,14 @@
       "type": "arsmagicalegacy:item",
       "count": 1,
       "item": {
-        "item": "arsmagicalegacy:aum"
+        "item": "minecraft:arrow"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "item": "minecraft:snowball"
       }
     }
   ]

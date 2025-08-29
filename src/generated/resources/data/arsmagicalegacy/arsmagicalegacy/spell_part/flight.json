@@ -1,0 +1,29 @@
+{
+  "affinity_shifts": {
+    "arsmagicalegacy:air": 0.0010000000474974513
+  },
+  "mana": 50.0,
+  "recipe": [
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "item": "arsmagicalegacy:white_rune"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "tag": "c:nether_stars"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "item": "minecraft:ghast_tear"
+      }
+    }
+  ]
+}

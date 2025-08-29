@@ -1,14 +1,14 @@
 {
   "affinity_shifts": {
-    "arsmagicalegacy:life": 0.0020000000949949026
+    "arsmagicalegacy:lightning": 0.0010000000474974513
   },
-  "mana": 60.0,
+  "mana": 30.0,
   "recipe": [
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
       "item": {
-        "item": "arsmagicalegacy:pink_rune"
+        "item": "arsmagicalegacy:yellow_rune"
       }
     },
     {
@@ -16,6 +16,13 @@
       "count": 1,
       "item": {
         "tag": "c:dusts/glowstone"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "tag": "c:dusts/redstone"
       }
     }
   ]

@@ -1,0 +1,43 @@
+{
+  "affinity_shifts": {
+    "arsmagicalegacy:ender": 0.0010000000474974513
+  },
+  "mana": 40.0,
+  "recipe": [
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "item": "arsmagicalegacy:black_rune"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "type": "neoforge:components",
+        "components": {
+          "minecraft:potion_contents": {
+            "potion": "minecraft:night_vision"
+          }
+        },
+        "items": "minecraft:potion",
+        "strict": true
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "type": "neoforge:components",
+        "components": {
+          "minecraft:potion_contents": {
+            "potion": "minecraft:weakness"
+          }
+        },
+        "items": "minecraft:potion",
+        "strict": true
+      }
+    }
+  ]
+}

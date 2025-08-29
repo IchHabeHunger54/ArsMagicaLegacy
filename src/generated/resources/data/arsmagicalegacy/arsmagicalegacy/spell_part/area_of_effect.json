@@ -1,0 +1,13 @@
+{
+  "affinity_shifts": {},
+  "mana": 2.0,
+  "recipe": [
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "item": "minecraft:tnt"
+      }
+    }
+  ]
+}

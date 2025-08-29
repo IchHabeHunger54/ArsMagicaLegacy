@@ -1,0 +1,29 @@
+{
+  "affinity_shifts": {
+    "arsmagicalegacy:lightning": 0.0010000000474974513
+  },
+  "mana": 50.0,
+  "recipe": [
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "item": "arsmagicalegacy:orange_rune"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "tag": "c:rods/blaze"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "item": "minecraft:tropical_fish"
+      }
+    }
+  ]
+}

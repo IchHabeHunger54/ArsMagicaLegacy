@@ -1,0 +1,40 @@
+{
+  "affinity_shifts": {
+    "arsmagicalegacy:ice": 0.009999999776482582
+  },
+  "mana": 1000.0,
+  "recipe": [
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "type": "neoforge:components",
+        "components": {
+          "arsmagicalegacy:affinity": "arsmagicalegacy:ice"
+        },
+        "items": "arsmagicalegacy:affinity_essence"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "tag": "c:gems/topaz"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "item": "minecraft:ice"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "item": "minecraft:packed_ice"
+      }
+    }
+  ]
+}

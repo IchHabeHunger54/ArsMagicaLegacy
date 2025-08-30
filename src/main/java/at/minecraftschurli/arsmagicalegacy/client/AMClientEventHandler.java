@@ -11,10 +11,12 @@ import at.minecraftschurli.arsmagicalegacy.client.model.ItemOverridesModel;
 import at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable.InscriptionTableScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.AffinityTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.DefaultTabRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.renderer.ItemSpellIngredientRenderer;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
+import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.neoforged.api.distmarker.Dist;
@@ -53,6 +55,7 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerSpellIngredientRenderers(RegisterSpellIngredientRenderersEvent event) {
+        event.register(AMSpells.ITEM_SPELL_INGREDIENT.get(), ItemSpellIngredientRenderer.INSTANCE);
     }
 
     @SubscribeEvent

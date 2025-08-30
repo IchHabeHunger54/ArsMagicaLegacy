@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.apiimpl;
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.event.BurnoutCostCalculationEvent;
 import at.minecraftschurli.arsmagicalegacy.api.event.ManaCostCalculationEvent;
@@ -18,8 +19,13 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.PrimarySpellShape;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SecondarySpellShape;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellShapeGroup;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
+import at.minecraftschurli.arsmagicalegacy.spell.ItemSpellIngredient;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Holder;
@@ -28,12 +34,16 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.neoforge.common.NeoForge;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 final class SpellHelperImpl implements SpellHelper {
     @Override
@@ -121,5 +131,43 @@ final class SpellHelperImpl implements SpellHelper {
     @Override
     public double getManaToBurnoutRatio() {
         return AMServerConfig.MANA_TO_BURNOUT_RATIO.get();
+    }
+
+    @Override
+    public List<SpellIngredient> getRecipe(Spell spell) {
+        List<SpellIngredient> list = new ArrayList<>();
+        list.add(new ItemSpellIngredient(Ingredient.of(AMTags.Items.SPELLCRAFTING_START), 1));
+        spell.shapeGroups()
+            .stream()
+            .map(SpellShapeGroup::parts)
+            .flatMap(List::stream)
+            .map(SpellPart::getData)
+            .map(SpellPartData::recipe)
+            .forEach(list::addAll);
+        spell.grammar()
+            .parts()
+            .stream()
+            .map(SpellPart::getData)
+            .map(SpellPartData::recipe)
+            .forEach(list::addAll);
+        list.add(new ItemSpellIngredient(Ingredient.of(AMTags.Items.SPELLCRAFTING_END), 1));
+        return list;
+    }
+
+    @Override
+    public List<SpellIngredient> getFlatRecipe(Spell spell) {
+        List<SpellIngredient> result = new ArrayList<>();
+        for (SpellIngredient ingredient : getRecipe(spell)) {
+            Optional<SpellIngredient> optional = result.stream().filter(e -> e.canCombine(ingredient)).findAny();
+            if (optional.isPresent()) {
+                SpellIngredient previous = optional.get();
+                int index = result.indexOf(previous);
+                result.remove(previous);
+                result.add(index, ingredient.combine(previous));
+            } else {
+                result.add(ingredient);
+            }
+        }
+        return result;
     }
 }

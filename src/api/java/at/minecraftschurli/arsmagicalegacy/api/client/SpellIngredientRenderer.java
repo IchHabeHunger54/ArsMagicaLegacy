@@ -27,12 +27,12 @@ public interface SpellIngredientRenderer<T extends SpellIngredient> {
     /**
      * Renders the passed ingredient in a gui.
      *
-     * @param ingredient The ingredient to render.
-     * @param graphics   The {@link GuiGraphics} to use.
-     * @param x          The x position to render at.
-     * @param y          The y position to render at.
-     * @param mouseX     The x position of the mouse.
-     * @param mouseY     The y position of the mouse.
+     * @param ingredient  The ingredient to render.
+     * @param guiGraphics The {@link GuiGraphics} to use.
+     * @param x           The x position to render at.
+     * @param y           The y position to render at.
+     * @param mouseX      The x position of the mouse.
+     * @param mouseY      The y position of the mouse.
      */
-    void renderInGui(T ingredient, GuiGraphics graphics, int x, int y, int mouseX, int mouseY);
+    void renderInGui(T ingredient, GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY);
 }

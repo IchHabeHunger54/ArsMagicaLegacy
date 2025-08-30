@@ -14,9 +14,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record LearnSkillPacket(Holder<Skill> skill) implements CustomPacketPayload {
     public static final Type<LearnSkillPacket> TYPE = new Type<>(ArsMagicaApi.modLoc("learn_skill"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, LearnSkillPacket> STREAM_CODEC = StreamCodec.composite(
-        ByteBufCodecs.holderRegistry(AMRegistryKeys.SKILL), LearnSkillPacket::skill,
-        LearnSkillPacket::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, LearnSkillPacket> STREAM_CODEC = ByteBufCodecs.holderRegistry(AMRegistryKeys.SKILL).map(LearnSkillPacket::new, LearnSkillPacket::skill);
 
     @Override
     public Type<? extends CustomPacketPayload> type() {

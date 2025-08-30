@@ -40,6 +40,7 @@ public interface AMTranslations {
     String COMMAND_SKILL_POINT_SET_MULTIPLE_KEY     = "commands." + ArsMagicaApi.MOD_ID + ".skill_point.set.multiple.success";
     String COMMAND_SKILL_POINT_SET_SINGLE_KEY       = "commands." + ArsMagicaApi.MOD_ID + ".skill_point.set.single.success";
     String OCCULUS_MISSING_KEY                      = "gui." + ArsMagicaApi.MOD_ID + ".occulus.missing";
+    String SPELL_RECIPE_SHAPE_GROUP_KEY             = "item." + ArsMagicaApi.MOD_ID + ".spell_recipe.shape_group";
 
     String PREVENT_BLOCK_KEY                  = ArsMagicaApi.MOD_ID + ".prevent.block";
     String PREVENT_ITEM_KEY                   = ArsMagicaApi.MOD_ID + ".prevent.item";
@@ -56,6 +57,9 @@ public interface AMTranslations {
     String OCCULUS_FORGET_ALL_TOOLTIP_KEY     = "gui." + ArsMagicaApi.MOD_ID + ".occulus.forget_all.tooltip";
     String OCCULUS_NEXT_KEY                   = "gui." + ArsMagicaApi.MOD_ID + ".occulus.next";
     String OCCULUS_PREV_KEY                   = "gui." + ArsMagicaApi.MOD_ID + ".occulus.prev";
+    String SPELL_RECIPE_AFFINITIES_KEY        = "item." + ArsMagicaApi.MOD_ID + ".spell_recipe.affinities";
+    String SPELL_RECIPE_GRAMMAR_KEY           = "item." + ArsMagicaApi.MOD_ID + ".spell_recipe.grammar";
+    String SPELL_RECIPE_INGREDIENTS_KEY       = "item." + ArsMagicaApi.MOD_ID + ".spell_recipe.ingredients";
 
     Component PREVENT_BLOCK                  = Component.translatable(PREVENT_BLOCK_KEY);
     Component PREVENT_ITEM                   = Component.translatable(PREVENT_ITEM_KEY);
@@ -72,5 +76,8 @@ public interface AMTranslations {
     Component OCCULUS_FORGET_ALL_TOOLTIP     = Component.translatable(OCCULUS_FORGET_ALL_TOOLTIP_KEY);
     Component OCCULUS_NEXT                   = Component.translatable(OCCULUS_NEXT_KEY);
     Component OCCULUS_PREV                   = Component.translatable(OCCULUS_PREV_KEY);
+    Component SPELL_RECIPE_AFFINITIES        = Component.translatable(SPELL_RECIPE_AFFINITIES_KEY);
+    Component SPELL_RECIPE_GRAMMAR           = Component.translatable(SPELL_RECIPE_GRAMMAR_KEY);
+    Component SPELL_RECIPE_INGREDIENTS       = Component.translatable(SPELL_RECIPE_INGREDIENTS_KEY);
     // @formatter:on
 }

@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.api.helper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.PrimarySpellShape;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SecondarySpellShape;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
@@ -74,4 +75,20 @@ public interface SpellHelper {
      * @return The mana to burnout conversion ratio, used in spell cost calculation.
      */
     double getManaToBurnoutRatio();
+
+    /**
+     * Calculates a {@link Spell}'s recipe.
+     *
+     * @param spell The {@link Spell} to calculate the recipe for.
+     * @return The recipe for the {@link Spell}.
+     */
+    List<SpellIngredient> getRecipe(Spell spell);
+
+    /**
+     * Calculates a {@link Spell}'s recipe and combines the ingredients where possible.
+     *
+     * @param spell The {@link Spell} to calculate the recipe for.
+     * @return The recipe for the {@link Spell}.
+     */
+    List<SpellIngredient> getFlatRecipe(Spell spell);
 }

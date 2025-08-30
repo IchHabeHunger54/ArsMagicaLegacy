@@ -17,14 +17,22 @@ import at.minecraftschurli.arsmagicalegacy.packet.ForgetSkillsPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.InscriptionTableCreateSpellPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.InscriptionTableSyncPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.LearnSkillPacket;
+import at.minecraftschurli.arsmagicalegacy.packet.OpenBookInLecternPacket;
+import at.minecraftschurli.arsmagicalegacy.packet.SetLecternPagePacket;
+import at.minecraftschurli.arsmagicalegacy.packet.TakeSpellRecipeFromLecternPacket;
 import at.minecraftschurli.arsmagicalegacy.spell.SpellPartDataManager;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
@@ -32,6 +40,7 @@ import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import net.neoforged.neoforge.event.entity.player.AdvancementEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
@@ -79,10 +88,13 @@ final class AMEventHandler {
     @SubscribeEvent
     private static void registerPayloadHandlers(RegisterPayloadHandlersEvent event) {
         event.registrar("1")
+            .playToClient(OpenBookInLecternPacket.TYPE, OpenBookInLecternPacket.STREAM_CODEC, OpenBookInLecternPacket::handle)
             .playToServer(ForgetSkillsPacket.TYPE, ForgetSkillsPacket.STREAM_CODEC, ForgetSkillsPacket::handle)
             .playToServer(InscriptionTableCreateSpellPacket.TYPE, InscriptionTableCreateSpellPacket.STREAM_CODEC, InscriptionTableCreateSpellPacket::handle)
             .playToServer(InscriptionTableSyncPacket.TYPE, InscriptionTableSyncPacket.STREAM_CODEC, InscriptionTableSyncPacket::handle)
-            .playToServer(LearnSkillPacket.TYPE, LearnSkillPacket.STREAM_CODEC, LearnSkillPacket::handle);
+            .playToServer(LearnSkillPacket.TYPE, LearnSkillPacket.STREAM_CODEC, LearnSkillPacket::handle)
+            .playToServer(SetLecternPagePacket.TYPE, SetLecternPagePacket.STREAM_CODEC, SetLecternPagePacket::handle)
+            .playToServer(TakeSpellRecipeFromLecternPacket.TYPE, TakeSpellRecipeFromLecternPacket.STREAM_CODEC, TakeSpellRecipeFromLecternPacket::handle);
     }
 
     @SubscribeEvent
@@ -100,6 +112,16 @@ final class AMEventHandler {
         String advancement = AMServerConfig.MAGIC_ADVANCEMENT.get();
         if (!advancement.isEmpty() && event.getAdvancement().id().toString().equals(advancement)) {
             ArsMagicaApi.magicHelper().initiateMagic(event.getEntity());
+        }
+    }
+
+    @SubscribeEvent
+    private static void rightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        Level level = event.getLevel();
+        BlockPos pos = event.getPos();
+        if (level.getBlockEntity(pos) instanceof LecternBlockEntity lectern && AMUtil.handleLecternUse(level, pos, level.getBlockState(pos), lectern, event.getEntity(), event.getHand())) {
+            event.setCancellationResult(InteractionResult.SUCCESS);
+            event.setCanceled(true);
         }
     }
 

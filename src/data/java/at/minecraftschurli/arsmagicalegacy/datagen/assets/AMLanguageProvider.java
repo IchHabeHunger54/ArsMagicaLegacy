@@ -431,6 +431,10 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.SPELL_CAST_MALFORMED_KEY, "Spell is malformed and cannot be cast!");
         add(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA_KEY, "Not enough mana to cast the spell!");
         add(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, "x %s");
+        add(AMTranslations.SPELL_RECIPE_AFFINITIES_KEY, "Affinities");
+        add(AMTranslations.SPELL_RECIPE_GRAMMAR_KEY, "Grammar");
+        add(AMTranslations.SPELL_RECIPE_INGREDIENTS_KEY, "Ingredients");
+        add(AMTranslations.SPELL_RECIPE_SHAPE_GROUP_KEY, "Shape Group %s");
         add("itemGroup." + ArsMagicaApi.MOD_ID, "Ars Magica: Legacy");
     }
 

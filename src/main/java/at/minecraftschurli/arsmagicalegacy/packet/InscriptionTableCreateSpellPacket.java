@@ -14,9 +14,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record InscriptionTableCreateSpellPacket(BlockPos pos) implements CustomPacketPayload {
     public static final Type<InscriptionTableCreateSpellPacket> TYPE = new Type<>(ArsMagicaApi.modLoc("inscription_table_create_spell"));
-    public static final StreamCodec<ByteBuf, InscriptionTableCreateSpellPacket> STREAM_CODEC = StreamCodec.composite(
-        BlockPos.STREAM_CODEC, InscriptionTableCreateSpellPacket::pos,
-        InscriptionTableCreateSpellPacket::new);
+    public static final StreamCodec<ByteBuf, InscriptionTableCreateSpellPacket> STREAM_CODEC = BlockPos.STREAM_CODEC.map(InscriptionTableCreateSpellPacket::new, InscriptionTableCreateSpellPacket::pos);
 
     public void handle(IPayloadContext context) {
         Player player = context.player();

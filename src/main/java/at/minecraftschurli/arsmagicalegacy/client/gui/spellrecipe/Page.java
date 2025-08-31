@@ -5,27 +5,56 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-abstract class Page {
-    public abstract Component getTitle();
+abstract class Page<T> {
+    protected final int xOffset;
+    protected final int yOffset;
+    protected final int size;
+    protected final int spacing;
+    protected final int maxPerLine;
+    protected final List<T> elements;
 
-    public abstract void render(GuiGraphics graphics, int x, int y);
+    Page(int xOffset, int yOffset, int size, int spacing, int maxPerLine, List<T> elements) {
+        this.xOffset = xOffset;
+        this.yOffset = yOffset;
+        this.size = size;
+        this.spacing = spacing;
+        this.maxPerLine = maxPerLine;
+        this.elements = elements;
+    }
 
-    public abstract List<Component> getTooltip(int mouseX, int mouseY);
+    public void render(GuiGraphics guiGraphics, int x, int y) {
+        for (int i = 0; i < elements.size(); i++) {
+            renderElement(elements.get(i), i, guiGraphics, x + xOffset, y + yOffset);
+        }
+    }
 
-    protected int getTooltipIndex(int x, int y, int size, int spacing, int maxPerLine, int maxTotal) {
-        int resX = -1, resY = -1;
+    public List<Component> getTooltip(int mouseX, int mouseY) {
+        int x = mouseX - xOffset;
+        int y = mouseY - yOffset;
+        int resultX = -1;
+        int resultY = -1;
         for (int i = 0; i < maxPerLine; i++) {
-            int min = i * size + i * spacing;
-            int max = size + i * size + i * spacing;
+            int min = i * (size + spacing);
+            int max = min + size;
             if (x >= min && x < max) {
-                resX = i;
-            }
-            if (y >= min && y < max) {
-                resY = i;
+                resultX = i;
             }
         }
-        if (resX == -1 || resY == -1) return -1;
-        int result = resX + resY * maxPerLine;
-        return result >= maxTotal ? -1 : result;
+        for (int i = 0; i < Math.ceilDiv(elements.size(), maxPerLine); i++) {
+            int min = i * (size + spacing);
+            int max = min + size;
+            if (y >= min && y < max) {
+                resultY = i;
+            }
+        }
+        if (resultX == -1 || resultY == -1) return List.of();
+        int result = resultX + resultY * maxPerLine;
+        return result >= elements.size() ? List.of() : getElementTooltip(elements.get(result));
     }
+
+    public abstract Component getTitle();
+
+    public abstract void renderElement(T element, int index, GuiGraphics guiGraphics, int x, int y);
+
+    public abstract List<Component> getElementTooltip(T element);
 }

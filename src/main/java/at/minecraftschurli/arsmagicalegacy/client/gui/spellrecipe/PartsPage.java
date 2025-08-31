@@ -12,17 +12,13 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-class PartsPage extends Page {
-    private static final int X_OFFSET = 3;
-    private static final int Y_OFFSET = 11;
-    private static final int SIZE = 32;
-    private static final int SPACING = 4;
-    private static final int MAX_PER_LINE = 3;
-    private final List<Holder<SpellPart>> spellParts;
+class PartsPage extends Page<Holder<SpellPart>> {
     private final Component title;
 
     public PartsPage(List<SpellPart> spellParts, Component title) {
-        this.spellParts = spellParts.stream().map(ArsMagicaApi.spellPartRegistry()::wrapAsHolder).toList();
+        super(3, 11, 32, 4, 3, spellParts.stream()
+            .map(ArsMagicaApi.spellPartRegistry()::wrapAsHolder)
+            .toList());
         this.title = title;
     }
 
@@ -32,16 +28,13 @@ class PartsPage extends Page {
     }
 
     @Override
-    public void render(GuiGraphics graphics, int x, int y) {
-        for (int i = 0; i < spellParts.size(); i++) {
-            graphics.blit(x + X_OFFSET + i % MAX_PER_LINE * (SIZE + SPACING), y + Y_OFFSET + i / MAX_PER_LINE * (SIZE + SPACING), 0, SIZE, SIZE, SkillAtlasHolder.INSTANCE.get().getSprite(skill(spellParts.get(i)).value()));
-        }
+    public void renderElement(Holder<SpellPart> element, int index, GuiGraphics guiGraphics, int x, int y) {
+        guiGraphics.blit(x + index % maxPerLine * (size + spacing), y + index / maxPerLine * (size + spacing), 0, size, size, SkillAtlasHolder.INSTANCE.get().getSprite(skill(element).value()));
     }
 
     @Override
-    public List<Component> getTooltip(int mouseX, int mouseY) {
-        int i = getTooltipIndex(mouseX - X_OFFSET, mouseY - Y_OFFSET, SIZE, SPACING, MAX_PER_LINE, spellParts.size());
-        return i == -1 ? List.of() : List.of(Skill.getName(skill(spellParts.get(i))));
+    public List<Component> getElementTooltip(Holder<SpellPart> element) {
+        return List.of(Skill.getName(skill(element)));
     }
 
     @SuppressWarnings({"DataFlowIssue", "OptionalGetWithoutIsPresent"})

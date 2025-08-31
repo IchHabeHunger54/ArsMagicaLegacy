@@ -3,7 +3,6 @@ package at.minecraftschurli.arsmagicalegacy.api.spell;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -24,12 +23,8 @@ import java.util.List;
 public record SpellShapeGroup(List<SpellPart> parts, @Nullable PrimarySpellShape primaryShape, List<SpellModifier> primaryModifiers, @Nullable SecondarySpellShape secondaryShape, List<SpellModifier> secondaryModifiers) {
     public static final int MAX_PARTS = 4;
     public static final SpellShapeGroup EMPTY = new SpellShapeGroup(List.of(), null, List.of(), null, List.of());
-    public static final Codec<SpellShapeGroup> CODEC = RecordCodecBuilder.create(inst -> inst.group(
-        ArsMagicaApi.spellPartRegistry().byNameCodec().listOf(0, MAX_PARTS).fieldOf("parts").forGetter(SpellShapeGroup::parts)
-    ).apply(inst, SpellShapeGroup::of));
-    public static final StreamCodec<RegistryFriendlyByteBuf, SpellShapeGroup> STREAM_CODEC = StreamCodec.composite(
-        ByteBufCodecs.registry(AMRegistryKeys.SPELL_PART).apply(ByteBufCodecs.list()), SpellShapeGroup::parts,
-        SpellShapeGroup::of);
+    public static final Codec<SpellShapeGroup> CODEC = ArsMagicaApi.spellPartRegistry().byNameCodec().listOf(0, MAX_PARTS).fieldOf("parts").xmap(SpellShapeGroup::of, SpellShapeGroup::parts).codec();
+    public static final StreamCodec<RegistryFriendlyByteBuf, SpellShapeGroup> STREAM_CODEC = ByteBufCodecs.registry(AMRegistryKeys.SPELL_PART).apply(ByteBufCodecs.list()).map(SpellShapeGroup::of, SpellShapeGroup::parts);
 
     /**
      * @deprecated Use {@link SpellShapeGroup#of(List)} instead.

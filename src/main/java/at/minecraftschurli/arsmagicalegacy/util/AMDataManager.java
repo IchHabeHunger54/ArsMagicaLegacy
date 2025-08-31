@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -39,7 +40,7 @@ public class AMDataManager<T> extends SimpleJsonResourceReloadListener {
     protected void apply(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager, ProfilerFiller profiler) {
         values.clear();
         for (Map.Entry<ResourceLocation, JsonElement> entry : map.entrySet()) {
-            codec.parse(JsonOps.INSTANCE, entry.getValue())
+            codec.parse(makeConditionalOps(), entry.getValue())
                 .ifSuccess(e -> values.put(entry.getKey(), e))
                 .ifError(e -> logger.error("Failed to parse data file {}: {}", entry.getKey(), e.message()));
         }

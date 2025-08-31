@@ -14,7 +14,6 @@ import net.minecraft.sounds.SoundEvent;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.List;
 
 /**
  * Represents an affinity.

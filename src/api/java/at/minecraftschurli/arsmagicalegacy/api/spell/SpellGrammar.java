@@ -5,7 +5,6 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -27,12 +26,8 @@ import java.util.stream.Collectors;
 public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List<SpellModifier>>> components) {
     public static final int MAX_PARTS = 8;
     public static final SpellGrammar EMPTY = new SpellGrammar(List.of(), List.of());
-    public static final Codec<SpellGrammar> CODEC = RecordCodecBuilder.create(inst -> inst.group(
-        ArsMagicaApi.spellPartRegistry().byNameCodec().listOf(0, MAX_PARTS).fieldOf("parts").forGetter(SpellGrammar::parts)
-    ).apply(inst, SpellGrammar::of));
-    public static final StreamCodec<RegistryFriendlyByteBuf, SpellGrammar> STREAM_CODEC = StreamCodec.composite(
-        ByteBufCodecs.registry(AMRegistryKeys.SPELL_PART).apply(ByteBufCodecs.list()), SpellGrammar::parts,
-        SpellGrammar::of);
+    public static final Codec<SpellGrammar> CODEC = ArsMagicaApi.spellPartRegistry().byNameCodec().listOf(0, MAX_PARTS).fieldOf("parts").xmap(SpellGrammar::of, SpellGrammar::parts).codec();
+    public static final StreamCodec<RegistryFriendlyByteBuf, SpellGrammar> STREAM_CODEC = ByteBufCodecs.registry(AMRegistryKeys.SPELL_PART).apply(ByteBufCodecs.list()).map(SpellGrammar::of, SpellGrammar::parts);
 
     /**
      * @deprecated Use {@link SpellGrammar#of(List)} instead.

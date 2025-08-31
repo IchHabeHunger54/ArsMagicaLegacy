@@ -17,11 +17,12 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents the datapack-supplied properties of a spell part.
+ * Represents the datapack-supplied properties of a {@link SpellPart}.
  *
- * @param mana           The mana cost of the spell part.
- * @param burnout        The burnout cost of the spell part. If empty, will be calculated from the mana cost.
- * @param affinityShifts A {@link Map} of {@link Affinity}s to doubles, representing the affinity shifts when casting the spell part.
+ * @param mana           The mana cost of the {@link SpellPart}.
+ * @param burnout        The burnout cost of the {@link SpellPart}. If empty, will be calculated from the mana cost.
+ * @param affinityShifts A {@link Map} of {@link Affinity}s to doubles, representing the affinity shifts when casting the {@link SpellPart}.
+ * @param recipe         A {@link List} of {@link SpellIngredient}s required to craft the {@link SpellPart}.
  */
 public record SpellPartData(double mana, Optional<Double> burnout, Map<Holder<Affinity>, Double> affinityShifts, List<SpellIngredient> recipe) {
     public static final SpellPartData DEFAULT = new SpellPartData(0f, Optional.empty(), Map.of(), List.of());
@@ -48,21 +49,38 @@ public record SpellPartData(double mana, Optional<Double> burnout, Map<Holder<Af
         private final double mana;
         private Double burnout;
 
+        /**
+         * @param id   The id of the {@link SpellPart} to generate data for.
+         * @param mana The mana cost of the {@link SpellPart}.
+         */
         public Builder(ResourceLocation id, double mana) {
             super(id);
             this.mana = mana;
         }
 
+        /**
+         * @param burnout The burnout value to set.
+         * @return This builder, for chaining.
+         */
         public Builder burnout(double burnout) {
             this.burnout = burnout;
             return this;
         }
 
+        /**
+         * @param affinity The {@link Affinity} to add.
+         * @param shift    The affinity shift value to use.
+         * @return This builder, for chaining.
+         */
         public Builder affinity(Holder<Affinity> affinity, double shift) {
             affinityShifts.put(affinity, shift);
             return this;
         }
 
+        /**
+         * @param ingredient The {@link SpellIngredient} to add.
+         * @return This builder, for chaining.
+         */
         public Builder ingredient(SpellIngredient ingredient) {
             recipe.add(ingredient);
             return this;

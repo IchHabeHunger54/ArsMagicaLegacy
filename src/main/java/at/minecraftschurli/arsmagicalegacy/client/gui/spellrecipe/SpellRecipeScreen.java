@@ -31,7 +31,7 @@ public class SpellRecipeScreen extends Screen {
     private static final ResourceLocation BACKGROUND = ArsMagicaApi.modLoc("textures/gui/spell_recipe.png");
     private static final int WIDTH = 192;
     private static final int HEIGHT = 192;
-    private final List<Page> pages = new ArrayList<>();
+    private final List<Page<?>> pages = new ArrayList<>();
     private final boolean playTurnSound;
     private final int startPage;
     @Nullable
@@ -79,7 +79,7 @@ public class SpellRecipeScreen extends Screen {
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         renderBackground(guiGraphics, mouseX, mouseY, partialTick);
         guiGraphics.blit(BACKGROUND, xPos, 2, 0, 0, WIDTH, HEIGHT);
-        Page page = pages.get(currentPage);
+        Page<?> page = pages.get(currentPage);
         String title = page.getTitle().getString();
         guiGraphics.drawString(font, title, xPos + 93 - font.width(title) / 2, 18, 0, false);
         page.render(guiGraphics, xPos + 36, 32);

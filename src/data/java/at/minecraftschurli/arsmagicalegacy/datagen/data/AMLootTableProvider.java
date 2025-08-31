@@ -48,25 +48,25 @@ public final class AMLootTableProvider extends LootTableProvider {
                 .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(InscriptionTableBlock.HALF, InscriptionTableBlock.Half.RIGHT)))
                 .when(ExplosionCondition.survivesExplosion())
                 .add(LootItem.lootTableItem(block).apply(CopyBlockState.copyState(block).copy(InscriptionTableBlock.TIER)))));
-            add(AMBlocks.CHIMERITE_ORE.get(), b -> createOreDrop(b, AMItems.CHIMERITE.get()));
-            add(AMBlocks.DEEPSLATE_CHIMERITE_ORE.get(), b -> createOreDrop(b, AMItems.CHIMERITE.get()));
+            add(AMBlocks.CHIMERITE_ORE.get(), block -> createOreDrop(block, AMItems.CHIMERITE.get()));
+            add(AMBlocks.DEEPSLATE_CHIMERITE_ORE.get(), block -> createOreDrop(block, AMItems.CHIMERITE.get()));
             dropSelf(AMBlocks.CHIMERITE_BLOCK.get());
-            add(AMBlocks.TOPAZ_ORE.get(), b -> createOreDrop(b, AMItems.TOPAZ.get()));
-            add(AMBlocks.DEEPSLATE_TOPAZ_ORE.get(), b -> createOreDrop(b, AMItems.TOPAZ.get()));
+            add(AMBlocks.TOPAZ_ORE.get(), block -> createOreDrop(block, AMItems.TOPAZ.get()));
+            add(AMBlocks.DEEPSLATE_TOPAZ_ORE.get(), block -> createOreDrop(block, AMItems.TOPAZ.get()));
             dropSelf(AMBlocks.TOPAZ_BLOCK.get());
-            add(AMBlocks.VINTEUM_ORE.get(), b -> createOreDrop(b, AMItems.VINTEUM_DUST.get()));
-            add(AMBlocks.DEEPSLATE_VINTEUM_ORE.get(), b -> createOreDrop(b, AMItems.VINTEUM_DUST.get()));
+            add(AMBlocks.VINTEUM_ORE.get(), block -> createOreDrop(block, AMItems.VINTEUM_DUST.get()));
+            add(AMBlocks.DEEPSLATE_VINTEUM_ORE.get(), block -> createOreDrop(block, AMItems.VINTEUM_DUST.get()));
             dropSelf(AMBlocks.VINTEUM_BLOCK.get());
-            add(AMBlocks.MOONSTONE_ORE.get(), b -> createOreDrop(b, AMItems.MOONSTONE.get()));
-            add(AMBlocks.DEEPSLATE_MOONSTONE_ORE.get(), b -> createOreDrop(b, AMItems.MOONSTONE.get()));
+            add(AMBlocks.MOONSTONE_ORE.get(), block -> createOreDrop(block, AMItems.MOONSTONE.get()));
+            add(AMBlocks.DEEPSLATE_MOONSTONE_ORE.get(), block -> createOreDrop(block, AMItems.MOONSTONE.get()));
             dropSelf(AMBlocks.MOONSTONE_BLOCK.get());
-            add(AMBlocks.SUNSTONE_ORE.get(), b -> createOreDrop(b, AMItems.SUNSTONE.get()));
+            add(AMBlocks.SUNSTONE_ORE.get(), block -> createOreDrop(block, AMItems.SUNSTONE.get()));
             dropSelf(AMBlocks.SUNSTONE_BLOCK.get());
             dropSelf(AMBlocks.WITCHWOOD_LOG.get());
             dropSelf(AMBlocks.WITCHWOOD.get());
             dropSelf(AMBlocks.STRIPPED_WITCHWOOD_LOG.get());
             dropSelf(AMBlocks.STRIPPED_WITCHWOOD.get());
-            add(AMBlocks.WITCHWOOD_LEAVES.get(), p -> createLeavesDrops(p, AMBlocks.WITCHWOOD_SAPLING.get(), 0.05f, 0.0625f, 0.083333336f, 0.1f));
+            add(AMBlocks.WITCHWOOD_LEAVES.get(), block -> createLeavesDrops(block, AMBlocks.WITCHWOOD_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
             dropSelf(AMBlocks.WITCHWOOD_SAPLING.get());
             dropPottedContents(AMBlocks.POTTED_WITCHWOOD_SAPLING.get());
             dropSelf(AMBlocks.WITCHWOOD_PLANKS.get());

@@ -103,6 +103,19 @@ public final class AMRecipeProvider extends RecipeProvider {
             .requires(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3.get())
             .unlockedBy(getHasName(AMItems.INSCRIPTION_TABLE), has(AMItems.INSCRIPTION_TABLE.get()))
             .save(output, ArsMagicaApi.modLoc("inscription_table_tier_3"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.SPELLCRAFTING_ALTAR_CORE.get())
+            .pattern("V")
+            .pattern("S")
+            .define('V', AMTags.Items.DUSTS_VINTEUM)
+            .define('S', Tags.Items.STONES)
+            .unlockedBy(getHasName(AMItems.VINTEUM_DUST), has(AMTags.Items.DUSTS_VINTEUM))
+            .save(output);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.MAGIC_WALL.get(), 16)
+            .pattern("VSV")
+            .define('V', AMTags.Items.DUSTS_VINTEUM)
+            .define('S', Tags.Items.STONES)
+            .unlockedBy(getHasName(AMItems.VINTEUM_DUST), has(AMTags.Items.DUSTS_VINTEUM))
+            .save(output);
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.SPELL_PARCHMENT.get())
             .pattern("S")
             .pattern("P")

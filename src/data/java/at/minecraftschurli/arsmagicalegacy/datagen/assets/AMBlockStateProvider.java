@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.assets;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.block.altar.SpellcraftingAltarCoreBlock;
+import at.minecraftschurli.arsmagicalegacy.block.altar.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -21,9 +21,9 @@ public final class AMBlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         horizontalBlock(AMBlocks.OCCULUS.get(), models().getExistingFile(ArsMagicaApi.modLoc("block/occulus")));
-        getVariantBuilder(AMBlocks.SPELLCRAFTING_ALTAR_CORE.get())
-            .partialState().with(SpellcraftingAltarCoreBlock.FORMED, false).modelForState().modelFile(cubeAll(AMBlocks.SPELLCRAFTING_ALTAR_CORE.get())).addModel()
-            .partialState().with(SpellcraftingAltarCoreBlock.FORMED, true).modelForState().modelFile(models().getExistingFile(ArsMagicaApi.modLoc("block/spellcrafting_altar_core_overlay"))).addModel();
+        getVariantBuilder(AMBlocks.ALTAR_CORE.get())
+            .partialState().with(AltarCoreBlock.FORMED, false).modelForState().modelFile(cubeAll(AMBlocks.ALTAR_CORE.get())).addModel()
+            .partialState().with(AltarCoreBlock.FORMED, true).modelForState().modelFile(models().getExistingFile(ArsMagicaApi.modLoc("block/altar_core_overlay"))).addModel();
         simpleBlock(AMBlocks.MAGIC_WALL.get(), new ConfiguredModel(models().cubeAll(AMBlocks.MAGIC_WALL.getId().getPath(), AMBlocks.MAGIC_WALL.getId().withPrefix("block/")).renderType("translucent")));
         simpleBlock(AMBlocks.CHIMERITE_ORE);
         simpleBlock(AMBlocks.DEEPSLATE_CHIMERITE_ORE);

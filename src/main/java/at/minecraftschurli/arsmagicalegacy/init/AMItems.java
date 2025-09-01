@@ -29,7 +29,7 @@ public interface AMItems {
     DeferredItem<InscriptionTableUpgradeItem>              INSCRIPTION_TABLE_UPGRADE_TIER_1 = AMRegistries.ITEMS.registerItem("inscription_table_upgrade_tier_1", p -> new InscriptionTableUpgradeItem(p, 1));
     DeferredItem<InscriptionTableUpgradeItem>              INSCRIPTION_TABLE_UPGRADE_TIER_2 = AMRegistries.ITEMS.registerItem("inscription_table_upgrade_tier_2", p -> new InscriptionTableUpgradeItem(p, 2));
     DeferredItem<InscriptionTableUpgradeItem>              INSCRIPTION_TABLE_UPGRADE_TIER_3 = AMRegistries.ITEMS.registerItem("inscription_table_upgrade_tier_3", p -> new InscriptionTableUpgradeItem(p, 3));
-    DeferredItem<BlockItem>                                SPELLCRAFTING_ALTAR_CORE         = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.SPELLCRAFTING_ALTAR_CORE);
+    DeferredItem<BlockItem>                                ALTAR_CORE                       = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.ALTAR_CORE);
     DeferredItem<BlockItem>                                MAGIC_WALL                       = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.MAGIC_WALL);
     DeferredItem<Item>                                     SPELL_PARCHMENT                  = AMRegistries.ITEMS.registerSimpleItem("spell_parchment");
     DeferredItem<InfinityOrbItem>                          INFINITY_ORB                     = AMRegistries.ITEMS.registerItem("infinity_orb", InfinityOrbItem::new);

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "arsmagicalegacy:block/spellcrafting_altar_core"
+    "all": "arsmagicalegacy:block/altar_core"
   }
 }

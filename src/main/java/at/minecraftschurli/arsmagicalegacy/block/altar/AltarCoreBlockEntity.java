@@ -5,8 +5,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class SpellcraftingAltarBlockEntity extends BlockEntity {
-    public SpellcraftingAltarBlockEntity(BlockPos pos, BlockState blockState) {
-        super(AMBlockEntities.SPELLCRAFTING_ALTAR.get(), pos, blockState);
+public class AltarCoreBlockEntity extends BlockEntity {
+    public AltarCoreBlockEntity(BlockPos pos, BlockState blockState) {
+        super(AMBlockEntities.ALTAR_CORE.get(), pos, blockState);
     }
 }

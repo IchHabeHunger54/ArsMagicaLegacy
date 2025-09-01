@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-29T22:58:52.6951383	Item Models: arsmagicalegacy
+// 1.21.1	2025-09-01T17:37:41.9952374	Item Models: arsmagicalegacy
 6e0b262bb6740bdbe7b3564e182497239ff375ac assets/arsmagicalegacy/models/item/affinity_essence_air.json
 84174d0bc6eb1016c4946a0937eb7ec35e19f1d8 assets/arsmagicalegacy/models/item/affinity_essence_arcane.json
 30a8164938d38c30eeb732879d3cd38955490293 assets/arsmagicalegacy/models/item/affinity_essence_earth.json
@@ -39,6 +39,7 @@ e5ab563b4ffb87d5a0bc7e67d4f7bb089f5c93ec assets/arsmagicalegacy/models/item/insc
 f23802e331e186775bfb9211aab6c426820e1f6a assets/arsmagicalegacy/models/item/light_gray_rune.json
 7de8caeb86db5ef926a02117b3d614ec253cf4e8 assets/arsmagicalegacy/models/item/lime_rune.json
 4efd9f80996b62a4cfa761ba92fa1e1eb3741e4e assets/arsmagicalegacy/models/item/magenta_rune.json
+31f73b71f6340806e253951fe796c55ba519a28e assets/arsmagicalegacy/models/item/magic_wall.json
 29e2e8f8d2a39b2a1650ef1531a047453daf1587 assets/arsmagicalegacy/models/item/moonstone.json
 c53606ff6e745abe68542b67f9898bb41ab0e429 assets/arsmagicalegacy/models/item/moonstone_block.json
 fae4c9c3d165032bf10bd242e080dc1857dd027e assets/arsmagicalegacy/models/item/moonstone_ore.json
@@ -49,6 +50,7 @@ fa2a7dbb22b29acdc4051e3568755d8f4546d69f assets/arsmagicalegacy/models/item/puri
 e0b4ee8d0a2e88a657cc7e240419e7f063c35710 assets/arsmagicalegacy/models/item/purple_rune.json
 f16cb1a0064c41af929f3c88c399c767177ec5bb assets/arsmagicalegacy/models/item/red_rune.json
 0d8c388ee73765f5a8be954148b98356391da687 assets/arsmagicalegacy/models/item/spell.json
+747b979a4f7b7f9e781fc6945a9188fc193460ff assets/arsmagicalegacy/models/item/spellcrafting_altar_core.json
 9dfdee46a41f56a75b2658592d91d5c901bef09b assets/arsmagicalegacy/models/item/spell_parchment.json
 923cdaff5f13580f4d97e75ef18190eb75ecccde assets/arsmagicalegacy/models/item/spell_recipe.json
 c5c08fd13cf74672fc67e26c749aeae7346a4ef7 assets/arsmagicalegacy/models/item/stripped_witchwood.json

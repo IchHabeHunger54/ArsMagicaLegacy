@@ -26,6 +26,8 @@ public final class AMItemModelProvider extends ItemModelProvider {
         basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1);
         basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_2);
         basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3);
+        blockItem(AMItems.SPELLCRAFTING_ALTAR_CORE);
+        blockItem(AMItems.MAGIC_WALL);
         basicItem(AMItems.SPELL_PARCHMENT);
         basicItem(AMItems.INFINITY_ORB);
         basicItemWithVariants(AMItems.INFINITY_ORB, AMMagic.SKILL_POINTS);

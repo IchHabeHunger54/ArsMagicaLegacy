@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-25T22:19:18.4356886	Loot Tables
+// 1.21.1	2025-09-01T17:37:42.004029	Loot Tables
 32900dde32312718365d978d0183dc6f16140e5e data/arsmagicalegacy/loot_table/blocks/aum.json
 daf97df4684b563e6463619dc0c459960aa239d5 data/arsmagicalegacy/loot_table/blocks/cerublossom.json
 8a4deec9686b20594baed24fcf1768c27608a89c data/arsmagicalegacy/loot_table/blocks/chimerite_block.json
@@ -9,6 +9,7 @@ f63b3229b79e28c305b528693e7c2e35c16b2e5b data/arsmagicalegacy/loot_table/blocks/
 799b93e7704acab7fb15415986f9984b9703ccc0 data/arsmagicalegacy/loot_table/blocks/deepslate_vinteum_ore.json
 ff10144fa503dd08a6ace88216f77f6494577cde data/arsmagicalegacy/loot_table/blocks/desert_nova.json
 d42f8f30f5126326214483c5d266fe631b476326 data/arsmagicalegacy/loot_table/blocks/inscription_table.json
+2c73e12110810d1dd11b5012c8fe6677cb7c28cc data/arsmagicalegacy/loot_table/blocks/magic_wall.json
 5483c7845bc130ea789bc2ce99a170b494e54b18 data/arsmagicalegacy/loot_table/blocks/moonstone_block.json
 0875d1d17c3754ad135b1a3e8a72be9aa6ebbf8b data/arsmagicalegacy/loot_table/blocks/moonstone_ore.json
 b20d80adf0ae68d99db6cb1d7bb3c52480fcc7a7 data/arsmagicalegacy/loot_table/blocks/occulus.json
@@ -18,6 +19,7 @@ c1cc32ef2c9b84105342a65ccc74b0a4ce2eeef5 data/arsmagicalegacy/loot_table/blocks/
 62aba4fa5883aaf8592638bff2793908498a0f62 data/arsmagicalegacy/loot_table/blocks/potted_tarma_root.json
 52f6f4977f56abeafcb01d98cf9219938dd5e848 data/arsmagicalegacy/loot_table/blocks/potted_wakebloom.json
 3a3940e44a1efb2aa8295aff88cf2cf43f5c02c2 data/arsmagicalegacy/loot_table/blocks/potted_witchwood_sapling.json
+bd4ee99a127340f135b5f09a1a79a644cadb6a4f data/arsmagicalegacy/loot_table/blocks/spellcrafting_altar_core.json
 d1a3c000a4748e20191c9d8c87af3eb833cc71ba data/arsmagicalegacy/loot_table/blocks/stripped_witchwood.json
 6c21f465117448404ab310f5547ab605b7fea132 data/arsmagicalegacy/loot_table/blocks/stripped_witchwood_log.json
 ce3a80de49e788f7fa35f9b04f5cb5f9b7f681eb data/arsmagicalegacy/loot_table/blocks/sunstone_block.json

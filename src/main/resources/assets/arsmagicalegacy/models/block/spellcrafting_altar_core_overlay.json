@@ -1,0 +1,27 @@
+{
+  "parent": "block/block",
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "texture": "#overlay"
+        }
+      },
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        0,
+        16
+      ]
+    }
+  ],
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "overlay": "arsmagicalegacy:block/spellcrafting_altar_core_overlay",
+    "particle": "arsmagicalegacy:block/spellcrafting_altar_core"
+  }
+}

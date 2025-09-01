@@ -40,7 +40,7 @@ public abstract class DragTargetArea extends DragArea {
         return getAll().isEmpty();
     }
 
-    public boolean isFull() {
-        return getAll().size() >= maxSize;
+    public boolean isNotFull() {
+        return getAll().size() < maxSize;
     }
 }

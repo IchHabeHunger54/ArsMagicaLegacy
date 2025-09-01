@@ -8,13 +8,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class SpellItem extends Item {
+public class SpellItem extends DataComponentNamedItem<Spell> {
     public SpellItem(Properties properties) {
-        super(properties);
+        super(properties, AMDataComponents.SPELL.get());
+        withNameGetter((spell, name) -> spell.name().map(e -> e.getString().isEmpty() ? null : e).orElse(name));
     }
 
     @Override

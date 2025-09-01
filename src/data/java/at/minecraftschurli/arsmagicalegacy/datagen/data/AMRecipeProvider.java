@@ -8,7 +8,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
-import at.minecraftschurli.arsmagicalegacy.item.AffinityEssenceItem;
+import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.data.PackOutput;
@@ -18,6 +18,7 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.flag.FeatureFlagSet;
@@ -124,7 +125,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('P', Items.PAPER)
             .unlockedBy("has_paper", has(Items.PAPER))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), affinities.getOrThrow(AMMagic.WATER)).copyWithCount(2))
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.WATER).copyWithCount(2))
             .pattern("AIA")
             .pattern("JEJ")
             .pattern("AIA")
@@ -134,7 +135,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('J', Items.WATER_BUCKET)
             .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
             .save(output, ArsMagicaApi.modLoc("affinity_essence_water"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), affinities.getOrThrow(AMMagic.FIRE)).copyWithCount(2))
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.FIRE).copyWithCount(2))
             .pattern("AIA")
             .pattern("JEJ")
             .pattern("AIA")
@@ -144,7 +145,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('J', Items.BLAZE_POWDER)
             .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
             .save(output, ArsMagicaApi.modLoc("affinity_essence_fire"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), affinities.getOrThrow(AMMagic.EARTH)).copyWithCount(2))
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.EARTH).copyWithCount(2))
             .pattern("AIA")
             .pattern("JEJ")
             .pattern("AIA")
@@ -154,7 +155,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('J', Tags.Items.STONES)
             .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
             .save(output, ArsMagicaApi.modLoc("affinity_essence_earth"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), affinities.getOrThrow(AMMagic.AIR)).copyWithCount(2))
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.AIR).copyWithCount(2))
             .pattern("AIA")
             .pattern("JEJ")
             .pattern("AIA")
@@ -164,7 +165,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('J', AMItems.TARMA_ROOT.get())
             .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
             .save(output, ArsMagicaApi.modLoc("affinity_essence_air"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), affinities.getOrThrow(AMMagic.ICE)).copyWithCount(2))
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.ICE).copyWithCount(2))
             .pattern("AIA")
             .pattern("JEJ")
             .pattern("AIA")
@@ -174,7 +175,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('J', Items.ICE)
             .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
             .save(output, ArsMagicaApi.modLoc("affinity_essence_ice"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), affinities.getOrThrow(AMMagic.LIGHTNING)).copyWithCount(2))
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.LIGHTNING).copyWithCount(2))
             .pattern("AIA")
             .pattern("JEJ")
             .pattern("AIA")
@@ -184,7 +185,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('J', Tags.Items.DUSTS_GLOWSTONE)
             .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
             .save(output, ArsMagicaApi.modLoc("affinity_essence_lightning"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), affinities.getOrThrow(AMMagic.NATURE)).copyWithCount(2))
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.NATURE).copyWithCount(2))
             .pattern("AIA")
             .pattern("JEK")
             .pattern("ALA")
@@ -196,7 +197,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('L', Items.VINE)
             .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
             .save(output, ArsMagicaApi.modLoc("affinity_essence_nature"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), affinities.getOrThrow(AMMagic.LIFE)).copyWithCount(2))
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.LIFE).copyWithCount(2))
             .pattern("AIA")
             .pattern("JEJ")
             .pattern("AIA")
@@ -206,7 +207,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('J', Items.GOLDEN_APPLE)
             .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
             .save(output, ArsMagicaApi.modLoc("affinity_essence_life"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), affinities.getOrThrow(AMMagic.ARCANE)).copyWithCount(2))
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.ARCANE).copyWithCount(2))
             .pattern("AAA")
             .pattern("AEA")
             .pattern("AAA")
@@ -214,7 +215,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('E', DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.ARCANE), AMItems.AFFINITY_ESSENCE))
             .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
             .save(output, ArsMagicaApi.modLoc("affinity_essence_arcane"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), affinities.getOrThrow(AMMagic.ENDER)).copyWithCount(2))
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.ENDER).copyWithCount(2))
             .pattern("AIA")
             .pattern("JEJ")
             .pattern("AIA")
@@ -453,5 +454,9 @@ public final class AMRecipeProvider extends RecipeProvider {
             .group(group)
             .unlockedBy(getHasName(ingredient), has(ingredient))
             .save(output, ArsMagicaApi.modLoc(getConversionRecipeName(result, ingredient)));
+    }
+
+    private static ItemStack affinityEssence(HolderLookup.RegistryLookup<Affinity> lookup, ResourceKey<Affinity> affinity) {
+        return DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), lookup.getOrThrow(affinity));
     }
 }

@@ -430,7 +430,8 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.COMMAND_SKILL_POINT_GET_KEY, "Player %s has %d skill points of type %s");
         add(AMTranslations.COMMAND_SKILL_POINT_SET_MULTIPLE_KEY, "Set %s skill points of type %s on %s players");
         add(AMTranslations.COMMAND_SKILL_POINT_SET_SINGLE_KEY, "Set %s skill points of type %s on player %s");
-        add(AMTranslations.INSCRIPTION_TABLE_CREATE_SPELL_KEY, "Create Spell");
+        add(AMTranslations.INSCRIPTION_TABLE_CLEAR_KEY, "Clear");
+        add(AMTranslations.INSCRIPTION_TABLE_GIVE_SPELL_KEY, "Give Spell");
         add(AMTranslations.INSCRIPTION_TABLE_KEY, "Inscription Table");
         add(AMTranslations.INSCRIPTION_TABLE_NAME_KEY, "Name");
         add(AMTranslations.INSCRIPTION_TABLE_SEARCH_KEY, "Search");

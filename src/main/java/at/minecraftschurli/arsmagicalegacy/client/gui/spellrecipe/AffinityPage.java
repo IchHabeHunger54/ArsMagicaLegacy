@@ -3,8 +3,9 @@ package at.minecraftschurli.arsmagicalegacy.client.gui.spellrecipe;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
+import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
-import at.minecraftschurli.arsmagicalegacy.item.AffinityEssenceItem;
+import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Holder;
@@ -34,7 +35,7 @@ class AffinityPage extends Page<Pair<Holder<Affinity>, Double>> {
 
     @Override
     public void renderElement(Pair<Holder<Affinity>, Double> element, int index, GuiGraphics guiGraphics, int x, int y) {
-        ItemStack stack = AffinityEssenceItem.set(AMItems.AFFINITY_ESSENCE.toStack(), element.getFirst());
+        ItemStack stack = DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), element.getFirst());
         guiGraphics.renderItem(stack, x, y + index * (size + spacing));
         guiGraphics.renderItemDecorations(ClientUtil.font(), stack, x, y + index * (size + spacing));
         guiGraphics.drawString(ClientUtil.font(), "%.3f".formatted(element.getSecond()), x + size + spacing, y + 4 + index * (size + spacing), element.getFirst().value().color(), false);

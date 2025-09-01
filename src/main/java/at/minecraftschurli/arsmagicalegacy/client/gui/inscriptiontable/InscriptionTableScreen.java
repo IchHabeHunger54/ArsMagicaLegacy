@@ -53,7 +53,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         updateCachedData();
         guiGraphics.blit(BACKGROUND, leftPos, topPos, 0, 0, imageWidth, imageHeight);
-        guiGraphics.blit(SLOT, leftPos + (ClientUtil.player().isCreative() ? 47 : 101), topPos + 73, 0, 0, 18, 18, 18, 18);
+        guiGraphics.blit(SLOT, leftPos + 101, topPos + 73, 0, 0, 18, 18, 18, 18);
         for (int i = 0; i < Spell.MAX_SHAPE_GROUPS; i++) {
             guiGraphics.blit(SHAPE_GROUP, leftPos + 20 + i * ShapeGroupArea.WIDTH, topPos + 107, 0, 0, ShapeGroupArea.WIDTH, ShapeGroupArea.HEIGHT, ShapeGroupArea.WIDTH, ShapeGroupArea.HEIGHT);
             if (i < menu.getShapeGroups() && !shapeGroupAreas.get(i).locked) continue;
@@ -79,11 +79,13 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         searchBar = addRenderableWidget(new EditBox(ClientUtil.font(), leftPos + 40, topPos + 59, 140, 12, searchBar, AMTranslations.INSCRIPTION_TABLE_SEARCH));
         searchBar.setHint(AMTranslations.INSCRIPTION_TABLE_SEARCH);
         searchBar.setResponder(sourceArea::setNameFilter);
+        addRenderableWidget(Button.builder(AMTranslations.INSCRIPTION_TABLE_CLEAR, $ -> clear()).bounds(leftPos + 40, topPos + 72, 60, 20).build());
         if (ClientUtil.player().isCreative()) {
-            addRenderableWidget(Button.builder(AMTranslations.INSCRIPTION_TABLE_CREATE_SPELL, $ -> giveSpellRecipe()).bounds(leftPos + 72, topPos + 72, 100, 20).build());
+            addRenderableWidget(Button.builder(AMTranslations.INSCRIPTION_TABLE_GIVE_SPELL, $ -> giveSpellRecipe()).bounds(leftPos + 120, topPos + 72, 60, 20).build());
         }
         nameBar = addRenderableWidget(new EditBox(ClientUtil.font(), leftPos + 40, topPos + 93, 140, 12, nameBar, AMTranslations.INSCRIPTION_TABLE_NAME));
         nameBar.setHint(AMTranslations.INSCRIPTION_TABLE_NAME);
+        nameBar.setResponder($ -> sync());
         updateCachedData();
     }
 
@@ -205,16 +207,24 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         PacketDistributor.sendToServer(new InscriptionTableCreateSpellPacket(menu.getBlockEntity().getBlockPos()));
     }
 
+    private void clear() {
+        grammarArea.getAll().clear();
+        shapeGroupAreas.forEach(area -> area.getAll().clear());
+        searchBar.setValue("");
+        nameBar.setValue("");
+        sync();
+    }
+
     @SuppressWarnings("DataFlowIssue")
     private void setLocksAndFilters() {
         sourceArea.setTypeFilter(
             shapeGroupAreas.stream().anyMatch(ShapeGroupArea::isEmpty),
-            shapeGroupAreas.stream().anyMatch(e -> !e.isEmpty() && !e.isFull() && e.getAll().stream().noneMatch(p -> {
+            shapeGroupAreas.stream().anyMatch(e -> !e.isEmpty() && e.isNotFull() && e.getAll().stream().noneMatch(p -> {
                 Optional<Holder.Reference<SpellPart>> holder = ArsMagicaApi.spellPartRegistry().getHolder(p.getSkill().getKey().location());
                 return holder.isPresent() && holder.get().value().isSecondaryShape();
             })),
-            !grammarArea.isFull(),
-            (shapeGroupAreas.stream().anyMatch(e -> !e.isEmpty() && !e.isFull()) || !grammarArea.isEmpty() && !grammarArea.isFull())
+            grammarArea.isNotFull(),
+            (shapeGroupAreas.stream().anyMatch(e -> !e.isEmpty() && e.isNotFull()) || !grammarArea.isEmpty() && grammarArea.isNotFull())
         );
         shapeGroupAreas.forEach(area -> area.locked = true);
         shapeGroupAreas.getFirst().locked = false;

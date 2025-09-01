@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
@@ -27,7 +28,7 @@ public interface AMCreativeTabs {
             output.accept(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3);
             output.accept(AMItems.SPELL_PARCHMENT);
             acceptVariants(display, output, AMItems.INFINITY_ORB, AMRegistryKeys.SKILL_POINT, (stack, holder) -> stack.set(AMDataComponents.SKILL_POINT, holder));
-            acceptVariants(display, output, AMItems.AFFINITY_ESSENCE, AMRegistryKeys.AFFINITY, (stack, holder) -> stack.set(AMDataComponents.AFFINITY, holder));
+            acceptVariants(display, output, AMItems.AFFINITY_ESSENCE, AMRegistryKeys.AFFINITY, (stack, holder) -> stack.set(AMDataComponents.AFFINITY, holder), Affinity.NONE);
             output.accept(AMItems.BLANK_RUNE);
             output.accept(AMItems.BLACK_RUNE);
             output.accept(AMItems.LIGHT_GRAY_RUNE);

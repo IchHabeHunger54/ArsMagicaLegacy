@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "arsmagicalegacy:spellcrafting_altar_core"
+          "name": "arsmagicalegacy:altar_core"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "arsmagicalegacy:blocks/spellcrafting_altar_core"
+  "random_sequence": "arsmagicalegacy:blocks/altar_core"
 }

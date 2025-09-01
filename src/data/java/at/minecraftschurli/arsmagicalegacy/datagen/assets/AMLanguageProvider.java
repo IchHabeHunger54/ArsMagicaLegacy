@@ -32,7 +32,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         itemIdTranslation(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1);
         itemIdTranslation(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_2);
         itemIdTranslation(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3);
-        itemIdTranslation(AMItems.SPELLCRAFTING_ALTAR_CORE);
+        itemIdTranslation(AMItems.ALTAR_CORE);
         itemIdTranslation(AMItems.MAGIC_WALL);
         itemIdTranslation(AMItems.SPELL_PARCHMENT);
         itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.BLUE_POINT.location(), "Blue Infinity Orb");

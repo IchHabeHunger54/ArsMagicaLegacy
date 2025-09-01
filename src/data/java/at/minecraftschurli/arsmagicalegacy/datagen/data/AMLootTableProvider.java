@@ -48,7 +48,7 @@ public final class AMLootTableProvider extends LootTableProvider {
                 .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(InscriptionTableBlock.HALF, InscriptionTableBlock.Half.RIGHT)))
                 .when(ExplosionCondition.survivesExplosion())
                 .add(LootItem.lootTableItem(block).apply(CopyBlockState.copyState(block).copy(InscriptionTableBlock.TIER)))));
-            dropSelf(AMBlocks.SPELLCRAFTING_ALTAR_CORE.get());
+            dropSelf(AMBlocks.ALTAR_CORE.get());
             dropSelf(AMBlocks.MAGIC_WALL.get());
             add(AMBlocks.CHIMERITE_ORE.get(), block -> createOreDrop(block, AMItems.CHIMERITE.get()));
             add(AMBlocks.DEEPSLATE_CHIMERITE_ORE.get(), block -> createOreDrop(block, AMItems.CHIMERITE.get()));

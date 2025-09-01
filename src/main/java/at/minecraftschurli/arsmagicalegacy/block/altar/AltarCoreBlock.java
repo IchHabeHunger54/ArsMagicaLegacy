@@ -8,10 +8,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
-public class SpellcraftingAltarCoreBlock extends Block implements EntityBlock {
+public class AltarCoreBlock extends Block implements EntityBlock {
     public static final BooleanProperty FORMED = BooleanProperty.create("formed");
 
-    public SpellcraftingAltarCoreBlock(Properties properties) {
+    public AltarCoreBlock(Properties properties) {
         super(properties);
         registerDefaultState(getStateDefinition().any().setValue(FORMED, false));
     }
@@ -24,6 +24,6 @@ public class SpellcraftingAltarCoreBlock extends Block implements EntityBlock {
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new SpellcraftingAltarBlockEntity(pos, state);
+        return new AltarCoreBlockEntity(pos, state);
     }
 }

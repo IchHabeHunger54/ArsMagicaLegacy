@@ -1,4 +1,5 @@
-// 1.21.1	2025-09-01T17:37:42.004029	Loot Tables
+// 1.21.1	2025-09-01T18:42:51.8865839	Loot Tables
+f0e4c8134bf2f68e1425a328c83498f858e1e26c data/arsmagicalegacy/loot_table/blocks/altar_core.json
 32900dde32312718365d978d0183dc6f16140e5e data/arsmagicalegacy/loot_table/blocks/aum.json
 daf97df4684b563e6463619dc0c459960aa239d5 data/arsmagicalegacy/loot_table/blocks/cerublossom.json
 8a4deec9686b20594baed24fcf1768c27608a89c data/arsmagicalegacy/loot_table/blocks/chimerite_block.json
@@ -19,7 +20,6 @@ c1cc32ef2c9b84105342a65ccc74b0a4ce2eeef5 data/arsmagicalegacy/loot_table/blocks/
 62aba4fa5883aaf8592638bff2793908498a0f62 data/arsmagicalegacy/loot_table/blocks/potted_tarma_root.json
 52f6f4977f56abeafcb01d98cf9219938dd5e848 data/arsmagicalegacy/loot_table/blocks/potted_wakebloom.json
 3a3940e44a1efb2aa8295aff88cf2cf43f5c02c2 data/arsmagicalegacy/loot_table/blocks/potted_witchwood_sapling.json
-bd4ee99a127340f135b5f09a1a79a644cadb6a4f data/arsmagicalegacy/loot_table/blocks/spellcrafting_altar_core.json
 d1a3c000a4748e20191c9d8c87af3eb833cc71ba data/arsmagicalegacy/loot_table/blocks/stripped_witchwood.json
 6c21f465117448404ab310f5547ab605b7fea132 data/arsmagicalegacy/loot_table/blocks/stripped_witchwood_log.json
 ce3a80de49e788f7fa35f9b04f5cb5f9b7f681eb data/arsmagicalegacy/loot_table/blocks/sunstone_block.json

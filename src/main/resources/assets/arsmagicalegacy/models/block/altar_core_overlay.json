@@ -21,7 +21,7 @@
   ],
   "render_type": "minecraft:translucent",
   "textures": {
-    "overlay": "arsmagicalegacy:block/spellcrafting_altar_core_overlay",
-    "particle": "arsmagicalegacy:block/spellcrafting_altar_core"
+    "overlay": "arsmagicalegacy:block/altar_core_overlay",
+    "particle": "arsmagicalegacy:block/altar_core"
   }
 }

@@ -3,17 +3,26 @@ package at.minecraftschurli.arsmagicalegacy.datagen.data;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
+import at.minecraftschurli.arsmagicalegacy.api.magic.AltarCapMaterial;
+import at.minecraftschurli.arsmagicalegacy.api.magic.AltarMaterial;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderOwner;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.BlockFamilies;
+import net.minecraft.data.BlockFamily;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.StairBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.Arrays;
@@ -51,6 +60,87 @@ public final class AMMagicProvider {
         bootstrap.register(AMMagic.ARCANE,    new Affinity(life,      List.of(air, nature),      List.of(water, lightning), List.of(earth, ender),     0xb935cd, AMSounds.CAST_ARCANE,    AMSounds.LOOP_ARCANE));
         bootstrap.register(AMMagic.ENDER,     new Affinity(nature,    List.of(water, life),      List.of(air, ice),         List.of(fire, arcane),     0x3f043d, AMSounds.CAST_ENDER,     AMSounds.LOOP_ENDER));
         // @formatter:on
+    }
+
+    public static void addAltarCapMaterials(BootstrapContext<AltarCapMaterial> bootstrap) {
+        addAltarCapMaterial(bootstrap, "glass", Blocks.GLASS, 1);
+        addAltarCapMaterial(bootstrap, "coal", Blocks.COAL_BLOCK, 2);
+        addAltarCapMaterial(bootstrap, "copper", Blocks.COPPER_BLOCK, 3);
+        addAltarCapMaterial(bootstrap, "exposed_copper", Blocks.EXPOSED_COPPER, 3);
+        addAltarCapMaterial(bootstrap, "weathered_copper", Blocks.WEATHERED_COPPER, 3);
+        addAltarCapMaterial(bootstrap, "oxidized_copper", Blocks.OXIDIZED_COPPER, 3);
+        addAltarCapMaterial(bootstrap, "waxed_copper", Blocks.WAXED_COPPER_BLOCK, 3);
+        addAltarCapMaterial(bootstrap, "waxed_exposed_copper", Blocks.WAXED_EXPOSED_COPPER, 3);
+        addAltarCapMaterial(bootstrap, "waxed_weathered_copper", Blocks.WAXED_WEATHERED_COPPER, 3);
+        addAltarCapMaterial(bootstrap, "waxed_oxidized_copper", Blocks.WAXED_OXIDIZED_COPPER, 3);
+        addAltarCapMaterial(bootstrap, "iron", Blocks.IRON_BLOCK, 4);
+        addAltarCapMaterial(bootstrap, "redstone", Blocks.REDSTONE_BLOCK, 5);
+        addAltarCapMaterial(bootstrap, "vinteum", AMBlocks.VINTEUM_BLOCK.get(), 6);
+        addAltarCapMaterial(bootstrap, "chimerite", AMBlocks.CHIMERITE_BLOCK.get(), 7);
+        addAltarCapMaterial(bootstrap, "lapis", Blocks.LAPIS_BLOCK, 8);
+        addAltarCapMaterial(bootstrap, "gold", Blocks.GOLD_BLOCK, 9);
+        addAltarCapMaterial(bootstrap, "topaz", AMBlocks.TOPAZ_BLOCK.get(), 10);
+        addAltarCapMaterial(bootstrap, "diamond", Blocks.DIAMOND_BLOCK, 11);
+        addAltarCapMaterial(bootstrap, "emerald", Blocks.EMERALD_BLOCK, 12);
+        addAltarCapMaterial(bootstrap, "netherite", Blocks.NETHERITE_BLOCK, 13);
+        addAltarCapMaterial(bootstrap, "moonstone", AMBlocks.MOONSTONE_BLOCK.get(), 14);
+        addAltarCapMaterial(bootstrap, "sunstone", AMBlocks.SUNSTONE_BLOCK.get(), 15);
+    }
+
+    public static void addAltarMaterials(BootstrapContext<AltarMaterial> bootstrap) {
+        addAltarMaterial(bootstrap, BlockFamilies.OAK_PLANKS, 1);
+        addAltarMaterial(bootstrap, BlockFamilies.SPRUCE_PLANKS, 1);
+        addAltarMaterial(bootstrap, BlockFamilies.BIRCH_PLANKS, 1);
+        addAltarMaterial(bootstrap, BlockFamilies.JUNGLE_PLANKS, 1);
+        addAltarMaterial(bootstrap, BlockFamilies.ACACIA_PLANKS, 1);
+        addAltarMaterial(bootstrap, BlockFamilies.DARK_OAK_PLANKS, 1);
+        addAltarMaterial(bootstrap, BlockFamilies.MANGROVE_PLANKS, 1);
+        addAltarMaterial(bootstrap, BlockFamilies.BAMBOO_PLANKS, 1);
+        addAltarMaterial(bootstrap, BlockFamilies.CHERRY_PLANKS, 1);
+        addAltarMaterial(bootstrap, BlockFamilies.COBBLESTONE, 2);
+        addAltarMaterial(bootstrap, BlockFamilies.STONE, 2);
+        addAltarMaterial(bootstrap, BlockFamilies.MUD_BRICKS, 2);
+        addAltarMaterial(bootstrap, BlockFamilies.MOSSY_COBBLESTONE, 2);
+        addAltarMaterial(bootstrap, BlockFamilies.COBBLED_DEEPSLATE, 2);
+        addAltarMaterial(bootstrap, BlockFamilies.ANDESITE, 2);
+        addAltarMaterial(bootstrap, BlockFamilies.DIORITE, 2);
+        addAltarMaterial(bootstrap, BlockFamilies.GRANITE, 2);
+        addAltarMaterial(bootstrap, BlockFamilies.SANDSTONE, 2);
+        addAltarMaterial(bootstrap, BlockFamilies.RED_SANDSTONE, 2);
+        addAltarMaterial(bootstrap, BlockFamilies.BRICKS, 3);
+        addAltarMaterial(bootstrap, BlockFamilies.STONE_BRICK, 3);
+        addAltarMaterial(bootstrap, BlockFamilies.MOSSY_STONE_BRICKS, 3);
+        addAltarMaterial(bootstrap, BlockFamilies.POLISHED_DEEPSLATE, 3);
+        addAltarMaterial(bootstrap, BlockFamilies.DEEPSLATE_BRICKS, 3);
+        addAltarMaterial(bootstrap, BlockFamilies.DEEPSLATE_TILES, 3);
+        addAltarMaterial(bootstrap, BlockFamilies.POLISHED_ANDESITE, 3);
+        addAltarMaterial(bootstrap, BlockFamilies.POLISHED_DIORITE, 3);
+        addAltarMaterial(bootstrap, BlockFamilies.POLISHED_GRANITE, 3);
+        addAltarMaterial(bootstrap, BlockFamilies.SMOOTH_SANDSTONE, 3);
+        addAltarMaterial(bootstrap, BlockFamilies.SMOOTH_RED_SANDSTONE, 3);
+        addAltarMaterial(bootstrap, BlockFamilies.CUT_COPPER, 3);
+        addAltarMaterial(bootstrap, BlockFamilies.EXPOSED_CUT_COPPER, 3);
+        addAltarMaterial(bootstrap, BlockFamilies.WEATHERED_CUT_COPPER, 3);
+        addAltarMaterial(bootstrap, BlockFamilies.OXIDIZED_CUT_COPPER, 3);
+        addAltarMaterial(bootstrap, BlockFamilies.WAXED_CUT_COPPER, 3);
+        addAltarMaterial(bootstrap, BlockFamilies.WAXED_EXPOSED_CUT_COPPER, 3);
+        addAltarMaterial(bootstrap, BlockFamilies.WAXED_WEATHERED_CUT_COPPER, 3);
+        addAltarMaterial(bootstrap, BlockFamilies.WAXED_OXIDIZED_CUT_COPPER, 3);
+        addAltarMaterial(bootstrap, BlockFamilies.PRISMARINE, 4);
+        addAltarMaterial(bootstrap, BlockFamilies.PRISMARINE_BRICKS, 4);
+        addAltarMaterial(bootstrap, BlockFamilies.DARK_PRISMARINE, 4);
+        addAltarMaterial(bootstrap, BlockFamilies.CRIMSON_PLANKS, 4);
+        addAltarMaterial(bootstrap, BlockFamilies.WARPED_PLANKS, 4);
+        addAltarMaterial(bootstrap, AMBlocks.WITCHWOOD_BLOCK_FAMILY.get(), 4);
+        addAltarMaterial(bootstrap, BlockFamilies.BLACKSTONE, 4);
+        addAltarMaterial(bootstrap, BlockFamilies.QUARTZ, 4);
+        addAltarMaterial(bootstrap, BlockFamilies.NETHER_BRICKS, 5);
+        addAltarMaterial(bootstrap, BlockFamilies.RED_NETHER_BRICKS, 5);
+        addAltarMaterial(bootstrap, BlockFamilies.POLISHED_BLACKSTONE, 5);
+        addAltarMaterial(bootstrap, BlockFamilies.POLISHED_BLACKSTONE_BRICKS, 5);
+        addAltarMaterial(bootstrap, BlockFamilies.SMOOTH_QUARTZ, 5);
+        addAltarMaterial(bootstrap, BlockFamilies.END_STONE_BRICKS, 6);
+        addAltarMaterial(bootstrap, BlockFamilies.PURPUR, 6);
     }
 
     public static void addOcculusTabs(BootstrapContext<OcculusTab> bootstrap) {
@@ -222,5 +312,13 @@ public final class AMMagicProvider {
     @SuppressWarnings("DataFlowIssue")
     private static ResourceKey<Skill> fromPart(DeferredHolder<SpellPart, ?> part) {
         return ResourceKey.create(AMRegistryKeys.SKILL, ArsMagicaApi.spellPartRegistry().getKey(part.get()));
+    }
+
+    private static void addAltarCapMaterial(BootstrapContext<AltarCapMaterial> bootstrap, String name, Block block, int power) {
+        bootstrap.register(ResourceKey.create(AMRegistryKeys.ALTAR_CAP_MATERIAL, ArsMagicaApi.modLoc(name)), new AltarCapMaterial(block, power));
+    }
+
+    private static void addAltarMaterial(BootstrapContext<AltarMaterial> bootstrap, BlockFamily blockFamily, int power) {
+        bootstrap.register(ResourceKey.create(AMRegistryKeys.ALTAR_MATERIAL, ArsMagicaApi.modLoc(BuiltInRegistries.BLOCK.getKey(blockFamily.getBaseBlock()).getPath())), new AltarMaterial(blockFamily.getBaseBlock(), (StairBlock) blockFamily.get(BlockFamily.Variant.STAIRS), power));
     }
 }

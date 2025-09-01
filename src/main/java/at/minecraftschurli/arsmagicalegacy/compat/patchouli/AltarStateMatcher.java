@@ -1,0 +1,33 @@
+package at.minecraftschurli.arsmagicalegacy.compat.patchouli;
+
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.magic.AltarMaterial;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import vazkii.patchouli.api.IStateMatcher;
+import vazkii.patchouli.api.TriPredicate;
+
+public class AltarStateMatcher implements IStateMatcher {
+    private final TriPredicate<BlockGetter, BlockPos, BlockState> predicate;
+
+    public AltarStateMatcher() {
+        this.predicate = (level, pos, state) -> AMUtil.registryAccess(level)
+            .registryOrThrow(AMRegistryKeys.ALTAR_MATERIAL)
+            .stream()
+            .anyMatch(material -> state.is(material.block()));
+    }
+
+    @Override
+    public BlockState getDisplayedState(long ticks) {
+        AltarMaterial material = AMUtil.getByTick(AMUtil.registryAccess().registryOrThrow(AMRegistryKeys.ALTAR_MATERIAL).stream().toArray(AltarMaterial[]::new), (int) ticks);
+        return material == null ? Blocks.AIR.defaultBlockState() : material.block().defaultBlockState();
+    }
+
+    @Override
+    public TriPredicate<BlockGetter, BlockPos, BlockState> getStatePredicate() {
+        return predicate;
+    }
+}

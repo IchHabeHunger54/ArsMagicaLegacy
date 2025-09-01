@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.util;
 
+import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.item.SpellRecipeItem;
 import at.minecraftschurli.arsmagicalegacy.packet.OpenBookInLecternPacket;
@@ -8,6 +9,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -16,14 +18,18 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 import java.util.Collection;
 import java.util.function.BiFunction;
@@ -111,5 +117,14 @@ public final class AMUtil {
             result = Shapes.joinUnoptimized(result, shape, BooleanOp.OR);
         }
         return result.optimize();
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    public static RegistryAccess registryAccess() {
+        return FMLEnvironment.dist.isClient() ? ClientUtil.registryAccess() : ServerLifecycleHooks.getCurrentServer().registryAccess();
+    }
+
+    public static RegistryAccess registryAccess(BlockGetter blockGetter) {
+        return blockGetter instanceof Level level ? level.registryAccess() : registryAccess();
     }
 }

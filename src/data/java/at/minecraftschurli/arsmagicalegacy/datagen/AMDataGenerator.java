@@ -51,6 +51,8 @@ final class AMDataGenerator {
             .add(Registries.PLACED_FEATURE, AMWorldgenProvider::addPlacedFeatures)
             .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, AMWorldgenProvider::addBiomeModifiers)
             .add(AMRegistryKeys.AFFINITY, AMMagicProvider::addAffinities)
+            .add(AMRegistryKeys.ALTAR_CAP_MATERIAL, AMMagicProvider::addAltarCapMaterials)
+            .add(AMRegistryKeys.ALTAR_MATERIAL, AMMagicProvider::addAltarMaterials)
             .add(AMRegistryKeys.OCCULUS_TAB, AMMagicProvider::addOcculusTabs)
             .add(AMRegistryKeys.SKILL_POINT, AMMagicProvider::addSkillPoints)
             .add(AMRegistryKeys.SKILL, AMMagicProvider::addSkills),

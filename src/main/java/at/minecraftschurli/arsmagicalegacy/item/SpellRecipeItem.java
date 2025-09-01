@@ -18,9 +18,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class SpellRecipeItem extends Item {
+public class SpellRecipeItem extends DataComponentNamedItem<Spell> {
     public SpellRecipeItem(Properties properties) {
-        super(properties);
+        super(properties, AMDataComponents.SPELL.get());
+        withNameGetter((spell, name) -> spell.name().map(e -> e.getString().isEmpty() ? null : e).orElse(name));
     }
 
     @SuppressWarnings("DataFlowIssue")
@@ -35,7 +36,7 @@ public class SpellRecipeItem extends Item {
     public Component getName(ItemStack stack) {
         if (!stack.has(AMDataComponents.SPELL)) return super.getName(stack);
         Spell spell = stack.get(AMDataComponents.SPELL);
-        return spell.name().orElse(super.getName(stack));
+        return spell.name().map(e -> e.getString().isEmpty() ? null : e).orElse(super.getName(stack));
     }
 
     @Override

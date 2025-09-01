@@ -15,7 +15,7 @@ public class InscriptionTableMenu extends AbstractContainerMenu {
         super(AMMenus.INSCRIPTION_TABLE.get(), containerId);
         this.blockEntity = blockEntity;
         blockEntity.startOpen(inventory.player);
-        addSlot(new InscriptionTableSlot(blockEntity, inventory.player.isCreative() ? 48 : 102, 74));
+        addSlot(new InscriptionTableSlot(blockEntity, 102, 74));
         for (int i = 0; i < 9; i++) {
             addSlot(new Slot(inventory, i, 30 + i * 18, 228));
         }

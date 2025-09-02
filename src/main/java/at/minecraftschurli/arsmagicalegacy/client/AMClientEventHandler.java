@@ -4,19 +4,23 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.RegisterOcculusTabRenderersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.RegisterSpellIngredientRenderersEvent;
 import at.minecraftschurli.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
+import at.minecraftschurli.arsmagicalegacy.block.altar.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.layer.BarsLayer;
+import at.minecraftschurli.arsmagicalegacy.client.model.AltarCoreModel;
 import at.minecraftschurli.arsmagicalegacy.client.model.DataComponentOverrides;
 import at.minecraftschurli.arsmagicalegacy.client.model.ItemOverridesModel;
 import at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable.InscriptionTableScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.AffinityTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.DefaultTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.ItemSpellIngredientRenderer;
+import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import net.minecraft.client.renderer.block.BlockModelShaper;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.neoforged.api.distmarker.Dist;
@@ -75,5 +79,6 @@ final class AMClientEventHandler {
         ItemOverridesModel.register(event.getModels(), AMItems.INSCRIPTION_TABLE, new DataComponentOverrides<>(AMDataComponents.TIER.get(), (tier, model, stack) -> tier == 0 ? null : ModelResourceLocation.standalone(ArsMagicaApi.modLoc("item/inscription_table_tier_" + tier))));
         ItemOverridesModel.register(event.getModels(), AMItems.INFINITY_ORB, new DataComponentOverrides<>(AMDataComponents.SKILL_POINT.get(), DataComponentOverrides.holder()));
         ItemOverridesModel.register(event.getModels(), AMItems.AFFINITY_ESSENCE, new DataComponentOverrides<>(AMDataComponents.AFFINITY.get(), DataComponentOverrides.holder()));
+        event.getModels().computeIfPresent(BlockModelShaper.stateToModelLocation(AMBlocks.ALTAR_CORE.get().defaultBlockState().setValue(AltarCoreBlock.FORMED, true)), ($, model) -> new AltarCoreModel(model));
     }
 }

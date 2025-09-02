@@ -1,0 +1,16 @@
+{
+  "category": "arsmagicalegacy:mechanics",
+  "icon": "arsmagicalegacy:altar_core",
+  "name": "Spellcrafting Altar",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Lorem ipsum"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "multiblock_id": "arsmagicalegacy:altar",
+      "name": "Spellcrafting Altar"
+    }
+  ]
+}

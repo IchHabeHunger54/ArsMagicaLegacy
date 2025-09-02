@@ -24,12 +24,12 @@ public class AltarStairStateMatcher implements IStateMatcher {
         this.predicate = (level, pos, state) -> AMUtil.registryAccess(level)
             .registryOrThrow(AMRegistryKeys.ALTAR_MATERIAL)
             .stream()
-            .anyMatch(material -> state.is(material.block()) && state.getValue(StairBlock.FACING) == direction && state.getValue(StairBlock.HALF) == half);
+            .anyMatch(material -> state.is(material.stair()) && state.getValue(StairBlock.FACING) == direction && state.getValue(StairBlock.HALF) == half);
     }
 
     @Override
     public BlockState getDisplayedState(long ticks) {
-        AltarMaterial material = AMUtil.getByTick(AMUtil.registryAccess().registryOrThrow(AMRegistryKeys.ALTAR_MATERIAL).stream().toArray(AltarMaterial[]::new), (int) ticks);
+        AltarMaterial material = AMUtil.getByTick(AMUtil.registryAccess().registryOrThrow(AMRegistryKeys.ALTAR_MATERIAL).stream().toArray(AltarMaterial[]::new), (int) ticks / 20);
         return material == null ? Blocks.AIR.defaultBlockState() : material.stair().defaultBlockState().setValue(StairBlock.FACING, direction).setValue(StairBlock.HALF, half);
     }
 

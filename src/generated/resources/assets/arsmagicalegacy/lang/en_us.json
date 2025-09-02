@@ -27,6 +27,8 @@
   "arsmagicalegacy.configuration.affinity_gains_xp_modifier.tooltip": "When the Affinity Gains talent is learned, by what factor XP gain will be amplified.",
   "arsmagicalegacy.configuration.affinity_to_xp_ratio": "Affinity : XP Ratio",
   "arsmagicalegacy.configuration.affinity_to_xp_ratio.tooltip": "The affinity to xp ratio. When awarding xp, the amount of used affinities will be multiplied with this modifier.",
+  "arsmagicalegacy.configuration.altar_check_interval": "Altar Check Interval",
+  "arsmagicalegacy.configuration.altar_check_interval.tooltip": "The time in ticks between multiblock checks for the altar.",
   "arsmagicalegacy.configuration.bars": "Mana/Burnout/Level Bars",
   "arsmagicalegacy.configuration.bars.tooltip": "Configuration for the mana, burnout and level bars. The size of the layer is 80x40.",
   "arsmagicalegacy.configuration.bars_anchor_x": "Horizontal Anchor",

@@ -20,6 +20,7 @@ public final class AMItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        singleTexture("arcane_compendium", ResourceLocation.withDefaultNamespace("item/generated"), "layer0", modLoc("item/arcane_compendium"));
         basicItem(AMItems.SPELL);
         withExistingParent(AMItems.SPELL_RECIPE.getId().getPath(), mcLoc("item/written_book"));
         blockItem(AMItems.OCCULUS);

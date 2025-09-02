@@ -22,7 +22,7 @@ public class AltarStateMatcher implements IStateMatcher {
 
     @Override
     public BlockState getDisplayedState(long ticks) {
-        AltarMaterial material = AMUtil.getByTick(AMUtil.registryAccess().registryOrThrow(AMRegistryKeys.ALTAR_MATERIAL).stream().toArray(AltarMaterial[]::new), (int) ticks);
+        AltarMaterial material = AMUtil.getByTick(AMUtil.registryAccess().registryOrThrow(AMRegistryKeys.ALTAR_MATERIAL).stream().toArray(AltarMaterial[]::new), (int) ticks / 20);
         return material == null ? Blocks.AIR.defaultBlockState() : material.block().defaultBlockState();
     }
 

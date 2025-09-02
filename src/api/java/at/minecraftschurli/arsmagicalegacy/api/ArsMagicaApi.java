@@ -10,6 +10,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.util.Lazy;
 import org.jetbrains.annotations.ApiStatus;
@@ -39,6 +40,13 @@ public abstract class ArsMagicaApi {
      */
     public static ResourceLocation modLoc(String path) {
         return ResourceLocation.fromNamespaceAndPath(ArsMagicaApi.MOD_ID, path);
+    }
+
+    /**
+     * @return An Arcane Compendium {@link ItemStack}.
+     */
+    public static ItemStack book() {
+        return INSTANCE.get().getBook();
     }
 
     /**
@@ -97,6 +105,9 @@ public abstract class ArsMagicaApi {
     public static SpellPartData spellPartData(SpellPart part) {
         return INSTANCE.get().getSpellPartData(part);
     }
+
+    @ApiStatus.Internal
+    protected abstract ItemStack getBook();
 
     @ApiStatus.Internal
     protected abstract Registry<SpellPart> getSpellPartRegistry();

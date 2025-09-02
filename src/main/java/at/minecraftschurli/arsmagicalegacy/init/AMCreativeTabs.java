@@ -19,7 +19,7 @@ import java.util.function.BiConsumer;
 public interface AMCreativeTabs {
     DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN = AMRegistries.CREATIVE_TABS.register("main", () -> CreativeModeTab.builder()
         .title(Component.translatable("itemGroup." + ArsMagicaApi.MOD_ID))
-        .icon(AMItems.OCCULUS::toStack)
+        .icon(ArsMagicaApi::book)
         .displayItems((display, output) -> {
             output.accept(AMItems.OCCULUS);
             output.accept(AMItems.INSCRIPTION_TABLE);

@@ -13,6 +13,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.command.MagicXpCommand;
 import at.minecraftschurli.arsmagicalegacy.command.SkillCommand;
 import at.minecraftschurli.arsmagicalegacy.command.SkillPointCommand;
+import at.minecraftschurli.arsmagicalegacy.compat.patchouli.AMMultiblocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.packet.ForgetSkillsPacket;
@@ -37,6 +38,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
@@ -51,6 +53,11 @@ import net.neoforged.neoforge.registries.NewRegistryEvent;
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID)
 final class AMEventHandler {
     private AMEventHandler() {
+    }
+
+    @SubscribeEvent
+    private static void commonSetup(FMLCommonSetupEvent event) {
+        AMMultiblocks.init();
     }
 
     @SubscribeEvent

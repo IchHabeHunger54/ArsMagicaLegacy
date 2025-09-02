@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 public final class AMServerConfig {
+    public static final ModConfigSpec.IntValue ALTAR_CHECK_INTERVAL;
     public static final ModConfigSpec.BooleanValue INSCRIPTION_TABLE_IN_WORLD_UPGRADING;
     public static final ModConfigSpec.ConfigValue<String> MAGIC_ADVANCEMENT;
     public static final ModConfigSpec.DoubleValue MANA_TO_BURNOUT_RATIO;
@@ -30,6 +31,10 @@ public final class AMServerConfig {
 
     static {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
+        ALTAR_CHECK_INTERVAL = builder
+            .comment("The time in ticks between multiblock checks for the altar.")
+            .translation(AMTranslations.CONFIG_KEY + "altar_check_interval")
+            .defineInRange("altar_check_interval", 20, 1, 200);
         INSCRIPTION_TABLE_IN_WORLD_UPGRADING = builder
             .comment("Whether inscription table upgrading is allowed in-world. If disabled, the upgrades must be applied through crafting.")
             .translation(AMTranslations.CONFIG_KEY + "inscription_table_in_world_upgrading")

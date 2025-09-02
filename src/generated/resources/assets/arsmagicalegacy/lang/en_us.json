@@ -92,6 +92,7 @@
   "arsmagicalegacy.spell_cast.not_enough_mana": "Not enough mana to cast the spell!",
   "arsmagicalegacy.spell_ingredient_count": "x %s",
   "block.arsmagicalegacy.altar_core": "Altar Core",
+  "block.arsmagicalegacy.altar_core.low_power": "Altar does not have enough power!",
   "block.arsmagicalegacy.aum": "Aum",
   "block.arsmagicalegacy.cerublossom": "Cerublossom",
   "block.arsmagicalegacy.chimerite_block": "Block of Chimerite",

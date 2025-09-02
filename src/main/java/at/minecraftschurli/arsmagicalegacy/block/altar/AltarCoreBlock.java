@@ -41,6 +41,6 @@ public class AltarCoreBlock extends Block implements EntityBlock {
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return level.isClientSide() || type != AMBlockEntities.ALTAR_CORE.get() ? null : (BlockEntityTicker<T>) TICKER;
+        return type == AMBlockEntities.ALTAR_CORE.get() ? (BlockEntityTicker<T>) TICKER : null;
     }
 }

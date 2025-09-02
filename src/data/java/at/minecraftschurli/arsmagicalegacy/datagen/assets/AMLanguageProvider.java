@@ -401,6 +401,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add("skill_point", "blue", "Blue");
         add("skill_point", "green", "Green");
         add("skill_point", "red", "Red");
+        add(AMTranslations.ALTAR_CORE_LOW_POWER_KEY, "Altar does not have enough power!");
         add(AMTranslations.BARS_VALUE_BURNOUT_KEY, "%s / %s");
         add(AMTranslations.BARS_VALUE_MANA_KEY, "%s / %s");
         add(AMTranslations.BARS_VALUE_XP_KEY, "%s / %s");

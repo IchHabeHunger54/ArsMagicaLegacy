@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-29T14:53:25.6648103	Tags for minecraft:item mod id arsmagicalegacy
+// 1.21.1	2025-09-02T19:20:04.16025434	Tags for minecraft:item mod id arsmagicalegacy
 c4dd173177d64629d95c113ecc569a6ff6a78016 data/arsmagicalegacy/tags/item/inscription_table_books.json
 23e87de731409e520ca6ab442c9e3172dd91c0a5 data/arsmagicalegacy/tags/item/occulus_forget_all.json
 a39e73ce83524529d509355b75cfd2efc567b472 data/arsmagicalegacy/tags/item/runes.json
@@ -10,8 +10,8 @@ e46d2848fb8306c4399c2c45c6da8992ce815b98 data/c/tags/item/dusts/arcane_ash.json
 a0db303737f01768da20a014bb01858549331f0a data/c/tags/item/dusts/arcane_compound.json
 1d0eecda30f363a8510e676ee89b4270cf39125b data/c/tags/item/dusts/purified_vinteum.json
 7fcd32eacf9a02dc1b26ab6b609517b78238e1b9 data/c/tags/item/dusts/vinteum.json
-75597f58eaad48b98e64ba095c0e13b1573e0f4e data/c/tags/item/fences/wooden.json
 4509a6dbe8b8c6353fbe06cefd812efe1dca2727 data/c/tags/item/fence_gates/wooden.json
+75597f58eaad48b98e64ba095c0e13b1573e0f4e data/c/tags/item/fences/wooden.json
 50be428dc4cb81185d16cb3b017471b0e27b6d95 data/c/tags/item/gems.json
 d498a45e33548db20878c11a7e960e316d6a1df0 data/c/tags/item/gems/chimerite.json
 488d0bdfa28de16b2566d3bab85ea861e7506b3c data/c/tags/item/gems/moonstone.json
@@ -32,6 +32,7 @@ a5efaf624ecc4e7aa79239bfda857f660c06c552 data/c/tags/item/storage_blocks/chimeri
 4509a6dbe8b8c6353fbe06cefd812efe1dca2727 data/minecraft/tags/item/fence_gates.json
 d9eb014cca9e9eb1edefc2e7b423dacb98df705a data/minecraft/tags/item/hanging_signs.json
 cd4ee8afe25cbc17263f3bcd49ba4402450d4b66 data/minecraft/tags/item/leaves.json
+dd339a82f6a267df22cce143dbc4859a4ea30176 data/minecraft/tags/item/lectern_books.json
 cc20d8d43b66ef761c1f2d6f55740085c58a35f3 data/minecraft/tags/item/logs.json
 638b279febd41d749f4abb6380caa1aeb19c0d00 data/minecraft/tags/item/planks.json
 a5cc6f3a50fcd1f61d2ba94c42b27f82e25e2c8e data/minecraft/tags/item/saplings.json

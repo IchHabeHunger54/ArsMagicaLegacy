@@ -170,8 +170,18 @@ public class AltarCoreBlockEntity extends BlockEntity {
         return camo == null ? ModelData.EMPTY : ModelData.builder().with(CAMO, camo).build();
     }
 
-    private SpellIngredient getCurrentIngredient() {
-        return recipe == null ? null : recipe.get(currentIngredient);
+    @Nullable
+    public BlockPos getLecternPos() {
+        return lecternPos;
+    }
+
+    @Nullable
+    public SpellIngredient getCurrentIngredient() {
+        return hasRecipe() ? recipe.get(currentIngredient) : null;
+    }
+
+    public boolean hasRecipe() {
+        return recipe != null;
     }
 
     @Nullable

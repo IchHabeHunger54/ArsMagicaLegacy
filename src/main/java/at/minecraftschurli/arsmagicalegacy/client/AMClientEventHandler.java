@@ -13,7 +13,9 @@ import at.minecraftschurli.arsmagicalegacy.client.model.ItemOverridesModel;
 import at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable.InscriptionTableScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.AffinityTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.DefaultTabRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.renderer.AltarCoreRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.ItemSpellIngredientRenderer;
+import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
@@ -27,6 +29,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
@@ -80,5 +83,10 @@ final class AMClientEventHandler {
         ItemOverridesModel.register(event.getModels(), AMItems.INFINITY_ORB, new DataComponentOverrides<>(AMDataComponents.SKILL_POINT.get(), DataComponentOverrides.holder()));
         ItemOverridesModel.register(event.getModels(), AMItems.AFFINITY_ESSENCE, new DataComponentOverrides<>(AMDataComponents.AFFINITY.get(), DataComponentOverrides.holder()));
         event.getModels().computeIfPresent(BlockModelShaper.stateToModelLocation(AMBlocks.ALTAR_CORE.get().defaultBlockState().setValue(AltarCoreBlock.FORMED, true)), ($, model) -> new AltarCoreModel(model));
+    }
+
+    @SubscribeEvent
+    private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(AMBlockEntities.ALTAR_CORE.get(), AltarCoreRenderer::new);
     }
 }

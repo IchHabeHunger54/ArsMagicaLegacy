@@ -2,16 +2,20 @@ package at.minecraftschurli.arsmagicalegacy.spell;
 
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
+import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.entity.EntityTypeTest;
+import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,8 +56,14 @@ public record ItemSpellIngredient(Ingredient item, int count) implements SpellIn
     }
 
     @Override
-    @Nullable
-    public SpellIngredient consume(Level level, BlockPos pos) {
-        return null;
+    public boolean consume(Level level, BlockPos pos) {
+        for (ItemEntity entity : level.getEntities(EntityTypeTest.forClass(ItemEntity.class), new AABB(pos).inflate(1, 1, 1).move(0, -2, 0), entity -> item.test(entity.getItem()))) {
+            ItemStack stack = entity.getItem();
+            if (stack.getCount() < count) continue;
+            stack.shrink(count);
+            level.playSound(null, pos.getX(), pos.getY() - 2, pos.getZ(), AMSounds.SPELLCRAFTING_ADD_INGREDIENT.get(), SoundSource.BLOCKS, 1, 1);
+            return true;
+        }
+        return false;
     }
 }

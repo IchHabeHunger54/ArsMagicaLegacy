@@ -47,14 +47,13 @@ public interface SpellIngredient {
     SpellIngredient combine(SpellIngredient other);
 
     /**
-     * Consumes the spell ingredient.
+     * Attempts to consume the spell ingredient.
      *
      * @param level The {@link Level} in which the spell ingredient is consumed.
      * @param pos   The {@link BlockPos} at which the spell ingredient is consumed.
-     * @return The leftover of the consumption, or null if there was no leftover.
+     * @return Whether the spell ingredient was consumed or not.
      */
-    @Nullable
-    SpellIngredient consume(Level level, BlockPos pos);
+    boolean consume(Level level, BlockPos pos);
 
     /**
      * Represents the registered type of a {@link SpellIngredient}.

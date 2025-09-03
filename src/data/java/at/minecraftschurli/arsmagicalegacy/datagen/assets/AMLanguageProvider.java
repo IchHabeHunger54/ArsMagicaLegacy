@@ -405,6 +405,11 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.BARS_VALUE_BURNOUT_KEY, "%s / %s");
         add(AMTranslations.BARS_VALUE_MANA_KEY, "%s / %s");
         add(AMTranslations.BARS_VALUE_XP_KEY, "%s / %s");
+        add(AMTranslations.COMMAND_AFFINITY_ADD_MULTIPLE_KEY, "Added %s affinity depth to %s players for %s");
+        add(AMTranslations.COMMAND_AFFINITY_ADD_SINGLE_KEY, "Added %s affinity depth to player %s for %s");
+        add(AMTranslations.COMMAND_AFFINITY_GET_KEY, "Affinity depth of %s for player %s is %s");
+        add(AMTranslations.COMMAND_AFFINITY_SET_MULTIPLE_KEY, "Set %s affinity depth on %s players for %s");
+        add(AMTranslations.COMMAND_AFFINITY_SET_SINGLE_KEY, "Set %s affinity depth on player %s for %s");
         add(AMTranslations.COMMAND_MAGIC_XP_ADD_LEVELS_MULTIPLE_KEY, "Gave %s magic xp levels to %s players");
         add(AMTranslations.COMMAND_MAGIC_XP_ADD_LEVELS_SINGLE_KEY, "Gave %s magic xp levels to %s");
         add(AMTranslations.COMMAND_MAGIC_XP_ADD_POINTS_MULTIPLE_KEY, "Gave %s magic xp to %s players");
@@ -429,7 +434,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.COMMAND_SKILL_LIST_UNKNOWN_KEY, "%s does not yet know the following skills: %s");
         add(AMTranslations.COMMAND_SKILL_POINT_ADD_MULTIPLE_KEY, "Added %s skill points of type %s to %s players");
         add(AMTranslations.COMMAND_SKILL_POINT_ADD_SINGLE_KEY, "Added %s skill points of type %s to player %s");
-        add(AMTranslations.COMMAND_SKILL_POINT_GET_KEY, "Player %s has %d skill points of type %s");
+        add(AMTranslations.COMMAND_SKILL_POINT_GET_KEY, "Player %s has %s skill points of type %s");
         add(AMTranslations.COMMAND_SKILL_POINT_SET_MULTIPLE_KEY, "Set %s skill points of type %s on %s players");
         add(AMTranslations.COMMAND_SKILL_POINT_SET_SINGLE_KEY, "Set %s skill points of type %s on player %s");
         add(AMTranslations.INSCRIPTION_TABLE_CLEAR_KEY, "Clear");

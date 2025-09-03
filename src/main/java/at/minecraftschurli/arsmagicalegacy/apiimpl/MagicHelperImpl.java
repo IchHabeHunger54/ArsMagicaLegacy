@@ -194,7 +194,7 @@ final class MagicHelperImpl implements MagicHelper {
 
     @Override
     public void addAffinityDepth(Player player, Holder<Affinity> affinity, double depth) {
-        setAffinityDepth(player, affinity, player.getData(AMAttachments.MAGIC).affinityShifts().get(affinity) + depth);
+        setAffinityDepth(player, affinity, player.getData(AMAttachments.MAGIC).affinityShifts().getOrDefault(affinity, 0.) + depth);
     }
 
     @Override

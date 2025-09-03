@@ -30,7 +30,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -46,6 +45,7 @@ public class AltarCoreBlockEntity extends BlockEntity {
     private static final String CAMO_KEY = ArsMagicaApi.modLoc("camo").toString();
     private static final String POWER_KEY = ArsMagicaApi.modLoc("power").toString();
     private static final String CURRENT_KEY = ArsMagicaApi.modLoc("current").toString();
+    private static final String SPELL_KEY = ArsMagicaApi.modLoc("spell").toString();
     private int checkCounter = 0;
     private Direction direction;
     private BlockPos lecternPos;
@@ -55,6 +55,7 @@ public class AltarCoreBlockEntity extends BlockEntity {
     private BlockState camo;
     private int power;
     private int currentIngredient;
+    private Spell spell;
     private List<SpellIngredient> recipe;
 
     public AltarCoreBlockEntity(BlockPos pos, BlockState blockState) {
@@ -82,7 +83,7 @@ public class AltarCoreBlockEntity extends BlockEntity {
                 level.setBlockAndUpdate(pos, state.setValue(AltarCoreBlock.FORMED, multiblock));
             }
         }
-        if (!state.getValue(AltarCoreBlock.FORMED) || recipe == null) return;
+        if (!state.getValue(AltarCoreBlock.FORMED) || spell == null || recipe == null) return;
         if (currentIngredient >= recipe.size()) {
             currentIngredient = 0;
         }
@@ -90,12 +91,13 @@ public class AltarCoreBlockEntity extends BlockEntity {
         if (ingredient == null || !ingredient.consume(level, pos)) return;
         currentIngredient++;
         if (currentIngredient < recipe.size()) return;
-        ItemEntity entity = new ItemEntity(level, pos.getX() + 0.5, pos.getY() - 1.5, pos.getZ() + 0.5, SpellItem.set(AMItems.SPELL.toStack(), AMDataComponents.SPELL.get(), getSpell()), 0, 0.2, 0);
+        currentIngredient = 0;
+        if (level.isClientSide()) return;
+        ItemEntity entity = new ItemEntity(level, pos.getX() + 0.5, pos.getY() - 1.5, pos.getZ() + 0.5, SpellItem.set(AMItems.SPELL.toStack(), AMDataComponents.SPELL.get(), spell), 0, 0.2, 0);
         entity.setPickUpDelay(40);
         entity.setExtendedLifetime();
         level.addFreshEntity(entity);
         level.playSound(null, pos.getX(), pos.getY() - 2, pos.getZ(), AMSounds.SPELLCRAFTING_FINISH.get(), SoundSource.BLOCKS, 1, 1);
-        currentIngredient = 0;
     }
 
     private boolean checkMultiblock() {
@@ -117,10 +119,14 @@ public class AltarCoreBlockEntity extends BlockEntity {
             }
         }
         if (lecternPos == null || leverPos == null || material == null || capMaterial == null || camo == null || direction == null) return false;
+        if (!level.getBlockState(lecternPos).is(Blocks.LECTERN) || !(level.getBlockEntity(lecternPos) instanceof LecternBlockEntity lectern)) return false;
         if (!level.getBlockState(leverPos).is(Blocks.LEVER)) return false;
         if (AMMultiblocks.ALTAR.validate(level, getBlockPos().below(4)) == null) return false;
         power = material.power() + capMaterial.power();
-        Spell spell = getSpell();
+        if (!level.isClientSide()) {
+            ItemStack stack = lectern.getBook();
+            spell = stack.has(AMDataComponents.SPELL) ? stack.get(AMDataComponents.SPELL) : null;
+        }
         SpellHelper helper = ArsMagicaApi.spellHelper();
         recipe = spell != null && helper.getFlatRecipe(spell).size() <= power ? helper.getRecipe(spell) : null;
         if (recipe == null) {
@@ -136,6 +142,9 @@ public class AltarCoreBlockEntity extends BlockEntity {
         if (camo != null) {
             tag.put(CAMO_KEY, BlockState.CODEC.encodeStart(NbtOps.INSTANCE, camo).getOrThrow());
         }
+        if (spell != null) {
+            tag.put(SPELL_KEY, Spell.CODEC.encodeStart(NbtOps.INSTANCE, spell).getOrThrow());
+        }
         tag.putInt(POWER_KEY, power);
         tag.putInt(CURRENT_KEY, currentIngredient);
     }
@@ -145,14 +154,22 @@ public class AltarCoreBlockEntity extends BlockEntity {
         super.loadAdditional(tag, registries);
         if (tag.contains(CAMO_KEY)) {
             camo = BlockState.CODEC.decode(NbtOps.INSTANCE, tag.getCompound(CAMO_KEY)).map(Pair::getFirst).getOrThrow();
-            requestModelDataUpdate();
         }
         if (tag.contains(POWER_KEY)) {
             power = tag.getInt(POWER_KEY);
         }
+        if (tag.contains(SPELL_KEY)) {
+            spell = Spell.CODEC.decode(NbtOps.INSTANCE, tag.getCompound(SPELL_KEY)).map(Pair::getFirst).getOrThrow();
+            SpellHelper helper = ArsMagicaApi.spellHelper();
+            recipe = spell != null && helper.getFlatRecipe(spell).size() <= power ? helper.getRecipe(spell) : null;
+        }
         if (tag.contains(CURRENT_KEY)) {
             currentIngredient = tag.getInt(CURRENT_KEY);
         }
+        if (level != null) {
+            checkMultiblock();
+        }
+        requestModelDataUpdate();
     }
 
     @Override
@@ -182,13 +199,5 @@ public class AltarCoreBlockEntity extends BlockEntity {
 
     public boolean hasRecipe() {
         return recipe != null;
-    }
-
-    @Nullable
-    private Spell getSpell() {
-        if (lecternPos == null || !level.getBlockState(lecternPos).getValue(LecternBlock.HAS_BOOK) || !(level.getBlockEntity(lecternPos) instanceof LecternBlockEntity lectern))
-            return null;
-        ItemStack stack = lectern.getBook();
-        return stack.has(AMDataComponents.SPELL) ? stack.get(AMDataComponents.SPELL) : null;
     }
 }

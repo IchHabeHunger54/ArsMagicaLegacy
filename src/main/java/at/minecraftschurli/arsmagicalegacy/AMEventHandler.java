@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.helper.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.ManaHelper;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Ability;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.AltarCapMaterial;
 import at.minecraftschurli.arsmagicalegacy.api.magic.AltarMaterial;
@@ -76,6 +77,7 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void newDataPackRegistry(DataPackRegistryEvent.NewRegistry event) {
+        event.dataPackRegistry(AMRegistryKeys.ABILITY, Ability.DIRECT_CODEC, Ability.DIRECT_CODEC);
         event.dataPackRegistry(AMRegistryKeys.AFFINITY, Affinity.DIRECT_CODEC, Affinity.DIRECT_CODEC);
         event.dataPackRegistry(AMRegistryKeys.ALTAR_CAP_MATERIAL, AltarCapMaterial.DIRECT_CODEC, AltarCapMaterial.DIRECT_CODEC);
         event.dataPackRegistry(AMRegistryKeys.ALTAR_MATERIAL, AltarMaterial.DIRECT_CODEC, AltarMaterial.DIRECT_CODEC);

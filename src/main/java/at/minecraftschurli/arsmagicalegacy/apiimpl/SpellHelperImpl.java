@@ -43,7 +43,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 final class SpellHelperImpl implements SpellHelper {
     @Override
@@ -77,13 +76,14 @@ final class SpellHelperImpl implements SpellHelper {
                 affinityShifts.replaceAll((k, v) -> v * AMServerConfig.AFFINITY_GAINS_MODIFIER.get());
             }
             helper.applyAffinityShift(player, affinityShifts);
-            double xp = AMServerConfig.AFFINITY_TO_XP_RATIO.get();
+            double xp = AMServerConfig.AFFINITY_TO_XP_RATIO.get() * affinityShifts.size();
             if (continuous) {
                 xp *= AMServerConfig.CONTINUOUS_MODIFIER.get();
             }
             if (affinityGains) {
                 xp *= AMServerConfig.AFFINITY_GAINS_XP_MODIFIER.get();
             }
+            System.out.println(xp);
             helper.addXp(player, xp);
         }
         NeoForge.EVENT_BUS.post(new SpellCastEvent.Post(caster, spell, manaCost, burnoutCost, event.isConsume(), event.isAwardXp()));

@@ -100,8 +100,8 @@ public final class AMServerConfig {
         builder.push("affinity");
         AFFINITY_TO_XP_RATIO = builder
             .comment("The affinity to xp ratio. When awarding xp, the amount of used affinities will be multiplied with this modifier.")
-            .translation(AMTranslations.CONFIG_KEY + "affinity_to_xp_ration")
-            .defineInRange("affinity_to_xp_ratio", 0.05, 0, 1);
+            .translation(AMTranslations.CONFIG_KEY + "affinity_to_xp_ratio")
+            .defineInRange("affinity_to_xp_ratio", 1., 0, 10);
         CONTINUOUS_MODIFIER = builder
             .comment("By what factor affinity and xp gain will be amplified when a continuous spell shape is used.")
             .translation(AMTranslations.CONFIG_KEY + "continuous_modifier")

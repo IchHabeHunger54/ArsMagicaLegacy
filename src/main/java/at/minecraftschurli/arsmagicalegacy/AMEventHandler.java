@@ -10,6 +10,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.AltarMaterial;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
+import at.minecraftschurli.arsmagicalegacy.command.AffinityCommand;
 import at.minecraftschurli.arsmagicalegacy.command.MagicXpCommand;
 import at.minecraftschurli.arsmagicalegacy.command.SkillCommand;
 import at.minecraftschurli.arsmagicalegacy.command.SkillPointCommand;
@@ -112,6 +113,7 @@ final class AMEventHandler {
     private static void registerCommands(RegisterCommandsEvent event) {
         CommandBuildContext context = event.getBuildContext();
         LiteralArgumentBuilder<CommandSourceStack> builder = Commands.literal(ArsMagicaApi.MOD_ID).requires(p -> p.hasPermission(2));
+        AffinityCommand.register(builder, context);
         MagicXpCommand.register(builder);
         SkillCommand.register(builder, context);
         SkillPointCommand.register(builder, context);

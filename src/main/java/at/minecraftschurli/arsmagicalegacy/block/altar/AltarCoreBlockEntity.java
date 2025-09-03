@@ -114,14 +114,14 @@ public class AltarCoreBlockEntity extends BlockEntity {
                 material = materialRegistry.stream().filter(m -> block == m.block()).findFirst().orElse(null);
                 Block capBlock = level.getBlockState(getBlockPos().relative(direction).relative(direction.getClockWise(), 2)).getBlock();
                 capMaterial = capMaterialRegistry.stream().filter(m -> capBlock == m.block()).findFirst().orElse(null);
-                camo = material.block().defaultBlockState();
                 break;
             }
         }
-        if (lecternPos == null || leverPos == null || material == null || capMaterial == null || camo == null || direction == null) return false;
+        if (lecternPos == null || leverPos == null || material == null || capMaterial == null || direction == null) return false;
         if (!level.getBlockState(lecternPos).is(Blocks.LECTERN) || !(level.getBlockEntity(lecternPos) instanceof LecternBlockEntity lectern)) return false;
         if (!level.getBlockState(leverPos).is(Blocks.LEVER)) return false;
         if (AMMultiblocks.ALTAR.validate(level, getBlockPos().below(4)) == null) return false;
+        camo = material.block().defaultBlockState();
         power = material.power() + capMaterial.power();
         if (!level.isClientSide()) {
             ItemStack stack = lectern.getBook();

@@ -4,13 +4,21 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.Util;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.function.Predicate;
 
+/**
+ * Represents an affinity ability.
+ *
+ * @param affinity The {@link Affinity} to associate the ability with.
+ * @param bounds   The {@link MinMaxBounds.Doubles} within which the ability becomes active. Should overlap with the range [0, 1].
+ */
 public record Ability(Holder<Affinity> affinity, MinMaxBounds.Doubles bounds) implements Predicate<Player> {
     public static final Codec<Ability> DIRECT_CODEC = RecordCodecBuilder.create(inst -> inst.group(
         Affinity.CODEC.fieldOf("affinity").forGetter(Ability::affinity),
@@ -21,5 +29,14 @@ public record Ability(Holder<Affinity> affinity, MinMaxBounds.Doubles bounds) im
     @Override
     public boolean test(Player player) {
         return bounds.matches(ArsMagicaApi.magicHelper().getAffinityDepth(player, affinity));
+    }
+
+    /**
+     * @param holder The ability {@link Holder} to query.
+     * @return The display name of the given ability.
+     */
+    @SuppressWarnings("DataFlowIssue")
+    public static Component getName(Holder<Ability> holder) {
+        return Component.translatable(Util.makeDescriptionId("ability", holder.getKey().location()));
     }
 }

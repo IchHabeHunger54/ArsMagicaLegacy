@@ -392,7 +392,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add("ability", "haste", "Haste");
         add("ability", "fall_damage", "Fall Damage");
         add("ability", "jump_boost", "Jump Boost");
-        add("ability", "slow_falling", "Slow Falling");
+        add("ability", "feather_falling", "Feather Falling");
         add("ability", "gravity", "Gravity");
         add("ability", "frost_punch", "Frost Punch");
         add("ability", "frost_walker", "Frost Walker");
@@ -474,6 +474,8 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.INSCRIPTION_TABLE_KEY, "Inscription Table");
         add(AMTranslations.INSCRIPTION_TABLE_NAME_KEY, "Name");
         add(AMTranslations.INSCRIPTION_TABLE_SEARCH_KEY, "Search");
+        add(AMTranslations.OCCULUS_ABILITY_KEY, "%s (%s - %s)");
+        add(AMTranslations.OCCULUS_DETAILS_KEY, "Hold Shift for details");
         add(AMTranslations.OCCULUS_FORGET_ALL_KEY, "Forget All");
         add(AMTranslations.OCCULUS_FORGET_ALL_TOOLTIP_KEY, "Costs 1 Vinteum Block. Your invested skill points will be returned.");
         add(AMTranslations.OCCULUS_KEY, "Occulus");

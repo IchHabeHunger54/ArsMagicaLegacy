@@ -44,6 +44,8 @@ public interface AMTranslations {
     String COMMAND_SKILL_POINT_GET_KEY              = "commands." + ArsMagicaApi.MOD_ID + ".skill_point.get.success";
     String COMMAND_SKILL_POINT_SET_MULTIPLE_KEY     = "commands." + ArsMagicaApi.MOD_ID + ".skill_point.set.multiple.success";
     String COMMAND_SKILL_POINT_SET_SINGLE_KEY       = "commands." + ArsMagicaApi.MOD_ID + ".skill_point.set.single.success";
+    String OCCULUS_ABILITY_KEY                      = "gui." + ArsMagicaApi.MOD_ID + ".occulus.ability";
+    String OCCULUS_DETAILS_KEY                      = "gui." + ArsMagicaApi.MOD_ID + ".occulus.details";
     String OCCULUS_MISSING_KEY                      = "gui." + ArsMagicaApi.MOD_ID + ".occulus.missing";
     String SPELL_RECIPE_SHAPE_GROUP_KEY             = "item." + ArsMagicaApi.MOD_ID + ".spell_recipe.shape_group";
 

@@ -38,36 +38,36 @@ public final class AMMagicProvider {
         // @formatter:off
         bootstrap.register(AMMagic.SWIM_SPEED,             new Ability(affinity.getOrThrow(AMMagic.WATER),     MinMaxBounds.Doubles.between(0.01, 1)));
         bootstrap.register(AMMagic.ENDERMAN_THORNS,        new Ability(affinity.getOrThrow(AMMagic.WATER),     MinMaxBounds.Doubles.atLeast(1)));
-        bootstrap.register(AMMagic.NETHER_DAMAGE_WATER,    new Ability(affinity.getOrThrow(AMMagic.WATER),     MinMaxBounds.Doubles.between(0.5, 1)));
+        bootstrap.register(AMMagic.NETHER_DAMAGE_WATER,    new Ability(affinity.getOrThrow(AMMagic.WATER),     MinMaxBounds.Doubles.between(0.5, 1), true));
         bootstrap.register(AMMagic.FIRE_RESISTANCE,        new Ability(affinity.getOrThrow(AMMagic.FIRE),      MinMaxBounds.Doubles.between(0.01, 1)));
         bootstrap.register(AMMagic.FIRE_PUNCH,             new Ability(affinity.getOrThrow(AMMagic.FIRE),      MinMaxBounds.Doubles.atLeast(1)));
-        bootstrap.register(AMMagic.WATER_DAMAGE_FIRE,      new Ability(affinity.getOrThrow(AMMagic.FIRE),      MinMaxBounds.Doubles.between(0.5, 1)));
+        bootstrap.register(AMMagic.WATER_DAMAGE_FIRE,      new Ability(affinity.getOrThrow(AMMagic.FIRE),      MinMaxBounds.Doubles.between(0.5, 1), true));
         bootstrap.register(AMMagic.RESISTANCE,             new Ability(affinity.getOrThrow(AMMagic.EARTH),     MinMaxBounds.Doubles.between(0.01, 1)));
         bootstrap.register(AMMagic.HASTE,                  new Ability(affinity.getOrThrow(AMMagic.EARTH),     MinMaxBounds.Doubles.between(0.01, 1)));
-        bootstrap.register(AMMagic.FALL_DAMAGE,            new Ability(affinity.getOrThrow(AMMagic.EARTH),     MinMaxBounds.Doubles.between(0.5, 1)));
+        bootstrap.register(AMMagic.FALL_DAMAGE,            new Ability(affinity.getOrThrow(AMMagic.EARTH),     MinMaxBounds.Doubles.between(0.5, 1), true));
         bootstrap.register(AMMagic.JUMP_BOOST,             new Ability(affinity.getOrThrow(AMMagic.AIR),       MinMaxBounds.Doubles.between(0.01, 1)));
         bootstrap.register(AMMagic.FEATHER_FALLING,        new Ability(affinity.getOrThrow(AMMagic.AIR),       MinMaxBounds.Doubles.between(0.01, 1)));
-        bootstrap.register(AMMagic.GRAVITY,                new Ability(affinity.getOrThrow(AMMagic.AIR),       MinMaxBounds.Doubles.between(0.5, 1)));
+        bootstrap.register(AMMagic.GRAVITY,                new Ability(affinity.getOrThrow(AMMagic.AIR),       MinMaxBounds.Doubles.between(0.5, 1), true));
         bootstrap.register(AMMagic.FROST_PUNCH,            new Ability(affinity.getOrThrow(AMMagic.ICE),       MinMaxBounds.Doubles.between(0.01, 1)));
         bootstrap.register(AMMagic.FROST_WALKER,           new Ability(affinity.getOrThrow(AMMagic.ICE),       MinMaxBounds.Doubles.atLeast(1)));
-        bootstrap.register(AMMagic.SLOWNESS,               new Ability(affinity.getOrThrow(AMMagic.ICE),       MinMaxBounds.Doubles.between(0.5, 1)));
+        bootstrap.register(AMMagic.SLOWNESS,               new Ability(affinity.getOrThrow(AMMagic.ICE),       MinMaxBounds.Doubles.between(0.5, 1), true));
         bootstrap.register(AMMagic.SPEED,                  new Ability(affinity.getOrThrow(AMMagic.LIGHTNING), MinMaxBounds.Doubles.between(0.01, 1)));
         bootstrap.register(AMMagic.STEP_ASSIST,            new Ability(affinity.getOrThrow(AMMagic.LIGHTNING), MinMaxBounds.Doubles.atLeast(1)));
-        bootstrap.register(AMMagic.WATER_DAMAGE_LIGHTNING, new Ability(affinity.getOrThrow(AMMagic.LIGHTNING), MinMaxBounds.Doubles.between(0.5, 1)));
+        bootstrap.register(AMMagic.WATER_DAMAGE_LIGHTNING, new Ability(affinity.getOrThrow(AMMagic.LIGHTNING), MinMaxBounds.Doubles.between(0.5, 1), true));
         bootstrap.register(AMMagic.THORNS,                 new Ability(affinity.getOrThrow(AMMagic.NATURE),    MinMaxBounds.Doubles.between(0.01, 1)));
         bootstrap.register(AMMagic.SATURATION,             new Ability(affinity.getOrThrow(AMMagic.NATURE),    MinMaxBounds.Doubles.atLeast(1)));
-        bootstrap.register(AMMagic.NETHER_DAMAGE_NATURE,   new Ability(affinity.getOrThrow(AMMagic.NATURE),    MinMaxBounds.Doubles.between(0.5, 1)));
+        bootstrap.register(AMMagic.NETHER_DAMAGE_NATURE,   new Ability(affinity.getOrThrow(AMMagic.NATURE),    MinMaxBounds.Doubles.between(0.5, 1), true));
         bootstrap.register(AMMagic.SMITE,                  new Ability(affinity.getOrThrow(AMMagic.LIFE),      MinMaxBounds.Doubles.between(0.01, 1)));
         bootstrap.register(AMMagic.REGENERATION,           new Ability(affinity.getOrThrow(AMMagic.LIFE),      MinMaxBounds.Doubles.atLeast(1)));
-        bootstrap.register(AMMagic.NAUSEA,                 new Ability(affinity.getOrThrow(AMMagic.LIFE),      MinMaxBounds.Doubles.between(0.5, 1)));
+        bootstrap.register(AMMagic.NAUSEA,                 new Ability(affinity.getOrThrow(AMMagic.LIFE),      MinMaxBounds.Doubles.between(0.5, 1), true));
         bootstrap.register(AMMagic.MANA_REDUCTION,         new Ability(affinity.getOrThrow(AMMagic.ARCANE),    MinMaxBounds.Doubles.between(0.01, 1)));
         bootstrap.register(AMMagic.CLARITY,                new Ability(affinity.getOrThrow(AMMagic.ARCANE),    MinMaxBounds.Doubles.atLeast(1)));
-        bootstrap.register(AMMagic.MAGIC_DAMAGE,           new Ability(affinity.getOrThrow(AMMagic.ARCANE),    MinMaxBounds.Doubles.between(0.5, 1)));
+        bootstrap.register(AMMagic.MAGIC_DAMAGE,           new Ability(affinity.getOrThrow(AMMagic.ARCANE),    MinMaxBounds.Doubles.between(0.5, 1), true));
         bootstrap.register(AMMagic.POISON_RESISTANCE,      new Ability(affinity.getOrThrow(AMMagic.ENDER),     MinMaxBounds.Doubles.between(0.5, 1)));
         bootstrap.register(AMMagic.NIGHT_VISION,           new Ability(affinity.getOrThrow(AMMagic.ENDER),     MinMaxBounds.Doubles.between(0.5, 1)));
         bootstrap.register(AMMagic.ENDERMAN_PUMPKIN,       new Ability(affinity.getOrThrow(AMMagic.ENDER),     MinMaxBounds.Doubles.atLeast(1)));
-        bootstrap.register(AMMagic.LIGHT_HEALTH_REDUCTION, new Ability(affinity.getOrThrow(AMMagic.ENDER),     MinMaxBounds.Doubles.between(0.5, 1)));
-        bootstrap.register(AMMagic.WATER_HEALTH_REDUCTION, new Ability(affinity.getOrThrow(AMMagic.ENDER),     MinMaxBounds.Doubles.between(0.5, 1)));
+        bootstrap.register(AMMagic.LIGHT_HEALTH_REDUCTION, new Ability(affinity.getOrThrow(AMMagic.ENDER),     MinMaxBounds.Doubles.between(0.5, 0.99), true));
+        bootstrap.register(AMMagic.WATER_HEALTH_REDUCTION, new Ability(affinity.getOrThrow(AMMagic.ENDER),     MinMaxBounds.Doubles.between(0.5, 0.99), true));
         // @formatter:on
     }
 

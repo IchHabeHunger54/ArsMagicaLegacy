@@ -18,13 +18,23 @@ import java.util.function.Predicate;
  *
  * @param affinity The {@link Affinity} to associate the ability with.
  * @param bounds   The {@link MinMaxBounds.Doubles} within which the ability becomes active. Should overlap with the range [0, 1].
+ * @param negative Whether the ability should be considered negative or not.
  */
-public record Ability(Holder<Affinity> affinity, MinMaxBounds.Doubles bounds) implements Predicate<Player> {
+public record Ability(Holder<Affinity> affinity, MinMaxBounds.Doubles bounds, boolean negative) implements Predicate<Player> {
     public static final Codec<Ability> DIRECT_CODEC = RecordCodecBuilder.create(inst -> inst.group(
         Affinity.CODEC.fieldOf("affinity").forGetter(Ability::affinity),
-        MinMaxBounds.Doubles.CODEC.fieldOf("bounds").forGetter(Ability::bounds)
+        MinMaxBounds.Doubles.CODEC.fieldOf("bounds").forGetter(Ability::bounds),
+        Codec.BOOL.optionalFieldOf("negative", false).forGetter(Ability::negative)
     ).apply(inst, Ability::new));
     public static final Codec<Holder<Ability>> CODEC = RegistryFileCodec.create(AMRegistryKeys.ABILITY, Ability.DIRECT_CODEC);
+
+    /**
+     * @param affinity The {@link Affinity} to associate the ability with.
+     * @param bounds   The {@link MinMaxBounds.Doubles} within which the ability becomes active. Should overlap with the range [0, 1].
+     */
+    public Ability(Holder<Affinity> affinity, MinMaxBounds.Doubles bounds) {
+        this(affinity, bounds, false);
+    }
 
     @Override
     public boolean test(Player player) {

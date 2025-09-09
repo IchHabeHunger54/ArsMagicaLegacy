@@ -116,7 +116,7 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
                     .forEach(holder -> {
                         Ability ability = holder.value();
                         MinMaxBounds.Doubles bounds = ability.bounds();
-                        tooltip.add(Component.translatable(AMTranslations.OCCULUS_ABILITY_KEY, Ability.getName(holder), percent(bounds.min().orElse(0.)), percent(bounds.max().orElse(1.))).withStyle(ability.test(player) ? ChatFormatting.GREEN : ChatFormatting.DARK_RED));
+                        tooltip.add(Component.translatable(AMTranslations.OCCULUS_ABILITY_KEY, Ability.getName(holder), percent(bounds.min().orElse(0.)), percent(bounds.max().orElse(1.))).withStyle(ability.test(player) ? ability.negative() ? ChatFormatting.RED : ChatFormatting.GREEN : ChatFormatting.GRAY));
                     });
             } else {
                 tooltip.add(DETAILS);

@@ -384,10 +384,10 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("show_values", "Show Values", "Whether to show the exact values for mana, burnout and xp.");
         add("ability", "swim_speed", "Swim Speed");
         add("ability", "enderman_thorns", "Enderman Thorns");
-        add("ability", "nether_damage_water", "Nether Damage");
+        add("ability", "nether_damage_water", "Damage in the Nether");
         add("ability", "fire_resistance", "Fire Resistance");
         add("ability", "fire_punch", "Fire Punch");
-        add("ability", "water_damage_fire", "Water Damage");
+        add("ability", "water_damage_fire", "Damage in Water");
         add("ability", "resistance", "Resistance");
         add("ability", "haste", "Haste");
         add("ability", "fall_damage", "Fall Damage");
@@ -399,10 +399,10 @@ public final class AMLanguageProvider extends LanguageProvider {
         add("ability", "slowness", "Slowness");
         add("ability", "speed", "Speed");
         add("ability", "step_assist", "Step Assist");
-        add("ability", "water_damage_lightning", "Water Damage");
+        add("ability", "water_damage_lightning", "Damage in Water");
         add("ability", "thorns", "Thorns");
         add("ability", "saturation", "Saturation");
-        add("ability", "nether_damage_nature", "Nether Damage");
+        add("ability", "nether_damage_nature", "Damage in the Nether");
         add("ability", "smite", "Smite");
         add("ability", "regeneration", "Regeneration");
         add("ability", "nausea", "Nausea");

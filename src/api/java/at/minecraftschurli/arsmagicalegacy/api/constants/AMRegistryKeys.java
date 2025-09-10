@@ -1,7 +1,8 @@
 package at.minecraftschurli.arsmagicalegacy.api.constants;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.magic.Ability;
+import at.minecraftschurli.arsmagicalegacy.api.ability.Ability;
+import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.AltarCapMaterial;
 import at.minecraftschurli.arsmagicalegacy.api.magic.AltarMaterial;
@@ -23,6 +24,7 @@ public interface AMRegistryKeys {
     ResourceKey<Registry<SpellPart>>               SPELL_PART           = ResourceKey.createRegistryKey(ArsMagicaApi.modLoc("spell_part"));
     ResourceKey<Registry<DataComponentType<?>>>    SPELL_DATA_COMPONENT = ResourceKey.createRegistryKey(ArsMagicaApi.modLoc("spell_data_component"));
     ResourceKey<Registry<SpellIngredient.Type<?>>> SPELL_INGREDIENT     = ResourceKey.createRegistryKey(ArsMagicaApi.modLoc("spell_ingredient"));
+    ResourceKey<Registry<AbilityEffect.Type<?>>>   ABILITY_EFFECT       = ResourceKey.createRegistryKey(ArsMagicaApi.modLoc("ability_effect"));
     // Datapack registries
     ResourceKey<Registry<Ability>>          ABILITY            = ResourceKey.createRegistryKey(ArsMagicaApi.modLoc("ability"));
     ResourceKey<Registry<Affinity>>         AFFINITY           = ResourceKey.createRegistryKey(ArsMagicaApi.modLoc("affinity"));

@@ -1,6 +1,8 @@
 package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityEffect;
+import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityHelper;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.magic.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicHelper;
@@ -22,6 +24,8 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     private static final Registry<SpellPart> SPELL_PART_REGISTRY = new RegistryBuilder<>(AMRegistryKeys.SPELL_PART).sync(true).create();
     private static final Registry<DataComponentType<?>> SPELL_DATA_COMPONENT_REGISTRY = new RegistryBuilder<>(AMRegistryKeys.SPELL_DATA_COMPONENT).sync(true).create();
     private static final Registry<SpellIngredient.Type<?>> SPELL_INGREDIENT_REGISTRY = new RegistryBuilder<>(AMRegistryKeys.SPELL_INGREDIENT).sync(true).create();
+    private static final Registry<AbilityEffect.Type<?>> ABILITY_EFFECT_REGISTRY = new RegistryBuilder<>(AMRegistryKeys.ABILITY_EFFECT).sync(true).create();
+    private static final AbilityHelper ABILITY_HELPER = new AbilityHelperImpl();
     private static final BurnoutHelper BURNOUT_HELPER = new BurnoutHelperImpl();
     private static final MagicHelper MAGIC_HELPER = new MagicHelperImpl();
     private static final ManaHelper MANA_HELPER = new ManaHelperImpl();
@@ -45,6 +49,16 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     @Override
     protected Registry<SpellIngredient.Type<?>> getSpellIngredientRegistry() {
         return SPELL_INGREDIENT_REGISTRY;
+    }
+
+    @Override
+    protected Registry<AbilityEffect.Type<?>> getAbilityEffectRegistry() {
+        return ABILITY_EFFECT_REGISTRY;
+    }
+
+    @Override
+    protected AbilityHelper getAbilityHelper() {
+        return ABILITY_HELPER;
     }
 
     @Override

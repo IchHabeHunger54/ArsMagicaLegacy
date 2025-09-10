@@ -3,5 +3,18 @@
   "bounds": {
     "max": 1.0,
     "min": 0.01
-  }
+  },
+  "effects": [
+    {
+      "type": "arsmagicalegacy:attribute",
+      "modifiers": {
+        "minecraft:generic.movement_speed": {
+          "id": "arsmagicalegacy:speed",
+          "max": 0.05,
+          "min": 0.0,
+          "operation": "add_value"
+        }
+      }
+    }
+  ]
 }

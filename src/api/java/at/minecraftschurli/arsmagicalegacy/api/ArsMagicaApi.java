@@ -1,5 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.api;
 
+import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityEffect;
+import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
@@ -71,6 +73,20 @@ public abstract class ArsMagicaApi {
     }
 
     /**
+     * @return The ability effect registry.
+     */
+    public static Registry<AbilityEffect.Type<?>> abilityEffectRegistry() {
+        return INSTANCE.get().getAbilityEffectRegistry();
+    }
+
+    /**
+     * @return The {@link ManaHelper} instance.
+     */
+    public static AbilityHelper abilityHelper() {
+        return INSTANCE.get().getAbilityHelper();
+    }
+
+    /**
      * @return The {@link ManaHelper} instance.
      */
     public static BurnoutHelper burnoutHelper() {
@@ -117,6 +133,12 @@ public abstract class ArsMagicaApi {
 
     @ApiStatus.Internal
     protected abstract Registry<SpellIngredient.Type<?>> getSpellIngredientRegistry();
+
+    @ApiStatus.Internal
+    protected abstract Registry<AbilityEffect.Type<?>> getAbilityEffectRegistry();
+
+    @ApiStatus.Internal
+    protected abstract AbilityHelper getAbilityHelper();
 
     @ApiStatus.Internal
     protected abstract BurnoutHelper getBurnoutHelper();

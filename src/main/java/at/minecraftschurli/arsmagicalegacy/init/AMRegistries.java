@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
@@ -30,6 +31,7 @@ public interface AMRegistries {
     DeferredRegister<AttachmentType<?>>       ATTACHMENTS       = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES,     ArsMagicaApi.MOD_ID);
     DeferredRegister<SpellIngredient.Type<?>> SPELL_INGREDIENTS = DeferredRegister.create(AMRegistryKeys.SPELL_INGREDIENT,              ArsMagicaApi.MOD_ID);
     DeferredRegister<SpellPart>               SPELL_PARTS       = DeferredRegister.create(AMRegistryKeys.SPELL_PART,                    ArsMagicaApi.MOD_ID);
+    DeferredRegister<AbilityEffect.Type<?>>   ABILITY_EFFECTS   = DeferredRegister.create(AMRegistryKeys.ABILITY_EFFECT,                ArsMagicaApi.MOD_ID);
     // @formatter:on
 
     /**
@@ -49,6 +51,7 @@ public interface AMRegistries {
         AMWorldgen.init();
         AMAttachments.init();
         AMSpells.init();
+        AMAbilities.init();
         BLOCKS.register(bus);
         ITEMS.register(bus);
         DATA_COMPONENTS.register(bus);
@@ -61,5 +64,6 @@ public interface AMRegistries {
         ATTACHMENTS.register(bus);
         SPELL_INGREDIENTS.register(bus);
         SPELL_PARTS.register(bus);
+        ABILITY_EFFECTS.register(bus);
     }
 }

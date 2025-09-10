@@ -7,6 +7,7 @@ import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMItemModelProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMLanguageProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMSoundDefinitionProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMSpriteSourceProvider;
+import at.minecraftschurli.arsmagicalegacy.datagen.data.AMAbilityProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMAdvancementProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMBlockTagsProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMItemTagsProvider;
@@ -51,7 +52,7 @@ final class AMDataGenerator {
             .add(Registries.PLACED_FEATURE, AMWorldgenProvider::addPlacedFeatures)
             .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, AMWorldgenProvider::addBiomeModifiers)
             .add(AMRegistryKeys.AFFINITY, AMMagicProvider::addAffinities)
-            .add(AMRegistryKeys.ABILITY, AMMagicProvider::addAbilities)
+            .add(AMRegistryKeys.ABILITY, AMAbilityProvider::addAbilities)
             .add(AMRegistryKeys.ALTAR_CAP_MATERIAL, AMMagicProvider::addAltarCapMaterials)
             .add(AMRegistryKeys.ALTAR_MATERIAL, AMMagicProvider::addAltarMaterials)
             .add(AMRegistryKeys.OCCULUS_TAB, AMMagicProvider::addOcculusTabs)

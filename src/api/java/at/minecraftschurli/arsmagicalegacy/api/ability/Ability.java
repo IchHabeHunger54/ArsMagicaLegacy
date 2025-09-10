@@ -44,6 +44,25 @@ public record Ability(Holder<Affinity> affinity, MinMaxBounds.Doubles bounds, bo
     }
 
     /**
+     * @param affinity The {@link Affinity} to associate the ability with.
+     * @param bounds   The {@link MinMaxBounds.Doubles} within which the ability becomes active. Should overlap with the range [0, 1].
+     * @param negative Whether the ability should be considered negative or not.
+     * @param effect   The {@link AbilityEffect} that this ability applies.
+     */
+    public Ability(Holder<Affinity> affinity, MinMaxBounds.Doubles bounds, boolean negative, AbilityEffect effect) {
+        this(affinity, bounds, negative, List.of(effect));
+    }
+
+    /**
+     * @param affinity The {@link Affinity} to associate the ability with.
+     * @param bounds   The {@link MinMaxBounds.Doubles} within which the ability becomes active. Should overlap with the range [0, 1].
+     * @param effect   The {@link AbilityEffect} that this ability applies.
+     */
+    public Ability(Holder<Affinity> affinity, MinMaxBounds.Doubles bounds, AbilityEffect effect) {
+        this(affinity, bounds, false, List.of(effect));
+    }
+
+    /**
      * @param player The {@link Player} to query.
      * @return Whether the given {@link Player} matches the bounds.
      */

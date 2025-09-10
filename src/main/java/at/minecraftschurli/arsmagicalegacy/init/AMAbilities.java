@@ -1,9 +1,14 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
+import at.minecraftschurli.arsmagicalegacy.ability.AttributeAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.ability.Ability;
+import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.storage.loot.providers.number.LootNumberProviderType;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 public interface AMAbilities {
     ResourceKey<Ability> SWIM_SPEED             = key("swim_speed");
@@ -38,6 +43,8 @@ public interface AMAbilities {
     ResourceKey<Ability> ENDERMAN_PUMPKIN       = key("enderman_pumpkin");
     ResourceKey<Ability> LIGHT_HEALTH_REDUCTION = key("light_health_reduction");
     ResourceKey<Ability> WATER_HEALTH_REDUCTION = key("water_health_reduction");
+
+    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<AttributeAbilityEffect>> ATTRIBUTE_EFFECT = AMRegistries.ABILITY_EFFECTS.register("attribute", () -> AttributeAbilityEffect.CODEC);
 
     private static ResourceKey<Ability> key(String name) {
         return ResourceKey.create(AMRegistryKeys.ABILITY, ArsMagicaApi.modLoc(name));

@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.api.ability;
 
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicAttachment;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.player.Player;
 
@@ -13,7 +14,7 @@ public interface AbilityHelper {
 
     Stream<AbilityEffect> getActiveEffects(Player player);
 
-    Stream<AbilityEffect> getActiveEffectsOfType(Player player, AbilityEffect.Type<?> type);
+    Stream<AbilityEffect> getActiveEffectsOfType(Player player, MapCodec<? extends AbilityEffect> codec);
 
     double getDepthPercent(double affinityDepth, Ability ability);
 }

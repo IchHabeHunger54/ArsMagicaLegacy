@@ -9,17 +9,18 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * Represents a spell ingredient.
  */
 public interface SpellIngredient {
-    Codec<SpellIngredient> CODEC = Codec.lazyInitialized(() -> ArsMagicaApi.spellIngredientRegistry().byNameCodec().dispatch(SpellIngredient::type, SpellIngredient.Type::codec));
+    Codec<SpellIngredient> CODEC = Codec.lazyInitialized(() -> ArsMagicaApi.spellIngredientRegistry().byNameCodec().dispatch(SpellIngredient::codec, Function.identity()));
 
     /**
-     * @return The registered {@link Type} of the spell ingredient.
+     * @return The registered {@link MapCodec} of the spell ingredient.
      */
-    Type<? extends SpellIngredient> type();
+    MapCodec<? extends SpellIngredient> codec();
 
     /**
      * @return The count of the spell ingredient.
@@ -54,13 +55,4 @@ public interface SpellIngredient {
      * @return Whether the spell ingredient was consumed or not.
      */
     boolean consume(Level level, BlockPos pos);
-
-    /**
-     * Represents the registered type of a {@link SpellIngredient}.
-     *
-     * @param codec The {@link MapCodec} to use.
-     * @param <T> The type of the {@link SpellIngredient}.
-     */
-    record Type<T extends SpellIngredient>(MapCodec<T> codec) {
-    }
 }

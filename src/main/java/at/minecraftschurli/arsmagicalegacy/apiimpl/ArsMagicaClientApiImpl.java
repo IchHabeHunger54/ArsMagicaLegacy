@@ -7,6 +7,7 @@ import at.minecraftschurli.arsmagicalegacy.api.client.RegisterSpellIngredientRen
 import at.minecraftschurli.arsmagicalegacy.api.client.SpellIngredientRenderer;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.fml.ModLoader;
@@ -16,7 +17,7 @@ import java.util.Map;
 
 public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
     private static final Map<ResourceLocation, OcculusTabRenderer.Factory> OCCULUS_TAB_RENDERERS = new HashMap<>();
-    private static final Map<SpellIngredient.Type<?>, SpellIngredientRenderer<?>> SPELL_INGREDIENT_RENDERERS = new HashMap<>();
+    private static final Map<MapCodec<? extends SpellIngredient>, SpellIngredientRenderer<?>> SPELL_INGREDIENT_RENDERERS = new HashMap<>();
 
     @Override
     protected OcculusTabRenderer.Factory getOcculusTabRendererFactory(Holder<OcculusTab> tab) {
@@ -26,7 +27,7 @@ public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
     @SuppressWarnings("unchecked")
     @Override
     protected <T extends SpellIngredient> SpellIngredientRenderer<T> getSpellIngredientRenderer(T ingredient) {
-        return (SpellIngredientRenderer<T>) SPELL_INGREDIENT_RENDERERS.get(ingredient.type());
+        return (SpellIngredientRenderer<T>) SPELL_INGREDIENT_RENDERERS.get(ingredient.codec());
     }
 
     public static void postEvents() {

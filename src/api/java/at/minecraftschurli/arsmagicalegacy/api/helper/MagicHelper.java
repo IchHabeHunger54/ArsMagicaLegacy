@@ -160,19 +160,141 @@ public interface MagicHelper {
      */
     void setSkillPoint(Player player, Holder<SkillPoint> skillPoint, int amount);
 
+    /**
+     * @param player   The {@link Player} to query.
+     * @param affinity The {@link Affinity} to query.
+     * @return The {@link Affinity} depth of the given {@link Player}, in the range [0, 1].
+     */
     double getAffinityDepth(Player player, Holder<Affinity> affinity);
 
+    /**
+     * Sets the given {@link Player}'s {@link Affinity} depth. Will not bypass locks.
+     *
+     * @param player   The {@link Player} to set the {@link Affinity} depth on.
+     * @param affinity The {@link Affinity} to set the depth for.
+     * @param depth    The depth to set.
+     */
     void setAffinityDepth(Player player, Holder<Affinity> affinity, double depth);
 
+    /**
+     * Sets the given {@link Player}'s {@link Affinity} depths. Will not bypass locks.
+     *
+     * @param player     The {@link Player} to set the {@link Affinity} depth on.
+     * @param affinities The {@link Affinity} depths to set.
+     */
+    void setAffinityDepth(Player player, Map<Holder<Affinity>, Double> affinities);
+
+    /**
+     * Sets the given {@link Player}'s {@link Affinity} depth.
+     *
+     * @param player        The {@link Player} to set the {@link Affinity} depth on.
+     * @param affinity      The {@link Affinity} to set the depth for.
+     * @param depth         The depth to set.
+     * @param commandSource Whether the method was called from a command. If true, bypasses locks.
+     */
+    void setAffinityDepth(Player player, Holder<Affinity> affinity, double depth, boolean commandSource);
+
+    /**
+     * Sets the given {@link Player}'s {@link Affinity} depths.
+     *
+     * @param player        The {@link Player} to set the {@link Affinity} depths on.
+     * @param affinities    The {@link Affinity} depths to set.
+     * @param commandSource Whether the method was called from a command. If true, bypasses locks.
+     */
+    void setAffinityDepth(Player player, Map<Holder<Affinity>, Double> affinities, boolean commandSource);
+
+    /**
+     * Adds to the given {@link Player}'s {@link Affinity} depth. Will not bypass locks.
+     *
+     * @param player   The {@link Player} to add the {@link Affinity} depth to.
+     * @param affinity The {@link Affinity} to add the depth for.
+     * @param depth    The depth to add.
+     */
     void addAffinityDepth(Player player, Holder<Affinity> affinity, double depth);
 
+    /**
+     * Adds to the given {@link Player}'s {@link Affinity} depth. Will not bypass locks.
+     *
+     * @param player     The {@link Player} to add the {@link Affinity} depths to.
+     * @param affinities The {@link Affinity} depths to add.
+     */
+    void addAffinityDepth(Player player, Map<Holder<Affinity>, Double> affinities);
+
+    /**
+     * Adds to the given {@link Player}'s {@link Affinity} depth.
+     *
+     * @param player        The {@link Player} to add the {@link Affinity} depth to.
+     * @param affinity      The {@link Affinity} to add the depth for.
+     * @param depth         The depth to add.
+     * @param commandSource Whether the method was called from a command. If true, bypasses locks.
+     */
+    void addAffinityDepth(Player player, Holder<Affinity> affinity, double depth, boolean commandSource);
+
+    /**
+     * Adds to the given {@link Player}'s {@link Affinity} depth.
+     *
+     * @param player        The {@link Player} to add the {@link Affinity} depths to.
+     * @param affinities    The {@link Affinity} depths to add.
+     * @param commandSource Whether the method was called from a command. If true, bypasses locks.
+     */
+    void addAffinityDepth(Player player, Map<Holder<Affinity>, Double> affinities, boolean commandSource);
+
+    /**
+     * Applies an {@link Affinity} shift to the given {@link Player}. It sets the {@link Affinity} change itself, as well as modifying the adjacent and opposite {@link Affinity}s. Will not bypass locks.
+     *
+     * @param player   The {@link Player} to apply the {@link Affinity} shift to.
+     * @param affinity The {@link Affinity} to apply the shift for.
+     * @param shift    The shift to apply.
+     */
     void applyAffinityShift(Player player, Holder<Affinity> affinity, double shift);
 
+    /**
+     * Applies {@link Affinity} shifts to the given {@link Player}. It sets the {@link Affinity} changes itself, as well as modifying the adjacent and opposite {@link Affinity}s. Will not bypass locks.
+     *
+     * @param player         The {@link Player} to apply the {@link Affinity} shifts to.
+     * @param affinityShifts The {@link Affinity} shifts to apply.
+     */
     void applyAffinityShift(Player player, Map<Holder<Affinity>, Double> affinityShifts);
 
+    /**
+     * Applies an {@link Affinity} shift to the given {@link Player}. It sets the {@link Affinity} change itself, as well as modifying the adjacent and opposite {@link Affinity}s.
+     *
+     * @param player        The {@link Player} to apply the {@link Affinity} shift to.
+     * @param affinity      The {@link Affinity} to apply the shift for.
+     * @param shift         The shift to apply.
+     * @param commandSource Whether the method was called from a command. If true, bypasses locks.
+     */
+    void applyAffinityShift(Player player, Holder<Affinity> affinity, double shift, boolean commandSource);
+
+    /**
+     * Applies {@link Affinity} shifts to the given {@link Player}. It sets the {@link Affinity} changes itself, as well as modifying the adjacent and opposite {@link Affinity}s.
+     *
+     * @param player         The {@link Player} to apply the {@link Affinity} shifts to.
+     * @param affinityShifts The {@link Affinity} shifts to apply.
+     * @param commandSource  Whether the method was called from a command. If true, bypasses locks.
+     */
+    void applyAffinityShift(Player player, Map<Holder<Affinity>, Double> affinityShifts, boolean commandSource);
+
+    /**
+     * Locks the {@link Player}'s {@link Affinity} depths.
+     *
+     * @param player The {@link Player} to lock the {@link Affinity} depths of.
+     * @see MagicHelper#unlockAffinities(Player)
+     */
     void lockAffinities(Player player);
 
+    /**
+     * Unlocks the {@link Player}'s {@link Affinity} depths.
+     *
+     * @param player The {@link Player} to unlock the {@link Affinity} depths of.
+     * @see MagicHelper#lockAffinities(Player)
+     */
     void unlockAffinities(Player player);
 
+    /**
+     * Sets the {@link Player}'s {@link Affinity} depth lock depending on whether there is an affinity at 100% or not.
+     *
+     * @param player The {@link Player} to set the {@link Affinity} depth lock for.
+     */
     void updateAffinityLock(Player player);
 }

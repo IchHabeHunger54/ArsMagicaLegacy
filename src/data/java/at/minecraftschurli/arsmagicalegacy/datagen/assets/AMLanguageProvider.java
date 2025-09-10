@@ -434,6 +434,15 @@ public final class AMLanguageProvider extends LanguageProvider {
         add("skill_point", "green", "Green");
         add("skill_point", "red", "Red");
         add(AMTranslations.ALTAR_CORE_LOW_POWER_KEY, "Altar does not have enough power!");
+        add(AMTranslations.ABILITY_INTO_SINGLE_KEY, "Shifted into ability %s!");
+        add(AMTranslations.ABILITY_INTO_MULTIPLE_KEY, "Shifted into abilities %s!");
+        add(AMTranslations.ABILITY_OUT_OF_SINGLE_KEY, "Shifted out of ability %s!");
+        add(AMTranslations.ABILITY_OUT_OF_MULTIPLE_KEY, "Shifted out of abilities %s!");
+        add(AMTranslations.ABILITY_INTO_SINGLE_OUT_OF_SINGLE_KEY, "Shifted into ability %s and out of ability %s!");
+        add(AMTranslations.ABILITY_INTO_SINGLE_OUT_OF_MULTIPLE_KEY, "Shifted into ability %s and out of abilities %s!");
+        add(AMTranslations.ABILITY_INTO_MULTIPLE_OUT_OF_SINGLE_KEY, "Shifted into abilities %s and out of ability %s!");
+        add(AMTranslations.ABILITY_INTO_MULTIPLE_OUT_OF_MULTIPLE_KEY, "Shifted into abilities %s and out of abilities %s!");
+        add(AMTranslations.ABILITY_SEPARATOR_KEY, ", ");
         add(AMTranslations.BARS_VALUE_BURNOUT_KEY, "%s / %s");
         add(AMTranslations.BARS_VALUE_MANA_KEY, "%s / %s");
         add(AMTranslations.BARS_VALUE_XP_KEY, "%s / %s");

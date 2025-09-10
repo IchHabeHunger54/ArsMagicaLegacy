@@ -11,6 +11,7 @@ import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -23,7 +24,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -32,11 +32,13 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 import java.util.Collection;
+import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.ToIntFunction;
+import java.util.stream.Collector;
 
 public final class AMUtil {
     private AMUtil() {
@@ -126,5 +128,13 @@ public final class AMUtil {
 
     public static RegistryAccess registryAccess(BlockGetter blockGetter) {
         return blockGetter instanceof Level level ? level.registryAccess() : registryAccess();
+    }
+
+    public static Collector<MutableComponent, MutableComponent, MutableComponent> joiningComponents(Component delimiter) {
+        return Collector.of(Component.empty()::copy, dropResult((c1, c2) -> !c1.getString().isEmpty() ? c1.append(delimiter).append(c2) : c1.append(c2)), (c1, c2) -> !c1.getString().isEmpty() ? c1.append(delimiter).append(c2) : c1.append(c2));
+    }
+
+    public static <A, B> BiConsumer<A, B> dropResult(BiFunction<A, B, ?> function) {
+        return function::apply;
     }
 }

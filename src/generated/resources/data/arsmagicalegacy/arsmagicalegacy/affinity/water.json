@@ -6,6 +6,7 @@
   "cast_sound": "arsmagicalegacy:spell.cast.water",
   "color": 744687,
   "direct_opposite": "arsmagicalegacy:fire",
+  "index": 8.0,
   "loop_sound": "arsmagicalegacy:spell.loop.water",
   "major_opposites": [
     "arsmagicalegacy:lightning",

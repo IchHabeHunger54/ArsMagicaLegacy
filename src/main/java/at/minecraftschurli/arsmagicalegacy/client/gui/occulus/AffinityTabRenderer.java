@@ -33,6 +33,7 @@ import net.minecraft.world.item.ItemStack;
 import org.joml.Matrix4f;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,7 +61,8 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
         int count = affinities.size() - 1;
         double angleStep = Math.toRadians(360. / count);
         List<Holder.Reference<Affinity>> list = affinities.holders()
-            .filter(holder -> !holder.is(Affinity.NONE))
+            .filter(holder -> holder.value().index() >= 0)
+            .sorted(Comparator.comparing(holder -> holder.value().index()))
             .toList();
         for (int i = 0; i < list.size(); i++) {
             Holder<Affinity> affinity = list.get(i);
@@ -113,6 +115,7 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
                     .filter(e -> e.value().affinity().getKey() == affinity.getKey())
                     .sorted((a, b) -> (int) (a.value().bounds().max().orElse(0.) * 100 - b.value().bounds().max().orElse(0.) * 100))
                     .sorted((a, b) -> (int) (a.value().bounds().min().orElse(0.) * 100 - b.value().bounds().min().orElse(0.) * 100))
+                    .sorted((a, b) -> a.value().negative() == b.value().negative() ? 0 : a.value().negative() ? 1 : -1)
                     .forEach(holder -> {
                         Ability ability = holder.value();
                         MinMaxBounds.Doubles bounds = ability.bounds();

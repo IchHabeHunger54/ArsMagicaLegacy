@@ -34,40 +34,40 @@ import java.util.Optional;
 
 public final class AMMagicProvider {
     public static void addAbilities(BootstrapContext<Ability> bootstrap) {
-        HolderGetter<Affinity> affinity = bootstrap.lookup(AMRegistryKeys.AFFINITY);
+        HolderGetter<Affinity> affinities = bootstrap.lookup(AMRegistryKeys.AFFINITY);
         // @formatter:off
-        bootstrap.register(AMMagic.SWIM_SPEED,             new Ability(affinity.getOrThrow(AMMagic.WATER),     MinMaxBounds.Doubles.between(0.01, 1)));
-        bootstrap.register(AMMagic.ENDERMAN_THORNS,        new Ability(affinity.getOrThrow(AMMagic.WATER),     MinMaxBounds.Doubles.atLeast(1)));
-        bootstrap.register(AMMagic.NETHER_DAMAGE_WATER,    new Ability(affinity.getOrThrow(AMMagic.WATER),     MinMaxBounds.Doubles.between(0.5, 1), true));
-        bootstrap.register(AMMagic.FIRE_RESISTANCE,        new Ability(affinity.getOrThrow(AMMagic.FIRE),      MinMaxBounds.Doubles.between(0.01, 1)));
-        bootstrap.register(AMMagic.FIRE_PUNCH,             new Ability(affinity.getOrThrow(AMMagic.FIRE),      MinMaxBounds.Doubles.atLeast(1)));
-        bootstrap.register(AMMagic.WATER_DAMAGE_FIRE,      new Ability(affinity.getOrThrow(AMMagic.FIRE),      MinMaxBounds.Doubles.between(0.5, 1), true));
-        bootstrap.register(AMMagic.RESISTANCE,             new Ability(affinity.getOrThrow(AMMagic.EARTH),     MinMaxBounds.Doubles.between(0.01, 1)));
-        bootstrap.register(AMMagic.HASTE,                  new Ability(affinity.getOrThrow(AMMagic.EARTH),     MinMaxBounds.Doubles.between(0.01, 1)));
-        bootstrap.register(AMMagic.FALL_DAMAGE,            new Ability(affinity.getOrThrow(AMMagic.EARTH),     MinMaxBounds.Doubles.between(0.5, 1), true));
-        bootstrap.register(AMMagic.JUMP_BOOST,             new Ability(affinity.getOrThrow(AMMagic.AIR),       MinMaxBounds.Doubles.between(0.01, 1)));
-        bootstrap.register(AMMagic.FEATHER_FALLING,        new Ability(affinity.getOrThrow(AMMagic.AIR),       MinMaxBounds.Doubles.between(0.01, 1)));
-        bootstrap.register(AMMagic.GRAVITY,                new Ability(affinity.getOrThrow(AMMagic.AIR),       MinMaxBounds.Doubles.between(0.5, 1), true));
-        bootstrap.register(AMMagic.FROST_PUNCH,            new Ability(affinity.getOrThrow(AMMagic.ICE),       MinMaxBounds.Doubles.between(0.01, 1)));
-        bootstrap.register(AMMagic.FROST_WALKER,           new Ability(affinity.getOrThrow(AMMagic.ICE),       MinMaxBounds.Doubles.atLeast(1)));
-        bootstrap.register(AMMagic.SLOWNESS,               new Ability(affinity.getOrThrow(AMMagic.ICE),       MinMaxBounds.Doubles.between(0.5, 1), true));
-        bootstrap.register(AMMagic.SPEED,                  new Ability(affinity.getOrThrow(AMMagic.LIGHTNING), MinMaxBounds.Doubles.between(0.01, 1)));
-        bootstrap.register(AMMagic.STEP_ASSIST,            new Ability(affinity.getOrThrow(AMMagic.LIGHTNING), MinMaxBounds.Doubles.atLeast(1)));
-        bootstrap.register(AMMagic.WATER_DAMAGE_LIGHTNING, new Ability(affinity.getOrThrow(AMMagic.LIGHTNING), MinMaxBounds.Doubles.between(0.5, 1), true));
-        bootstrap.register(AMMagic.THORNS,                 new Ability(affinity.getOrThrow(AMMagic.NATURE),    MinMaxBounds.Doubles.between(0.01, 1)));
-        bootstrap.register(AMMagic.SATURATION,             new Ability(affinity.getOrThrow(AMMagic.NATURE),    MinMaxBounds.Doubles.atLeast(1)));
-        bootstrap.register(AMMagic.NETHER_DAMAGE_NATURE,   new Ability(affinity.getOrThrow(AMMagic.NATURE),    MinMaxBounds.Doubles.between(0.5, 1), true));
-        bootstrap.register(AMMagic.SMITE,                  new Ability(affinity.getOrThrow(AMMagic.LIFE),      MinMaxBounds.Doubles.between(0.01, 1)));
-        bootstrap.register(AMMagic.REGENERATION,           new Ability(affinity.getOrThrow(AMMagic.LIFE),      MinMaxBounds.Doubles.atLeast(1)));
-        bootstrap.register(AMMagic.NAUSEA,                 new Ability(affinity.getOrThrow(AMMagic.LIFE),      MinMaxBounds.Doubles.between(0.5, 1), true));
-        bootstrap.register(AMMagic.MANA_REDUCTION,         new Ability(affinity.getOrThrow(AMMagic.ARCANE),    MinMaxBounds.Doubles.between(0.01, 1)));
-        bootstrap.register(AMMagic.CLARITY,                new Ability(affinity.getOrThrow(AMMagic.ARCANE),    MinMaxBounds.Doubles.atLeast(1)));
-        bootstrap.register(AMMagic.MAGIC_DAMAGE,           new Ability(affinity.getOrThrow(AMMagic.ARCANE),    MinMaxBounds.Doubles.between(0.5, 1), true));
-        bootstrap.register(AMMagic.POISON_RESISTANCE,      new Ability(affinity.getOrThrow(AMMagic.ENDER),     MinMaxBounds.Doubles.between(0.5, 1)));
-        bootstrap.register(AMMagic.NIGHT_VISION,           new Ability(affinity.getOrThrow(AMMagic.ENDER),     MinMaxBounds.Doubles.between(0.5, 1)));
-        bootstrap.register(AMMagic.ENDERMAN_PUMPKIN,       new Ability(affinity.getOrThrow(AMMagic.ENDER),     MinMaxBounds.Doubles.atLeast(1)));
-        bootstrap.register(AMMagic.LIGHT_HEALTH_REDUCTION, new Ability(affinity.getOrThrow(AMMagic.ENDER),     MinMaxBounds.Doubles.between(0.5, 0.99), true));
-        bootstrap.register(AMMagic.WATER_HEALTH_REDUCTION, new Ability(affinity.getOrThrow(AMMagic.ENDER),     MinMaxBounds.Doubles.between(0.5, 0.99), true));
+        bootstrap.register(AMMagic.SWIM_SPEED,             new Ability(affinities.getOrThrow(AMMagic.WATER),     MinMaxBounds.Doubles.between(0.01, 1)));
+        bootstrap.register(AMMagic.ENDERMAN_THORNS,        new Ability(affinities.getOrThrow(AMMagic.WATER),     MinMaxBounds.Doubles.atLeast(1)));
+        bootstrap.register(AMMagic.NETHER_DAMAGE_WATER,    new Ability(affinities.getOrThrow(AMMagic.WATER),     MinMaxBounds.Doubles.between(0.5, 1), true));
+        bootstrap.register(AMMagic.FIRE_RESISTANCE,        new Ability(affinities.getOrThrow(AMMagic.FIRE),      MinMaxBounds.Doubles.between(0.01, 1)));
+        bootstrap.register(AMMagic.FIRE_PUNCH,             new Ability(affinities.getOrThrow(AMMagic.FIRE),      MinMaxBounds.Doubles.atLeast(1)));
+        bootstrap.register(AMMagic.WATER_DAMAGE_FIRE,      new Ability(affinities.getOrThrow(AMMagic.FIRE),      MinMaxBounds.Doubles.between(0.5, 1), true));
+        bootstrap.register(AMMagic.RESISTANCE,             new Ability(affinities.getOrThrow(AMMagic.EARTH),     MinMaxBounds.Doubles.between(0.01, 1)));
+        bootstrap.register(AMMagic.HASTE,                  new Ability(affinities.getOrThrow(AMMagic.EARTH),     MinMaxBounds.Doubles.between(0.01, 1)));
+        bootstrap.register(AMMagic.FALL_DAMAGE,            new Ability(affinities.getOrThrow(AMMagic.EARTH),     MinMaxBounds.Doubles.between(0.5, 1), true));
+        bootstrap.register(AMMagic.JUMP_BOOST,             new Ability(affinities.getOrThrow(AMMagic.AIR),       MinMaxBounds.Doubles.between(0.01, 1)));
+        bootstrap.register(AMMagic.FEATHER_FALLING,        new Ability(affinities.getOrThrow(AMMagic.AIR),       MinMaxBounds.Doubles.between(0.01, 1)));
+        bootstrap.register(AMMagic.GRAVITY,                new Ability(affinities.getOrThrow(AMMagic.AIR),       MinMaxBounds.Doubles.between(0.5, 1), true));
+        bootstrap.register(AMMagic.FROST_PUNCH,            new Ability(affinities.getOrThrow(AMMagic.ICE),       MinMaxBounds.Doubles.between(0.01, 1)));
+        bootstrap.register(AMMagic.FROST_WALKER,           new Ability(affinities.getOrThrow(AMMagic.ICE),       MinMaxBounds.Doubles.atLeast(1)));
+        bootstrap.register(AMMagic.SLOWNESS,               new Ability(affinities.getOrThrow(AMMagic.ICE),       MinMaxBounds.Doubles.between(0.5, 1), true));
+        bootstrap.register(AMMagic.SPEED,                  new Ability(affinities.getOrThrow(AMMagic.LIGHTNING), MinMaxBounds.Doubles.between(0.01, 1)));
+        bootstrap.register(AMMagic.STEP_ASSIST,            new Ability(affinities.getOrThrow(AMMagic.LIGHTNING), MinMaxBounds.Doubles.atLeast(1)));
+        bootstrap.register(AMMagic.WATER_DAMAGE_LIGHTNING, new Ability(affinities.getOrThrow(AMMagic.LIGHTNING), MinMaxBounds.Doubles.between(0.5, 1), true));
+        bootstrap.register(AMMagic.THORNS,                 new Ability(affinities.getOrThrow(AMMagic.NATURE),    MinMaxBounds.Doubles.between(0.01, 1)));
+        bootstrap.register(AMMagic.SATURATION,             new Ability(affinities.getOrThrow(AMMagic.NATURE),    MinMaxBounds.Doubles.atLeast(1)));
+        bootstrap.register(AMMagic.NETHER_DAMAGE_NATURE,   new Ability(affinities.getOrThrow(AMMagic.NATURE),    MinMaxBounds.Doubles.between(0.5, 1), true));
+        bootstrap.register(AMMagic.SMITE,                  new Ability(affinities.getOrThrow(AMMagic.LIFE),      MinMaxBounds.Doubles.between(0.01, 1)));
+        bootstrap.register(AMMagic.REGENERATION,           new Ability(affinities.getOrThrow(AMMagic.LIFE),      MinMaxBounds.Doubles.atLeast(1)));
+        bootstrap.register(AMMagic.NAUSEA,                 new Ability(affinities.getOrThrow(AMMagic.LIFE),      MinMaxBounds.Doubles.between(0.5, 1), true));
+        bootstrap.register(AMMagic.MANA_REDUCTION,         new Ability(affinities.getOrThrow(AMMagic.ARCANE),    MinMaxBounds.Doubles.between(0.01, 1)));
+        bootstrap.register(AMMagic.CLARITY,                new Ability(affinities.getOrThrow(AMMagic.ARCANE),    MinMaxBounds.Doubles.atLeast(1)));
+        bootstrap.register(AMMagic.MAGIC_DAMAGE,           new Ability(affinities.getOrThrow(AMMagic.ARCANE),    MinMaxBounds.Doubles.between(0.5, 1), true));
+        bootstrap.register(AMMagic.POISON_RESISTANCE,      new Ability(affinities.getOrThrow(AMMagic.ENDER),     MinMaxBounds.Doubles.between(0.5, 1)));
+        bootstrap.register(AMMagic.NIGHT_VISION,           new Ability(affinities.getOrThrow(AMMagic.ENDER),     MinMaxBounds.Doubles.between(0.5, 1)));
+        bootstrap.register(AMMagic.ENDERMAN_PUMPKIN,       new Ability(affinities.getOrThrow(AMMagic.ENDER),     MinMaxBounds.Doubles.atLeast(1)));
+        bootstrap.register(AMMagic.LIGHT_HEALTH_REDUCTION, new Ability(affinities.getOrThrow(AMMagic.ENDER),     MinMaxBounds.Doubles.between(0.5, 0.99), true));
+        bootstrap.register(AMMagic.WATER_HEALTH_REDUCTION, new Ability(affinities.getOrThrow(AMMagic.ENDER),     MinMaxBounds.Doubles.between(0.5, 0.99), true));
         // @formatter:on
     }
 
@@ -78,7 +78,7 @@ public final class AMMagicProvider {
                 return true;
             }
         };
-        bootstrap.register(Affinity.NONE, new Affinity(Holder.Reference.createStandAlone(owner, Affinity.NONE), List.of(), List.of(), List.of(), 0, Optional.of(AMSounds.CAST_NONE), Optional.empty()));
+        bootstrap.register(Affinity.NONE, new Affinity(Holder.Reference.createStandAlone(owner, Affinity.NONE), List.of(), List.of(), List.of(), 0, -1, Optional.of(AMSounds.CAST_NONE), Optional.empty()));
         // @formatter:off
         Holder.Reference<Affinity> water     = Holder.Reference.createStandAlone(owner, AMMagic.WATER);
         Holder.Reference<Affinity> fire      = Holder.Reference.createStandAlone(owner, AMMagic.FIRE);
@@ -90,16 +90,16 @@ public final class AMMagicProvider {
         Holder.Reference<Affinity> life      = Holder.Reference.createStandAlone(owner, AMMagic.LIFE);
         Holder.Reference<Affinity> arcane    = Holder.Reference.createStandAlone(owner, AMMagic.ARCANE);
         Holder.Reference<Affinity> ender     = Holder.Reference.createStandAlone(owner, AMMagic.ENDER);
-        bootstrap.register(AMMagic.WATER,     new Affinity(fire,      List.of(lightning, ender), List.of(air, arcane),      List.of(ice, nature),      0x0b5cef, AMSounds.CAST_WATER,     AMSounds.LOOP_WATER));
-        bootstrap.register(AMMagic.FIRE,      new Affinity(water,     List.of(ice, nature),      List.of(earth, life),      List.of(lightning, ender), 0xef260b, AMSounds.CAST_FIRE,      AMSounds.LOOP_FIRE));
-        bootstrap.register(AMMagic.EARTH,     new Affinity(air,       List.of(lightning, life),  List.of(fire, nature),     List.of(ice, arcane),      0x61330b, AMSounds.CAST_EARTH,     AMSounds.LOOP_EARTH));
-        bootstrap.register(AMMagic.AIR,       new Affinity(earth,     List.of(ice, arcane),      List.of(water, ender),     List.of(lightning, life),  0x777777, AMSounds.CAST_AIR,       AMSounds.LOOP_AIR));
-        bootstrap.register(AMMagic.ICE,       new Affinity(lightning, List.of(fire, air),        List.of(life, ender),      List.of(water, earth),     0xd3e8fc, AMSounds.CAST_ICE,       AMSounds.LOOP_ICE));
-        bootstrap.register(AMMagic.LIGHTNING, new Affinity(ice,       List.of(water, earth),     List.of(nature, arcane),   List.of(fire, air),        0xdece19, AMSounds.CAST_LIGHTNING, AMSounds.LOOP_LIGHTNING));
-        bootstrap.register(AMMagic.NATURE,    new Affinity(ender,     List.of(fire, arcane),     List.of(earth, lightning), List.of(water, life),      0x228718, AMSounds.CAST_NATURE,    AMSounds.LOOP_NATURE));
-        bootstrap.register(AMMagic.LIFE,      new Affinity(arcane,    List.of(earth, ender),     List.of(fire, ice),        List.of(air, nature),      0x34e122, AMSounds.CAST_LIFE,      AMSounds.LOOP_LIFE));
-        bootstrap.register(AMMagic.ARCANE,    new Affinity(life,      List.of(air, nature),      List.of(water, lightning), List.of(earth, ender),     0xb935cd, AMSounds.CAST_ARCANE,    AMSounds.LOOP_ARCANE));
-        bootstrap.register(AMMagic.ENDER,     new Affinity(nature,    List.of(water, life),      List.of(air, ice),         List.of(fire, arcane),     0x3f043d, AMSounds.CAST_ENDER,     AMSounds.LOOP_ENDER));
+        bootstrap.register(AMMagic.WATER,     new Affinity(fire,      List.of(lightning, ender), List.of(air, arcane),      List.of(ice, nature),      0x0b5cef,  8, AMSounds.CAST_WATER,     AMSounds.LOOP_WATER));
+        bootstrap.register(AMMagic.FIRE,      new Affinity(water,     List.of(ice, nature),      List.of(earth, life),      List.of(lightning, ender), 0xef260b,  3, AMSounds.CAST_FIRE,      AMSounds.LOOP_FIRE));
+        bootstrap.register(AMMagic.EARTH,     new Affinity(air,       List.of(lightning, life),  List.of(fire, nature),     List.of(ice, arcane),      0x61330b, 10, AMSounds.CAST_EARTH,     AMSounds.LOOP_EARTH));
+        bootstrap.register(AMMagic.AIR,       new Affinity(earth,     List.of(ice, arcane),      List.of(water, ender),     List.of(lightning, life),  0x777777,  5, AMSounds.CAST_AIR,       AMSounds.LOOP_AIR));
+        bootstrap.register(AMMagic.ICE,       new Affinity(lightning, List.of(fire, air),        List.of(life, ender),      List.of(water, earth),     0xd3e8fc,  9, AMSounds.CAST_ICE,       AMSounds.LOOP_ICE));
+        bootstrap.register(AMMagic.LIGHTNING, new Affinity(ice,       List.of(water, earth),     List.of(nature, arcane),   List.of(fire, air),        0xdece19,  4, AMSounds.CAST_LIGHTNING, AMSounds.LOOP_LIGHTNING));
+        bootstrap.register(AMMagic.NATURE,    new Affinity(ender,     List.of(fire, arcane),     List.of(earth, lightning), List.of(water, life),      0x228718,  7, AMSounds.CAST_NATURE,    AMSounds.LOOP_NATURE));
+        bootstrap.register(AMMagic.LIFE,      new Affinity(arcane,    List.of(earth, ender),     List.of(fire, ice),        List.of(air, nature),      0x34e122,  6, AMSounds.CAST_LIFE,      AMSounds.LOOP_LIFE));
+        bootstrap.register(AMMagic.ARCANE,    new Affinity(life,      List.of(air, nature),      List.of(water, lightning), List.of(earth, ender),     0xb935cd,  1, AMSounds.CAST_ARCANE,    AMSounds.LOOP_ARCANE));
+        bootstrap.register(AMMagic.ENDER,     new Affinity(nature,    List.of(water, life),      List.of(air, ice),         List.of(fire, arcane),     0x3f043d,  2, AMSounds.CAST_ENDER,     AMSounds.LOOP_ENDER));
         // @formatter:on
     }
 

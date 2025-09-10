@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.api.magic;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.Util;
@@ -24,10 +25,11 @@ import java.util.Optional;
  * @param minorOpposites The minor opposite affinities. When shifting into an affinity, one will also shift away by a small amount from the minor opposites.
  * @param adjacents      The adjacent affinities. When shifting into an affinity, one will also shift towards the adjacents by a small amount.
  * @param color          The color of the affinity.
- * @param castSound      The {@link SoundEvent} to use for casting spells with the affinity.
- * @param loopSound      The {@link SoundEvent} to use for casting continuous spells with the affinity.
+ * @param index          The index of the affinity when displaying in the occulus. The built-in affinities use int values 1-10, use floating point values to insert your affinities between them. Use values < 0 to not display the affinity in the occulus.
+ * @param castSound      The {@link SoundEvent} to use for casting {@link Spell}s with the affinity.
+ * @param loopSound      The {@link SoundEvent} to use for casting continuous {@link Spell}s with the affinity.
  */
-public record Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> majorOpposites, List<Holder<Affinity>> minorOpposites, List<Holder<Affinity>> adjacents, int color, Optional<Holder<SoundEvent>> castSound, Optional<Holder<SoundEvent>> loopSound) {
+public record Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> majorOpposites, List<Holder<Affinity>> minorOpposites, List<Holder<Affinity>> adjacents, int color, double index, Optional<Holder<SoundEvent>> castSound, Optional<Holder<SoundEvent>> loopSound) {
     public static final Codec<Affinity> DIRECT_CODEC = Util.make(() -> {
         Codec<Holder<Affinity>> codec = Codec.lazyInitialized(() -> Affinity.CODEC);
         return RecordCodecBuilder.create(inst -> inst.group(
@@ -36,6 +38,7 @@ public record Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> m
             codec.listOf().fieldOf("minor_opposites").forGetter(Affinity::minorOpposites),
             codec.listOf().fieldOf("adjacents").forGetter(Affinity::adjacents),
             Codec.INT.fieldOf("color").forGetter(Affinity::color),
+            Codec.DOUBLE.fieldOf("index").forGetter(Affinity::index),
             BuiltInRegistries.SOUND_EVENT.holderByNameCodec().optionalFieldOf("cast_sound").forGetter(Affinity::castSound),
             BuiltInRegistries.SOUND_EVENT.holderByNameCodec().optionalFieldOf("loop_sound").forGetter(Affinity::loopSound)
         ).apply(inst, Affinity::new));
@@ -49,11 +52,12 @@ public record Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> m
      * @param minorOpposites The minor opposite affinities.
      * @param adjacents      The adjacent affinities.
      * @param color          The color of the affinity.
+     * @param index          The index of the affinity when displaying in the occulus.
      * @param castSound      The {@link SoundEvent} to use for casting spells with the affinity.
      * @param loopSound      The {@link SoundEvent} to use for casting continuous spells with the affinity.
      */
-    public Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> majorOpposites, List<Holder<Affinity>> minorOpposites, List<Holder<Affinity>> adjacents, int color, Holder<SoundEvent> castSound, Holder<SoundEvent> loopSound) {
-        this(directOpposite, majorOpposites, minorOpposites, adjacents, color, Optional.of(castSound), Optional.of(loopSound));
+    public Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> majorOpposites, List<Holder<Affinity>> minorOpposites, List<Holder<Affinity>> adjacents, int color, double index, Holder<SoundEvent> castSound, Holder<SoundEvent> loopSound) {
+        this(directOpposite, majorOpposites, minorOpposites, adjacents, color, index, Optional.of(castSound), Optional.of(loopSound));
     }
 
     /**

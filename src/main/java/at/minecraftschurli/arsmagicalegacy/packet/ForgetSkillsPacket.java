@@ -2,7 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.packet;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
-import at.minecraftschurli.arsmagicalegacy.api.helper.MagicHelper;
+import at.minecraftschurli.arsmagicalegacy.api.magic.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.Holder;

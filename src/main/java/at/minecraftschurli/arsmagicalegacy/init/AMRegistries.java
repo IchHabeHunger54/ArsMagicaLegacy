@@ -5,6 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -21,17 +22,17 @@ public interface AMRegistries {
     // @formatter:off
     DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(ArsMagicaApi.MOD_ID);
     DeferredRegister.Items  ITEMS  = DeferredRegister.createItems(ArsMagicaApi.MOD_ID);
-    DeferredRegister.DataComponents           DATA_COMPONENTS   = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ArsMagicaApi.MOD_ID);
-    DeferredRegister<Attribute>               ATTRIBUTES        = DeferredRegister.create(Registries.ATTRIBUTE,                         ArsMagicaApi.MOD_ID);
-    DeferredRegister<BlockEntityType<?>>      BLOCK_ENTITIES    = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE,                 ArsMagicaApi.MOD_ID);
-    DeferredRegister<CreativeModeTab>         CREATIVE_TABS     = DeferredRegister.create(Registries.CREATIVE_MODE_TAB,                 ArsMagicaApi.MOD_ID);
-    DeferredRegister<MenuType<?>>             MENUS             = DeferredRegister.create(Registries.MENU,                              ArsMagicaApi.MOD_ID);
-    DeferredRegister<SoundEvent>              SOUND_EVENTS      = DeferredRegister.create(Registries.SOUND_EVENT,                       ArsMagicaApi.MOD_ID);
-    DeferredRegister<Feature<?>>              FEATURES          = DeferredRegister.create(Registries.FEATURE,                           ArsMagicaApi.MOD_ID);
-    DeferredRegister<AttachmentType<?>>       ATTACHMENTS       = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES,     ArsMagicaApi.MOD_ID);
-    DeferredRegister<SpellIngredient.Type<?>> SPELL_INGREDIENTS = DeferredRegister.create(AMRegistryKeys.SPELL_INGREDIENT,              ArsMagicaApi.MOD_ID);
-    DeferredRegister<SpellPart>               SPELL_PARTS       = DeferredRegister.create(AMRegistryKeys.SPELL_PART,                    ArsMagicaApi.MOD_ID);
-    DeferredRegister<AbilityEffect.Type<?>>   ABILITY_EFFECTS   = DeferredRegister.create(AMRegistryKeys.ABILITY_EFFECT,                ArsMagicaApi.MOD_ID);
+    DeferredRegister.DataComponents                       DATA_COMPONENTS   = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ArsMagicaApi.MOD_ID);
+    DeferredRegister<Attribute>                           ATTRIBUTES        = DeferredRegister.create(Registries.ATTRIBUTE,                         ArsMagicaApi.MOD_ID);
+    DeferredRegister<BlockEntityType<?>>                  BLOCK_ENTITIES    = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE,                 ArsMagicaApi.MOD_ID);
+    DeferredRegister<CreativeModeTab>                     CREATIVE_TABS     = DeferredRegister.create(Registries.CREATIVE_MODE_TAB,                 ArsMagicaApi.MOD_ID);
+    DeferredRegister<MenuType<?>>                         MENUS             = DeferredRegister.create(Registries.MENU,                              ArsMagicaApi.MOD_ID);
+    DeferredRegister<SoundEvent>                          SOUND_EVENTS      = DeferredRegister.create(Registries.SOUND_EVENT,                       ArsMagicaApi.MOD_ID);
+    DeferredRegister<Feature<?>>                          FEATURES          = DeferredRegister.create(Registries.FEATURE,                           ArsMagicaApi.MOD_ID);
+    DeferredRegister<AttachmentType<?>>                   ATTACHMENTS       = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES,     ArsMagicaApi.MOD_ID);
+    DeferredRegister<SpellPart>                           SPELL_PARTS       = DeferredRegister.create(AMRegistryKeys.SPELL_PART,                    ArsMagicaApi.MOD_ID);
+    DeferredRegister<MapCodec<? extends SpellIngredient>> SPELL_INGREDIENTS = DeferredRegister.create(AMRegistryKeys.SPELL_INGREDIENT,              ArsMagicaApi.MOD_ID);
+    DeferredRegister<MapCodec<? extends AbilityEffect>>   ABILITY_EFFECTS   = DeferredRegister.create(AMRegistryKeys.ABILITY_EFFECT,                ArsMagicaApi.MOD_ID);
     // @formatter:on
 
     /**

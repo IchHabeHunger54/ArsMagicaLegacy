@@ -59,12 +59,13 @@ import at.minecraftschurli.arsmagicalegacy.spell.shape.Touch;
 import at.minecraftschurli.arsmagicalegacy.spell.shape.Wall;
 import at.minecraftschurli.arsmagicalegacy.spell.shape.Wave;
 import at.minecraftschurli.arsmagicalegacy.spell.shape.Zone;
+import com.mojang.serialization.MapCodec;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.function.Supplier;
 
 public interface AMSpells {
-    DeferredHolder<SpellIngredient.Type<?>, SpellIngredient.Type<ItemSpellIngredient>> ITEM_SPELL_INGREDIENT = AMRegistries.SPELL_INGREDIENTS.register("item", () -> new SpellIngredient.Type<>(ItemSpellIngredient.CODEC));
+    DeferredHolder<MapCodec<? extends SpellIngredient>, MapCodec<ItemSpellIngredient>> ITEM_SPELL_INGREDIENT = AMRegistries.SPELL_INGREDIENTS.register("item", () -> ItemSpellIngredient.CODEC);
 
     // @formatter:off
     DeferredHolder<SpellPart, AreaOfEffect>       AREA_OF_EFFECT      = register("area_of_effect",      AreaOfEffect::new);

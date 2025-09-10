@@ -9,6 +9,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceLocation;
@@ -68,14 +69,14 @@ public abstract class ArsMagicaApi {
     /**
      * @return The spell ingredient registry.
      */
-    public static Registry<SpellIngredient.Type<?>> spellIngredientRegistry() {
+    public static Registry<MapCodec<? extends SpellIngredient>> spellIngredientRegistry() {
         return INSTANCE.get().getSpellIngredientRegistry();
     }
 
     /**
      * @return The ability effect registry.
      */
-    public static Registry<AbilityEffect.Type<?>> abilityEffectRegistry() {
+    public static Registry<MapCodec<? extends AbilityEffect>> abilityEffectRegistry() {
         return INSTANCE.get().getAbilityEffectRegistry();
     }
 
@@ -132,10 +133,10 @@ public abstract class ArsMagicaApi {
     protected abstract Registry<DataComponentType<?>> getSpellDataComponentRegistry();
 
     @ApiStatus.Internal
-    protected abstract Registry<SpellIngredient.Type<?>> getSpellIngredientRegistry();
+    protected abstract Registry<MapCodec<? extends SpellIngredient>> getSpellIngredientRegistry();
 
     @ApiStatus.Internal
-    protected abstract Registry<AbilityEffect.Type<?>> getAbilityEffectRegistry();
+    protected abstract Registry<MapCodec<? extends AbilityEffect>> getAbilityEffectRegistry();
 
     @ApiStatus.Internal
     protected abstract AbilityHelper getAbilityHelper();

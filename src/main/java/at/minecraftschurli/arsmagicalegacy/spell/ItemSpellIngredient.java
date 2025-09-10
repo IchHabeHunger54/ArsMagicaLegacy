@@ -29,7 +29,7 @@ public record ItemSpellIngredient(Ingredient item, int count) implements SpellIn
     ).apply(inst, ItemSpellIngredient::new));
 
     @Override
-    public Type<? extends SpellIngredient> type() {
+    public MapCodec<? extends SpellIngredient> codec() {
         return AMSpells.ITEM_SPELL_INGREDIENT.get();
     }
 

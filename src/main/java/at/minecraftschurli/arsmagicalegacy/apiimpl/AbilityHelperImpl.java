@@ -8,7 +8,7 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicAttachment;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.google.common.collect.Sets;
-import net.minecraft.advancements.critereon.MinMaxBounds;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
@@ -66,15 +66,15 @@ public final class AbilityHelperImpl implements AbilityHelper {
     }
 
     @Override
-    public Stream<AbilityEffect> getActiveEffectsOfType(Player player, AbilityEffect.Type<?> type) {
-        return getActiveEffects(player).filter(e -> e.type() == type);
+    public Stream<AbilityEffect> getActiveEffectsOfType(Player player, MapCodec<? extends AbilityEffect> codec) {
+        return getActiveEffects(player).filter(e -> e.codec() == codec);
     }
 
     @Override
     public double getDepthPercent(double affinityDepth, Ability ability) {
         double min = ability.bounds().min().orElse(0.);
         double max = ability.bounds().max().orElse(1.);
-        return min == max ? affinityDepth == min ? 1 : 0 : (affinityDepth - min) / (max - min);
+        return min == max ? affinityDepth == min ? 1 : 0 : Math.clamp((affinityDepth - min) / (max - min), 0, 1);
     }
 
     private Component joinAbilities(Set<Holder<Ability>> set) {

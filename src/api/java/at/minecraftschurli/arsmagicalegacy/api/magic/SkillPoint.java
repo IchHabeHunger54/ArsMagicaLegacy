@@ -6,6 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.RegistryFileCodec;
 
 /**
@@ -28,7 +29,7 @@ public record SkillPoint(int color, int minEarnLevel, int levelsForPoint) {
      * @param holder The skill point {@link Holder} to query.
      * @return The display name of the given skill point.
      */
-    public static Component getName(Holder<SkillPoint> holder) {
+    public static MutableComponent getName(Holder<SkillPoint> holder) {
         return Component.translatable(Util.makeDescriptionId("skill_point", holder.getKey().location()));
     }
 }

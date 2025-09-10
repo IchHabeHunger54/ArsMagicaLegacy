@@ -8,6 +8,7 @@ import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
@@ -60,7 +61,7 @@ public record Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> m
      * @return The display name of the given affinity.
      */
     @SuppressWarnings("DataFlowIssue")
-    public static Component getName(Holder<Affinity> holder) {
+    public static MutableComponent getName(Holder<Affinity> holder) {
         return Component.translatable(Util.makeDescriptionId("affinity", holder.getKey().location()));
     }
 }

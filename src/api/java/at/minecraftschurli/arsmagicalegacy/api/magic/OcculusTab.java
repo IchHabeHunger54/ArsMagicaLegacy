@@ -7,6 +7,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
 
@@ -54,7 +55,7 @@ public record OcculusTab(int width, int height, int startX, int startY, int inde
      * @param holder The occulus tab {@link Holder} to query.
      * @return The display name of the given occulus tab.
      */
-    public static Component getName(Holder<OcculusTab> holder) {
+    public static MutableComponent getName(Holder<OcculusTab> holder) {
         return Component.translatable(Util.makeDescriptionId("occulus_tab", holder.getKey().location()));
     }
 }

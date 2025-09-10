@@ -8,6 +8,7 @@ import net.minecraft.Util;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.world.entity.player.Player;
 
@@ -46,7 +47,7 @@ public record Ability(Holder<Affinity> affinity, MinMaxBounds.Doubles bounds, bo
      * @return The display name of the given ability.
      */
     @SuppressWarnings("DataFlowIssue")
-    public static Component getName(Holder<Ability> holder) {
+    public static MutableComponent getName(Holder<Ability> holder) {
         return Component.translatable(Util.makeDescriptionId("ability", holder.getKey().location()));
     }
 }

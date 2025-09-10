@@ -39,7 +39,7 @@ public abstract class AffinityChangeEvent extends PlayerEvent {
         private final Map<Holder<Affinity>, Double> originalAffinityShifts;
         private final boolean originalBypassLocks;
         private final Map<Holder<Affinity>, Double> affinityShifts;
-        public boolean bypassLocks;
+        private boolean bypassLocks;
 
         public Pre(Player player, Map<Holder<Affinity>, Double> affinityShifts, boolean bypassLocks, boolean commandSource) {
             super(player, commandSource);

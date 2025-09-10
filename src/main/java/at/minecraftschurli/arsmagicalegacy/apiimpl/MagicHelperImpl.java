@@ -3,10 +3,13 @@ package at.minecraftschurli.arsmagicalegacy.apiimpl;
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
+import at.minecraftschurli.arsmagicalegacy.api.event.AffinityChangeEvent;
 import at.minecraftschurli.arsmagicalegacy.api.event.LevelChangeEvent;
 import at.minecraftschurli.arsmagicalegacy.api.helper.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.helper.ManaHelper;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Ability;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicAttachment;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
@@ -14,14 +17,21 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
+import com.google.common.collect.Sets;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.common.NeoForge;
+import org.apache.commons.lang3.function.TriFunction;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 final class MagicHelperImpl implements MagicHelper {
     @Override
@@ -186,43 +196,79 @@ final class MagicHelperImpl implements MagicHelper {
 
     @Override
     public void setAffinityDepth(Player player, Holder<Affinity> affinity, double depth) {
-        if (affinity.is(Affinity.NONE)) return;
-        MagicAttachment data = player.getData(AMAttachments.MAGIC);
-        if (data.affinityLocked()) return;
-        player.setData(AMAttachments.MAGIC, data.updateAffinityShifts(map -> map.put(affinity, Math.clamp(depth, 0, 1))));
+        setAffinityDepth(player, affinity, depth, false);
+    }
+
+    @Override
+    public void setAffinityDepth(Player player, Map<Holder<Affinity>, Double> affinities) {
+        setAffinityDepth(player, affinities, false);
+    }
+
+    @Override
+    public void setAffinityDepth(Player player, Holder<Affinity> affinity, double depth, boolean commandSource) {
+        setAffinityDepth(player, Map.of(affinity, depth), commandSource);
+    }
+
+    @Override
+    public void setAffinityDepth(Player player, Map<Holder<Affinity>, Double> affinities, boolean commandSource) {
+        modifyAffinities(player, affinities, (data, affinity, depth) -> affinity.is(Affinity.NONE) ? data : data.updateAffinityShifts(map -> map.put(affinity, Math.clamp(depth, 0, 1))), commandSource);
     }
 
     @Override
     public void addAffinityDepth(Player player, Holder<Affinity> affinity, double depth) {
-        setAffinityDepth(player, affinity, player.getData(AMAttachments.MAGIC).affinityShifts().getOrDefault(affinity, 0.) + depth);
+        addAffinityDepth(player, affinity, depth, false);
+    }
+
+    @Override
+    public void addAffinityDepth(Player player, Map<Holder<Affinity>, Double> affinities) {
+        addAffinityDepth(player, affinities, false);
+    }
+
+    @Override
+    public void addAffinityDepth(Player player, Holder<Affinity> affinity, double depth, boolean commandSource) {
+        addAffinityDepth(player, Map.of(affinity, depth), commandSource);
+    }
+
+    @Override
+    public void addAffinityDepth(Player player, Map<Holder<Affinity>, Double> affinities, boolean commandSource) {
+        modifyAffinities(player, affinities, this::addAffinityDepth, commandSource);
     }
 
     @Override
     public void applyAffinityShift(Player player, Holder<Affinity> affinity, double shift) {
-        if (affinity.is(Affinity.NONE)) return;
-        MagicAttachment data = player.getData(AMAttachments.MAGIC);
-        if (data.affinityLocked()) return;
-        Affinity value = affinity.value();
-        double direct = shift * AMServerConfig.DIRECT_OPPOSITE_MULTIPLIER.get();
-        double major = shift * AMServerConfig.MAJOR_OPPOSITE_MULTIPLIER.get();
-        double minor = shift * AMServerConfig.MINOR_OPPOSITE_MULTIPLIER.get();
-        double adjacent = shift * AMServerConfig.ADJACENT_MULTIPLIER.get();
-        addAffinityDepth(player, value.directOpposite(), -direct);
-        for (Holder<Affinity> holder : value.majorOpposites()) {
-            addAffinityDepth(player, holder, -major);
-        }
-        for (Holder<Affinity> holder : value.minorOpposites()) {
-            addAffinityDepth(player, holder, -minor);
-        }
-        for (Holder<Affinity> holder : value.adjacents()) {
-            addAffinityDepth(player, holder, adjacent);
-        }
-        updateAffinityLock(player);
+        applyAffinityShift(player, affinity, shift, false);
     }
 
     @Override
     public void applyAffinityShift(Player player, Map<Holder<Affinity>, Double> affinityShifts) {
-        affinityShifts.forEach((k, v) -> applyAffinityShift(player, k, v));
+        applyAffinityShift(player, affinityShifts, false);
+    }
+
+    @Override
+    public void applyAffinityShift(Player player, Holder<Affinity> affinity, double shift, boolean commandSource) {
+        applyAffinityShift(player, Map.of(affinity, shift), commandSource);
+    }
+
+    @Override
+    public void applyAffinityShift(Player player, Map<Holder<Affinity>, Double> affinityShifts, boolean commandSource) {
+        modifyAffinities(player, affinityShifts, (data, affinity, shift) -> {
+            Affinity value = affinity.value();
+            double direct = shift * AMServerConfig.DIRECT_OPPOSITE_MULTIPLIER.get();
+            double major = shift * AMServerConfig.MAJOR_OPPOSITE_MULTIPLIER.get();
+            double minor = shift * AMServerConfig.MINOR_OPPOSITE_MULTIPLIER.get();
+            double adjacent = shift * AMServerConfig.ADJACENT_MULTIPLIER.get();
+            data = addAffinityDepth(data, value.directOpposite(), -direct);
+            for (Holder<Affinity> holder : value.majorOpposites()) {
+                data = addAffinityDepth(data, holder, -major);
+            }
+            for (Holder<Affinity> holder : value.minorOpposites()) {
+                data = addAffinityDepth(data, holder, -minor);
+            }
+            for (Holder<Affinity> holder : value.adjacents()) {
+                data = addAffinityDepth(data, holder, adjacent);
+            }
+            return data;
+        }, commandSource);
     }
 
     @Override
@@ -239,5 +285,57 @@ final class MagicHelperImpl implements MagicHelper {
     public void updateAffinityLock(Player player) {
         MagicAttachment data = player.getData(AMAttachments.MAGIC);
         player.setData(AMAttachments.MAGIC, data.setAffinityLocked(data.affinityShifts().values().stream().anyMatch(e -> e >= 1)));
+    }
+
+    private void modifyAffinities(Player player, Map<Holder<Affinity>, Double> affinities, TriFunction<MagicAttachment, Holder<Affinity>, Double, MagicAttachment> operator, boolean commandSource) {
+        AffinityChangeEvent.Pre event = NeoForge.EVENT_BUS.post(new AffinityChangeEvent.Pre(player, affinities, commandSource, commandSource));
+        if (event.isCanceled()) return;
+        MagicAttachment data = player.getData(AMAttachments.MAGIC);
+        if (data.affinityLocked() && !event.isBypassLocks()) return;
+        Registry<Ability> registry = player.registryAccess().registryOrThrow(AMRegistryKeys.ABILITY);
+        Set<Holder<Ability>> oldAbilities = registry.holders()
+            .filter(ability -> ability.value().test(player))
+            .collect(Collectors.toSet());
+        for (Map.Entry<Holder<Affinity>, Double> entry : event.getAffinityShifts().entrySet()) {
+            Holder<Affinity> affinity = entry.getKey();
+            if (affinity.is(Affinity.NONE)) continue;
+            data = operator.apply(data, affinity, entry.getValue());
+        }
+        player.setData(AMAttachments.MAGIC, data);
+        updateAffinityLock(player);
+        Set<Holder<Ability>> newAbilities = registry.holders()
+            .filter(ability -> ability.value().test(player))
+            .collect(Collectors.toSet());
+        Component message = getAbilityMessage(oldAbilities, newAbilities);
+        if (message != null) {
+            player.displayClientMessage(message, true);
+        }
+        NeoForge.EVENT_BUS.post(new AffinityChangeEvent.Post(player, event.getAffinityShifts(), event.isBypassLocks(), commandSource));
+    }
+
+    private MagicAttachment addAffinityDepth(MagicAttachment data, Holder<Affinity> affinity, double depth) {
+        return affinity.is(Affinity.NONE) ? data : data.updateAffinityShifts(map -> map.put(affinity, Math.clamp(depth + data.affinityShifts().getOrDefault(affinity, 0.), 0, 1)));
+    }
+
+    @Nullable
+    private Component getAbilityMessage(Set<Holder<Ability>> oldSet, Set<Holder<Ability>> newSet) {
+        Set<Holder<Ability>> oldAbilities = Sets.difference(oldSet, newSet);
+        Set<Holder<Ability>> newAbilities = Sets.difference(newSet, oldSet);
+        if (oldAbilities.isEmpty() && newAbilities.isEmpty()) return null;
+        if (oldAbilities.isEmpty())
+            return newAbilities.size() == 1 ? Component.translatable(AMTranslations.ABILITY_INTO_SINGLE_KEY, joinAbilities(newAbilities)) : Component.translatable(AMTranslations.ABILITY_INTO_MULTIPLE_KEY, joinAbilities(newAbilities));
+        if (newAbilities.isEmpty())
+            return oldAbilities.size() == 1 ? Component.translatable(AMTranslations.ABILITY_OUT_OF_SINGLE_KEY, joinAbilities(oldAbilities)) : Component.translatable(AMTranslations.ABILITY_OUT_OF_MULTIPLE_KEY, joinAbilities(oldAbilities));
+        String key = oldAbilities.size() == 1 && newAbilities.size() == 1 ? AMTranslations.ABILITY_INTO_SINGLE_OUT_OF_SINGLE_KEY
+            : oldAbilities.size() == 1 ? AMTranslations.ABILITY_INTO_MULTIPLE_OUT_OF_SINGLE_KEY
+            : newAbilities.size() == 1 ? AMTranslations.ABILITY_INTO_SINGLE_OUT_OF_MULTIPLE_KEY
+            : AMTranslations.ABILITY_INTO_MULTIPLE_OUT_OF_MULTIPLE_KEY;
+        return Component.translatable(key, joinAbilities(newAbilities), joinAbilities(oldAbilities));
+    }
+
+    private Component joinAbilities(Set<Holder<Ability>> set) {
+        return set.stream()
+            .map(holder -> Ability.getName(holder).withColor(holder.value().affinity().value().color()))
+            .collect(AMUtil.joiningComponents(AMTranslations.ABILITY_SEPARATOR));
     }
 }

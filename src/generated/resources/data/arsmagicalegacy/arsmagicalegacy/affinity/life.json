@@ -6,6 +6,7 @@
   "cast_sound": "arsmagicalegacy:spell.cast.life",
   "color": 3465506,
   "direct_opposite": "arsmagicalegacy:arcane",
+  "index": 6.0,
   "loop_sound": "arsmagicalegacy:spell.loop.life",
   "major_opposites": [
     "arsmagicalegacy:earth",

@@ -1,9 +1,5 @@
-package at.minecraftschurli.arsmagicalegacy.api.helper;
+package at.minecraftschurli.arsmagicalegacy.api.spell;
 
-import at.minecraftschurli.arsmagicalegacy.api.spell.PrimarySpellShape;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SecondarySpellShape;
-import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;

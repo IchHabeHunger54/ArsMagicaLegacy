@@ -9,10 +9,10 @@ import at.minecraftschurli.arsmagicalegacy.api.event.BurnoutCostCalculationEvent
 import at.minecraftschurli.arsmagicalegacy.api.event.ManaCostCalculationEvent;
 import at.minecraftschurli.arsmagicalegacy.api.event.SpellCastEvent;
 import at.minecraftschurli.arsmagicalegacy.api.event.SpellPartCastEvent;
-import at.minecraftschurli.arsmagicalegacy.api.helper.BurnoutHelper;
-import at.minecraftschurli.arsmagicalegacy.api.helper.MagicHelper;
-import at.minecraftschurli.arsmagicalegacy.api.helper.ManaHelper;
-import at.minecraftschurli.arsmagicalegacy.api.helper.SpellHelper;
+import at.minecraftschurli.arsmagicalegacy.api.magic.BurnoutHelper;
+import at.minecraftschurli.arsmagicalegacy.api.magic.MagicHelper;
+import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.PrimarySpellShape;

@@ -1,9 +1,9 @@
 package at.minecraftschurli.arsmagicalegacy.api;
 
-import at.minecraftschurli.arsmagicalegacy.api.helper.BurnoutHelper;
-import at.minecraftschurli.arsmagicalegacy.api.helper.MagicHelper;
-import at.minecraftschurli.arsmagicalegacy.api.helper.ManaHelper;
-import at.minecraftschurli.arsmagicalegacy.api.helper.SpellHelper;
+import at.minecraftschurli.arsmagicalegacy.api.magic.BurnoutHelper;
+import at.minecraftschurli.arsmagicalegacy.api.magic.MagicHelper;
+import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;

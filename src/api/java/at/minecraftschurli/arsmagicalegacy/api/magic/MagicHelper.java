@@ -1,9 +1,5 @@
-package at.minecraftschurli.arsmagicalegacy.api.helper;
+package at.minecraftschurli.arsmagicalegacy.api.magic;
 
-import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
-import at.minecraftschurli.arsmagicalegacy.api.magic.MagicAttachment;
-import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
-import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.player.Player;
 

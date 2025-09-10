@@ -1,6 +1,5 @@
 package at.minecraftschurli.arsmagicalegacy.api.spell;
 
-import at.minecraftschurli.arsmagicalegacy.api.helper.SpellHelper;
 import net.minecraft.world.entity.LivingEntity;
 
 import java.util.List;

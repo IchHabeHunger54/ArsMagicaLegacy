@@ -1,0 +1,64 @@
+package at.minecraftschurli.arsmagicalegacy.api.spell;
+
+import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
+import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.registries.DeferredHolder;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+/**
+ * Builder class for {@link SpellPartData}, for use in {@link SpellPartDataProvider}. Get an instance via {@link SpellPartDataProvider#builder(DeferredHolder, double)}.
+ */
+public class SpellPartDataBuilder {
+    public final ResourceLocation id;
+    private final Map<Holder<Affinity>, Double> affinityShifts = new HashMap<>();
+    private final List<SpellIngredient> recipe = new ArrayList<>();
+    private final double mana;
+    private Double burnout;
+
+    /**
+     * @param id   The id of the {@link SpellPart} to generate data for.
+     * @param mana The mana cost of the {@link SpellPart}.
+     */
+    public SpellPartDataBuilder(ResourceLocation id, double mana) {
+        this.id = id;
+        this.mana = mana;
+    }
+
+    /**
+     * @param burnout The burnout value to set.
+     * @return This builder, for chaining.
+     */
+    public SpellPartDataBuilder burnout(double burnout) {
+        this.burnout = burnout;
+        return this;
+    }
+
+    /**
+     * @param affinity The {@link Affinity} to add.
+     * @param shift    The affinity shift value to use.
+     * @return This builder, for chaining.
+     */
+    public SpellPartDataBuilder affinity(Holder<Affinity> affinity, double shift) {
+        affinityShifts.put(affinity, shift);
+        return this;
+    }
+
+    /**
+     * @param ingredient The {@link SpellIngredient} to add.
+     * @return This builder, for chaining.
+     */
+    public SpellPartDataBuilder ingredient(SpellIngredient ingredient) {
+        recipe.add(ingredient);
+        return this;
+    }
+
+    public SpellPartData build() {
+        return new SpellPartData(mana, Optional.ofNullable(burnout), affinityShifts, recipe);
+    }
+}

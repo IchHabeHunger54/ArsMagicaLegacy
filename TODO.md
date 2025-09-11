@@ -1,0 +1,40 @@
+- Mob Effects
+- Spell Parts
+- Spell Part Particles
+- Spell Entities, including:
+    - Blizzard
+    - Falling Star
+    - Fire Rain
+    - Projectile
+    - Wall
+    - Wave
+    - Zone
+- Ability Effects
+- Inlays
+- Wizard's Chalk
+- Liquid Essence
+- Rune Bag
+- Spell Book
+- Affinity Tomes
+    - Loot Modifiers
+- Mana Cake & Mana Martini
+- Mage & Battlemage Armor
+- All Etherium-related features, including:
+    - Etherium API
+    - Obelisk, Celestial Prism, Black Aurem
+    - Etherium Spell Ingredient
+    - Crystal Wrench
+    - Magitech Goggles
+- Entities, including:
+    - Mana Creepers and Mana Vortexes
+    - Dryads
+    - All Bosses
+    - Their Projectiles
+- Altar Structure Checking
+- Advancement Triggers
+- Rituals
+- Compat
+    - Curios (Magitech Goggles)
+    - Jade (Etherium Contents, Connected Etherium)
+    - JEI (Skill Category)
+    - Patchouli

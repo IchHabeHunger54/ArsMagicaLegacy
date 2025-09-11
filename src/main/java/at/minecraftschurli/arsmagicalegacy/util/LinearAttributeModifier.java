@@ -2,9 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.util;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
 public record LinearAttributeModifier(ResourceLocation id, double min, double max, AttributeModifier.Operation operation) {

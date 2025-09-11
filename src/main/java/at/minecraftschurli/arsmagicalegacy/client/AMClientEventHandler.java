@@ -6,13 +6,13 @@ import at.minecraftschurli.arsmagicalegacy.api.client.RegisterSpellIngredientRen
 import at.minecraftschurli.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
 import at.minecraftschurli.arsmagicalegacy.block.altar.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
+import at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable.InscriptionTableScreen;
+import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.AffinityTabRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.DefaultTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.layer.BarsLayer;
 import at.minecraftschurli.arsmagicalegacy.client.model.AltarCoreModel;
 import at.minecraftschurli.arsmagicalegacy.client.model.DataComponentOverrides;
 import at.minecraftschurli.arsmagicalegacy.client.model.ItemOverridesModel;
-import at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable.InscriptionTableScreen;
-import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.AffinityTabRenderer;
-import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.DefaultTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.AltarCoreRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.ItemSpellIngredientRenderer;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;

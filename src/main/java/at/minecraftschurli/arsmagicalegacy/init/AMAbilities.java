@@ -7,7 +7,6 @@ import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.storage.loot.providers.number.LootNumberProviderType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 public interface AMAbilities {

@@ -8,6 +8,13 @@
       "item": {
         "tag": "c:dusts/vinteum"
       }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "item": "arsmagicalegacy:magic_wall"
+      }
     }
   ]
 }

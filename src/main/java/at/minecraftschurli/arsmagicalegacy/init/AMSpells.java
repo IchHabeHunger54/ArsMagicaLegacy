@@ -23,6 +23,7 @@ import at.minecraftschurli.arsmagicalegacy.spell.component.FallingStar;
 import at.minecraftschurli.arsmagicalegacy.spell.component.FireRain;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Fling;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Forge;
+import at.minecraftschurli.arsmagicalegacy.spell.component.Frost;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Grow;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Harvest;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Heal;
@@ -108,7 +109,6 @@ public interface AMSpells {
     DeferredHolder<SpellPart, Effect>             ASTRAL_DISTORTION   = register("astral_distortion",   Effect::new);
     DeferredHolder<SpellPart, Effect>             ENTANGLE            = register("entangle",            Effect::new);
     DeferredHolder<SpellPart, Effect>             FLIGHT              = register("flight",              Effect::new);
-    DeferredHolder<SpellPart, Effect>             FROST               = register("frost",               Effect::new);
     DeferredHolder<SpellPart, Effect>             FURY                = register("fury",                Effect::new);
     DeferredHolder<SpellPart, Effect>             GRAVITY_WELL        = register("gravity_well",        Effect::new);
     DeferredHolder<SpellPart, Effect>             REFLECT             = register("reflect",             Effect::new);
@@ -138,6 +138,7 @@ public interface AMSpells {
     DeferredHolder<SpellPart, FireRain>           FIRE_RAIN           = register("fire_rain",           FireRain::new);
     DeferredHolder<SpellPart, Fling>              FLING               = register("fling",               Fling::new);
     DeferredHolder<SpellPart, Forge>              FORGE               = register("forge",               Forge::new);
+    DeferredHolder<SpellPart, Frost>              FROST               = register("frost",               Frost::new);
     DeferredHolder<SpellPart, Grow>               GROW                = register("grow",                Grow::new);
     DeferredHolder<SpellPart, Harvest>            HARVEST             = register("harvest",             Harvest::new);
     DeferredHolder<SpellPart, Heal>               HEAL                = register("heal",                Heal::new);

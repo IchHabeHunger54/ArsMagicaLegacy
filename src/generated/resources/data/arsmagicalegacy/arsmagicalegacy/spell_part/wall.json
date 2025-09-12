@@ -20,6 +20,13 @@
       "type": "arsmagicalegacy:item",
       "count": 1,
       "item": {
+        "item": "arsmagicalegacy:magic_wall"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
         "tag": "minecraft:walls"
       }
     }

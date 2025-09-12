@@ -1,0 +1,4 @@
+// 1.21.1	2025-09-11T22:28:42.5141659	Tags for minecraft:entity_type mod id arsmagicalegacy
+7e8ccf4dfd95cc8e89542aac3c307a35640013fa data/arsmagicalegacy/tags/entity_type/affected_by_ender_thorns_ability.json
+e2f26c4696552a05feacf8eaadfb3b41a8907161 data/arsmagicalegacy/tags/entity_type/affected_by_nausea_ability.json
+e2f26c4696552a05feacf8eaadfb3b41a8907161 data/arsmagicalegacy/tags/entity_type/affected_by_smite_ability.json

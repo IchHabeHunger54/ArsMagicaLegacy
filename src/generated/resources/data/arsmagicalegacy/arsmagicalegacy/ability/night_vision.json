@@ -3,5 +3,20 @@
   "bounds": {
     "max": 1.0,
     "min": 0.5
-  }
+  },
+  "effects": [
+    {
+      "type": "arsmagicalegacy:effect",
+      "effect": {
+        "duration": 210,
+        "id": "minecraft:night_vision",
+        "neoforge:cures": [
+          "protected_by_totem",
+          "milk"
+        ],
+        "show_icon": false,
+        "show_particles": false
+      }
+    }
+  ]
 }

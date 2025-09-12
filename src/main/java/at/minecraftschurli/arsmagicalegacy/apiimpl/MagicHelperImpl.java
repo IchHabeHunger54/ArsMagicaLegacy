@@ -292,7 +292,7 @@ final class MagicHelperImpl implements MagicHelper {
         }
         player.setData(AMAttachments.MAGIC, data);
         updateAffinityLock(player);
-        ArsMagicaApi.abilityHelper().onAffinityChange(player, originalData, data);
+        ArsMagicaApi.abilityHelper().onMagicChange(player, originalData, data);
         NeoForge.EVENT_BUS.post(new AffinityChangeEvent.Post(player, event.getAffinityShifts(), event.isBypassLocks(), commandSource));
     }
 

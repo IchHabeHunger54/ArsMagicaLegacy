@@ -12,8 +12,4 @@ public record LinearAttributeModifier(ResourceLocation id, double min, double ma
         Codec.DOUBLE.fieldOf("max").forGetter(LinearAttributeModifier::max),
         AttributeModifier.Operation.CODEC.fieldOf("operation").forGetter(LinearAttributeModifier::operation)
     ).apply(inst, LinearAttributeModifier::new));
-
-    public AttributeModifier toAttributeModifier(double percent) {
-        return new AttributeModifier(id, min + (max - min) * percent, operation);
-    }
 }

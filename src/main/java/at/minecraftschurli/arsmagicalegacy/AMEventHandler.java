@@ -1,8 +1,21 @@
 package at.minecraftschurli.arsmagicalegacy;
 
+import at.minecraftschurli.arsmagicalegacy.ability.DamageModifierAbilityEffect;
+import at.minecraftschurli.arsmagicalegacy.ability.EndermanPumpkinAbilityEffect;
+import at.minecraftschurli.arsmagicalegacy.ability.ExtraDamageAbilityEffect;
+import at.minecraftschurli.arsmagicalegacy.ability.FirePunchAbilityEffect;
+import at.minecraftschurli.arsmagicalegacy.ability.FrostPunchAbilityEffect;
+import at.minecraftschurli.arsmagicalegacy.ability.JumpBoostAbilityEffect;
+import at.minecraftschurli.arsmagicalegacy.ability.KillEffectAbilityEffect;
+import at.minecraftschurli.arsmagicalegacy.ability.ManaCostModifierAbilityEffect;
+import at.minecraftschurli.arsmagicalegacy.ability.SpellCastEffectAbilityEffect;
+import at.minecraftschurli.arsmagicalegacy.ability.ThornsAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.ability.Ability;
+import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityHelper;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.event.ManaCostCalculationEvent;
+import at.minecraftschurli.arsmagicalegacy.api.event.SpellCastEvent;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.AltarCapMaterial;
 import at.minecraftschurli.arsmagicalegacy.api.magic.AltarMaterial;
@@ -16,6 +29,7 @@ import at.minecraftschurli.arsmagicalegacy.command.MagicXpCommand;
 import at.minecraftschurli.arsmagicalegacy.command.SkillCommand;
 import at.minecraftschurli.arsmagicalegacy.command.SkillPointCommand;
 import at.minecraftschurli.arsmagicalegacy.compat.patchouli.AMMultiblocks;
+import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.packet.ForgetSkillsPacket;
@@ -33,8 +47,10 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
@@ -45,9 +61,15 @@ import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
+import net.neoforged.neoforge.event.entity.living.EnderManAngerEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.AdvancementEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
@@ -143,10 +165,91 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void entityTickPost(EntityTickEvent.Post event) {
-        if (!(event.getEntity() instanceof LivingEntity living)) return;
-        ManaHelper manaHelper = ArsMagicaApi.manaHelper();
-        manaHelper.increaseMana(living, manaHelper.getManaRegeneration(living));
-        BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
-        burnoutHelper.decreaseBurnout(living, burnoutHelper.getBurnoutRegeneration(living));
+        Entity entity = event.getEntity();
+        if (entity instanceof LivingEntity living) {
+            ManaHelper manaHelper = ArsMagicaApi.manaHelper();
+            manaHelper.increaseMana(living, manaHelper.getManaRegeneration(living));
+            BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
+            burnoutHelper.decreaseBurnout(living, burnoutHelper.getBurnoutRegeneration(living));
+        }
+        if (!entity.hasData(AMAttachments.FROST)) return;
+        int frost = entity.getData(AMAttachments.FROST);
+        if (frost <= 0) return;
+        if (frost == 1 || entity.isOnFire()) {
+            entity.removeData(AMAttachments.FROST);
+        } else {
+            entity.setData(AMAttachments.FROST, frost - 1);
+        }
+        entity.setTicksFrozen(entity.getTicksFrozen() + 3);
+    }
+
+    @SubscribeEvent
+    private static void playerTickPost(PlayerTickEvent.Post event) {
+        ArsMagicaApi.abilityHelper().getActiveAbilities(event.getEntity()).forEach(holder -> holder.value().effects().forEach(effect -> effect.tick(event.getEntity(), holder)));
+    }
+
+    @SubscribeEvent
+    private static void livingIncomingDamage(LivingIncomingDamageEvent event) {
+        if (!(event.getSource().getEntity() instanceof Player player)) return;
+        LivingEntity target = event.getEntity();
+        AbilityHelper abilityHelper = ArsMagicaApi.abilityHelper();
+        if (!target.fireImmune()) {
+            abilityHelper.getActiveAbilitiesWithEffect(player, FirePunchAbilityEffect.CODEC).forEach(pair -> target.setRemainingFireTicks(Math.max(target.getRemainingFireTicks(), (int) pair.getSecond()
+                .stream()
+                .mapToDouble(e -> abilityHelper.scaleToDepth(player, pair.getFirst().value(), e.min(), e.max()))
+                .sum())));
+        }
+        if (target.canFreeze()) {
+            abilityHelper.getActiveAbilitiesWithEffect(player, FrostPunchAbilityEffect.CODEC).forEach(pair -> target.setData(AMAttachments.FROST, Math.max(target.getData(AMAttachments.FROST), (int) pair.getSecond()
+                .stream()
+                .mapToDouble(e -> abilityHelper.scaleToDepth(player, pair.getFirst().value(), e.min(), e.max()))
+                .sum())));
+        }
+    }
+
+    @SubscribeEvent
+    private static void livingDamagePre(LivingDamageEvent.Pre event) {
+        AbilityHelper abilityHelper = ArsMagicaApi.abilityHelper();
+        if (event.getSource().getEntity() instanceof Player player) {
+            abilityHelper.triggerEventEffect(event, player, ExtraDamageAbilityEffect.CODEC);
+        }
+        if (event.getEntity() instanceof Player player) {
+            abilityHelper.triggerEventEffect(event, player, DamageModifierAbilityEffect.CODEC);
+        }
+    }
+
+    @SubscribeEvent
+    private static void livingDamagePost(LivingDamageEvent.Post event) {
+        if (!(event.getEntity() instanceof Player player)) return;
+        ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, ThornsAbilityEffect.CODEC);
+    }
+
+    @SubscribeEvent
+    private static void livingDeath(LivingDeathEvent event) {
+        if (!(event.getSource().getEntity() instanceof Player player)) return;
+        ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, KillEffectAbilityEffect.CODEC);
+    }
+
+    @SubscribeEvent
+    private static void livingJump(LivingEvent.LivingJumpEvent event) {
+        if (!(event.getEntity() instanceof Player player)) return;
+        ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, JumpBoostAbilityEffect.CODEC);
+    }
+
+    @SubscribeEvent
+    private static void enderManAnger(EnderManAngerEvent event) {
+        ArsMagicaApi.abilityHelper().triggerEventEffect(event, event.getPlayer(), EndermanPumpkinAbilityEffect.CODEC);
+    }
+
+    @SubscribeEvent
+    private static void manaCostCalculation(ManaCostCalculationEvent event) {
+        if (!(event.getEntity() instanceof Player player)) return;
+        ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, ManaCostModifierAbilityEffect.CODEC);
+    }
+
+    @SubscribeEvent
+    private static void spellCastPost(SpellCastEvent.Post event) {
+        if (!(event.getEntity() instanceof Player player)) return;
+        ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, SpellCastEffectAbilityEffect.CODEC);
     }
 }

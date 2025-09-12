@@ -4,5 +4,12 @@
     "max": 1.0,
     "min": 0.5
   },
+  "effects": [
+    {
+      "type": "arsmagicalegacy:nether_damage",
+      "max": 0.25,
+      "min": 0.0
+    }
+  ],
   "negative": true
 }

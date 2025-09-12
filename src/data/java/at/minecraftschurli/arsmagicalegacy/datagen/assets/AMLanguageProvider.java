@@ -158,6 +158,12 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTags.Items.RUNES, "Runes");
         add(AMTags.Items.SPELLCRAFTING_START, "Spellcrafting Start Items");
         add(AMTags.Items.SPELLCRAFTING_END, "Spellcrafting End Items");
+        add(AMTags.EntityTypes.AFFECTED_BY_ENDER_THORNS_ABILITY, "Affected by Ender Thorns Ability");
+        add(AMTags.DamageTypes.AFFECTED_BY_FIRE_RESISTANCE_ABILITY, "Affected by Fire Resistance Ability");
+        add(AMTags.DamageTypes.AFFECTED_BY_RESISTANCE_ABILITY, "Affected by Resistance Ability");
+        add(AMTags.DamageTypes.AFFECTED_BY_FALL_DAMAGE_ABILITY, "Affected by Fall Damage Ability");
+        add(AMTags.DamageTypes.AFFECTED_BY_FEATHER_FALLING_ABILITY, "Affected by Feather Falling Ability");
+        add(AMTags.DamageTypes.AFFECTED_BY_MAGIC_DAMAGE_ABILITY, "Affected by Magic Damage Ability");
         subtitleTranslation(AMSounds.ARCANE_GUARDIAN_AMBIENT, "Arcane Guardian hisses");
         subtitleTranslation(AMSounds.ARCANE_GUARDIAN_ATTACK, "Arcane Guardian attacks");
         subtitleTranslation(AMSounds.ARCANE_GUARDIAN_DEATH, "Arcane Guardian dies");
@@ -383,7 +389,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("render_level_at_top", "Render Level At Top", "If true, renders the bars in order level number -> level bar -> mana bar -> burnout bar.\nIf false, renders the bars in order mana bar -> burnout bar -> level bar -> level number.");
         configTranslation("show_values", "Show Values", "Whether to show the exact values for mana, burnout and xp.");
         add("ability", "swim_speed", "Swim Speed");
-        add("ability", "enderman_thorns", "Enderman Thorns");
+        add("ability", "ender_thorns", "Ender Thorns");
         add("ability", "nether_damage_water", "Damage in the Nether");
         add("ability", "fire_resistance", "Fire Resistance");
         add("ability", "fire_punch", "Fire Punch");

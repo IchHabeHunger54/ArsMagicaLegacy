@@ -10,6 +10,8 @@ import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMSpriteSourceProvider
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMAbilityProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMAdvancementProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMBlockTagsProvider;
+import at.minecraftschurli.arsmagicalegacy.datagen.data.AMDamageTypeTagsProvider;
+import at.minecraftschurli.arsmagicalegacy.datagen.data.AMEntityTypeTagsProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMItemTagsProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMLootTableProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMMagicProvider;
@@ -47,17 +49,19 @@ final class AMDataGenerator {
         generator.addProvider(event.includeServer(), new AMAdvancementProvider(output, lookupProvider, existingFileHelper));
         AMBlockTagsProvider blockTags = generator.addProvider(event.includeServer(), new AMBlockTagsProvider(output, lookupProvider, existingFileHelper));
         generator.addProvider(event.includeServer(), new AMItemTagsProvider(output, lookupProvider, blockTags.contentsGetter(), existingFileHelper));
+        generator.addProvider(event.includeServer(), new AMDamageTypeTagsProvider(output, lookupProvider, existingFileHelper));
+        generator.addProvider(event.includeServer(), new AMEntityTypeTagsProvider(output, lookupProvider, existingFileHelper));
         lookupProvider = generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(output, lookupProvider, new RegistrySetBuilder()
             .add(Registries.CONFIGURED_FEATURE, AMWorldgenProvider::addConfiguredFeatures)
             .add(Registries.PLACED_FEATURE, AMWorldgenProvider::addPlacedFeatures)
             .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, AMWorldgenProvider::addBiomeModifiers)
             .add(AMRegistryKeys.AFFINITY, AMMagicProvider::addAffinities)
-            .add(AMRegistryKeys.ABILITY, AMAbilityProvider::addAbilities)
             .add(AMRegistryKeys.ALTAR_CAP_MATERIAL, AMMagicProvider::addAltarCapMaterials)
             .add(AMRegistryKeys.ALTAR_MATERIAL, AMMagicProvider::addAltarMaterials)
             .add(AMRegistryKeys.OCCULUS_TAB, AMMagicProvider::addOcculusTabs)
             .add(AMRegistryKeys.SKILL_POINT, AMMagicProvider::addSkillPoints)
-            .add(AMRegistryKeys.SKILL, AMMagicProvider::addSkills),
+            .add(AMRegistryKeys.SKILL, AMMagicProvider::addSkills)
+            .add(AMRegistryKeys.ABILITY, AMAbilityProvider::addAbilities),
             Set.of(ArsMagicaApi.MOD_ID))).getRegistryProvider();
         generator.addProvider(event.includeServer(), new AMLootTableProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), new AMRecipeProvider(output, lookupProvider));

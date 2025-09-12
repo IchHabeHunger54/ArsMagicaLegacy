@@ -3,5 +3,12 @@
   "bounds": {
     "max": 1.0,
     "min": 0.01
-  }
+  },
+  "effects": [
+    {
+      "type": "arsmagicalegacy:frost_punch",
+      "max": 100,
+      "min": 0
+    }
+  ]
 }

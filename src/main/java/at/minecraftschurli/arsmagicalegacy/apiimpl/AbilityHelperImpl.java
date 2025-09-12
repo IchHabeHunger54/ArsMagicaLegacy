@@ -1,18 +1,22 @@
 package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
+import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.ability.Ability;
 import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityHelper;
+import at.minecraftschurli.arsmagicalegacy.api.ability.EventTriggeredAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicAttachment;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.google.common.collect.Sets;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
+import net.neoforged.bus.api.Event;
 
 import java.util.List;
 import java.util.Set;
@@ -21,7 +25,7 @@ import java.util.stream.Stream;
 
 public final class AbilityHelperImpl implements AbilityHelper {
     @Override
-    public void onAffinityChange(Player player, MagicAttachment oldData, MagicAttachment newData) {
+    public void onMagicChange(Player player, MagicAttachment oldData, MagicAttachment newData) {
         Registry<Ability> registry = player.registryAccess().registryOrThrow(AMRegistryKeys.ABILITY);
         Set<Holder<Ability>> oldSet = registry.holders()
             .filter(ability -> ability.value().test(oldData))
@@ -45,8 +49,8 @@ public final class AbilityHelperImpl implements AbilityHelper {
             }
             player.displayClientMessage(message, true);
         }
-        oldSet.forEach(holder -> holder.value().shiftOutOf(player));
-        newSet.forEach(holder -> holder.value().shiftInto(player));
+        oldSet.forEach(holder -> holder.value().effects().forEach(effect -> effect.shiftOutOf(player, holder)));
+        newSet.forEach(holder -> holder.value().effects().forEach(effect -> effect.shiftInto(player, holder)));
     }
 
     @Override
@@ -57,24 +61,30 @@ public final class AbilityHelperImpl implements AbilityHelper {
             .filter(e -> e.value().test(player));
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Stream<AbilityEffect> getActiveEffects(Player player) {
+    public <T extends AbilityEffect> Stream<? extends Pair<? extends Holder<Ability>, List<T>>> getActiveAbilitiesWithEffect(Player player, MapCodec<T> effectCodec) {
         return getActiveAbilities(player)
-            .map(Holder::value)
-            .map(Ability::effects)
-            .flatMap(List::stream);
+            .map(holder -> Pair.of(holder, holder.value()
+                .effects()
+                .stream()
+                .filter(effect -> effect.codec() == effectCodec)
+                .map(e -> (T) e)
+                .toList()))
+            .filter(e -> !e.getSecond().isEmpty());
     }
 
     @Override
-    public Stream<AbilityEffect> getActiveEffectsOfType(Player player, MapCodec<? extends AbilityEffect> codec) {
-        return getActiveEffects(player).filter(e -> e.codec() == codec);
+    public <T extends Event> void triggerEventEffect(T event, Player player, MapCodec<? extends EventTriggeredAbilityEffect<T>> codec) {
+        getActiveAbilitiesWithEffect(player, codec).forEach(pair -> pair.getSecond().forEach(effect -> effect.apply(event, player, pair.getFirst())));
     }
 
     @Override
-    public double getDepthPercent(double affinityDepth, Ability ability) {
-        double min = ability.bounds().min().orElse(0.);
-        double max = ability.bounds().max().orElse(1.);
-        return min == max ? affinityDepth == min ? 1 : 0 : Math.clamp((affinityDepth - min) / (max - min), 0, 1);
+    public double scaleToDepth(Player player, Ability ability, double min, double max) {
+        double depth = ArsMagicaApi.magicHelper().getAffinityDepth(player, ability.affinity());
+        double abilityMin = ability.bounds().min().orElse(0.);
+        double abilityMax = ability.bounds().max().orElse(1.);
+        return min + (max - min) * (abilityMin == abilityMax ? depth == abilityMin ? 1 : 0 : Math.clamp((depth - abilityMin) / (abilityMax - abilityMin), 0, 1));
     }
 
     private Component joinAbilities(Set<Holder<Ability>> set) {

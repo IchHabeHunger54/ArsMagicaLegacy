@@ -12,6 +12,7 @@ import java.util.function.Supplier;
 
 public interface AMAttachments {
     DeferredHolder<AttachmentType<?>, AttachmentType<Double>>          BURNOUT = register("burnout", () -> 0.,                      Codec.DOUBLE,          ByteBufCodecs.DOUBLE);
+    DeferredHolder<AttachmentType<?>, AttachmentType<Integer>>         FROST   = register("frost",   () -> 0,                       Codec.INT,             ByteBufCodecs.INT);
     DeferredHolder<AttachmentType<?>, AttachmentType<MagicAttachment>> MAGIC   = register("magic",   () -> MagicAttachment.DEFAULT, MagicAttachment.CODEC, MagicAttachment.STREAM_CODEC);
     DeferredHolder<AttachmentType<?>, AttachmentType<Double>>          MANA    = register("mana",    () -> 0.,                      Codec.DOUBLE,          ByteBufCodecs.DOUBLE);
 

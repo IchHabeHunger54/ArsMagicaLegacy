@@ -80,24 +80,6 @@ public record Ability(Holder<Affinity> affinity, MinMaxBounds.Doubles bounds, bo
     }
 
     /**
-     * Called when the given {@link Player} shifts into the ability's bounds.
-     *
-     * @param player The {@link Player} shifting into the ability's bounds.
-     */
-    public void shiftInto(Player player) {
-        effects.forEach(effect -> effect.shiftInto(player, this));
-    }
-
-    /**
-     * Called when the given {@link Player} shifts out of the ability's bounds.
-     *
-     * @param player The {@link Player} shifting out of the ability's bounds.
-     */
-    public void shiftOutOf(Player player) {
-        effects.forEach(effect -> effect.shiftOutOf(player, this));
-    }
-
-    /**
      * @param holder The ability {@link Holder} to query.
      * @return The display name of the given ability.
      */

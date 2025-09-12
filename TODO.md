@@ -9,7 +9,6 @@
     - Wall
     - Wave
     - Zone
-- Ability Effects
 - Inlays
 - Wizard's Chalk
 - Liquid Essence

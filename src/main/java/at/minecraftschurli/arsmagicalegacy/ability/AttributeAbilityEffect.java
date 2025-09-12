@@ -4,8 +4,6 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.ability.Ability;
 import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityHelper;
-import at.minecraftschurli.arsmagicalegacy.api.magic.MagicHelper;
-import at.minecraftschurli.arsmagicalegacy.init.AMAbilities;
 import at.minecraftschurli.arsmagicalegacy.util.LinearAttributeModifier;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -13,6 +11,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.Map;
@@ -24,23 +23,23 @@ public record AttributeAbilityEffect(Map<Holder<Attribute>, LinearAttributeModif
 
     @Override
     public MapCodec<? extends AbilityEffect> codec() {
-        return AMAbilities.ATTRIBUTE_EFFECT.get();
+        return CODEC;
     }
 
     @Override
-    public void shiftInto(Player player, Ability ability) {
+    public void shiftInto(Player player, Holder<Ability> ability) {
         AbilityHelper abilityHelper = ArsMagicaApi.abilityHelper();
-        MagicHelper magicHelper = ArsMagicaApi.magicHelper();
         for (Map.Entry<Holder<Attribute>, LinearAttributeModifier> entry : this.modifiers.entrySet()) {
             AttributeInstance attribute = player.getAttribute(entry.getKey());
             if (attribute != null) {
-                attribute.addOrUpdateTransientModifier(entry.getValue().toAttributeModifier(abilityHelper.getDepthPercent(magicHelper.getAffinityDepth(player, ability.affinity()), ability)));
+                LinearAttributeModifier value = entry.getValue();
+                attribute.addOrUpdateTransientModifier(new AttributeModifier(value.id(), abilityHelper.scaleToDepth(player, ability.value(), value.min(), value.max()), value.operation()));
             }
         }
     }
 
     @Override
-    public void shiftOutOf(Player player, Ability ability) {
+    public void shiftOutOf(Player player, Holder<Ability> ability) {
         for (Map.Entry<Holder<Attribute>, LinearAttributeModifier> entry : this.modifiers.entrySet()) {
             AttributeInstance attribute = player.getAttribute(entry.getKey());
             if (attribute != null) {

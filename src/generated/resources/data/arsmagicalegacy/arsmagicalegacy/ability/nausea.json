@@ -4,5 +4,22 @@
     "max": 1.0,
     "min": 0.5
   },
+  "effects": [
+    {
+      "type": "arsmagicalegacy:kill_effect",
+      "effect": {
+        "id": "minecraft:nausea",
+        "neoforge:cures": [
+          "protected_by_totem",
+          "milk"
+        ],
+        "show_icon": false,
+        "show_particles": false
+      },
+      "entities": "#arsmagicalegacy:affected_by_nausea_ability",
+      "max": 600.0,
+      "min": 0.0
+    }
+  ],
   "negative": true
 }

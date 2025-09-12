@@ -4,6 +4,8 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
@@ -69,6 +71,28 @@ public interface AMTags {
 
         private static TagKey<Item> tag(String name) {
             return TagKey.create(Registries.ITEM, ArsMagicaApi.modLoc(name));
+        }
+    }
+
+    interface EntityTypes {
+        TagKey<EntityType<?>> AFFECTED_BY_ENDER_THORNS_ABILITY = tag("affected_by_ender_thorns_ability");
+        TagKey<EntityType<?>> AFFECTED_BY_SMITE_ABILITY = tag("affected_by_smite_ability");
+        TagKey<EntityType<?>> AFFECTED_BY_NAUSEA_ABILITY = tag("affected_by_nausea_ability");
+
+        private static TagKey<EntityType<?>> tag(String name) {
+            return TagKey.create(Registries.ENTITY_TYPE, ArsMagicaApi.modLoc(name));
+        }
+    }
+
+    interface DamageTypes {
+        TagKey<DamageType> AFFECTED_BY_FIRE_RESISTANCE_ABILITY = tag("affected_by_fire_resistance_ability");
+        TagKey<DamageType> AFFECTED_BY_RESISTANCE_ABILITY = tag("affected_by_resistance_ability");
+        TagKey<DamageType> AFFECTED_BY_FALL_DAMAGE_ABILITY = tag("affected_by_fall_damage_ability");
+        TagKey<DamageType> AFFECTED_BY_FEATHER_FALLING_ABILITY = tag("affected_by_feather_falling_ability");
+        TagKey<DamageType> AFFECTED_BY_MAGIC_DAMAGE_ABILITY = tag("affected_by_magic_damage_ability");
+
+        private static TagKey<DamageType> tag(String name) {
+            return TagKey.create(Registries.DAMAGE_TYPE, ArsMagicaApi.modLoc(name));
         }
     }
 }

@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-29T23:34:24.2584576	Spell Part Data: arsmagicalegacy
+// 1.21.1	2025-09-12T03:21:49.6769996	Spell Part Data: arsmagicalegacy
 dc1e511770f301bac8ca9c970334e26256caa087 data/arsmagicalegacy/arsmagicalegacy/spell_part/absorption.json
 fa958d98d1559a44e9a6f029b807544dcb9610de data/arsmagicalegacy/arsmagicalegacy/spell_part/area_of_effect.json
 1d751430bf4a224fcd684ca3e661aa20b39aa28d data/arsmagicalegacy/arsmagicalegacy/spell_part/astral_distortion.json
@@ -103,9 +103,9 @@ f3976a09f51fcc0915f00385e6bf061d3a52a7bc data/arsmagicalegacy/arsmagicalegacy/sp
 528bcfa3cd0fa048285bde8e499697b8ca3d5f37 data/arsmagicalegacy/arsmagicalegacy/spell_part/transplace.json
 8edc570aa9204063bafb11f68b564ff86997346b data/arsmagicalegacy/arsmagicalegacy/spell_part/true_sight.json
 6740a23aacb5f07f75591cd829b9af7740b6dfa2 data/arsmagicalegacy/arsmagicalegacy/spell_part/velocity.json
-1901b07122656570efe6152ad25e3adb7e496f45 data/arsmagicalegacy/arsmagicalegacy/spell_part/wall.json
+d7a7b8862530433235f6129b981a5cbbf6f68210 data/arsmagicalegacy/arsmagicalegacy/spell_part/wall.json
 ad4a45b5357760a49c42c1069d0f3e9308f2db4b data/arsmagicalegacy/arsmagicalegacy/spell_part/watery_grave.json
 31adf8ea00c5de1f72970ed82a838d7192a97c8c data/arsmagicalegacy/arsmagicalegacy/spell_part/water_breathing.json
-27fd6a7a229ecfc87eb2b8b5510b743506861d8a data/arsmagicalegacy/arsmagicalegacy/spell_part/wave.json
+98acc252d77f333e6995afe3f9361c44bc7a5dbb data/arsmagicalegacy/arsmagicalegacy/spell_part/wave.json
 ef9a2688f3e9f3a3083255335a57624dba9bbd0f data/arsmagicalegacy/arsmagicalegacy/spell_part/wizards_autumn.json
 e68e4faa089b9ffce4623b7e58fc2eb52b62ad5e data/arsmagicalegacy/arsmagicalegacy/spell_part/zone.json

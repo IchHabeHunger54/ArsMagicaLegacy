@@ -100,12 +100,12 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
         builder(AMSpells.WALL, 2.5f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMTags.Items.DUSTS_VINTEUM), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(Tags.Items.FENCES_WOODEN), 1))
-            //.ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.MAGIC_WALL.get()), 1))
+            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.MAGIC_WALL.get()), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(ItemTags.WALLS), 1));
             //.ingredient(new EtheriumSpellIngredient(EtheriumType.ANY, 2500));
         builder(AMSpells.WAVE, 2.5f)
-            .ingredient(new ItemSpellIngredient(Ingredient.of(AMTags.Items.DUSTS_VINTEUM), 1));
-            //.ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.MAGIC_WALL.get()), 1))
+            .ingredient(new ItemSpellIngredient(Ingredient.of(AMTags.Items.DUSTS_VINTEUM), 1))
+            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.MAGIC_WALL.get()), 1));
             //.ingredient(new EtheriumSpellIngredient(EtheriumType.ANY, 2500));
         builder(AMSpells.ZONE, 2.5f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMTags.Items.GEMS_MOONSTONE), 1))

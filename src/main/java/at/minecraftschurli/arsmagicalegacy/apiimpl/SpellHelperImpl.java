@@ -83,7 +83,6 @@ final class SpellHelperImpl implements SpellHelper {
             if (affinityGains) {
                 xp *= AMServerConfig.AFFINITY_GAINS_XP_MODIFIER.get();
             }
-            System.out.println(xp);
             helper.addXp(player, xp);
         }
         NeoForge.EVENT_BUS.post(new SpellCastEvent.Post(caster, spell, manaCost, burnoutCost, event.isConsume(), event.isAwardXp()));

@@ -1,7 +1,7 @@
 {
   "cost": "arsmagicalegacy:green",
   "parents": [
-    "arsmagicalegacy:shield"
+    "arsmagicalegacy:resistance"
   ],
   "tab": "arsmagicalegacy:defense",
   "x": 168,

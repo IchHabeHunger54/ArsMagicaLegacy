@@ -8,9 +8,11 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.neoforged.bus.api.IEventBus;
@@ -27,6 +29,8 @@ public interface AMRegistries {
     DeferredRegister<BlockEntityType<?>>                  BLOCK_ENTITIES    = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE,                 ArsMagicaApi.MOD_ID);
     DeferredRegister<CreativeModeTab>                     CREATIVE_TABS     = DeferredRegister.create(Registries.CREATIVE_MODE_TAB,                 ArsMagicaApi.MOD_ID);
     DeferredRegister<MenuType<?>>                         MENUS             = DeferredRegister.create(Registries.MENU,                              ArsMagicaApi.MOD_ID);
+    DeferredRegister<MobEffect>                           MOB_EFFECTS       = DeferredRegister.create(Registries.MOB_EFFECT,                        ArsMagicaApi.MOD_ID);
+    DeferredRegister<Potion>                              POTIONS           = DeferredRegister.create(Registries.POTION,                            ArsMagicaApi.MOD_ID);
     DeferredRegister<SoundEvent>                          SOUND_EVENTS      = DeferredRegister.create(Registries.SOUND_EVENT,                       ArsMagicaApi.MOD_ID);
     DeferredRegister<Feature<?>>                          FEATURES          = DeferredRegister.create(Registries.FEATURE,                           ArsMagicaApi.MOD_ID);
     DeferredRegister<AttachmentType<?>>                   ATTACHMENTS       = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES,     ArsMagicaApi.MOD_ID);
@@ -48,6 +52,7 @@ public interface AMRegistries {
         AMBlockEntities.init();
         AMCreativeTabs.init();
         AMMenus.init();
+        AMMobEffects.init();
         AMSounds.init();
         AMWorldgen.init();
         AMAttachments.init();
@@ -60,6 +65,8 @@ public interface AMRegistries {
         BLOCK_ENTITIES.register(bus);
         CREATIVE_TABS.register(bus);
         MENUS.register(bus);
+        MOB_EFFECTS.register(bus);
+        POTIONS.register(bus);
         SOUND_EVENTS.register(bus);
         FEATURES.register(bus);
         ATTACHMENTS.register(bus);

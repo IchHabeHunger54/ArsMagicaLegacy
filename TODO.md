@@ -1,4 +1,3 @@
-- Mob Effects
 - Spell Parts
 - Spell Part Particles
 - Spell Entities, including:

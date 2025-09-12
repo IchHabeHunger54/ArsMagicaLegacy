@@ -12,6 +12,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.level.block.AirBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ButtonBlock;
@@ -65,6 +66,7 @@ public interface AMBlocks {
     DeferredBlock<InscriptionTableBlock>   INSCRIPTION_TABLE           = register("inscription_table",           InscriptionTableBlock::new, properties().strength(2).lightLevel($ -> 1).noOcclusion());
     DeferredBlock<AltarCoreBlock>          ALTAR_CORE                  = register("altar_core",                  AltarCoreBlock::new, properties().mapColor(MapColor.METAL).strength(3));
     DeferredBlock<TransparentBlock>        MAGIC_WALL                  = register("magic_wall",                  TransparentBlock::new, properties().strength(3).noOcclusion().isValidSpawn(Blocks::never).isRedstoneConductor((state, level, pos) -> false).isSuffocating((state, level, pos) -> false).isViewBlocking((state, level, pos) -> false));
+    DeferredBlock<AirBlock>                SPELL_LIGHT                 = register("spell_light",                 AirBlock::new, copyProperties(Blocks.AIR).lightLevel($ -> 15));
     DeferredBlock<DropExperienceBlock>     CHIMERITE_ORE               = register("chimerite_ore",               p -> new DropExperienceBlock(UniformInt.of(0, 2), p), properties().requiresCorrectToolForDrops().strength(3f, 3f));
     DeferredBlock<DropExperienceBlock>     DEEPSLATE_CHIMERITE_ORE     = register("deepslate_chimerite_ore",     p -> new DropExperienceBlock(UniformInt.of(0, 2), p), properties().mapColor(MapColor.DEEPSLATE).requiresCorrectToolForDrops().strength(4.5f, 3f).sound(SoundType.DEEPSLATE));
     DeferredBlock<Block>                   CHIMERITE_BLOCK             = register("chimerite_block",             properties().mapColor(MapColor.COLOR_PINK).requiresCorrectToolForDrops().strength(3f, 3f));
@@ -99,7 +101,7 @@ public interface AMBlocks {
     DeferredBlock<WallSignBlock>           WITCHWOOD_WALL_SIGN         = register("witchwood_wall_sign",         p -> new WallSignBlock(WITCHWOOD_WOOD_TYPE, p), copyProperties(Blocks.OAK_WALL_SIGN).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE).lootFrom(WITCHWOOD_SIGN));
     DeferredBlock<CeilingHangingSignBlock> WITCHWOOD_HANGING_SIGN      = register("witchwood_hanging_sign",      p -> new CeilingHangingSignBlock(WITCHWOOD_WOOD_TYPE, p), copyProperties(Blocks.OAK_HANGING_SIGN).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE));
     DeferredBlock<WallHangingSignBlock>    WITCHWOOD_WALL_HANGING_SIGN = register("witchwood_wall_hanging_sign", p -> new WallHangingSignBlock(WITCHWOOD_WOOD_TYPE, p), copyProperties(Blocks.OAK_WALL_HANGING_SIGN).mapColor(MapColor.TERRACOTTA_LIGHT_BLUE).lootFrom(WITCHWOOD_HANGING_SIGN));
-    DeferredBlock<AMFlowerBlock>           AUM                         = register("aum",                         p -> new AMFlowerBlock(MobEffects.REGENERATION, 7, AMTags.Blocks.AUM_PLANTABLE_ON, p), copyProperties(Blocks.POPPY)); //TODO mana regeneration
+    DeferredBlock<AMFlowerBlock>           AUM                         = register("aum",                         p -> new AMFlowerBlock(AMMobEffects.MANA_REGENERATION, 7, AMTags.Blocks.AUM_PLANTABLE_ON, p), copyProperties(Blocks.POPPY));
     DeferredBlock<FlowerPotBlock>          POTTED_AUM                  = register("potted_aum",                  p -> flowerPot(AUM, p).get(), copyProperties(Blocks.FLOWER_POT));
     DeferredBlock<AMFlowerBlock>           CERUBLOSSOM                 = register("cerublossom",                 p -> new AMFlowerBlock(MobEffects.LEVITATION, 7, AMTags.Blocks.CERUBLOSSOM_PLANTABLE_ON, p), copyProperties(Blocks.POPPY));
     DeferredBlock<FlowerPotBlock>          POTTED_CERUBLOSSOM          = register("potted_cerublossom",          p -> flowerPot(CERUBLOSSOM, p).get(), copyProperties(Blocks.FLOWER_POT));

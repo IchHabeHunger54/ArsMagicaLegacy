@@ -7,15 +7,9 @@
     {
       "type": "arsmagicalegacy:spell_cast_effect",
       "chance": 0.5,
-      "effect": {
-        "duration": 1200,
-        "id": "minecraft:regeneration",
-        "neoforge:cures": [
-          "protected_by_totem",
-          "milk"
-        ],
-        "show_icon": true
-      }
+      "duration": 1200,
+      "effect": "minecraft:regeneration",
+      "visible": true
     }
   ]
 }

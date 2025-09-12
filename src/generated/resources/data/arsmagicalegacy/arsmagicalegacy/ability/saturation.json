@@ -6,16 +6,8 @@
   "effects": [
     {
       "type": "arsmagicalegacy:effect",
-      "effect": {
-        "duration": 10,
-        "id": "minecraft:saturation",
-        "neoforge:cures": [
-          "protected_by_totem",
-          "milk"
-        ],
-        "show_icon": false,
-        "show_particles": false
-      }
+      "duration": 10,
+      "effect": "minecraft:saturation"
     }
   ]
 }

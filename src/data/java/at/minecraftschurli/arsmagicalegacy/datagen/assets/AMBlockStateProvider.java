@@ -25,6 +25,7 @@ public final class AMBlockStateProvider extends BlockStateProvider {
             .partialState().with(AltarCoreBlock.FORMED, false).modelForState().modelFile(cubeAll(AMBlocks.ALTAR_CORE.get())).addModel()
             .partialState().with(AltarCoreBlock.FORMED, true).modelForState().modelFile(models().getExistingFile(ArsMagicaApi.modLoc("block/altar_core_overlay"))).addModel();
         simpleBlock(AMBlocks.MAGIC_WALL.get(), new ConfiguredModel(models().cubeAll(AMBlocks.MAGIC_WALL.getId().getPath(), AMBlocks.MAGIC_WALL.getId().withPrefix("block/")).renderType("translucent")));
+        simpleBlock(AMBlocks.SPELL_LIGHT.get(), models().getExistingFile(mcLoc("block/air")));
         simpleBlock(AMBlocks.CHIMERITE_ORE);
         simpleBlock(AMBlocks.DEEPSLATE_CHIMERITE_ORE);
         simpleBlock(AMBlocks.CHIMERITE_BLOCK);

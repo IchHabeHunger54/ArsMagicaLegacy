@@ -191,6 +191,10 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
             .affinity(affinities.getOrThrow(AMMagic.LIFE), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.PINK_RUNE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(Items.GHAST_TEAR), 1));
+        builder(AMSpells.RESISTANCE, 50f)
+            .affinity(affinities.getOrThrow(AMMagic.EARTH), 0.001f)
+            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.BROWN_RUNE), 1))
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, new ItemStack(Items.SHIELD)), 1));
         builder(AMSpells.SLOWNESS, 30f)
             .affinity(affinities.getOrThrow(AMMagic.ICE), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.GREEN_RUNE), 1))
@@ -243,10 +247,6 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMTags.Items.WITCHWOOD_LOGS), 1));
         builder(AMSpells.SCRAMBLE_SYNAPSES, 3000f)
             .affinity(affinities.getOrThrow(AMMagic.LIGHTNING), 0.0001f);
-        builder(AMSpells.SHIELD, 50f)
-            .affinity(affinities.getOrThrow(AMMagic.EARTH), 0.001f)
-            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.BROWN_RUNE), 1))
-            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, new ItemStack(Items.SHIELD)), 1));
         builder(AMSpells.SHRINK, 30f)
             .affinity(affinities.getOrThrow(AMMagic.ARCANE), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(Tags.Items.BONES), 1))

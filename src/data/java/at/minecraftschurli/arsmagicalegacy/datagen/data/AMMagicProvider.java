@@ -218,10 +218,10 @@ public final class AMMagicProvider {
         Holder<Skill> dispel            = addSkill(bootstrap, AMSpells.DISPEL,             AMMagic.BLUE_POINT,  AMMagic.DEFENSE, 216, 120, heal);
         Holder<Skill> disarm            = addSkill(bootstrap, AMSpells.DISARM,             AMMagic.BLUE_POINT,  AMMagic.DEFENSE, 264, 120, dispel);
         Holder<Skill> zone              = addSkill(bootstrap, AMSpells.ZONE,               AMMagic.GREEN_POINT, AMMagic.DEFENSE, 216, 168, dispel);
-        Holder<Skill> shield            = addSkill(bootstrap, AMSpells.SHIELD,             AMMagic.GREEN_POINT, AMMagic.DEFENSE, 216, 216, zone);
-        Holder<Skill> contingencyHealth = addSkill(bootstrap, AMSpells.CONTINGENCY_HEALTH, AMMagic.RED_POINT,   AMMagic.DEFENSE, 264, 216, shield);
-        Holder<Skill> absorption        = addSkill(bootstrap, AMSpells.ABSORPTION,         AMMagic.GREEN_POINT, AMMagic.DEFENSE, 168, 216, shield);
-        Holder<Skill> reflect           = addSkill(bootstrap, AMSpells.REFLECT,            AMMagic.GREEN_POINT, AMMagic.DEFENSE, 216, 264, shield);
+        Holder<Skill> resistance        = addSkill(bootstrap, AMSpells.RESISTANCE,         AMMagic.GREEN_POINT, AMMagic.DEFENSE, 216, 216, zone);
+        Holder<Skill> contingencyHealth = addSkill(bootstrap, AMSpells.CONTINGENCY_HEALTH, AMMagic.RED_POINT,   AMMagic.DEFENSE, 264, 216, resistance);
+        Holder<Skill> absorption        = addSkill(bootstrap, AMSpells.ABSORPTION,         AMMagic.GREEN_POINT, AMMagic.DEFENSE, 168, 216, resistance);
+        Holder<Skill> reflect           = addSkill(bootstrap, AMSpells.REFLECT,            AMMagic.GREEN_POINT, AMMagic.DEFENSE, 216, 264, resistance);
         Holder<Skill> contingencyDamage = addSkill(bootstrap, AMSpells.CONTINGENCY_DAMAGE, AMMagic.RED_POINT,   AMMagic.DEFENSE, 216, 312, reflect);
         Holder<Skill> temporalAnchor    = addSkill(bootstrap, AMSpells.TEMPORAL_ANCHOR,    AMMagic.GREEN_POINT, AMMagic.DEFENSE, 168, 264, reflect);
         Holder<Skill> duration          = addSkill(bootstrap, AMSpells.DURATION,           AMMagic.GREEN_POINT, AMMagic.DEFENSE, 168, 312, temporalAnchor);

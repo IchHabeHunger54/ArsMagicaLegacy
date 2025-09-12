@@ -1,4 +1,4 @@
-// 1.21.1	2025-09-01T18:42:51.8835835	Block States: arsmagicalegacy
+// 1.21.1	2025-09-12T04:51:54.7580224	Block States: arsmagicalegacy
 9ff96b56b738b4ea85e1140167a077e69db0178f assets/arsmagicalegacy/blockstates/altar_core.json
 beb7ab7de7f6ae890282ef38e36400685d083d78 assets/arsmagicalegacy/blockstates/aum.json
 41a6820d81a4f10a322441df3d03bd96ce3efecc assets/arsmagicalegacy/blockstates/cerublossom.json
@@ -19,6 +19,7 @@ b2a87a378e81583ca59905000831a8bc6b3317d8 assets/arsmagicalegacy/blockstates/pott
 ed089d4fa3396dae16b84a3ff0d1135740b6ac23 assets/arsmagicalegacy/blockstates/potted_tarma_root.json
 3340eb6afe263c27c9827b9f253c19f57b9e3469 assets/arsmagicalegacy/blockstates/potted_wakebloom.json
 94a20f1b0097685df5c935d5cabbb521bb4fbce8 assets/arsmagicalegacy/blockstates/potted_witchwood_sapling.json
+3dff9e1ec59415779195d2abfa9f07bc17b428a1 assets/arsmagicalegacy/blockstates/spell_light.json
 5ec887c42c2024c0c1ec35a8d4ecfd39486d2aec assets/arsmagicalegacy/blockstates/stripped_witchwood.json
 44903e5c1a4998eb0642e7c75d89310b8c68e92b assets/arsmagicalegacy/blockstates/stripped_witchwood_log.json
 a87a0f07fc33396b84a28a902b04e78c9e24d81b assets/arsmagicalegacy/blockstates/sunstone_block.json

@@ -25,6 +25,7 @@ public final class AMServerConfig {
     public static final ModConfigSpec.DoubleValue MAJOR_OPPOSITE_MULTIPLIER;
     public static final ModConfigSpec.DoubleValue MINOR_OPPOSITE_MULTIPLIER;
     public static final ModConfigSpec.DoubleValue ADJACENT_MULTIPLIER;
+    public static final ModConfigSpec.IntValue EFFECT_DURATION;
     public static final ModConfigSpec.DoubleValue AFFINITY_GAINS_MODIFIER;
     public static final ModConfigSpec.DoubleValue AFFINITY_GAINS_XP_MODIFIER;
     static final ModConfigSpec SPEC;
@@ -124,6 +125,10 @@ public final class AMServerConfig {
             .defineInRange("adjacent_multiplier", 0.25, 0, 1);
         builder.pop();
         builder.push("skills");
+        EFFECT_DURATION = builder
+            .comment("The duration of effect-based components, in ticks.")
+            .translation(AMTranslations.CONFIG_KEY + "effect_duration")
+            .defineInRange("effect_duration", 600, 1, Short.MAX_VALUE);
         AFFINITY_GAINS_MODIFIER = builder
             .comment("When the Affinity Gains talent is learned, by what factor affinity gain will be amplified.")
             .translation(AMTranslations.CONFIG_KEY + "affinity_gains_modifier")

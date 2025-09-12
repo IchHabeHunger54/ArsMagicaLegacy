@@ -76,7 +76,7 @@ public record Ability(Holder<Affinity> affinity, MinMaxBounds.Doubles bounds, bo
      * @return Whether the given {@link MagicAttachment} matches the bounds.
      */
     public boolean test(MagicAttachment data) {
-        return bounds.matches(data.affinityShifts().get(affinity));
+        return bounds.matches(data.affinityShifts().getOrDefault(affinity, 0.));
     }
 
     /**

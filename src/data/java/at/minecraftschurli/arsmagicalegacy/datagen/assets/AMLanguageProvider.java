@@ -4,15 +4,21 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
+import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
+import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import net.minecraft.Util;
+import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.item.alchemy.Potion;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -32,8 +38,9 @@ public final class AMLanguageProvider extends LanguageProvider {
         itemIdTranslation(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1);
         itemIdTranslation(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_2);
         itemIdTranslation(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3);
-        itemIdTranslation(AMItems.ALTAR_CORE);
-        itemIdTranslation(AMItems.MAGIC_WALL);
+        blockIdTranslation(AMBlocks.ALTAR_CORE);
+        blockIdTranslation(AMBlocks.MAGIC_WALL);
+        blockIdTranslation(AMBlocks.SPELL_LIGHT);
         itemIdTranslation(AMItems.SPELL_PARCHMENT);
         itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.BLUE_POINT.location(), "Blue Infinity Orb");
         itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.GREEN_POINT.location(), "Green Infinity Orb");
@@ -119,6 +126,35 @@ public final class AMLanguageProvider extends LanguageProvider {
         blockIdTranslation(AMBlocks.WAKEBLOOM);
         blockIdTranslation(AMBlocks.POTTED_WAKEBLOOM);
         addBlock(AMBlocks.VINTEUM_WALL_TORCH, idTranslation(AMBlocks.VINTEUM_TORCH.getId().getPath()));
+        effectIdTranslation(AMMobEffects.ASTRAL_DISTORTION);
+        effectIdTranslation(AMMobEffects.BURNOUT_REDUCTION);
+        effectIdTranslation(AMMobEffects.CLARITY);
+        effectIdTranslation(AMMobEffects.ENTANGLE);
+        effectIdTranslation(AMMobEffects.FLIGHT);
+        effectIdTranslation(AMMobEffects.FURY);
+        effectIdTranslation(AMMobEffects.GRAVITY_WELL);
+        effectIdTranslation(AMMobEffects.ILLUMINATION);
+        effectIdTranslation(AMMobEffects.INSTANT_MANA);
+        effectIdTranslation(AMMobEffects.MANA_BOOST);
+        effectIdTranslation(AMMobEffects.MANA_REGENERATION);
+        effectIdTranslation(AMMobEffects.REFLECT);
+        effectIdTranslation(AMMobEffects.SCRAMBLE_SYNAPSES);
+        effectIdTranslation(AMMobEffects.SHRINK);
+        effectIdTranslation(AMMobEffects.SILENCE);
+        effectIdTranslation(AMMobEffects.SWIFT_SWIM);
+        effectIdTranslation(AMMobEffects.TEMPORAL_ANCHOR);
+        effectIdTranslation(AMMobEffects.TRUE_SIGHT);
+        effectIdTranslation(AMMobEffects.WATERY_GRAVE);
+        potionIdTranslation(AMMobEffects.LESSER_MANA);
+        potionIdTranslation(AMMobEffects.STANDARD_MANA);
+        potionIdTranslation(AMMobEffects.GREATER_MANA);
+        potionIdTranslation(AMMobEffects.EPIC_MANA);
+        potionIdTranslation(AMMobEffects.LEGENDARY_MANA);
+        potionIdTranslation(AMMobEffects.INFUSED_MANA);
+        attributeIdTranslation(AMAttributes.MANA_REGENERATION);
+        attributeIdTranslation(AMAttributes.BURNOUT_REGENERATION);
+        attributeIdTranslation(AMAttributes.MAX_MANA);
+        attributeIdTranslation(AMAttributes.MAX_BURNOUT);
         add(AMTags.Blocks.ORES_CHIMERITE, "Chimerite Ores");
         add(AMTags.Blocks.ORES_TOPAZ, "Topaz Ores");
         add(AMTags.Blocks.ORES_VINTEUM, "Vinteum Ores");
@@ -316,11 +352,11 @@ public final class AMLanguageProvider extends LanguageProvider {
         skillTranslation(AMSpells.REFLECT.getId(), "Reflect", "Bounces back to you.", "components", "You create a magic shield that $(l:shapes/projectile)spell projectiles$(), $(l:shapes/wall)walls$(), $(l:shapes/wave)waves$() and $(l:shapes/zone)zones$() will bounce off.");
         skillTranslation(AMSpells.REGENERATION.getId(), "Regeneration", "A little bit of health.", "components", "I wrapped my arm in a healing light, and watched as every injury, down to the last bruise, slowly vanished before my eyes.");
         skillTranslation(AMSpells.REPEL.getId(), "Repel", "Go away from me!", "components", "You can create a singularity in space, which, as long as you maintain it, will radiate waves of force, pushing anything but you away from the target position.");
+        skillTranslation(AMSpells.RESISTANCE.getId(), "Resistance", "Like a shield.", "components", "You can summon arcane energy to shield yourself, reducing physical damage.");
         skillTranslation(AMSpells.RIFT.getId(), "Rift", "One day I'll walk through it, for now, it'll just store items.", "components", "You can tear open a rift in space, granting access to a small inventory to store items in. More $(l:modifiers/effect_power)effect power$() modifiers give greater storage access.$(br2)You can, if your friends are foolish enough, also open their personal rift instead.");
         skillTranslation(AMSpells.RUNE.getId(), "Rune", "Placeable magic.", "shapes", "You can create a magically infused rune on the ground that, when someone steps on them, can apply powerful buffs - or trigger deadly traps.");
         skillTranslation(AMSpells.RUNE_POWER.getId(), "Rune Power", "I want more!", "modifiers", "Increases the number of times a $(l:shapes/rune)rune$() can apply its effect before being destroyed.");
         skillTranslation(AMSpells.SELF.getId(), "Self", "It's all about me.", "shapes", "One of the simplest forms of magic application is applying the magic to yourself. The distance is low, and the target is willing. You only hope you don't accidentally light yourself on fire.");
-        skillTranslation(AMSpells.SHIELD.getId(), "Shield", "Don't worry about the weight, it's magic.", "components", "You can summon arcane energy to shield yourself, acting effectively as bonus armor.");
         skillTranslation(AMSpells.SHRINK.getId(), "Shrink", "Looks like I'm smaller now!", "components", "You can make yourself tiny! When this effect is active, you are physically smaller, so you can fit through 1x1 gaps.$(br2)Due to your light weight, you fall slowly enough that landing doesn't hurt either. However, all damage you do is halved.");
         skillTranslation(AMSpells.SILENCE.getId(), "Silence", "No talking! (Or casting in this case!)", "components", "You can silence another entity, preventing all spell casting for a duration.");
         skillTranslation(AMSpells.SILK_TOUCH.getId(), "Silk Touch", "Feels soft.", "modifiers", "With great power comes broken valuables.$(br2)You've learned to be more careful when casting your digging spells and break things less often.$(br2)Each modifier is equivalent to one level of Silk Touch on the spell.");
@@ -380,6 +416,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("skills", "Skills", "Configuration of various skill-specific values.");
         configTranslation("affinity_gains_modifier", "Affinity Gains Modifier", "When the Affinity Gains talent is learned, by what factor affinity gain will be amplified.");
         configTranslation("affinity_gains_xp_modifier", "Affinity Gains XP Modifier", "When the Affinity Gains talent is learned, by what factor XP gain will be amplified.");
+        configTranslation("effect_duration", "Effect Duration", "The duration of effect-based components, in ticks.");
         configTranslation("gui_layers", "GUI Layers", "Configuration for the various GUI layers in this mod.");
         configTranslation("bars", "Mana/Burnout/Level Bars", "Configuration for the mana, burnout and level bars. The size of the layer is 80x40.");
         configTranslation("bars_x", "Horizontal Position", "Horizontal position of the mana, burnout and level bars.");
@@ -502,12 +539,18 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.SPELL_CAST_BURNED_OUT_KEY, "Burned out!");
         add(AMTranslations.SPELL_CAST_MALFORMED_KEY, "Spell is malformed and cannot be cast!");
         add(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA_KEY, "Not enough mana to cast the spell!");
+        add(AMTranslations.SPELL_CAST_SILENCED_KEY, "Silenced!");
         add(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, "x %s");
         add(AMTranslations.SPELL_RECIPE_AFFINITIES_KEY, "Affinities");
         add(AMTranslations.SPELL_RECIPE_GRAMMAR_KEY, "Grammar");
         add(AMTranslations.SPELL_RECIPE_INGREDIENTS_KEY, "Ingredients");
         add(AMTranslations.SPELL_RECIPE_SHAPE_GROUP_KEY, "Shape Group %s");
         add("itemGroup." + ArsMagicaApi.MOD_ID, "Ars Magica: Legacy");
+        add("potion.potency.5", "VI");
+        add("potion.potency.6", "VII");
+        add("potion.potency.7", "VIII");
+        add("potion.potency.8", "IX");
+        add("potion.potency.9", "X");
     }
 
     /**
@@ -538,6 +581,40 @@ public final class AMLanguageProvider extends LanguageProvider {
     @SuppressWarnings("SameParameterValue")
     private void itemWithVariantTranslation(DeferredItem<?> item, ResourceLocation variant, String translation) {
         add(Util.makeDescriptionId(item.toStack().getDescriptionId(), variant), translation);
+    }
+
+    /**
+     * Adds an attribute translation that matches the attribute id.
+     *
+     * @param attribute The attribute to generate the translation for.
+     */
+    @SuppressWarnings("DataFlowIssue")
+    private void attributeIdTranslation(Holder<Attribute> attribute) {
+        add(Util.makeDescriptionId("attribute", attribute.getKey().location()), idTranslation(attribute.getKey().location().getPath()));
+    }
+
+    /**
+     * Adds an effect translation that matches the effect id.
+     *
+     * @param effect The effect to generate the translation for.
+     */
+    @SuppressWarnings("DataFlowIssue")
+    private void effectIdTranslation(Holder<MobEffect> effect) {
+        add(effect.value(), idTranslation(effect.getKey().location().getPath()));
+    }
+
+    /**
+     * Adds a potion translation that matches the potion id. Also covers splash potion, lingering potion and tipped arrow translations.
+     *
+     * @param potion The potion to generate the translation for.
+     */
+    @SuppressWarnings("DataFlowIssue")
+    private void potionIdTranslation(Holder<Potion> potion) {
+        String path = potion.getKey().location().getPath();
+        add("item.minecraft.potion.effect." + path, "Potion of " + idTranslation(path));
+        add("item.minecraft.splash_potion.effect." + path, "Splash Potion of " + idTranslation(path));
+        add("item.minecraft.lingering_potion.effect." + path, "Lingering Potion of " + idTranslation(path));
+        add("item.minecraft.tipped_arrow.effect." + path, "Arrow of " + idTranslation(path));
     }
 
     /**

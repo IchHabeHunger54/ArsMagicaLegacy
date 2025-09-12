@@ -8,7 +8,7 @@
       "type": "arsmagicalegacy:spell_cast_effect",
       "chance": 0.5,
       "duration": 1200,
-      "effect": "minecraft:regeneration",
+      "effect": "arsmagicalegacy:clarity",
       "visible": true
     }
   ]

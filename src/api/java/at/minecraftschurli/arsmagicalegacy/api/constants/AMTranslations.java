@@ -63,6 +63,7 @@ public interface AMTranslations {
     String SPELL_CAST_BURNED_OUT_KEY        = ArsMagicaApi.MOD_ID + ".spell_cast.burned_out";
     String SPELL_CAST_MALFORMED_KEY         = ArsMagicaApi.MOD_ID + ".spell_cast.malformed";
     String SPELL_CAST_NOT_ENOUGH_MANA_KEY   = ArsMagicaApi.MOD_ID + ".spell_cast.not_enough_mana";
+    String SPELL_CAST_SILENCED_KEY          = ArsMagicaApi.MOD_ID + ".spell_cast.silenced";
     String ALTAR_CORE_LOW_POWER_KEY         = "block." + ArsMagicaApi.MOD_ID + ".altar_core.low_power";
     String COMMAND_SKILL_LIST_SEPARATOR_KEY = "commands." + ArsMagicaApi.MOD_ID + ".skill.list.separator";
     String INSCRIPTION_TABLE_KEY            = "gui." + ArsMagicaApi.MOD_ID + ".inscription_table";
@@ -85,6 +86,7 @@ public interface AMTranslations {
     Component SPELL_CAST_BURNED_OUT        = Component.translatable(SPELL_CAST_BURNED_OUT_KEY);
     Component SPELL_CAST_MALFORMED         = Component.translatable(SPELL_CAST_MALFORMED_KEY);
     Component SPELL_CAST_NOT_ENOUGH_MANA   = Component.translatable(SPELL_CAST_NOT_ENOUGH_MANA_KEY);
+    Component SPELL_CAST_SILENCED          = Component.translatable(SPELL_CAST_SILENCED_KEY);
     Component ALTAR_CORE_LOW_POWER         = Component.translatable(ALTAR_CORE_LOW_POWER_KEY);
     Component COMMAND_SKILL_LIST_SEPARATOR = Component.translatable(COMMAND_SKILL_LIST_SEPARATOR_KEY);
     Component INSCRIPTION_TABLE            = Component.translatable(INSCRIPTION_TABLE_KEY);

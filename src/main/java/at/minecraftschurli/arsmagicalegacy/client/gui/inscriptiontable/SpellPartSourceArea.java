@@ -3,29 +3,40 @@ package at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
+import at.minecraftschurli.arsmagicalegacy.api.spell.PrimarySpellShape;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SecondarySpellShape;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
 import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.Holder;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Stream;
 
 public class SpellPartSourceArea extends DragArea {
     private static final int X_PADDING = 4;
     private static final int ROWS = 3;
     private static final int COLUMNS = 8;
+    private final InscriptionTableScreen screen;
+    private final List<Pair<Draggable, Pair<Integer, Integer>>> cache = new ArrayList<>();
     private String nameFilter;
     private boolean primaryShapes = true;
     private boolean secondaryShapes = true;
     private boolean components = true;
     private boolean modifiers = true;
-    private List<Pair<Draggable, Pair<Integer, Integer>>> cache = new ArrayList<>();
 
-    public SpellPartSourceArea(int x, int y, int width, int height) {
+    public SpellPartSourceArea(int x, int y, int width, int height, InscriptionTableScreen screen) {
         super(x, y, width, height);
+        this.screen = screen;
         updateCache();
     }
 
@@ -87,11 +98,7 @@ public class SpellPartSourceArea extends DragArea {
             .stream()
             .map(Draggable::getSkill)
             .filter(e -> nameFilter == null || Skill.getName(e).getString().toLowerCase(Locale.ROOT).contains(nameFilter))
-            .map(DragArea::spellPart)
-            .filter(Objects::nonNull)
-            .filter(e -> e.value().isPrimaryShape() && primaryShapes || e.value().isSecondaryShape() && secondaryShapes || e.value().isComponent() && components || e.value().isModifier() && (primaryShapes || secondaryShapes || components) && modifiers)
-            .map(DragArea::skill)
-            .filter(Objects::nonNull)
+            .filter(this::isSkillVisible)
             .limit(ROWS * COLUMNS)
             .map(Draggable::new)
             .toList();
@@ -102,5 +109,33 @@ public class SpellPartSourceArea extends DragArea {
                 cache.add(Pair.of(list.get(index), Pair.of(x + j * Draggable.SIZE + X_PADDING, y + i * Draggable.SIZE)));
             }
         }
+    }
+
+    private boolean isSkillVisible(Holder<Skill> skill) {
+        Holder<SpellPart> holder = spellPart(skill);
+        if (holder == null) return false;
+        SpellPart spellPart = holder.value();
+        if (spellPart.isPrimaryShape() && primaryShapes) return true;
+        if (spellPart.isSecondaryShape() && secondaryShapes) return true;
+        if (spellPart.isComponent() && components) return true;
+        if (spellPart.isModifier()) {
+            if (!modifiers || !primaryShapes && !secondaryShapes && !components) return false;
+            Set<SpellStat> stats = ((SpellModifier) spellPart).getStats();
+            return Stream.concat(screen.getGrammarArea().contents.stream(), screen.getShapeGroupAreas().stream().map(area -> area.contents).flatMap(List::stream))
+                .map(Draggable::getSkill)
+                .map(DragArea::spellPart)
+                .filter(Objects::nonNull)
+                .map(Holder::value)
+                .filter(part -> !part.isModifier())
+                .map(part -> {
+                    if (part.isPrimaryShape()) return ((PrimarySpellShape) part).getStats();
+                    if (part.isSecondaryShape()) return ((SecondarySpellShape) part).getStats();
+                    if (part.isComponent()) return ((SpellComponent) part).getStats();
+                    return Set.<SpellStat>of();
+                })
+                .flatMap(Set::stream)
+                .anyMatch(stats::contains);
+        }
+        return false;
     }
 }

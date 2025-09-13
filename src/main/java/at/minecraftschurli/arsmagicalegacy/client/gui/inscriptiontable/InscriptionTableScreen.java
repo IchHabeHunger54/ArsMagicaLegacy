@@ -68,11 +68,11 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     @Override
     protected void init() {
         super.init();
-        sourceArea = new SpellPartSourceArea(leftPos + 42, topPos + 6, 136, 48);
         grammarArea = new GrammarArea(leftPos + 42, topPos + 144, 136, 16, this::onDrop);
         for (int i = 0; i < menu.getShapeGroups(); i++) {
             shapeGroupAreas.add(new ShapeGroupArea(leftPos + 20 + i * ShapeGroupArea.WIDTH, topPos + 107, this::onDrop));
         }
+        sourceArea = new SpellPartSourceArea(leftPos + 42, topPos + 6, 136, 48, this);
         dragAreas.add(sourceArea);
         dragAreas.add(grammarArea);
         dragAreas.addAll(shapeGroupAreas);
@@ -186,6 +186,14 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     public void onClose() {
         sync();
         super.onClose();
+    }
+
+    public GrammarArea getGrammarArea() {
+        return grammarArea;
+    }
+
+    public List<ShapeGroupArea> getShapeGroupAreas() {
+        return shapeGroupAreas;
     }
 
     private void sync() {

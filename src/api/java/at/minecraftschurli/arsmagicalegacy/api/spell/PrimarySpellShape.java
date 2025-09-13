@@ -3,11 +3,21 @@ package at.minecraftschurli.arsmagicalegacy.api.spell;
 import net.minecraft.world.entity.LivingEntity;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Represents a primary spell shape. Primary shapes must be at the start of a {@link SpellShapeGroup}.
  */
 public abstract non-sealed class PrimarySpellShape extends SpellPart {
+    private final Set<SpellStat> stats;
+
+    /**
+     * @param stats A vararg of {@link SpellStat}s used by the shape.
+     */
+    public PrimarySpellShape(SpellStat... stats) {
+        this.stats = Set.of(stats);
+    }
+
     @Override
     public final boolean isPrimaryShape() {
         return true;
@@ -26,6 +36,13 @@ public abstract non-sealed class PrimarySpellShape extends SpellPart {
     @Override
     public final boolean isModifier() {
         return false;
+    }
+
+    /**
+     * @return A {@link Set} of {@link SpellStat}s used by the shape.
+     */
+    public Set<SpellStat> getStats() {
+        return stats;
     }
 
     /**

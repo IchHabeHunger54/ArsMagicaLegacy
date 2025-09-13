@@ -1,9 +1,21 @@
 package at.minecraftschurli.arsmagicalegacy.api.spell;
 
+import java.util.Map;
+import java.util.Set;
+
 /**
  * Represents a spell modifier. Spell modifiers cannot be cast, instead they are queried for their presence by other spell parts.
  */
-public abstract non-sealed class SpellModifier extends SpellPart {
+public non-sealed class SpellModifier extends SpellPart {
+    protected final Map<SpellStat, SpellStatModifier> modifiers;
+
+    /**
+     * @param modifiers A map of {@link SpellStat}s and {@link SpellStatModifier}s that this modifier represents.
+     */
+    public SpellModifier(Map<SpellStat, SpellStatModifier> modifiers) {
+        this.modifiers = modifiers;
+    }
+
     @Override
     public final boolean isPrimaryShape() {
         return false;
@@ -22,5 +34,20 @@ public abstract non-sealed class SpellModifier extends SpellPart {
     @Override
     public final boolean isModifier() {
         return true;
+    }
+
+    /**
+     * @param stat The {@link SpellStat} to test for.
+     * @return The associated {@link SpellStatModifier}.
+     */
+    public SpellStatModifier getModifier(SpellStat stat) {
+        return modifiers.get(stat);
+    }
+
+    /**
+     * @return A {@link Set} of all {@link SpellStat}s the modifier modifies.
+     */
+    public Set<SpellStat> getStats() {
+        return modifiers.keySet();
     }
 }

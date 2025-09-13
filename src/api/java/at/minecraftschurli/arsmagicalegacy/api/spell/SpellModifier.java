@@ -36,18 +36,16 @@ public non-sealed class SpellModifier extends SpellPart {
         return true;
     }
 
+    @Override
+    public Set<SpellStat> getStats() {
+        return modifiers.keySet();
+    }
+
     /**
      * @param stat The {@link SpellStat} to test for.
      * @return The associated {@link SpellStatModifier}.
      */
     public SpellStatModifier getModifier(SpellStat stat) {
         return modifiers.get(stat);
-    }
-
-    /**
-     * @return A {@link Set} of all {@link SpellStat}s the modifier modifies.
-     */
-    public Set<SpellStat> getStats() {
-        return modifiers.keySet();
     }
 }

@@ -126,19 +126,14 @@ public class SpellPartSourceArea extends DragArea {
             .noneMatch(part -> part == spellPart)) return true;
         if (spellPart.isModifier()) {
             if (!modifiers || !primaryShapes && !secondaryShapes && !components) return false;
-            Set<SpellStat> stats = ((SpellModifier) spellPart).getStats();
+            Set<SpellStat> stats = spellPart.getStats();
             return Stream.concat(screen.getGrammarArea().contents.stream(), screen.getShapeGroupAreas().stream().map(area -> area.contents).flatMap(List::stream))
                 .map(Draggable::getSkill)
                 .map(DragArea::spellPart)
                 .filter(Objects::nonNull)
                 .map(Holder::value)
                 .filter(part -> !part.isModifier())
-                .map(part -> {
-                    if (part.isPrimaryShape()) return ((PrimarySpellShape) part).getStats();
-                    if (part.isSecondaryShape()) return ((SecondarySpellShape) part).getStats();
-                    if (part.isComponent()) return ((SpellComponent) part).getStats();
-                    return Set.<SpellStat>of();
-                })
+                .map(SpellPart::getStats)
                 .flatMap(Set::stream)
                 .anyMatch(stats::contains);
         }

@@ -55,7 +55,7 @@ public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List
             if (part.isShape()) return EMPTY;
             if (part.isModifier()) {
                 currentModifiers.add((SpellModifier) part);
-            } else if (part.isComponent()) {
+            } else if (part.isComponent() && components.stream().noneMatch(pair -> pair.getFirst() == part)) {
                 if (currentComponent != null) {
                     components.add(Pair.of(currentComponent, Collections.unmodifiableList(currentModifiers)));
                     currentModifiers = new ArrayList<>();

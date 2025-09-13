@@ -8,6 +8,7 @@ import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Represents a spell component. Components are part of the {@link SpellGrammar}.
@@ -15,6 +16,15 @@ import java.util.List;
  * Extend this class directly for target-independent effects, e.g. time or weather components. Extend one of the inner subclasses for target-dependent effects instead.
  */
 public abstract non-sealed class SpellComponent extends SpellPart {
+    private final Set<SpellStat> stats;
+
+    /**
+     * @param stats A vararg of {@link SpellStat}s used by the component.
+     */
+    public SpellComponent(SpellStat... stats) {
+        this.stats = Set.of(stats);
+    }
+
     @Override
     public final boolean isPrimaryShape() {
         return false;
@@ -36,6 +46,13 @@ public abstract non-sealed class SpellComponent extends SpellPart {
     }
 
     /**
+     * @return A {@link Set} of {@link SpellStat}s used by the component.
+     */
+    public Set<SpellStat> getStats() {
+        return stats;
+    }
+
+    /**
      * Casts this part.
      *
      * @param spell        The {@link Spell} being cast.
@@ -51,6 +68,13 @@ public abstract non-sealed class SpellComponent extends SpellPart {
      * Represents a spell component that only affects blocks.
      */
     public static abstract class CastBlock extends SpellComponent {
+        /**
+         * @param stats A vararg of {@link SpellStat}s used by the component.
+         */
+        public CastBlock(SpellStat... stats) {
+            super(stats);
+        }
+
         @Override
         public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
             return hitResult instanceof BlockHitResult blockHitResult ? castBlock(spell, modifiers, caster, directEntity, blockHitResult) : spell;
@@ -73,6 +97,13 @@ public abstract non-sealed class SpellComponent extends SpellPart {
      * Represents a spell component that only affects entities.
      */
     public static abstract class CastEntity extends SpellComponent {
+        /**
+         * @param stats A vararg of {@link SpellStat}s used by the component.
+         */
+        public CastEntity(SpellStat... stats) {
+            super(stats);
+        }
+
         @Override
         public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
             return hitResult instanceof EntityHitResult entityHitResult ? castEntity(spell, modifiers, caster, directEntity, entityHitResult) : spell;
@@ -95,6 +126,13 @@ public abstract non-sealed class SpellComponent extends SpellPart {
      * Represents a spell component that affects both blocks and entities, with distinct effects on each.
      */
     public static abstract class CastBoth extends SpellComponent {
+        /**
+         * @param stats A vararg of {@link SpellStat}s used by the component.
+         */
+        public CastBoth(SpellStat... stats) {
+            super(stats);
+        }
+
         @Override
         public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
             return switch (hitResult) {

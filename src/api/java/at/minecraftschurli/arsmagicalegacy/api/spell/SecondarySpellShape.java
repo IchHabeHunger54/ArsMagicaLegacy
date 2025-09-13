@@ -4,11 +4,21 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Represents a secondary spell shape. Secondary shapes must be in a {@link SpellShapeGroup}, with a primary shape before it.
  */
 public abstract non-sealed class SecondarySpellShape extends SpellPart {
+    private final Set<SpellStat> stats;
+
+    /**
+     * @param stats A vararg of {@link SpellStat}s used by the shape.
+     */
+    public SecondarySpellShape(SpellStat... stats) {
+        this.stats = Set.of(stats);
+    }
+
     @Override
     public final boolean isPrimaryShape() {
         return false;
@@ -27,6 +37,13 @@ public abstract non-sealed class SecondarySpellShape extends SpellPart {
     @Override
     public final boolean isModifier() {
         return false;
+    }
+
+    /**
+     * @return A {@link Set} of {@link SpellStat}s used by the shape.
+     */
+    public Set<SpellStat> getStats() {
+        return stats;
     }
 
     /**

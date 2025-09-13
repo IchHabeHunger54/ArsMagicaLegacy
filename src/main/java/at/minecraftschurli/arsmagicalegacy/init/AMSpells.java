@@ -1,8 +1,13 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
+import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStatModifier;
 import at.minecraftschurli.arsmagicalegacy.spell.ItemSpellIngredient;
+import at.minecraftschurli.arsmagicalegacy.spell.SpellModifiers;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Attract;
 import at.minecraftschurli.arsmagicalegacy.spell.component.BanishRain;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Blink;
@@ -47,7 +52,6 @@ import at.minecraftschurli.arsmagicalegacy.spell.component.Storm;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Summon;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Transplace;
 import at.minecraftschurli.arsmagicalegacy.spell.component.WizardsAutumn;
-import at.minecraftschurli.arsmagicalegacy.spell.modifier.Modifier;
 import at.minecraftschurli.arsmagicalegacy.spell.shape.AreaOfEffect;
 import at.minecraftschurli.arsmagicalegacy.spell.shape.Beam;
 import at.minecraftschurli.arsmagicalegacy.spell.shape.Chain;
@@ -64,28 +68,45 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.world.effect.MobEffects;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
+import java.util.Map;
 import java.util.function.Supplier;
 
 public interface AMSpells {
     DeferredHolder<MapCodec<? extends SpellIngredient>, MapCodec<ItemSpellIngredient>> ITEM_SPELL_INGREDIENT = AMRegistries.SPELL_INGREDIENTS.register("item", () -> ItemSpellIngredient.CODEC);
 
     // @formatter:off
-    DeferredHolder<SpellPart, AreaOfEffect>       AREA_OF_EFFECT      = register("area_of_effect",      AreaOfEffect::new);
-    DeferredHolder<SpellPart, Beam>               BEAM                = register("beam",                Beam::new);
-    DeferredHolder<SpellPart, Chain>              CHAIN               = register("chain",               Chain::new);
-    DeferredHolder<SpellPart, Channel>            CHANNEL             = register("channel",             Channel::new);
-    DeferredHolder<SpellPart, Projectile>         PROJECTILE          = register("projectile",          Projectile::new);
-    DeferredHolder<SpellPart, Rune>               RUNE                = register("rune",                Rune::new);
-    DeferredHolder<SpellPart, Self>               SELF                = register("self",                Self::new);
-    DeferredHolder<SpellPart, Touch>              TOUCH               = register("touch",               Touch::new);
-    DeferredHolder<SpellPart, Wall>               WALL                = register("wall",                Wall::new);
-    DeferredHolder<SpellPart, Wave>               WAVE                = register("wave",                Wave::new);
-    DeferredHolder<SpellPart, Zone>               ZONE                = register("zone",                Zone::new);
-    DeferredHolder<SpellPart, Contingency>        CONTINGENCY_DAMAGE  = register("contingency_damage",  Contingency::new);
-    DeferredHolder<SpellPart, Contingency>        CONTINGENCY_DEATH   = register("contingency_death",   Contingency::new);
-    DeferredHolder<SpellPart, Contingency>        CONTINGENCY_FALL    = register("contingency_fall",    Contingency::new);
-    DeferredHolder<SpellPart, Contingency>        CONTINGENCY_FIRE    = register("contingency_fire",    Contingency::new);
-    DeferredHolder<SpellPart, Contingency>        CONTINGENCY_HEALTH  = register("contingency_health",  Contingency::new);
+    SpellStat BOUNCE_STAT           = new SpellStat(ArsMagicaApi.modLoc("bounce"));
+    SpellStat DAMAGE_STAT           = new SpellStat(ArsMagicaApi.modLoc("damage"));
+    SpellStat DISMEMBERING_STAT     = new SpellStat(ArsMagicaApi.modLoc("dismembering"));
+    SpellStat DURATION_STAT         = new SpellStat(ArsMagicaApi.modLoc("duration"));
+    SpellStat EFFECT_POWER_STAT     = new SpellStat(ArsMagicaApi.modLoc("effect_power"));
+    SpellStat FORTUNE_STAT          = new SpellStat(ArsMagicaApi.modLoc("fortune"));
+    SpellStat GRAVITY_STAT          = new SpellStat(ArsMagicaApi.modLoc("gravity"));
+    SpellStat HEALING_STAT          = new SpellStat(ArsMagicaApi.modLoc("healing"));
+    SpellStat MINING_POWER_STAT     = new SpellStat(ArsMagicaApi.modLoc("mining_power"));
+    SpellStat PIERCING_STAT         = new SpellStat(ArsMagicaApi.modLoc("piercing"));
+    SpellStat RANGE_STAT            = new SpellStat(ArsMagicaApi.modLoc("range"));
+    SpellStat RUNE_POWER_STAT       = new SpellStat(ArsMagicaApi.modLoc("rune_power"));
+    SpellStat SILK_TOUCH_STAT       = new SpellStat(ArsMagicaApi.modLoc("silk_touch"));
+    SpellStat SPEED_STAT            = new SpellStat(ArsMagicaApi.modLoc("speed"));
+    SpellStat TARGET_NON_SOLID_STAT = new SpellStat(ArsMagicaApi.modLoc("target_non_solid"));
+
+    DeferredHolder<SpellPart, AreaOfEffect> AREA_OF_EFFECT     = register("area_of_effect",     AreaOfEffect::new);
+    DeferredHolder<SpellPart, Beam>         BEAM               = register("beam",               Beam::new);
+    DeferredHolder<SpellPart, Chain>        CHAIN              = register("chain",              Chain::new);
+    DeferredHolder<SpellPart, Channel>      CHANNEL            = register("channel",            Channel::new);
+    DeferredHolder<SpellPart, Projectile>   PROJECTILE         = register("projectile",         Projectile::new);
+    DeferredHolder<SpellPart, Rune>         RUNE               = register("rune",               Rune::new);
+    DeferredHolder<SpellPart, Self>         SELF               = register("self",               Self::new);
+    DeferredHolder<SpellPart, Touch>        TOUCH              = register("touch",              Touch::new);
+    DeferredHolder<SpellPart, Wall>         WALL               = register("wall",               Wall::new);
+    DeferredHolder<SpellPart, Wave>         WAVE               = register("wave",               Wave::new);
+    DeferredHolder<SpellPart, Zone>         ZONE               = register("zone",               Zone::new);
+    DeferredHolder<SpellPart, Contingency>  CONTINGENCY_DAMAGE = register("contingency_damage", Contingency::new);
+    DeferredHolder<SpellPart, Contingency>  CONTINGENCY_DEATH  = register("contingency_death",  Contingency::new);
+    DeferredHolder<SpellPart, Contingency>  CONTINGENCY_FALL   = register("contingency_fall",   Contingency::new);
+    DeferredHolder<SpellPart, Contingency>  CONTINGENCY_FIRE   = register("contingency_fire",   Contingency::new);
+    DeferredHolder<SpellPart, Contingency>  CONTINGENCY_HEALTH = register("contingency_health", Contingency::new);
 
     DeferredHolder<SpellPart, Damage>             DROWNING_DAMAGE     = register("drowning_damage",     Damage::new);
     DeferredHolder<SpellPart, Damage>             FIRE_DAMAGE         = register("fire_damage",         Damage::new);
@@ -165,24 +186,24 @@ public interface AMSpells {
     DeferredHolder<SpellPart, Transplace>         TRANSPLACE          = register("transplace",          Transplace::new);
     DeferredHolder<SpellPart, WizardsAutumn>      WIZARDS_AUTUMN      = register("wizards_autumn",      WizardsAutumn::new);
 
-    DeferredHolder<SpellPart, Modifier>           BOUNCE              = register("bounce",              Modifier::new);
-    DeferredHolder<SpellPart, Modifier>           COLOR               = register("color",               Modifier::new);
-    DeferredHolder<SpellPart, Modifier>           DAMAGE              = register("damage",              Modifier::new);
-    DeferredHolder<SpellPart, Modifier>           DISMEMBERING        = register("dismembering",        Modifier::new);
-    DeferredHolder<SpellPart, Modifier>           DURATION            = register("duration",            Modifier::new);
-    DeferredHolder<SpellPart, Modifier>           EFFECT_POWER        = register("effect_power",        Modifier::new);
-    DeferredHolder<SpellPart, Modifier>           GRAVITY             = register("gravity",             Modifier::new);
-    DeferredHolder<SpellPart, Modifier>           HEALING             = register("healing",             Modifier::new);
-    DeferredHolder<SpellPart, Modifier>           LUNAR               = register("lunar",               Modifier::new);
-    DeferredHolder<SpellPart, Modifier>           MINING_POWER        = register("mining_power",        Modifier::new);
-    DeferredHolder<SpellPart, Modifier>           PIERCING            = register("piercing",            Modifier::new);
-    DeferredHolder<SpellPart, Modifier>           PROSPERITY          = register("prosperity",          Modifier::new);
-    DeferredHolder<SpellPart, Modifier>           RANGE               = register("range",               Modifier::new);
-    DeferredHolder<SpellPart, Modifier>           RUNE_POWER          = register("rune_power",          Modifier::new);
-    DeferredHolder<SpellPart, Modifier>           SILK_TOUCH          = register("silk_touch",          Modifier::new);
-    DeferredHolder<SpellPart, Modifier>           SOLAR               = register("solar",               Modifier::new);
-    DeferredHolder<SpellPart, Modifier>           TARGET_NON_SOLID    = register("target_non_solid",    Modifier::new);
-    DeferredHolder<SpellPart, Modifier>           VELOCITY            = register("velocity",            Modifier::new);
+    DeferredHolder<SpellPart, SpellModifier> BOUNCE           = register("bounce",           () -> new SpellModifier(Map.of(BOUNCE_STAT, SpellStatModifier.add(1))));
+    DeferredHolder<SpellPart, SpellModifier> COLOR            = register("color",            () -> new SpellModifier(Map.of()));
+    DeferredHolder<SpellPart, SpellModifier> DAMAGE           = register("damage",           () -> new SpellModifier(Map.of(DAMAGE_STAT, SpellStatModifier.add(1))));
+    DeferredHolder<SpellPart, SpellModifier> DISMEMBERING     = register("dismembering",     () -> new SpellModifier(Map.of(DISMEMBERING_STAT, SpellStatModifier.add(1))));
+    DeferredHolder<SpellPart, SpellModifier> DURATION         = register("duration",         () -> new SpellModifier(Map.of(DURATION_STAT, SpellStatModifier.multiply(2))));
+    DeferredHolder<SpellPart, SpellModifier> EFFECT_POWER     = register("effect_power",     () -> new SpellModifier(Map.of(EFFECT_POWER_STAT, SpellStatModifier.add(1))));
+    DeferredHolder<SpellPart, SpellModifier> GRAVITY          = register("gravity",          () -> new SpellModifier(Map.of(GRAVITY_STAT, SpellStatModifier.add(1))));
+    DeferredHolder<SpellPart, SpellModifier> HEALING          = register("healing",          () -> new SpellModifier(Map.of(HEALING_STAT, SpellStatModifier.multiply(2))));
+    DeferredHolder<SpellPart, SpellModifier> LUNAR            = register("lunar",            () -> new SpellModifier(SpellModifiers.lunarStatModifiers()));
+    DeferredHolder<SpellPart, SpellModifier> MINING_POWER     = register("mining_power",     () -> new SpellModifier(Map.of(MINING_POWER_STAT, SpellStatModifier.add(1))));
+    DeferredHolder<SpellPart, SpellModifier> PIERCING         = register("piercing",         () -> new SpellModifier(Map.of(PIERCING_STAT, SpellStatModifier.add(1))));
+    DeferredHolder<SpellPart, SpellModifier> PROSPERITY       = register("prosperity",       () -> new SpellModifier(Map.of(FORTUNE_STAT, SpellStatModifier.add(1))));
+    DeferredHolder<SpellPart, SpellModifier> RANGE            = register("range",            () -> new SpellModifier(Map.of(RANGE_STAT, SpellStatModifier.multiply(2))));
+    DeferredHolder<SpellPart, SpellModifier> RUNE_POWER       = register("rune_power",       () -> new SpellModifier(Map.of(RUNE_POWER_STAT, SpellStatModifier.add(1))));
+    DeferredHolder<SpellPart, SpellModifier> SILK_TOUCH       = register("silk_touch",       () -> new SpellModifier(Map.of(SILK_TOUCH_STAT, SpellStatModifier.add(1))));
+    DeferredHolder<SpellPart, SpellModifier> SOLAR            = register("solar",            () -> new SpellModifier(SpellModifiers.solarStatModifiers()));
+    DeferredHolder<SpellPart, SpellModifier> TARGET_NON_SOLID = register("target_non_solid", () -> new SpellModifier(Map.of(TARGET_NON_SOLID_STAT, SpellStatModifier.add(1))));
+    DeferredHolder<SpellPart, SpellModifier> VELOCITY         = register("velocity",         () -> new SpellModifier(Map.of(SPEED_STAT, SpellStatModifier.addMultipliedBase(0.5))));
     // @formatter:on
 
     private static <T extends SpellPart> DeferredHolder<SpellPart, T> register(String name, Supplier<T> supplier) {

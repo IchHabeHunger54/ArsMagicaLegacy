@@ -68,6 +68,20 @@ public interface SpellHelper {
     Spell castSecondaryOrGrammar(Spell spell, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult);
 
     /**
+     * Calculates the modifier-changed value from the base value.
+     *
+     * @param base         The base value to use.
+     * @param stat         The {@link SpellStat} that is modified.
+     * @param modifiers    The {@link SpellModifier}s to check.
+     * @param spell        The {@link Spell} to cast.
+     * @param caster       The {@link LivingEntity} casting the {@link Spell}.
+     * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
+     * @param hitResult    The {@link HitResult} of the spell cast.
+     * @return A modifier-changed value.
+     */
+    double getModifiedStat(double base, SpellStat stat, List<SpellModifier> modifiers, Spell spell, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult);
+
+    /**
      * @return The mana to burnout conversion ratio, used in spell cost calculation.
      */
     double getManaToBurnoutRatio();

@@ -40,7 +40,6 @@ public record SpellShapeGroup(List<SpellPart> parts, @Nullable PrimarySpellShape
      * @param parts The {@link List} of {@link SpellPart}s.
      * @return A new {@link SpellShapeGroup}, or {@link SpellShapeGroup#EMPTY} if validation failed.
      */
-    @SuppressWarnings("DataFlowIssue")
     public static SpellShapeGroup of(List<SpellPart> parts) {
         if (parts.isEmpty() || !parts.getFirst().isPrimaryShape()) return EMPTY;
         if (parts.size() > MAX_PARTS) {
@@ -52,15 +51,13 @@ public record SpellShapeGroup(List<SpellPart> parts, @Nullable PrimarySpellShape
         List<SpellModifier> secondaryModifiers = new ArrayList<>();
         for (int i = 1; i < parts.size(); i++) {
             SpellPart part = parts.get(i);
-            if (part.isComponent() || part.isPrimaryShape()) continue;
             if (part.isModifier()) {
                 if (secondary == null) {
                     primaryModifiers.add((SpellModifier) part);
                 } else {
                     secondaryModifiers.add((SpellModifier) part);
                 }
-            }
-            if (part.isSecondaryShape() && secondary == null) {
+            } else if (part.isSecondaryShape() && secondary == null) {
                 secondary = (SecondarySpellShape) part;
             }
         }

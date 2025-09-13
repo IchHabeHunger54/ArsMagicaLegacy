@@ -52,7 +52,6 @@ public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List
         SpellComponent currentComponent = null;
         List<SpellModifier> currentModifiers = new ArrayList<>();
         for (SpellPart part : parts) {
-            if (part.isShape()) return EMPTY;
             if (part.isModifier()) {
                 currentModifiers.add((SpellModifier) part);
             } else if (part.isComponent() && components.stream().noneMatch(pair -> pair.getFirst() == part)) {

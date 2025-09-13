@@ -45,9 +45,7 @@ public abstract non-sealed class SpellComponent extends SpellPart {
         return false;
     }
 
-    /**
-     * @return A {@link Set} of {@link SpellStat}s used by the component.
-     */
+    @Override
     public Set<SpellStat> getStats() {
         return stats;
     }

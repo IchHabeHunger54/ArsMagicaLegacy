@@ -39,9 +39,7 @@ public abstract non-sealed class SecondarySpellShape extends SpellPart {
         return false;
     }
 
-    /**
-     * @return A {@link Set} of {@link SpellStat}s used by the shape.
-     */
+    @Override
     public Set<SpellStat> getStats() {
         return stats;
     }

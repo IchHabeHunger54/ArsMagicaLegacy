@@ -117,7 +117,13 @@ public class SpellPartSourceArea extends DragArea {
         SpellPart spellPart = holder.value();
         if (spellPart.isPrimaryShape() && primaryShapes) return true;
         if (spellPart.isSecondaryShape() && secondaryShapes) return true;
-        if (spellPart.isComponent() && components) return true;
+        if (spellPart.isComponent() && components && screen.getGrammarArea().contents
+            .stream()
+            .map(Draggable::getSkill)
+            .map(DragArea::spellPart)
+            .filter(Objects::nonNull)
+            .map(Holder::value)
+            .noneMatch(part -> part == spellPart)) return true;
         if (spellPart.isModifier()) {
             if (!modifiers || !primaryShapes && !secondaryShapes && !components) return false;
             Set<SpellStat> stats = ((SpellModifier) spellPart).getStats();

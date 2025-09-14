@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.client.layer;
 
-import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 
 import java.util.function.IntSupplier;
 
@@ -13,8 +13,8 @@ public final class LayerAnchor {
         public int getLocation(IntSupplier supplier) {
             return switch (this) {
                 case LEFT -> supplier.getAsInt();
-                case CENTER -> ClientUtil.mc().getWindow().getGuiScaledWidth() / 2 + supplier.getAsInt();
-                case RIGHT -> ClientUtil.mc().getWindow().getGuiScaledWidth() + supplier.getAsInt();
+                case CENTER -> AMClientUtil.mc().getWindow().getGuiScaledWidth() / 2 + supplier.getAsInt();
+                case RIGHT -> AMClientUtil.mc().getWindow().getGuiScaledWidth() + supplier.getAsInt();
             };
         }
     }
@@ -25,8 +25,8 @@ public final class LayerAnchor {
         public int getLocation(IntSupplier supplier) {
             return switch (this) {
                 case TOP -> supplier.getAsInt();
-                case MIDDLE -> ClientUtil.mc().getWindow().getGuiScaledHeight() / 2 + supplier.getAsInt();
-                case BOTTOM -> ClientUtil.mc().getWindow().getGuiScaledHeight() + supplier.getAsInt();
+                case MIDDLE -> AMClientUtil.mc().getWindow().getGuiScaledHeight() / 2 + supplier.getAsInt();
+                case BOTTOM -> AMClientUtil.mc().getWindow().getGuiScaledHeight() + supplier.getAsInt();
             };
         }
     }

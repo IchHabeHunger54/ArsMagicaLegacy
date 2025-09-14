@@ -7,10 +7,10 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
-import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
@@ -42,7 +42,7 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
     private static final int RADIUS = 5;
     private static final int DISTANCE = 60;
     private static final float FRACTAL = 0.1f;
-    private final RandomSource random = ClientUtil.level().getRandom();
+    private final RandomSource random = AMClientUtil.level().getRandom();
     private final List<Component> tooltip = new ArrayList<>();
 
     public AffinityTabRenderer(Holder<OcculusTab> occulusTab) {
@@ -53,10 +53,10 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         tooltip.clear();
-        Registry<Affinity> affinities = ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.AFFINITY);
-        Registry<Ability> abilities = ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.ABILITY);
-        Font font = ClientUtil.font();
-        LocalPlayer player = ClientUtil.player();
+        Registry<Affinity> affinities = AMClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.AFFINITY);
+        Registry<Ability> abilities = AMClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.ABILITY);
+        Font font = AMClientUtil.font();
+        LocalPlayer player = AMClientUtil.player();
         int center = TAB_SIZE / 2 + RADIUS;
         int count = affinities.size() - 1;
         double angleStep = Math.toRadians(360. / count);
@@ -130,7 +130,7 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
     @Override
     public void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         if (tooltip.isEmpty()) return;
-        guiGraphics.renderTooltip(ClientUtil.font(), tooltip, Optional.empty(), mouseX, mouseY);
+        guiGraphics.renderTooltip(AMClientUtil.font(), tooltip, Optional.empty(), mouseX, mouseY);
     }
 
     @Override

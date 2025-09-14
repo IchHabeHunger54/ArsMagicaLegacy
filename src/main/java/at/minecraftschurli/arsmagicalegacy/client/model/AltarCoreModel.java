@@ -2,7 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.client.model;
 
 import at.minecraftschurli.arsmagicalegacy.block.altar.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.block.altar.AltarCoreBlockEntity;
-import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.resources.model.BakedModel;
@@ -27,7 +27,7 @@ public class AltarCoreModel extends BakedModelWrapper<BakedModel> {
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource rand, ModelData data, @Nullable RenderType renderType) {
         if (state == null || !state.hasProperty(AltarCoreBlock.FORMED) || !state.getValue(AltarCoreBlock.FORMED) || !data.has(AltarCoreBlockEntity.CAMO)) return super.getQuads(state, side, rand, data, renderType);
         BlockState camo = data.get(AltarCoreBlockEntity.CAMO);
-        BakedModel model = ClientUtil.mc().getBlockRenderer().getBlockModel(camo);
+        BakedModel model = AMClientUtil.mc().getBlockRenderer().getBlockModel(camo);
         //TODO test with sodium/embeddium
         List<BakedQuad> quads = new ArrayList<>(model.getQuads(camo, side, rand, ModelData.EMPTY, renderType));
         quads.addAll(super.getQuads(state, side, rand, data, renderType));
@@ -38,7 +38,7 @@ public class AltarCoreModel extends BakedModelWrapper<BakedModel> {
     public ChunkRenderTypeSet getRenderTypes(BlockState state, RandomSource rand, ModelData data) {
         if (state.hasProperty(AltarCoreBlock.FORMED) && state.getValue(AltarCoreBlock.FORMED) && data.has(AltarCoreBlockEntity.CAMO)) {
             BlockState camo = data.get(AltarCoreBlockEntity.CAMO);
-            BakedModel blockModel = ClientUtil.mc().getBlockRenderer().getBlockModel(camo);
+            BakedModel blockModel = AMClientUtil.mc().getBlockRenderer().getBlockModel(camo);
             return ChunkRenderTypeSet.union(blockModel.getRenderTypes(camo, rand, ModelData.EMPTY), super.getRenderTypes(state, rand, data));
         }
         return super.getRenderTypes(state, rand, data);

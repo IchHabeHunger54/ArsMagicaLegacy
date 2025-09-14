@@ -3,13 +3,9 @@ package at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
-import at.minecraftschurli.arsmagicalegacy.api.spell.PrimarySpellShape;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SecondarySpellShape;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
-import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Holder;
@@ -65,10 +61,10 @@ public class SpellPartSourceArea extends DragArea {
 
     @Override
     public List<Draggable> getAll() {
-        return ClientUtil.registryAccess()
+        return AMClientUtil.registryAccess()
             .registryOrThrow(AMRegistryKeys.SKILL)
             .holders()
-            .filter(e -> ArsMagicaApi.magicHelper().knows(ClientUtil.player(), e))
+            .filter(e -> ArsMagicaApi.magicHelper().knows(AMClientUtil.player(), e))
             .map(Draggable::new)
             .toList();
     }

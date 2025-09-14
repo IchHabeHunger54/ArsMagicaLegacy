@@ -5,7 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
-import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
@@ -39,6 +39,6 @@ class PartsPage extends Page<Holder<SpellPart>> {
 
     @SuppressWarnings({"DataFlowIssue", "OptionalGetWithoutIsPresent"})
     private static Holder<Skill> skill(Holder<SpellPart> spellPart) {
-        return ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).getHolder(spellPart.getKey().location()).get();
+        return AMClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).getHolder(spellPart.getKey().location()).get();
     }
 }

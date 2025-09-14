@@ -7,9 +7,9 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableData;
 import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableMenu;
-import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
 import at.minecraftschurli.arsmagicalegacy.packet.InscriptionTableCreateSpellPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.InscriptionTableSyncPacket;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.ComponentPath;
@@ -78,14 +78,14 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         dragAreas.add(sourceArea);
         dragAreas.add(grammarArea);
         dragAreas.addAll(shapeGroupAreas);
-        searchBar = addRenderableWidget(new EditBox(ClientUtil.font(), leftPos + 40, topPos + 59, 140, 12, searchBar, AMTranslations.INSCRIPTION_TABLE_SEARCH));
+        searchBar = addRenderableWidget(new EditBox(AMClientUtil.font(), leftPos + 40, topPos + 59, 140, 12, searchBar, AMTranslations.INSCRIPTION_TABLE_SEARCH));
         searchBar.setHint(AMTranslations.INSCRIPTION_TABLE_SEARCH);
         searchBar.setResponder(sourceArea::setNameFilter);
         addRenderableWidget(Button.builder(AMTranslations.INSCRIPTION_TABLE_CLEAR, $ -> clear()).bounds(leftPos + 40, topPos + 72, 60, 20).build());
-        if (ClientUtil.player().isCreative()) {
+        if (AMClientUtil.player().isCreative()) {
             addRenderableWidget(Button.builder(AMTranslations.INSCRIPTION_TABLE_GIVE_SPELL, $ -> giveSpellRecipe()).bounds(leftPos + 120, topPos + 72, 60, 20).build());
         }
-        nameBar = addRenderableWidget(new EditBox(ClientUtil.font(), leftPos + 40, topPos + 93, 140, 12, nameBar, AMTranslations.INSCRIPTION_TABLE_NAME));
+        nameBar = addRenderableWidget(new EditBox(AMClientUtil.font(), leftPos + 40, topPos + 93, 140, 12, nameBar, AMTranslations.INSCRIPTION_TABLE_NAME));
         nameBar.setHint(AMTranslations.INSCRIPTION_TABLE_NAME);
         nameBar.setResponder($ -> sync());
         addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, $ -> onClose()).bounds(leftPos + 10, topPos + imageHeight + 4, 200, 20).build());
@@ -103,7 +103,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         } else {
             Draggable part = getHoveredSkill(mouseX, mouseY);
             if (part != null) {
-                guiGraphics.renderTooltip(ClientUtil.font(), Skill.getName(part.getSkill()), mouseX, mouseY);
+                guiGraphics.renderTooltip(AMClientUtil.font(), Skill.getName(part.getSkill()), mouseX, mouseY);
             }
         }
         renderTooltip(guiGraphics, mouseX, mouseY);

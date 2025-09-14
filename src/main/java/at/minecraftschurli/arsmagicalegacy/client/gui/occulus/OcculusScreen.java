@@ -8,10 +8,10 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
-import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.packet.ForgetSkillsPacket;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
@@ -61,8 +61,8 @@ public class OcculusScreen extends Screen {
         tabY = posY + OcculusTabButton.SIZE + FRAME_SIZE;
         tabs.clear();
         buttons.clear();
-        LocalPlayer player = ClientUtil.player();
-        Registry<OcculusTab> registry = ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.OCCULUS_TAB);
+        LocalPlayer player = AMClientUtil.player();
+        Registry<OcculusTab> registry = AMClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.OCCULUS_TAB);
         List<? extends Holder<OcculusTab>> list = registry
             .holders()
             .sorted(Comparator.comparingInt(e -> e.value().index()))
@@ -104,18 +104,18 @@ public class OcculusScreen extends Screen {
         guiGraphics.blit(FRAME, posX, posY + OcculusTabButton.SIZE, 0, 0, SIZE, SIZE);
         guiGraphics.blit(BUTTON_INDICATOR, maxPage == 0 ? posX + 6 + tab * OcculusTabButton.SIZE : posX + 28 + tab % 7 * OcculusTabButton.SIZE, posY + OcculusTabButton.SIZE, 0, 0, OcculusTabButton.SIZE, FRAME_SIZE, OcculusTabButton.SIZE, FRAME_SIZE);
         if (renderer.hasSkillPointPanel()) {
-            List<Holder.Reference<SkillPoint>> holders = ClientUtil.registryAccess()
+            List<Holder.Reference<SkillPoint>> holders = AMClientUtil.registryAccess()
                 .registryOrThrow(AMRegistryKeys.SKILL_POINT)
                 .holders()
                 .toList();
             List<MutableComponent> components = holders
                 .stream()
-                .map(e -> ArsMagicaApi.magicHelper().getSkillPoint(ClientUtil.player(), e))
+                .map(e -> ArsMagicaApi.magicHelper().getSkillPoint(AMClientUtil.player(), e))
                 .map(String::valueOf)
                 .map(Component::literal)
                 .toList();
             int width = 24 + components.stream()
-                .mapToInt(ClientUtil.font()::width)
+                .mapToInt(AMClientUtil.font()::width)
                 .max()
                 .orElse(0);
             int height = components.size() * 16 + 4;
@@ -126,7 +126,7 @@ public class OcculusScreen extends Screen {
                 ItemStack stack = AMItems.INFINITY_ORB.toStack();
                 stack.set(AMDataComponents.SKILL_POINT, holder);
                 guiGraphics.renderItem(stack, posX - width + 4, posY + OcculusTabButton.SIZE + 4 + i * 16);
-                guiGraphics.drawString(ClientUtil.font(), components.get(i), posX - width + 22, posY + OcculusTabButton.SIZE + 9 + i * 16, holder.value().color(), false);
+                guiGraphics.drawString(AMClientUtil.font(), components.get(i), posX - width + 22, posY + OcculusTabButton.SIZE + 9 + i * 16, holder.value().color(), false);
             }
         }
         guiGraphics.enableScissor(tabX, tabY, tabX + OcculusTabRenderer.TAB_SIZE, tabY + OcculusTabRenderer.TAB_SIZE);

@@ -4,7 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
-import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.core.Holder;
 import org.jetbrains.annotations.Nullable;
@@ -60,6 +60,6 @@ public abstract class DragArea implements Renderable {
     @SuppressWarnings("DataFlowIssue")
     @Nullable
     protected static Holder<Skill> skill(Holder<SpellPart> part) {
-        return ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).getHolder(part.getKey().location()).orElse(null);
+        return AMClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).getHolder(part.getKey().location()).orElse(null);
     }
 }

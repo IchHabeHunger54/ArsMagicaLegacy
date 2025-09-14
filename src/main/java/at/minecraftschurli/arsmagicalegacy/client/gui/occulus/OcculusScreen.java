@@ -41,8 +41,8 @@ public class OcculusScreen extends Screen {
     private Button nextButton;
     private Button prevButton;
     private OcculusTabRenderer renderer;
-    private int posX;
-    private int posY;
+    private int leftPos;
+    private int topPos;
     private int tabX;
     private int tabY;
     private int tab = 0;
@@ -55,10 +55,10 @@ public class OcculusScreen extends Screen {
 
     @Override
     protected void init() {
-        posX = (width - SIZE) / 2;
-        posY = (height - SIZE - OcculusTabButton.SIZE - 24) / 2;
-        tabX = posX + FRAME_SIZE;
-        tabY = posY + OcculusTabButton.SIZE + FRAME_SIZE;
+        leftPos = (width - SIZE) / 2;
+        topPos = (height - SIZE - OcculusTabButton.SIZE - 24) / 2;
+        tabX = leftPos + FRAME_SIZE;
+        tabY = topPos + OcculusTabButton.SIZE + FRAME_SIZE;
         tabs.clear();
         buttons.clear();
         LocalPlayer player = AMClientUtil.player();
@@ -74,35 +74,35 @@ public class OcculusScreen extends Screen {
             maxPage = 0;
             for (int i = 0; i < list.size(); i++) {
                 final int j = i;
-                buttons.add(addRenderableWidget(new OcculusTabButton(list.get(i), posX + 6 + i * OcculusTabButton.SIZE, posY, $ -> setTab(j))));
+                buttons.add(addRenderableWidget(new OcculusTabButton(list.get(i), leftPos + 6 + i * OcculusTabButton.SIZE, topPos, $ -> setTab(j))));
             }
         } else {
             // we need page buttons
             maxPage = list.size() / 7;
             for (int i = 0; i < list.size(); i++) {
                 final int j = i;
-                buttons.add(addRenderableWidget(new OcculusTabButton(list.get(i), posX + 28 + i % 7 * OcculusTabButton.SIZE, posY, $ -> setTab(j))));
+                buttons.add(addRenderableWidget(new OcculusTabButton(list.get(i), leftPos + 28 + i % 7 * OcculusTabButton.SIZE, topPos, $ -> setTab(j))));
             }
-            nextButton = Button.builder(AMTranslations.OCCULUS_NEXT, $ -> nextPage()).bounds(posX + SIZE - 20, posY, 20, 20).build();
-            prevButton = Button.builder(AMTranslations.OCCULUS_PREV, $ -> prevPage()).bounds(posX, posY, 20, 20).build();
+            nextButton = Button.builder(AMTranslations.OCCULUS_NEXT, $ -> nextPage()).bounds(leftPos + SIZE - 20, topPos, 20, 20).build();
+            prevButton = Button.builder(AMTranslations.OCCULUS_PREV, $ -> prevPage()).bounds(leftPos, topPos, 20, 20).build();
             onPageChange();
         }
         setRenderer(tabs.getFirst());
         Button button = addRenderableWidget(Button.builder(AMTranslations.OCCULUS_FORGET_ALL, $ -> forgetAll())
-            .bounds(width / 2 - 100, posY + SIZE + OcculusTabButton.SIZE + 4, 98, 20)
+            .bounds(width / 2 - 100, topPos + SIZE + OcculusTabButton.SIZE + 4, 98, 20)
             .tooltip(Tooltip.create(AMTranslations.OCCULUS_FORGET_ALL_TOOLTIP))
             .build());
         button.active = player.getInventory().contains(AMTags.Items.OCCULUS_FORGET_ALL) || player.isCreative();
         addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, $ -> onClose())
-            .bounds(width / 2 + 2, posY + SIZE + OcculusTabButton.SIZE + 4, 98, 20)
+            .bounds(width / 2 + 2, topPos + SIZE + OcculusTabButton.SIZE + 4, 98, 20)
             .build());
     }
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
-        guiGraphics.blit(FRAME, posX, posY + OcculusTabButton.SIZE, 0, 0, SIZE, SIZE);
-        guiGraphics.blit(BUTTON_INDICATOR, maxPage == 0 ? posX + 6 + tab * OcculusTabButton.SIZE : posX + 28 + tab % 7 * OcculusTabButton.SIZE, posY + OcculusTabButton.SIZE, 0, 0, OcculusTabButton.SIZE, FRAME_SIZE, OcculusTabButton.SIZE, FRAME_SIZE);
+        guiGraphics.blit(FRAME, leftPos, topPos + OcculusTabButton.SIZE, 0, 0, SIZE, SIZE);
+        guiGraphics.blit(BUTTON_INDICATOR, maxPage == 0 ? leftPos + 6 + tab * OcculusTabButton.SIZE : leftPos + 28 + tab % 7 * OcculusTabButton.SIZE, topPos + OcculusTabButton.SIZE, 0, 0, OcculusTabButton.SIZE, FRAME_SIZE, OcculusTabButton.SIZE, FRAME_SIZE);
         if (renderer.hasSkillPointPanel()) {
             List<Holder.Reference<SkillPoint>> holders = AMClientUtil.registryAccess()
                 .registryOrThrow(AMRegistryKeys.SKILL_POINT)
@@ -119,14 +119,14 @@ public class OcculusScreen extends Screen {
                 .max()
                 .orElse(0);
             int height = components.size() * 16 + 4;
-            guiGraphics.blit(SKILL_POINTS, posX - width, posY + OcculusTabButton.SIZE, 0, 0, width, height);
-            guiGraphics.blit(SKILL_POINTS, posX - width, posY + OcculusTabButton.SIZE + height, 0, 252, width, 4);
+            guiGraphics.blit(SKILL_POINTS, leftPos - width, topPos + OcculusTabButton.SIZE, 0, 0, width, height);
+            guiGraphics.blit(SKILL_POINTS, leftPos - width, topPos + OcculusTabButton.SIZE + height, 0, 252, width, 4);
             for (int i = 0; i < holders.size(); i++) {
                 Holder<SkillPoint> holder = holders.get(i);
                 ItemStack stack = AMItems.INFINITY_ORB.toStack();
                 stack.set(AMDataComponents.SKILL_POINT, holder);
-                guiGraphics.renderItem(stack, posX - width + 4, posY + OcculusTabButton.SIZE + 4 + i * 16);
-                guiGraphics.drawString(AMClientUtil.font(), components.get(i), posX - width + 22, posY + OcculusTabButton.SIZE + 9 + i * 16, holder.value().color(), false);
+                guiGraphics.renderItem(stack, leftPos - width + 4, topPos + OcculusTabButton.SIZE + 4 + i * 16);
+                guiGraphics.drawString(AMClientUtil.font(), components.get(i), leftPos - width + 22, topPos + OcculusTabButton.SIZE + 9 + i * 16, holder.value().color(), false);
             }
         }
         guiGraphics.enableScissor(tabX, tabY, tabX + OcculusTabRenderer.TAB_SIZE, tabY + OcculusTabRenderer.TAB_SIZE);

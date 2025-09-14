@@ -20,6 +20,7 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.navigation.FocusNavigationEvent;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.Holder;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -68,6 +69,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     @Override
     protected void init() {
         super.init();
+        topPos -= 12;
         grammarArea = new GrammarArea(leftPos + 42, topPos + 144, 136, 16, this::onDrop);
         for (int i = 0; i < menu.getShapeGroups(); i++) {
             shapeGroupAreas.add(new ShapeGroupArea(leftPos + 20 + i * ShapeGroupArea.WIDTH, topPos + 107, this::onDrop));
@@ -86,12 +88,13 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         nameBar = addRenderableWidget(new EditBox(ClientUtil.font(), leftPos + 40, topPos + 93, 140, 12, nameBar, AMTranslations.INSCRIPTION_TABLE_NAME));
         nameBar.setHint(AMTranslations.INSCRIPTION_TABLE_NAME);
         nameBar.setResponder($ -> sync());
+        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, $ -> onClose()).bounds(leftPos + 10, topPos + imageHeight + 4, 200, 20).build());
         updateCachedData();
     }
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
+        super.render(guiGraphaics, mouseX, mouseY, partialTick);
         for (DragArea area : dragAreas) {
             area.render(guiGraphics, mouseX, mouseY, partialTick);
         }

@@ -3,7 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.client.atlas;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
-import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.TextureAtlasHolder;
@@ -17,7 +17,7 @@ public class SkillAtlasHolder extends TextureAtlasHolder {
     public static final Lazy<SkillAtlasHolder> INSTANCE = Lazy.of(SkillAtlasHolder::new);
 
     private SkillAtlasHolder() {
-        super(ClientUtil.mc().getTextureManager(), SKILL_ICON_ATLAS, SKILL_ICON_ATLAS_INFO);
+        super(AMClientUtil.mc().getTextureManager(), SKILL_ICON_ATLAS, SKILL_ICON_ATLAS_INFO);
     }
 
     @Override
@@ -26,6 +26,6 @@ public class SkillAtlasHolder extends TextureAtlasHolder {
     }
 
     public TextureAtlasSprite getSprite(Skill skill) {
-        return getSprite(ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).getKey(skill));
+        return getSprite(AMClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).getKey(skill));
     }
 }

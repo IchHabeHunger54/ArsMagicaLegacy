@@ -1,6 +1,5 @@
 package at.minecraftschurli.arsmagicalegacy.util;
 
-import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.item.SpellRecipeItem;
 import at.minecraftschurli.arsmagicalegacy.packet.OpenBookInLecternPacket;
@@ -123,7 +122,7 @@ public final class AMUtil {
 
     @SuppressWarnings("DataFlowIssue")
     public static RegistryAccess registryAccess() {
-        return FMLEnvironment.dist.isClient() ? ClientUtil.registryAccess() : ServerLifecycleHooks.getCurrentServer().registryAccess();
+        return FMLEnvironment.dist.isClient() ? AMClientUtil.registryAccess() : ServerLifecycleHooks.getCurrentServer().registryAccess();
     }
 
     public static RegistryAccess registryAccess(BlockGetter blockGetter) {

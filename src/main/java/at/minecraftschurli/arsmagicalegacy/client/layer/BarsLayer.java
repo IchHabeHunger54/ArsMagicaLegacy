@@ -6,8 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.client.AMClientConfig;
-import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
-import at.minecraftschurli.arsmagicalegacy.client.util.ColorUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Font;
@@ -24,7 +23,7 @@ public class BarsLayer implements LayeredDraw.Layer {
 
     @Override
     public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
-        Player player = ClientUtil.player();
+        Player player = AMClientUtil.player();
         MagicHelper magicHelper = ArsMagicaApi.magicHelper();
         if (!magicHelper.knowsMagic(player)) return;
         ManaHelper manaHelper = ArsMagicaApi.manaHelper();
@@ -40,7 +39,7 @@ public class BarsLayer implements LayeredDraw.Layer {
         int y = AMClientConfig.BARS_Y_ANCHOR.get().getLocation(AMClientConfig.BARS_Y);
         boolean renderLevelAtTop = AMClientConfig.RENDER_LEVEL_AT_TOP.getAsBoolean();
         String text = String.valueOf(level);
-        Font font = ClientUtil.font();
+        Font font = AMClientUtil.font();
         renderOutlineText(guiGraphics, font, Component.literal(text), x + (WIDTH - font.width(text)) / 2, renderLevelAtTop ? y : y + 30, 0x7777FF);
         renderBar(guiGraphics, font, x, renderLevelAtTop ? y + 10 : y + 20, xp, xpForNextLevel, AMTranslations.BARS_VALUE_XP_KEY, 0x7777FF);
         renderBar(guiGraphics, font, x, renderLevelAtTop ? y + 20 : y, mana, maxMana, AMTranslations.BARS_VALUE_MANA_KEY, 0x99FFFF);
@@ -52,9 +51,9 @@ public class BarsLayer implements LayeredDraw.Layer {
         guiGraphics.pose().pushPose();
         RenderSystem.enableBlend();
         guiGraphics.blit(BAR_TEXTURE, x, y, 0, 0, WIDTH + 1, HEIGHT - 1);
-        float r = ColorUtil.getRed(color);
-        float g = ColorUtil.getGreen(color);
-        float b = ColorUtil.getBlue(color);
+        float r = AMClientUtil.getRed(color);
+        float g = AMClientUtil.getGreen(color);
+        float b = AMClientUtil.getBlue(color);
         guiGraphics.setColor(r, g, b, 1);
         RenderSystem.setShaderFogColor(r, g, b);
         guiGraphics.blit(BAR_TEXTURE, x + 2, y + 2, 2, HEIGHT + 1, relWidth - 1, HEIGHT - 3);

@@ -9,9 +9,8 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
-import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
-import at.minecraftschurli.arsmagicalegacy.client.util.ColorUtil;
 import at.minecraftschurli.arsmagicalegacy.packet.LearnSkillPacket;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -40,7 +39,7 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
         super(occulusTab);
         offsetX = Math.max(0, occulusTab.value().startX());
         offsetY = Math.max(0, occulusTab.value().startY());
-        skills = ClientUtil.registryAccess()
+        skills = AMClientUtil.registryAccess()
             .registryOrThrow(AMRegistryKeys.SKILL)
             .stream()
             .filter(skill -> skill.tab().getKey() == occulusTab.getKey())
@@ -51,9 +50,9 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         MagicHelper helper = ArsMagicaApi.magicHelper();
-        RegistryAccess registryAccess = ClientUtil.registryAccess();
+        RegistryAccess registryAccess = AMClientUtil.registryAccess();
         Registry<Skill> registry = registryAccess.registryOrThrow(AMRegistryKeys.SKILL);
-        LocalPlayer player = ClientUtil.player();
+        LocalPlayer player = AMClientUtil.player();
         mouseX += (int) offsetX;
         mouseY += (int) offsetY;
         hoveredSkill = null;
@@ -89,9 +88,9 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
                 guiGraphics.setColor(0.5f, 0.5f, 0.5f, 1);
             } else if (!knows) {
                 int color = getColorForSkill(skill);
-                float red = Math.max(ColorUtil.getRed(color), 0.75f) * tick;
-                float green = Math.max(ColorUtil.getGreen(color), 0.75f) * tick;
-                float blue = Math.max(ColorUtil.getBlue(color), 0.75f) * tick;
+                float red = Math.max(AMClientUtil.getRed(color), 0.75f) * tick;
+                float green = Math.max(AMClientUtil.getGreen(color), 0.75f) * tick;
+                float blue = Math.max(AMClientUtil.getBlue(color), 0.75f) * tick;
                 guiGraphics.setColor(red, green, blue, 1);
             }
             RenderSystem.enableBlend();
@@ -109,10 +108,10 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
     public void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         if (hoveredSkill == null) return;
         MagicHelper helper = ArsMagicaApi.magicHelper();
-        LocalPlayer player = ClientUtil.player();
-        Registry<Skill> registry = ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL);
+        LocalPlayer player = AMClientUtil.player();
+        Registry<Skill> registry = AMClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL);
         Holder<Skill> holder = registry.wrapAsHolder(hoveredSkill);
-        guiGraphics.renderTooltip(ClientUtil.font(), List.of(
+        guiGraphics.renderTooltip(AMClientUtil.font(), List.of(
             Skill.getName(holder).withColor(getColorForSkill(hoveredSkill)),
             helper.knows(player, holder) || helper.canLearn(player, holder) ? Skill.getDescription(holder).withStyle(ChatFormatting.DARK_GRAY) : MISSING
         ), Optional.empty(), mouseX, mouseY);
@@ -122,8 +121,8 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button != 0 || !(mouseX > 0) || !(mouseX < TAB_SIZE) || !(mouseY > 0) || !(mouseY < TAB_SIZE)) return super.mouseClicked(mouseX, mouseY, button);
         if (hoveredSkill != null) {
-            Holder<Skill> holder = ClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).wrapAsHolder(hoveredSkill);
-            LocalPlayer player = ClientUtil.player();
+            Holder<Skill> holder = AMClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).wrapAsHolder(hoveredSkill);
+            LocalPlayer player = AMClientUtil.player();
             if (ArsMagicaApi.magicHelper().canLearn(player, holder) || player.isCreative()) {
                 PacketDistributor.sendToServer(new LearnSkillPacket(holder));
                 return true;

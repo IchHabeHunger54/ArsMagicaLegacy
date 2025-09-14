@@ -5,7 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.block.altar.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.block.altar.AltarCoreBlockEntity;
-import at.minecraftschurli.arsmagicalegacy.client.util.ClientUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.gui.Font;
@@ -57,7 +57,7 @@ public class AltarCoreRenderer implements BlockEntityRenderer<AltarCoreBlockEnti
         poseStack.translate(0, 0.9, 0);
         poseStack.mulPose(dispatcher.camera.rotation());
         poseStack.scale(0.025f, -0.025f, 0.025f);
-        int backgroundColor = (int) (ClientUtil.mc().options.getBackgroundOpacity(0.25f) * 255) << 24;
+        int backgroundColor = (int) (AMClientUtil.mc().options.getBackgroundOpacity(0.25f) * 255) << 24;
         List<Component> components = blockEntity.hasRecipe() ? ingredient.tooltip() : List.of(AMTranslations.ALTAR_CORE_LOW_POWER);
         float offset = (font.lineHeight + 1) * (components.size() - 1.5f);
         for (int i = 0; i < components.size(); i++) {

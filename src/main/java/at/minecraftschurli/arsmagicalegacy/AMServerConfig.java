@@ -25,9 +25,30 @@ public final class AMServerConfig {
     public static final ModConfigSpec.DoubleValue MAJOR_OPPOSITE_MULTIPLIER;
     public static final ModConfigSpec.DoubleValue MINOR_OPPOSITE_MULTIPLIER;
     public static final ModConfigSpec.DoubleValue ADJACENT_MULTIPLIER;
-    public static final ModConfigSpec.IntValue EFFECT_DURATION;
     public static final ModConfigSpec.DoubleValue AFFINITY_GAINS_MODIFIER;
     public static final ModConfigSpec.DoubleValue AFFINITY_GAINS_XP_MODIFIER;
+    public static final ModConfigSpec.DoubleValue EFFECT_DURATION;
+    public static final ModConfigSpec.DoubleValue ATTRACT_RANGE;
+    public static final ModConfigSpec.DoubleValue ATTRACT_SPEED;
+    public static final ModConfigSpec.DoubleValue BANISH_RAIN_DURATION;
+    public static final ModConfigSpec.DoubleValue BLINK_RANGE;
+    public static final ModConfigSpec.DoubleValue EXPLOSION_RANGE;
+    public static final ModConfigSpec.DoubleValue FLING_SPEED;
+    public static final ModConfigSpec.BooleanValue FORGE_SMELTS_VILLAGERS;
+    public static final ModConfigSpec.DoubleValue FROST_DURATION;
+    public static final ModConfigSpec.DoubleValue LIFE_DRAIN_DAMAGE;
+    public static final ModConfigSpec.DoubleValue LIFE_TAP_DAMAGE;
+    public static final ModConfigSpec.DoubleValue LIFE_TAP_FACTOR;
+    public static final ModConfigSpec.DoubleValue MANA_BLAST_FACTOR;
+    public static final ModConfigSpec.DoubleValue MANA_DRAIN_MAX;
+    public static final ModConfigSpec.DoubleValue MELT_ARMOR_FACTOR;
+    public static final ModConfigSpec.IntValue RANDOM_TELEPORT_MAX_TRIES;
+    public static final ModConfigSpec.DoubleValue RANDOM_TELEPORT_RANGE;
+    public static final ModConfigSpec.DoubleValue STORM_DURATION;
+    public static final ModConfigSpec.DoubleValue STORM_RANGE;
+    public static final ModConfigSpec.DoubleValue STORM_LIGHTNING_BOLT_CHANCE;
+    public static final ModConfigSpec.DoubleValue STORM_LIGHTNING_BOLT_TARGET_CHANCE;
+    public static final ModConfigSpec.DoubleValue WIZARDS_AUTUMN_RANGE;
     static final ModConfigSpec SPEC;
 
     static {
@@ -125,10 +146,6 @@ public final class AMServerConfig {
             .defineInRange("adjacent_multiplier", 0.25, 0, 1);
         builder.pop();
         builder.push("skills");
-        EFFECT_DURATION = builder
-            .comment("The duration of effect-based components, in ticks.")
-            .translation(AMTranslations.CONFIG_KEY + "effect_duration")
-            .defineInRange("effect_duration", 600, 1, Short.MAX_VALUE);
         AFFINITY_GAINS_MODIFIER = builder
             .comment("When the Affinity Gains talent is learned, by what factor affinity gain will be amplified.")
             .translation(AMTranslations.CONFIG_KEY + "affinity_gains_modifier")
@@ -137,6 +154,94 @@ public final class AMServerConfig {
             .comment("When the Affinity Gains talent is learned, by what factor XP gain will be amplified.")
             .translation(AMTranslations.CONFIG_KEY + "affinity_gains_xp_modifier")
             .defineInRange("affinity_gains_xp_modifier", 0.9, 0, 1);
+        EFFECT_DURATION = builder
+            .comment("The duration of effect-based components, in ticks. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "effect_duration")
+            .defineInRange("effect_duration", 600., 1, Short.MAX_VALUE);
+        ATTRACT_RANGE = builder
+            .comment("The range of the Attract component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "attract_range")
+            .defineInRange("attract_range", 4., 1, 16);
+        ATTRACT_SPEED = builder
+            .comment("The speed of the Attract component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "attract_speed")
+            .defineInRange("attract_speed", 1., 1, 16);
+        BANISH_RAIN_DURATION = builder
+            .comment("The duration used by the Banish Rain component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "banish_rain_duration")
+            .defineInRange("banish_rain_duration", 24000., 1, Integer.MAX_VALUE);
+        BLINK_RANGE = builder
+            .comment("The range of the Blink component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "blink_range")
+            .defineInRange("blink_range", 16., 1, 64);
+        EXPLOSION_RANGE = builder
+            .comment("The range of the Explosion component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "explosion_range")
+            .defineInRange("explosion_range", 2., 1, 16);
+        FLING_SPEED = builder
+            .comment("The speed of the Fling component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "fling_speed")
+            .defineInRange("fling_speed", 1., 1, 16);
+        FORGE_SMELTS_VILLAGERS = builder
+            .comment("Whether the Forge component instantly kills villagers, dropping emeralds.")
+            .translation(AMTranslations.CONFIG_KEY + "forge_smelts_villagers")
+            .define("forge_smelts_villagers", true);
+        FROST_DURATION = builder
+            .comment("The duration of the Frost component, in ticks. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "frost_duration")
+            .defineInRange("frost_duration", 600., 1, Short.MAX_VALUE);
+        LIFE_DRAIN_DAMAGE = builder
+            .comment("The damage of the Life Drain component, in ticks. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "life_drain_damage")
+            .defineInRange("life_drain_damage", 2., 1, 100);
+        LIFE_TAP_DAMAGE = builder
+            .comment("The damage of the Life Tap component, in ticks. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "life_tap_damage")
+            .defineInRange("life_tap_damage", 2., 1, 100);
+        LIFE_TAP_FACTOR = builder
+            .comment("When the Life Tap component is cast, the caster regenerates the damage dealt, times their max mana, times this factor.")
+            .translation(AMTranslations.CONFIG_KEY + "life_tap_factor")
+            .defineInRange("life_tap_factor", 0.01, 0, 1);
+        MANA_BLAST_FACTOR = builder
+            .comment("When the Mana Blast component is cast, the damage is the caster's current mana, times this factor, potentially amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "mana_blast_factor")
+            .defineInRange("mana_blast_factor", 0.04, 0, 1);
+        MANA_DRAIN_MAX = builder
+            .comment("The maximum amount of mana drained by the Mana Drain component.")
+            .translation(AMTranslations.CONFIG_KEY + "mana_drain_max")
+            .defineInRange("mana_drain_max", 250., 0, Short.MAX_VALUE);
+        MELT_ARMOR_FACTOR = builder
+            .comment("When the Melt Armor component is cast, what factor the armor's durability will be multiplied with.")
+            .translation(AMTranslations.CONFIG_KEY + "melt_armor_factor")
+            .defineInRange("melt_armor_factor", 0.75, 0, 1);
+        RANDOM_TELEPORT_MAX_TRIES = builder
+            .comment("How many times the Random Teleport component will try to find a position.")
+            .translation(AMTranslations.CONFIG_KEY + "random_teleport_max_tries")
+            .defineInRange("random_teleport_max_tries", 64, 1, Short.MAX_VALUE);
+        RANDOM_TELEPORT_RANGE = builder
+            .comment("The range of the Random Teleport component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "random_teleport_range")
+            .defineInRange("random_teleport_range", 16., 1, 64);
+        STORM_DURATION = builder
+            .comment("The duration used by the Storm component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "storm_duration")
+            .defineInRange("storm_duration", 72000., 1, Integer.MAX_VALUE);
+        STORM_RANGE = builder
+            .comment("The range used by the Storm component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "storm_range")
+            .defineInRange("storm_range", 64., 1, 256);
+        STORM_LIGHTNING_BOLT_CHANCE = builder
+            .comment("The chance for the Storm component to summon a lightning bolt somewhere in range.")
+            .translation(AMTranslations.CONFIG_KEY + "storm_lightning_bolt_chance")
+            .defineInRange("storm_lightning_bolt_chance", 0.2, 0, 1);
+        STORM_LIGHTNING_BOLT_TARGET_CHANCE = builder
+            .comment("The chance for the Storm component to summon a target-seeking lightning bolt somewhere in range.")
+            .translation(AMTranslations.CONFIG_KEY + "storm_lightning_bolt_target_chance")
+            .defineInRange("storm_lightning_bolt_target_chance", 0.2, 0, 1);
+        WIZARDS_AUTUMN_RANGE = builder
+            .comment("The range used by the Wizard's Autumn component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "wizards_autumn_range")
+            .defineInRange("wizards_autumn_range", 2., 1, 64);
         builder.pop();
         SPEC = builder.build();
     }

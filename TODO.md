@@ -1,4 +1,20 @@
-- Spell Parts
+- Test Spell Parts
+    - Create Water
+    - Grow
+    - Plow
+    - Forge
+    - Ignition
+    - Light
+    - Blink
+    - Charm
+    - Knockback
+    - Life Drain
+    - Life Tap
+    - Mana Blast
+    - Mana Drain
+    - Melt Armor
+    - Transplace
+- Add Other Spell Parts
 - Spell Part Particles
 - Spell Entities, including:
     - Blizzard

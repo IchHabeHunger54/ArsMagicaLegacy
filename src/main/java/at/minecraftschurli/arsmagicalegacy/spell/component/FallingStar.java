@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+//TODO
 public class FallingStar extends SpellComponent {
     @Override
     public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {

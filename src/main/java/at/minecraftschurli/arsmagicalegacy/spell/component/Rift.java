@@ -5,14 +5,14 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.phys.HitResult;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.phys.EntityHitResult;
 
 import java.util.List;
 
-public class Rift extends SpellComponent {
+//TODO
+public class Rift extends SpellComponent.CastEntity {
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
         return spell;
     }
 }

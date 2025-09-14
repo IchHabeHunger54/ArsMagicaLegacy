@@ -2,7 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.block;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
-import at.minecraftschurli.arsmagicalegacy.client.util.AMClientHooks;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -102,7 +102,7 @@ public class OcculusBlock extends HorizontalDirectionalBlock {
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (!level.isClientSide()) return InteractionResult.SUCCESS;
         if (ArsMagicaApi.magicHelper().knowsMagic(player)) {
-            AMClientHooks.setOcculusScreen();
+            AMClientUtil.setOcculusScreen();
         } else {
             player.displayClientMessage(AMTranslations.PREVENT_BLOCK, true);
         }

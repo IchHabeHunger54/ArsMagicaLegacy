@@ -3,8 +3,8 @@ package at.minecraftschurli.arsmagicalegacy.item;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
-import at.minecraftschurli.arsmagicalegacy.client.util.AMClientHooks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -54,7 +54,7 @@ public class SpellRecipeItem extends DataComponentNamedItem<Spell> {
             return InteractionResultHolder.consume(stack);
         }
         if (level.isClientSide()) {
-            AMClientHooks.setSpellRecipeScreen(stack, true, 0, null);
+            AMClientUtil.setSpellRecipeScreen(stack, true, 0, null);
         }
         return InteractionResultHolder.success(stack);
     }

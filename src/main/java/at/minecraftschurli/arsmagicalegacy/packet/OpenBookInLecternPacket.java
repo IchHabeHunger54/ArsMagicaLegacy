@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.packet;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.client.util.AMClientHooks;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -26,7 +26,7 @@ public record OpenBookInLecternPacket(BlockPos pos, ItemStack stack) implements 
         if (lectern.getBook().isEmpty()) {
             lectern.setBook(stack);
         }
-        AMClientHooks.setSpellRecipeScreen(stack, false, lectern.getPage(), pos);
+        AMClientUtil.setSpellRecipeScreen(stack, false, lectern.getPage(), pos);
     }
 
     @Override

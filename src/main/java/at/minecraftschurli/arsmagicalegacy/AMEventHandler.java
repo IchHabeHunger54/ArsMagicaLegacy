@@ -14,6 +14,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.ability.Ability;
 import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityHelper;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.event.ManaCostCalculationEvent;
 import at.minecraftschurli.arsmagicalegacy.api.event.SpellCastEvent;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
@@ -307,21 +308,27 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void enderEntityTeleport(EntityTeleportEvent.EnderEntity event) {
-        if (event.getEntityLiving().hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
+        LivingEntity entity = event.getEntityLiving();
+        if (entity.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
+            entity.sendSystemMessage(AMTranslations.NO_TELEPORT);
             event.setCanceled(true);
         }
     }
 
     @SubscribeEvent
     private static void enderPearlTeleport(EntityTeleportEvent.EnderPearl event) {
-        if (event.getPlayer().hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
+        Player entity = event.getPlayer();
+        if (entity.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
+            entity.sendSystemMessage(AMTranslations.NO_TELEPORT);
             event.setCanceled(true);
         }
     }
 
     @SubscribeEvent
     private static void chorusFruitTeleport(EntityTeleportEvent.ChorusFruit event) {
-        if (event.getEntityLiving().hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
+        LivingEntity entity = event.getEntityLiving();
+        if (entity.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
+            entity.sendSystemMessage(AMTranslations.NO_TELEPORT);
             event.setCanceled(true);
         }
     }

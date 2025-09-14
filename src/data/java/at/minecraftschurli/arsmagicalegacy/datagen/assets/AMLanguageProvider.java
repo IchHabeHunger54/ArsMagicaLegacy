@@ -548,6 +548,8 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.INSCRIPTION_TABLE_KEY, "Inscription Table");
         add(AMTranslations.INSCRIPTION_TABLE_NAME_KEY, "Name");
         add(AMTranslations.INSCRIPTION_TABLE_SEARCH_KEY, "Search");
+        add(AMTranslations.KEY_CATEGORY_KEY, "Ars Magica: Legacy");
+        add(AMTranslations.SPELL_CUSTOMIZATION_KEY, "Customize Spell");
         add(AMTranslations.NO_TELEPORT_KEY, "You are too distorted to teleport!");
         add(AMTranslations.NO_TELEPORT_NETHER_KEY, "The nether's force forbids to simply teleport out of it!");
         add(AMTranslations.NO_TELEPORT_OTHER_KEY, "The target is too distorted to be teleported!");

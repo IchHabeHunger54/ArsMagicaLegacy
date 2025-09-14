@@ -56,6 +56,8 @@ public interface AMTranslations {
     String OCCULUS_DETAILS_KEY                       = "gui." + ArsMagicaApi.MOD_ID + ".occulus.details";
     String OCCULUS_MISSING_KEY                       = "gui." + ArsMagicaApi.MOD_ID + ".occulus.missing";
     String SPELL_RECIPE_SHAPE_GROUP_KEY              = "item." + ArsMagicaApi.MOD_ID + ".spell_recipe.shape_group";
+    String SPELL_CUSTOMIZATION_KEY                   = "key." + ArsMagicaApi.MOD_ID + ".spell_customization";
+    String KEY_CATEGORY_KEY                          = "key.categories." + ArsMagicaApi.MOD_ID;
 
     String ABILITY_SEPARATOR_KEY            = ArsMagicaApi.MOD_ID + ".ability.separator";
     String NO_TELEPORT_KEY                  = ArsMagicaApi.MOD_ID + ".no_teleport";

@@ -3,12 +3,14 @@ package at.minecraftschurli.arsmagicalegacy.client;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.RegisterOcculusTabRenderersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.RegisterSpellIngredientRenderersEvent;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
 import at.minecraftschurli.arsmagicalegacy.block.altar.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable.InscriptionTableScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.AffinityTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.DefaultTabRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.SpellCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.client.layer.BarsLayer;
 import at.minecraftschurli.arsmagicalegacy.client.model.AltarCoreModel;
 import at.minecraftschurli.arsmagicalegacy.client.model.DataComponentOverrides;
@@ -22,23 +24,36 @@ import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.block.BlockModelShaper;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.settings.KeyConflictContext;
+import net.neoforged.neoforge.client.settings.KeyModifier;
+import net.neoforged.neoforge.common.util.Lazy;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.stream.Stream;
 
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID, value = Dist.CLIENT)
 final class AMClientEventHandler {
+    private static final Lazy<KeyMapping> SPELL_CUSTOMIZATION = Lazy.of(() -> new KeyMapping(AMTranslations.SPELL_CUSTOMIZATION_KEY, KeyConflictContext.IN_GAME, KeyModifier.SHIFT, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, AMTranslations.KEY_CATEGORY_KEY));
+
     @SubscribeEvent
     private static void clientSetup(FMLClientSetupEvent event) {
         ArsMagicaClientApiImpl.postEvents();
@@ -71,6 +86,11 @@ final class AMClientEventHandler {
     }
 
     @SubscribeEvent
+    private static void registerKeyMappings(RegisterKeyMappingsEvent event) {
+        event.register(SPELL_CUSTOMIZATION.get());
+    }
+
+    @SubscribeEvent
     private static void modelRegisterAdditional(ModelEvent.RegisterAdditional event) {
         DataComponentOverrides.getAdditionalModels(Stream.of(1, 2, 3).map(i -> ArsMagicaApi.modLoc("tier_" + i)), AMItems.INSCRIPTION_TABLE).forEach(event::register);
         DataComponentOverrides.getAdditionalModels(AMMagic.SKILL_POINTS.stream().map(ResourceKey::location), AMItems.INFINITY_ORB).forEach(event::register);
@@ -88,5 +108,15 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(AMBlockEntities.ALTAR_CORE.get(), AltarCoreRenderer::new);
+    }
+
+    @SubscribeEvent
+    private static void clientTickPost(ClientTickEvent.Post event) {
+        LocalPlayer player = AMClientUtil.player();
+        if (player == null) return;
+        ItemStack stack = player.getMainHandItem();
+        while (stack.has(AMDataComponents.SPELL) && SPELL_CUSTOMIZATION.get().consumeClick()) {
+            AMClientUtil.mc().setScreen(new SpellCustomizationScreen(stack.get(AMDataComponents.SPELL)));
+        }
     }
 }

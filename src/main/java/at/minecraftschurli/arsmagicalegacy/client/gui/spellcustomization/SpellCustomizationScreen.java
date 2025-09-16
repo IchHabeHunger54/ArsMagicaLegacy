@@ -2,8 +2,10 @@ package at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellShapeGroup;
 import at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable.ShapeGroupArea;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -25,11 +27,21 @@ public class SpellCustomizationScreen extends Screen {
         this.spell = spell;
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Override
     protected void init() {
         leftPos = (width - WIDTH) / 2;
         topPos = (height - HEIGHT) / 2;
         addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, $ -> onClose()).bounds(leftPos - 10, topPos + 60, 200, 20).build());
+        for (int i = 0; i < spell.shapeGroups().size(); i++) {
+            SpellShapeGroup shapeGroup = spell.shapeGroups().get(i);
+            for (int j = 0; j < shapeGroup.parts().size(); j++) {
+                addRenderableWidget(new SkillButton(leftPos + i * ShapeGroupArea.WIDTH + j % 2 * SkillButton.SIZE + 2, topPos + j / 2 * SkillButton.SIZE + 1, AMUtil.skill(ArsMagicaApi.spellPartRegistry().wrapAsHolder(shapeGroup.parts().get(j)))));
+            }
+        }
+        for (int i = 0; i < spell.grammar().parts().size(); i++) {
+            addRenderableWidget(new SkillButton(leftPos + i * SkillButton.SIZE + 22, topPos + 37, AMUtil.skill(ArsMagicaApi.spellPartRegistry().wrapAsHolder(spell.grammar().parts().get(i)))));
+        }
     }
 
     @Override

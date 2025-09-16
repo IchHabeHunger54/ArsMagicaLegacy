@@ -1,12 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable;
 
-import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
-import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
-import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.gui.components.Renderable;
-import net.minecraft.core.Holder;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -49,17 +43,5 @@ public abstract class DragArea implements Renderable {
     }
 
     public void drop(Draggable draggable, int mouseX, int mouseY) {
-    }
-
-    @SuppressWarnings("DataFlowIssue")
-    @Nullable
-    protected static Holder<SpellPart> spellPart(Holder<Skill> skill) {
-        return ArsMagicaApi.spellPartRegistry().getHolder(skill.getKey().location()).orElse(null);
-    }
-
-    @SuppressWarnings("DataFlowIssue")
-    @Nullable
-    protected static Holder<Skill> skill(Holder<SpellPart> part) {
-        return AMClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).getHolder(part.getKey().location()).orElse(null);
     }
 }

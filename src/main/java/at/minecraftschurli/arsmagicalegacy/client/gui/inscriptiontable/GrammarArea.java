@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableData;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Holder;
 import org.jetbrains.annotations.Nullable;
@@ -33,8 +34,8 @@ public class GrammarArea extends DragTargetArea {
     @Override
     public boolean canPick(Draggable draggable, int mouseX, int mouseY) {
         if (contents.size() < 2) return true;
-        SpellPart part = spellPart(draggable.getSkill()).value();
-        return part.isModifier() || spellPart(contents.getFirst().getSkill()).value() != part || !spellPart(contents.get(1).getSkill()).value().isModifier();
+        SpellPart part = AMUtil.spellPart(draggable.getSkill()).value();
+        return part.isModifier() || AMUtil.spellPart(contents.getFirst().getSkill()).value() != part || !AMUtil.spellPart(contents.get(1).getSkill()).value().isModifier();
     }
 
     @SuppressWarnings("DataFlowIssue")
@@ -42,8 +43,8 @@ public class GrammarArea extends DragTargetArea {
     public boolean canDrop(Draggable draggable, int mouseX, int mouseY) {
         if (!super.canDrop(draggable, mouseX, mouseY)) return false;
         Holder<Skill> skill = draggable.getSkill();
-        SpellPart part = spellPart(skill).value();
-        return part.isComponent() && contents.stream().noneMatch(e -> e.getSkill().getKey() == skill.getKey()) || part.isModifier() && !contents.isEmpty() && spellPart(contents.getFirst().getSkill()).value().isComponent();
+        SpellPart part = AMUtil.spellPart(skill).value();
+        return part.isComponent() && contents.stream().noneMatch(e -> e.getSkill().getKey() == skill.getKey()) || part.isModifier() && !contents.isEmpty() && AMUtil.spellPart(contents.getFirst().getSkill()).value().isComponent();
     }
 
     public void setFromData(InscriptionTableData data) {

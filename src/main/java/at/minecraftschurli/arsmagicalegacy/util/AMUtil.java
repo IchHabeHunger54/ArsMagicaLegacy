@@ -1,5 +1,9 @@
 package at.minecraftschurli.arsmagicalegacy.util;
 
+import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.item.SpellRecipeItem;
 import at.minecraftschurli.arsmagicalegacy.packet.OpenBookInLecternPacket;
@@ -8,6 +12,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -29,6 +34,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.function.BiConsumer;
@@ -135,5 +141,17 @@ public final class AMUtil {
 
     public static <A, B> BiConsumer<A, B> dropResult(BiFunction<A, B, ?> function) {
         return function::apply;
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @Nullable
+    public static Holder<SpellPart> spellPart(Holder<Skill> skill) {
+        return ArsMagicaApi.spellPartRegistry().getHolder(skill.getKey().location()).orElse(null);
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @Nullable
+    public static Holder<Skill> skill(Holder<SpellPart> part) {
+        return registryAccess().registryOrThrow(AMRegistryKeys.SKILL).getHolder(part.getKey().location()).orElse(null);
     }
 }

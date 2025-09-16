@@ -6,6 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Holder;
@@ -108,7 +109,7 @@ public class SpellPartSourceArea extends DragArea {
     }
 
     private boolean isSkillVisible(Holder<Skill> skill) {
-        Holder<SpellPart> holder = spellPart(skill);
+        Holder<SpellPart> holder = AMUtil.spellPart(skill);
         if (holder == null) return false;
         SpellPart spellPart = holder.value();
         if (spellPart.isPrimaryShape() && primaryShapes) return true;
@@ -116,7 +117,7 @@ public class SpellPartSourceArea extends DragArea {
         if (spellPart.isComponent() && components && screen.getGrammarArea().contents
             .stream()
             .map(Draggable::getSkill)
-            .map(DragArea::spellPart)
+            .map(AMUtil::spellPart)
             .filter(Objects::nonNull)
             .map(Holder::value)
             .noneMatch(part -> part == spellPart)) return true;
@@ -125,7 +126,7 @@ public class SpellPartSourceArea extends DragArea {
             Set<SpellStat> stats = spellPart.getStats();
             return Stream.concat(screen.getGrammarArea().contents.stream(), screen.getShapeGroupAreas().stream().map(area -> area.contents).flatMap(List::stream))
                 .map(Draggable::getSkill)
-                .map(DragArea::spellPart)
+                .map(AMUtil::spellPart)
                 .filter(Objects::nonNull)
                 .map(Holder::value)
                 .filter(part -> !part.isModifier())

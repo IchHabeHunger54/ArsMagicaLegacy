@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable;
 
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Holder;
 import org.jetbrains.annotations.Nullable;
@@ -55,9 +56,9 @@ public class ShapeGroupArea extends DragTargetArea {
     @Override
     public boolean canDrop(Draggable draggable, int mouseX, int mouseY) {
         if (locked || !super.canDrop(draggable, mouseX, mouseY)) return false;
-        SpellPart part = spellPart(draggable.getSkill()).value();
+        SpellPart part = AMUtil.spellPart(draggable.getSkill()).value();
         if (part.isPrimaryShape()) return contents.isEmpty();
-        if (part.isSecondaryShape()) return !contents.isEmpty() && contents.stream().noneMatch(e -> spellPart(e.getSkill()).value().isSecondaryShape());
+        if (part.isSecondaryShape()) return !contents.isEmpty() && contents.stream().noneMatch(e -> AMUtil.spellPart(e.getSkill()).value().isSecondaryShape());
         return !contents.isEmpty() && part.isModifier();
     }
 

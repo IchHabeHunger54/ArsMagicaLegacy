@@ -30,6 +30,13 @@ void main() {
         return;
     }
 
+    // If the brightness is negative, return all white - used for the selection outline effect
+    if (brightness < 0)
+    {
+        fragColor = vec4(1.0, 1.0, 1.0, 1.0);
+        return;
+    }
+
     // Calculate the angle of the pixel relative to the center of the circle
     float angle = atan(center.y - texCoord.y, center.x - texCoord.x);
 

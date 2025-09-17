@@ -17,6 +17,10 @@ class ColorWheel extends ColorPickerWidget {
 
     @Override
     protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        if (isFocused()) {
+            ColorWheelShader.set(getX() + radius, getY() + radius, radius + 1, -1);
+            guiGraphics.fillGradient(AMRenderTypes.COLOR_WHEEL, getX() - 1, getY() - 1, getX() + width + 1, getY() + height + 1, 0xffffffff, 0xffffffff, 0);
+        }
         ColorWheelShader.set(getX() + radius, getY() + radius, radius, brightness);
         guiGraphics.fillGradient(AMRenderTypes.COLOR_WHEEL, getX(), getY(), getX() + width, getY() + height, 0xffffffff, 0xffffffff, 0);
         renderIndicator(guiGraphics, (int) (getX() + radius + radius * saturation * Math.cos(hue * Math.TAU)), (int) (getY() + radius + radius * saturation * Math.sin(hue * Math.TAU)));

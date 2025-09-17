@@ -19,6 +19,9 @@ class ColorButton extends Button {
 
     @Override
     protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        guiGraphics.fill(getX(), getY(), getX() + getWidth(), getY() + getHeight(), color | 0xff000000);
+        if (isHoveredOrFocused()) {
+            guiGraphics.fill(getX() - 1, getY() - 1, getX() + width + 1, getY() + height + 1, 0xffffffff);
+        }
+        guiGraphics.fill(getX(), getY(), getX() + width, getY() + height, color | 0xff000000);
     }
 }

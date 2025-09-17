@@ -27,7 +27,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import java.util.List;
 import java.util.Optional;
 
-public class DefaultTabRenderer extends OcculusTabRenderer {
+public class SkillTreeTabRenderer extends OcculusTabRenderer {
     private static final Component MISSING = Component.translatable(AMTranslations.OCCULUS_MISSING_KEY).withStyle(ChatFormatting.DARK_RED);
     private static final int SKILL_SIZE = 32;
     private final List<Skill> skills;
@@ -35,7 +35,7 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
     private double offsetY;
     private Skill hoveredSkill;
 
-    public DefaultTabRenderer(Holder<OcculusTab> occulusTab) {
+    public SkillTreeTabRenderer(Holder<OcculusTab> occulusTab) {
         super(occulusTab);
         offsetX = Math.max(0, occulusTab.value().startX());
         offsetY = Math.max(0, occulusTab.value().startY());

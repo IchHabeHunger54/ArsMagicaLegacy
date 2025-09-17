@@ -25,12 +25,14 @@ public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
     private static final Map<Holder<SpellPart>, SpellPartCustomizationScreen.Factory<?, ?>> SPELL_PART_CUSTOMIZATION_SCREENS = new HashMap<>();
 
     @Override
+    @Nullable
     protected OcculusTabRenderer.Factory getOcculusTabRendererFactory(Holder<OcculusTab> tab) {
         return OCCULUS_TAB_RENDERERS.get(tab.value().renderer());
     }
 
     @SuppressWarnings("unchecked")
     @Override
+    @Nullable
     protected <T extends SpellIngredient> SpellIngredientRenderer<T> getSpellIngredientRenderer(T ingredient) {
         return (SpellIngredientRenderer<T>) SPELL_INGREDIENT_RENDERERS.get(ingredient.codec());
     }

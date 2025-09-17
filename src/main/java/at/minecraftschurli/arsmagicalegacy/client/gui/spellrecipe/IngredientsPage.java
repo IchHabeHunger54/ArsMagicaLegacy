@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.client.gui.spellrecipe;
 
 import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
+import at.minecraftschurli.arsmagicalegacy.api.client.SpellIngredientRenderer;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import net.minecraft.client.gui.GuiGraphics;
@@ -20,7 +21,10 @@ class IngredientsPage extends Page<SpellIngredient> {
 
     @Override
     public void renderElement(SpellIngredient element, int index, GuiGraphics guiGraphics, int x, int y) {
-        ArsMagicaClientApi.spellIngredientRenderer(element).renderInGui(element, guiGraphics, x + index % maxPerLine * (size + spacing), y + index / maxPerLine * (size + spacing), 0, 0);
+        SpellIngredientRenderer<SpellIngredient> renderer = ArsMagicaClientApi.spellIngredientRenderer(element);
+        if (renderer != null) {
+            renderer.renderInGui(element, guiGraphics, x + index % maxPerLine * (size + spacing), y + index / maxPerLine * (size + spacing), 0, 0);
+        }
     }
 
     @Override

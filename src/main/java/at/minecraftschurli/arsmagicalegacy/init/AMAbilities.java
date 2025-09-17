@@ -2,15 +2,15 @@ package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.ability.AttributeAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.ability.DamageModifierAbilityEffect;
-import at.minecraftschurli.arsmagicalegacy.ability.EndermanPumpkinAbilityEffect;
-import at.minecraftschurli.arsmagicalegacy.ability.KillEffectAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.ability.EffectAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.ability.EffectResistanceAbilityEffect;
+import at.minecraftschurli.arsmagicalegacy.ability.EndermanPumpkinAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.ability.ExtraDamageAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.ability.FirePunchAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.ability.FrostPunchAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.ability.FrostWalkerAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.ability.JumpBoostAbilityEffect;
+import at.minecraftschurli.arsmagicalegacy.ability.KillEffectAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.ability.LightHealthModifierAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.ability.ManaCostModifierAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.ability.NetherDamageAbilityEffect;

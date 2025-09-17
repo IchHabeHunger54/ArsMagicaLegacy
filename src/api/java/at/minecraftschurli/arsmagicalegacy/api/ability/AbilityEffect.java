@@ -1,7 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.api.ability;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Holder;

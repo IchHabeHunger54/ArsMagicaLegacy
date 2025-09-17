@@ -51,9 +51,9 @@ public class BarsLayer implements LayeredDraw.Layer {
         guiGraphics.pose().pushPose();
         RenderSystem.enableBlend();
         guiGraphics.blit(BAR_TEXTURE, x, y, 0, 0, WIDTH + 1, HEIGHT - 1);
-        float r = AMClientUtil.getRed(color);
-        float g = AMClientUtil.getGreen(color);
-        float b = AMClientUtil.getBlue(color);
+        float r = AMClientUtil.getRedF(color);
+        float g = AMClientUtil.getGreenF(color);
+        float b = AMClientUtil.getBlueF(color);
         guiGraphics.setColor(r, g, b, 1);
         RenderSystem.setShaderFogColor(r, g, b);
         guiGraphics.blit(BAR_TEXTURE, x + 2, y + 2, 2, HEIGHT + 1, relWidth - 1, HEIGHT - 3);

@@ -35,16 +35,71 @@ public final class AMClientUtil {
         return level().registryAccess();
     }
 
-    public static float getBlue(int color) {
-        return (0xFF & color) / 255f;
+    public static int getRedI(int color) {
+        return 0xFF & color >> 16;
     }
 
-    public static float getGreen(int color) {
-        return (0xFF & (color >> 8)) / 255f;
+    public static int getGreenI(int color) {
+        return 0xFF & color >> 8;
     }
 
-    public static float getRed(int color) {
-        return (0xFF & (color >> 16)) / 255f;
+    public static int getBlueI(int color) {
+        return 0xFF & color;
+    }
+
+    public static float getRedF(int color) {
+        return getRedI(color) / 255f;
+    }
+
+    public static float getGreenF(int color) {
+        return getGreenI(color) / 255f;
+    }
+
+    public static float getBlueF(int color) {
+        return getBlueI(color) / 255f;
+    }
+
+    public static float[] rgbToHsb(int red, int green, int blue) {
+        int max = Math.max(Math.max(red, green), blue);
+        int min = Math.min(Math.min(red, green), blue);
+        if (max == 0) return new float[]{0, 0, 0};
+        float hue, saturation, brightness;
+        brightness = max / 255f;
+        saturation = (max - min) / (float) max;
+        if (saturation == 0) {
+            hue = 0;
+        } else {
+            float r = (float) (max - red) / (float) (max - min);
+            float g = (float) (max - green) / (float) (max - min);
+            float b = (float) (max - blue) / (float) (max - min);
+            hue = red == max ? b - g : green == max ? 2f + r - b : 4f + g - r;
+            hue /= 6f;
+            if (hue < 0) {
+                hue += 1f;
+            }
+        }
+        return new float[]{hue, saturation, brightness};
+    }
+
+    public static int[] hsbToRgb(float hue, float saturation, float brightness) {
+        if (saturation == 0) {
+            int gray = (int) (brightness * 255f + 0.5f);
+            return new int[]{gray, gray, gray};
+        }
+        float h = (hue - (float) Math.floor(hue)) * 6f;
+        float f = h - (float) Math.floor(h);
+        float p = brightness * (1f - saturation);
+        float q = brightness * (1f - saturation * f);
+        float t = brightness * (1f - (saturation * (1f - f)));
+        return switch ((int) h) {
+            case 0 -> new int[]{(int) (brightness * 255 + 0.5f), (int) (t * 255 + 0.5f), (int) (p * 255 + 0.5f)};
+            case 1 -> new int[]{(int) (q * 255 + 0.5f), (int) (brightness * 255 + 0.5f), (int) (p * 255 + 0.5f)};
+            case 2 -> new int[]{(int) (p * 255 + 0.5f), (int) (brightness * 255 + 0.5f), (int) (t * 255 + 0.5f)};
+            case 3 -> new int[]{(int) (p * 255 + 0.5f), (int) (q * 255 + 0.5f), (int) (brightness * 255 + 0.5f)};
+            case 4 -> new int[]{(int) (t * 255 + 0.5f), (int) (p * 255 + 0.5f), (int) (brightness * 255 + 0.5f)};
+            case 5 -> new int[]{(int) (brightness * 255 + 0.5f), (int) (p * 255 + 0.5f), (int) (q * 255 + 0.5f)};
+            default -> new int[]{0, 0, 0};
+        };
     }
 
     public static void setOcculusScreen() {

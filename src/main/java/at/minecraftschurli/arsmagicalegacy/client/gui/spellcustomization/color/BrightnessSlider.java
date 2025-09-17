@@ -12,11 +12,14 @@ class BrightnessSlider extends ColorPickerWidget {
 
     @Override
     protected float @Nullable [] getHovered(double mouseX, double mouseY) {
-        return new float[]{hue, saturation, (float) (1 - (mouseY - getY()) / height)};
+        return new float[]{hue, saturation, Math.clamp((float) (1 - (mouseY - getY()) / height), 0, 1)};
     }
 
     @Override
     protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        if (isFocused()) {
+            guiGraphics.fill(getX() - 1, getY() - 1, getX() + width + 1, getY() + height + 1, 0xffffffff);
+        }
         int[] rgb = AMClientUtil.hsbToRgb(hue, saturation, 1);
         guiGraphics.fillGradient(getX(), getY(), getX() + width, getY() + height, 0xff << 24 | rgb[0] << 16 | rgb[1] << 8 | rgb[2], 0xff000000);
         renderIndicator(guiGraphics, getX() + width / 2, (int) (getY() + Math.clamp(1 - brightness, 0, 1) * height));

@@ -6,7 +6,6 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellShapeGroup;
 import at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable.ShapeGroupArea;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
-import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
 import at.minecraftschurli.arsmagicalegacy.packet.SpellCustomizationPacket;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -65,15 +64,15 @@ public class SpellCustomizationScreen extends Screen {
 
     private void setSpell(Spell spell) {
         this.spell = spell;
-    }
-
-    @Override
-    public void onClose() {
-        super.onClose();
         ItemStack stack = AMClientUtil.player().getMainHandItem();
         if (stack.has(AMDataComponents.SPELL)) {
             stack.set(AMDataComponents.SPELL, spell);
         }
         PacketDistributor.sendToServer(new SpellCustomizationPacket(spell));
+    }
+
+    @Override
+    public void onClose() {
+        super.onClose();
     }
 }

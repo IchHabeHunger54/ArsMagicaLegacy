@@ -10,7 +10,7 @@ import at.minecraftschurli.arsmagicalegacy.block.altar.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable.InscriptionTableScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.AffinityTabRenderer;
-import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.DefaultTabRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.SkillTreeTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.SpellCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.color.ColorCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.color.ColorWheelShader;
@@ -102,7 +102,7 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerOcculusTabRenderers(RegisterOcculusTabRenderersEvent event) {
-        event.register(ArsMagicaApi.modLoc("default"), DefaultTabRenderer::new);
+        event.register(ArsMagicaApi.modLoc("skill_tree"), SkillTreeTabRenderer::new);
         event.register(ArsMagicaApi.modLoc("affinity"), AffinityTabRenderer::new);
     }
 

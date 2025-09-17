@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellDataComponentMap;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellGrammar;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellShapeGroup;
@@ -11,8 +12,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.component.DataComponentMap;
-import net.minecraft.core.component.PatchedDataComponentMap;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
@@ -50,7 +49,7 @@ public record InscriptionTableData(Optional<Component> name, List<Holder<Skill>>
             .map(InscriptionTableData::spellParts)
             .map(SpellShapeGroup::of)
             .toList();
-        return new Spell(name, groups, 0, SpellGrammar.of(spellParts(grammar)), new PatchedDataComponentMap(DataComponentMap.EMPTY));
+        return new Spell(name, groups, 0, SpellGrammar.of(spellParts(grammar)), SpellDataComponentMap.EMPTY);
     }
 
     private static List<SpellPart> spellParts(List<Holder<Skill>> skills) {

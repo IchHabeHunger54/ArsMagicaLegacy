@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a spell's shape group. One spell may have up to {@link Spell#MAX_SHAPE_GROUPS} different shape groups.
+ * Represents a spell's shape group. One spell may have up to {@link Spell#MAX_SHAPE_GROUPS} different shape groups. All fields are immutable by contract.
  *
- * @param parts              A {@link List} of all parts. Immutable by contract. Used mainly for serialization, use the other fields for gameplay.
+ * @param parts              A {@link List} of all parts. Used mainly for serialization, use the other fields for gameplay.
  * @param primaryShape       The {@link PrimarySpellShape} of the shape group.
  * @param primaryModifiers   A {@link List} of {@link SpellModifier}s for the {@link PrimarySpellShape}.
  * @param secondaryShape     The {@link SecondarySpellShape} of the shape group.

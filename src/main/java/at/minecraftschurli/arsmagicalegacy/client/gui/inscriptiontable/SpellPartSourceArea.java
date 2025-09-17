@@ -124,6 +124,7 @@ public class SpellPartSourceArea extends DragArea {
         if (spellPart.isModifier()) {
             if (!modifiers || !primaryShapes && !secondaryShapes && !components) return false;
             Set<SpellStat> stats = spellPart.getStats();
+            if (SpellStat.getGlobals().stream().anyMatch(stats::contains)) return true;
             return Stream.concat(screen.getGrammarArea().contents.stream(), screen.getShapeGroupAreas().stream().map(area -> area.contents).flatMap(List::stream))
                 .map(Draggable::getSkill)
                 .map(AMUtil::spellPart)

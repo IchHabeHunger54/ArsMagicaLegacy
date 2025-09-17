@@ -2,10 +2,12 @@ package at.minecraftschurli.arsmagicalegacy.api.client;
 
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import net.minecraft.core.Holder;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.util.Lazy;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ServiceLoader;
 
@@ -28,7 +30,7 @@ public abstract class ArsMagicaClientApi {
     }
 
     /**
-     * @param ingredient The {@link SpellIngredient} to get the renderer for.
+     * @param ingredient The {@link SpellIngredient} to get the {@link SpellIngredientRenderer} for.
      * @return The {@link SpellIngredientRenderer} for the given {@link SpellIngredient}.
      * @param <T> The exact type of the {@link SpellIngredient}.
      */
@@ -36,9 +38,22 @@ public abstract class ArsMagicaClientApi {
         return INSTANCE.get().getSpellIngredientRenderer(ingredient);
     }
 
+    /**
+     * @param spellPart The {@link SpellPart} to get the {@link SpellPartCustomizationScreen.Factory} for.
+     * @return The {@link SpellPartCustomizationScreen.Factory} for the given {@link SpellPart}.
+     */
+    @Nullable
+    public static SpellPartCustomizationScreen.Factory<?, ?> spellPartCustomizationScreen(Holder<SpellPart> spellPart) {
+        return INSTANCE.get().getSpellPartCustomizationScreen(spellPart);
+    }
+
     @ApiStatus.Internal
     protected abstract OcculusTabRenderer.Factory getOcculusTabRendererFactory(Holder<OcculusTab> tab);
 
     @ApiStatus.Internal
     protected abstract <T extends SpellIngredient> SpellIngredientRenderer<T> getSpellIngredientRenderer(T ingredient);
+
+    @ApiStatus.Internal
+    @Nullable
+    protected abstract SpellPartCustomizationScreen.Factory<?, ?> getSpellPartCustomizationScreen(Holder<SpellPart> spellPart);
 }

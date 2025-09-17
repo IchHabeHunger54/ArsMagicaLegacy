@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.client;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.RegisterOcculusTabRenderersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.RegisterSpellIngredientRenderersEvent;
+import at.minecraftschurli.arsmagicalegacy.api.client.RegisterSpellPartCustomizationScreensEvent;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
 import at.minecraftschurli.arsmagicalegacy.block.altar.AltarCoreBlock;
@@ -10,6 +11,7 @@ import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable.InscriptionTableScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.AffinityTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.DefaultTabRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.ColorCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.SpellCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.client.layer.BarsLayer;
 import at.minecraftschurli.arsmagicalegacy.client.model.AltarCoreModel;
@@ -60,6 +62,11 @@ final class AMClientEventHandler {
     }
 
     @SubscribeEvent
+    private static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(AMBlockEntities.ALTAR_CORE.get(), AltarCoreRenderer::new);
+    }
+
+    @SubscribeEvent
     private static void registerMenuScreens(RegisterMenuScreensEvent event) {
         event.register(AMMenus.INSCRIPTION_TABLE.get(), InscriptionTableScreen::new);
     }
@@ -67,6 +74,16 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void registerGuiLayers(RegisterGuiLayersEvent event) {
         event.registerBelowAll(ArsMagicaApi.modLoc("bars"), new BarsLayer());
+    }
+
+    @SubscribeEvent
+    private static void registerKeyMappings(RegisterKeyMappingsEvent event) {
+        event.register(SPELL_CUSTOMIZATION.get());
+    }
+
+    @SubscribeEvent
+    private static void registerClientReloadListeners(RegisterClientReloadListenersEvent event) {
+        event.registerReloadListener(SkillAtlasHolder.INSTANCE.get());
     }
 
     @SubscribeEvent
@@ -81,13 +98,8 @@ final class AMClientEventHandler {
     }
 
     @SubscribeEvent
-    private static void registerClientReloadListeners(RegisterClientReloadListenersEvent event) {
-        event.registerReloadListener(SkillAtlasHolder.INSTANCE.get());
-    }
-
-    @SubscribeEvent
-    private static void registerKeyMappings(RegisterKeyMappingsEvent event) {
-        event.register(SPELL_CUSTOMIZATION.get());
+    private static void registerSpellPartCustomizationScreens(RegisterSpellPartCustomizationScreensEvent event) {
+        event.register(AMSpells.COLOR, ColorCustomizationScreen::new);
     }
 
     @SubscribeEvent
@@ -103,11 +115,6 @@ final class AMClientEventHandler {
         ItemOverridesModel.register(event.getModels(), AMItems.INFINITY_ORB, new DataComponentOverrides<>(AMDataComponents.SKILL_POINT.get(), DataComponentOverrides.holder()));
         ItemOverridesModel.register(event.getModels(), AMItems.AFFINITY_ESSENCE, new DataComponentOverrides<>(AMDataComponents.AFFINITY.get(), DataComponentOverrides.holder()));
         event.getModels().computeIfPresent(BlockModelShaper.stateToModelLocation(AMBlocks.ALTAR_CORE.get().defaultBlockState().setValue(AltarCoreBlock.FORMED, true)), ($, model) -> new AltarCoreModel(model));
-    }
-
-    @SubscribeEvent
-    private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(AMBlockEntities.ALTAR_CORE.get(), AltarCoreRenderer::new);
     }
 
     @SubscribeEvent

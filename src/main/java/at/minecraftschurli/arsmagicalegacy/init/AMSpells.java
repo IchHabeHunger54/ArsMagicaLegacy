@@ -6,6 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStatModifier;
+import at.minecraftschurli.arsmagicalegacy.spell.ColorModifier;
 import at.minecraftschurli.arsmagicalegacy.spell.ItemSpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.spell.SpellModifiers;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Attract;
@@ -64,7 +65,12 @@ import at.minecraftschurli.arsmagicalegacy.spell.shape.Touch;
 import at.minecraftschurli.arsmagicalegacy.spell.shape.Wall;
 import at.minecraftschurli.arsmagicalegacy.spell.shape.Wave;
 import at.minecraftschurli.arsmagicalegacy.spell.shape.Zone;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.effect.MobEffects;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
@@ -76,6 +82,7 @@ public interface AMSpells {
 
     // @formatter:off
     SpellStat BOUNCE_STAT           = new SpellStat(ArsMagicaApi.modLoc("bounce"));
+    SpellStat COLOR_STAT            = new SpellStat(ArsMagicaApi.modLoc("color"), true);
     SpellStat DAMAGE_STAT           = new SpellStat(ArsMagicaApi.modLoc("damage"));
     SpellStat DISMEMBERING_STAT     = new SpellStat(ArsMagicaApi.modLoc("dismembering"));
     SpellStat DURATION_STAT         = new SpellStat(ArsMagicaApi.modLoc("duration"));
@@ -187,7 +194,6 @@ public interface AMSpells {
     DeferredHolder<SpellPart, WizardsAutumn>      WIZARDS_AUTUMN      = register("wizards_autumn",      WizardsAutumn::new);
 
     DeferredHolder<SpellPart, SpellModifier> BOUNCE           = register("bounce",           () -> new SpellModifier(Map.of(BOUNCE_STAT, SpellStatModifier.add(1))));
-    DeferredHolder<SpellPart, SpellModifier> COLOR            = register("color",            () -> new SpellModifier(Map.of()));
     DeferredHolder<SpellPart, SpellModifier> DAMAGE           = register("damage",           () -> new SpellModifier(Map.of(DAMAGE_STAT, SpellStatModifier.add(1))));
     DeferredHolder<SpellPart, SpellModifier> DISMEMBERING     = register("dismembering",     () -> new SpellModifier(Map.of(DISMEMBERING_STAT, SpellStatModifier.add(1))));
     DeferredHolder<SpellPart, SpellModifier> DURATION         = register("duration",         () -> new SpellModifier(Map.of(DURATION_STAT, SpellStatModifier.multiply(2))));
@@ -204,10 +210,17 @@ public interface AMSpells {
     DeferredHolder<SpellPart, SpellModifier> SOLAR            = register("solar",            () -> new SpellModifier(SpellModifiers.solarStatModifiers()));
     DeferredHolder<SpellPart, SpellModifier> TARGET_NON_SOLID = register("target_non_solid", () -> new SpellModifier(Map.of(TARGET_NON_SOLID_STAT, SpellStatModifier.add(1))));
     DeferredHolder<SpellPart, SpellModifier> VELOCITY         = register("velocity",         () -> new SpellModifier(Map.of(SPEED_STAT, SpellStatModifier.addMultipliedBase(0.5))));
+    DeferredHolder<SpellPart, ColorModifier> COLOR            = register("color",            ColorModifier::new);
+
+    DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> COLOR_COMPONENT = register("color", Codec.INT, ByteBufCodecs.INT);
     // @formatter:on
 
     private static <T extends SpellPart> DeferredHolder<SpellPart, T> register(String name, Supplier<T> supplier) {
         return AMRegistries.SPELL_PARTS.register(name, supplier);
+    }
+
+    private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, Codec<T> codec, StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec) {
+        return AMRegistries.DATA_COMPONENTS.registerComponentType(name, builder -> builder.persistent(codec).networkSynchronized(streamCodec));
     }
 
     /**

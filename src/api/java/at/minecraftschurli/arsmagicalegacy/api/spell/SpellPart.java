@@ -1,6 +1,8 @@
 package at.minecraftschurli.arsmagicalegacy.api.spell;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import net.minecraft.core.component.DataComponentType;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
 
@@ -47,5 +49,13 @@ public abstract sealed class SpellPart permits PrimarySpellShape, SecondarySpell
      */
     public SpellPartData getData() {
         return ArsMagicaApi.spellPartData(this);
+    }
+
+    /**
+     * @return The {@link DataComponentType} the spell part uses for additional data storage, or null if it does not use a {@link DataComponentType}.
+     */
+    @Nullable
+    public DataComponentType<?> getDataComponentType() {
+        return null;
     }
 }

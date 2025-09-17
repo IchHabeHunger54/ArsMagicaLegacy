@@ -18,10 +18,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Represents a spell's grammar.
+ * Represents a spell's grammar. All fields are immutable by contract.
  *
- * @param parts      A {@link List} of all parts. Immutable by contract. Used mainly for serialization, use {@link SpellGrammar#components} for gameplay.
- * @param components A view of {@link SpellGrammar#parts} that lists the parts as {@link SpellComponent}s with their associated {@link SpellModifier}s. Immutable by contract.
+ * @param parts      A {@link List} of all parts. Used mainly for serialization, use {@link SpellGrammar#components} for gameplay.
+ * @param components A view of {@link SpellGrammar#parts} that lists the parts as {@link SpellComponent}s with their associated {@link SpellModifier}s.
  */
 public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List<SpellModifier>>> components) {
     public static final int MAX_PARTS = 8;

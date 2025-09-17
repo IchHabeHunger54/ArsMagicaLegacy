@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents the datapack-supplied properties of a {@link SpellPart}.
+ * Represents the datapack-supplied properties of a {@link SpellPart}. All fields are immutable by contract.
  *
  * @param mana           The mana cost of the {@link SpellPart}.
  * @param burnout        The burnout cost of the {@link SpellPart}. If empty, will be calculated from the mana cost.

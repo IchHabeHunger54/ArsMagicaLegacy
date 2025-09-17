@@ -25,6 +25,7 @@ public abstract class ArsMagicaClientApi {
      * @param tab The {@link Holder} to get the {@link OcculusTabRenderer.Factory} for.
      * @return The {@link OcculusTabRenderer.Factory} for the specified {@link Holder}.
      */
+    @Nullable
     public static OcculusTabRenderer.Factory occulusTabRendererFactory(Holder<OcculusTab> tab) {
         return INSTANCE.get().getOcculusTabRendererFactory(tab);
     }
@@ -34,6 +35,7 @@ public abstract class ArsMagicaClientApi {
      * @return The {@link SpellIngredientRenderer} for the given {@link SpellIngredient}.
      * @param <T> The exact type of the {@link SpellIngredient}.
      */
+    @Nullable
     public static <T extends SpellIngredient> SpellIngredientRenderer<T> spellIngredientRenderer(T ingredient) {
         return INSTANCE.get().getSpellIngredientRenderer(ingredient);
     }
@@ -48,9 +50,11 @@ public abstract class ArsMagicaClientApi {
     }
 
     @ApiStatus.Internal
+    @Nullable
     protected abstract OcculusTabRenderer.Factory getOcculusTabRendererFactory(Holder<OcculusTab> tab);
 
     @ApiStatus.Internal
+    @Nullable
     protected abstract <T extends SpellIngredient> SpellIngredientRenderer<T> getSpellIngredientRenderer(T ingredient);
 
     @ApiStatus.Internal

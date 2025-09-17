@@ -152,7 +152,10 @@ public class OcculusScreen extends Screen {
     }
 
     private void setRenderer(Holder<OcculusTab> occulusTab) {
-        renderer = ArsMagicaClientApi.occulusTabRendererFactory(occulusTab).create(occulusTab);
+        OcculusTabRenderer.Factory factory = ArsMagicaClientApi.occulusTabRendererFactory(occulusTab);
+        if (factory != null) {
+            renderer = factory.create(occulusTab);
+        }
     }
 
     private void nextPage() {

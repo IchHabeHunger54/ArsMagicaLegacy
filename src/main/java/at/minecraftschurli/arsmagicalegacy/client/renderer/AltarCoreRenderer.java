@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.client.renderer;
 
 import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
+import at.minecraftschurli.arsmagicalegacy.api.client.SpellIngredientRenderer;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.block.altar.AltarCoreBlock;
@@ -71,7 +72,10 @@ public class AltarCoreRenderer implements BlockEntityRenderer<AltarCoreBlockEnti
         poseStack.pushPose();
         poseStack.mulPose(Axis.YP.rotationDegrees(level.getGameTime() % 360 + partialTick));
         if (blockEntity.hasRecipe()) {
-            ArsMagicaClientApi.spellIngredientRenderer(ingredient).renderInLevel(ingredient, poseStack, bufferSource, light, packedOverlay);
+            SpellIngredientRenderer<SpellIngredient> renderer = ArsMagicaClientApi.spellIngredientRenderer(ingredient);
+            if (renderer != null) {
+                renderer.renderInLevel(ingredient, poseStack, bufferSource, light, packedOverlay);
+            }
         } else {
             ItemStack stack = new ItemStack(Blocks.BARRIER);
             itemRenderer.render(stack, ItemDisplayContext.GROUND, false, poseStack, bufferSource, light, OverlayTexture.NO_OVERLAY, itemRenderer.getModel(stack, level, null, 0));

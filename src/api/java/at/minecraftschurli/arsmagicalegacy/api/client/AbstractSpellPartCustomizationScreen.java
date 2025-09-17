@@ -21,7 +21,9 @@ public abstract class AbstractSpellPartCustomizationScreen<T> extends Screen imp
 
     @Override
     public void onClose() {
-        setter.accept(type, value);
+        if (value != null) {
+            setter.accept(type, value);
+        }
         super.onClose();
     }
 }

@@ -569,6 +569,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.SPELL_CAST_SILENCED_KEY, "Silenced!");
         add(AMTranslations.SPELL_CUSTOMIZATION_COLOR_KEY, "Customize Color");
         add(AMTranslations.SPELL_CUSTOMIZATION_KEY, "Customize Spell");
+        add(AMTranslations.SPELL_CUSTOMIZATION_NAME_KEY, "Spell Name");
         add(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, "x %s");
         add(AMTranslations.SPELL_RECIPE_AFFINITIES_KEY, "Affinities");
         add(AMTranslations.SPELL_RECIPE_GRAMMAR_KEY, "Grammar");

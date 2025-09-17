@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 
 import java.util.List;
@@ -14,19 +15,21 @@ import java.util.Optional;
 import java.util.function.UnaryOperator;
 
 /**
- * Represents a spell. All fields except {@link Spell#dataComponents} are immutable by contract.
+ * Represents a spell.
  *
  * @param name             The name of the spell.
- * @param shapeGroups      The {@link SpellShapeGroup}s of the spell.
- * @param activeShapeGroup The index of the currently active {@link SpellShapeGroup}.
- * @param grammar          The {@link SpellGrammar} of the spell.
+ * @param icon             The icon of the spell.
+ * @param shapeGroups      The {@link SpellShapeGroup}s of the spell. Immutable by contract.
+ * @param activeShapeGroup The index of the currently active {@link SpellShapeGroup}. Immutable by contract.
+ * @param grammar          The {@link SpellGrammar} of the spell. Immutable by contract.
  * @param dataComponents   The data components of the spell. To modify, call {@link Spell#updateDataComponents(UnaryOperator)}.
  */
-public record Spell(Optional<Component> name, List<SpellShapeGroup> shapeGroups, int activeShapeGroup, SpellGrammar grammar, SpellDataComponentMap dataComponents) {
+public record Spell(Optional<Component> name, Optional<ResourceLocation> icon, List<SpellShapeGroup> shapeGroups, int activeShapeGroup, SpellGrammar grammar, SpellDataComponentMap dataComponents) {
     public static final int MAX_SHAPE_GROUPS = 5;
-    public static final Spell EMPTY = new Spell(Optional.empty(), List.of(SpellShapeGroup.EMPTY), 0, SpellGrammar.EMPTY, SpellDataComponentMap.EMPTY);
+    public static final Spell EMPTY = new Spell(Optional.empty(), Optional.empty(), List.of(SpellShapeGroup.EMPTY), 0, SpellGrammar.EMPTY, SpellDataComponentMap.EMPTY);
     public static final Codec<Spell> CODEC = RecordCodecBuilder.create(inst -> inst.group(
         ComponentSerialization.CODEC.optionalFieldOf("name").forGetter(Spell::name),
+        ResourceLocation.CODEC.optionalFieldOf("name").forGetter(Spell::icon),
         SpellShapeGroup.CODEC.listOf(0, MAX_SHAPE_GROUPS).fieldOf("shape_groups").forGetter(Spell::shapeGroups),
         ExtraCodecs.intRange(0, MAX_SHAPE_GROUPS - 1).fieldOf("active_shape_group").forGetter(Spell::activeShapeGroup),
         SpellGrammar.CODEC.fieldOf("grammar").forGetter(Spell::grammar),
@@ -34,6 +37,7 @@ public record Spell(Optional<Component> name, List<SpellShapeGroup> shapeGroups,
     ).apply(inst, Spell::new));
     public static final StreamCodec<RegistryFriendlyByteBuf, Spell> STREAM_CODEC = StreamCodec.composite(
         ComponentSerialization.STREAM_CODEC.apply(ByteBufCodecs::optional), Spell::name,
+        ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs::optional), Spell::icon,
         SpellShapeGroup.STREAM_CODEC.apply(ByteBufCodecs.list()), Spell::shapeGroups,
         ByteBufCodecs.INT, Spell::activeShapeGroup,
         SpellGrammar.STREAM_CODEC, Spell::grammar,
@@ -41,11 +45,41 @@ public record Spell(Optional<Component> name, List<SpellShapeGroup> shapeGroups,
         Spell::new);
 
     /**
+     * @param name The new name to set.
+     * @return A new spell with the new name set.
+     */
+    public Spell setName(Component name) {
+        return new Spell(Optional.of(name), icon, shapeGroups, activeShapeGroup, grammar, dataComponents);
+    }
+
+    /**
+     * @return A new spell with no name set.
+     */
+    public Spell clearName() {
+        return new Spell(Optional.empty(), icon, shapeGroups, activeShapeGroup, grammar, dataComponents);
+    }
+
+    /**
+     * @param icon The new icon to set.
+     * @return A new spell with the new icon set.
+     */
+    public Spell setIcon(ResourceLocation icon) {
+        return new Spell(name, Optional.of(icon), shapeGroups, activeShapeGroup, grammar, dataComponents);
+    }
+
+    /**
+     * @return A new spell with no icon set.
+     */
+    public Spell clearIcon() {
+        return new Spell(name, Optional.empty(), shapeGroups, activeShapeGroup, grammar, dataComponents);
+    }
+
+    /**
      * @param operator The modifications to apply to the data components.
      * @return A new spell with the modifications to the data components applied.
      */
     public Spell updateDataComponents(UnaryOperator<SpellDataComponentMap> operator) {
-        return new Spell(name, shapeGroups, activeShapeGroup, grammar, operator.apply(dataComponents));
+        return new Spell(name, icon, shapeGroups, activeShapeGroup, grammar, operator.apply(dataComponents));
     }
 
     /**

@@ -1,8 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.client.atlas;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
-import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -11,12 +9,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.util.Lazy;
 import org.jetbrains.annotations.Nullable;
 
-public class SkillAtlasHolder extends TextureAtlasHolder {
-    public static final ResourceLocation ATLAS = ArsMagicaApi.modLoc("textures/atlas/skill.png");
-    public static final ResourceLocation ATLAS_INFO = ArsMagicaApi.modLoc("skill");
-    public static final Lazy<SkillAtlasHolder> INSTANCE = Lazy.of(SkillAtlasHolder::new);
+import java.util.Collection;
 
-    private SkillAtlasHolder() {
+public class SpellIconAtlasHolder extends TextureAtlasHolder {
+    public static final ResourceLocation ATLAS = ArsMagicaApi.modLoc("textures/atlas/spell_icon.png");
+    public static final ResourceLocation ATLAS_INFO = ArsMagicaApi.modLoc("spell_icon");
+    public static final Lazy<SpellIconAtlasHolder> INSTANCE = Lazy.of(SpellIconAtlasHolder::new);
+
+    private SpellIconAtlasHolder() {
         super(AMClientUtil.mc().getTextureManager(), ATLAS, ATLAS_INFO);
     }
 
@@ -25,7 +25,7 @@ public class SkillAtlasHolder extends TextureAtlasHolder {
         return location == null ? super.getSprite(MissingTextureAtlasSprite.getLocation()) : super.getSprite(location);
     }
 
-    public TextureAtlasSprite getSprite(Skill skill) {
-        return getSprite(AMClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).getKey(skill));
+    public Collection<ResourceLocation> getIcons() {
+        return textureAtlas.getTextures().keySet();
     }
 }

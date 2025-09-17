@@ -8,6 +8,7 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
 import at.minecraftschurli.arsmagicalegacy.block.altar.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
+import at.minecraftschurli.arsmagicalegacy.client.atlas.SpellIconAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable.InscriptionTableScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.AffinityTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.SkillTreeTabRenderer;
@@ -98,6 +99,7 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void registerClientReloadListeners(RegisterClientReloadListenersEvent event) {
         event.registerReloadListener(SkillAtlasHolder.INSTANCE.get());
+        event.registerReloadListener(SpellIconAtlasHolder.INSTANCE.get());
     }
 
     @SubscribeEvent

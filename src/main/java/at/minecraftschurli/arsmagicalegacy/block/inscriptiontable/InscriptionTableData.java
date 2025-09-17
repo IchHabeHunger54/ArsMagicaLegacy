@@ -49,7 +49,7 @@ public record InscriptionTableData(Optional<Component> name, List<Holder<Skill>>
             .map(InscriptionTableData::spellParts)
             .map(SpellShapeGroup::of)
             .toList();
-        return new Spell(name, groups, 0, SpellGrammar.of(spellParts(grammar)), SpellDataComponentMap.EMPTY);
+        return new Spell(name, Optional.empty(), groups, 0, SpellGrammar.of(spellParts(grammar)), SpellDataComponentMap.EMPTY);
     }
 
     private static List<SpellPart> spellParts(List<Holder<Skill>> skills) {

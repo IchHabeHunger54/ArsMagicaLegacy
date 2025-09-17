@@ -88,9 +88,9 @@ public class DefaultTabRenderer extends OcculusTabRenderer {
                 guiGraphics.setColor(0.5f, 0.5f, 0.5f, 1);
             } else if (!knows) {
                 int color = getColorForSkill(skill);
-                float red = Math.max(AMClientUtil.getRed(color), 0.75f) * tick;
-                float green = Math.max(AMClientUtil.getGreen(color), 0.75f) * tick;
-                float blue = Math.max(AMClientUtil.getBlue(color), 0.75f) * tick;
+                float red = Math.max(AMClientUtil.getRedF(color), 0.75f) * tick;
+                float green = Math.max(AMClientUtil.getGreenF(color), 0.75f) * tick;
+                float blue = Math.max(AMClientUtil.getBlueF(color), 0.75f) * tick;
                 guiGraphics.setColor(red, green, blue, 1);
             }
             RenderSystem.enableBlend();

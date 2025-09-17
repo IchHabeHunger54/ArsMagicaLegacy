@@ -5,6 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.client.AbstractSpellPartCustomiza
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
@@ -12,6 +13,8 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -21,9 +24,10 @@ public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScre
     private static final ResourceLocation BACKGROUND = ArsMagicaApi.modLoc("textures/gui/spell_customization/color.png");
     private static final int WIDTH = 180;
     private static final int HEIGHT = 130;
+    private static final int COLUMNS = 4;
     private final Consumer<String> responder = s -> {
         if (s.startsWith("#") && s.length() > 1 && s.length() <= 7) {
-            setColorRgb(Integer.parseInt(s.substring(1), 16));
+            setColorRgb(Integer.parseInt(s.substring(1), 16), false);
         }
     };
     private int leftPos;
@@ -34,7 +38,8 @@ public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScre
     private int red;
     private int green;
     private int blue;
-    private ColorPickerWidget colorPicker;
+    private ColorWheel colorWheel;
+    private BrightnessSlider brightnessSlider;
     private EditBox editBox;
 
     public ColorCustomizationScreen(Function<DataComponentType<Integer>, Integer> value, BiConsumer<DataComponentType<Integer>, Integer> setter) {
@@ -45,8 +50,8 @@ public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScre
     protected void init() {
         leftPos = (width - WIDTH) / 2;
         topPos = (height - HEIGHT - 24) / 2;
-        colorPicker = addRenderableWidget(new ColorPickerWidget(leftPos + 50, topPos + HEIGHT / 2 + 7, 50, getTitle(), this::setColorHsb));
-        editBox = addRenderableWidget(new EditBox(AMClientUtil.font(), leftPos + 30, topPos + 121, 50, 12, Component.empty()));
+        colorWheel = addRenderableWidget(new ColorWheel(leftPos + 58, topPos + 58, 50, this::setColorHsb));
+        editBox = addRenderableWidget(new EditBox(AMClientUtil.font(), leftPos + 26, topPos + 111, 60, 14, Component.empty()));
         editBox.setFilter(s -> {
             if (s.isEmpty() || "#".equals(s)) return true;
             if (!s.startsWith("#") || s.length() > 7) return false;
@@ -57,15 +62,25 @@ public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScre
                 return false;
             }
         });
+        brightnessSlider = addRenderableWidget(new BrightnessSlider(leftPos + 113, topPos + 8, 10, 100, this::setColorHsb));
+        int i = 0;
+        int buttonX = leftPos + 128;
+        int buttonY = topPos + 8;
+        for (ChatFormatting chatFormatting : ChatFormatting.values()) {
+            if (chatFormatting.getColor() == null) continue;
+            addRenderableWidget(new ColorButton(buttonX + (i % COLUMNS) * 11, buttonY + (i / COLUMNS) * 11, chatFormatting.getColor(), this::setColorRgb, Component.translatable("color." + chatFormatting.getName())));
+            i++;
+        }
+        for (DyeColor dyeColor : DyeColor.values()) {
+            addRenderableWidget(new ColorButton(buttonX + (i % COLUMNS) * 11, buttonY + (i / COLUMNS) * 11, dyeColor.getTextureDiffuseColor(), this::setColorRgb, DyeItem.byColor(dyeColor).getDescription()));
+            i++;
+        }
         addRenderableWidget(Button.builder(CommonComponents.GUI_CANCEL, $ -> {
             value = null;
             onClose();
         }).bounds(leftPos - 10, topPos + HEIGHT + 4, 98, 20).build());
         addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, $ -> onClose()).bounds(leftPos + 92, topPos + HEIGHT + 4, 98, 20).build());
-        setColorRgb(value == null ? 0xffffff : value);
-        String hex = Integer.toHexString(value);
-        editBox.setValue("#" + "0".repeat(6 - hex.length()) + hex);
-        editBox.setResponder(responder);
+        setColorRgb(value == null ? 0xffffff : value, true);
     }
 
     @Override
@@ -80,6 +95,10 @@ public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScre
     }
 
     private void setColorRgb(int rgb) {
+        setColorRgb(rgb, true);
+    }
+
+    private void setColorRgb(int rgb, boolean padZeroes) {
         red = AMClientUtil.getRedI(rgb);
         green = AMClientUtil.getGreenI(rgb);
         blue = AMClientUtil.getBlueI(rgb);
@@ -87,7 +106,7 @@ public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScre
         hue = hsb[0];
         saturation = hsb[1];
         brightness = hsb[2];
-        updateColorWidgets();
+        updateColorWidgets(padZeroes);
     }
 
     private void setColorHsb(float h, float s, float b) {
@@ -98,20 +117,17 @@ public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScre
         red = rgb[0];
         green = rgb[1];
         blue = rgb[2];
-        updateColorWidgets();
+        updateColorWidgets(true);
     }
 
     @SuppressWarnings("DataFlowIssue")
-    private void updateColorWidgets() {
+    private void updateColorWidgets(boolean padZeroes) {
         value = red << 16 | green << 8 | blue;
-        colorPicker.setValue(hue, saturation, brightness);
+        colorWheel.setValue(hue, saturation, brightness);
+        brightnessSlider.setValue(hue, saturation, brightness);
+        String hex = Integer.toHexString(value);
         editBox.setResponder(null);
-        editBox.setValue("#" + Integer.toHexString(value));
+        editBox.setValue("#" + (padZeroes ? "0".repeat(6 - hex.length()) + hex : hex));
         editBox.setResponder(responder);
-    }
-
-    static int blackOrWhite(float hue, float saturation, float brightness) {
-        int[] rgb = AMClientUtil.hsbToRgb(hue, saturation, brightness);
-        return (rgb[0] << 16) * 0.299 + (rgb[1] << 8) * 0.587 + rgb[2] * 0.114 > 186 ? 0xff000000 : 0xffffffff;
     }
 }

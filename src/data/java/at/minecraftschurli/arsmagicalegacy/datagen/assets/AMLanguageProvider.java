@@ -11,6 +11,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
@@ -579,6 +580,10 @@ public final class AMLanguageProvider extends LanguageProvider {
         add("potion.potency.7", "VIII");
         add("potion.potency.8", "IX");
         add("potion.potency.9", "X");
+        for (ChatFormatting chatFormatting : ChatFormatting.values()) {
+            if (chatFormatting.getColor() == null) continue;
+            add("color." + chatFormatting.getName(), idTranslation(chatFormatting.getName()));
+        }
     }
 
     /**

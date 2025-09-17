@@ -42,8 +42,8 @@ public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScre
     private BrightnessSlider brightnessSlider;
     private EditBox editBox;
 
-    public ColorCustomizationScreen(Function<DataComponentType<Integer>, Integer> value, BiConsumer<DataComponentType<Integer>, Integer> setter) {
-        super(AMTranslations.SPELL_CUSTOMIZATION_COLOR, AMSpells.COLOR_COMPONENT.get(), value, setter);
+    public ColorCustomizationScreen(Function<DataComponentType<Integer>, Integer> valueGetter, BiConsumer<DataComponentType<Integer>, Integer> valueSetter) {
+        super(AMTranslations.SPELL_CUSTOMIZATION_COLOR, AMSpells.COLOR_COMPONENT.get(), valueGetter, valueSetter);
     }
 
     @Override

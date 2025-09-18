@@ -19,6 +19,7 @@ import at.minecraftschurli.arsmagicalegacy.client.layer.BarsLayer;
 import at.minecraftschurli.arsmagicalegacy.client.model.AltarCoreModel;
 import at.minecraftschurli.arsmagicalegacy.client.model.DataComponentOverrides;
 import at.minecraftschurli.arsmagicalegacy.client.model.ItemOverridesModel;
+import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleSpawnerManager;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.AltarCoreRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.ItemSpellIngredientRenderer;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
@@ -98,6 +99,7 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerClientReloadListeners(RegisterClientReloadListenersEvent event) {
+        event.registerReloadListener(ParticleSpawnerManager.INSTANCE);
         event.registerReloadListener(SkillAtlasHolder.INSTANCE.get());
         event.registerReloadListener(SpellIconAtlasHolder.INSTANCE.get());
     }

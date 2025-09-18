@@ -3,7 +3,9 @@ package at.minecraftschurli.arsmagicalegacy.api.client;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.util.Lazy;
 import org.jetbrains.annotations.ApiStatus;
@@ -31,6 +33,24 @@ public abstract class ArsMagicaClientApi {
     }
 
     /**
+     * @param id The id of the {@link ParticleController} to get.
+     * @return The {@link ParticleController} for the given id.
+     */
+    @Nullable
+    public static ParticleController.Type particleController(ResourceLocation id) {
+        return INSTANCE.get().getParticleController(id);
+    }
+
+    /**
+     * @param id The id of the {@link ParticleSpawner} to get.
+     * @return The {@link ParticleSpawner} for the given id.
+     */
+    @Nullable
+    public static ParticleSpawner particleSpawner(ResourceLocation id) {
+        return INSTANCE.get().getParticleSpawner(id);
+    }
+
+    /**
      * @param ingredient The {@link SpellIngredient} to get the {@link SpellIngredientRenderer} for.
      * @return The {@link SpellIngredientRenderer} for the given {@link SpellIngredient}.
      * @param <T> The exact type of the {@link SpellIngredient}.
@@ -52,6 +72,14 @@ public abstract class ArsMagicaClientApi {
     @ApiStatus.Internal
     @Nullable
     protected abstract OcculusTabRenderer.Factory getOcculusTabRendererFactory(Holder<OcculusTab> tab);
+
+    @ApiStatus.Internal
+    @Nullable
+    protected abstract ParticleController.Type getParticleController(ResourceLocation id);
+
+    @ApiStatus.Internal
+    @Nullable
+    protected abstract ParticleSpawner getParticleSpawner(ResourceLocation id);
 
     @ApiStatus.Internal
     @Nullable

@@ -2,7 +2,10 @@ package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.OcculusTabRenderer;
+import at.minecraftschurli.arsmagicalegacy.api.client.ParticleController;
+import at.minecraftschurli.arsmagicalegacy.api.client.ParticleSpawner;
 import at.minecraftschurli.arsmagicalegacy.api.client.RegisterOcculusTabRenderersEvent;
+import at.minecraftschurli.arsmagicalegacy.api.client.RegisterParticleControllersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.RegisterSpellIngredientRenderersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.RegisterSpellPartCustomizationScreensEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.SpellIngredientRenderer;
@@ -10,6 +13,7 @@ import at.minecraftschurli.arsmagicalegacy.api.client.SpellPartCustomizationScre
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleSpawnerManager;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
@@ -21,6 +25,7 @@ import java.util.Map;
 
 public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
     private static final Map<ResourceLocation, OcculusTabRenderer.Factory> OCCULUS_TAB_RENDERERS = new HashMap<>();
+    private static final Map<ResourceLocation, ParticleController.Type> PARTICLE_CONTROLLERS = new HashMap<>();
     private static final Map<MapCodec<? extends SpellIngredient>, SpellIngredientRenderer<?>> SPELL_INGREDIENT_RENDERERS = new HashMap<>();
     private static final Map<Holder<SpellPart>, SpellPartCustomizationScreen.Factory<?, ?>> SPELL_PART_CUSTOMIZATION_SCREENS = new HashMap<>();
 
@@ -28,6 +33,18 @@ public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
     @Nullable
     protected OcculusTabRenderer.Factory getOcculusTabRendererFactory(Holder<OcculusTab> tab) {
         return OCCULUS_TAB_RENDERERS.get(tab.value().renderer());
+    }
+
+    @Override
+    @Nullable
+    protected ParticleController.Type getParticleController(ResourceLocation id) {
+        return PARTICLE_CONTROLLERS.get(id);
+    }
+
+    @Override
+    @Nullable
+    protected ParticleSpawner getParticleSpawner(ResourceLocation id) {
+        return ParticleSpawnerManager.INSTANCE.get(id);
     }
 
     @SuppressWarnings("unchecked")
@@ -45,6 +62,7 @@ public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
 
     public static void postEvents() {
         OCCULUS_TAB_RENDERERS.putAll(ModLoader.postEventWithReturn(new RegisterOcculusTabRenderersEvent()).getRenderers());
+        PARTICLE_CONTROLLERS.putAll(ModLoader.postEventWithReturn(new RegisterParticleControllersEvent()).getControllers());
         SPELL_INGREDIENT_RENDERERS.putAll(ModLoader.postEventWithReturn(new RegisterSpellIngredientRenderersEvent()).getRenderers());
         SPELL_PART_CUSTOMIZATION_SCREENS.putAll(ModLoader.postEventWithReturn(new RegisterSpellPartCustomizationScreensEvent()).getScreens());
     }

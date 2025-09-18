@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.api.client;
 
+import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterSpellIngredientRenderersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;

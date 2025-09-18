@@ -1,5 +1,6 @@
-package at.minecraftschurli.arsmagicalegacy.api.client;
+package at.minecraftschurli.arsmagicalegacy.api.client.event;
 
+import at.minecraftschurli.arsmagicalegacy.api.client.ParticleController;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.Event;
@@ -8,7 +9,6 @@ import net.neoforged.fml.event.IModBusEvent;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
 
 /**
  * Event that fires when {@link ParticleController}s are registered.

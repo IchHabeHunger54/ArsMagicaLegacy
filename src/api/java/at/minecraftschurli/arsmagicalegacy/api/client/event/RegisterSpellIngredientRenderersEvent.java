@@ -1,5 +1,6 @@
-package at.minecraftschurli.arsmagicalegacy.api.client;
+package at.minecraftschurli.arsmagicalegacy.api.client.event;
 
+import at.minecraftschurli.arsmagicalegacy.api.client.SpellIngredientRenderer;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import com.mojang.serialization.MapCodec;
 import net.neoforged.bus.api.Event;

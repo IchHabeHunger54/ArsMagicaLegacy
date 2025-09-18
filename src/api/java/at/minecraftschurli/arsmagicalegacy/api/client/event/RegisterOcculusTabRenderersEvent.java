@@ -1,5 +1,6 @@
-package at.minecraftschurli.arsmagicalegacy.api.client;
+package at.minecraftschurli.arsmagicalegacy.api.client.event;
 
+import at.minecraftschurli.arsmagicalegacy.api.client.OcculusTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.Event;

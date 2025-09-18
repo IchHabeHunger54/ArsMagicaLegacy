@@ -60,6 +60,7 @@ public class SpellPartDataBuilder extends AbstractDataProvider.Builder<SpellPart
         return this;
     }
 
+    @Override
     public SpellPartData build() {
         return new SpellPartData(mana, Optional.ofNullable(burnout), affinityShifts, recipe);
     }

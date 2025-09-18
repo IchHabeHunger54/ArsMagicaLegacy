@@ -27,6 +27,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellShapeGroup;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
+import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.spell.ItemSpellIngredient;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
@@ -121,6 +122,7 @@ final class SpellHelperImpl implements SpellHelper {
             SpellComponent component = pair.getFirst();
             List<SpellModifier> modifiers = pair.getSecond();
             spell = component.cast(spell, modifiers, caster, directEntity, hitResult);
+            component.spawnParticles(spell, modifiers, caster, directEntity, hitResult);
             NeoForge.EVENT_BUS.post(new SpellPartCastEvent.Component(caster, spell, component, modifiers, directEntity, hitResult));
         }
         return spell;
@@ -140,6 +142,11 @@ final class SpellHelperImpl implements SpellHelper {
             }
         }
         return modified;
+    }
+
+    @Override
+    public int getColor(List<SpellModifier> modifiers, Spell spell, int shapeGroupIndex) {
+        return spell.dataComponents().get(shapeGroupIndex).getOrDefault(AMSpells.COLOR_COMPONENT.get(), -1);
     }
 
     @Override

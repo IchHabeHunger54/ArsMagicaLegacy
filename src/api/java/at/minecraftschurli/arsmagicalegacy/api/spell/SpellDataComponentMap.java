@@ -32,6 +32,19 @@ public record SpellDataComponentMap(List<PatchedDataComponentMap> shapeGroups, P
         SpellDataComponentMap::new);
     public static final SpellDataComponentMap EMPTY = new SpellDataComponentMap(List.of(), new PatchedDataComponentMap(DataComponentMap.EMPTY));
 
+    /**
+     * @param index The index of the data components to return. If positive, will return the corresponding shape group. If negative, will return the grammar.
+     * @return The {@link PatchedDataComponentMap} for the specified index.
+     */
+    public PatchedDataComponentMap get(int index) {
+        return index < 0 ? grammar : shapeGroups.get(index);
+    }
+
+    /**
+     * @param index    The index of the data components to modify. If positive, will modify the corresponding shape group. If negative, will modify the grammar.
+     * @param consumer The modifications to apply.
+     * @return A new spell data component map with the modifications to the data components applied.
+     */
     public SpellDataComponentMap update(int index, Consumer<PatchedDataComponentMap> consumer) {
         return index < 0 ? updateGrammar(consumer) : updateShapeGroup(index, consumer);
     }

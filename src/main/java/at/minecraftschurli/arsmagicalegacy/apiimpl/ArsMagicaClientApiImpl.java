@@ -4,19 +4,22 @@ import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.OcculusTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.api.client.ParticleController;
 import at.minecraftschurli.arsmagicalegacy.api.client.ParticleSpawner;
+import at.minecraftschurli.arsmagicalegacy.api.client.SpellIngredientRenderer;
+import at.minecraftschurli.arsmagicalegacy.api.client.SpellPartCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterOcculusTabRenderersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterParticleControllersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterSpellIngredientRenderersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterSpellPartCustomizationScreensEvent;
-import at.minecraftschurli.arsmagicalegacy.api.client.SpellIngredientRenderer;
-import at.minecraftschurli.arsmagicalegacy.api.client.SpellPartCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.client.particle.AMParticle;
 import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleSpawnerManager;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.ModLoader;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,12 +44,6 @@ public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
         return PARTICLE_CONTROLLERS.get(id);
     }
 
-    @Override
-    @Nullable
-    protected ParticleSpawner getParticleSpawner(ResourceLocation id) {
-        return ParticleSpawnerManager.INSTANCE.get(id);
-    }
-
     @SuppressWarnings("unchecked")
     @Override
     @Nullable
@@ -58,6 +55,14 @@ public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
     @Nullable
     protected SpellPartCustomizationScreen.Factory<?, ?> getSpellPartCustomizationScreen(Holder<SpellPart> spellPart) {
         return SPELL_PART_CUSTOMIZATION_SCREENS.get(spellPart);
+    }
+
+    @Override
+    protected void doSpawnParticles(ResourceLocation id, Vec3 position, int color) {
+        ParticleSpawner spawner = ParticleSpawnerManager.INSTANCE.get(id);
+        if (spawner != null) {
+            AMParticle.spawn(AMClientUtil.level(), position.x(), position.y(), position.z(), spawner, color);
+        }
     }
 
     public static void postEvents() {

@@ -82,6 +82,14 @@ public interface SpellHelper {
     double getModifiedStat(double base, SpellStat stat, List<SpellModifier> modifiers, Spell spell, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult);
 
     /**
+     * @param modifiers       The {@link SpellModifier}s to check.
+     * @param spell           The {@link Spell} to cast.
+     * @param shapeGroupIndex The index of the shape group to query the data components for. Pass a negative to use the grammar's data components instead.
+     * @return The color of the {@link Spell}'s visual effects.
+     */
+    int getColor(List<SpellModifier> modifiers, Spell spell, int shapeGroupIndex);
+
+    /**
      * @return The mana to burnout conversion ratio, used in spell cost calculation.
      */
     double getManaToBurnoutRatio();

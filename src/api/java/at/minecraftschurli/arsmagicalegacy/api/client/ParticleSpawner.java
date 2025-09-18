@@ -3,15 +3,14 @@ package at.minecraftschurli.arsmagicalegacy.api.client;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.advancements.critereon.MinMaxBounds;
-import net.minecraft.core.Holder;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
 public record ParticleSpawner(
-    Holder<ParticleType<?>> particle,
+    ParticleOptions particle,
     int count,
     int lifetime,
     Vec3 offset,
@@ -27,7 +26,7 @@ public record ParticleSpawner(
 ) {
     public static final MinMaxBounds.Doubles DEFAULT_BOUNDS = MinMaxBounds.Doubles.exactly(0);
     public static final Codec<ParticleSpawner> CODEC = RecordCodecBuilder.create(inst -> inst.group(
-        BuiltInRegistries.PARTICLE_TYPE.holderByNameCodec().fieldOf("particle").forGetter(ParticleSpawner::particle),
+        ParticleTypes.CODEC.fieldOf("particle").forGetter(ParticleSpawner::particle),
         Codec.INT.fieldOf("count").forGetter(ParticleSpawner::count),
         Codec.INT.fieldOf("lifetime").forGetter(ParticleSpawner::lifetime),
         Vec3.CODEC.optionalFieldOf("offset", Vec3.ZERO).forGetter(ParticleSpawner::offset),

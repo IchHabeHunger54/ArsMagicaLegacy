@@ -1,6 +1,9 @@
-package at.minecraftschurli.arsmagicalegacy.api.spell;
+package at.minecraftschurli.arsmagicalegacy.api.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -14,8 +17,7 @@ import java.util.Optional;
 /**
  * Builder class for {@link SpellPartData}, for use in {@link SpellPartDataProvider}. Get an instance via {@link SpellPartDataProvider#builder(DeferredHolder, double)}.
  */
-public class SpellPartDataBuilder {
-    public final ResourceLocation id;
+public class SpellPartDataBuilder extends AbstractDataProvider.Builder<SpellPartData> {
     private final Map<Holder<Affinity>, Double> affinityShifts = new HashMap<>();
     private final List<SpellIngredient> recipe = new ArrayList<>();
     private final double mana;
@@ -26,7 +28,7 @@ public class SpellPartDataBuilder {
      * @param mana The mana cost of the {@link SpellPart}.
      */
     public SpellPartDataBuilder(ResourceLocation id, double mana) {
-        this.id = id;
+        super(id);
         this.mana = mana;
     }
 

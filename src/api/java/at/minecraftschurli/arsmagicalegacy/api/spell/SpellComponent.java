@@ -1,5 +1,8 @@
 package at.minecraftschurli.arsmagicalegacy.api.spell;
 
+import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
+import com.google.common.collect.Sets;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.BlockHitResult;
@@ -22,7 +25,8 @@ public abstract non-sealed class SpellComponent extends SpellPart {
      * @param stats A vararg of {@link SpellStat}s used by the component.
      */
     public SpellComponent(SpellStat... stats) {
-        this.stats = Set.of(stats);
+        this.stats = Sets.newHashSet(stats);
+        this.stats.add(SpellStat.COLOR);
     }
 
     @Override
@@ -51,7 +55,7 @@ public abstract non-sealed class SpellComponent extends SpellPart {
     }
 
     /**
-     * Casts this part.
+     * Casts the part.
      *
      * @param spell        The {@link Spell} being cast.
      * @param modifiers    The {@link SpellModifier}s to consider.
@@ -61,6 +65,21 @@ public abstract non-sealed class SpellComponent extends SpellPart {
      * @return The {@link Spell} that was cast, potentially modified.
      */
     public abstract Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult);
+
+    /**
+     * Spawns particles for the part.
+     *
+     * @param spell        The {@link Spell} being cast.
+     * @param modifiers    The {@link SpellModifier}s to consider.
+     * @param caster       The {@link LivingEntity} casting the {@link Spell}.
+     * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
+     * @param hitResult    The {@link HitResult} of the spell cast.
+     */
+    public void spawnParticles(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+        if (caster.level().isClientSide() && hitResult != null && hitResult.getType() != HitResult.Type.MISS) {
+            ComponentParticleSpawner.spawnParticles(this, spell, modifiers, hitResult);
+        }
+    }
 
     /**
      * Represents a spell component that only affects blocks.
@@ -76,6 +95,13 @@ public abstract non-sealed class SpellComponent extends SpellPart {
         @Override
         public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
             return hitResult instanceof BlockHitResult blockHitResult ? castBlock(spell, modifiers, caster, directEntity, blockHitResult) : spell;
+        }
+
+        @Override
+        public void spawnParticles(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+            if (hitResult instanceof BlockHitResult) {
+                super.spawnParticles(spell, modifiers, caster, directEntity, hitResult);
+            }
         }
 
         /**
@@ -105,6 +131,13 @@ public abstract non-sealed class SpellComponent extends SpellPart {
         @Override
         public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
             return hitResult instanceof EntityHitResult entityHitResult ? castEntity(spell, modifiers, caster, directEntity, entityHitResult) : spell;
+        }
+
+        @Override
+        public void spawnParticles(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+            if (hitResult instanceof EntityHitResult) {
+                super.spawnParticles(spell, modifiers, caster, directEntity, hitResult);
+            }
         }
 
         /**
@@ -163,5 +196,26 @@ public abstract non-sealed class SpellComponent extends SpellPart {
          * @return The {@link Spell} that was cast, potentially modified.
          */
         public abstract Spell castEntity(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, EntityHitResult hitResult);
+    }
+
+    /**
+     * Classloading guard for reaching into {@link ArsMagicaClientApi} to spawn particles.
+     */
+    protected static class ComponentParticleSpawner {
+        /**
+         * Spawns particles for the given component.
+         * @param part      The spell part to spawn the particles for.
+         * @param spell     The {@link Spell} being cast.
+         * @param modifiers The {@link SpellModifier}s to consider.
+         * @param hitResult The {@link HitResult} of the spell cast.
+         */
+        @SuppressWarnings("DataFlowIssue")
+        protected static void spawnParticles(SpellPart part, Spell spell, List<SpellModifier> modifiers, HitResult hitResult) {
+            ArsMagicaClientApi.spawnParticles(ArsMagicaApi.spellPartRegistry().wrapAsHolder(part).getKey().location(), switch (hitResult) {
+                case BlockHitResult blockHitResult -> blockHitResult.getBlockPos().getBottomCenter();
+                case EntityHitResult entityHitResult -> hitResult.getLocation().add(0, entityHitResult.getEntity().getEyeHeight(), 0);
+                default -> hitResult.getLocation();
+            }, ArsMagicaApi.spellHelper().getColor(modifiers, spell, -1));
+        }
     }
 }

@@ -45,7 +45,7 @@ public abstract class ParticleController {
         return killOnFinish;
     }
 
-    public abstract void tick(ControlledParticle particle, int tickCount);
+    public abstract void tick(ParticleControllerInstance instance);
 
     public abstract Type type();
 

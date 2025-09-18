@@ -82,7 +82,6 @@ public interface AMSpells {
 
     // @formatter:off
     SpellStat BOUNCE_STAT           = new SpellStat(ArsMagicaApi.modLoc("bounce"));
-    SpellStat COLOR_STAT            = new SpellStat(ArsMagicaApi.modLoc("color"), true);
     SpellStat DAMAGE_STAT           = new SpellStat(ArsMagicaApi.modLoc("damage"));
     SpellStat DISMEMBERING_STAT     = new SpellStat(ArsMagicaApi.modLoc("dismembering"));
     SpellStat DURATION_STAT         = new SpellStat(ArsMagicaApi.modLoc("duration"));

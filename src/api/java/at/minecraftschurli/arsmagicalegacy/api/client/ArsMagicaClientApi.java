@@ -3,9 +3,9 @@ package at.minecraftschurli.arsmagicalegacy.api.client;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.util.Lazy;
 import org.jetbrains.annotations.ApiStatus;
@@ -42,15 +42,6 @@ public abstract class ArsMagicaClientApi {
     }
 
     /**
-     * @param id The id of the {@link ParticleSpawner} to get.
-     * @return The {@link ParticleSpawner} for the given id.
-     */
-    @Nullable
-    public static ParticleSpawner particleSpawner(ResourceLocation id) {
-        return INSTANCE.get().getParticleSpawner(id);
-    }
-
-    /**
      * @param ingredient The {@link SpellIngredient} to get the {@link SpellIngredientRenderer} for.
      * @return The {@link SpellIngredientRenderer} for the given {@link SpellIngredient}.
      * @param <T> The exact type of the {@link SpellIngredient}.
@@ -69,6 +60,15 @@ public abstract class ArsMagicaClientApi {
         return INSTANCE.get().getSpellPartCustomizationScreen(spellPart);
     }
 
+    /**
+     * @param id       The id of the {@link ParticleSpawner} to use.
+     * @param position The position of the particles.
+     * @param color    The particle color to use. Use -1 to not set a color.
+     */
+    public static void spawnParticles(ResourceLocation id, Vec3 position, int color) {
+        INSTANCE.get().doSpawnParticles(id, position, color);
+    }
+
     @ApiStatus.Internal
     @Nullable
     protected abstract OcculusTabRenderer.Factory getOcculusTabRendererFactory(Holder<OcculusTab> tab);
@@ -79,13 +79,12 @@ public abstract class ArsMagicaClientApi {
 
     @ApiStatus.Internal
     @Nullable
-    protected abstract ParticleSpawner getParticleSpawner(ResourceLocation id);
-
-    @ApiStatus.Internal
-    @Nullable
     protected abstract <T extends SpellIngredient> SpellIngredientRenderer<T> getSpellIngredientRenderer(T ingredient);
 
     @ApiStatus.Internal
     @Nullable
     protected abstract SpellPartCustomizationScreen.Factory<?, ?> getSpellPartCustomizationScreen(Holder<SpellPart> spellPart);
+
+    @ApiStatus.Internal
+    protected abstract void doSpawnParticles(ResourceLocation id, Vec3 position, int color);
 }

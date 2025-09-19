@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.client;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterOcculusTabRenderersEvent;
+import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterParticleControllersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterSpellIngredientRenderersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterSpellPartCustomizationScreensEvent;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
@@ -19,6 +20,7 @@ import at.minecraftschurli.arsmagicalegacy.client.layer.BarsLayer;
 import at.minecraftschurli.arsmagicalegacy.client.model.AltarCoreModel;
 import at.minecraftschurli.arsmagicalegacy.client.model.DataComponentOverrides;
 import at.minecraftschurli.arsmagicalegacy.client.model.ItemOverridesModel;
+import at.minecraftschurli.arsmagicalegacy.client.particle.FloatUpwardController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleSpawnerManager;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.AltarCoreRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.ItemSpellIngredientRenderer;
@@ -108,6 +110,11 @@ final class AMClientEventHandler {
     private static void registerOcculusTabRenderers(RegisterOcculusTabRenderersEvent event) {
         event.register(ArsMagicaApi.modLoc("skill_tree"), SkillTreeTabRenderer::new);
         event.register(ArsMagicaApi.modLoc("affinity"), AffinityTabRenderer::new);
+    }
+
+    @SubscribeEvent
+    private static void registerParticleControllers(RegisterParticleControllersEvent event) {
+        event.register(FloatUpwardController.ID, FloatUpwardController.CODEC);
     }
 
     @SubscribeEvent

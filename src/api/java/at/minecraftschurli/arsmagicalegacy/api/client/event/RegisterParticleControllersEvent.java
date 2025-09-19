@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Event that fires when {@link ParticleController}s are registered.
+ * Event that fires when {@link ParticleController.Type}s are registered.
  * <p>
  * This event is not cancelable. This event is fired on the mod event bus, only on the physical client.
  */
@@ -19,10 +19,10 @@ public class RegisterParticleControllersEvent extends Event implements IModBusEv
     private final Map<ResourceLocation, ParticleController.Type> controllers = new HashMap<>();
 
     /**
-     * Registers a {@link ParticleController}.
+     * Registers a {@link ParticleController.Type}.
      *
-     * @param key   The id of the {@link ParticleController}.
-     * @param codec A {@link MapCodec} for the {@link ParticleController}.
+     * @param key   The id of the {@link ParticleController.Type}.
+     * @param codec A {@link MapCodec} for the {@link ParticleController.Type}.
      */
     public synchronized void register(ResourceLocation key, MapCodec<? extends ParticleController> codec) {
         controllers.put(key, new ParticleController.Type(key, codec));

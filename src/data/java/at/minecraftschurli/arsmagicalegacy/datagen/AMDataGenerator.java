@@ -2,9 +2,11 @@ package at.minecraftschurli.arsmagicalegacy.datagen;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
 import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMBlockStateProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMItemModelProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMLanguageProvider;
+import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMParticleSpawnerProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMSoundDefinitionProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMSpriteSourceProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMAbilityProvider;
@@ -37,6 +39,9 @@ import java.util.concurrent.CompletableFuture;
 final class AMDataGenerator {
     @SubscribeEvent
     private static void gatherData(GatherDataEvent event) {
+        if (event.includeClient()) {
+            ArsMagicaClientApiImpl.postEvents(); // Populate the api
+        }
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
@@ -44,6 +49,7 @@ final class AMDataGenerator {
         generator.addProvider(event.includeClient(), new AMBlockStateProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new AMItemModelProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new AMLanguageProvider(output));
+        generator.addProvider(event.includeClient(), new AMParticleSpawnerProvider(output, lookupProvider));
         generator.addProvider(event.includeClient(), new AMSoundDefinitionProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new AMSpriteSourceProvider(output, lookupProvider, existingFileHelper));
         generator.addProvider(event.includeServer(), new AMAdvancementProvider(output, lookupProvider, existingFileHelper));

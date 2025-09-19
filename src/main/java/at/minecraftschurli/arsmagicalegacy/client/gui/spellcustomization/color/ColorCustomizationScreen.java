@@ -50,7 +50,7 @@ public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScre
     @Override
     protected void init() {
         leftPos = (width - WIDTH) / 2;
-        topPos = (height - HEIGHT - 24) / 2;
+        topPos = (height - HEIGHT - 48) / 2;
         colorWheel = addRenderableWidget(new ColorWheel(leftPos + 58, topPos + 58, 50, this::setColorHsb));
         editBox = addRenderableWidget(new EditBox(AMClientUtil.font(), leftPos + 26, topPos + 111, 60, 14, Component.empty()));
         editBox.setFilter(s -> {

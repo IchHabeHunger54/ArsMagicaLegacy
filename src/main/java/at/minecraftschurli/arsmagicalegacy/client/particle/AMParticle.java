@@ -1,6 +1,8 @@
 package at.minecraftschurli.arsmagicalegacy.client.particle;
 
 import at.minecraftschurli.arsmagicalegacy.api.client.ControlledParticle;
+import at.minecraftschurli.arsmagicalegacy.api.client.ParticleController;
+import at.minecraftschurli.arsmagicalegacy.api.client.ParticleControllerInstance;
 import at.minecraftschurli.arsmagicalegacy.api.client.ParticleSpawner;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -10,12 +12,18 @@ import net.minecraft.client.particle.SimpleAnimatedParticle;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class AMParticle extends SimpleAnimatedParticle implements ControlledParticle {
+    private final List<ParticleControllerInstance> controllers = new ArrayList<>();
+
     @SuppressWarnings("DataFlowIssue")
     private AMParticle(ClientLevel level, double x, double y, double z, @Nullable SpriteSet sprites) {
         super(level, x, y, z, sprites, 0);
@@ -36,9 +44,129 @@ public class AMParticle extends SimpleAnimatedParticle implements ControlledPart
         for (int i = 0; i < spawner.count(); i++) {
             AMParticle particle = new AMParticle(level, x, y, z, sprites);
             particle.setSprite(sprite);
-            particle.setColor(color);
-            // TODO set other options
+            particle.setLifetime(spawner.lifetime());
+            particle.addOffset(spawner.minOffset(), spawner.maxOffset());
+            particle.setSpeed(spawner.minSpeed(), spawner.maxSpeed());
+            particle.gravity = spawner.gravity();
+            particle.scale(spawner.scale());
+            if (color != -1) {
+                particle.setColor(color);
+            } else if (spawner.color() != -1) {
+                particle.setColor(spawner.color());
+            }
+            particle.setAlpha(spawner.alpha());
+            spawner.controllers().forEach(particle::addController);
             particleEngine.add(particle);
+        }
+    }
+
+    public void addOffset(Vec3 minOffset, Vec3 maxOffset) {
+        setPos(x + Mth.lerp(random.nextDouble(), minOffset.x, maxOffset.x), y + Mth.lerp(random.nextDouble(), minOffset.y, maxOffset.y), z + Mth.lerp(random.nextDouble(), minOffset.z, maxOffset.z));
+    }
+
+    public void setSpeed(Vec3 minSpeed, Vec3 maxSpeed) {
+        setParticleSpeed(Mth.lerp(random.nextDouble(), minSpeed.x, maxSpeed.x), Mth.lerp(random.nextDouble(), minSpeed.y, maxSpeed.y), Mth.lerp(random.nextDouble(), minSpeed.z, maxSpeed.z));
+    }
+
+    public void addController(ParticleController controller) {
+        controllers.add(new ParticleControllerInstance(this, controller));
+    }
+
+    @Override
+    public boolean isRemoved() {
+        return removed;
+    }
+
+    @Override
+    public void setRemoved(boolean removed) {
+        this.removed = removed;
+    }
+
+    @Override
+    public double x() {
+        return x;
+    }
+
+    @Override
+    public double y() {
+        return y;
+    }
+
+    @Override
+    public double z() {
+        return z;
+    }
+
+    @Override
+    public ClientLevel level() {
+        return level;
+    }
+
+    @Override
+    public RandomSource random() {
+        return random;
+    }
+
+    @Override
+    public void setPos(double x, double y, double z) {
+        super.setPos(x, y, z);
+        float f = bbWidth / 2;
+        setBoundingBox(new AABB(x - f, y, z - f, x + f, y + bbWidth, z + f));
+    }
+
+    @Override
+    public Particle scale(float scale) {
+        setSize(0.2f * scale, 0.2f * scale);
+        return this;
+    }
+
+    @Override
+    protected void setSize(float width, float height) {
+        if (width == bbWidth && height == bbHeight) return;
+        bbWidth = width;
+        bbHeight = height;
+        AABB aabb = getBoundingBox();
+        double x = (aabb.minX + aabb.maxX - width) / 2;
+        double z = (aabb.minZ + aabb.maxZ - width) / 2;
+        setBoundingBox(new AABB(x, aabb.minY, z, x + width, aabb.minY + height, z + width));
+    }
+
+    @Override
+    protected void setLocationFromBoundingbox() {
+        AABB aabb = getBoundingBox();
+        setPos((aabb.minX + aabb.maxX) / 2, aabb.minY, (aabb.minZ + aabb.maxZ) / 2);
+    }
+
+    @SuppressWarnings("ConstantValue")
+    @Override
+    public void tick() {
+        xo = x;
+        yo = y;
+        zo = z;
+        age++;
+        if (age >= lifetime && lifetime > -1) {
+            setRemoved(true);
+            return;
+        }
+        for (ParticleControllerInstance controller : controllers) {
+            controller.tick();
+            if (!controller.isFinished() && controller.controller.stopOtherControllers()) break;
+        }
+        yd -= 0.04 * gravity;
+        move(xd, yd, zd);
+        if (speedUpWhenYMotionIsBlocked && y == yo) {
+            xd *= 1.1;
+            zd *= 1.1;
+        }
+        xd *= friction;
+        yd *= friction;
+        zd *= friction;
+        if (onGround) {
+            xd *= 0.7;
+            zd *= 0.7;
+        }
+        if (sprites != null) {
+            setSpriteFromAge(sprites);
         }
     }
 }

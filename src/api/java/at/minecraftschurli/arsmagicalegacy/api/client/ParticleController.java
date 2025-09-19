@@ -1,6 +1,8 @@
 package at.minecraftschurli.arsmagicalegacy.api.client;
 
+import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterParticleControllersEvent;
 import com.mojang.datafixers.Products;
+import com.mojang.datafixers.kinds.App;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
@@ -9,46 +11,68 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.Optional;
 
-public abstract class ParticleController {
-    public static final Codec<ParticleController> CODEC = ResourceLocation.CODEC.comapFlatMap(
+/**
+ * Represents a particle controller, as serialized from a {@link ParticleSpawner}. To make a tickable instance, see {@link ParticleControllerInstance}.
+ * <p>
+ * Register {@link ParticleController}s during {@link RegisterParticleControllersEvent}, using the {@link ParticleController.Type} record.
+ */
+public interface ParticleController {
+    Codec<ParticleController> CODEC = ResourceLocation.CODEC.comapFlatMap(
         id -> Optional.ofNullable(ArsMagicaClientApi.particleController(id))
             .map(DataResult::success)
             .orElseGet(() -> DataResult.error(() -> "Unknown particle controller: " + id)),
         ParticleController.Type::id
-    ).dispatch(ParticleController::type, ParticleController.Type::codec);
-    private final ResourceLocation id;
-    protected final boolean stopOtherControllers;
-    protected final boolean killOnFinish;
+    ).dispatch(controller -> ArsMagicaClientApi.particleController(controller.id()), ParticleController.Type::codec);
 
-    public ParticleController(ResourceLocation id, boolean stopOtherControllers, boolean killOnFinish) {
-        this.id = id;
-        this.stopOtherControllers = stopOtherControllers;
-        this.killOnFinish = killOnFinish;
-    }
-
-    public static <T extends ParticleController> Products.P3<RecordCodecBuilder.Mu<T>, ResourceLocation, Boolean, Boolean> baseFields(RecordCodecBuilder.Instance<T> instance) {
+    /**
+     * @param instance The {@link RecordCodecBuilder.Instance} to use.
+     * @return A codec builder with the base fields for every controller set. Call {@link Products.P3#and(App)} to add further fields.
+     * @param <T> The exact type of the controller.
+     */
+    static <T extends ParticleController> Products.P3<RecordCodecBuilder.Mu<T>, ResourceLocation, Boolean, Boolean> baseFields(RecordCodecBuilder.Instance<T> instance) {
         return instance.group(
-            ResourceLocation.CODEC.fieldOf("id").forGetter(ParticleController::getId),
+            ResourceLocation.CODEC.fieldOf("type").forGetter(ParticleController::id),
             Codec.BOOL.fieldOf("stop_other_controllers").forGetter(ParticleController::stopOtherControllers),
             Codec.BOOL.fieldOf("kill_on_finish").forGetter(ParticleController::killOnFinish));
     }
 
-    protected ResourceLocation getId() {
-        return id;
+    /**
+     * Ticks the given {@link ParticleControllerInstance}.
+     *
+     * @param instance The {@link ParticleControllerInstance} to tick.
+     */
+    void tick(ParticleControllerInstance instance);
+
+    /**
+     * Ticks the given {@link ParticleControllerInstance} on its first tick. Override this for special behavior on first tick.
+     *
+     * @param instance The {@link ParticleControllerInstance} to tick.
+     */
+    default void tickFirst(ParticleControllerInstance instance) {
+        tick(instance);
     }
 
-    public boolean stopOtherControllers() {
-        return stopOtherControllers;
-    }
+    /**
+     * @return The registered id of the controller.
+     */
+    ResourceLocation id();
 
-    public boolean killOnFinish() {
-        return killOnFinish;
-    }
+    /**
+     * @return Whether all further controllers are stopped when this controller is run.
+     */
+    boolean stopOtherControllers();
 
-    public abstract void tick(ParticleControllerInstance instance);
+    /**
+     * @return Whether the particle should be removed after this controller has finished.
+     */
+    boolean killOnFinish();
 
-    public abstract Type type();
-
-    public record Type(ResourceLocation id, MapCodec<? extends ParticleController> codec) {
+    /**
+     * The registered type of a {@link ParticleController}.
+     *
+     * @param id    The id of the controller.
+     * @param codec The {@link MapCodec} of the controller.
+     */
+    record Type(ResourceLocation id, MapCodec<? extends ParticleController> codec) {
     }
 }

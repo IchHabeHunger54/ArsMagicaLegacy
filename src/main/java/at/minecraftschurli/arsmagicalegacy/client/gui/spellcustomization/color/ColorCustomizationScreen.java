@@ -15,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -42,7 +43,7 @@ public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScre
     private BrightnessSlider brightnessSlider;
     private EditBox editBox;
 
-    public ColorCustomizationScreen(Function<DataComponentType<Integer>, Integer> valueGetter, BiConsumer<DataComponentType<Integer>, Integer> valueSetter) {
+    public ColorCustomizationScreen(Function<DataComponentType<Integer>, @Nullable Integer> valueGetter, BiConsumer<DataComponentType<Integer>, @Nullable Integer> valueSetter) {
         super(AMTranslations.SPELL_CUSTOMIZATION_COLOR, AMSpells.COLOR_COMPONENT.get(), valueGetter, valueSetter);
     }
 
@@ -75,11 +76,16 @@ public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScre
             addRenderableWidget(new ColorButton(buttonX + (i % COLUMNS) * 11, buttonY + (i / COLUMNS) * 11, dyeColor.getTextureDiffuseColor(), this::setColorRgb, DyeItem.byColor(dyeColor).getDescription()));
             i++;
         }
+        addRenderableWidget(Button.builder(AMTranslations.SPELL_CUSTOMIZATION_COLOR_CLEAR, $ -> {
+            value = null;
+            setValue();
+            onClose();
+        }).bounds(leftPos - 10, topPos + HEIGHT + 4, 200, 20).build());
         addRenderableWidget(Button.builder(CommonComponents.GUI_CANCEL, $ -> {
             value = null;
             onClose();
-        }).bounds(leftPos - 10, topPos + HEIGHT + 4, 98, 20).build());
-        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, $ -> onClose()).bounds(leftPos + 92, topPos + HEIGHT + 4, 98, 20).build());
+        }).bounds(leftPos - 10, topPos + HEIGHT + 28, 98, 20).build());
+        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, $ -> onClose()).bounds(leftPos + 92, topPos + HEIGHT + 28, 98, 20).build());
         setColorRgb(value == null ? 0xffffff : value, true);
     }
 

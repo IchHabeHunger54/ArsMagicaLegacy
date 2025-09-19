@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.api.client;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -25,7 +26,7 @@ public abstract class AbstractSpellPartCustomizationScreen<T> extends Screen imp
      * @param valueGetter A {@link Function} that extracts the data component value, for initial storage.
      * @param valueSetter A {@link BiConsumer} that is called when the screen is closed, and is responsible for returning the data component value to the parent screen.
      */
-    public AbstractSpellPartCustomizationScreen(Component title, DataComponentType<T> type, Function<DataComponentType<T>, T> valueGetter, BiConsumer<DataComponentType<T>, T> valueSetter) {
+    public AbstractSpellPartCustomizationScreen(Component title, DataComponentType<T> type, Function<DataComponentType<T>, @Nullable T> valueGetter, BiConsumer<DataComponentType<T>, @Nullable T> valueSetter) {
         super(title);
         this.type = type;
         this.value = valueGetter.apply(type);
@@ -35,8 +36,15 @@ public abstract class AbstractSpellPartCustomizationScreen<T> extends Screen imp
     @Override
     public void onClose() {
         if (value != null) {
-            setter.accept(type, value);
+            setValue();
         }
         super.onClose();
+    }
+
+    /**
+     * Sets the value as if the screen were closed. This does not null-check the value.
+     */
+    protected void setValue() {
+        setter.accept(type, value);
     }
 }

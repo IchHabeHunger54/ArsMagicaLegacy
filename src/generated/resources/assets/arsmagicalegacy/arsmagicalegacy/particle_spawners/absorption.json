@@ -22,6 +22,6 @@
     -0.5
   ],
   "particle": {
-    "type": "minecraft:heart"
+    "type": "arsmagicalegacy:stardust"
   }
 }

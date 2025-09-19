@@ -6,6 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
 import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMBlockStateProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMItemModelProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMLanguageProvider;
+import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMParticleDescriptionProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMParticleSpawnerProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMSoundDefinitionProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMSpriteSourceProvider;
@@ -49,6 +50,7 @@ final class AMDataGenerator {
         generator.addProvider(event.includeClient(), new AMBlockStateProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new AMItemModelProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new AMLanguageProvider(output));
+        generator.addProvider(event.includeClient(), new AMParticleDescriptionProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new AMParticleSpawnerProvider(output, lookupProvider));
         generator.addProvider(event.includeClient(), new AMSoundDefinitionProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new AMSpriteSourceProvider(output, lookupProvider, existingFileHelper));

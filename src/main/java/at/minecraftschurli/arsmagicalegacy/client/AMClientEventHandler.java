@@ -22,6 +22,8 @@ import at.minecraftschurli.arsmagicalegacy.client.model.DataComponentOverrides;
 import at.minecraftschurli.arsmagicalegacy.client.model.ItemOverridesModel;
 import at.minecraftschurli.arsmagicalegacy.client.particle.FloatUpwardController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleSpawnerManager;
+import at.minecraftschurli.arsmagicalegacy.client.particle.SimpleParticleProvider;
+import at.minecraftschurli.arsmagicalegacy.client.particle.SymbolsParticleProvider;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.AltarCoreRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.ItemSpellIngredientRenderer;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
@@ -30,6 +32,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
+import at.minecraftschurli.arsmagicalegacy.init.AMParticles;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.platform.InputConstants;
@@ -52,6 +55,7 @@ import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.event.RegisterShadersEvent;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.client.settings.KeyModifier;
@@ -107,6 +111,37 @@ final class AMClientEventHandler {
     }
 
     @SubscribeEvent
+    private static void registerParticleProviders(RegisterParticleProvidersEvent event) {
+        event.registerSpriteSet(AMParticles.NONE_HAND.get(),      SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.WATER_HAND.get(),     SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.FIRE_HAND.get(),      SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.EARTH_HAND.get(),     SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.AIR_HAND.get(),       SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.ICE_HAND.get(),       SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.LIGHTNING_HAND.get(), SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.NATURE_HAND.get(),    SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.LIFE_HAND.get(),      SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.ARCANE_HAND.get(),    SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.ENDER_HAND.get(),     SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.ARCANE.get(),         SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.CLOCK.get(),          SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.EMBER.get(),          SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.EXPLOSION.get(),      SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.GHOST.get(),          SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.LEAF.get(),           SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.LENS_FLARE.get(),     SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.LIGHTS.get(),         SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.PLANT.get(),          SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.PULSE.get(),          SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.ROCK.get(),           SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.ROTATING_RINGS.get(), SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.STARDUST.get(),       SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.WATER_BALL.get(),     SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.WIND.get(),           SimpleParticleProvider::new);
+        event.registerSpriteSet(AMParticles.SYMBOLS.get(),        SymbolsParticleProvider::new);
+    }
+
+    @SubscribeEvent
     private static void registerOcculusTabRenderers(RegisterOcculusTabRenderersEvent event) {
         event.register(ArsMagicaApi.modLoc("skill_tree"), SkillTreeTabRenderer::new);
         event.register(ArsMagicaApi.modLoc("affinity"), AffinityTabRenderer::new);
@@ -142,6 +177,7 @@ final class AMClientEventHandler {
         event.getModels().computeIfPresent(BlockModelShaper.stateToModelLocation(AMBlocks.ALTAR_CORE.get().defaultBlockState().setValue(AltarCoreBlock.FORMED, true)), ($, model) -> new AltarCoreModel(model));
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @SubscribeEvent
     private static void clientTickPost(ClientTickEvent.Post event) {
         LocalPlayer player = AMClientUtil.player();

@@ -6,6 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import com.mojang.serialization.MapCodec;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
@@ -31,6 +32,7 @@ public interface AMRegistries {
     DeferredRegister<CreativeModeTab>                     CREATIVE_TABS     = DeferredRegister.create(Registries.CREATIVE_MODE_TAB,             ArsMagicaApi.MOD_ID);
     DeferredRegister<MenuType<?>>                         MENUS             = DeferredRegister.create(Registries.MENU,                          ArsMagicaApi.MOD_ID);
     DeferredRegister<MobEffect>                           MOB_EFFECTS       = DeferredRegister.create(Registries.MOB_EFFECT,                    ArsMagicaApi.MOD_ID);
+    DeferredRegister<ParticleType<?>>                     PARTICLES         = DeferredRegister.create(Registries.PARTICLE_TYPE,                 ArsMagicaApi.MOD_ID);
     DeferredRegister<Potion>                              POTIONS           = DeferredRegister.create(Registries.POTION,                        ArsMagicaApi.MOD_ID);
     DeferredRegister<SoundEvent>                          SOUND_EVENTS      = DeferredRegister.create(Registries.SOUND_EVENT,                   ArsMagicaApi.MOD_ID);
     DeferredRegister<Feature<?>>                          FEATURES          = DeferredRegister.create(Registries.FEATURE,                       ArsMagicaApi.MOD_ID);
@@ -54,6 +56,7 @@ public interface AMRegistries {
         AMCreativeTabs.init();
         AMMenus.init();
         AMMobEffects.init();
+        AMParticles.init();
         AMSounds.init();
         AMWorldgen.init();
         AMAttachments.init();
@@ -68,6 +71,7 @@ public interface AMRegistries {
         CREATIVE_TABS.register(bus);
         MENUS.register(bus);
         MOB_EFFECTS.register(bus);
+        PARTICLES.register(bus);
         POTIONS.register(bus);
         SOUND_EVENTS.register(bus);
         FEATURES.register(bus);

@@ -29,7 +29,7 @@ public record Spell(Optional<Component> name, Optional<ResourceLocation> icon, L
     public static final Spell EMPTY = new Spell(Optional.empty(), Optional.empty(), List.of(SpellShapeGroup.EMPTY), 0, SpellGrammar.EMPTY, SpellDataComponentMap.EMPTY);
     public static final Codec<Spell> CODEC = RecordCodecBuilder.create(inst -> inst.group(
         ComponentSerialization.CODEC.optionalFieldOf("name").forGetter(Spell::name),
-        ResourceLocation.CODEC.optionalFieldOf("name").forGetter(Spell::icon),
+        ResourceLocation.CODEC.optionalFieldOf("icon").forGetter(Spell::icon),
         SpellShapeGroup.CODEC.listOf(0, MAX_SHAPE_GROUPS).fieldOf("shape_groups").forGetter(Spell::shapeGroups),
         ExtraCodecs.intRange(0, MAX_SHAPE_GROUPS - 1).fieldOf("active_shape_group").forGetter(Spell::activeShapeGroup),
         SpellGrammar.CODEC.fieldOf("grammar").forGetter(Spell::grammar),

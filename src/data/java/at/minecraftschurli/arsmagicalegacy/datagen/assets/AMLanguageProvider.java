@@ -568,6 +568,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA_KEY, "Not enough mana to cast the spell!");
         add(AMTranslations.SPELL_CAST_SILENCED_KEY, "Silenced!");
         add(AMTranslations.SPELL_CUSTOMIZATION_COLOR_KEY, "Customize Color");
+        add(AMTranslations.SPELL_CUSTOMIZATION_COLOR_CLEAR_KEY, "Clear Color");
         add(AMTranslations.SPELL_CUSTOMIZATION_KEY, "Customize Spell");
         add(AMTranslations.SPELL_CUSTOMIZATION_NAME_KEY, "Spell Name");
         add(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, "x %s");

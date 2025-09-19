@@ -38,7 +38,13 @@ public class SpellPartButton<T> extends Button {
         SpellPartButton<T> button = new SpellPartButton<>(x, y, spellPart, SkillAtlasHolder.INSTANCE.get().getSprite(skill.value()));
         if (spellPart.value().getDataComponentType() != null) {
             button.valueGetter = type -> (index == -1 ? screen.getSpell().dataComponents().grammar() : screen.getSpell().dataComponents().shapeGroups().get(index)).get(type);
-            button.valueSetter = (type, value) -> screen.setSpell(screen.getSpell().updateDataComponents(components -> components.update(index, map -> map.set(type, value))));
+            button.valueSetter = (type, value) -> screen.setSpell(screen.getSpell().updateDataComponents(components -> components.update(index, map -> {
+                if (value == null) {
+                    map.remove(type);
+                } else {
+                    map.set(type, value);
+                }
+            })));
         }
         button.setTooltip(Tooltip.create(Skill.getName(skill)));
         button.active = ArsMagicaClientApi.spellPartCustomizationScreen(spellPart) != null;

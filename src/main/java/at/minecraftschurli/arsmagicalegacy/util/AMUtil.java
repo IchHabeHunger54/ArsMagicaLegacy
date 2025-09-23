@@ -9,6 +9,8 @@ import at.minecraftschurli.arsmagicalegacy.item.SpellRecipeItem;
 import at.minecraftschurli.arsmagicalegacy.packet.OpenBookInLecternPacket;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.core.BlockPos;
@@ -28,6 +30,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -46,6 +49,9 @@ import java.util.function.ToIntFunction;
 import java.util.stream.Collector;
 
 public final class AMUtil {
+    public static final Codec<Double> NON_NEGATIVE_DOUBLE_CODEC = Codec.DOUBLE.validate(d -> d >= 0 ? DataResult.success(d) : DataResult.error(() -> "Value must be positive: " + d));
+    public static final Codec<Double> POSITIVE_DOUBLE_CODEC = Codec.DOUBLE.validate(d -> d > 0 ? DataResult.success(d) : DataResult.error(() -> "Value must be positive: " + d));
+
     private AMUtil() {
     }
 
@@ -153,5 +159,19 @@ public final class AMUtil {
     @Nullable
     public static Holder<Skill> skill(Holder<SpellPart> part) {
         return registryAccess().registryOrThrow(AMRegistryKeys.SKILL).getHolder(part.getKey().location()).orElse(null);
+    }
+
+    public static Vec3 bezier(Vec3 start, Vec3 control1, Vec3 control2, Vec3 end, double delta) {
+        delta = Math.clamp(delta, 0, 1);
+        double invertedDelta = 1 - delta;
+        return Vec3.ZERO
+            .add(start.scale(invertedDelta * invertedDelta * invertedDelta))
+            .add(control1.scale(3 * invertedDelta * invertedDelta * delta))
+            .add(control2.scale(3 * invertedDelta * delta * delta))
+            .add(end.scale(delta * delta * delta));
+    }
+
+    public static Codec<Double> doubleRangeCodec(double min, double max) {
+        return Codec.DOUBLE.validate(d -> d.compareTo(min) >= 0 && d.compareTo(max) <= 0 ? DataResult.success(d) : DataResult.error(() -> "Value must be within range [" + min + ";" + max + "]: " + d));
     }
 }

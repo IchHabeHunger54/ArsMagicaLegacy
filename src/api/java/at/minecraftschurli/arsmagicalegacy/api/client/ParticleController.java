@@ -29,11 +29,10 @@ public interface ParticleController {
      * @return A codec builder with the base fields for every controller set. Call {@link Products.P3#and(App)} to add further fields.
      * @param <T> The exact type of the controller.
      */
-    static <T extends ParticleController> Products.P3<RecordCodecBuilder.Mu<T>, ResourceLocation, Boolean, Boolean> baseFields(RecordCodecBuilder.Instance<T> instance) {
+    static <T extends ParticleController> Products.P2<RecordCodecBuilder.Mu<T>, Boolean, Boolean> baseFields(RecordCodecBuilder.Instance<T> instance) {
         return instance.group(
-            ResourceLocation.CODEC.fieldOf("type").forGetter(ParticleController::id),
-            Codec.BOOL.fieldOf("stop_other_controllers").forGetter(ParticleController::stopOtherControllers),
-            Codec.BOOL.fieldOf("kill_on_finish").forGetter(ParticleController::killOnFinish));
+            Codec.BOOL.optionalFieldOf("stop_other_controllers", false).forGetter(ParticleController::stopOtherControllers),
+            Codec.BOOL.optionalFieldOf("kill_on_finish", false).forGetter(ParticleController::killOnFinish));
     }
 
     /**

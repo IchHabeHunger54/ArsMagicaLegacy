@@ -1,28 +1,22 @@
 {
-  "color": 32767,
+  "color": 11671986,
   "controllers": [
-    {
-      "type": "arsmagicalegacy:float_upward",
-      "jitter": 0.0,
-      "speed": 0.1
-    },
     {
       "type": "arsmagicalegacy:orbit_point",
       "follow_target": true,
-      "max_distance": 0.6,
-      "max_speed": 0.5,
-      "min_distance": 0.3,
-      "min_speed": 0.5
+      "max_distance": 1.0,
+      "max_speed": 0.1,
+      "min_speed": 0.1
     }
   ],
   "count": 25,
-  "max_lifetime": 20,
+  "max_lifetime": 40,
   "max_offset": [
     0.5,
     -0.5,
     0.5
   ],
-  "min_lifetime": 20,
+  "min_lifetime": 40,
   "min_offset": [
     -0.5,
     -1.5,

@@ -122,7 +122,9 @@ final class SpellHelperImpl implements SpellHelper {
             SpellComponent component = pair.getFirst();
             List<SpellModifier> modifiers = pair.getSecond();
             spell = component.cast(spell, modifiers, caster, directEntity, hitResult);
-            component.spawnParticles(spell, modifiers, caster, directEntity, hitResult);
+            if (caster.level().isClientSide()) {
+                component.spawnParticles(spell, modifiers, caster, directEntity, hitResult);
+            }
             NeoForge.EVENT_BUS.post(new SpellPartCastEvent.Component(caster, spell, component, modifiers, directEntity, hitResult));
         }
         return spell;

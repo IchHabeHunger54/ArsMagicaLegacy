@@ -14,7 +14,10 @@ import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,7 +32,7 @@ public class AMParticle extends SimpleAnimatedParticle implements ControlledPart
         super(level, x, y, z, sprites, 0);
     }
 
-    public static void spawn(ClientLevel level, double x, double y, double z, ParticleSpawner spawner, int color) {
+    public static void spawn(ClientLevel level, double x, double y, double z, ParticleSpawner spawner, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         ParticleEngine particleEngine = AMClientUtil.mc().particleEngine;
         Particle vanillaParticle = particleEngine.createParticle(spawner.particle(), x, y, z, 0, 0, 0);
         if (vanillaParticle == null) return;
@@ -44,7 +47,7 @@ public class AMParticle extends SimpleAnimatedParticle implements ControlledPart
         for (int i = 0; i < spawner.count(); i++) {
             AMParticle particle = new AMParticle(level, x, y, z, sprites);
             particle.setSprite(sprite);
-            particle.setLifetime(spawner.lifetime());
+            particle.setLifetime(particle.random().nextIntBetweenInclusive(spawner.minLifetime(), spawner.maxLifetime()));
             particle.addOffset(spawner.minOffset(), spawner.maxOffset());
             particle.setSpeed(spawner.minSpeed(), spawner.maxSpeed());
             particle.gravity = spawner.gravity();
@@ -55,7 +58,7 @@ public class AMParticle extends SimpleAnimatedParticle implements ControlledPart
                 particle.setColor(spawner.color());
             }
             particle.setAlpha(spawner.alpha());
-            spawner.controllers().forEach(particle::addController);
+            spawner.controllers().forEach(controller -> particle.addController(controller, caster, directEntity, hitResult));
             particleEngine.add(particle);
         }
     }
@@ -68,8 +71,8 @@ public class AMParticle extends SimpleAnimatedParticle implements ControlledPart
         setParticleSpeed(Mth.lerp(random.nextDouble(), minSpeed.x, maxSpeed.x), Mth.lerp(random.nextDouble(), minSpeed.y, maxSpeed.y), Mth.lerp(random.nextDouble(), minSpeed.z, maxSpeed.z));
     }
 
-    public void addController(ParticleController controller) {
-        controllers.add(new ParticleControllerInstance(this, controller));
+    public void addController(ParticleController controller, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+        controllers.add(new ParticleControllerInstance(this, controller, caster, directEntity, hitResult));
     }
 
     @Override
@@ -108,10 +111,32 @@ public class AMParticle extends SimpleAnimatedParticle implements ControlledPart
     }
 
     @Override
+    public double horizontalDistanceTo(Vec3 vec) {
+        double x = Math.abs(vec.x - x());
+        double z = Math.abs(vec.z - z());
+        return Math.sqrt(x * x + z * z);
+    }
+
+    @Override
     public void setPos(double x, double y, double z) {
         super.setPos(x, y, z);
         float f = bbWidth / 2;
         setBoundingBox(new AABB(x - f, y, z - f, x + f, y + bbWidth, z + f));
+    }
+
+    @Override
+    public int getColor() {
+        return (int) (rCol * 255) << 16 | (int) (gCol * 255) << 8 | (int) (bCol * 255);
+    }
+
+    @Override
+    public float getAlpha() {
+        return alpha;
+    }
+
+    @Override
+    public void setAlpha(float alpha) {
+        this.alpha = alpha;
     }
 
     @Override

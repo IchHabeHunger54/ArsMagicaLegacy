@@ -14,8 +14,8 @@
     - Mana Drain
     - Melt Armor
     - Transplace
-- Add Other Spell Parts
-- Spell Part Particles
+- Test Spell Particles
+- Add Spell Shapes
 - Spell Entities, including:
     - Blizzard
     - Falling Star

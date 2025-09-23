@@ -1,5 +1,4 @@
 {
-  "color": 32767,
   "controllers": [
     {
       "type": "arsmagicalegacy:float_upward",
@@ -8,11 +7,15 @@
     },
     {
       "type": "arsmagicalegacy:orbit_point",
-      "follow_target": true,
       "max_distance": 0.6,
       "max_speed": 0.5,
       "min_distance": 0.3,
       "min_speed": 0.5
+    },
+    {
+      "type": "arsmagicalegacy:fade_out",
+      "kill_on_finish": true,
+      "speed": 0.05
     }
   ],
   "count": 25,
@@ -29,6 +32,7 @@
     -0.5
   ],
   "particle": {
-    "type": "arsmagicalegacy:stardust"
-  }
+    "type": "arsmagicalegacy:ember"
+  },
+  "scale": 0.5
 }

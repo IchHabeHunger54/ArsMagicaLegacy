@@ -15,7 +15,8 @@ import java.util.List;
 public class ParticleSpawnerBuilder extends AbstractDataProvider.Builder<ParticleSpawner> {
     private final ParticleOptions particle;
     private final int count;
-    private final int lifetime;
+    private final int minLifetime;
+    private final int maxLifetime;
     private final List<ParticleController> controllers = new ArrayList<>();
     private Vec3 minOffset = Vec3.ZERO;
     private Vec3 maxOffset = Vec3.ZERO;
@@ -27,16 +28,28 @@ public class ParticleSpawnerBuilder extends AbstractDataProvider.Builder<Particl
     private float alpha = 1f;
 
     /**
+     * @param id          The id of the {@link ParticleSpawner} being built.
+     * @param particle    The {@link ParticleOptions} to use.
+     * @param count       The amount of particles to spawn.
+     * @param minLifetime The min lifetime of the particles.
+     * @param maxLifetime The max lifetime of the particles.
+     */
+    public ParticleSpawnerBuilder(ResourceLocation id, ParticleOptions particle, int count, int minLifetime, int maxLifetime) {
+        super(id);
+        this.particle = particle;
+        this.count = count;
+        this.minLifetime = minLifetime;
+        this.maxLifetime = maxLifetime;
+    }
+
+    /**
      * @param id       The id of the {@link ParticleSpawner} being built.
      * @param particle The {@link ParticleOptions} to use.
      * @param count    The amount of particles to spawn.
      * @param lifetime The lifetime of the particles.
      */
     public ParticleSpawnerBuilder(ResourceLocation id, ParticleOptions particle, int count, int lifetime) {
-        super(id);
-        this.particle = particle;
-        this.count = count;
-        this.lifetime = lifetime;
+        this(id, particle, count, lifetime, lifetime);
     }
 
     /**
@@ -53,6 +66,19 @@ public class ParticleSpawnerBuilder extends AbstractDataProvider.Builder<Particl
     public ParticleSpawnerBuilder offset(double minX, double maxX, double minY, double maxY, double minZ, double maxZ) {
         minOffset = new Vec3(minX, minY, minZ);
         maxOffset = new Vec3(maxX, maxY, maxZ);
+        return this;
+    }
+
+    /**
+     * Sets the offset of the particles.
+     *
+     * @param x The x offset.
+     * @param y The y offset.
+     * @param z The z offset.
+     * @return This builder, for chaining.
+     */
+    public ParticleSpawnerBuilder offset(double x, double y, double z) {
+        minOffset = maxOffset = new Vec3(x, y, z);
         return this;
     }
 
@@ -149,6 +175,6 @@ public class ParticleSpawnerBuilder extends AbstractDataProvider.Builder<Particl
 
     @Override
     public ParticleSpawner build() {
-        return new ParticleSpawner(particle, count, lifetime, minOffset, maxOffset, minSpeed, maxSpeed, gravity, scale, color, alpha, controllers);
+        return new ParticleSpawner(particle, count, minLifetime, maxLifetime, minOffset, maxOffset, minSpeed, maxSpeed, gravity, scale, color, alpha, controllers);
     }
 }

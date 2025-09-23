@@ -1,10 +1,14 @@
 package at.minecraftschurli.arsmagicalegacy.api.client;
 
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
+import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.util.Lazy;
@@ -61,12 +65,15 @@ public abstract class ArsMagicaClientApi {
     }
 
     /**
-     * @param id       The id of the {@link ParticleSpawner} to use.
-     * @param position The position of the particles.
-     * @param color    The particle color to use. Use -1 to not set a color.
+     * @param id           The id of the {@link ParticleSpawner} to use.
+     * @param position     The position of the particles.
+     * @param color        The particle color to use. Use -1 to not set a color.
+     * @param caster       The {@link LivingEntity} casting the {@link Spell}. May be null if this is not called from a spell cast.
+     * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster. May be null if this is not called from a spell cast.
+     * @param hitResult    The {@link HitResult} of the spell cast. May be null if this is not called from a spell cast.
      */
-    public static void spawnParticles(ResourceLocation id, Vec3 position, int color) {
-        INSTANCE.get().doSpawnParticles(id, position, color);
+    public static void spawnParticles(ResourceLocation id, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+        INSTANCE.get().doSpawnParticles(id, position, color, caster, directEntity, hitResult);
     }
 
     @ApiStatus.Internal
@@ -86,5 +93,5 @@ public abstract class ArsMagicaClientApi {
     protected abstract SpellPartCustomizationScreen.Factory<?, ?> getSpellPartCustomizationScreen(Holder<SpellPart> spellPart);
 
     @ApiStatus.Internal
-    protected abstract void doSpawnParticles(ResourceLocation id, Vec3 position, int color);
+    protected abstract void doSpawnParticles(ResourceLocation id, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
 }

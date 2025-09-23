@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.spell.component;
 
+import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
@@ -8,7 +9,9 @@ import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -27,5 +30,14 @@ public class Transplace extends SpellComponent.CastEntity {
             caster.teleportTo(targetPos.x(), targetPos.y(), targetPos.z());
         }
         return spell;
+    }
+
+    @Override
+    public void spawnParticles(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+        if (!(hitResult instanceof EntityHitResult entityHitResult)) return;
+        super.spawnParticles(spell, modifiers, caster, directEntity, hitResult);
+        if (entityHitResult.getEntity() instanceof LivingEntity living) {
+            ComponentParticleSpawner.spawnParticles(ArsMagicaApi.modLoc("transplace_caster"), spell, modifiers, living, living, new EntityHitResult(caster));
+        }
     }
 }

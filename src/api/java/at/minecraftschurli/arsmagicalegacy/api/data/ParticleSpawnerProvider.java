@@ -21,6 +21,20 @@ public abstract class ParticleSpawnerProvider extends AbstractDataProvider<Parti
     }
 
     /**
+     * @param id          The id of the {@link ParticleSpawner}.
+     * @param particle    The spawned particles' {@link ParticleOptions}.
+     * @param count       The spawned particle count.
+     * @param minLifetime The min lifetime of the spawned particles.
+     * @param maxLifetime The max lifetime of the spawned particles.
+     * @return A new {@link ParticleSpawnerBuilder}.
+     */
+    public ParticleSpawnerBuilder builder(ResourceLocation id, ParticleOptions particle, int count, int minLifetime, int maxLifetime) {
+        ParticleSpawnerBuilder builder = new ParticleSpawnerBuilder(id, particle, count, minLifetime, maxLifetime);
+        add(builder);
+        return builder;
+    }
+
+    /**
      * @param id       The id of the {@link ParticleSpawner}.
      * @param particle The spawned particles' {@link ParticleOptions}.
      * @param count    The spawned particle count.

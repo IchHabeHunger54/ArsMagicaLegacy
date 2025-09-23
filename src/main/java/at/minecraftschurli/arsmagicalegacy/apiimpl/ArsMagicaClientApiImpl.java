@@ -19,6 +19,9 @@ import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.ModLoader;
 import org.jetbrains.annotations.Nullable;
@@ -58,10 +61,10 @@ public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
     }
 
     @Override
-    protected void doSpawnParticles(ResourceLocation id, Vec3 position, int color) {
+    protected void doSpawnParticles(ResourceLocation id, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         ParticleSpawner spawner = ParticleSpawnerManager.INSTANCE.get(id);
         if (spawner != null) {
-            AMParticle.spawn(AMClientUtil.level(), position.x(), position.y(), position.z(), spawner, color);
+            AMParticle.spawn(AMClientUtil.level(), position.x(), position.y(), position.z(), spawner, color, caster, directEntity, hitResult);
         }
     }
 

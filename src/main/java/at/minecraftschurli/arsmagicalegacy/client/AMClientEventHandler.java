@@ -20,10 +20,18 @@ import at.minecraftschurli.arsmagicalegacy.client.layer.BarsLayer;
 import at.minecraftschurli.arsmagicalegacy.client.model.AltarCoreModel;
 import at.minecraftschurli.arsmagicalegacy.client.model.DataComponentOverrides;
 import at.minecraftschurli.arsmagicalegacy.client.model.ItemOverridesModel;
-import at.minecraftschurli.arsmagicalegacy.client.particle.FloatUpwardController;
+import at.minecraftschurli.arsmagicalegacy.client.particle.controller.ApproachEntityController;
+import at.minecraftschurli.arsmagicalegacy.client.particle.controller.ArcToEntityController;
+import at.minecraftschurli.arsmagicalegacy.client.particle.controller.ChangeSizeController;
+import at.minecraftschurli.arsmagicalegacy.client.particle.controller.FadeOutController;
+import at.minecraftschurli.arsmagicalegacy.client.particle.controller.FloatUpwardController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleSpawnerManager;
 import at.minecraftschurli.arsmagicalegacy.client.particle.SimpleParticleProvider;
 import at.minecraftschurli.arsmagicalegacy.client.particle.SymbolsParticleProvider;
+import at.minecraftschurli.arsmagicalegacy.client.particle.controller.LeaveTrailController;
+import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInKnockbackDirectionController;
+import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInViewDirectionController;
+import at.minecraftschurli.arsmagicalegacy.client.particle.controller.OrbitPointController;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.AltarCoreRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.ItemSpellIngredientRenderer;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
@@ -112,6 +120,7 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerParticleProviders(RegisterParticleProvidersEvent event) {
+        // @formatter:off
         event.registerSpriteSet(AMParticles.NONE_HAND.get(),      SimpleParticleProvider::new);
         event.registerSpriteSet(AMParticles.WATER_HAND.get(),     SimpleParticleProvider::new);
         event.registerSpriteSet(AMParticles.FIRE_HAND.get(),      SimpleParticleProvider::new);
@@ -139,6 +148,7 @@ final class AMClientEventHandler {
         event.registerSpriteSet(AMParticles.WATER_BALL.get(),     SimpleParticleProvider::new);
         event.registerSpriteSet(AMParticles.WIND.get(),           SimpleParticleProvider::new);
         event.registerSpriteSet(AMParticles.SYMBOLS.get(),        SymbolsParticleProvider::new);
+        // @formatter:on
     }
 
     @SubscribeEvent
@@ -149,7 +159,17 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerParticleControllers(RegisterParticleControllersEvent event) {
-        event.register(FloatUpwardController.ID, FloatUpwardController.CODEC);
+        // @formatter:off
+        event.register(ApproachEntityController.ID,           ApproachEntityController.CODEC);
+        event.register(ArcToEntityController.ID,              ArcToEntityController.CODEC);
+        event.register(ChangeSizeController.ID,               ChangeSizeController.CODEC);
+        event.register(FadeOutController.ID,                  FadeOutController.CODEC);
+        event.register(FloatUpwardController.ID,              FloatUpwardController.CODEC);
+        event.register(LeaveTrailController.ID,               LeaveTrailController.CODEC);
+        event.register(MoveInKnockbackDirectionController.ID, MoveInKnockbackDirectionController.CODEC);
+        event.register(MoveInViewDirectionController.ID,      MoveInViewDirectionController.CODEC);
+        event.register(OrbitPointController.ID,               OrbitPointController.CODEC);
+        // @formatter:on
     }
 
     @SubscribeEvent

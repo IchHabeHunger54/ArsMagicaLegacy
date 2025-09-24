@@ -5,6 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.EntityHitResult;
@@ -34,7 +35,7 @@ public class Heal extends SpellComponent.CastEntity {
     public void spawnParticles(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
         if (!(hitResult instanceof EntityHitResult entityHitResult) || !(entityHitResult.getEntity() instanceof LivingEntity living)) return;
         if (living.isInvertedHealAndHarm()) {
-            ComponentParticleSpawner.spawnParticles(ArsMagicaApi.modLoc("heal_undead"), spell, modifiers, caster, directEntity, hitResult);
+            AMClientUtil.spawnParticles(ArsMagicaApi.modLoc("heal_undead"), directEntity.position(), ArsMagicaApi.spellHelper().getColor(modifiers, spell, -1), caster, directEntity, hitResult);
         } else {
             super.spawnParticles(spell, modifiers, caster, directEntity, hitResult);
         }

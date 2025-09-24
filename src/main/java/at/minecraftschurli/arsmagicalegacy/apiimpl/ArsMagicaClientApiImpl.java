@@ -14,7 +14,6 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.client.particle.AMParticle;
-import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleSpawnerManager;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Holder;
@@ -61,11 +60,8 @@ public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
     }
 
     @Override
-    protected void doSpawnParticles(ResourceLocation id, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        ParticleSpawner spawner = ParticleSpawnerManager.INSTANCE.get(id);
-        if (spawner != null) {
-            AMParticle.spawn(AMClientUtil.level(), position.x(), position.y(), position.z(), spawner, color, caster, directEntity, hitResult);
-        }
+    protected void doSpawnParticles(ParticleSpawner spawner, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+        AMParticle.spawn(AMClientUtil.level(), position.x(), position.y(), position.z(), spawner, color, caster, directEntity, hitResult);
     }
 
     public static void postEvents() {

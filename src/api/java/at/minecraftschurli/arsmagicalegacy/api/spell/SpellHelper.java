@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.api.spell;
 
 import com.mojang.datafixers.util.Either;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.HitResult;
@@ -109,4 +110,16 @@ public interface SpellHelper {
      * @return The recipe for the {@link Spell}.
      */
     List<SpellIngredient> getFlatRecipe(Spell spell);
+
+    /**
+     * On the client, spawns particles for the given {@link SpellPart}. On the server, does nothing.
+     *
+     * @param part         The id of the spell part to spawn the particles for.
+     * @param spell        The {@link Spell} being cast.
+     * @param modifiers    The {@link SpellModifier}s to consider.
+     * @param caster       The {@link LivingEntity} casting the {@link Spell}.
+     * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
+     * @param hitResult    The {@link HitResult} of the spell cast.
+     */
+    void spawnParticles(ResourceLocation part, Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, HitResult hitResult);
 }

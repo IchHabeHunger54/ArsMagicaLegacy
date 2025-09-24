@@ -1,17 +1,35 @@
 package at.minecraftschurli.arsmagicalegacy.util;
 
+import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
+import at.minecraftschurli.arsmagicalegacy.api.client.ParticleSpawner;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.OcculusScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellrecipe.SpellRecipeScreen;
+import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleSpawnerManager;
+import at.minecraftschurli.arsmagicalegacy.entity.AbstractSpellEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public final class AMClientUtil {
+    private static final Map<ParticleSpawnerKey, ParticleSpawner> SPELL_ENTITY_PARTICLE_SPAWNERS = new HashMap<>();
+
     private AMClientUtil() {
     }
 
@@ -108,5 +126,38 @@ public final class AMClientUtil {
 
     public static void setSpellRecipeScreen(ItemStack stack, boolean playTurnSound, int startPage, @Nullable BlockPos lecternPos) {
         AMClientUtil.mc().setScreen(new SpellRecipeScreen(stack, playTurnSound, startPage, lecternPos));
+    }
+
+    public static void spawnParticles(ResourceLocation id, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+        ArsMagicaClientApi.spawnParticles(ParticleSpawnerManager.INSTANCE.get(id), position, color, caster, directEntity, hitResult);
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    public static void spawnSpellEntityParticles(AbstractSpellEntity entity, int color, @Nullable LivingEntity caster) {
+        ParticleSpawnerKey key = new ParticleSpawnerKey(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()), entity.getSpell().grammar().primaryAffinity());
+        SPELL_ENTITY_PARTICLE_SPAWNERS.computeIfAbsent(key, k -> {
+            ParticleSpawner spawner = ParticleSpawnerManager.INSTANCE.get(key.id);
+            return new ParticleSpawner(registryAccess().registryOrThrow(AMRegistryKeys.AFFINITY).get(key.affinity).particle(),
+                spawner.count(),
+                spawner.minLifetime(),
+                spawner.maxLifetime(),
+                spawner.minOffset(),
+                spawner.maxOffset(),
+                spawner.minSpeed(),
+                spawner.maxSpeed(),
+                spawner.gravity(),
+                spawner.scale(),
+                spawner.color(),
+                spawner.alpha(),
+                spawner.controllers());
+        });
+        ArsMagicaClientApi.spawnParticles(SPELL_ENTITY_PARTICLE_SPAWNERS.get(key), entity.position(), color, caster, entity, null);
+    }
+
+    public static void clearParticleSpawnerCache() {
+        SPELL_ENTITY_PARTICLE_SPAWNERS.clear();
+    }
+
+    private record ParticleSpawnerKey(ResourceLocation id, ResourceKey<Affinity> affinity) {
     }
 }

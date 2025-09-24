@@ -1,9 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.api.spell;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
 import com.google.common.collect.Sets;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.BlockHitResult;
@@ -79,7 +77,7 @@ public abstract non-sealed class SpellComponent extends SpellPart {
     @SuppressWarnings("DataFlowIssue")
     public void spawnParticles(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
         if (hitResult != null && hitResult.getType() != HitResult.Type.MISS) {
-            ComponentParticleSpawner.spawnParticles(ArsMagicaApi.spellPartRegistry().wrapAsHolder(this).getKey().location(), spell, modifiers, caster, directEntity, hitResult);
+            ArsMagicaApi.spellHelper().spawnParticles(ArsMagicaApi.spellPartRegistry().wrapAsHolder(this).getKey().location(), spell, modifiers, caster, directEntity, hitResult);
         }
     }
 
@@ -198,28 +196,5 @@ public abstract non-sealed class SpellComponent extends SpellPart {
          * @return The {@link Spell} that was cast, potentially modified.
          */
         public abstract Spell castEntity(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, EntityHitResult hitResult);
-    }
-
-    /**
-     * Classloading guard for reaching into {@link ArsMagicaClientApi} to spawn particles.
-     */
-    protected static class ComponentParticleSpawner {
-        /**
-         * Spawns particles for the given component. May only be called on the client.
-         *
-         * @param part         The id of the spell part to spawn the particles for.
-         * @param spell        The {@link Spell} being cast.
-         * @param modifiers    The {@link SpellModifier}s to consider.
-         * @param caster       The {@link LivingEntity} casting the {@link Spell}.
-         * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
-         * @param hitResult    The {@link HitResult} of the spell cast.
-         */
-        public static void spawnParticles(ResourceLocation part, Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, HitResult hitResult) {
-            ArsMagicaClientApi.spawnParticles(part, switch (hitResult) {
-                case BlockHitResult blockHitResult -> blockHitResult.getBlockPos().getBottomCenter();
-                case EntityHitResult entityHitResult -> hitResult.getLocation().add(0, entityHitResult.getEntity().getEyeHeight(), 0);
-                default -> hitResult.getLocation();
-            }, ArsMagicaApi.spellHelper().getColor(modifiers, spell, -1), caster, directEntity, hitResult);
-        }
     }
 }

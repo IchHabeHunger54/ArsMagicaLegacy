@@ -4,7 +4,8 @@
     {
       "type": "arsmagicalegacy:float_upward",
       "jitter": 0.2,
-      "speed": 0.0
+      "max_speed": 0.0,
+      "min_speed": 0.0
     }
   ],
   "count": 10,

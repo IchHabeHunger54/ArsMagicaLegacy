@@ -15,5 +15,8 @@
   "minor_opposites": [
     "arsmagicalegacy:water",
     "arsmagicalegacy:lightning"
-  ]
+  ],
+  "particle": {
+    "type": "arsmagicalegacy:arcane_hand"
+  }
 }

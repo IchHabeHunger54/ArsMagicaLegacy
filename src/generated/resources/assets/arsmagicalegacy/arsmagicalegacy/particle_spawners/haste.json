@@ -3,7 +3,8 @@
     {
       "type": "arsmagicalegacy:float_upward",
       "jitter": 0.0,
-      "speed": 0.1
+      "max_speed": 0.1,
+      "min_speed": 0.1
     },
     {
       "type": "arsmagicalegacy:orbit_point",

@@ -5,5 +5,8 @@
   "direct_opposite": "arsmagicalegacy:none",
   "index": -1.0,
   "major_opposites": [],
-  "minor_opposites": []
+  "minor_opposites": [],
+  "particle": {
+    "type": "arsmagicalegacy:none_hand"
+  }
 }

@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
@@ -25,19 +26,24 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellShapeGroup;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
+import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleSpawnerManager;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.spell.ItemSpellIngredient;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.neoforge.common.NeoForge;
 import org.jetbrains.annotations.Nullable;
@@ -192,5 +198,15 @@ final class SpellHelperImpl implements SpellHelper {
             }
         }
         return result;
+    }
+
+    @Override
+    public void spawnParticles(ResourceLocation part, Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, HitResult hitResult) {
+        if (!caster.level().isClientSide()) return;
+        AMClientUtil.spawnParticles(part, switch (hitResult) {
+            case BlockHitResult blockHitResult -> blockHitResult.getBlockPos().getBottomCenter();
+            case EntityHitResult entityHitResult -> hitResult.getLocation().add(0, entityHitResult.getEntity().getEyeHeight(), 0);
+            default -> hitResult.getLocation();
+        }, getColor(modifiers, spell, -1), caster, directEntity, hitResult);
     }
 }

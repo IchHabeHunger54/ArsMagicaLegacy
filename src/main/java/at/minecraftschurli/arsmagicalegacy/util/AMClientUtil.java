@@ -132,8 +132,12 @@ public final class AMClientUtil {
         ArsMagicaClientApi.spawnParticles(ParticleSpawnerManager.INSTANCE.get(id), position, color, caster, directEntity, hitResult);
     }
 
-    @SuppressWarnings("DataFlowIssue")
     public static void spawnSpellEntityParticles(AbstractSpellEntity entity, int color, @Nullable LivingEntity caster) {
+        spawnSpellEntityParticles(entity, entity.position(), color, caster);
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    public static void spawnSpellEntityParticles(AbstractSpellEntity entity, Vec3 position, int color, @Nullable LivingEntity caster) {
         ParticleSpawnerKey key = new ParticleSpawnerKey(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()), entity.getSpell().grammar().primaryAffinity());
         SPELL_ENTITY_PARTICLE_SPAWNERS.computeIfAbsent(key, k -> {
             ParticleSpawner spawner = ParticleSpawnerManager.INSTANCE.get(key.id);
@@ -151,7 +155,7 @@ public final class AMClientUtil {
                 spawner.alpha(),
                 spawner.controllers());
         });
-        ArsMagicaClientApi.spawnParticles(SPELL_ENTITY_PARTICLE_SPAWNERS.get(key), entity.position(), color, caster, entity, null);
+        ArsMagicaClientApi.spawnParticles(SPELL_ENTITY_PARTICLE_SPAWNERS.get(key), position, color, caster, entity, null);
     }
 
     public static void clearParticleSpawnerCache() {

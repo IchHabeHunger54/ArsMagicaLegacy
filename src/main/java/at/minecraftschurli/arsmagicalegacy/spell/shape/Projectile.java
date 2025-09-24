@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Projectile extends PrimarySpellShape {
     public Projectile() {
-        super(SpellStat.COLOR, AMSpells.BOUNCE_STAT, AMSpells.DURATION_STAT, AMSpells.PIERCING_STAT, AMSpells.GRAVITY_STAT, AMSpells.SPEED_STAT);
+        super(SpellStat.COLOR, AMSpells.BOUNCE_STAT, AMSpells.DURATION_STAT, AMSpells.GRAVITY_STAT, AMSpells.PIERCING_STAT, AMSpells.SPEED_STAT, AMSpells.TARGET_NON_SOLID_STAT);
     }
 
     @SuppressWarnings("DataFlowIssue")

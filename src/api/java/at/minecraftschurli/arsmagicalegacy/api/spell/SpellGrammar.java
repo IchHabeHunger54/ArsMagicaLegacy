@@ -9,9 +9,11 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceKey;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -112,5 +114,17 @@ public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List
             .map(Map::entrySet)
             .flatMap(Set::stream)
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, Double::sum));
+    }
+
+    /**
+     * @return The key of the primary {@link Affinity} of the spell grammar.
+     */
+    public ResourceKey<Affinity> primaryAffinity() {
+        return affinityShifts().entrySet()
+            .stream()
+            .max(Comparator.comparingDouble(Map.Entry::getValue))
+            .map(Map.Entry::getKey)
+            .map(Holder::getKey)
+            .orElse(Affinity.NONE);
     }
 }

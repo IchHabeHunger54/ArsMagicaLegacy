@@ -11,6 +11,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
+import at.minecraftschurli.arsmagicalegacy.init.AMParticles;
 import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import net.minecraft.core.Holder;
@@ -37,7 +38,7 @@ public final class AMMagicProvider {
                 return true;
             }
         };
-        bootstrap.register(Affinity.NONE, new Affinity(Holder.Reference.createStandAlone(owner, Affinity.NONE), List.of(), List.of(), List.of(), 0, -1, Optional.of(AMSounds.CAST_NONE), Optional.empty()));
+        bootstrap.register(Affinity.NONE, new Affinity(Holder.Reference.createStandAlone(owner, Affinity.NONE), List.of(), List.of(), List.of(), 0, -1, Optional.of(AMSounds.CAST_NONE), Optional.empty(), AMParticles.NONE_HAND.get()));
         // @formatter:off
         Holder.Reference<Affinity> water     = Holder.Reference.createStandAlone(owner, AMMagic.WATER);
         Holder.Reference<Affinity> fire      = Holder.Reference.createStandAlone(owner, AMMagic.FIRE);
@@ -49,16 +50,16 @@ public final class AMMagicProvider {
         Holder.Reference<Affinity> life      = Holder.Reference.createStandAlone(owner, AMMagic.LIFE);
         Holder.Reference<Affinity> arcane    = Holder.Reference.createStandAlone(owner, AMMagic.ARCANE);
         Holder.Reference<Affinity> ender     = Holder.Reference.createStandAlone(owner, AMMagic.ENDER);
-        bootstrap.register(AMMagic.WATER,     new Affinity(fire,      List.of(lightning, ender), List.of(air, arcane),      List.of(ice, nature),      0x0b5cef,  8, AMSounds.CAST_WATER,     AMSounds.LOOP_WATER));
-        bootstrap.register(AMMagic.FIRE,      new Affinity(water,     List.of(ice, nature),      List.of(earth, life),      List.of(lightning, ender), 0xef260b,  3, AMSounds.CAST_FIRE,      AMSounds.LOOP_FIRE));
-        bootstrap.register(AMMagic.EARTH,     new Affinity(air,       List.of(lightning, life),  List.of(fire, nature),     List.of(ice, arcane),      0x61330b, 10, AMSounds.CAST_EARTH,     AMSounds.LOOP_EARTH));
-        bootstrap.register(AMMagic.AIR,       new Affinity(earth,     List.of(ice, arcane),      List.of(water, ender),     List.of(lightning, life),  0x777777,  5, AMSounds.CAST_AIR,       AMSounds.LOOP_AIR));
-        bootstrap.register(AMMagic.ICE,       new Affinity(lightning, List.of(fire, air),        List.of(life, ender),      List.of(water, earth),     0xd3e8fc,  9, AMSounds.CAST_ICE,       AMSounds.LOOP_ICE));
-        bootstrap.register(AMMagic.LIGHTNING, new Affinity(ice,       List.of(water, earth),     List.of(nature, arcane),   List.of(fire, air),        0xdece19,  4, AMSounds.CAST_LIGHTNING, AMSounds.LOOP_LIGHTNING));
-        bootstrap.register(AMMagic.NATURE,    new Affinity(ender,     List.of(fire, arcane),     List.of(earth, lightning), List.of(water, life),      0x228718,  7, AMSounds.CAST_NATURE,    AMSounds.LOOP_NATURE));
-        bootstrap.register(AMMagic.LIFE,      new Affinity(arcane,    List.of(earth, ender),     List.of(fire, ice),        List.of(air, nature),      0x34e122,  6, AMSounds.CAST_LIFE,      AMSounds.LOOP_LIFE));
-        bootstrap.register(AMMagic.ARCANE,    new Affinity(life,      List.of(air, nature),      List.of(water, lightning), List.of(earth, ender),     0xb935cd,  1, AMSounds.CAST_ARCANE,    AMSounds.LOOP_ARCANE));
-        bootstrap.register(AMMagic.ENDER,     new Affinity(nature,    List.of(water, life),      List.of(air, ice),         List.of(fire, arcane),     0x3f043d,  2, AMSounds.CAST_ENDER,     AMSounds.LOOP_ENDER));
+        bootstrap.register(AMMagic.WATER,     new Affinity(fire,      List.of(lightning, ender), List.of(air, arcane),      List.of(ice, nature),      0x0b5cef,  8, AMSounds.CAST_WATER,     AMSounds.LOOP_WATER,     AMParticles.WATER_HAND.get()));
+        bootstrap.register(AMMagic.FIRE,      new Affinity(water,     List.of(ice, nature),      List.of(earth, life),      List.of(lightning, ender), 0xef260b,  3, AMSounds.CAST_FIRE,      AMSounds.LOOP_FIRE,      AMParticles.FIRE_HAND.get()));
+        bootstrap.register(AMMagic.EARTH,     new Affinity(air,       List.of(lightning, life),  List.of(fire, nature),     List.of(ice, arcane),      0x61330b, 10, AMSounds.CAST_EARTH,     AMSounds.LOOP_EARTH,     AMParticles.EARTH_HAND.get()));
+        bootstrap.register(AMMagic.AIR,       new Affinity(earth,     List.of(ice, arcane),      List.of(water, ender),     List.of(lightning, life),  0x777777,  5, AMSounds.CAST_AIR,       AMSounds.LOOP_AIR,       AMParticles.AIR_HAND.get()));
+        bootstrap.register(AMMagic.ICE,       new Affinity(lightning, List.of(fire, air),        List.of(life, ender),      List.of(water, earth),     0xd3e8fc,  9, AMSounds.CAST_ICE,       AMSounds.LOOP_ICE,       AMParticles.ICE_HAND.get()));
+        bootstrap.register(AMMagic.LIGHTNING, new Affinity(ice,       List.of(water, earth),     List.of(nature, arcane),   List.of(fire, air),        0xdece19,  4, AMSounds.CAST_LIGHTNING, AMSounds.LOOP_LIGHTNING, AMParticles.LIGHTNING_HAND.get()));
+        bootstrap.register(AMMagic.NATURE,    new Affinity(ender,     List.of(fire, arcane),     List.of(earth, lightning), List.of(water, life),      0x228718,  7, AMSounds.CAST_NATURE,    AMSounds.LOOP_NATURE,    AMParticles.NATURE_HAND.get()));
+        bootstrap.register(AMMagic.LIFE,      new Affinity(arcane,    List.of(earth, ender),     List.of(fire, ice),        List.of(air, nature),      0x34e122,  6, AMSounds.CAST_LIFE,      AMSounds.LOOP_LIFE,      AMParticles.LIFE_HAND.get()));
+        bootstrap.register(AMMagic.ARCANE,    new Affinity(life,      List.of(air, nature),      List.of(water, lightning), List.of(earth, ender),     0xb935cd,  1, AMSounds.CAST_ARCANE,    AMSounds.LOOP_ARCANE,    AMParticles.ARCANE_HAND.get()));
+        bootstrap.register(AMMagic.ENDER,     new Affinity(nature,    List.of(water, life),      List.of(air, ice),         List.of(fire, arcane),     0x3f043d,  2, AMSounds.CAST_ENDER,     AMSounds.LOOP_ENDER,     AMParticles.ENDER_HAND.get()));
         // @formatter:on
     }
 

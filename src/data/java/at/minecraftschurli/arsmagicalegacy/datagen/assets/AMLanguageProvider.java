@@ -18,6 +18,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.alchemy.Potion;
 import net.neoforged.neoforge.common.data.LanguageProvider;
@@ -314,7 +315,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         skillTranslation(AMSpells.FLIGHT.getId(), "Flight", "Does this count as cheating?", "components", "With a word, you can rise into the air.");
         skillTranslation(AMSpells.FLING.getId(), "Fling", "Ready for an air fight?", "components", "This spell makes wind whirl around under your target, and suddenly all at once blow them straight up, sending them skyward.");
         skillTranslation(AMSpells.FORGE.getId(), "Forge", "Portable furnace.", "components", "You have gained fine control over fire and can use it to magically smelt blocks where they stand, without charring them to ash.");
-        skillTranslation(AMSpells.FROST.getId(), "Frost", "Freeze!", "components", "You breath deeply and open your eyes. Water will become ice. Enemies move at a crawl. Perfect.");
+        skillTranslation(AMSpells.FROST.getId(), "Frost", "Freeze!", "components", "You breathe deeply and open your eyes. Water will become ice. Enemies move at a crawl. Perfect.");
         skillTranslation(AMSpells.FROST_DAMAGE.getId(), "Frost Damage", "Let it snow!", "components", "Many underestimate the power that frost can wield. The creeping chill can bypass many armors.");
         skillTranslation(AMSpells.FURY.getId(), "Fury", "Berserker rage!", "components", "You can send yourself into an absolute rage, dealing increased damage, moving extremely fast, passively regenerating, and mining at inhuman speeds.$(br2)When the effect ends, you are left exhausted for a few moments and must recover.");
         skillTranslation(AMSpells.GRAVITY.getId(), "Gravity", "Created by Isaac Newton.", "modifiers", "$(l:shapes/zone)Zones$() and $(l:shapes/projectile)projectiles$() will be affected by gravity.");
@@ -408,16 +409,16 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("level_base", "Level Base", "The base value for leveling calculation. XP cost per level is calculated as multiplier * base ^ (level - 1).");
         configTranslation("level_multiplier", "Level Multiplier", "The multiplier for leveling calculation. XP cost per level is calculated as multiplier * base ^ (level - 1).");
         configTranslation("extra_skill_points", "Extra Skill Points", "The extra blue skill points a player gets at level 1, in addition to the one they already get.");
-        configTranslation("affinity", "Affinity", "Configuration for affinity shifting.");
+        configTranslation("affinity", "Affinity", "Configuration for the affinity shifting of players.");
         configTranslation("affinity_to_xp_ratio", "Affinity : XP Ratio", "The affinity to xp ratio. When awarding xp, the amount of used affinities will be multiplied with this modifier.");
         configTranslation("continuous_modifier", "Continuous Modifier", "By what factor affinity and xp gain will be amplified when a continuous spell shape is used.");
         configTranslation("direct_opposite_multiplier", "Direct Opposite Multiplier", "When an affinity shift is applied, what portion of it is subtracted from the direct opposite affinity.");
         configTranslation("major_opposite_multiplier", "Major Opposite Multiplier", "When an affinity shift is applied, what portion of it is subtracted from the major opposite affinities.");
         configTranslation("minor_opposite_multiplier", "Minor Opposite Multiplier", "When an affinity shift is applied, what portion of it is subtracted from the minor opposite affinities.");
         configTranslation("adjacent_multiplier", "Adjacent Multiplier", "When an affinity shift is applied, what portion of it is added to the adjacent affinities.");
-        configTranslation("skills", "Skills", "Configuration of various skill-specific values.");
         configTranslation("affinity_gains_modifier", "Affinity Gains Modifier", "When the Affinity Gains talent is learned, by what factor affinity gain will be amplified.");
         configTranslation("affinity_gains_xp_modifier", "Affinity Gains XP Modifier", "When the Affinity Gains talent is learned, by what factor XP gain will be amplified.");
+        configTranslation("components", "Components", "Configuration of various component-specific values.");
         configTranslation("effect_duration", "Effect Duration", "The duration of effect-based components, in ticks. May be amplified by spell modifiers.");
         configTranslation("attract_range", "Attract Range", "The range of the Attract component. May be amplified by spell modifiers.");
         configTranslation("attract_speed", "Attract Speed", "The speed of the Attract component. May be amplified by spell modifiers.");
@@ -440,6 +441,10 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("storm_lightning_bolt_chance", "Storm Lightning Bolt Chance", "The chance for the Storm component to summon a lightning bolt somewhere in range.");
         configTranslation("storm_lightning_bolt_target_chance", "Storm Lightning Bolt Target Chance", "The chance for the Storm component to summon a target-seeking lightning bolt somewhere in range.");
         configTranslation("wizards_autumn_range", "Wizard's Autumn Range", "The range used by the Wizard's Autumn component. May be amplified by spell modifiers.");
+        configTranslation("shapes", "Shapes", "Configuration of various shape-specific values.");
+        configTranslation("projectile_duration", "Projectile Duration", "The duration used by the Projectile shape. May be amplified by spell modifiers.");
+        configTranslation("projectile_gravity", "Projectile Gravity", "If a Gravity modifier is present on the Projectile, by how much gravity will be increased.");
+        configTranslation("projectile_speed", "Projectile Speed", "The speed used by the Projectile shape. May be amplified by spell modifiers.");
         configTranslation("gui_layers", "GUI Layers", "Configuration for the various GUI layers in this mod.");
         configTranslation("bars", "Mana/Burnout/Level Bars", "Configuration for the mana, burnout and level bars. The size of the layer is 80x40.");
         configTranslation("bars_x", "Horizontal Position", "Horizontal position of the mana, burnout and level bars.");
@@ -616,6 +621,15 @@ public final class AMLanguageProvider extends LanguageProvider {
     @SuppressWarnings("SameParameterValue")
     private void itemWithVariantTranslation(DeferredItem<?> item, ResourceLocation variant, String translation) {
         add(Util.makeDescriptionId(item.toStack().getDescriptionId(), variant), translation);
+    }
+
+    /**
+     * Adds an entity translation that matches the entity id.
+     *
+     * @param entity The entity to generate the translation for.
+     */
+    private void entityIdTranslation(DeferredHolder<EntityType<?>, ?> entity) {
+        addEntityType(entity, idTranslation(entity.getKey().location().getPath()));
     }
 
     /**

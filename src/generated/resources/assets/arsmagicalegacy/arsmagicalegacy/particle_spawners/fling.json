@@ -1,0 +1,26 @@
+{
+  "controllers": [
+    {
+      "type": "arsmagicalegacy:float_upward",
+      "jitter": 0.0,
+      "max_speed": 0.6,
+      "min_speed": 0.3
+    }
+  ],
+  "count": 25,
+  "max_lifetime": 20,
+  "max_offset": [
+    0.5,
+    1.0,
+    0.5
+  ],
+  "min_lifetime": 20,
+  "min_offset": [
+    -0.5,
+    -1.0,
+    -0.5
+  ],
+  "particle": {
+    "type": "arsmagicalegacy:wind"
+  }
+}

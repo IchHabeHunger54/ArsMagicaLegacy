@@ -49,6 +49,9 @@ public final class AMServerConfig {
     public static final ModConfigSpec.DoubleValue STORM_LIGHTNING_BOLT_CHANCE;
     public static final ModConfigSpec.DoubleValue STORM_LIGHTNING_BOLT_TARGET_CHANCE;
     public static final ModConfigSpec.DoubleValue WIZARDS_AUTUMN_RANGE;
+    public static final ModConfigSpec.DoubleValue PROJECTILE_DURATION;
+    public static final ModConfigSpec.DoubleValue PROJECTILE_GRAVITY;
+    public static final ModConfigSpec.DoubleValue PROJECTILE_SPEED;
     static final ModConfigSpec SPEC;
 
     static {
@@ -69,7 +72,7 @@ public final class AMServerConfig {
             .comment("The default mana to burnout ratio, used in calculating spell costs.")
             .translation(AMTranslations.CONFIG_KEY + "mana_to_burnout_ratio")
             .defineInRange("mana_to_burnout_ratio", 0.5, 0, 10);
-        builder.push("mana");
+        builder.comment("Configuration for the mana leveling and regeneration of players.").push("mana");
         MANA_BASE = builder
             .comment("The base value for mana calculation. Mana is calculated as base + multiplier * (level - 1).")
             .translation(AMTranslations.CONFIG_KEY + "mana_base")
@@ -86,7 +89,7 @@ public final class AMServerConfig {
             .worldRestart()
             .defineInRange("regeneration", 0.001, 0, 1000000);
         builder.pop();
-        builder.push("burnout");
+        builder.comment("Configuration for the burnout leveling and regeneration of players.").push("burnout");
         BURNOUT_BASE = builder
             .comment("The base value for burnout calculation. Burnout is calculated as base + multiplier * (level - 1).")
             .translation(AMTranslations.CONFIG_KEY + "burnout_base")
@@ -103,7 +106,7 @@ public final class AMServerConfig {
             .worldRestart()
             .defineInRange("regeneration", 0.001, 0, 1000000);
         builder.pop();
-        builder.push("level");
+        builder.comment("Configuration for the magic leveling of players.").push("level");
         LEVEL_BASE = builder
             .comment("The base value for leveling calculation. XP cost is calculated as multiplier * base ^ (level - 1).")
             .translation(AMTranslations.CONFIG_KEY + "level_base")
@@ -119,7 +122,7 @@ public final class AMServerConfig {
             .translation(AMTranslations.CONFIG_KEY + "extra_skill_points")
             .defineInRange("extra_skill_points", 2, 0, Short.MAX_VALUE);
         builder.pop();
-        builder.push("affinity");
+        builder.comment("Configuration for the affinity shifting of players.").push("affinity");
         AFFINITY_TO_XP_RATIO = builder
             .comment("The affinity to xp ratio. When awarding xp, the amount of used affinities will be multiplied with this modifier.")
             .translation(AMTranslations.CONFIG_KEY + "affinity_to_xp_ratio")
@@ -144,8 +147,6 @@ public final class AMServerConfig {
             .comment("When an affinity shift is applied, what portion of it is added to the adjacent affinities.")
             .translation(AMTranslations.CONFIG_KEY + "adjacent_multiplier")
             .defineInRange("adjacent_multiplier", 0.25, 0, 1);
-        builder.pop();
-        builder.push("skills");
         AFFINITY_GAINS_MODIFIER = builder
             .comment("When the Affinity Gains talent is learned, by what factor affinity gain will be amplified.")
             .translation(AMTranslations.CONFIG_KEY + "affinity_gains_modifier")
@@ -154,6 +155,8 @@ public final class AMServerConfig {
             .comment("When the Affinity Gains talent is learned, by what factor XP gain will be amplified.")
             .translation(AMTranslations.CONFIG_KEY + "affinity_gains_xp_modifier")
             .defineInRange("affinity_gains_xp_modifier", 0.9, 0, 1);
+        builder.pop();
+        builder.comment("Configuration of various component-specific values.").push("components");
         EFFECT_DURATION = builder
             .comment("The duration of effect-based components, in ticks. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "effect_duration")
@@ -242,6 +245,20 @@ public final class AMServerConfig {
             .comment("The range used by the Wizard's Autumn component. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "wizards_autumn_range")
             .defineInRange("wizards_autumn_range", 2., 1, 64);
+        builder.pop();
+        builder.comment("Configuration of various shape-specific values.").push("shapes");
+        PROJECTILE_DURATION = builder
+            .comment("The duration used by the Projectile shape. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "projectile_duration")
+            .defineInRange(AMTranslations.CONFIG_KEY + "projectile_duration", 30., 1, Short.MAX_VALUE);
+        PROJECTILE_GRAVITY = builder
+            .comment("If a Gravity modifier is present on the Projectile, by how much gravity will be increased.")
+            .translation(AMTranslations.CONFIG_KEY + "projectile_gravity")
+            .defineInRange(AMTranslations.CONFIG_KEY + "projectile_gravity", 0.025, 0, 1);
+        PROJECTILE_SPEED = builder
+            .comment("The speed used by the Projectile shape. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "projectile_speed")
+            .defineInRange(AMTranslations.CONFIG_KEY + "projectile_speed", 0.2, 0, 10);
         builder.pop();
         SPEC = builder.build();
     }

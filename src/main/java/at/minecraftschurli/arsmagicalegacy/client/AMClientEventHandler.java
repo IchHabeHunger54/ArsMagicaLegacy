@@ -33,10 +33,12 @@ import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInKnoc
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInViewDirectionController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.OrbitPointController;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.AltarCoreRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.renderer.EmptyRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.ItemSpellIngredientRenderer;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
+import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
@@ -84,6 +86,7 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(AMEntities.PROJECTILE.get(), EmptyRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.ALTAR_CORE.get(), AltarCoreRenderer::new);
     }
 

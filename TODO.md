@@ -20,10 +20,10 @@
     - Blizzard
     - Falling Star
     - Fire Rain
-    - Projectile
     - Wall
     - Wave
     - Zone
+- Spell Item Models
 - Inlays
 - Wizard's Chalk
 - Liquid Essence

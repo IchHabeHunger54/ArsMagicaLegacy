@@ -92,9 +92,15 @@ public class Projectile extends AbstractSpellEntity {
     @Override
     public void tick() {
         super.tick();
-        HitResult result = AMUtil.getHitResult(position(), position().add(getDeltaMovement()), this, getTargetNonSolid() ? ClipContext.Block.OUTLINE : ClipContext.Block.COLLIDER, getTargetNonSolid() ? ClipContext.Fluid.ANY : ClipContext.Fluid.NONE);
         Level level = level();
         LivingEntity owner = getOwner();
+        setDeltaMovement(getDeltaMovement().x, getDeltaMovement().y - getGravity(), getDeltaMovement().z);
+        setPos(position().add(getDeltaMovement()));
+        if (level().isClientSide()) {
+            AMClientUtil.spawnSpellEntityParticles(this, getColor(), owner);
+        }
+        HitResult result = AMUtil.getHitResult(position(), position().add(getDeltaMovement()), this, getTargetNonSolid() ? ClipContext.Block.OUTLINE : ClipContext.Block.COLLIDER, getTargetNonSolid() ? ClipContext.Fluid.ANY : ClipContext.Fluid.NONE);
+        if (result.getType() == HitResult.Type.MISS) return;
         if (result instanceof BlockHitResult hitResult) {
             BlockPos pos = hitResult.getBlockPos();
             level.getBlockState(pos).entityInside(level, pos, this);
@@ -124,11 +130,6 @@ public class Projectile extends AbstractSpellEntity {
                 ArsMagicaApi.spellHelper().castSecondaryOrGrammar(getSpell(), owner, this, result);
                 decreasePierces();
             }
-        }
-        setDeltaMovement(getDeltaMovement().x, getDeltaMovement().y - getGravity(), getDeltaMovement().z);
-        setPos(position().add(getDeltaMovement()));
-        if (level().isClientSide()) {
-            AMClientUtil.spawnSpellEntityParticles(this, getColor(), owner);
         }
     }
 

@@ -23,13 +23,17 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -173,5 +177,17 @@ public final class AMUtil {
 
     public static Codec<Double> doubleRangeCodec(double min, double max) {
         return Codec.DOUBLE.validate(d -> d.compareTo(min) >= 0 && d.compareTo(max) <= 0 ? DataResult.success(d) : DataResult.error(() -> "Value must be within range [" + min + ";" + max + "]: " + d));
+    }
+
+    public static HitResult getHitResult(Vec3 from, Vec3 to, Entity entity, ClipContext.Block blockContext, ClipContext.Fluid fluidContext) {
+        HitResult hitResult = entity.level().clip(new ClipContext(from, to, blockContext, fluidContext, entity));
+        if (hitResult.getType() != HitResult.Type.MISS) {
+            to = hitResult.getLocation();
+        }
+        HitResult entityHitResult = ProjectileUtil.getEntityHitResult(entity.level(), entity, from, to, entity.getBoundingBox().expandTowards(entity.getDeltaMovement()).inflate(1), e -> true);
+        if (entityHitResult != null) {
+            hitResult = entityHitResult;
+        }
+        return hitResult;
     }
 }

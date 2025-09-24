@@ -7,6 +7,8 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -16,6 +18,7 @@ import net.minecraft.sounds.SoundEvent;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * Represents an affinity.
@@ -28,8 +31,9 @@ import java.util.Optional;
  * @param index          The index of the affinity when displaying in the occulus. The built-in affinities use int values 1-10, use floating point values to insert your affinities between them. Use values < 0 to not display the affinity in the occulus.
  * @param castSound      The {@link SoundEvent} to use for casting {@link Spell}s with the affinity.
  * @param loopSound      The {@link SoundEvent} to use for casting continuous {@link Spell}s with the affinity.
+ * @param particle       The {@link ParticleOptions} to associate with the affinity.
  */
-public record Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> majorOpposites, List<Holder<Affinity>> minorOpposites, List<Holder<Affinity>> adjacents, int color, double index, Optional<Holder<SoundEvent>> castSound, Optional<Holder<SoundEvent>> loopSound) {
+public record Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> majorOpposites, List<Holder<Affinity>> minorOpposites, List<Holder<Affinity>> adjacents, int color, double index, Optional<Holder<SoundEvent>> castSound, Optional<Holder<SoundEvent>> loopSound, ParticleOptions particle) {
     public static final Codec<Affinity> DIRECT_CODEC = Util.make(() -> {
         Codec<Holder<Affinity>> codec = Codec.lazyInitialized(() -> Affinity.CODEC);
         return RecordCodecBuilder.create(inst -> inst.group(
@@ -40,7 +44,8 @@ public record Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> m
             Codec.INT.fieldOf("color").forGetter(Affinity::color),
             Codec.DOUBLE.fieldOf("index").forGetter(Affinity::index),
             BuiltInRegistries.SOUND_EVENT.holderByNameCodec().optionalFieldOf("cast_sound").forGetter(Affinity::castSound),
-            BuiltInRegistries.SOUND_EVENT.holderByNameCodec().optionalFieldOf("loop_sound").forGetter(Affinity::loopSound)
+            BuiltInRegistries.SOUND_EVENT.holderByNameCodec().optionalFieldOf("loop_sound").forGetter(Affinity::loopSound),
+            ParticleTypes.CODEC.fieldOf("particle").forGetter(Affinity::particle)
         ).apply(inst, Affinity::new));
     });
     public static final Codec<Holder<Affinity>> CODEC = RegistryFileCodec.create(AMRegistryKeys.AFFINITY, DIRECT_CODEC);
@@ -55,9 +60,10 @@ public record Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> m
      * @param index          The index of the affinity when displaying in the occulus.
      * @param castSound      The {@link SoundEvent} to use for casting spells with the affinity.
      * @param loopSound      The {@link SoundEvent} to use for casting continuous spells with the affinity.
+     * @param particle       The {@link ParticleOptions} to associate with the affinity.
      */
-    public Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> majorOpposites, List<Holder<Affinity>> minorOpposites, List<Holder<Affinity>> adjacents, int color, double index, Holder<SoundEvent> castSound, Holder<SoundEvent> loopSound) {
-        this(directOpposite, majorOpposites, minorOpposites, adjacents, color, index, Optional.of(castSound), Optional.of(loopSound));
+    public Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> majorOpposites, List<Holder<Affinity>> minorOpposites, List<Holder<Affinity>> adjacents, int color, double index, Holder<SoundEvent> castSound, Holder<SoundEvent> loopSound, ParticleOptions particle) {
+        this(directOpposite, majorOpposites, minorOpposites, adjacents, color, index, Optional.of(castSound), Optional.of(loopSound), particle);
     }
 
     /**

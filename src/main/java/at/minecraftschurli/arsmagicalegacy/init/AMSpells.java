@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
@@ -71,6 +72,7 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.world.effect.MobEffects;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
@@ -79,6 +81,7 @@ import java.util.function.Supplier;
 
 public interface AMSpells {
     DeferredHolder<MapCodec<? extends SpellIngredient>, MapCodec<ItemSpellIngredient>> ITEM_SPELL_INGREDIENT = AMRegistries.SPELL_INGREDIENTS.register("item", () -> ItemSpellIngredient.CODEC);
+    DeferredHolder<EntityDataSerializer<?>, EntityDataSerializer<Spell>> DATA_SERIALIZER = AMRegistries.DATA_SERIALIZERS.register("spell", () -> EntityDataSerializer.forValueType(Spell.STREAM_CODEC));
 
     // @formatter:off
     SpellStat BOUNCE_STAT           = new SpellStat(ArsMagicaApi.modLoc("bounce"));

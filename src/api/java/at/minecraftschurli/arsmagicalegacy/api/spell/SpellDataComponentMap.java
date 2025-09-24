@@ -22,15 +22,16 @@ import java.util.function.Consumer;
 public record SpellDataComponentMap(List<PatchedDataComponentMap> shapeGroups, PatchedDataComponentMap grammar) {
     private static final Codec<PatchedDataComponentMap> COMPONENT_MAP_CODEC = DataComponentPatch.CODEC.xmap(patch -> PatchedDataComponentMap.fromPatch(DataComponentMap.EMPTY, patch), PatchedDataComponentMap::asPatch);
     private static final StreamCodec<RegistryFriendlyByteBuf, PatchedDataComponentMap> COMPONENT_MAP_STREAM_CODEC = DataComponentPatch.STREAM_CODEC.map(patch -> PatchedDataComponentMap.fromPatch(DataComponentMap.EMPTY, patch), PatchedDataComponentMap::asPatch);
+    private static final PatchedDataComponentMap EMPTY_COMPONENT_MAP = new PatchedDataComponentMap(DataComponentMap.EMPTY);
     public static final Codec<SpellDataComponentMap> CODEC = RecordCodecBuilder.create(inst -> inst.group(
-        COMPONENT_MAP_CODEC.listOf(0, Spell.MAX_SHAPE_GROUPS).fieldOf("shape_groups").forGetter(SpellDataComponentMap::shapeGroups),
+        COMPONENT_MAP_CODEC.listOf(Spell.MAX_SHAPE_GROUPS, Spell.MAX_SHAPE_GROUPS).fieldOf("shape_groups").forGetter(SpellDataComponentMap::shapeGroups),
         COMPONENT_MAP_CODEC.fieldOf("grammar").forGetter(SpellDataComponentMap::grammar)
     ).apply(inst, SpellDataComponentMap::new));
     public static final StreamCodec<RegistryFriendlyByteBuf, SpellDataComponentMap> STREAM_CODEC = StreamCodec.composite(
         COMPONENT_MAP_STREAM_CODEC.apply(ByteBufCodecs.list()), SpellDataComponentMap::shapeGroups,
         COMPONENT_MAP_STREAM_CODEC, SpellDataComponentMap::grammar,
         SpellDataComponentMap::new);
-    public static final SpellDataComponentMap EMPTY = new SpellDataComponentMap(List.of(), new PatchedDataComponentMap(DataComponentMap.EMPTY));
+    public static final SpellDataComponentMap EMPTY = new SpellDataComponentMap(List.of(EMPTY_COMPONENT_MAP, EMPTY_COMPONENT_MAP, EMPTY_COMPONENT_MAP, EMPTY_COMPONENT_MAP, EMPTY_COMPONENT_MAP), EMPTY_COMPONENT_MAP);
 
     /**
      * @param index The index of the data components to return. If positive, will return the corresponding shape group. If negative, will return the grammar.

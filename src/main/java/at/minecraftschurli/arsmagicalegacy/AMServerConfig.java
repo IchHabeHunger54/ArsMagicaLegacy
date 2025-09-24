@@ -52,6 +52,11 @@ public final class AMServerConfig {
     public static final ModConfigSpec.DoubleValue PROJECTILE_DURATION;
     public static final ModConfigSpec.DoubleValue PROJECTILE_GRAVITY;
     public static final ModConfigSpec.DoubleValue PROJECTILE_SPEED;
+    public static final ModConfigSpec.DoubleValue ZONE_DURATION;
+    public static final ModConfigSpec.DoubleValue ZONE_GRAVITY;
+    public static final ModConfigSpec.DoubleValue ZONE_RANGE;
+    public static final ModConfigSpec.DoubleValue ZONE_HEIGHT;
+    public static final ModConfigSpec.IntValue ZONE_TICK_INTERVAL;
     static final ModConfigSpec SPEC;
 
     static {
@@ -259,6 +264,26 @@ public final class AMServerConfig {
             .comment("The speed used by the Projectile shape. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "projectile_speed")
             .defineInRange(AMTranslations.CONFIG_KEY + "projectile_speed", 0.2, 0, 10);
+        ZONE_DURATION = builder
+            .comment("The duration used by the Zone shape. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "zone_duration")
+            .defineInRange(AMTranslations.CONFIG_KEY + "zone_duration", 200., 1, Short.MAX_VALUE);
+        ZONE_GRAVITY = builder
+            .comment("If a Gravity modifier is present on the Zone, by how much gravity will be increased.")
+            .translation(AMTranslations.CONFIG_KEY + "zone_gravity")
+            .defineInRange(AMTranslations.CONFIG_KEY + "zone_gravity", 0.025, 0, 1);
+        ZONE_RANGE = builder
+            .comment("The range used by the Zone shape. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "zone_range")
+            .defineInRange(AMTranslations.CONFIG_KEY + "zone_range", 1., 0, 16);
+        ZONE_HEIGHT = builder
+            .comment("The height used by the Zone shape.")
+            .translation(AMTranslations.CONFIG_KEY + "zone_height")
+            .defineInRange(AMTranslations.CONFIG_KEY + "zone_height", 0.25, 0, 8);
+        ZONE_TICK_INTERVAL = builder
+            .comment("The tick interval used by the Zone shape.")
+            .translation(AMTranslations.CONFIG_KEY + "zone_tick_interval")
+            .defineInRange(AMTranslations.CONFIG_KEY + "zone_tick_interval", 5, 1, 100);
         builder.pop();
         SPEC = builder.build();
     }

@@ -51,6 +51,7 @@ public abstract class AbstractSpellEntity extends Entity implements OwnableEntit
     @SuppressWarnings("DataFlowIssue")
     protected static boolean tryReflect(Entity e) {
         if (!(e instanceof LivingEntity living)) return true;
+        if (living.isDeadOrDying()) return false;
         if (!living.hasEffect(AMMobEffects.REFLECT)) return true;
         MobEffectInstance reflect = living.getEffect(AMMobEffects.REFLECT);
         if (reflect.getAmplifier() == 0) {

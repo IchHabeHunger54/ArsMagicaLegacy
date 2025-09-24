@@ -2,7 +2,7 @@
   "controllers": [
     {
       "type": "arsmagicalegacy:fade_out",
-      "speed": 0.05
+      "speed": 0.2
     },
     {
       "type": "arsmagicalegacy:float_upward",
@@ -12,13 +12,13 @@
     }
   ],
   "count": 1,
-  "max_lifetime": 20,
+  "max_lifetime": 5,
   "max_offset": [
     0.05,
     0.05,
     0.05
   ],
-  "min_lifetime": 20,
+  "min_lifetime": 5,
   "min_offset": [
     -0.05,
     -0.05,

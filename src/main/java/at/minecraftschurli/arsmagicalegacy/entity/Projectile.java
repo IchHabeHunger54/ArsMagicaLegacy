@@ -62,8 +62,8 @@ public class Projectile extends AbstractSpellEntity {
     }
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag compoundTag) {
-        CompoundTag tag = compoundTag.getCompound(ArsMagicaApi.MOD_ID);
+    protected void readAdditionalSaveData(CompoundTag compound) {
+        CompoundTag tag = compound.getCompound(ArsMagicaApi.MOD_ID);
         entityData.set(TARGET_NON_SOLID, tag.getBoolean(TARGET_NON_SOLID_KEY));
         entityData.set(BOUNCES, tag.getInt(BOUNCES_KEY));
         entityData.set(COLOR, tag.getInt(COLOR_KEY));
@@ -76,8 +76,8 @@ public class Projectile extends AbstractSpellEntity {
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag compoundTag) {
-        CompoundTag tag = compoundTag.getCompound(ArsMagicaApi.MOD_ID);
+    protected void addAdditionalSaveData(CompoundTag compound) {
+        CompoundTag tag = compound.getCompound(ArsMagicaApi.MOD_ID);
         tag.putBoolean(TARGET_NON_SOLID_KEY, entityData.get(TARGET_NON_SOLID));
         tag.putInt(BOUNCES_KEY, entityData.get(BOUNCES));
         tag.putInt(COLOR_KEY, entityData.get(COLOR));

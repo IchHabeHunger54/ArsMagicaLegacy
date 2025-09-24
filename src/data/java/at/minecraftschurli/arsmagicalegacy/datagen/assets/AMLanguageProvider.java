@@ -6,6 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
+import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
@@ -128,6 +129,8 @@ public final class AMLanguageProvider extends LanguageProvider {
         blockIdTranslation(AMBlocks.WAKEBLOOM);
         blockIdTranslation(AMBlocks.POTTED_WAKEBLOOM);
         addBlock(AMBlocks.VINTEUM_WALL_TORCH, idTranslation(AMBlocks.VINTEUM_TORCH.getId().getPath()));
+        entityIdTranslation(AMEntities.PROJECTILE);
+        entityIdTranslation(AMEntities.ZONE);
         effectIdTranslation(AMMobEffects.ASTRAL_DISTORTION);
         effectIdTranslation(AMMobEffects.BURNOUT_REDUCTION);
         effectIdTranslation(AMMobEffects.CLARITY);
@@ -445,6 +448,11 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("projectile_duration", "Projectile Duration", "The duration used by the Projectile shape. May be amplified by spell modifiers.");
         configTranslation("projectile_gravity", "Projectile Gravity", "If a Gravity modifier is present on the Projectile, by how much gravity will be increased.");
         configTranslation("projectile_speed", "Projectile Speed", "The speed used by the Projectile shape. May be amplified by spell modifiers.");
+        configTranslation("zone_duration", "Zone Duration", "The duration used by the Zone shape. May be amplified by spell modifiers.");
+        configTranslation("zone_gravity", "Zone Gravity", "If a Gravity modifier is present on the Zone, by how much gravity will be increased.");
+        configTranslation("zone_range", "Zone Range", "The range used by the Zone shape. May be amplified by spell modifiers.");
+        configTranslation("zone_height", "Zone Height", "The height used by the Zone shape.");
+        configTranslation("zone_tick_interval", "Zone Tick Interval", "The tick interval used by the Zone shape.");
         configTranslation("gui_layers", "GUI Layers", "Configuration for the various GUI layers in this mod.");
         configTranslation("bars", "Mana/Burnout/Level Bars", "Configuration for the mana, burnout and level bars. The size of the layer is 80x40.");
         configTranslation("bars_x", "Horizontal Position", "Horizontal position of the mana, burnout and level bars.");

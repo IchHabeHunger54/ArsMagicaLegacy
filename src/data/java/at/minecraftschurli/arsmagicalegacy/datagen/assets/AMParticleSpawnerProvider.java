@@ -303,10 +303,14 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
             .offset(-0.5, 0.5, -0.5, 0.5, -0.5, 0.5)
             .color(0x0000ff)
             .controller(new ArcToEntityController(0.05));
-        builder(AMSpells.PROJECTILE.getId(), ParticleTypes.CRIT, 1, 20)
+        builder(AMSpells.PROJECTILE.getId(), ParticleTypes.CRIT, 1, 5)
             .offset(-0.05, 0.05, -0.05, 0.05, -0.05, 0.05)
             .scale(0.25f)
-            .controller(new FadeOutController(0.05f))
+            .controller(new FadeOutController(0.2f))
             .controller(new FloatUpwardController(0.05, 0));
+        builder(AMSpells.ZONE.getId(), ParticleTypes.CRIT, 3, 20)
+            .offset(-0.5, 0.5, 0, 0.25, -0.5, 0.5)
+            .scale(0.75f)
+            .controller(new FloatUpwardController(0, 0.07));
     }
 }

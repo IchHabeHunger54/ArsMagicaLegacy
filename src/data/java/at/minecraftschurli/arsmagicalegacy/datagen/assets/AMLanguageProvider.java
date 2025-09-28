@@ -61,6 +61,18 @@ public final class AMLanguageProvider extends LanguageProvider {
         itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.ARCANE.location(), "Arcane Affinity Essence");
         itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.ENDER.location(), "Ender Affinity Essence");
         itemIdTranslation(AMItems.AFFINITY_ESSENCE);
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, Affinity.NONE.location(), "Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.WATER.location(), "Water Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.FIRE.location(), "Fire Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.EARTH.location(), "Earth Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.AIR.location(), "Air Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.ICE.location(), "Ice Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.LIGHTNING.location(), "Lightning Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.NATURE.location(), "Nature Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.LIFE.location(), "Life Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.ARCANE.location(), "Arcane Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.ENDER.location(), "Ender Affinity Tome");
+        itemIdTranslation(AMItems.AFFINITY_TOME);
         itemIdTranslation(AMItems.BLANK_RUNE);
         itemIdTranslation(AMItems.WHITE_RUNE);
         itemIdTranslation(AMItems.ORANGE_RUNE);
@@ -422,6 +434,8 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("adjacent_multiplier", "Adjacent Multiplier", "When an affinity shift is applied, what portion of it is added to the adjacent affinities.");
         configTranslation("affinity_gains_modifier", "Affinity Gains Modifier", "When the Affinity Gains talent is learned, by what factor affinity gain will be amplified.");
         configTranslation("affinity_gains_xp_modifier", "Affinity Gains XP Modifier", "When the Affinity Gains talent is learned, by what factor XP gain will be amplified.");
+        configTranslation("affinity_tome_shift", "Affinity Tome Shift", "The amount to add to an affinity when using an Affinity Tome.");
+        configTranslation("affinity_tome_reduction", "Affinity Tome Reduction", "The amount to subtract from all other affinities when using an Affinity Tome.");
         configTranslation("components", "Components", "Configuration of various component-specific values.");
         configTranslation("effect_duration", "Effect Duration", "The duration of effect-based components, in ticks. May be amplified by spell modifiers.");
         configTranslation("attract_range", "Attract Range", "The range of the Attract component. May be amplified by spell modifiers.");

@@ -21,7 +21,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.neoforged.neoforge.entity.PartEntity;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 public class Zone extends AbstractSpellEntity {
     private static final EntityDataAccessor<Boolean> TARGET_NON_SOLID = SynchedEntityData.defineId(Zone.class, EntityDataSerializers.BOOLEAN);
@@ -48,7 +49,7 @@ public class Zone extends AbstractSpellEntity {
         builder.define(TARGET_NON_SOLID, false)
             .define(COLOR, -1)
             .define(DURATION, 200)
-            .define(OWNER, 0)
+            .define(OWNER, -1)
             .define(GRAVITY, 0f)
             .define(RANGE, 1f)
             .define(SPELL, Spell.EMPTY);
@@ -68,7 +69,7 @@ public class Zone extends AbstractSpellEntity {
 
     @Override
     protected void addAdditionalSaveData(CompoundTag compound) {
-        CompoundTag tag = compound.getCompound(ArsMagicaApi.MOD_ID);
+        CompoundTag tag = new CompoundTag();
         tag.putBoolean(TARGET_NON_SOLID_KEY, entityData.get(TARGET_NON_SOLID));
         tag.putInt(COLOR_KEY, entityData.get(COLOR));
         tag.putInt(DURATION_KEY, entityData.get(DURATION));
@@ -76,6 +77,7 @@ public class Zone extends AbstractSpellEntity {
         tag.putFloat(GRAVITY_KEY, entityData.get(GRAVITY));
         tag.putFloat(RANGE_KEY, entityData.get(RANGE));
         tag.put(SPELL_KEY, Spell.CODEC.encodeStart(NbtOps.INSTANCE, getSpell()).getOrThrow());
+        compound.put(ArsMagicaApi.MOD_ID, tag);
     }
 
     @Override
@@ -84,6 +86,7 @@ public class Zone extends AbstractSpellEntity {
         setPos(position().add(0, -getGravity(), 0));
         if (tickCount % AMServerConfig.ZONE_TICK_INTERVAL.get() != 0) return;
         LivingEntity owner = getOwner();
+        if (owner == null) return;
         SpellHelper helper = ArsMagicaApi.spellHelper();
         int color = getColor();
         double range = getRange();
@@ -135,8 +138,13 @@ public class Zone extends AbstractSpellEntity {
     @Override
     @Nullable
     public LivingEntity getOwner() {
-        Entity entity = level().getEntity(entityData.get(OWNER));
-        return entity instanceof LivingEntity living ? living : null;
+        Entity entity = level().getEntity(getOwnerId());
+        return entity instanceof LivingEntity ? (LivingEntity) entity : null;
+    }
+
+    @Override
+    public int getOwnerId() {
+        return entityData.get(OWNER);
     }
 
     @Override

@@ -10,12 +10,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.entity.PartEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
-import java.util.function.Consumer;
 
 public abstract class AbstractSpellEntity extends Entity implements OwnableEntity {
     public AbstractSpellEntity(EntityType<?> entityType, Level level) {
@@ -23,6 +20,8 @@ public abstract class AbstractSpellEntity extends Entity implements OwnableEntit
     }
 
     public abstract void setOwner(LivingEntity owner);
+
+    public abstract int getOwnerId();
 
     public abstract int getDuration();
 
@@ -38,7 +37,7 @@ public abstract class AbstractSpellEntity extends Entity implements OwnableEntit
 
     @Override
     public void tick() {
-        if (tickCount > getDuration() || getOwner() == null) {
+        if (tickCount > getDuration() || getOwnerId() < 0) {
             remove(RemovalReason.KILLED);
         }
     }
@@ -62,21 +61,5 @@ public abstract class AbstractSpellEntity extends Entity implements OwnableEntit
             living.addEffect(effect);
         }
         return false;
-    }
-
-    protected void forAllInRange(float radius, boolean skipOwner, Consumer<LivingEntity> consumer) {
-        double x = getX(), y = getY(), z = getZ();
-        for (Entity e : level().getEntities(this, new AABB(x - radius, y - radius, z - radius, x + radius, y + radius, z + radius))) {
-            if (e == this) continue;
-            if (e instanceof PartEntity<?> part) {
-                e = part.getParent();
-            }
-            if (skipOwner && e == getOwner()) continue;
-            if (e instanceof Player player && player.isCreative()) continue;
-            if (e instanceof AbstractSpellEntity) continue;
-            if (tryReflect(e) && e instanceof LivingEntity living && !living.isDeadOrDying()) {
-                consumer.accept(living);
-            }
-        }
     }
 }

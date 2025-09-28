@@ -55,7 +55,7 @@ public class Projectile extends AbstractSpellEntity {
             .define(COLOR, -1)
             .define(DURATION, 200)
             .define(PIERCES, 0)
-            .define(OWNER, 0)
+            .define(OWNER, -1)
             .define(GRAVITY, 0f)
             .define(SPEED, 1f)
             .define(SPELL, Spell.EMPTY);
@@ -77,7 +77,7 @@ public class Projectile extends AbstractSpellEntity {
 
     @Override
     protected void addAdditionalSaveData(CompoundTag compound) {
-        CompoundTag tag = compound.getCompound(ArsMagicaApi.MOD_ID);
+        CompoundTag tag = new CompoundTag();
         tag.putBoolean(TARGET_NON_SOLID_KEY, entityData.get(TARGET_NON_SOLID));
         tag.putInt(BOUNCES_KEY, entityData.get(BOUNCES));
         tag.putInt(COLOR_KEY, entityData.get(COLOR));
@@ -87,13 +87,15 @@ public class Projectile extends AbstractSpellEntity {
         tag.putFloat(GRAVITY_KEY, entityData.get(GRAVITY));
         tag.putFloat(SPEED_KEY, entityData.get(SPEED));
         tag.put(SPELL_KEY, Spell.CODEC.encodeStart(NbtOps.INSTANCE, getSpell()).getOrThrow());
+        compound.put(ArsMagicaApi.MOD_ID, tag);
     }
 
     @Override
     public void tick() {
         super.tick();
-        Level level = level();
         LivingEntity owner = getOwner();
+        if (owner == null) return;
+        Level level = level();
         setDeltaMovement(getDeltaMovement().x, getDeltaMovement().y - getGravity(), getDeltaMovement().z);
         setPos(position().add(getDeltaMovement()));
         if (level().isClientSide()) {
@@ -187,8 +189,13 @@ public class Projectile extends AbstractSpellEntity {
     @Override
     @Nullable
     public LivingEntity getOwner() {
-        Entity entity = level().getEntity(entityData.get(OWNER));
+        Entity entity = level().getEntity(getOwnerId());
         return entity instanceof LivingEntity ? (LivingEntity) entity : null;
+    }
+
+    @Override
+    public int getOwnerId() {
+        return entityData.get(OWNER);
     }
 
     @Override

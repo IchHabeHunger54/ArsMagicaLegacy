@@ -22,6 +22,7 @@ public final class AMItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
         singleTexture("arcane_compendium", ResourceLocation.withDefaultNamespace("item/generated"), "layer0", modLoc("item/arcane_compendium"));
         basicItem(AMItems.SPELL);
+        basicItemWithVariants(AMItems.SPELL, AMMagic.AFFINITIES);
         withExistingParent(AMItems.SPELL_RECIPE.getId().getPath(), mcLoc("item/written_book"));
         blockItem(AMItems.OCCULUS);
         basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1);

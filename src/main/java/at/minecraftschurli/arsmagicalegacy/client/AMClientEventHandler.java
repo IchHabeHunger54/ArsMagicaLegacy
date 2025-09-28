@@ -18,16 +18,17 @@ import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.color.C
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.color.ColorWheelShader;
 import at.minecraftschurli.arsmagicalegacy.client.layer.BarsLayer;
 import at.minecraftschurli.arsmagicalegacy.client.model.AltarCoreModel;
-import at.minecraftschurli.arsmagicalegacy.client.model.DataComponentOverrides;
-import at.minecraftschurli.arsmagicalegacy.client.model.ItemOverridesModel;
+import at.minecraftschurli.arsmagicalegacy.client.model.item.DataComponentOverrides;
+import at.minecraftschurli.arsmagicalegacy.client.model.item.ItemOverridesModel;
+import at.minecraftschurli.arsmagicalegacy.client.model.item.SpellItemModel;
+import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleSpawnerManager;
+import at.minecraftschurli.arsmagicalegacy.client.particle.SimpleParticleProvider;
+import at.minecraftschurli.arsmagicalegacy.client.particle.SymbolsParticleProvider;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.ApproachEntityController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.ArcToEntityController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.ChangeSizeController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.FadeOutController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.FloatUpwardController;
-import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleSpawnerManager;
-import at.minecraftschurli.arsmagicalegacy.client.particle.SimpleParticleProvider;
-import at.minecraftschurli.arsmagicalegacy.client.particle.SymbolsParticleProvider;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.LeaveTrailController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInKnockbackDirectionController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInViewDirectionController;
@@ -35,6 +36,7 @@ import at.minecraftschurli.arsmagicalegacy.client.particle.controller.OrbitPoint
 import at.minecraftschurli.arsmagicalegacy.client.renderer.AltarCoreRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.EmptyRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.ItemSpellIngredientRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.renderer.SpellItemRenderer;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
@@ -46,13 +48,21 @@ import at.minecraftschurli.arsmagicalegacy.init.AMParticles;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.block.BlockModelShaper;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -67,12 +77,15 @@ import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.event.RegisterShadersEvent;
+import net.neoforged.neoforge.client.event.RenderHandEvent;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.client.settings.KeyModifier;
 import net.neoforged.neoforge.common.util.Lazy;
 import org.lwjgl.glfw.GLFW;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.stream.Stream;
 
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID, value = Dist.CLIENT)
@@ -120,6 +133,11 @@ final class AMClientEventHandler {
         event.registerReloadListener(ParticleSpawnerManager.INSTANCE);
         event.registerReloadListener(SkillAtlasHolder.INSTANCE.get());
         event.registerReloadListener(SpellIconAtlasHolder.INSTANCE.get());
+    }
+
+    @SubscribeEvent
+    private static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+        event.registerItem(new SpellItemRenderer(), AMItems.SPELL);
     }
 
     @SubscribeEvent
@@ -191,14 +209,17 @@ final class AMClientEventHandler {
         DataComponentOverrides.getAdditionalModels(Stream.of(1, 2, 3).map(i -> ArsMagicaApi.modLoc("tier_" + i)), AMItems.INSCRIPTION_TABLE).forEach(event::register);
         DataComponentOverrides.getAdditionalModels(AMMagic.SKILL_POINTS.stream().map(ResourceKey::location), AMItems.INFINITY_ORB).forEach(event::register);
         DataComponentOverrides.getAdditionalModels(AMMagic.AFFINITIES.stream().map(ResourceKey::location), AMItems.AFFINITY_ESSENCE).forEach(event::register);
+        DataComponentOverrides.getAdditionalModels(AMMagic.AFFINITIES.stream().map(ResourceKey::location), AMItems.SPELL).forEach(event::register);
     }
 
     @SubscribeEvent
     private static void modelModifyBakingResult(ModelEvent.ModifyBakingResult event) {
-        ItemOverridesModel.register(event.getModels(), AMItems.INSCRIPTION_TABLE, new DataComponentOverrides<>(AMDataComponents.TIER.get(), (tier, model, stack) -> tier == 0 ? null : ModelResourceLocation.standalone(ArsMagicaApi.modLoc("item/inscription_table_tier_" + tier))));
-        ItemOverridesModel.register(event.getModels(), AMItems.INFINITY_ORB, new DataComponentOverrides<>(AMDataComponents.SKILL_POINT.get(), DataComponentOverrides.holder()));
-        ItemOverridesModel.register(event.getModels(), AMItems.AFFINITY_ESSENCE, new DataComponentOverrides<>(AMDataComponents.AFFINITY.get(), DataComponentOverrides.holder()));
-        event.getModels().computeIfPresent(BlockModelShaper.stateToModelLocation(AMBlocks.ALTAR_CORE.get().defaultBlockState().setValue(AltarCoreBlock.FORMED, true)), ($, model) -> new AltarCoreModel(model));
+        Map<ModelResourceLocation, BakedModel> models = event.getModels();
+        ItemOverridesModel.register(models, AMItems.INSCRIPTION_TABLE, new DataComponentOverrides<>(AMDataComponents.TIER.get(), (tier, model, stack) -> tier == 0 ? null : ModelResourceLocation.standalone(ArsMagicaApi.modLoc("item/inscription_table_tier_" + tier))));
+        ItemOverridesModel.register(models, AMItems.INFINITY_ORB, new DataComponentOverrides<>(AMDataComponents.SKILL_POINT.get(), DataComponentOverrides.holder()));
+        ItemOverridesModel.register(models, AMItems.AFFINITY_ESSENCE, new DataComponentOverrides<>(AMDataComponents.AFFINITY.get(), DataComponentOverrides.holder()));
+        models.computeIfPresent(ModelResourceLocation.inventory(AMItems.SPELL.getId()), ($, model) -> new SpellItemModel(model));
+        models.computeIfPresent(BlockModelShaper.stateToModelLocation(AMBlocks.ALTAR_CORE.get().defaultBlockState().setValue(AltarCoreBlock.FORMED, true)), ($, model) -> new AltarCoreModel(model));
     }
 
     @SuppressWarnings("DataFlowIssue")
@@ -210,5 +231,37 @@ final class AMClientEventHandler {
         while (stack.has(AMDataComponents.SPELL) && SPELL_CUSTOMIZATION.get().consumeClick()) {
             AMClientUtil.mc().setScreen(new SpellCustomizationScreen(stack.get(AMDataComponents.SPELL)));
         }
+    }
+
+    /**
+     * Adapted from ItemInHandRenderer#renderArmWithItem
+     */
+    @SubscribeEvent
+    private static void renderHand(RenderHandEvent event) {
+        if (!(AMClientUtil.player() instanceof LocalPlayer player) || player.isInvisible() || !ArsMagicaApi.magicHelper().knowsMagic(player)) return;
+        ItemStack item = event.getItemStack();
+        if (!item.is(AMItems.SPELL)) return;
+        float swing = event.getSwingProgress();
+        float swingSqrt = Mth.sqrt(swing);
+        boolean isRightHand = (event.getHand() == InteractionHand.MAIN_HAND ? player.getMainArm() : player.getMainArm().getOpposite()) != HumanoidArm.LEFT;
+        int armMultiplier = isRightHand ? 1 : -1;
+        PoseStack stack = event.getPoseStack();
+        stack.pushPose();
+        RenderSystem.setShaderTexture(0, player.getSkin().texture());
+        stack.translate(armMultiplier * (-0.3 * Mth.sin((float) (swingSqrt * Math.PI)) + 0.64), 0.4 * Mth.sin((float) (swingSqrt * (Math.PI * 2))) - 0.6 + event.getEquipProgress() * -0.6, -0.4 * Mth.sin((float) (swing * Math.PI)) - 0.72);
+        stack.mulPose(Axis.YP.rotationDegrees(armMultiplier * 45));
+        stack.mulPose(Axis.YP.rotationDegrees(armMultiplier * Mth.sin((float) (swingSqrt * Math.PI)) * 70));
+        stack.mulPose(Axis.ZP.rotationDegrees(armMultiplier * Mth.sin((float) (swing * swing * Math.PI)) * -20));
+        stack.translate(-armMultiplier, 3.6, 3.5);
+        stack.mulPose(Axis.ZP.rotationDegrees(armMultiplier * 120));
+        stack.mulPose(Axis.XP.rotationDegrees(200));
+        stack.mulPose(Axis.YP.rotationDegrees(armMultiplier * -135));
+        stack.translate(armMultiplier * 5.6, 0, 0);
+        if (isRightHand) {
+            ((PlayerRenderer) AMClientUtil.mc().getEntityRenderDispatcher().getRenderer(player)).renderRightHand(stack, event.getMultiBufferSource(), event.getPackedLight(), player);
+        } else {
+            ((PlayerRenderer) AMClientUtil.mc().getEntityRenderDispatcher().getRenderer(player)).renderLeftHand(stack, event.getMultiBufferSource(), event.getPackedLight(), player);
+        }
+        stack.popPose();
     }
 }

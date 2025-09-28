@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.client;
 
+import at.minecraftschurli.arsmagicalegacy.client.atlas.SpellIconAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.color.ColorWheelShader;
 import com.mojang.blaze3d.shaders.Uniform;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -29,6 +30,8 @@ public final class AMRenderTypes {
             }, () -> {}))
             .createCompositeState(false)
     );
+    public static final RenderType SPELL_ICON = RenderType.itemEntityTranslucentCull(SpellIconAtlasHolder.ATLAS);
+    public static final RenderType SPELL_ICON_FABULOUS = RenderType.entityTranslucentCull(SpellIconAtlasHolder.ATLAS);
 
     private static void setUniform(String name, float value) {
         ShaderInstance shader = RenderSystem.getShader();

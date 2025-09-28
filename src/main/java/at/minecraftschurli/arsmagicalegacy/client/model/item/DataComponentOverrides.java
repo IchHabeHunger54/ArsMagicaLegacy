@@ -1,5 +1,6 @@
-package at.minecraftschurli.arsmagicalegacy.client.model;
+package at.minecraftschurli.arsmagicalegacy.client.model.item;
 
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
@@ -29,7 +30,7 @@ public class DataComponentOverrides<T> extends ItemOverrides {
     @Nullable
     public BakedModel resolve(BakedModel model, ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int seed) {
         ModelResourceLocation location = stack.has(dataComponent) ? modelFunction.apply(stack.get(dataComponent), model, stack) : null;
-        return location == null ? super.resolve(model, stack, level, entity, seed) : Minecraft.getInstance().getModelManager().getModel(location);
+        return location == null ? super.resolve(model, stack, level, entity, seed) : AMClientUtil.mc().getModelManager().getModel(location);
     }
 
     @SuppressWarnings("DataFlowIssue")

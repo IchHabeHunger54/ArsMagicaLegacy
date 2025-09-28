@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.client.model;
+package at.minecraftschurli.arsmagicalegacy.client.model.item;
 
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.resources.model.BakedModel;

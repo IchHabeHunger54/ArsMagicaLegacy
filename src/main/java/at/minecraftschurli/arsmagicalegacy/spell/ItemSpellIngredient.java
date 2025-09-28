@@ -16,6 +16,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.phys.AABB;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,13 +59,48 @@ public record ItemSpellIngredient(Ingredient item, int count) implements SpellIn
 
     @Override
     public boolean consume(Level level, BlockPos pos) {
-        for (ItemEntity entity : level.getEntities(EntityTypeTest.forClass(ItemEntity.class), new AABB(pos).inflate(1, 1, 1).move(0, -2, 0), entity -> item.test(entity.getItem()))) {
-            ItemStack stack = entity.getItem();
-            if (stack.getCount() < count) continue;
+        for (ItemEntity entity : level.getEntities(EntityTypeTest.forClass(ItemEntity.class), new AABB(pos).inflate(1, 1, 1).move(0, -2, 0), e -> true)) {
+            if (consume(entity.getItem())) {
+                level.playSound(null, pos.getX(), pos.getY() - 2, pos.getZ(), AMSounds.SPELLCRAFTING_ADD_INGREDIENT.get(), SoundSource.BLOCKS, 1, 1);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean consume(ItemStack stack) {
+        IItemHandler handler = stack.getCapability(Capabilities.ItemHandler.ITEM);
+        if (handler != null && testItemHandler(item, count, handler)) {
+            int count = this.count;
+            for (int i = 0; i < handler.getSlots(); i++) {
+                ItemStack slotStack = handler.getStackInSlot(i).copy();
+                if (item.test(slotStack)) {
+                    int slotCount = slotStack.getCount();
+                    if (count > slotCount) {
+                        handler.extractItem(i, slotCount, false);
+                        count -= slotCount;
+                    } else {
+                        handler.extractItem(i, count, false);
+                        return true;
+                    }
+                }
+            }
+        }
+        if (item.test(stack) && stack.getCount() >= count) {
             stack.shrink(count);
-            level.playSound(null, pos.getX(), pos.getY() - 2, pos.getZ(), AMSounds.SPELLCRAFTING_ADD_INGREDIENT.get(), SoundSource.BLOCKS, 1, 1);
             return true;
         }
         return false;
+    }
+
+    private static boolean testItemHandler(Ingredient ingredient, int count, IItemHandler handler) {
+        for (int i = 0; i < handler.getSlots(); i++) {
+            ItemStack stack = handler.getStackInSlot(i);
+            if (ingredient.test(stack)) {
+                count -= stack.getCount();
+            }
+            if (count <= 0) return true;
+        }
+        return count <= 0;
     }
 }

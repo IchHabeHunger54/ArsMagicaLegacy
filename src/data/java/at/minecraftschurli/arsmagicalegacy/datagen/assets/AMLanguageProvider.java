@@ -78,6 +78,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         itemIdTranslation(AMItems.GREEN_RUNE);
         itemIdTranslation(AMItems.RED_RUNE);
         itemIdTranslation(AMItems.BLACK_RUNE);
+        itemIdTranslation(AMItems.RUNE_BAG);
         blockIdTranslation(AMBlocks.CHIMERITE_ORE);
         blockIdTranslation(AMBlocks.DEEPSLATE_CHIMERITE_ORE);
         itemIdTranslation(AMItems.CHIMERITE);
@@ -576,6 +577,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.OCCULUS_PREV_KEY, "<");
         add(AMTranslations.PREVENT_BLOCK_KEY, "Mystical forces prevent you from using this block! Try crafting an Arcane Compendium to learn more.");
         add(AMTranslations.PREVENT_ITEM_KEY, "Mystical forces prevent you from using this item! Try crafting an Arcane Compendium to learn more.");
+        add(AMTranslations.RUNE_BAG_TITLE_KEY, "Rune Bag");
         add(AMTranslations.SPELL_CAST_BURNED_OUT_KEY, "Burned out!");
         add(AMTranslations.SPELL_CAST_MALFORMED_KEY, "Spell is malformed and cannot be cast!");
         add(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA_KEY, "Not enough mana to cast the spell!");

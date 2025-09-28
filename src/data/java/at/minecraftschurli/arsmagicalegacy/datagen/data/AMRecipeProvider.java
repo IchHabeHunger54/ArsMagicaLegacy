@@ -312,6 +312,20 @@ public final class AMRecipeProvider extends RecipeProvider {
             .requires(Tags.Items.DYES_BLACK)
             .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
             .save(output);
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, AMItems.RUNE_BAG.get())
+            .pattern("SHS")
+            .pattern("HRH")
+            .pattern("HHH")
+            .define('S', Tags.Items.STRINGS)
+            .define('H', Items.RABBIT_HIDE)
+            .define('R', AMTags.Items.RUNES)
+            .unlockedBy(getHasName(Items.RABBIT_HIDE), has(Items.RABBIT_HIDE))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.RUNE_BAG.get())
+            .requires(Items.BUNDLE)
+            .requires(AMTags.Items.RUNES)
+            .unlockedBy("has_rune", has(AMTags.Items.RUNES))
+            .save(output, "rune_bag_from_bundle");
         oreSmelting(output, List.of(AMItems.CHIMERITE_ORE.get(), AMItems.DEEPSLATE_CHIMERITE_ORE.get()), AMItems.CHIMERITE.get(), 0.7f, 200, "chimerite");
         oreBlasting(output, List.of(AMItems.CHIMERITE_ORE.get(), AMItems.DEEPSLATE_CHIMERITE_ORE.get()), AMItems.CHIMERITE.get(), 0.7f, 100, "chimerite");
         nineBlockStorageRecipes(output, AMItems.CHIMERITE, AMTags.Items.GEMS_CHIMERITE, AMItems.CHIMERITE_BLOCK, AMTags.Items.STORAGE_BLOCKS_CHIMERITE);

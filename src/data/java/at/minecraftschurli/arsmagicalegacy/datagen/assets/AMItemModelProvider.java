@@ -51,6 +51,7 @@ public final class AMItemModelProvider extends ItemModelProvider {
         basicItem(AMItems.GREEN_RUNE);
         basicItem(AMItems.RED_RUNE);
         basicItem(AMItems.BLACK_RUNE);
+        basicItem(AMItems.RUNE_BAG);
         blockItem(AMItems.CHIMERITE_ORE);
         blockItem(AMItems.DEEPSLATE_CHIMERITE_ORE);
         basicItem(AMItems.CHIMERITE);

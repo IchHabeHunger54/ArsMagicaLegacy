@@ -26,7 +26,6 @@
 - Inlays
 - Wizard's Chalk
 - Liquid Essence
-- Rune Bag
 - Spell Book
 - Affinity Tomes
     - Loot Modifiers

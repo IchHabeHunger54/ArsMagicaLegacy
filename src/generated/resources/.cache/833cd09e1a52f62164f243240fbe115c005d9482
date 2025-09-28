@@ -1,4 +1,4 @@
-// 1.21.1	2025-09-28T01:33:22.2955648	Item Models: arsmagicalegacy
+// 1.21.1	2025-09-28T20:30:17.3594075	Item Models: arsmagicalegacy
 6e0b262bb6740bdbe7b3564e182497239ff375ac assets/arsmagicalegacy/models/item/affinity_essence_air.json
 84174d0bc6eb1016c4946a0937eb7ec35e19f1d8 assets/arsmagicalegacy/models/item/affinity_essence_arcane.json
 30a8164938d38c30eeb732879d3cd38955490293 assets/arsmagicalegacy/models/item/affinity_essence_earth.json
@@ -51,6 +51,7 @@ c4bad8cba42a6ad57f3f07aa9114169c4262a2ef assets/arsmagicalegacy/models/item/oran
 fa2a7dbb22b29acdc4051e3568755d8f4546d69f assets/arsmagicalegacy/models/item/purified_vinteum_dust.json
 e0b4ee8d0a2e88a657cc7e240419e7f063c35710 assets/arsmagicalegacy/models/item/purple_rune.json
 f16cb1a0064c41af929f3c88c399c767177ec5bb assets/arsmagicalegacy/models/item/red_rune.json
+f6b1c90afbf36e7694251a0ada03f924a53f0760 assets/arsmagicalegacy/models/item/rune_bag.json
 0d8c388ee73765f5a8be954148b98356391da687 assets/arsmagicalegacy/models/item/spell.json
 9e2ccfdc72a1f495bf64b077dd72c2b27fed87ec assets/arsmagicalegacy/models/item/spell_air.json
 08f5d5cdb8d2c51bf8c946aba201e2c03853ec43 assets/arsmagicalegacy/models/item/spell_arcane.json

@@ -70,7 +70,7 @@ public record ItemSpellIngredient(Ingredient item, int count) implements SpellIn
 
     private boolean consume(ItemStack stack) {
         IItemHandler handler = stack.getCapability(Capabilities.ItemHandler.ITEM);
-        if (handler != null && testItemHandler(item, count, handler)) {
+        if (handler != null && testItemHandler(handler)) {
             int count = this.count;
             for (int i = 0; i < handler.getSlots(); i++) {
                 ItemStack slotStack = handler.getStackInSlot(i).copy();
@@ -93,10 +93,11 @@ public record ItemSpellIngredient(Ingredient item, int count) implements SpellIn
         return false;
     }
 
-    private static boolean testItemHandler(Ingredient ingredient, int count, IItemHandler handler) {
+    private boolean testItemHandler(IItemHandler handler) {
+        int count = this.count;
         for (int i = 0; i < handler.getSlots(); i++) {
             ItemStack stack = handler.getStackInSlot(i);
-            if (ingredient.test(stack)) {
+            if (item.test(stack)) {
                 count -= stack.getCount();
             }
             if (count <= 0) return true;

@@ -18,6 +18,8 @@
   - Dismembering is now functional
   - Frost no longer uses an effect
 - Changed how spell parts such as Color, Place Block or Recall store their metadata
+- The Altar now accepts Shulker Boxes, Rune Bags and other container items, and will pull spell ingredients from them
+- Rune Bags can no longer be inserted into Shulker Boxes or similar containers
 - Affinity abilities now use an effect system that can be modified via datapacks
 - Various minor balancing tweaks
 

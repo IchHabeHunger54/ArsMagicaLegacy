@@ -48,6 +48,7 @@ public interface AMCreativeTabs {
             output.accept(AMItems.PURPLE_RUNE);
             output.accept(AMItems.MAGENTA_RUNE);
             output.accept(AMItems.PINK_RUNE);
+            output.accept(AMItems.RUNE_BAG);
             output.accept(AMItems.CHIMERITE_ORE);
             output.accept(AMItems.DEEPSLATE_CHIMERITE_ORE);
             output.accept(AMItems.CHIMERITE);

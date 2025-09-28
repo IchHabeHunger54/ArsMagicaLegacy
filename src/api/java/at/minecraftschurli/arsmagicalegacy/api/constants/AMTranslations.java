@@ -81,6 +81,7 @@ public interface AMTranslations {
     String OCCULUS_FORGET_ALL_TOOLTIP_KEY      = "gui." + ArsMagicaApi.MOD_ID + ".occulus.forget_all.tooltip";
     String OCCULUS_NEXT_KEY                    = "gui." + ArsMagicaApi.MOD_ID + ".occulus.next";
     String OCCULUS_PREV_KEY                    = "gui." + ArsMagicaApi.MOD_ID + ".occulus.prev";
+    String RUNE_BAG_TITLE_KEY                  = "item." + ArsMagicaApi.MOD_ID + ".rune_bag.title";
     String SPELL_CUSTOMIZATION_COLOR_KEY       = "item." + ArsMagicaApi.MOD_ID + ".spell_customization.color";
     String SPELL_CUSTOMIZATION_COLOR_CLEAR_KEY = "item." + ArsMagicaApi.MOD_ID + ".spell_customization.color.clear";
     String SPELL_CUSTOMIZATION_NAME_KEY        = "item." + ArsMagicaApi.MOD_ID + ".spell_customization.name";
@@ -110,6 +111,7 @@ public interface AMTranslations {
     Component OCCULUS_FORGET_ALL_TOOLTIP      = Component.translatable(OCCULUS_FORGET_ALL_TOOLTIP_KEY);
     Component OCCULUS_NEXT                    = Component.translatable(OCCULUS_NEXT_KEY);
     Component OCCULUS_PREV                    = Component.translatable(OCCULUS_PREV_KEY);
+    Component RUNE_BAG_TITLE                  = Component.translatable(RUNE_BAG_TITLE_KEY);
     Component SPELL_CUSTOMIZATION_COLOR       = Component.translatable(SPELL_CUSTOMIZATION_COLOR_KEY);
     Component SPELL_CUSTOMIZATION_COLOR_CLEAR = Component.translatable(SPELL_CUSTOMIZATION_COLOR_CLEAR_KEY);
     Component SPELL_CUSTOMIZATION_NAME        = Component.translatable(SPELL_CUSTOMIZATION_NAME_KEY);

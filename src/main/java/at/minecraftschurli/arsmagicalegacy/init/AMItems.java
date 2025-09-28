@@ -7,6 +7,7 @@ import at.minecraftschurli.arsmagicalegacy.item.InfinityOrbItem;
 import at.minecraftschurli.arsmagicalegacy.item.InscriptionTableUpgradeItem;
 import at.minecraftschurli.arsmagicalegacy.item.SpellItem;
 import at.minecraftschurli.arsmagicalegacy.item.SpellRecipeItem;
+import at.minecraftschurli.arsmagicalegacy.item.runebag.RuneBagItem;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -51,6 +52,7 @@ public interface AMItems {
     DeferredItem<Item>                                     GREEN_RUNE                       = AMRegistries.ITEMS.registerSimpleItem("green_rune");
     DeferredItem<Item>                                     RED_RUNE                         = AMRegistries.ITEMS.registerSimpleItem("red_rune");
     DeferredItem<Item>                                     BLACK_RUNE                       = AMRegistries.ITEMS.registerSimpleItem("black_rune");
+    DeferredItem<RuneBagItem>                              RUNE_BAG                         = AMRegistries.ITEMS.registerItem("rune_bag", p -> new RuneBagItem(p.stacksTo(1)));
     DeferredItem<BlockItem>                                CHIMERITE_ORE                    = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.CHIMERITE_ORE);
     DeferredItem<BlockItem>                                DEEPSLATE_CHIMERITE_ORE          = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.DEEPSLATE_CHIMERITE_ORE);
     DeferredItem<Item>                                     CHIMERITE                        = AMRegistries.ITEMS.registerSimpleItem("chimerite");

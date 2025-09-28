@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.item.AffinityTomeItem;
 import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
 import at.minecraftschurli.arsmagicalegacy.item.InfinityOrbItem;
 import at.minecraftschurli.arsmagicalegacy.item.InscriptionTableUpgradeItem;
@@ -35,6 +36,7 @@ public interface AMItems {
     DeferredItem<Item>                                     SPELL_PARCHMENT                  = AMRegistries.ITEMS.registerSimpleItem("spell_parchment");
     DeferredItem<InfinityOrbItem>                          INFINITY_ORB                     = AMRegistries.ITEMS.registerItem("infinity_orb", InfinityOrbItem::new);
     DeferredItem<DataComponentNamedItem<Holder<Affinity>>> AFFINITY_ESSENCE                 = AMRegistries.ITEMS.registerItem("affinity_essence", p -> new DataComponentNamedItem<>(p, AMDataComponents.AFFINITY.get()).withTranslationKeyGetter((holder, name) -> Util.makeDescriptionId(name, holder.getKey().location())));
+    DeferredItem<AffinityTomeItem>                         AFFINITY_TOME                    = AMRegistries.ITEMS.registerItem("affinity_tome", AffinityTomeItem::new);
     DeferredItem<Item>                                     BLANK_RUNE                       = AMRegistries.ITEMS.registerSimpleItem("blank_rune");
     DeferredItem<Item>                                     WHITE_RUNE                       = AMRegistries.ITEMS.registerSimpleItem("white_rune");
     DeferredItem<Item>                                     ORANGE_RUNE                      = AMRegistries.ITEMS.registerSimpleItem("orange_rune");

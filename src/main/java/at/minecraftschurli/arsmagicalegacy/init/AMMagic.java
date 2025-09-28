@@ -10,6 +10,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public interface AMMagic {
     // @formatter:off
@@ -43,6 +44,7 @@ public interface AMMagic {
     ResourceKey<Skill>      SPELL_MOTION              = skill("spell_motion");
     // @formatter:on
     List<ResourceKey<Affinity>> AFFINITIES = List.of(WATER, FIRE, EARTH, AIR, ICE, LIGHTNING, NATURE, LIFE, ARCANE, ENDER);
+    List<ResourceKey<Affinity>> AFFINITIES_WITH_NONE = Stream.concat(Stream.of(Affinity.NONE), AFFINITIES.stream()).toList();
     List<ResourceKey<SkillPoint>> SKILL_POINTS = List.of(BLUE_POINT, GREEN_POINT, RED_POINT);
 
     private static ResourceKey<Affinity> affinity(String name) {

@@ -31,6 +31,7 @@ public interface AMCreativeTabs {
             output.accept(AMItems.SPELL_PARCHMENT);
             acceptVariants(display, output, AMItems.INFINITY_ORB, AMRegistryKeys.SKILL_POINT, (stack, holder) -> stack.set(AMDataComponents.SKILL_POINT, holder));
             acceptVariants(display, output, AMItems.AFFINITY_ESSENCE, AMRegistryKeys.AFFINITY, (stack, holder) -> stack.set(AMDataComponents.AFFINITY, holder), Affinity.NONE);
+            acceptVariants(display, output, AMItems.AFFINITY_TOME, AMRegistryKeys.AFFINITY, (stack, holder) -> stack.set(AMDataComponents.AFFINITY, holder));
             output.accept(AMItems.BLANK_RUNE);
             output.accept(AMItems.BLACK_RUNE);
             output.accept(AMItems.LIGHT_GRAY_RUNE);

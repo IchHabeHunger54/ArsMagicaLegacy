@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.worldgen;
+package at.minecraftschurli.arsmagicalegacy.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

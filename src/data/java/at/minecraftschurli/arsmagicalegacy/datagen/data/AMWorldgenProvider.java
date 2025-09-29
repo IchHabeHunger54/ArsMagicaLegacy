@@ -2,8 +2,8 @@ package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMWorldgen;
-import at.minecraftschurli.arsmagicalegacy.worldgen.HolderSets;
-import at.minecraftschurli.arsmagicalegacy.worldgen.MeteoriteFeature;
+import at.minecraftschurli.arsmagicalegacy.util.HolderSets;
+import at.minecraftschurli.arsmagicalegacy.data.MeteoriteFeature;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;

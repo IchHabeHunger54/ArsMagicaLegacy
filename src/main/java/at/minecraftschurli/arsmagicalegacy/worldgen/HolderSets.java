@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.util;
+package at.minecraftschurli.arsmagicalegacy.worldgen;
 
 import com.google.common.base.Preconditions;
 import net.minecraft.core.HolderGetter;

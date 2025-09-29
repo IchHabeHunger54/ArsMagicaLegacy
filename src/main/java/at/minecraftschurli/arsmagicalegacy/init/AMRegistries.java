@@ -18,8 +18,10 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
+import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
@@ -29,21 +31,23 @@ public interface AMRegistries {
     DeferredRegister.Items  ITEMS  = DeferredRegister.createItems(ArsMagicaApi.MOD_ID);
     DeferredRegister.DataComponents DATA_COMPONENTS       = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE,           ArsMagicaApi.MOD_ID);
     DeferredRegister.DataComponents SPELL_DATA_COMPONENTS = DeferredRegister.createDataComponents(AMRegistryKeys.SPELL_DATA_COMPONENT_TYPE, ArsMagicaApi.MOD_ID);
-    DeferredRegister<Attribute>                           ATTRIBUTES        = DeferredRegister.create(Registries.ATTRIBUTE,                            ArsMagicaApi.MOD_ID);
-    DeferredRegister<BlockEntityType<?>>                  BLOCK_ENTITIES    = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE,                    ArsMagicaApi.MOD_ID);
-    DeferredRegister<CreativeModeTab>                     CREATIVE_TABS     = DeferredRegister.create(Registries.CREATIVE_MODE_TAB,                    ArsMagicaApi.MOD_ID);
-    DeferredRegister<EntityType<?>>                       ENTITIES          = DeferredRegister.create(Registries.ENTITY_TYPE,                          ArsMagicaApi.MOD_ID);
-    DeferredRegister<MenuType<?>>                         MENUS             = DeferredRegister.create(Registries.MENU,                                 ArsMagicaApi.MOD_ID);
-    DeferredRegister<MobEffect>                           MOB_EFFECTS       = DeferredRegister.create(Registries.MOB_EFFECT,                           ArsMagicaApi.MOD_ID);
-    DeferredRegister<ParticleType<?>>                     PARTICLES         = DeferredRegister.create(Registries.PARTICLE_TYPE,                        ArsMagicaApi.MOD_ID);
-    DeferredRegister<Potion>                              POTIONS           = DeferredRegister.create(Registries.POTION,                               ArsMagicaApi.MOD_ID);
-    DeferredRegister<SoundEvent>                          SOUND_EVENTS      = DeferredRegister.create(Registries.SOUND_EVENT,                          ArsMagicaApi.MOD_ID);
-    DeferredRegister<Feature<?>>                          FEATURES          = DeferredRegister.create(Registries.FEATURE,                              ArsMagicaApi.MOD_ID);
-    DeferredRegister<AttachmentType<?>>                   ATTACHMENTS       = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES,        ArsMagicaApi.MOD_ID);
-    DeferredRegister<EntityDataSerializer<?>>             DATA_SERIALIZERS  = DeferredRegister.create(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, ArsMagicaApi.MOD_ID);
-    DeferredRegister<MapCodec<? extends AbilityEffect>>   ABILITY_EFFECTS   = DeferredRegister.create(AMRegistryKeys.ABILITY_EFFECT,                   ArsMagicaApi.MOD_ID);
-    DeferredRegister<MapCodec<? extends SpellIngredient>> SPELL_INGREDIENTS = DeferredRegister.create(AMRegistryKeys.SPELL_INGREDIENT,                 ArsMagicaApi.MOD_ID);
-    DeferredRegister<SpellPart>                           SPELL_PARTS       = DeferredRegister.create(AMRegistryKeys.SPELL_PART,                       ArsMagicaApi.MOD_ID);
+    DeferredRegister<Attribute>                               ATTRIBUTES            = DeferredRegister.create(Registries.ATTRIBUTE,                                     ArsMagicaApi.MOD_ID);
+    DeferredRegister<BlockEntityType<?>>                      BLOCK_ENTITIES        = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE,                             ArsMagicaApi.MOD_ID);
+    DeferredRegister<CreativeModeTab>                         CREATIVE_TABS         = DeferredRegister.create(Registries.CREATIVE_MODE_TAB,                             ArsMagicaApi.MOD_ID);
+    DeferredRegister<EntityType<?>>                           ENTITIES              = DeferredRegister.create(Registries.ENTITY_TYPE,                                   ArsMagicaApi.MOD_ID);
+    DeferredRegister<MenuType<?>>                             MENUS                 = DeferredRegister.create(Registries.MENU,                                          ArsMagicaApi.MOD_ID);
+    DeferredRegister<MobEffect>                               MOB_EFFECTS           = DeferredRegister.create(Registries.MOB_EFFECT,                                    ArsMagicaApi.MOD_ID);
+    DeferredRegister<ParticleType<?>>                         PARTICLES             = DeferredRegister.create(Registries.PARTICLE_TYPE,                                 ArsMagicaApi.MOD_ID);
+    DeferredRegister<Potion>                                  POTIONS               = DeferredRegister.create(Registries.POTION,                                        ArsMagicaApi.MOD_ID);
+    DeferredRegister<SoundEvent>                              SOUND_EVENTS          = DeferredRegister.create(Registries.SOUND_EVENT,                                   ArsMagicaApi.MOD_ID);
+    DeferredRegister<Feature<?>>                              FEATURES              = DeferredRegister.create(Registries.FEATURE,                                       ArsMagicaApi.MOD_ID);
+    DeferredRegister<LootItemConditionType>                   LOOT_CONDITIONS       = DeferredRegister.create(Registries.LOOT_CONDITION_TYPE,                           ArsMagicaApi.MOD_ID);
+    DeferredRegister<AttachmentType<?>>                       ATTACHMENTS           = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES,                 ArsMagicaApi.MOD_ID);
+    DeferredRegister<EntityDataSerializer<?>>                 DATA_SERIALIZERS      = DeferredRegister.create(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS,          ArsMagicaApi.MOD_ID);
+    DeferredRegister<MapCodec<? extends IGlobalLootModifier>> GLOBAL_LOOT_MODIFIERS = DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, ArsMagicaApi.MOD_ID);
+    DeferredRegister<MapCodec<? extends AbilityEffect>>       ABILITY_EFFECTS       = DeferredRegister.create(AMRegistryKeys.ABILITY_EFFECT,                            ArsMagicaApi.MOD_ID);
+    DeferredRegister<MapCodec<? extends SpellIngredient>>     SPELL_INGREDIENTS     = DeferredRegister.create(AMRegistryKeys.SPELL_INGREDIENT,                          ArsMagicaApi.MOD_ID);
+    DeferredRegister<SpellPart>                               SPELL_PARTS           = DeferredRegister.create(AMRegistryKeys.SPELL_PART,                                ArsMagicaApi.MOD_ID);
     // @formatter:on
 
     /**
@@ -64,9 +68,10 @@ public interface AMRegistries {
         AMParticles.init();
         AMSounds.init();
         AMWorldgen.init();
+        AMLoot.init();
         AMAttachments.init();
-        AMSpells.init();
         AMAbilities.init();
+        AMSpells.init();
         BLOCKS.register(bus);
         ITEMS.register(bus);
         DATA_COMPONENTS.register(bus);
@@ -81,8 +86,10 @@ public interface AMRegistries {
         POTIONS.register(bus);
         SOUND_EVENTS.register(bus);
         FEATURES.register(bus);
+        LOOT_CONDITIONS.register(bus);
         ATTACHMENTS.register(bus);
         DATA_SERIALIZERS.register(bus);
+        GLOBAL_LOOT_MODIFIERS.register(bus);
         ABILITY_EFFECTS.register(bus);
         SPELL_INGREDIENTS.register(bus);
         SPELL_PARTS.register(bus);

@@ -1,0 +1,27 @@
+{
+  "entries": [
+    "arsmagicalegacy:ancient_city",
+    "arsmagicalegacy:ancient_city_ice_box",
+    "arsmagicalegacy:shipwreck_treasure",
+    "arsmagicalegacy:underwater_ruin_big",
+    "arsmagicalegacy:underwater_ruin_small",
+    "arsmagicalegacy:bastion_treasure",
+    "arsmagicalegacy:nether_bridge",
+    "arsmagicalegacy:abandoned_mineshaft",
+    "arsmagicalegacy:simple_dungeon",
+    "arsmagicalegacy:desert_pyramid",
+    "arsmagicalegacy:village/village_desert_house",
+    "arsmagicalegacy:igloo_chest",
+    "arsmagicalegacy:village/village_snowy_house",
+    "arsmagicalegacy:village/village_taiga_house",
+    "arsmagicalegacy:pillager_outpost",
+    "arsmagicalegacy:village/village_savanna_house",
+    "arsmagicalegacy:jungle_temple",
+    "arsmagicalegacy:village/village_plains_house",
+    "arsmagicalegacy:stronghold_library",
+    "arsmagicalegacy:woodland_mansion",
+    "arsmagicalegacy:village/village_temple",
+    "arsmagicalegacy:end_city_treasure"
+  ],
+  "replace": false
+}

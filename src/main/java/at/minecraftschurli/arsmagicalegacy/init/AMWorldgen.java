@@ -1,8 +1,8 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.worldgen.MeteoriteFeature;
-import at.minecraftschurli.arsmagicalegacy.worldgen.SunstoneOreFeature;
+import at.minecraftschurli.arsmagicalegacy.data.MeteoriteFeature;
+import at.minecraftschurli.arsmagicalegacy.data.SunstoneOreFeature;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.grower.TreeGrower;

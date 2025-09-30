@@ -101,6 +101,7 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(AMEntities.PROJECTILE.get(), EmptyRenderer::new);
+        event.registerEntityRenderer(AMEntities.WALL.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.ZONE.get(), EmptyRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.ALTAR_CORE.get(), AltarCoreRenderer::new);
     }

@@ -25,7 +25,7 @@ public class Wave extends PrimarySpellShape {
         Level level = caster.level();
         if (level.isClientSide()) return spell;
         var wave = AMEntities.WAVE.get().create(level);
-        wave.setPos(caster.getX(), caster.getEyeY(), caster.getZ());
+        wave.setPos(caster.getEyePosition());
         wave.setYRot(caster.getYRot());
         wave.setOwner(caster);
         wave.setSpell(spell);

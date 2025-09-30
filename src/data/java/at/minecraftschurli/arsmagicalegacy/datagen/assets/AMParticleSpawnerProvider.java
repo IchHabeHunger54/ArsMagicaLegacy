@@ -303,6 +303,14 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
             .offset(-0.5, 0.5, -0.5, 0.5, -0.5, 0.5)
             .color(0x0000ff)
             .controller(new ArcToEntityController(0.05));
+        builder(AMSpells.BLIZZARD.getId(), ParticleTypes.SNOWFLAKE, 20, 40)
+            .speed(-0.1, 0.1, -0.05, 0.05, -0.1, 0.1)
+            .gravity(1)
+            .scale(0.5f)
+            .alpha(0.6f);
+        builder(AMSpells.FIRE_RAIN.getId(), AMParticles.EXPLOSION.get(), 20, 40)
+            .speed(-0.1, 0.1, -0.05, 0.05, -0.1, 0.1)
+            .gravity(1);
         builder(AMSpells.PROJECTILE.getId(), ParticleTypes.CRIT, 1, 5)
             .offset(-0.05, 0.05, -0.05, 0.05, -0.05, 0.05)
             .scale(0.25f)

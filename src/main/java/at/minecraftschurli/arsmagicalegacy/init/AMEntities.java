@@ -1,5 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
+import at.minecraftschurli.arsmagicalegacy.entity.Blizzard;
+import at.minecraftschurli.arsmagicalegacy.entity.FireRain;
 import at.minecraftschurli.arsmagicalegacy.entity.Projectile;
 import at.minecraftschurli.arsmagicalegacy.entity.Wall;
 import at.minecraftschurli.arsmagicalegacy.entity.Wave;
@@ -10,6 +12,8 @@ import net.minecraft.world.entity.MobCategory;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 public interface AMEntities {
+    DeferredHolder<EntityType<?>, EntityType<Blizzard>>   BLIZZARD   = register("blizzard",   Blizzard::new,   MobCategory.MISC, 0.25f, 0.25f);
+    DeferredHolder<EntityType<?>, EntityType<FireRain>>   FIRE_RAIN  = register("fire_rain",  FireRain::new,   MobCategory.MISC, 0.25f, 0.25f);
     DeferredHolder<EntityType<?>, EntityType<Projectile>> PROJECTILE = register("projectile", Projectile::new, MobCategory.MISC, 0.25f, 0.25f);
     DeferredHolder<EntityType<?>, EntityType<Wall>>       WALL       = register("wall",       Wall::new,       MobCategory.MISC, 0.25f, 0.25f);
     DeferredHolder<EntityType<?>, EntityType<Wave>>       WAVE       = register("wave",       Wave::new,       MobCategory.MISC, 0.25f, 0.25f);

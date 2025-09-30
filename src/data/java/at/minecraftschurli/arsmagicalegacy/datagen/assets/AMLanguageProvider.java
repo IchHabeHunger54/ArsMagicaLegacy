@@ -144,6 +144,8 @@ public final class AMLanguageProvider extends LanguageProvider {
         blockIdTranslation(AMBlocks.WAKEBLOOM);
         blockIdTranslation(AMBlocks.POTTED_WAKEBLOOM);
         addBlock(AMBlocks.VINTEUM_WALL_TORCH, idTranslation(AMBlocks.VINTEUM_TORCH.getId().getPath()));
+        entityIdTranslation(AMEntities.BLIZZARD);
+        entityIdTranslation(AMEntities.FIRE_RAIN);
         entityIdTranslation(AMEntities.PROJECTILE);
         entityIdTranslation(AMEntities.WALL);
         entityIdTranslation(AMEntities.WAVE);

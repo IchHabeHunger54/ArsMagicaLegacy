@@ -312,7 +312,7 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
             .offset(-0.5, 0.5, -0.5, 0.5, -0.5, 0.5)
             .scale(0.75f)
             .controller(new FloatUpwardController(0, 0.07));
-        builder(AMSpells.WAVE.getId(), ParticleTypes.CRIT, 2, 20)
+        builder(AMSpells.WAVE.getId(), ParticleTypes.CRIT, 1, 20)
             .offset(-0.5, 0.5, -0.5, 0.5, -0.5, 0.5)
             .scale(0.75f)
             .controller(new MoveInViewDirectionController(0.07, 0.07));

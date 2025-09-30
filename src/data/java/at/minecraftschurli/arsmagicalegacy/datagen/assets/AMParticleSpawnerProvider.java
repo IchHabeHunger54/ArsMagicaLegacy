@@ -308,6 +308,10 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
             .scale(0.25f)
             .controller(new FadeOutController(0.2f))
             .controller(new FloatUpwardController(0.05, 0));
+        builder(AMSpells.WALL.getId(), ParticleTypes.CRIT, 4, 5)
+            .offset(-0.5, 0.5, -0.5, 0.5, -0.5, 0.5)
+            .scale(0.75f)
+            .controller(new FloatUpwardController(0, 0.07));
         builder(AMSpells.ZONE.getId(), ParticleTypes.CRIT, 3, 20)
             .offset(-0.5, 0.5, 0, 0.25, -0.5, 0.5)
             .scale(0.75f)

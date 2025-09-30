@@ -1,8 +1,12 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableBlock;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
+import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
+import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMRegistries;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.Holder;
@@ -10,12 +14,17 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.data.loot.LootTableSubProvider;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.CopyBlockState;
+import net.minecraft.world.level.storage.loot.functions.SetComponentsFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
@@ -24,10 +33,11 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
 
 public final class AMLootTableProvider extends LootTableProvider {
     public AMLootTableProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-        super(output, Set.of(), List.of(new SubProviderEntry(AMBlockLootSubProvider::new, LootContextParamSets.BLOCK)), registries);
+        super(output, Set.of(), List.of(new SubProviderEntry(AMBlockLootSubProvider::new, LootContextParamSets.BLOCK), new SubProviderEntry(AMChestLootSubProvider::new, LootContextParamSets.CHEST)), registries);
     }
 
     private static class AMBlockLootSubProvider extends BlockLootSubProvider {
@@ -96,6 +106,51 @@ public final class AMLootTableProvider extends LootTableProvider {
             dropPottedContents(AMBlocks.POTTED_WAKEBLOOM.get());
             dropSelf(AMBlocks.VINTEUM_TORCH.get());
             dropOther(AMBlocks.VINTEUM_WALL_TORCH.get(), AMBlocks.VINTEUM_TORCH.get());
+        }
+    }
+
+    private static class AMChestLootSubProvider implements LootTableSubProvider {
+        private final HolderLookup.Provider registries;
+
+        private AMChestLootSubProvider(HolderLookup.Provider registries) {
+            this.registries = registries;
+        }
+
+        @Override
+        public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
+            addTomeLoot(output, BuiltInLootTables.ANCIENT_CITY, Affinity.NONE, 0.1f);
+            addTomeLoot(output, BuiltInLootTables.ANCIENT_CITY_ICE_BOX, Affinity.NONE, 0.1f);
+            addTomeLoot(output, BuiltInLootTables.SHIPWRECK_TREASURE, AMMagic.WATER, 0.1f);
+            addTomeLoot(output, BuiltInLootTables.UNDERWATER_RUIN_BIG, AMMagic.WATER, 0.05f);
+            addTomeLoot(output, BuiltInLootTables.UNDERWATER_RUIN_SMALL, AMMagic.WATER, 0.05f);
+            addTomeLoot(output, BuiltInLootTables.BASTION_TREASURE, AMMagic.FIRE, 0.1f);
+            addTomeLoot(output, BuiltInLootTables.BASTION_BRIDGE, AMMagic.FIRE, 0.05f);
+            addTomeLoot(output, BuiltInLootTables.NETHER_BRIDGE, AMMagic.FIRE, 0.05f);
+            addTomeLoot(output, BuiltInLootTables.ABANDONED_MINESHAFT, AMMagic.EARTH, 0.05f);
+            addTomeLoot(output, BuiltInLootTables.SIMPLE_DUNGEON, AMMagic.EARTH, 0.05f);
+            addTomeLoot(output, BuiltInLootTables.TRIAL_CHAMBERS_REWARD, AMMagic.AIR, 0.1f);
+            addTomeLoot(output, BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, AMMagic.AIR, 0.3f);
+            addTomeLoot(output, BuiltInLootTables.VILLAGE_DESERT_HOUSE, AMMagic.AIR, 0.02f);
+            addTomeLoot(output, BuiltInLootTables.IGLOO_CHEST, AMMagic.ICE, 0.1f);
+            addTomeLoot(output, BuiltInLootTables.VILLAGE_SNOWY_HOUSE, AMMagic.ICE, 0.02f);
+            addTomeLoot(output, BuiltInLootTables.VILLAGE_TAIGA_HOUSE, AMMagic.ICE, 0.02f);
+            addTomeLoot(output, BuiltInLootTables.DESERT_PYRAMID, AMMagic.LIGHTNING, 0.1f);
+            addTomeLoot(output, BuiltInLootTables.VILLAGE_SAVANNA_HOUSE, AMMagic.LIGHTNING, 0.02f);
+            addTomeLoot(output, BuiltInLootTables.JUNGLE_TEMPLE, AMMagic.NATURE, 0.1f);
+            addTomeLoot(output, BuiltInLootTables.VILLAGE_PLAINS_HOUSE, AMMagic.NATURE, 0.02f);
+            addTomeLoot(output, BuiltInLootTables.WOODLAND_MANSION, AMMagic.ARCANE, 0.1f);
+            addTomeLoot(output, BuiltInLootTables.PILLAGER_OUTPOST, AMMagic.ARCANE, 0.05f);
+            addTomeLoot(output, BuiltInLootTables.VILLAGE_TEMPLE, AMMagic.ARCANE, 0.02f);
+            addTomeLoot(output, BuiltInLootTables.END_CITY_TREASURE, AMMagic.ENDER, 0.1f);
+            addTomeLoot(output, BuiltInLootTables.STRONGHOLD_LIBRARY, AMMagic.ENDER, 0.05f);
+        }
+
+        protected void addTomeLoot(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output, ResourceKey<LootTable> lootTable, ResourceKey<Affinity> affinity, float chance) {
+            HolderLookup.RegistryLookup<Affinity> lookup = registries.lookupOrThrow(AMRegistryKeys.AFFINITY);
+            output.accept(ResourceKey.create(lootTable.registryKey(), affinity.location().withPath(lootTable.location().getPath().replace("chests/", "chests/modify/"))), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                .add(LootItem.lootTableItem(AMItems.AFFINITY_TOME).apply(SetComponentsFunction.setComponent(AMDataComponents.AFFINITY.get(), lookup.getOrThrow(affinity))).setWeight(19))
+                .add(LootItem.lootTableItem(AMItems.AFFINITY_TOME).apply(SetComponentsFunction.setComponent(AMDataComponents.AFFINITY.get(), lookup.getOrThrow(AMMagic.LIFE))).setWeight(1))
+                .add(EmptyLootItem.emptyItem().setWeight((int) (20 / chance) - 20))));
         }
     }
 }

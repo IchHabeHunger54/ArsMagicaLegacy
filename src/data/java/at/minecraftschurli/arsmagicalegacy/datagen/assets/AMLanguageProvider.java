@@ -146,6 +146,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         addBlock(AMBlocks.VINTEUM_WALL_TORCH, idTranslation(AMBlocks.VINTEUM_TORCH.getId().getPath()));
         entityIdTranslation(AMEntities.PROJECTILE);
         entityIdTranslation(AMEntities.WALL);
+        entityIdTranslation(AMEntities.WAVE);
         entityIdTranslation(AMEntities.ZONE);
         effectIdTranslation(AMMobEffects.ASTRAL_DISTORTION);
         effectIdTranslation(AMMobEffects.BURNOUT_REDUCTION);
@@ -470,6 +471,11 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("wall_range", "Wall Range", "The range used by the Wall shape. May be amplified by spell modifiers.");
         configTranslation("wall_height", "Wall Height", "The height used by the Wall shape, relative to its width.");
         configTranslation("wall_tick_interval", "Wall Tick Interval", "The time in ticks between the Wall shape applying its effect.");
+        configTranslation("wave_duration", "Wave Duration", "The duration used by the Wave shape. May be amplified by spell modifiers.");
+        configTranslation("wave_gravity", "Wave Gravity", "If a Gravity modifier is present on the Wave, by how much gravity will be increased.");
+        configTranslation("wave_range", "Wave Range", "The range used by the Wave shape. May be amplified by spell modifiers.");
+        configTranslation("wave_speed", "Wave Speed", "The speed used by the Wave shape. May be amplified by spell modifiers.");
+        configTranslation("wave_tick_interval", "Wave Tick Interval", "The tick interval used by the Wave shape.");
         configTranslation("zone_duration", "Zone Duration", "The duration used by the Zone shape. May be amplified by spell modifiers.");
         configTranslation("zone_gravity", "Zone Gravity", "If a Gravity modifier is present on the Zone, by how much gravity will be increased.");
         configTranslation("zone_range", "Zone Range", "The range used by the Zone shape. May be amplified by spell modifiers.");

@@ -6,6 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SecondarySpellShape;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
 import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import net.minecraft.world.entity.Entity;
@@ -15,6 +16,10 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 
 public class Wall extends SecondarySpellShape {
+    public Wall() {
+        super(SpellStat.COLOR, AMSpells.DURATION_STAT, AMSpells.RANGE_STAT, AMSpells.TARGET_NON_SOLID_STAT);
+    }
+
     @SuppressWarnings("DataFlowIssue")
     @Override
     public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity) {

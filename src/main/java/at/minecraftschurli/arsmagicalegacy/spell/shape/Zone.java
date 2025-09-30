@@ -27,13 +27,12 @@ public class Zone extends SecondarySpellShape {
         if (level.isClientSide()) return spell;
         var zone = AMEntities.ZONE.get().create(level);
         zone.setPos(directEntity.getX(), directEntity.getEyeY(), directEntity.getZ());
+        zone.setYRot(directEntity.getYRot());
         zone.setOwner(caster);
         zone.setSpell(spell);
         SpellHelper helper = ArsMagicaApi.spellHelper();
-        if (helper.getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, spell, caster, caster, null) > 0) {
-            zone.setTargetNonSolid();
-        }
         zone.setColor(helper.getColor(modifiers, spell, spell.activeShapeGroup()));
+        zone.setTargetNonSolid(helper.getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, spell, caster, caster, null) > 0);
         zone.setDuration((int) helper.getModifiedStat(AMServerConfig.ZONE_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, caster, caster, null));
         zone.setGravity((float) (helper.getModifiedStat(0, AMSpells.GRAVITY_STAT, modifiers, spell, caster, caster, null) * AMServerConfig.ZONE_GRAVITY.get()));
         zone.setRange((float) helper.getModifiedStat(AMServerConfig.ZONE_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, caster, caster, null));

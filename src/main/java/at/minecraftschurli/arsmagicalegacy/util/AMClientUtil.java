@@ -4,10 +4,11 @@ import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.ParticleSpawner;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
+import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.OcculusScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellrecipe.SpellRecipeScreen;
 import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleSpawnerManager;
-import at.minecraftschurli.arsmagicalegacy.entity.AbstractSpellEntity;
+import at.minecraftschurli.arsmagicalegacy.entity.SpellEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -132,13 +133,9 @@ public final class AMClientUtil {
         ArsMagicaClientApi.spawnParticles(ParticleSpawnerManager.INSTANCE.get(id), position, color, caster, directEntity, hitResult);
     }
 
-    public static void spawnSpellEntityParticles(AbstractSpellEntity entity, int color, @Nullable LivingEntity caster) {
-        spawnSpellEntityParticles(entity, entity.position(), color, caster);
-    }
-
     @SuppressWarnings("DataFlowIssue")
-    public static void spawnSpellEntityParticles(AbstractSpellEntity entity, Vec3 position, int color, @Nullable LivingEntity caster) {
-        ParticleSpawnerKey key = new ParticleSpawnerKey(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()), entity.getSpell().grammar().primaryAffinity());
+    public static void spawnSpellEntityParticles(SpellEntity entity, Spell spell, Vec3 position, int color, @Nullable LivingEntity caster) {
+        ParticleSpawnerKey key = new ParticleSpawnerKey(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()), spell.grammar().primaryAffinity());
         SPELL_ENTITY_PARTICLE_SPAWNERS.computeIfAbsent(key, k -> {
             ParticleSpawner spawner = ParticleSpawnerManager.INSTANCE.get(key.id);
             return new ParticleSpawner(registryAccess().registryOrThrow(AMRegistryKeys.AFFINITY).get(key.affinity).particle(),

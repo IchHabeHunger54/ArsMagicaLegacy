@@ -282,7 +282,7 @@ public final class AMServerConfig {
         PROJECTILE_SPEED = builder
             .comment("The speed used by the Projectile shape. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "projectile_speed")
-            .defineInRange("projectile_speed", 0.2, 0, 10);
+            .defineInRange("projectile_speed", 0.5, 0, 10);
         WALL_DURATION = builder
             .comment("The duration used by the Wall shape. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "wall_duration")

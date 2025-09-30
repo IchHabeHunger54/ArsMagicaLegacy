@@ -27,8 +27,7 @@
 - Wizard's Chalk
 - Liquid Essence
 - Spell Book
-- Affinity Tomes
-    - Loot Modifiers
+- Affinity Tome Loot Modifiers
 - Mana Cake & Mana Martini
 - Mage & Battlemage Armor
 - All Etherium-related features, including:

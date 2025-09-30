@@ -188,61 +188,61 @@ final class MagicHelperImpl implements MagicHelper {
 
     @Override
     public void setAffinityDepth(Player player, Holder<Affinity> affinity, double depth) {
-        setAffinityDepth(player, affinity, depth, false);
+        setAffinityDepth(player, affinity, depth, false, false);
     }
 
     @Override
     public void setAffinityDepth(Player player, Map<Holder<Affinity>, Double> affinities) {
-        setAffinityDepth(player, affinities, false);
+        setAffinityDepth(player, affinities, false, false);
     }
 
     @Override
-    public void setAffinityDepth(Player player, Holder<Affinity> affinity, double depth, boolean commandSource) {
-        setAffinityDepth(player, Map.of(affinity, depth), commandSource);
+    public void setAffinityDepth(Player player, Holder<Affinity> affinity, double depth, boolean bypassLocks, boolean commandSource) {
+        setAffinityDepth(player, Map.of(affinity, depth), bypassLocks, commandSource);
     }
 
     @Override
-    public void setAffinityDepth(Player player, Map<Holder<Affinity>, Double> affinities, boolean commandSource) {
-        modifyAffinities(player, affinities, (data, affinity, depth) -> affinity.is(Affinity.NONE) ? data : data.updateAffinityShifts(map -> map.put(affinity, Math.clamp(depth, 0, 1))), commandSource);
+    public void setAffinityDepth(Player player, Map<Holder<Affinity>, Double> affinities, boolean bypassLocks, boolean commandSource) {
+        modifyAffinities(player, affinities, (data, affinity, depth) -> affinity.is(Affinity.NONE) ? data : data.updateAffinityShifts(map -> map.put(affinity, Math.clamp(depth, 0, 1))), bypassLocks, commandSource);
     }
 
     @Override
     public void addAffinityDepth(Player player, Holder<Affinity> affinity, double depth) {
-        addAffinityDepth(player, affinity, depth, false);
+        addAffinityDepth(player, affinity, depth, false, false);
     }
 
     @Override
     public void addAffinityDepth(Player player, Map<Holder<Affinity>, Double> affinities) {
-        addAffinityDepth(player, affinities, false);
+        addAffinityDepth(player, affinities, false, false);
     }
 
     @Override
-    public void addAffinityDepth(Player player, Holder<Affinity> affinity, double depth, boolean commandSource) {
-        addAffinityDepth(player, Map.of(affinity, depth), commandSource);
+    public void addAffinityDepth(Player player, Holder<Affinity> affinity, double depth, boolean bypassLocks, boolean commandSource) {
+        addAffinityDepth(player, Map.of(affinity, depth), bypassLocks, commandSource);
     }
 
     @Override
-    public void addAffinityDepth(Player player, Map<Holder<Affinity>, Double> affinities, boolean commandSource) {
-        modifyAffinities(player, affinities, this::addAffinityDepth, commandSource);
+    public void addAffinityDepth(Player player, Map<Holder<Affinity>, Double> affinities, boolean bypassLocks, boolean commandSource) {
+        modifyAffinities(player, affinities, this::addAffinityDepth, bypassLocks, commandSource);
     }
 
     @Override
     public void applyAffinityShift(Player player, Holder<Affinity> affinity, double shift) {
-        applyAffinityShift(player, affinity, shift, false);
+        applyAffinityShift(player, affinity, shift, false, false);
     }
 
     @Override
     public void applyAffinityShift(Player player, Map<Holder<Affinity>, Double> affinityShifts) {
-        applyAffinityShift(player, affinityShifts, false);
+        applyAffinityShift(player, affinityShifts, false, false);
     }
 
     @Override
-    public void applyAffinityShift(Player player, Holder<Affinity> affinity, double shift, boolean commandSource) {
-        applyAffinityShift(player, Map.of(affinity, shift), commandSource);
+    public void applyAffinityShift(Player player, Holder<Affinity> affinity, double shift, boolean bypassLocks, boolean commandSource) {
+        applyAffinityShift(player, Map.of(affinity, shift), bypassLocks, commandSource);
     }
 
     @Override
-    public void applyAffinityShift(Player player, Map<Holder<Affinity>, Double> affinityShifts, boolean commandSource) {
+    public void applyAffinityShift(Player player, Map<Holder<Affinity>, Double> affinityShifts, boolean bypassLocks, boolean commandSource) {
         modifyAffinities(player, affinityShifts, (data, affinity, shift) -> {
             Affinity value = affinity.value();
             double direct = shift * AMServerConfig.DIRECT_OPPOSITE_MULTIPLIER.get();
@@ -260,7 +260,7 @@ final class MagicHelperImpl implements MagicHelper {
                 data = addAffinityDepth(data, holder, adjacent);
             }
             return data;
-        }, commandSource);
+        }, bypassLocks, commandSource);
     }
 
     @Override
@@ -279,8 +279,8 @@ final class MagicHelperImpl implements MagicHelper {
         player.setData(AMAttachments.MAGIC, data.setAffinityLocked(data.affinityShifts().values().stream().anyMatch(e -> e >= 1)));
     }
 
-    private void modifyAffinities(Player player, Map<Holder<Affinity>, Double> affinities, TriFunction<MagicAttachment, Holder<Affinity>, Double, MagicAttachment> operator, boolean commandSource) {
-        AffinityChangeEvent.Pre event = NeoForge.EVENT_BUS.post(new AffinityChangeEvent.Pre(player, affinities, commandSource, commandSource));
+    private void modifyAffinities(Player player, Map<Holder<Affinity>, Double> affinities, TriFunction<MagicAttachment, Holder<Affinity>, Double, MagicAttachment> operator, boolean bypassLocks, boolean commandSource) {
+        AffinityChangeEvent.Pre event = NeoForge.EVENT_BUS.post(new AffinityChangeEvent.Pre(player, affinities, bypassLocks, commandSource));
         if (event.isCanceled()) return;
         MagicAttachment data = player.getData(AMAttachments.MAGIC);
         if (data.affinityLocked() && !event.isBypassLocks()) return;

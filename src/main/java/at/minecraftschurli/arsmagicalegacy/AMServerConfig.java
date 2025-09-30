@@ -27,6 +27,8 @@ public final class AMServerConfig {
     public static final ModConfigSpec.DoubleValue ADJACENT_MULTIPLIER;
     public static final ModConfigSpec.DoubleValue AFFINITY_GAINS_MODIFIER;
     public static final ModConfigSpec.DoubleValue AFFINITY_GAINS_XP_MODIFIER;
+    public static final ModConfigSpec.DoubleValue AFFINITY_TOME_SHIFT;
+    public static final ModConfigSpec.DoubleValue AFFINITY_TOME_REDUCTION;
     public static final ModConfigSpec.DoubleValue EFFECT_DURATION;
     public static final ModConfigSpec.DoubleValue ATTRACT_RANGE;
     public static final ModConfigSpec.DoubleValue ATTRACT_SPEED;
@@ -164,6 +166,14 @@ public final class AMServerConfig {
             .comment("When the Affinity Gains talent is learned, by what factor XP gain will be amplified.")
             .translation(AMTranslations.CONFIG_KEY + "affinity_gains_xp_modifier")
             .defineInRange("affinity_gains_xp_modifier", 0.9, 0, 1);
+        AFFINITY_TOME_SHIFT = builder
+            .comment("The amount to add to an affinity when using an Affinity Tome.")
+            .translation(AMTranslations.CONFIG_KEY + "affinity_tome_shift")
+            .defineInRange("affinity_tome_shift", 0.1, 0, 1);
+        AFFINITY_TOME_REDUCTION = builder
+            .comment("The amount to subtract from all other affinities when using an Affinity Tome.")
+            .translation(AMTranslations.CONFIG_KEY + "affinity_tome_reduction")
+            .defineInRange("affinity_tome_reduction", 0.1, 0, 1);
         builder.pop();
         builder.comment("Configuration of various component-specific values.").push("components");
         EFFECT_DURATION = builder

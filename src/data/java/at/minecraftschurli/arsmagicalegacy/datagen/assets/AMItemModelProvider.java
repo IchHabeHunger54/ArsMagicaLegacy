@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.assets;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import net.minecraft.data.PackOutput;
@@ -12,6 +13,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public final class AMItemModelProvider extends ItemModelProvider {
     public AMItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -22,7 +24,7 @@ public final class AMItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
         singleTexture("arcane_compendium", ResourceLocation.withDefaultNamespace("item/generated"), "layer0", modLoc("item/arcane_compendium"));
         basicItem(AMItems.SPELL);
-        basicItemWithVariants(AMItems.SPELL, AMMagic.AFFINITIES);
+        basicItemWithVariants(AMItems.SPELL, AMMagic.AFFINITIES_WITH_NONE);
         withExistingParent(AMItems.SPELL_RECIPE.getId().getPath(), mcLoc("item/written_book"));
         blockItem(AMItems.OCCULUS);
         basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1);
@@ -34,6 +36,7 @@ public final class AMItemModelProvider extends ItemModelProvider {
         basicItem(AMItems.INFINITY_ORB);
         basicItemWithVariants(AMItems.INFINITY_ORB, AMMagic.SKILL_POINTS);
         basicItemWithVariants(AMItems.AFFINITY_ESSENCE, AMMagic.AFFINITIES);
+        basicItemWithVariants(AMItems.AFFINITY_TOME, AMMagic.AFFINITIES_WITH_NONE);
         basicItem(AMItems.BLANK_RUNE);
         basicItem(AMItems.WHITE_RUNE);
         basicItem(AMItems.ORANGE_RUNE);

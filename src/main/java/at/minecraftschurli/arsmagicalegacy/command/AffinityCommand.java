@@ -48,19 +48,19 @@ public final class AffinityCommand {
     }
 
     private static int addSelf(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        return runSelf(context, DoubleArgumentType.getDouble(context, "amount"), (player, affinity, depth) -> ArsMagicaApi.magicHelper().addAffinityDepth(player, affinity, depth, true), (name, holder, amount) -> Component.translatable(AMTranslations.COMMAND_AFFINITY_ADD_SINGLE_KEY, amount, name, Affinity.getName(holder)));
+        return runSelf(context, DoubleArgumentType.getDouble(context, "amount"), (player, affinity, depth) -> ArsMagicaApi.magicHelper().addAffinityDepth(player, affinity, depth, true, true), (name, holder, amount) -> Component.translatable(AMTranslations.COMMAND_AFFINITY_ADD_SINGLE_KEY, amount, name, Affinity.getName(holder)));
     }
 
     private static int add(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        return runMultiple(context, DoubleArgumentType.getDouble(context, "amount"), (player, affinity, depth) -> ArsMagicaApi.magicHelper().addAffinityDepth(player, affinity, depth, true), (name, holder, amount) -> Component.translatable(AMTranslations.COMMAND_AFFINITY_ADD_SINGLE_KEY, amount, name, Affinity.getName(holder)), (size, holder, amount) -> Component.translatable(AMTranslations.COMMAND_AFFINITY_ADD_MULTIPLE_KEY, amount, size, Affinity.getName(holder)));
+        return runMultiple(context, DoubleArgumentType.getDouble(context, "amount"), (player, affinity, depth) -> ArsMagicaApi.magicHelper().addAffinityDepth(player, affinity, depth, true, true), (name, holder, amount) -> Component.translatable(AMTranslations.COMMAND_AFFINITY_ADD_SINGLE_KEY, amount, name, Affinity.getName(holder)), (size, holder, amount) -> Component.translatable(AMTranslations.COMMAND_AFFINITY_ADD_MULTIPLE_KEY, amount, size, Affinity.getName(holder)));
     }
 
     private static int setSelf(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        return runSelf(context, DoubleArgumentType.getDouble(context, "amount"), (player, affinity, depth) -> ArsMagicaApi.magicHelper().setAffinityDepth(player, affinity, depth, true), (name, holder, amount) -> Component.translatable(AMTranslations.COMMAND_AFFINITY_SET_SINGLE_KEY, amount, name, Affinity.getName(holder)));
+        return runSelf(context, DoubleArgumentType.getDouble(context, "amount"), (player, affinity, depth) -> ArsMagicaApi.magicHelper().setAffinityDepth(player, affinity, depth, true, true), (name, holder, amount) -> Component.translatable(AMTranslations.COMMAND_AFFINITY_SET_SINGLE_KEY, amount, name, Affinity.getName(holder)));
     }
 
     private static int set(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        return runMultiple(context, DoubleArgumentType.getDouble(context, "amount"), (player, affinity, depth) -> ArsMagicaApi.magicHelper().setAffinityDepth(player, affinity, depth, true), (name, holder, amount) -> Component.translatable(AMTranslations.COMMAND_AFFINITY_SET_SINGLE_KEY, amount, name, Affinity.getName(holder)), (size, holder, amount) -> Component.translatable(AMTranslations.COMMAND_AFFINITY_SET_MULTIPLE_KEY, amount, size, Affinity.getName(holder)));
+        return runMultiple(context, DoubleArgumentType.getDouble(context, "amount"), (player, affinity, depth) -> ArsMagicaApi.magicHelper().setAffinityDepth(player, affinity, depth, true, true), (name, holder, amount) -> Component.translatable(AMTranslations.COMMAND_AFFINITY_SET_SINGLE_KEY, amount, name, Affinity.getName(holder)), (size, holder, amount) -> Component.translatable(AMTranslations.COMMAND_AFFINITY_SET_MULTIPLE_KEY, amount, size, Affinity.getName(holder)));
     }
 
     private static int getSelf(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {

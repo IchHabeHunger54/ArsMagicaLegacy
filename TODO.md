@@ -20,9 +20,7 @@
     - Blizzard
     - Falling Star
     - Fire Rain
-    - Wall
     - Wave
-    - Zone
 - Inlays
 - Wizard's Chalk
 - Liquid Essence

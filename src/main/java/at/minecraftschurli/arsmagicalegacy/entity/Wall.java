@@ -22,10 +22,9 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.entity.PartEntity;
-import org.jetbrains.annotations.Nullable;
 
 public class Wall extends AbstractSpellEntity {
-    private static final EntityDataAccessor<Boolean> TARGET_NON_SOLID = SynchedEntityData.defineId(Zone.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> TARGET_NON_SOLID = SynchedEntityData.defineId(Wall.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(Wall.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(Wall.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> OWNER = SynchedEntityData.defineId(Wall.class, EntityDataSerializers.INT);
@@ -47,7 +46,7 @@ public class Wall extends AbstractSpellEntity {
         builder.define(TARGET_NON_SOLID, false)
             .define(COLOR, -1)
             .define(DURATION, 200)
-            .define(OWNER, 0)
+            .define(OWNER, -1)
             .define(RANGE, 1f)
             .define(SPELL, Spell.EMPTY);
     }
@@ -79,6 +78,7 @@ public class Wall extends AbstractSpellEntity {
         super.tick();
         if (tickCount % AMServerConfig.WALL_TICK_INTERVAL.get() != 0) return;
         LivingEntity owner = getOwner();
+        if (owner == null) return;
         SpellHelper helper = ArsMagicaApi.spellHelper();
         int color = getColor();
         Spell spell = getSpell();
@@ -87,7 +87,7 @@ public class Wall extends AbstractSpellEntity {
         double sin = Math.sin(Math.toRadians(getYRot())) * range;
         Vec3 a = new Vec3(getX() - cos, getY(), getZ() - sin);
         Vec3 b = new Vec3(getX() + cos, getY(), getZ() + sin);
-        AABB aabb = new AABB(position().add(-range, 0, -range), position().add(range, 2 * range * AMServerConfig.WALL_HEIGHT.get(), range));
+        AABB aabb = new AABB(position().add(-range, 0, -range), position().add(range, range * AMServerConfig.WALL_HEIGHT.get(), range));
         for (Entity entity : level().getEntities(this, aabb)) {
             while (entity instanceof PartEntity<?> part) {
                 entity = part.getParent();
@@ -129,13 +129,6 @@ public class Wall extends AbstractSpellEntity {
 
     public void setDuration(int duration) {
         entityData.set(DURATION, duration);
-    }
-
-    @Override
-    @Nullable
-    public LivingEntity getOwner() {
-        Entity entity = level().getEntity(getOwnerId());
-        return entity instanceof LivingEntity living ? living : null;
     }
 
     @Override

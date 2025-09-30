@@ -30,8 +30,9 @@ public class Wall extends SecondarySpellShape {
             wall.setTargetNonSolid();
         }
         wall.setColor(helper.getColor(modifiers, spell, spell.activeShapeGroup()));
-        wall.setDuration((int) helper.getModifiedStat(AMServerConfig.ZONE_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, caster, caster, null));
-        wall.setRange((float) helper.getModifiedStat(AMServerConfig.ZONE_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, caster, caster, null));
+        wall.setDuration((int) helper.getModifiedStat(AMServerConfig.WALL_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, caster, caster, null));
+        wall.setRange((float) helper.getModifiedStat(AMServerConfig.WALL_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, caster, caster, null));
+        level.addFreshEntity(wall);
         return spell;
     }
 }

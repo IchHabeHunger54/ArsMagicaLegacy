@@ -269,51 +269,51 @@ public final class AMServerConfig {
         PROJECTILE_DURATION = builder
             .comment("The duration used by the Projectile shape. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "projectile_duration")
-            .defineInRange(AMTranslations.CONFIG_KEY + "projectile_duration", 30., 1, Short.MAX_VALUE);
+            .defineInRange("projectile_duration", 30., 1, Short.MAX_VALUE);
         PROJECTILE_GRAVITY = builder
             .comment("If a Gravity modifier is present on the Projectile, by how much gravity will be increased.")
             .translation(AMTranslations.CONFIG_KEY + "projectile_gravity")
-            .defineInRange(AMTranslations.CONFIG_KEY + "projectile_gravity", 0.025, 0, 1);
+            .defineInRange("projectile_gravity", 0.025, 0, 1);
         PROJECTILE_SPEED = builder
             .comment("The speed used by the Projectile shape. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "projectile_speed")
-            .defineInRange(AMTranslations.CONFIG_KEY + "projectile_speed", 0.2, 0, 10);
+            .defineInRange("projectile_speed", 0.2, 0, 10);
         WALL_DURATION = builder
             .comment("The duration used by the Wall shape. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "wall_duration")
-            .defineInRange(AMTranslations.CONFIG_KEY + "wall_duration", 200., 1, Short.MAX_VALUE);
+            .defineInRange("wall_duration", 200., 1, Short.MAX_VALUE);
         WALL_RANGE = builder
             .comment("The range used by the Wall shape. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "wall_range")
-            .defineInRange(AMTranslations.CONFIG_KEY + "wall_range", 2.5, 0, 16);
+            .defineInRange("wall_range", 2.5, 0, 16);
         WALL_HEIGHT = builder
             .comment("The height used by the Wall shape, relative to its width.")
-            .translation(AMTranslations.CONFIG_KEY + "wall_tick_interval")
-            .defineInRange(AMTranslations.CONFIG_KEY + "wall_tick_interval", 0.8, 1, 100);
+            .translation(AMTranslations.CONFIG_KEY + "wall_height")
+            .defineInRange("wall_height", 0.8, 1, 100);
         WALL_TICK_INTERVAL = builder
             .comment("The time in ticks between the Wall shape applying its effect.")
             .translation(AMTranslations.CONFIG_KEY + "wall_tick_interval")
-            .defineInRange(AMTranslations.CONFIG_KEY + "wall_tick_interval", 5, 1, 100);
+            .defineInRange("wall_tick_interval", 5, 1, 100);
         ZONE_DURATION = builder
             .comment("The duration used by the Zone shape. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "zone_duration")
-            .defineInRange(AMTranslations.CONFIG_KEY + "zone_duration", 200., 1, Short.MAX_VALUE);
+            .defineInRange("zone_duration", 200., 1, Short.MAX_VALUE);
         ZONE_GRAVITY = builder
             .comment("If a Gravity modifier is present on the Zone, by how much gravity will be increased.")
             .translation(AMTranslations.CONFIG_KEY + "zone_gravity")
-            .defineInRange(AMTranslations.CONFIG_KEY + "zone_gravity", 0.025, 0, 1);
+            .defineInRange("zone_gravity", 0.025, 0, 1);
         ZONE_RANGE = builder
             .comment("The range used by the Zone shape. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "zone_range")
-            .defineInRange(AMTranslations.CONFIG_KEY + "zone_range", 1., 0, 16);
+            .defineInRange("zone_range", 1., 0, 16);
         ZONE_HEIGHT = builder
             .comment("The height used by the Zone shape.")
             .translation(AMTranslations.CONFIG_KEY + "zone_height")
-            .defineInRange(AMTranslations.CONFIG_KEY + "zone_height", 0.25, 0, 8);
+            .defineInRange("zone_height", 0.25, 0, 8);
         ZONE_TICK_INTERVAL = builder
             .comment("The tick interval used by the Zone shape.")
             .translation(AMTranslations.CONFIG_KEY + "zone_tick_interval")
-            .defineInRange(AMTranslations.CONFIG_KEY + "zone_tick_interval", 5, 1, 100);
+            .defineInRange("zone_tick_interval", 5, 1, 100);
         builder.pop();
         SPEC = builder.build();
     }

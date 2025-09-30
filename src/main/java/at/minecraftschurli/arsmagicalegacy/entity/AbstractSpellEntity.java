@@ -31,6 +31,13 @@ public abstract class AbstractSpellEntity extends Entity implements OwnableEntit
 
     @Override
     @Nullable
+    public LivingEntity getOwner() {
+        Entity entity = level().getEntity(getOwnerId());
+        return entity instanceof LivingEntity living ? living : null;
+    }
+
+    @Override
+    @Nullable
     public UUID getOwnerUUID() {
         return getOwner() instanceof Player player ? player.getUUID() : null;
     }

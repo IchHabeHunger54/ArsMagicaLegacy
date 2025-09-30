@@ -22,8 +22,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.neoforged.neoforge.entity.PartEntity;
 
-import javax.annotation.Nullable;
-
 public class Zone extends AbstractSpellEntity {
     private static final EntityDataAccessor<Boolean> TARGET_NON_SOLID = SynchedEntityData.defineId(Zone.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(Zone.class, EntityDataSerializers.INT);
@@ -133,13 +131,6 @@ public class Zone extends AbstractSpellEntity {
 
     public void setDuration(int duration) {
         entityData.set(DURATION, duration);
-    }
-
-    @Override
-    @Nullable
-    public LivingEntity getOwner() {
-        Entity entity = level().getEntity(getOwnerId());
-        return entity instanceof LivingEntity ? (LivingEntity) entity : null;
     }
 
     @Override

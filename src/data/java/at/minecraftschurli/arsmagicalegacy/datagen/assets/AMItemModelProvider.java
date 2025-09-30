@@ -33,6 +33,8 @@ public final class AMItemModelProvider extends ItemModelProvider {
         blockItem(AMItems.ALTAR_CORE);
         blockItem(AMItems.MAGIC_WALL);
         basicItem(AMItems.SPELL_PARCHMENT);
+        basicItem(AMItems.MANA_CAKE);
+        basicItem(AMItems.MANA_MARTINI);
         basicItem(AMItems.INFINITY_ORB);
         basicItemWithVariants(AMItems.INFINITY_ORB, AMMagic.SKILL_POINTS);
         basicItemWithVariants(AMItems.AFFINITY_ESSENCE, AMMagic.AFFINITIES);

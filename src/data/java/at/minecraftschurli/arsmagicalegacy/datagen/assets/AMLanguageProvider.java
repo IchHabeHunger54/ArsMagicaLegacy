@@ -45,6 +45,8 @@ public final class AMLanguageProvider extends LanguageProvider {
         blockIdTranslation(AMBlocks.MAGIC_WALL);
         blockIdTranslation(AMBlocks.SPELL_LIGHT);
         itemIdTranslation(AMItems.SPELL_PARCHMENT);
+        itemIdTranslation(AMItems.MANA_CAKE);
+        itemIdTranslation(AMItems.MANA_MARTINI);
         itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.BLUE_POINT.location(), "Blue Infinity Orb");
         itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.GREEN_POINT.location(), "Green Infinity Orb");
         itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.RED_POINT.location(), "Red Infinity Orb");

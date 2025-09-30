@@ -11,6 +11,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -26,6 +27,8 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.BlastingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -123,7 +126,22 @@ public final class AMRecipeProvider extends RecipeProvider {
             .pattern("S")
             .define('S', Tags.Items.RODS_WOODEN)
             .define('P', Items.PAPER)
-            .unlockedBy("has_paper", has(Items.PAPER))
+            .unlockedBy(getHasName(Items.PAPER), has(Items.PAPER))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, AMItems.MANA_CAKE.get(), 3)
+            .requires(Tags.Items.CROPS_WHEAT)
+            .requires(Items.SUGAR)
+            .requires(AMItems.AUM)
+            .requires(AMItems.CERUBLOSSOM)
+            .unlockedBy(getHasName(AMItems.CERUBLOSSOM), has(AMItems.CERUBLOSSOM))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, AMItems.MANA_MARTINI.get())
+            .requires(Tags.Items.RODS_WOODEN)
+            .requires(Tags.Items.CROPS_POTATO)
+            .requires(Items.ICE)
+            .requires(Items.SUGAR)
+            .requires(DataComponentIngredient.of(false, DataComponents.POTION_CONTENTS, new PotionContents(Potions.WATER), Items.POTION))
+            .unlockedBy(getHasName(Items.ICE), has(Items.ICE))
             .save(output);
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.WATER).copyWithCount(2))
             .pattern("AIA")

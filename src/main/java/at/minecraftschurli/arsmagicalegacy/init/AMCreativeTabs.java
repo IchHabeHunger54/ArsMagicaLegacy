@@ -29,6 +29,8 @@ public interface AMCreativeTabs {
             output.accept(AMItems.ALTAR_CORE);
             output.accept(AMItems.MAGIC_WALL);
             output.accept(AMItems.SPELL_PARCHMENT);
+            output.accept(AMItems.MANA_CAKE);
+            output.accept(AMItems.MANA_MARTINI);
             acceptVariants(display, output, AMItems.INFINITY_ORB, AMRegistryKeys.SKILL_POINT, (stack, holder) -> stack.set(AMDataComponents.SKILL_POINT, holder));
             acceptVariants(display, output, AMItems.AFFINITY_ESSENCE, AMRegistryKeys.AFFINITY, (stack, holder) -> stack.set(AMDataComponents.AFFINITY, holder), Affinity.NONE);
             acceptVariants(display, output, AMItems.AFFINITY_TOME, AMRegistryKeys.AFFINITY, (stack, holder) -> stack.set(AMDataComponents.AFFINITY, holder));

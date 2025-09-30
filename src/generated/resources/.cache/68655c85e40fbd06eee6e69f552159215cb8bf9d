@@ -1,4 +1,4 @@
-// 1.21.1	2025-09-30T18:10:16.1602082	Particle Spawners: arsmagicalegacy
+// 1.21.1	2025-09-30T20:00:54.6829047	Particle Spawners: arsmagicalegacy
 4b40a34bdd0208cefc0b42a928b31d38e0684769 assets/arsmagicalegacy/arsmagicalegacy/particle_spawners/absorption.json
 8f685a6854cf58e631587ea38b0e648520568230 assets/arsmagicalegacy/arsmagicalegacy/particle_spawners/astral_distortion.json
 e92f403ab257a68b5d10e73eb2141586018094a2 assets/arsmagicalegacy/arsmagicalegacy/particle_spawners/attract.json
@@ -61,4 +61,5 @@ b79805e3d2c00bc59bed15f7f40f92b40e39d9aa assets/arsmagicalegacy/arsmagicalegacy/
 e1e6a7e1335ddd18007a1cae41cfa18ff91d0ccc assets/arsmagicalegacy/arsmagicalegacy/particle_spawners/wall.json
 4421c8d253875229d2479a74c075de30e30c9a1d assets/arsmagicalegacy/arsmagicalegacy/particle_spawners/watery_grave.json
 514640454488f295f551a712981159394dd466d0 assets/arsmagicalegacy/arsmagicalegacy/particle_spawners/water_breathing.json
+6b9b2536f17e0dc65e3c77ff8f88d7489010b5b6 assets/arsmagicalegacy/arsmagicalegacy/particle_spawners/wave.json
 ad8a87ab5fe68321458a4caada9095add6344249 assets/arsmagicalegacy/arsmagicalegacy/particle_spawners/zone.json

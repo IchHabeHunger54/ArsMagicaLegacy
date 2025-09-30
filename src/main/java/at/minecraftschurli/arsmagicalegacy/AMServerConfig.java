@@ -58,6 +58,11 @@ public final class AMServerConfig {
     public static final ModConfigSpec.DoubleValue WALL_RANGE;
     public static final ModConfigSpec.DoubleValue WALL_HEIGHT;
     public static final ModConfigSpec.IntValue WALL_TICK_INTERVAL;
+    public static final ModConfigSpec.DoubleValue WAVE_DURATION;
+    public static final ModConfigSpec.DoubleValue WAVE_GRAVITY;
+    public static final ModConfigSpec.DoubleValue WAVE_RANGE;
+    public static final ModConfigSpec.DoubleValue WAVE_SPEED;
+    public static final ModConfigSpec.IntValue WAVE_TICK_INTERVAL;
     public static final ModConfigSpec.DoubleValue ZONE_DURATION;
     public static final ModConfigSpec.DoubleValue ZONE_GRAVITY;
     public static final ModConfigSpec.DoubleValue ZONE_RANGE;
@@ -294,6 +299,26 @@ public final class AMServerConfig {
             .comment("The time in ticks between the Wall shape applying its effect.")
             .translation(AMTranslations.CONFIG_KEY + "wall_tick_interval")
             .defineInRange("wall_tick_interval", 5, 1, 100);
+        WAVE_DURATION = builder
+            .comment("The duration used by the Wave shape. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "wave_duration")
+            .defineInRange("wave_duration", 80., 1, Short.MAX_VALUE);
+        WAVE_GRAVITY = builder
+            .comment("If a Gravity modifier is present on the Wave, by how much gravity will be increased.")
+            .translation(AMTranslations.CONFIG_KEY + "wave_gravity")
+            .defineInRange("wave_gravity", 0.025, 0, 1);
+        WAVE_RANGE = builder
+            .comment("The range used by the Wave shape. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "wave_range")
+            .defineInRange("wave_range", 1., 0, 16);
+        WAVE_SPEED = builder
+            .comment("The speed used by the Wave shape. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "wave_speed")
+            .defineInRange("wave_speed", 0.5, 0, 8);
+        WAVE_TICK_INTERVAL = builder
+            .comment("The tick interval used by the Wave shape.")
+            .translation(AMTranslations.CONFIG_KEY + "wave_tick_interval")
+            .defineInRange("wave_tick_interval", 5, 1, 100);
         ZONE_DURATION = builder
             .comment("The duration used by the Zone shape. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "zone_duration")

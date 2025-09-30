@@ -20,24 +20,25 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.entity.PartEntity;
 
-public class Wall extends AbstractSpellEntity {
-    private static final EntityDataAccessor<Boolean> TARGET_NON_SOLID = SynchedEntityData.defineId(Wall.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(Wall.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(Wall.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> OWNER = SynchedEntityData.defineId(Wall.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Float> RANGE = SynchedEntityData.defineId(Wall.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Spell> SPELL = SynchedEntityData.defineId(Wall.class, AMSpells.DATA_SERIALIZER.get());
+public class Wave extends AbstractSpellEntity {
+    private static final EntityDataAccessor<Boolean> TARGET_NON_SOLID = SynchedEntityData.defineId(Wave.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(Wave.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(Wave.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> OWNER = SynchedEntityData.defineId(Wave.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Float> GRAVITY = SynchedEntityData.defineId(Wave.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> RANGE = SynchedEntityData.defineId(Wave.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Spell> SPELL = SynchedEntityData.defineId(Wave.class, AMSpells.DATA_SERIALIZER.get());
     private static final String TARGET_NON_SOLID_KEY = "target_non_solid";
     private static final String COLOR_KEY = "color";
     private static final String DURATION_KEY = "duration";
     private static final String OWNER_KEY = "owner";
+    private static final String GRAVITY_KEY = "owner";
     private static final String RANGE_KEY = "range";
     private static final String SPELL_KEY = "spell";
 
-    public Wall(EntityType<?> entityType, Level level) {
+    public Wave(EntityType<?> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -47,6 +48,7 @@ public class Wall extends AbstractSpellEntity {
             .define(COLOR, -1)
             .define(DURATION, 200)
             .define(OWNER, -1)
+            .define(GRAVITY, 0f)
             .define(RANGE, 1f)
             .define(SPELL, Spell.EMPTY);
     }
@@ -58,17 +60,19 @@ public class Wall extends AbstractSpellEntity {
         entityData.set(COLOR, tag.getInt(COLOR_KEY));
         entityData.set(DURATION, tag.getInt(DURATION_KEY));
         entityData.set(OWNER, tag.getInt(OWNER_KEY));
+        entityData.set(GRAVITY, tag.getFloat(GRAVITY_KEY));
         entityData.set(RANGE, tag.getFloat(RANGE_KEY));
         entityData.set(SPELL, Spell.CODEC.decode(NbtOps.INSTANCE, tag.getCompound(SPELL_KEY)).getOrThrow().getFirst());
     }
 
     @Override
     protected void addAdditionalSaveData(CompoundTag compound) {
-        CompoundTag tag = compound.getCompound(ArsMagicaApi.MOD_ID);
+        CompoundTag tag = new CompoundTag();
         tag.putBoolean(TARGET_NON_SOLID_KEY, entityData.get(TARGET_NON_SOLID));
         tag.putInt(COLOR_KEY, entityData.get(COLOR));
         tag.putInt(DURATION_KEY, entityData.get(DURATION));
         tag.putInt(OWNER_KEY, entityData.get(OWNER));
+        tag.putFloat(GRAVITY_KEY, entityData.get(GRAVITY));
         tag.putFloat(RANGE_KEY, entityData.get(RANGE));
         tag.put(SPELL_KEY, Spell.CODEC.encodeStart(NbtOps.INSTANCE, getSpell()).getOrThrow());
         compound.put(ArsMagicaApi.MOD_ID, tag);
@@ -77,28 +81,26 @@ public class Wall extends AbstractSpellEntity {
     @Override
     public void tick() {
         super.tick();
-        if (tickCount % AMServerConfig.WALL_TICK_INTERVAL.get() != 0) return;
+        setDeltaMovement(getDeltaMovement().x, getDeltaMovement().y - getGravity(), getDeltaMovement().z);
+        setPos(position().add(getDeltaMovement()));
+        if (tickCount % AMServerConfig.WAVE_TICK_INTERVAL.get() != 0) return;
         LivingEntity owner = getOwner();
         if (owner == null) return;
         SpellHelper helper = ArsMagicaApi.spellHelper();
         int color = getColor();
         Spell spell = getSpell();
         float range = getRange();
-        double cos = Math.cos(Math.toRadians(getYRot())) * range;
-        double sin = Math.sin(Math.toRadians(getYRot())) * range;
-        Vec3 a = new Vec3(getX() - cos, getY(), getZ() - sin);
-        Vec3 b = new Vec3(getX() + cos, getY(), getZ() + sin);
-        AABB aabb = new AABB(position().add(-range, 0, -range), position().add(range, range * AMServerConfig.WALL_HEIGHT.get(), range));
+        AABB aabb = new AABB(position().add(-range, -range, -range), position().add(range, range, range));
         for (Entity entity : level().getEntities(this, aabb)) {
             while (entity instanceof PartEntity<?> part) {
                 entity = part.getParent();
             }
-            if (entity instanceof AbstractSpellEntity) continue;
-            if (isAffected(entity.position(), entity.getBbHeight(), a, b, aabb.minY, aabb.maxY) && tryReflect(entity)) {
+            if (entity instanceof AbstractSpellEntity || entity.getId() == owner.getId()) continue;
+            if (tryReflect(entity)) {
                 helper.castGrammar(spell, owner, this, new EntityHitResult(entity));
             }
         }
-        BlockPos.betweenClosedStream(aabb).filter(pos -> isAffected(pos.getBottomCenter(), 1, a, b, aabb.minY, aabb.maxY)).forEach(pos -> {
+        BlockPos.betweenClosedStream(aabb).forEach(pos -> {
             helper.castGrammar(spell, owner, this, AMUtil.getHitResult(position(), position().add(getDeltaMovement()), this, getTargetNonSolid() ? ClipContext.Block.OUTLINE : ClipContext.Block.COLLIDER, getTargetNonSolid() ? ClipContext.Fluid.ANY : ClipContext.Fluid.NONE));
             if (level().isClientSide()) {
                 AMClientUtil.spawnSpellEntityParticles(this, pos.getBottomCenter(), color, owner);
@@ -142,28 +144,29 @@ public class Wall extends AbstractSpellEntity {
         entityData.set(OWNER, owner.getId());
     }
 
+    @Override
+    public double getDefaultGravity() {
+        return entityData.get(GRAVITY);
+    }
+
+    public void setGravity(float gravity) {
+        entityData.set(GRAVITY, gravity);
+    }
+
     public float getRange() {
         return entityData.get(RANGE);
     }
 
-    public void setRange(float range) {
-        entityData.set(RANGE, range);
+    public void setRange(float radius) {
+        entityData.set(RANGE, radius);
     }
 
+    @Override
     public Spell getSpell() {
         return entityData.get(SPELL);
     }
 
     public void setSpell(Spell spell) {
         entityData.set(SPELL, spell);
-    }
-
-    private static boolean isAffected(Vec3 targetPos, double targetHeight, Vec3 a, Vec3 b, double y1, double y2) {
-        Vec3 vec = b.subtract(a).normalize();
-        double p = vec.dot(targetPos.subtract(a));
-        Vec3 closest = p <= 0 ? a : p >= a.distanceTo(b) ? b : a.add(vec.scale(p));
-        double minY = targetPos.y();
-        double maxY = minY + targetHeight;
-        return new Vec3(closest.x, minY, closest.z).distanceTo(targetPos) < 0.75 && (y1 >= minY && y1 < maxY || y2 >= minY && y2 < maxY || minY >= y1 && minY < y2 || maxY >= y1 && maxY < y2);
     }
 }

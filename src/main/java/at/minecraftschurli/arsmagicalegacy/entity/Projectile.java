@@ -91,11 +91,11 @@ public class Projectile extends AbstractSpellEntity {
     @Override
     public void tick() {
         super.tick();
-        LivingEntity owner = getOwner();
-        if (owner == null) return;
         Level level = level();
         setDeltaMovement(getDeltaMovement().x, getDeltaMovement().y - getGravity(), getDeltaMovement().z);
         setPos(position().add(getDeltaMovement()));
+        LivingEntity owner = getOwner();
+        if (owner == null) return;
         if (level().isClientSide()) {
             AMClientUtil.spawnSpellEntityParticles(this, getColor(), owner);
         }

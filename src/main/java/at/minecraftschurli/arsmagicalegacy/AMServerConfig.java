@@ -54,6 +54,10 @@ public final class AMServerConfig {
     public static final ModConfigSpec.DoubleValue PROJECTILE_DURATION;
     public static final ModConfigSpec.DoubleValue PROJECTILE_GRAVITY;
     public static final ModConfigSpec.DoubleValue PROJECTILE_SPEED;
+    public static final ModConfigSpec.DoubleValue WALL_DURATION;
+    public static final ModConfigSpec.DoubleValue WALL_RANGE;
+    public static final ModConfigSpec.DoubleValue WALL_HEIGHT;
+    public static final ModConfigSpec.IntValue WALL_TICK_INTERVAL;
     public static final ModConfigSpec.DoubleValue ZONE_DURATION;
     public static final ModConfigSpec.DoubleValue ZONE_GRAVITY;
     public static final ModConfigSpec.DoubleValue ZONE_RANGE;
@@ -274,6 +278,22 @@ public final class AMServerConfig {
             .comment("The speed used by the Projectile shape. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "projectile_speed")
             .defineInRange(AMTranslations.CONFIG_KEY + "projectile_speed", 0.2, 0, 10);
+        WALL_DURATION = builder
+            .comment("The duration used by the Wall shape. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "wall_duration")
+            .defineInRange(AMTranslations.CONFIG_KEY + "wall_duration", 200., 1, Short.MAX_VALUE);
+        WALL_RANGE = builder
+            .comment("The range used by the Wall shape. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "wall_range")
+            .defineInRange(AMTranslations.CONFIG_KEY + "wall_range", 2.5, 0, 16);
+        WALL_HEIGHT = builder
+            .comment("The height used by the Wall shape, relative to its width.")
+            .translation(AMTranslations.CONFIG_KEY + "wall_tick_interval")
+            .defineInRange(AMTranslations.CONFIG_KEY + "wall_tick_interval", 0.8, 1, 100);
+        WALL_TICK_INTERVAL = builder
+            .comment("The time in ticks between the Wall shape applying its effect.")
+            .translation(AMTranslations.CONFIG_KEY + "wall_tick_interval")
+            .defineInRange(AMTranslations.CONFIG_KEY + "wall_tick_interval", 5, 1, 100);
         ZONE_DURATION = builder
             .comment("The duration used by the Zone shape. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "zone_duration")

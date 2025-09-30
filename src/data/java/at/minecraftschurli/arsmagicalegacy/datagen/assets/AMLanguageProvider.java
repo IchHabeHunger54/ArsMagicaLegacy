@@ -145,6 +145,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         blockIdTranslation(AMBlocks.POTTED_WAKEBLOOM);
         addBlock(AMBlocks.VINTEUM_WALL_TORCH, idTranslation(AMBlocks.VINTEUM_TORCH.getId().getPath()));
         entityIdTranslation(AMEntities.PROJECTILE);
+        entityIdTranslation(AMEntities.WALL);
         entityIdTranslation(AMEntities.ZONE);
         effectIdTranslation(AMMobEffects.ASTRAL_DISTORTION);
         effectIdTranslation(AMMobEffects.BURNOUT_REDUCTION);
@@ -465,6 +466,10 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("projectile_duration", "Projectile Duration", "The duration used by the Projectile shape. May be amplified by spell modifiers.");
         configTranslation("projectile_gravity", "Projectile Gravity", "If a Gravity modifier is present on the Projectile, by how much gravity will be increased.");
         configTranslation("projectile_speed", "Projectile Speed", "The speed used by the Projectile shape. May be amplified by spell modifiers.");
+        configTranslation("wall_duration", "Wall Duration", "The duration used by the Wall shape. May be amplified by spell modifiers.");
+        configTranslation("wall_range", "Wall Range", "The range used by the Wall shape. May be amplified by spell modifiers.");
+        configTranslation("wall_height", "Wall Height", "The height used by the Wall shape, relative to its width.");
+        configTranslation("wall_tick_interval", "Wall Tick Interval", "The time in ticks between the Wall shape applying its effect.");
         configTranslation("zone_duration", "Zone Duration", "The duration used by the Zone shape. May be amplified by spell modifiers.");
         configTranslation("zone_gravity", "Zone Gravity", "If a Gravity modifier is present on the Zone, by how much gravity will be increased.");
         configTranslation("zone_range", "Zone Range", "The range used by the Zone shape. May be amplified by spell modifiers.");

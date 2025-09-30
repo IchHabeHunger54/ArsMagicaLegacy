@@ -125,7 +125,7 @@ public class Projectile extends AbstractSpellEntity {
             }
         } else if (result instanceof EntityHitResult hitResult) {
             Entity entity = hitResult.getEntity();
-            if (entity instanceof PartEntity<?> part) {
+            while (entity instanceof PartEntity<?> part) {
                 entity = part.getParent();
             }
             if (entity != owner && tryReflect(entity)) {

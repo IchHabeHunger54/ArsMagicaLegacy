@@ -13,6 +13,8 @@ import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInView
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.OrbitPointController;
 import at.minecraftschurli.arsmagicalegacy.init.AMParticles;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import at.minecraftschurli.arsmagicalegacy.spell.component.Heal;
+import at.minecraftschurli.arsmagicalegacy.spell.component.Transplace;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.PackOutput;
@@ -238,7 +240,7 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
             .color(0x19ff19)
             .controller(new FloatUpwardController(0, 0.1))
             .controller(new OrbitPointController(0.5, 0.3, 0.6, true));
-        builder(ArsMagicaApi.modLoc("heal_undead"), AMParticles.SYMBOLS.get(), 25, 50)
+        builder(Heal.UNDEAD_PARTICLES, AMParticles.SYMBOLS.get(), 25, 50)
             .offset(-0.5, 0.5, -1.5, -0.5, -0.5, 0.5)
             .scale(0.5f)
             .controller(new FadeOutController(0.02f))
@@ -299,7 +301,7 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
             .offset(-0.5, 0.5, -0.5, 0.5, -0.5, 0.5)
             .color(0xff0000)
             .controller(new ArcToEntityController(0.05));
-        builder(ArsMagicaApi.modLoc("transplace_caster"), ParticleTypes.ELECTRIC_SPARK, 15, 40)
+        builder(Transplace.CASTER_PARTICLES, ParticleTypes.ELECTRIC_SPARK, 15, 40)
             .offset(-0.5, 0.5, -0.5, 0.5, -0.5, 0.5)
             .color(0x0000ff)
             .controller(new ArcToEntityController(0.05));

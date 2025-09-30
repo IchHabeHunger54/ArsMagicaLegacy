@@ -7,6 +7,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.EntityHitResult;
@@ -17,6 +18,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class Transplace extends SpellComponent.CastEntity {
+    public static final ResourceLocation CASTER_PARTICLES = ArsMagicaApi.modLoc("transplace_caster");
+
     @Override
     public Spell castEntity(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
         Entity entity = hitResult.getEntity();
@@ -38,7 +41,7 @@ public class Transplace extends SpellComponent.CastEntity {
         if (!(hitResult instanceof EntityHitResult entityHitResult)) return;
         super.spawnParticles(spell, modifiers, caster, directEntity, hitResult);
         if (entityHitResult.getEntity() instanceof LivingEntity living) {
-            AMClientUtil.spawnParticles(ArsMagicaApi.modLoc("transplace_caster"), living.position(), ArsMagicaApi.spellHelper().getColor(modifiers, spell, -1), living, living, new EntityHitResult(caster));
+            AMClientUtil.spawnParticles(CASTER_PARTICLES, living.position(), ArsMagicaApi.spellHelper().getColor(modifiers, spell, -1), living, living, new EntityHitResult(caster));
         }
     }
 }

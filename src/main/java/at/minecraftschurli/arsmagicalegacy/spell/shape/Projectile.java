@@ -26,6 +26,7 @@ public class Projectile extends PrimarySpellShape {
         if (level.isClientSide()) return spell;
         var projectile = AMEntities.PROJECTILE.get().create(level);
         projectile.setPos(caster.getX(), caster.getEyeY(), caster.getZ());
+        projectile.setYRot(caster.getYRot());
         projectile.setDeltaMovement(caster.getLookAngle());
         projectile.setOwner(caster);
         projectile.setSpell(spell);

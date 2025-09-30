@@ -22,8 +22,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.neoforge.entity.PartEntity;
 
-import javax.annotation.Nullable;
-
 public class Projectile extends AbstractSpellEntity {
     private static final EntityDataAccessor<Boolean> TARGET_NON_SOLID = SynchedEntityData.defineId(Projectile.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> BOUNCES = SynchedEntityData.defineId(Projectile.class, EntityDataSerializers.INT);
@@ -184,13 +182,6 @@ public class Projectile extends AbstractSpellEntity {
 
     public void setPierces(int pierces) {
         entityData.set(PIERCES, pierces);
-    }
-
-    @Override
-    @Nullable
-    public LivingEntity getOwner() {
-        Entity entity = level().getEntity(getOwnerId());
-        return entity instanceof LivingEntity ? (LivingEntity) entity : null;
     }
 
     @Override

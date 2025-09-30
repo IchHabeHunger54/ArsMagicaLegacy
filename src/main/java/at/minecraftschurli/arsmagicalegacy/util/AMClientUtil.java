@@ -9,6 +9,7 @@ import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.OcculusScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellrecipe.SpellRecipeScreen;
 import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleSpawnerManager;
 import at.minecraftschurli.arsmagicalegacy.entity.SpellEntity;
+import at.minecraftschurli.arsmagicalegacy.entity.SpellShapeEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -29,7 +30,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class AMClientUtil {
-    private static final Map<ParticleSpawnerKey, ParticleSpawner> SPELL_ENTITY_PARTICLE_SPAWNERS = new HashMap<>();
+    private static final Map<SpellEntityKey, ParticleSpawner> SPELL_ENTITY_PARTICLE_SPAWNERS = new HashMap<>();
+    private static final Map<SpellShapeEntityKey, ParticleSpawner> SPELL_SHAPE_ENTITY_PARTICLE_SPAWNERS = new HashMap<>();
 
     private AMClientUtil() {
     }
@@ -133,10 +135,31 @@ public final class AMClientUtil {
         ArsMagicaClientApi.spawnParticles(ParticleSpawnerManager.INSTANCE.get(id), position, color, caster, directEntity, hitResult);
     }
 
-    @SuppressWarnings("DataFlowIssue")
-    public static void spawnSpellEntityParticles(SpellEntity entity, Spell spell, Vec3 position, int color, @Nullable LivingEntity caster) {
-        ParticleSpawnerKey key = new ParticleSpawnerKey(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()), spell.grammar().primaryAffinity());
+    public static void spawnSpellEntityParticles(SpellEntity entity, double range, double verticalRange, int color, @Nullable LivingEntity caster) {
+        SpellEntityKey key = new SpellEntityKey(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()), range);
         SPELL_ENTITY_PARTICLE_SPAWNERS.computeIfAbsent(key, k -> {
+            ParticleSpawner spawner = ParticleSpawnerManager.INSTANCE.get(key.id);
+            return new ParticleSpawner(spawner.particle(),
+                spawner.count(),
+                spawner.minLifetime(),
+                spawner.maxLifetime(),
+                new Vec3(-range, 0, -range),
+                new Vec3(range, verticalRange, range),
+                spawner.minSpeed(),
+                spawner.maxSpeed(),
+                spawner.gravity(),
+                spawner.scale(),
+                spawner.color(),
+                spawner.alpha(),
+                spawner.controllers());
+        });
+        ArsMagicaClientApi.spawnParticles(SPELL_ENTITY_PARTICLE_SPAWNERS.get(key), entity.position(), color, caster, entity, null);
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    public static void spawnSpellShapeEntityParticles(SpellShapeEntity entity, Spell spell, Vec3 position, int color, @Nullable LivingEntity caster) {
+        SpellShapeEntityKey key = new SpellShapeEntityKey(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()), spell.grammar().primaryAffinity());
+        SPELL_SHAPE_ENTITY_PARTICLE_SPAWNERS.computeIfAbsent(key, k -> {
             ParticleSpawner spawner = ParticleSpawnerManager.INSTANCE.get(key.id);
             return new ParticleSpawner(registryAccess().registryOrThrow(AMRegistryKeys.AFFINITY).get(key.affinity).particle(),
                 spawner.count(),
@@ -152,13 +175,17 @@ public final class AMClientUtil {
                 spawner.alpha(),
                 spawner.controllers());
         });
-        ArsMagicaClientApi.spawnParticles(SPELL_ENTITY_PARTICLE_SPAWNERS.get(key), position, color, caster, entity, null);
+        ArsMagicaClientApi.spawnParticles(SPELL_SHAPE_ENTITY_PARTICLE_SPAWNERS.get(key), position, color, caster, entity, null);
     }
 
     public static void clearParticleSpawnerCache() {
         SPELL_ENTITY_PARTICLE_SPAWNERS.clear();
+        SPELL_SHAPE_ENTITY_PARTICLE_SPAWNERS.clear();
     }
 
-    private record ParticleSpawnerKey(ResourceLocation id, ResourceKey<Affinity> affinity) {
+    private record SpellEntityKey(ResourceLocation id, double range) {
+    }
+
+    private record SpellShapeEntityKey(ResourceLocation id, ResourceKey<Affinity> affinity) {
     }
 }

@@ -34,7 +34,19 @@ public final class AMServerConfig {
     public static final ModConfigSpec.DoubleValue ATTRACT_SPEED;
     public static final ModConfigSpec.DoubleValue BANISH_RAIN_DURATION;
     public static final ModConfigSpec.DoubleValue BLINK_RANGE;
+    public static final ModConfigSpec.DoubleValue BLIZZARD_DAMAGE;
+    public static final ModConfigSpec.DoubleValue BLIZZARD_DURATION;
+    public static final ModConfigSpec.DoubleValue BLIZZARD_RANGE;
+    public static final ModConfigSpec.DoubleValue BLIZZARD_HEIGHT;
+    public static final ModConfigSpec.DoubleValue BLIZZARD_FROST_DURATION;
+    public static final ModConfigSpec.IntValue BLIZZARD_TICK_INTERVAL;
     public static final ModConfigSpec.DoubleValue EXPLOSION_RANGE;
+    public static final ModConfigSpec.DoubleValue FIRE_RAIN_DAMAGE;
+    public static final ModConfigSpec.DoubleValue FIRE_RAIN_DURATION;
+    public static final ModConfigSpec.DoubleValue FIRE_RAIN_RANGE;
+    public static final ModConfigSpec.DoubleValue FIRE_RAIN_HEIGHT;
+    public static final ModConfigSpec.DoubleValue FIRE_RAIN_FIRE_DURATION;
+    public static final ModConfigSpec.IntValue FIRE_RAIN_TICK_INTERVAL;
     public static final ModConfigSpec.DoubleValue FLING_SPEED;
     public static final ModConfigSpec.BooleanValue FORGE_SMELTS_VILLAGERS;
     public static final ModConfigSpec.DoubleValue FROST_DURATION;
@@ -201,10 +213,58 @@ public final class AMServerConfig {
             .comment("The range of the Blink component. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "blink_range")
             .defineInRange("blink_range", 16., 1, 64);
+        BLIZZARD_DAMAGE = builder
+            .comment("The damage of the Blizzard component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "blizzard_damage")
+            .defineInRange("blizzard_damage", 2., 1, 100);
+        BLIZZARD_DURATION = builder
+            .comment("The duration of the Blizzard component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "blizzard_duration")
+            .defineInRange("blizzard_duration", 600., 1, Short.MAX_VALUE);
+        BLIZZARD_RANGE = builder
+            .comment("The range of the Blizzard component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "blizzard_range")
+            .defineInRange("blizzard_range", 2., 1, 16);
+        BLIZZARD_HEIGHT = builder
+            .comment("The height used by the Blizzard component, relative to its width.")
+            .translation(AMTranslations.CONFIG_KEY + "blizzard_height")
+            .defineInRange("blizzard_height", 1., 0, 8);
+        BLIZZARD_FROST_DURATION = builder
+            .comment("The duration of the frost applied by the Blizzard component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "blizzard_frost_duration")
+            .defineInRange("blizzard_frost_duration", 50., 1, Short.MAX_VALUE);
+        BLIZZARD_TICK_INTERVAL = builder
+            .comment("The tick interval used by the Blizzard component.")
+            .translation(AMTranslations.CONFIG_KEY + "blizzard_tick_interval")
+            .defineInRange("blizzard_tick_interval", 5, 1, 100);
         EXPLOSION_RANGE = builder
             .comment("The range of the Explosion component. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "explosion_range")
             .defineInRange("explosion_range", 2., 1, 16);
+        FIRE_RAIN_DAMAGE = builder
+            .comment("The damage of the Fire Rain component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "fire_rain_damage")
+            .defineInRange("fire_rain_damage", 2., 1, 100);
+        FIRE_RAIN_DURATION = builder
+            .comment("The duration of the Fire Rain component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "fire_rain_duration")
+            .defineInRange("fire_rain_duration", 600., 1, Short.MAX_VALUE);
+        FIRE_RAIN_RANGE = builder
+            .comment("The range of the Fire Rain component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "fire_rain_range")
+            .defineInRange("fire_rain_range", 2., 1, 16);
+        FIRE_RAIN_HEIGHT = builder
+            .comment("The height used by the Fire Rain component, relative to its width.")
+            .translation(AMTranslations.CONFIG_KEY + "fire_rain_height")
+            .defineInRange("fire_rain_height", 1., 0, 8);
+        FIRE_RAIN_FIRE_DURATION = builder
+            .comment("The duration of the fire applied by the Fire Rain component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "fire_rain_fire_duration")
+            .defineInRange("fire_rain_fire_duration", 50., 1, Short.MAX_VALUE);
+        FIRE_RAIN_TICK_INTERVAL = builder
+            .comment("The tick interval used by the Fire Rain component.")
+            .translation(AMTranslations.CONFIG_KEY + "fire_rain_tick_interval")
+            .defineInRange("fire_rain_tick_interval", 5, 1, 100);
         FLING_SPEED = builder
             .comment("The speed of the Fling component. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "fling_speed")
@@ -294,7 +354,7 @@ public final class AMServerConfig {
         WALL_HEIGHT = builder
             .comment("The height used by the Wall shape, relative to its width.")
             .translation(AMTranslations.CONFIG_KEY + "wall_height")
-            .defineInRange("wall_height", 0.8, 1, 100);
+            .defineInRange("wall_height", 0.8, 0, 8);
         WALL_TICK_INTERVAL = builder
             .comment("The time in ticks between the Wall shape applying its effect.")
             .translation(AMTranslations.CONFIG_KEY + "wall_tick_interval")

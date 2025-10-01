@@ -1,25 +1,15 @@
-- Test Spell Parts
-    - Create Water
-    - Grow
-    - Plow
-    - Forge
-    - Ignition
-    - Light
-    - Blink
-    - Charm
-    - Knockback
-    - Life Drain
-    - Life Tap
-    - Mana Blast
-    - Mana Drain
-    - Melt Armor
-    - Transplace
-- Test Spell Particles
-- Add Spell Shapes
+- Add TODO Spell Shapes & Components
+- Add Spell Modifier Functionality
+     - Dismembering
+     - Fortune
+     - Mining Power
+     - Rune Power
+     - Silk Touch
+- Test All Spell Parts & Particles
 - Inlays
 - Wizard's Chalk
 - Liquid Essence
-- Spell Book
+- Spell Book (including Overlay)
 - Shape Group Toggle & Overlay
 - Mage & Battlemage Armor
 - All Etherium-related features, including:
@@ -29,7 +19,7 @@
     - Crystal Wrench
     - Magitech Goggles
 - Entities, including:
-    - Mana Creepers and Mana Vortexes
+    - Mana Creepers & Mana Vortexes
     - Dryads
     - All Bosses
     - Their Projectiles

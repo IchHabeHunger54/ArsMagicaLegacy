@@ -92,6 +92,11 @@ public interface ControlledParticle {
     RandomSource random();
 
     /**
+     * @param lifetime The lifetime to set.
+     */
+    void setLifetime(int lifetime);
+
+    /**
      * @param vec The {@link Vec3} to measure the horizontal distance to.
      * @return The horizontal distance between the particle and the given {@link Vec3}.
      */

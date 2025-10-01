@@ -101,6 +101,7 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(AMEntities.BLIZZARD.get(), EmptyRenderer::new);
+        event.registerEntityRenderer(AMEntities.FALLING_STAR.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.FIRE_RAIN.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.PROJECTILE.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.WALL.get(), EmptyRenderer::new);

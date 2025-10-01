@@ -32,10 +32,10 @@ public class AMParticle extends SimpleAnimatedParticle implements ControlledPart
         super(level, x, y, z, sprites, 0);
     }
 
-    public static void spawn(ClientLevel level, double x, double y, double z, ParticleSpawner spawner, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+    public static List<AMParticle> spawn(ClientLevel level, double x, double y, double z, ParticleSpawner spawner, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         ParticleEngine particleEngine = AMClientUtil.mc().particleEngine;
         Particle vanillaParticle = particleEngine.createParticle(spawner.particle(), x, y, z, 0, 0, 0);
-        if (vanillaParticle == null) return;
+        if (vanillaParticle == null) return List.of();
         SpriteSet sprites = vanillaParticle instanceof SimpleAnimatedParticle particle ? particle.sprites : null;
         TextureAtlasSprite sprite = switch (vanillaParticle) {
             case SimpleAnimatedParticle ignored -> sprites.get(0, 1);
@@ -43,7 +43,8 @@ public class AMParticle extends SimpleAnimatedParticle implements ControlledPart
             default -> null;
         };
         vanillaParticle.remove();
-        if (sprite == null) return;
+        if (sprite == null) return List.of();
+        List<AMParticle> list = new ArrayList<>();
         for (int i = 0; i < spawner.count(); i++) {
             AMParticle particle = new AMParticle(level, x, y, z, sprites);
             particle.setSprite(sprite);
@@ -60,7 +61,9 @@ public class AMParticle extends SimpleAnimatedParticle implements ControlledPart
             particle.setAlpha(spawner.alpha());
             spawner.controllers().forEach(controller -> particle.addController(controller, caster, directEntity, hitResult));
             particleEngine.add(particle);
+            list.add(particle);
         }
+        return list;
     }
 
     public void addOffset(Vec3 minOffset, Vec3 maxOffset) {

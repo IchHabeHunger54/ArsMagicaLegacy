@@ -1,0 +1,26 @@
+{
+  "controllers": [
+    {
+      "type": "arsmagicalegacy:change_size",
+      "duration": 5,
+      "from": 0.5,
+      "to": 0.05
+    }
+  ],
+  "count": 24,
+  "max_lifetime": 5,
+  "max_offset": [
+    0.25,
+    0.25,
+    0.25
+  ],
+  "min_lifetime": 5,
+  "min_offset": [
+    -0.25,
+    -0.25,
+    -0.25
+  ],
+  "particle": {
+    "type": "arsmagicalegacy:ember"
+  }
+}

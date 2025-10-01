@@ -26,16 +26,16 @@ public class Blizzard extends SpellComponent {
     @Override
     public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
         Level level = caster.level();
-        if (level.isClientSide()) return spell;
+        if (level.isClientSide() || hitResult == null || hitResult.getType() == HitResult.Type.MISS) return spell;
         var blizzard = AMEntities.BLIZZARD.get().create(level);
-        blizzard.setPos(directEntity.getEyePosition());
+        blizzard.setPos(hitResult.getLocation());
         blizzard.setOwner(caster);
         SpellHelper helper = ArsMagicaApi.spellHelper();
-        blizzard.setColor(helper.getColor(modifiers, spell, spell.activeShapeGroup()));
-        blizzard.setDuration((int) helper.getModifiedStat(AMServerConfig.BLIZZARD_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, caster, caster, null));
-        blizzard.setFrostDuration((int) helper.getModifiedStat(AMServerConfig.BLIZZARD_FROST_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, caster, caster, null));
-        blizzard.setDamage((float) helper.getModifiedStat(AMServerConfig.BLIZZARD_DAMAGE.get(), AMSpells.DAMAGE_STAT, modifiers, spell, caster, caster, null));
-        blizzard.setRange((float) helper.getModifiedStat(AMServerConfig.BLIZZARD_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, caster, caster, null));
+        blizzard.setColor(helper.getColor(modifiers, spell, -1));
+        blizzard.setDuration((int) helper.getModifiedStat(AMServerConfig.BLIZZARD_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, caster, directEntity, hitResult));
+        blizzard.setFrostDuration((int) helper.getModifiedStat(AMServerConfig.BLIZZARD_FROST_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, caster, directEntity, hitResult));
+        blizzard.setDamage((float) helper.getModifiedStat(AMServerConfig.BLIZZARD_DAMAGE.get(), AMSpells.DAMAGE_STAT, modifiers, spell, caster, directEntity, hitResult));
+        blizzard.setRange((float) helper.getModifiedStat(AMServerConfig.BLIZZARD_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, caster, directEntity, hitResult));
         level.addFreshEntity(blizzard);
         return spell;
     }

@@ -15,6 +15,7 @@ import net.neoforged.neoforge.common.util.Lazy;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.ServiceLoader;
 
 /**
@@ -71,9 +72,10 @@ public abstract class ArsMagicaClientApi {
      * @param caster       The {@link LivingEntity} casting the {@link Spell}. May be null if this is not called from a spell cast.
      * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster. May be null if this is not called from a spell cast.
      * @param hitResult    The {@link HitResult} of the spell cast. May be null if this is not called from a spell cast.
+     * @return A {@link List} of the {@link ControlledParticle}s that were created.
      */
-    public static void spawnParticles(ParticleSpawner spawner, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        INSTANCE.get().doSpawnParticles(spawner, position, color, caster, directEntity, hitResult);
+    public static List<? extends ControlledParticle> spawnParticles(ParticleSpawner spawner, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+        return INSTANCE.get().doSpawnParticles(spawner, position, color, caster, directEntity, hitResult);
     }
 
     @ApiStatus.Internal
@@ -93,5 +95,5 @@ public abstract class ArsMagicaClientApi {
     protected abstract SpellPartCustomizationScreen.Factory<?, ?> getSpellPartCustomizationScreen(Holder<SpellPart> spellPart);
 
     @ApiStatus.Internal
-    protected abstract void doSpawnParticles(ParticleSpawner spawner, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
+    protected abstract List<? extends ControlledParticle> doSpawnParticles(ParticleSpawner spawner, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
 }

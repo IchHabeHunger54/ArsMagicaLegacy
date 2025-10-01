@@ -26,16 +26,16 @@ public class FireRain extends SpellComponent {
     @Override
     public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
         Level level = caster.level();
-        if (level.isClientSide()) return spell;
+        if (level.isClientSide() || hitResult == null || hitResult.getType() == HitResult.Type.MISS) return spell;
         var fireRain = AMEntities.FIRE_RAIN.get().create(level);
-        fireRain.setPos(directEntity.getEyePosition());
+        fireRain.setPos(hitResult.getLocation());
         fireRain.setOwner(caster);
         SpellHelper helper = ArsMagicaApi.spellHelper();
-        fireRain.setColor(helper.getColor(modifiers, spell, spell.activeShapeGroup()));
-        fireRain.setDuration((int) helper.getModifiedStat(AMServerConfig.FIRE_RAIN_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, caster, caster, null));
-        fireRain.setFireDuration((int) helper.getModifiedStat(AMServerConfig.FIRE_RAIN_FIRE_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, caster, caster, null));
-        fireRain.setDamage((float) helper.getModifiedStat(AMServerConfig.FIRE_RAIN_DAMAGE.get(), AMSpells.DAMAGE_STAT, modifiers, spell, caster, caster, null));
-        fireRain.setRange((float) helper.getModifiedStat(AMServerConfig.FIRE_RAIN_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, caster, caster, null));
+        fireRain.setColor(helper.getColor(modifiers, spell, -1));
+        fireRain.setDuration((int) helper.getModifiedStat(AMServerConfig.FIRE_RAIN_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, caster, directEntity, hitResult));
+        fireRain.setFireDuration((int) helper.getModifiedStat(AMServerConfig.FIRE_RAIN_FIRE_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, caster, directEntity, hitResult));
+        fireRain.setDamage((float) helper.getModifiedStat(AMServerConfig.FIRE_RAIN_DAMAGE.get(), AMSpells.DAMAGE_STAT, modifiers, spell, caster, directEntity, hitResult));
+        fireRain.setRange((float) helper.getModifiedStat(AMServerConfig.FIRE_RAIN_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, caster, directEntity, hitResult));
         level.addFreshEntity(fireRain);
         return spell;
     }

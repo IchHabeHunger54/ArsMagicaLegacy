@@ -1,4 +1,4 @@
-// 1.21.1	2025-09-24T03:32:53.212789	Registries
+// 1.21.1	2025-10-01T02:28:33.501932	Registries
 a2824e8666445c39ca58da47aedf77d31da43cec data/arsmagicalegacy/arsmagicalegacy/ability/clarity.json
 e221ec748729376e856802165a575f146ae31065 data/arsmagicalegacy/arsmagicalegacy/ability/enderman_pumpkin.json
 80053ef4569c59dfc7254f1dd3facffd80d41722 data/arsmagicalegacy/arsmagicalegacy/ability/ender_thorns.json
@@ -240,6 +240,7 @@ a1d38d3cffa76972720fbc8eedb95a6598ade801 data/arsmagicalegacy/arsmagicalegacy/sk
 0fc58817e25941ade82d89801cef0b7f65002943 data/arsmagicalegacy/arsmagicalegacy/skill_point/blue.json
 ea33375c8970c1c4263b3359a2bdf44635cfc20b data/arsmagicalegacy/arsmagicalegacy/skill_point/green.json
 b508bb0a95371bb105fa246d120332bb1beceb73 data/arsmagicalegacy/arsmagicalegacy/skill_point/red.json
+60914d37b9f545120c6d8d74876c540ba543c424 data/arsmagicalegacy/damage_type/falling_star.json
 1af933e6bdd63d767911d99a51dcb9903a7bc92b data/arsmagicalegacy/neoforge/biome_modifier/forest.json
 7e9fee72574aad1a066045f796730f51e2c850d7 data/arsmagicalegacy/neoforge/biome_modifier/jungle_or_swamp.json
 55f48c168b51e8c2c0d0f81401be2282396b3ad9 data/arsmagicalegacy/neoforge/biome_modifier/mountain.json

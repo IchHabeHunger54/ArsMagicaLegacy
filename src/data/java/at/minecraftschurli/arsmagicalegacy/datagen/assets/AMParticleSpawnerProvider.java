@@ -5,12 +5,14 @@ import at.minecraftschurli.arsmagicalegacy.api.data.ParticleSpawnerBuilder;
 import at.minecraftschurli.arsmagicalegacy.api.data.ParticleSpawnerProvider;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.ApproachEntityController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.ArcToEntityController;
+import at.minecraftschurli.arsmagicalegacy.client.particle.controller.ChangeSizeController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.FadeOutController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.FloatUpwardController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.LeaveTrailController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInKnockbackDirectionController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInViewDirectionController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.OrbitPointController;
+import at.minecraftschurli.arsmagicalegacy.entity.FallingStar;
 import at.minecraftschurli.arsmagicalegacy.init.AMParticles;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Heal;
@@ -310,6 +312,11 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
             .gravity(1)
             .scale(0.5f)
             .alpha(0.6f);
+        builder(FallingStar.FALL_PARTICLES, AMParticles.EMBER.get(), 1, 5)
+            .controller(new ChangeSizeController(0.5f, 0.05f, 5));
+        builder(FallingStar.GROUND_PARTICLES, AMParticles.EMBER.get(), 24, 5)
+            .offset(-0.25, 0.25, -0.25, 0.25, -0.25, 0.25)
+            .controller(new ChangeSizeController(0.5f, 0.05f, 5));
         builder(AMSpells.FIRE_RAIN.getId(), AMParticles.EXPLOSION.get(), 20, 40)
             .speed(-0.1, 0.1, -0.05, 0.05, -0.1, 0.1)
             .gravity(1);

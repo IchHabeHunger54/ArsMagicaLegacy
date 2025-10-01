@@ -71,7 +71,7 @@ public abstract class SpellShapeEntity extends SpellEntity {
 
     protected void spawnParticles(Vec3 position) {
         if (level().isClientSide()) {
-            AMClientUtil.spawnSpellShapeEntityParticles(this, getSpell(), position, getColor(), getOwner());
+            AMClientUtil.spawnSpellEntityParticles(this, getSpell(), position, getColor(), getOwner());
         }
     }
 

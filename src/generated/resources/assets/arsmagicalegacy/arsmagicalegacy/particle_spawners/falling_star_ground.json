@@ -1,10 +1,7 @@
 {
   "controllers": [
     {
-      "type": "arsmagicalegacy:change_size",
-      "duration": 5,
-      "from": 0.5,
-      "to": 0.05
+      "type": "arsmagicalegacy:change_size"
     }
   ],
   "count": 24,

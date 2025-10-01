@@ -1,8 +1,7 @@
 {
   "controllers": [
     {
-      "type": "arsmagicalegacy:fade_out",
-      "speed": 0.05
+      "type": "arsmagicalegacy:fade_out"
     },
     {
       "type": "arsmagicalegacy:move_in_knockback_direction",

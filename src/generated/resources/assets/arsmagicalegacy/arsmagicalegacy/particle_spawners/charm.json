@@ -2,7 +2,6 @@
   "controllers": [
     {
       "type": "arsmagicalegacy:float_upward",
-      "jitter": 0.0,
       "max_speed": 0.15,
       "min_speed": 0.1
     }

@@ -12,7 +12,7 @@ import net.minecraft.util.ExtraCodecs;
 public record FadeOutController(boolean stopOtherControllers, boolean killOnFinish, float speed) implements ParticleController {
     public static final ResourceLocation ID = ArsMagicaApi.modLoc("fade_out");
     public static final MapCodec<FadeOutController> CODEC = RecordCodecBuilder.mapCodec(inst -> ParticleController.baseFields(inst)
-        .and(ExtraCodecs.POSITIVE_FLOAT.optionalFieldOf("speed", 0.01f).forGetter(FadeOutController::speed))
+        .and(ExtraCodecs.POSITIVE_FLOAT.optionalFieldOf("speed", 0.05f).forGetter(FadeOutController::speed))
         .apply(inst, FadeOutController::new));
 
     public FadeOutController(float speed) {
@@ -20,7 +20,7 @@ public record FadeOutController(boolean stopOtherControllers, boolean killOnFini
     }
 
     public FadeOutController() {
-        this(0.01f);
+        this(0.05f);
     }
 
     @Override

@@ -33,7 +33,7 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
         builder(AMSpells.ABSORPTION.getId(), AMParticles.STARDUST.get(), 25, 20)
             .offset(-0.5, 0.5, -1.5, -0.5, -0.5, 0.5)
             .color(0x007fff)
-            .controller(new FloatUpwardController(0, 0.1))
+            .controller(new FloatUpwardController(0.1))
             .controller(new OrbitPointController(0.5, 0.3, 0.6, true));
         builder(AMSpells.BLINDNESS.getId(), AMParticles.LENS_FLARE.get(), 15, 25, 35)
             .offset(-0.5, 0.5, -0.5, 0.5, -0.5, 0.5)
@@ -42,13 +42,13 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
         builder(AMSpells.HASTE.getId(), AMParticles.LIGHTS.get(), 25, 20)
             .offset(-0.5, 0.5, -1.5, -0.5, -0.5, 0.5)
             .scale(0.5f)
-            .controller(new FloatUpwardController(0, 0.1))
+            .controller(new FloatUpwardController(0.1))
             .controller(new OrbitPointController(0.1, 0.3, 0.6, false))
             .controller(new FadeOutController(false, true, 0.05f));
         builder(AMSpells.INVISIBILITY.getId(), AMParticles.EMBER.get(), 25, 20)
             .offset(-0.5, 0.5, -1.5, -0.5, -0.5, 0.5)
             .scale(0.5f)
-            .controller(new FloatUpwardController(0, 0.1))
+            .controller(new FloatUpwardController(0.1))
             .controller(new OrbitPointController(0.5, 0.3, 0.6, false))
             .controller(new FadeOutController(false, true, 0.05f));
         builder(AMSpells.JUMP_BOOST.getId(), AMParticles.WIND.get(), 15, 15)
@@ -69,7 +69,7 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
         builder(AMSpells.REGENERATION.getId(), AMParticles.STARDUST.get(), 25, 20)
             .offset(-0.5, 0.5, -1.5, -0.5, -0.5, 0.5)
             .color(0x19ffcc)
-            .controller(new FloatUpwardController(0, 0.1))
+            .controller(new FloatUpwardController(0.1))
             .controller(new OrbitPointController(0.5, 0.3, 0.6, true));
         builder(AMSpells.RESISTANCE.getId(), AMParticles.SYMBOLS.get(), 25, 10)
             .offset(0, -1, 0)
@@ -77,18 +77,18 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
             .controller(new OrbitPointController(0.2, 1, 1, true));
         builder(AMSpells.SLOWNESS.getId(), AMParticles.STARDUST.get(), 25, 20)
             .offset(-0.5, 0.5, 0, 2, -0.5, 0.5)
-            .controller(new FloatUpwardController(0, -0.1))
+            .controller(new FloatUpwardController(-0.1))
             .controller(new OrbitPointController(0.2, 0.3, 0.6, true));
         builder(AMSpells.SLOW_FALLING.getId(), AMParticles.WIND.get(), 25, 20)
             .offset(-0.5, 0.5, -1.5, -0.5, -0.5, 0.5)
-            .controller(new FloatUpwardController(0, 0.1))
+            .controller(new FloatUpwardController(0.1))
             .controller(new OrbitPointController(0.5, 0.3, 0.6, true));
         builder(AMSpells.SWIFTNESS.getId(), AMParticles.STARDUST.get(), 15, 25, 35)
             .offset(-0.5, 0.5, -0.5, 0.5, -0.5, 0.5)
             .controller(new OrbitPointController(0.1, 1, 1.5, true));
         builder(AMSpells.WATER_BREATHING.getId(), AMParticles.WATER_BALL.get(), 25, 20)
             .offset(-0.5, 0.5, -1.5, -0.5, -0.5, 0.5)
-            .controller(new FloatUpwardController(0, 0.1))
+            .controller(new FloatUpwardController(0.1))
             .controller(new OrbitPointController(0.5, 0.3, 0.6, true));
         builder(AMSpells.ASTRAL_DISTORTION.getId(), AMParticles.PULSE.get(), 10, 25, 35)
             .offset(-2.5, 2.5, -2, 2, -2.5, 2.5)
@@ -110,14 +110,14 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
         builder(AMSpells.FURY.getId(), AMParticles.PULSE.get(), 10, 10)
             .offset(-0.5, 0.5, -0.5, 0.5, -0.5, 0.5)
             .color(0xff0000)
-            .controller(new FloatUpwardController(0, 0.1))
+            .controller(new FloatUpwardController(0.1))
             .controller(new OrbitPointController(0.15, 1, 2, true));
         builder(AMSpells.GRAVITY_WELL.getId(), AMParticles.PULSE.get(), 25, 20)
             .offset(-0.5, 0.5, -1, 1, -0.5, 0.5)
             .scale(0.05f)
             .controller(new LeaveTrailController(new ParticleSpawnerBuilder(ArsMagicaApi.modLoc("gravity_well_trail"), AMParticles.PULSE.get(), 1, 5)
                 .color(0xb233e5)
-                .controller(new FloatUpwardController(0, -0.3))
+                .controller(new FloatUpwardController(-0.3))
                 .build()))
             .controller(new OrbitPointController(0.2, true))
             .controller(new FadeOutController(false, true, 0.05f));
@@ -126,12 +126,12 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
         builder(AMSpells.SWIFT_SWIM.getId(), AMParticles.WATER_BALL.get(), 25, 20)
             .offset(-0.5, 0.5, -1, 1, -0.5, 0.5)
             .scale(0.5f)
-            .controller(new FadeOutController(0.05f))
+            .controller(new FadeOutController())
             .controller(new MoveInViewDirectionController(0.1, 0.6));
         builder(AMSpells.TEMPORAL_ANCHOR.getId(), AMParticles.CLOCK.get(), 25, 40)
             .offset(-0.5, 0.5, -1, 1, -0.5, 0.5)
             .scale(0.5f)
-            .controller(new FadeOutController(0.05f))
+            .controller(new FadeOutController())
             .controller(new OrbitPointController(0.1, 0.2, true));
         builder(AMSpells.TRUE_SIGHT.getId(), AMParticles.STARDUST.get(), 25, 40)
             .offset(-0.5, 0.5, -1.5, -0.5, -0.5, 0.5)
@@ -140,10 +140,10 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
         builder(AMSpells.WATERY_GRAVE.getId(), AMParticles.WATER_BALL.get(), 25, 20)
             .offset(-0.5, 0.5, -1, 1, -0.5, 0.5)
             .scale(0.05f)
-            .controller(new FadeOutController(0.05f))
+            .controller(new FadeOutController())
             .controller(new LeaveTrailController(new ParticleSpawnerBuilder(ArsMagicaApi.modLoc("watery_grave"), AMParticles.WATER_BALL.get(), 1, 5)
                 .color(0xffffff)
-                .controller(new FloatUpwardController(0, -0.3))
+                .controller(new FloatUpwardController(-0.3))
                 .build()))
             .controller(new OrbitPointController(0.2, true));
         builder(AMSpells.DROWNING_DAMAGE.getId(), ParticleTypes.BUBBLE, 25, 5)
@@ -182,10 +182,10 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
             .color(0xcc4cb2);
         builder(AMSpells.BANISH_RAIN.getId(), AMParticles.WATER_BALL.get(), 25, 25, 35)
             .offset(-2.5, 2.5, -2, 2, -2.5, 2.5)
-            .controller(new FloatUpwardController(0, 0.5));
+            .controller(new FloatUpwardController(0.5));
         builder(AMSpells.BLINK.getId(), AMParticles.STARDUST.get(), 25, 20)
             .offset(-0.5, 0.5, -1, 1, -0.5, 0.5)
-            .controller(new FadeOutController(0.05f))
+            .controller(new FadeOutController())
             .controller(new MoveInViewDirectionController(0.1, 0.6));
         builder(AMSpells.CHARM.getId(), ParticleTypes.HEART, 10, 20)
             .offset(-0.5, 0.5, -1, 1, -0.5, 0.5)
@@ -198,7 +198,7 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
             .gravity(1)
             .scale(0.5f)
             .color(0xb2b219)
-            .controller(new FadeOutController(0.05f))
+            .controller(new FadeOutController())
             .controller(new MoveInViewDirectionController(0.1, 0.6));
         builder(AMSpells.DISPEL.getId(), ParticleTypes.ELECTRIC_SPARK, 25, 20)
             .offset(-0.5, 0.5, -1, 1, -0.5, 0.5)
@@ -213,12 +213,12 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
             .gravity(1)
             .scale(0.5f)
             .color(0xe5cc7f)
-            .controller(new FadeOutController(0.05f))
-            .controller(new FloatUpwardController(0, 0.1));
+            .controller(new FadeOutController())
+            .controller(new FloatUpwardController(0.1));
         builder(AMSpells.ENDER_INTERVENTION.getId(), AMParticles.GHOST.get(), 100, 25, 35)
             .offset(-0.5, 0.5, -2, 0, -0.5, 0.5)
             .color(0xb23333)
-            .controller(new FloatUpwardController(0, 0.1));
+            .controller(new FloatUpwardController(0.1));
         builder(AMSpells.FLING.getId(), AMParticles.WIND.get(), 25, 20)
             .offset(-0.5, 0.5, -1, 1, -0.5, 0.5)
             .controller(new FloatUpwardController(0, 0.3, 0.6));
@@ -228,25 +228,25 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
         builder(AMSpells.GROW.getId(), AMParticles.PLANT.get(), 25, 20)
             .offset(-0.5, 0.5, 0.5, 1.5, -0.5, 0.5)
             .scale(0.5f)
-            .controller(new FadeOutController(0.05f))
-            .controller(new FloatUpwardController(0, 0.1))
+            .controller(new FadeOutController())
+            .controller(new FloatUpwardController(0.1))
             .controller(new OrbitPointController(0.1, 0.3, 0.6, false));
         builder(AMSpells.HARVEST.getId(), AMParticles.PLANT.get(), 25, 20)
             .offset(-0.5, 0.5, 0.5, 1.5, -0.5, 0.5)
             .gravity(1)
             .scale(0.5f)
             .color(0xb23319)
-            .controller(new FloatUpwardController(0, 0.3));
+            .controller(new FloatUpwardController(0.3));
         builder(AMSpells.HEAL.getId(), AMParticles.STARDUST.get(), 25, 20)
             .offset(-0.5, 0.5, -1.5, -0.5, -0.5, 0.5)
             .color(0x19ff19)
-            .controller(new FloatUpwardController(0, 0.1))
+            .controller(new FloatUpwardController(0.1))
             .controller(new OrbitPointController(0.5, 0.3, 0.6, true));
         builder(Heal.UNDEAD_PARTICLES, AMParticles.SYMBOLS.get(), 25, 50)
             .offset(-0.5, 0.5, -1.5, -0.5, -0.5, 0.5)
             .scale(0.5f)
             .controller(new FadeOutController(0.02f))
-            .controller(new FloatUpwardController(0, -0.01));
+            .controller(new FloatUpwardController(-0.01));
         builder(AMSpells.IGNITION.getId(), AMParticles.EXPLOSION.get(), 25, 5)
             .offset(-0.5, 0.5, -0.25, 0.25, -0.5, 0.5)
             .speed(-0.1, 0.1, 0.3, -0.1, 0.1)
@@ -254,13 +254,13 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
             .scale(0.5f);
         builder(AMSpells.KNOCKBACK.getId(), AMParticles.STARDUST.get(), 25, 20)
             .offset(-0.5, 0.5, -1, 1, -0.5, 0.5)
-            .controller(new FadeOutController(0.05f))
+            .controller(new FadeOutController())
             .controller(new MoveInKnockbackDirectionController(0.1, 0.6));
         builder(AMSpells.LIFE_DRAIN.getId(), AMParticles.EMBER.get(), 15, 100)
             .offset(-0.5, 0.5, -0.5, 0.5, -0.5, 0.5)
             .color(0xff3333)
             .alpha(0.5f)
-            .controller(new ArcToEntityController(0.05));
+            .controller(new ArcToEntityController());
         builder(AMSpells.LIFE_TAP.getId(), ParticleTypes.ELECTRIC_SPARK, 25, 15)
             .offset(-1, 1, -0.25, 0.25, -1, 1)
             .scale(0.5f)
@@ -279,7 +279,7 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
             .offset(-0.5, 0.5, -0.5, 0.5, -0.5, 0.5)
             .color(0x0066ff)
             .alpha(0.5f)
-            .controller(new ArcToEntityController(0.05));
+            .controller(new ArcToEntityController());
         builder(AMSpells.MELT_ARMOR.getId(), AMParticles.LIGHTS.get(), 1, 20)
             .scale(1.5f)
             .color(0xb26633)
@@ -298,25 +298,25 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
             .offset(-1.5, 1.5, -2, 0, -1.5, 1.5)
             .controller(new ApproachEntityController(0.3, 0.1));
         builder(AMSpells.REPEL.getId(), AMParticles.STARDUST.get(), 1, 20)
-            .controller(new FadeOutController(0.05f));
+            .controller(new FadeOutController());
         builder(AMSpells.TRANSPLACE.getId(), ParticleTypes.ELECTRIC_SPARK, 15, 40)
             .offset(-0.5, 0.5, -0.5, 0.5, -0.5, 0.5)
             .color(0xff0000)
-            .controller(new ArcToEntityController(0.05));
+            .controller(new ArcToEntityController());
         builder(Transplace.CASTER_PARTICLES, ParticleTypes.ELECTRIC_SPARK, 15, 40)
             .offset(-0.5, 0.5, -0.5, 0.5, -0.5, 0.5)
             .color(0x0000ff)
-            .controller(new ArcToEntityController(0.05));
+            .controller(new ArcToEntityController());
         builder(AMSpells.BLIZZARD.getId(), ParticleTypes.SNOWFLAKE, 20, 40)
             .speed(-0.1, 0.1, -0.05, 0.05, -0.1, 0.1)
             .gravity(1)
             .scale(0.5f)
             .alpha(0.6f);
         builder(FallingStar.FALL_PARTICLES, AMParticles.EMBER.get(), 1, 5)
-            .controller(new ChangeSizeController(0.5f, 0.05f, 5));
+            .controller(new ChangeSizeController());
         builder(FallingStar.GROUND_PARTICLES, AMParticles.EMBER.get(), 24, 5)
             .offset(-0.25, 0.25, -0.25, 0.25, -0.25, 0.25)
-            .controller(new ChangeSizeController(0.5f, 0.05f, 5));
+            .controller(new ChangeSizeController());
         builder(AMSpells.FIRE_RAIN.getId(), AMParticles.EXPLOSION.get(), 20, 40)
             .speed(-0.1, 0.1, -0.05, 0.05, -0.1, 0.1)
             .gravity(1);
@@ -328,7 +328,7 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
         builder(AMSpells.WALL.getId(), ParticleTypes.CRIT, 2, 20)
             .offset(-0.5, 0.5, -0.5, 0.5, -0.5, 0.5)
             .scale(0.75f)
-            .controller(new FloatUpwardController(0, 0.07));
+            .controller(new FloatUpwardController(0.07));
         builder(AMSpells.WAVE.getId(), ParticleTypes.CRIT, 1, 20)
             .offset(-0.5, 0.5, -0.5, 0.5, -0.5, 0.5)
             .scale(0.75f)
@@ -336,6 +336,6 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
         builder(AMSpells.ZONE.getId(), ParticleTypes.CRIT, 3, 20)
             .offset(-0.5, 0.5, 0, 0.25, -0.5, 0.5)
             .scale(0.75f)
-            .controller(new FloatUpwardController(0, 0.07));
+            .controller(new FloatUpwardController(0.07));
     }
 }

@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.util;
 
 import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
+import at.minecraftschurli.arsmagicalegacy.api.client.ControlledParticle;
 import at.minecraftschurli.arsmagicalegacy.api.client.ParticleSpawner;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
@@ -8,6 +9,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.OcculusScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellrecipe.SpellRecipeScreen;
 import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleSpawnerManager;
+import at.minecraftschurli.arsmagicalegacy.entity.FallingStar;
 import at.minecraftschurli.arsmagicalegacy.entity.SpellEntity;
 import at.minecraftschurli.arsmagicalegacy.entity.SpellShapeEntity;
 import net.minecraft.client.Minecraft;
@@ -19,6 +21,8 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -27,11 +31,12 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 public final class AMClientUtil {
-    private static final Map<SpellEntityKey, ParticleSpawner> SPELL_ENTITY_PARTICLE_SPAWNERS = new HashMap<>();
-    private static final Map<SpellShapeEntityKey, ParticleSpawner> SPELL_SHAPE_ENTITY_PARTICLE_SPAWNERS = new HashMap<>();
+    private static final Map<SpellEntityKey, ParticleSpawner> SPELL_SHAPE_ENTITY_PARTICLE_SPAWNERS = new HashMap<>();
 
     private AMClientUtil() {
     }
@@ -131,37 +136,48 @@ public final class AMClientUtil {
         AMClientUtil.mc().setScreen(new SpellRecipeScreen(stack, playTurnSound, startPage, lecternPos));
     }
 
-    public static void spawnParticles(ResourceLocation id, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        ArsMagicaClientApi.spawnParticles(ParticleSpawnerManager.INSTANCE.get(id), position, color, caster, directEntity, hitResult);
+    public static List<? extends ControlledParticle> spawnParticles(ResourceLocation id, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+        return ArsMagicaClientApi.spawnParticles(ParticleSpawnerManager.INSTANCE.get(id), position, color, caster, directEntity, hitResult);
+    }
+
+    public static void spawnFallingStarParticles(FallingStar entity, boolean ground) {
+        Vec3 position = entity.position();
+        int color = entity.getColor();
+        LivingEntity owner = entity.getOwner();
+        List<? extends ControlledParticle> list;
+        if (ground) {
+            list = IntStream.range(0, (int) entity.getDamage())
+                .mapToObj($ -> spawnParticles(FallingStar.GROUND_PARTICLES, position, color, owner, entity, null))
+                .flatMap(List::stream)
+                .toList();
+            int lifetime = (int) entity.getRange();
+            for (int i = 0; i < list.size(); i++) {
+                ControlledParticle particle = list.get(i);
+                particle.setLifetime(lifetime);
+                Vec3 speed = Vec3.directionFromRotation(0, (float) i / list.size() * 360).normalize();
+                particle.setParticleSpeed(speed.x(), 0, speed.z());
+            }
+        } else {
+            list = AMClientUtil.spawnParticles(FallingStar.FALL_PARTICLES, position, color, owner, entity, null);
+        }
+        if (color == -1) {
+            list.forEach(particle -> particle.setColor(particle.random().nextInt(0xffffff)));
+        }
     }
 
     public static void spawnSpellEntityParticles(SpellEntity entity, double range, double verticalRange, int color, @Nullable LivingEntity caster) {
-        SpellEntityKey key = new SpellEntityKey(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()), range);
-        SPELL_ENTITY_PARTICLE_SPAWNERS.computeIfAbsent(key, k -> {
-            ParticleSpawner spawner = ParticleSpawnerManager.INSTANCE.get(key.id);
-            return new ParticleSpawner(spawner.particle(),
-                spawner.count(),
-                spawner.minLifetime(),
-                spawner.maxLifetime(),
-                new Vec3(-range, 0, -range),
-                new Vec3(range, verticalRange, range),
-                spawner.minSpeed(),
-                spawner.maxSpeed(),
-                spawner.gravity(),
-                spawner.scale(),
-                spawner.color(),
-                spawner.alpha(),
-                spawner.controllers());
+        spawnParticles(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()), entity.getEyePosition(), color, caster, entity, null).forEach(particle -> {
+            RandomSource random = particle.random();
+            particle.setParticleSpeed(Mth.lerp(random.nextDouble(), -range, range), random.nextDouble() * verticalRange, Mth.lerp(random.nextDouble(), -range, range));
         });
-        ArsMagicaClientApi.spawnParticles(SPELL_ENTITY_PARTICLE_SPAWNERS.get(key), entity.position(), color, caster, entity, null);
     }
 
     @SuppressWarnings("DataFlowIssue")
-    public static void spawnSpellShapeEntityParticles(SpellShapeEntity entity, Spell spell, Vec3 position, int color, @Nullable LivingEntity caster) {
-        SpellShapeEntityKey key = new SpellShapeEntityKey(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()), spell.grammar().primaryAffinity());
+    public static void spawnSpellEntityParticles(SpellShapeEntity entity, Spell spell, Vec3 position, int color, @Nullable LivingEntity caster) {
+        SpellEntityKey key = new SpellEntityKey(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()), spell.grammar().primaryAffinity());
         SPELL_SHAPE_ENTITY_PARTICLE_SPAWNERS.computeIfAbsent(key, k -> {
             ParticleSpawner spawner = ParticleSpawnerManager.INSTANCE.get(key.id);
-            return new ParticleSpawner(registryAccess().registryOrThrow(AMRegistryKeys.AFFINITY).get(key.affinity).particle(),
+            return new ParticleSpawner(entity.registryAccess().registryOrThrow(AMRegistryKeys.AFFINITY).get(key.affinity).particle(),
                 spawner.count(),
                 spawner.minLifetime(),
                 spawner.maxLifetime(),
@@ -179,13 +195,9 @@ public final class AMClientUtil {
     }
 
     public static void clearParticleSpawnerCache() {
-        SPELL_ENTITY_PARTICLE_SPAWNERS.clear();
         SPELL_SHAPE_ENTITY_PARTICLE_SPAWNERS.clear();
     }
 
-    private record SpellEntityKey(ResourceLocation id, double range) {
-    }
-
-    private record SpellShapeEntityKey(ResourceLocation id, ResourceKey<Affinity> affinity) {
+    private record SpellEntityKey(ResourceLocation id, ResourceKey<Affinity> affinity) {
     }
 }

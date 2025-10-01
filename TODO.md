@@ -16,15 +16,11 @@
     - Transplace
 - Test Spell Particles
 - Add Spell Shapes
-- Spell Entities, including:
-    - Blizzard
-    - Falling Star
-    - Fire Rain
-    - Wave
 - Inlays
 - Wizard's Chalk
 - Liquid Essence
 - Spell Book
+- Shape Group Toggle & Overlay
 - Mage & Battlemage Armor
 - All Etherium-related features, including:
     - Etherium API

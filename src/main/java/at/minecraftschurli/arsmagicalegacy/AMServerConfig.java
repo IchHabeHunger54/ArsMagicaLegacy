@@ -41,6 +41,11 @@ public final class AMServerConfig {
     public static final ModConfigSpec.DoubleValue BLIZZARD_FROST_DURATION;
     public static final ModConfigSpec.IntValue BLIZZARD_TICK_INTERVAL;
     public static final ModConfigSpec.DoubleValue EXPLOSION_RANGE;
+    public static final ModConfigSpec.DoubleValue FALLING_STAR_DAMAGE;
+    public static final ModConfigSpec.DoubleValue FALLING_STAR_RANGE;
+    public static final ModConfigSpec.DoubleValue FALLING_STAR_SPEED;
+    public static final ModConfigSpec.DoubleValue FALLING_STAR_HEIGHT;
+    public static final ModConfigSpec.DoubleValue FALLING_STAR_SPAWN_HEIGHT;
     public static final ModConfigSpec.DoubleValue FIRE_RAIN_DAMAGE;
     public static final ModConfigSpec.DoubleValue FIRE_RAIN_DURATION;
     public static final ModConfigSpec.DoubleValue FIRE_RAIN_RANGE;
@@ -241,6 +246,26 @@ public final class AMServerConfig {
             .comment("The range of the Explosion component. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "explosion_range")
             .defineInRange("explosion_range", 2., 1, 16);
+        FALLING_STAR_DAMAGE = builder
+            .comment("The damage of the Falling Star component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "falling_star_damage")
+            .defineInRange("falling_star_damage", 6., 1, 100);
+        FALLING_STAR_RANGE = builder
+            .comment("The range of the Falling Star component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "falling_star_range")
+            .defineInRange("falling_star_range", 6., 1, 16);
+        FALLING_STAR_SPEED = builder
+            .comment("The falling speed of the Falling Star component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "falling_star_speed")
+            .defineInRange("falling_star_speed", 1., 0, 8);
+        FALLING_STAR_HEIGHT = builder
+            .comment("The height used by the Falling Star component.")
+            .translation(AMTranslations.CONFIG_KEY + "falling_star_height")
+            .defineInRange("falling_star_height", 1., 0, 8);
+        FALLING_STAR_SPAWN_HEIGHT = builder
+            .comment("The height in which the Falling Star will spawn.")
+            .translation(AMTranslations.CONFIG_KEY + "falling_star_spawn_height")
+            .defineInRange("falling_star_spawn_height", 128., 1, 384);
         FIRE_RAIN_DAMAGE = builder
             .comment("The damage of the Fire Rain component. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "fire_rain_damage")

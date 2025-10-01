@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
+import at.minecraftschurli.arsmagicalegacy.api.client.ControlledParticle;
 import at.minecraftschurli.arsmagicalegacy.api.client.OcculusTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.api.client.ParticleController;
 import at.minecraftschurli.arsmagicalegacy.api.client.ParticleSpawner;
@@ -26,6 +27,7 @@ import net.neoforged.fml.ModLoader;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
@@ -60,8 +62,8 @@ public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
     }
 
     @Override
-    protected void doSpawnParticles(ParticleSpawner spawner, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        AMParticle.spawn(AMClientUtil.level(), position.x(), position.y(), position.z(), spawner, color, caster, directEntity, hitResult);
+    protected List<? extends ControlledParticle> doSpawnParticles(ParticleSpawner spawner, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+        return AMParticle.spawn(AMClientUtil.level(), position.x(), position.y(), position.z(), spawner, color, caster, directEntity, hitResult);
     }
 
     public static void postEvents() {

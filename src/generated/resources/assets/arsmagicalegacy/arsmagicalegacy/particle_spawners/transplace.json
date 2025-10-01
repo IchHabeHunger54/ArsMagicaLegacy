@@ -2,8 +2,7 @@
   "color": 16711680,
   "controllers": [
     {
-      "type": "arsmagicalegacy:arc_to_entity",
-      "speed": 0.05
+      "type": "arsmagicalegacy:arc_to_entity"
     }
   ],
   "count": 15,

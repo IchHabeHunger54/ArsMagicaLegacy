@@ -2,12 +2,10 @@
   "color": 15060095,
   "controllers": [
     {
-      "type": "arsmagicalegacy:fade_out",
-      "speed": 0.05
+      "type": "arsmagicalegacy:fade_out"
     },
     {
       "type": "arsmagicalegacy:float_upward",
-      "jitter": 0.0,
       "max_speed": 0.1,
       "min_speed": 0.1
     }

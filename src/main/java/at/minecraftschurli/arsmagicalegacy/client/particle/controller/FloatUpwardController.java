@@ -14,7 +14,7 @@ import net.minecraft.util.Mth;
 public record FloatUpwardController(boolean stopOtherControllers, boolean killOnFinish, double jitter, double minSpeed, double maxSpeed) implements ParticleController {
     public static final ResourceLocation ID = ArsMagicaApi.modLoc("float_upward");
     public static final MapCodec<FloatUpwardController> CODEC = RecordCodecBuilder.mapCodec(inst -> ParticleController.baseFields(inst)
-        .and(AMUtil.NON_NEGATIVE_DOUBLE_CODEC.fieldOf("jitter").forGetter(FloatUpwardController::jitter))
+        .and(AMUtil.NON_NEGATIVE_DOUBLE_CODEC.optionalFieldOf("jitter", 0.).forGetter(FloatUpwardController::jitter))
         .and(Codec.DOUBLE.fieldOf("min_speed").forGetter(FloatUpwardController::minSpeed))
         .and(Codec.DOUBLE.fieldOf("max_speed").forGetter(FloatUpwardController::maxSpeed))
         .apply(inst, FloatUpwardController::new));
@@ -26,6 +26,10 @@ public record FloatUpwardController(boolean stopOtherControllers, boolean killOn
 
     public FloatUpwardController(double jitter, double speed) {
         this(false, false, jitter, speed, speed);
+    }
+
+    public FloatUpwardController(double speed) {
+        this(0, speed);
     }
 
     @SuppressWarnings("DataFlowIssue")

@@ -14,12 +14,16 @@ import net.minecraft.world.phys.Vec3;
 public record ArcToEntityController(boolean stopOtherControllers, boolean killOnFinish, double speed) implements ParticleController {
     public static final ResourceLocation ID = ArsMagicaApi.modLoc("arc_to_entity");
     public static final MapCodec<ArcToEntityController> CODEC = RecordCodecBuilder.mapCodec(inst -> ParticleController.baseFields(inst)
-        .and(AMUtil.POSITIVE_DOUBLE_CODEC.fieldOf("speed").forGetter(ArcToEntityController::speed))
+        .and(AMUtil.POSITIVE_DOUBLE_CODEC.optionalFieldOf("speed", 0.05).forGetter(ArcToEntityController::speed))
         .apply(inst, ArcToEntityController::new));
     private static final String DELTA_KEY = "delta";
 
     public ArcToEntityController(double speed) {
         this(false, false, speed);
+    }
+
+    public ArcToEntityController() {
+        this(0.05);
     }
 
     @SuppressWarnings("DataFlowIssue")

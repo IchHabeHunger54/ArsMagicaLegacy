@@ -82,7 +82,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .requires(Items.BOOK)
             .requires(Tags.Items.DYES_BLACK)
             .requires(ItemTags.WOOL_CARPETS)
-            //.requires(AMItems.WIZARDS_CHALK.get())
+            .requires(AMItems.WIZARDS_CHALK.get())
             .unlockedBy(getHasName(Items.BOOK), has(Items.BOOK))
             .save(output);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3.get())
@@ -118,6 +118,21 @@ public final class AMRecipeProvider extends RecipeProvider {
             .pattern("VSV")
             .define('V', AMTags.Items.DUSTS_VINTEUM)
             .define('S', Tags.Items.STONES)
+            .unlockedBy(getHasName(AMItems.VINTEUM_DUST), has(AMTags.Items.DUSTS_VINTEUM))
+            .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, AMItems.WIZARDS_CHALK.get())
+            .requires(AMTags.Items.DUSTS_VINTEUM)
+            .requires(Items.BONE_MEAL)
+            .requires(Items.CLAY_BALL)
+            .requires(Items.FLINT)
+            .requires(Items.PAPER)
+            .unlockedBy(getHasName(AMItems.VINTEUM_DUST), has(AMTags.Items.DUSTS_VINTEUM))
+            .save(output);
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, AMItems.VINTEUM_TORCH.get())
+            .pattern("V")
+            .pattern("S")
+            .define('V', AMTags.Items.DUSTS_VINTEUM)
+            .define('S', Tags.Items.RODS_WOODEN)
             .unlockedBy(getHasName(AMItems.VINTEUM_DUST), has(AMTags.Items.DUSTS_VINTEUM))
             .save(output);
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.SPELL_PARCHMENT.get())
@@ -388,13 +403,6 @@ public final class AMRecipeProvider extends RecipeProvider {
         oneToOneConversion(output, Items.RED_DYE, AMItems.DESERT_NOVA.get(), "red_dye");
         oneToOneConversion(output, Items.BROWN_DYE, AMItems.TARMA_ROOT.get(), "brown_dye");
         oneToOneConversion(output, Items.MAGENTA_DYE, AMItems.WAKEBLOOM.get(), "magenta_dye");
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, AMItems.VINTEUM_TORCH.get())
-            .pattern("V")
-            .pattern("S")
-            .define('V', AMTags.Items.DUSTS_VINTEUM)
-            .define('S', Tags.Items.RODS_WOODEN)
-            .unlockedBy(getHasName(AMItems.VINTEUM_DUST), has(AMTags.Items.DUSTS_VINTEUM))
-            .save(output);
     }
 
     /**

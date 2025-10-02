@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.assets;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.block.WizardsChalkBlock;
 import at.minecraftschurli.arsmagicalegacy.block.altar.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import net.minecraft.data.PackOutput;
@@ -20,12 +21,14 @@ public final class AMBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
+        simpleBlock(AMBlocks.SPELL_LIGHT.get(), models().getExistingFile(mcLoc("block/air")));
         horizontalBlock(AMBlocks.OCCULUS.get(), models().getExistingFile(ArsMagicaApi.modLoc("block/occulus")));
         getVariantBuilder(AMBlocks.ALTAR_CORE.get())
             .partialState().with(AltarCoreBlock.FORMED, false).modelForState().modelFile(cubeAll(AMBlocks.ALTAR_CORE.get())).addModel()
             .partialState().with(AltarCoreBlock.FORMED, true).modelForState().modelFile(models().getExistingFile(ArsMagicaApi.modLoc("block/altar_core_overlay"))).addModel();
         simpleBlock(AMBlocks.MAGIC_WALL.get(), new ConfiguredModel(models().cubeAll(AMBlocks.MAGIC_WALL.getId().getPath(), AMBlocks.MAGIC_WALL.getId().withPrefix("block/")).renderType("translucent")));
-        simpleBlock(AMBlocks.SPELL_LIGHT.get(), models().getExistingFile(mcLoc("block/air")));
+        wizardsChalkBlock(AMBlocks.WIZARDS_CHALK);
+        torchBlock(AMBlocks.VINTEUM_TORCH, AMBlocks.VINTEUM_WALL_TORCH);
         simpleBlock(AMBlocks.CHIMERITE_ORE);
         simpleBlock(AMBlocks.DEEPSLATE_CHIMERITE_ORE);
         simpleBlock(AMBlocks.CHIMERITE_BLOCK);
@@ -71,7 +74,6 @@ public final class AMBlockStateProvider extends BlockStateProvider {
         flowerPotBlock(AMBlocks.POTTED_TARMA_ROOT, AMBlocks.TARMA_ROOT);
         crossBlock(AMBlocks.WAKEBLOOM);
         flowerPotBlock(AMBlocks.POTTED_WAKEBLOOM, AMBlocks.WAKEBLOOM);
-        torchBlock(AMBlocks.VINTEUM_TORCH, AMBlocks.VINTEUM_WALL_TORCH);
     }
 
     /**
@@ -112,6 +114,28 @@ public final class AMBlockStateProvider extends BlockStateProvider {
      */
     private void flowerPotBlock(DeferredBlock<?> pot, DeferredBlock<?> plant) {
         simpleBlock(pot.get(), models().withExistingParent(pot.getId().getPath(), "block/flower_pot_cross").texture("plant", blockTexture(plant.get())).renderType("cutout"));
+    }
+
+    /**
+     * Adds a wizard's chalk model. Uses the block id as the texture name.
+     *
+     * @param block The block to generate the model for.
+     */
+    private void wizardsChalkBlock(DeferredBlock<? extends WizardsChalkBlock> block) {
+        ModelFile[] models = new ModelFile[16];
+        for (int i = 0; i < models.length; i++) {
+            models[i] = models().withExistingParent(block.getId().getPath() + "_" + i, "block/rail_flat").texture("rail", ResourceLocation.fromNamespaceAndPath(block.getId().getNamespace(), "block/" + block.getId().getPath() + "_" + i)).renderType("translucent");
+        }
+        getVariantBuilder(block.get()).forAllStates(state -> {
+            ConfiguredModel.Builder<?> builder = ConfiguredModel.builder().modelFile(models[state.getValue(WizardsChalkBlock.VARIANT)]);
+            return switch (state.getValue(BlockStateProperties.HORIZONTAL_FACING)) {
+                case NORTH -> builder.build();
+                case EAST -> builder.rotationY(90).build();
+                case SOUTH -> builder.rotationY(180).build();
+                case WEST -> builder.rotationY(270).build();
+                default -> new ConfiguredModel[0];
+            };
+        });
     }
 
     /**

@@ -28,6 +28,8 @@ public interface AMCreativeTabs {
             output.accept(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3);
             output.accept(AMItems.ALTAR_CORE);
             output.accept(AMItems.MAGIC_WALL);
+            output.accept(AMItems.WIZARDS_CHALK);
+            output.accept(AMItems.VINTEUM_TORCH);
             output.accept(AMItems.SPELL_PARCHMENT);
             output.accept(AMItems.MANA_CAKE);
             output.accept(AMItems.MANA_MARTINI);
@@ -96,7 +98,6 @@ public interface AMCreativeTabs {
             output.accept(AMItems.DESERT_NOVA);
             output.accept(AMItems.TARMA_ROOT);
             output.accept(AMItems.WAKEBLOOM);
-            output.accept(AMItems.VINTEUM_TORCH);
         })
         .build());
 

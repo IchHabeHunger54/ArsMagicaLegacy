@@ -7,7 +7,6 @@
      - Silk Touch
 - Test All Spell Parts & Particles
 - Inlays
-- Wizard's Chalk
 - Liquid Essence
 - Spell Book (including Overlay)
 - Shape Group Toggle & Overlay

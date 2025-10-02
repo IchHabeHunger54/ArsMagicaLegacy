@@ -32,6 +32,8 @@ public final class AMItemModelProvider extends ItemModelProvider {
         basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3);
         blockItem(AMItems.ALTAR_CORE);
         blockItem(AMItems.MAGIC_WALL);
+        basicItem(AMItems.WIZARDS_CHALK);
+        basicBlockItem(AMItems.VINTEUM_TORCH);
         basicItem(AMItems.SPELL_PARCHMENT);
         basicItem(AMItems.MANA_CAKE);
         basicItem(AMItems.MANA_MARTINI);
@@ -101,7 +103,6 @@ public final class AMItemModelProvider extends ItemModelProvider {
         basicBlockItem(AMItems.DESERT_NOVA);
         basicBlockItem(AMItems.TARMA_ROOT);
         basicBlockItem(AMItems.WAKEBLOOM);
-        basicBlockItem(AMItems.VINTEUM_TORCH);
     }
 
     /**

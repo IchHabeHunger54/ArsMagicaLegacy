@@ -5,6 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.block.AMFlowerBlock;
 import at.minecraftschurli.arsmagicalegacy.block.OcculusBlock;
 import at.minecraftschurli.arsmagicalegacy.block.WakebloomBlock;
+import at.minecraftschurli.arsmagicalegacy.block.WizardsChalkBlock;
 import at.minecraftschurli.arsmagicalegacy.block.altar.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableBlock;
 import net.minecraft.core.Direction;
@@ -62,11 +63,14 @@ public interface AMBlocks {
         .getFamily());
 
     // @formatter:off
+    DeferredBlock<AirBlock>                SPELL_LIGHT                 = register("spell_light",                 AirBlock::new, copyProperties(Blocks.AIR).lightLevel($ -> 15));
     DeferredBlock<OcculusBlock>            OCCULUS                     = register("occulus",                     OcculusBlock::new, properties().strength(3, 5));
     DeferredBlock<InscriptionTableBlock>   INSCRIPTION_TABLE           = register("inscription_table",           InscriptionTableBlock::new, properties().strength(2).lightLevel($ -> 1).noOcclusion());
     DeferredBlock<AltarCoreBlock>          ALTAR_CORE                  = register("altar_core",                  AltarCoreBlock::new, properties().mapColor(MapColor.METAL).strength(3));
     DeferredBlock<TransparentBlock>        MAGIC_WALL                  = register("magic_wall",                  TransparentBlock::new, properties().strength(3).noOcclusion().isValidSpawn(Blocks::never).isRedstoneConductor((state, level, pos) -> false).isSuffocating((state, level, pos) -> false).isViewBlocking((state, level, pos) -> false));
-    DeferredBlock<AirBlock>                SPELL_LIGHT                 = register("spell_light",                 AirBlock::new, copyProperties(Blocks.AIR).lightLevel($ -> 15));
+    DeferredBlock<WizardsChalkBlock>       WIZARDS_CHALK               = register("wizards_chalk",               WizardsChalkBlock::new, properties().instabreak().noCollission().sound(SoundType.GRAVEL));
+    DeferredBlock<TorchBlock>              VINTEUM_TORCH               = register("vinteum_torch",               p -> new TorchBlock(ParticleTypes.SMOKE, p), copyProperties(Blocks.TORCH));
+    DeferredBlock<WallTorchBlock>          VINTEUM_WALL_TORCH          = register("vinteum_wall_torch",          p -> new WallTorchBlock(ParticleTypes.SMOKE, p), copyProperties(Blocks.WALL_TORCH).lootFrom(VINTEUM_TORCH));
     DeferredBlock<DropExperienceBlock>     CHIMERITE_ORE               = register("chimerite_ore",               p -> new DropExperienceBlock(UniformInt.of(0, 2), p), properties().requiresCorrectToolForDrops().strength(3f, 3f));
     DeferredBlock<DropExperienceBlock>     DEEPSLATE_CHIMERITE_ORE     = register("deepslate_chimerite_ore",     p -> new DropExperienceBlock(UniformInt.of(0, 2), p), properties().mapColor(MapColor.DEEPSLATE).requiresCorrectToolForDrops().strength(4.5f, 3f).sound(SoundType.DEEPSLATE));
     DeferredBlock<Block>                   CHIMERITE_BLOCK             = register("chimerite_block",             properties().mapColor(MapColor.COLOR_PINK).requiresCorrectToolForDrops().strength(3f, 3f));
@@ -111,8 +115,6 @@ public interface AMBlocks {
     DeferredBlock<FlowerPotBlock>          POTTED_TARMA_ROOT           = register("potted_tarma_root",           p -> flowerPot(TARMA_ROOT, p).get(), copyProperties(Blocks.FLOWER_POT));
     DeferredBlock<WakebloomBlock>          WAKEBLOOM                   = register("wakebloom",                   WakebloomBlock::new, copyProperties(Blocks.POPPY));
     DeferredBlock<FlowerPotBlock>          POTTED_WAKEBLOOM            = register("potted_wakebloom",            p -> flowerPot(WAKEBLOOM, p).get(), copyProperties(Blocks.FLOWER_POT));
-    DeferredBlock<TorchBlock>              VINTEUM_TORCH               = register("vinteum_torch",               p -> new TorchBlock(ParticleTypes.SMOKE, p), copyProperties(Blocks.TORCH));
-    DeferredBlock<WallTorchBlock>          VINTEUM_WALL_TORCH          = register("vinteum_wall_torch",          p -> new WallTorchBlock(ParticleTypes.SMOKE, p), copyProperties(Blocks.WALL_TORCH).lootFrom(VINTEUM_TORCH));
     // @formatter:on
 
     private static <B extends Block> DeferredBlock<B> register(String name, Function<BlockBehaviour.Properties, B> function, BlockBehaviour.Properties properties) {

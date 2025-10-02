@@ -1,4 +1,4 @@
-// 1.21.1	2025-09-30T17:34:53.3315303	Item Models: arsmagicalegacy
+// 1.21.1	2025-10-02T13:43:36.844576006	Item Models: arsmagicalegacy
 6e0b262bb6740bdbe7b3564e182497239ff375ac assets/arsmagicalegacy/models/item/affinity_essence_air.json
 84174d0bc6eb1016c4946a0937eb7ec35e19f1d8 assets/arsmagicalegacy/models/item/affinity_essence_arcane.json
 30a8164938d38c30eeb732879d3cd38955490293 assets/arsmagicalegacy/models/item/affinity_essence_earth.json
@@ -109,4 +109,5 @@ aac29ceaba013d7325359720ff4fab0f1868762c assets/arsmagicalegacy/models/item/witc
 4e8f02397fe605cf3737775174f8541d5ef11be8 assets/arsmagicalegacy/models/item/witchwood_slab.json
 10650bd7485c723d38a09aed82ef8862d78d9192 assets/arsmagicalegacy/models/item/witchwood_stairs.json
 ae15cfa128b13830635c630db2e676aa69726838 assets/arsmagicalegacy/models/item/witchwood_trapdoor.json
+c180050b9743599d42df036ad2010f5c56dd46d1 assets/arsmagicalegacy/models/item/wizards_chalk.json
 b3c9db5fc6b386b264fc666d0399649910a5f68c assets/arsmagicalegacy/models/item/yellow_rune.json

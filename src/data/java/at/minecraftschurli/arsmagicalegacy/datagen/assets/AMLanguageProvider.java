@@ -36,6 +36,7 @@ public final class AMLanguageProvider extends LanguageProvider {
     protected void addTranslations() {
         itemIdTranslation(AMItems.SPELL);
         itemIdTranslation(AMItems.SPELL_RECIPE);
+        blockIdTranslation(AMBlocks.SPELL_LIGHT);
         blockIdTranslation(AMBlocks.OCCULUS);
         blockIdTranslation(AMBlocks.INSCRIPTION_TABLE);
         itemIdTranslation(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1);
@@ -43,7 +44,8 @@ public final class AMLanguageProvider extends LanguageProvider {
         itemIdTranslation(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3);
         blockIdTranslation(AMBlocks.ALTAR_CORE);
         blockIdTranslation(AMBlocks.MAGIC_WALL);
-        blockIdTranslation(AMBlocks.SPELL_LIGHT);
+        blockIdTranslation(AMBlocks.WIZARDS_CHALK);
+        addBlock(AMBlocks.VINTEUM_WALL_TORCH, idTranslation(AMBlocks.VINTEUM_TORCH.getId().getPath()));
         itemIdTranslation(AMItems.SPELL_PARCHMENT);
         itemIdTranslation(AMItems.MANA_CAKE);
         itemIdTranslation(AMItems.MANA_MARTINI);
@@ -143,7 +145,6 @@ public final class AMLanguageProvider extends LanguageProvider {
         blockIdTranslation(AMBlocks.POTTED_TARMA_ROOT);
         blockIdTranslation(AMBlocks.WAKEBLOOM);
         blockIdTranslation(AMBlocks.POTTED_WAKEBLOOM);
-        addBlock(AMBlocks.VINTEUM_WALL_TORCH, idTranslation(AMBlocks.VINTEUM_TORCH.getId().getPath()));
         entityIdTranslation(AMEntities.BLIZZARD);
         entityIdTranslation(AMEntities.FALLING_STAR);
         entityIdTranslation(AMEntities.FIRE_RAIN);

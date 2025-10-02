@@ -9,6 +9,7 @@ import at.minecraftschurli.arsmagicalegacy.item.InscriptionTableUpgradeItem;
 import at.minecraftschurli.arsmagicalegacy.item.DrinkItem;
 import at.minecraftschurli.arsmagicalegacy.item.SpellItem;
 import at.minecraftschurli.arsmagicalegacy.item.SpellRecipeItem;
+import at.minecraftschurli.arsmagicalegacy.item.WizardsChalkItem;
 import at.minecraftschurli.arsmagicalegacy.item.runebag.RuneBagItem;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
@@ -37,6 +38,8 @@ public interface AMItems {
     DeferredItem<InscriptionTableUpgradeItem>              INSCRIPTION_TABLE_UPGRADE_TIER_3 = AMRegistries.ITEMS.registerItem("inscription_table_upgrade_tier_3", p -> new InscriptionTableUpgradeItem(p, 3));
     DeferredItem<BlockItem>                                ALTAR_CORE                       = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.ALTAR_CORE);
     DeferredItem<BlockItem>                                MAGIC_WALL                       = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.MAGIC_WALL);
+    DeferredItem<WizardsChalkItem>                         WIZARDS_CHALK                    = AMRegistries.ITEMS.registerItem("wizards_chalk", p -> new WizardsChalkItem(AMBlocks.WIZARDS_CHALK.get(), p.stacksTo(1).durability(100)));
+    DeferredItem<BlockItem>                                VINTEUM_TORCH                    = AMRegistries.ITEMS.registerItem("vinteum_torch", p -> new StandingAndWallBlockItem(AMBlocks.VINTEUM_TORCH.get(), AMBlocks.VINTEUM_WALL_TORCH.get(), p, Direction.DOWN));
     DeferredItem<Item>                                     SPELL_PARCHMENT                  = AMRegistries.ITEMS.registerSimpleItem("spell_parchment");
     DeferredItem<Item>                                     MANA_CAKE                        = AMRegistries.ITEMS.registerSimpleItem("mana_cake", new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6f).alwaysEdible().effect(() -> new MobEffectInstance(AMMobEffects.MANA_REGENERATION, 600), 1).build()));
     DeferredItem<DrinkItem>                                MANA_MARTINI                     = AMRegistries.ITEMS.registerItem("mana_martini", p -> new DrinkItem(p.food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6f).alwaysEdible().effect(() -> new MobEffectInstance(AMMobEffects.BURNOUT_REDUCTION, 300), 1).usingConvertsTo(Items.GLASS_BOTTLE).build())));
@@ -105,7 +108,6 @@ public interface AMItems {
     DeferredItem<BlockItem>                                DESERT_NOVA                      = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.DESERT_NOVA);
     DeferredItem<BlockItem>                                TARMA_ROOT                       = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.TARMA_ROOT);
     DeferredItem<BlockItem>                                WAKEBLOOM                        = AMRegistries.ITEMS.registerItem("wakebloom", p -> new PlaceOnWaterBlockItem(AMBlocks.WAKEBLOOM.get(), p));
-    DeferredItem<BlockItem>                                VINTEUM_TORCH                    = AMRegistries.ITEMS.registerItem("vinteum_torch", p -> new StandingAndWallBlockItem(AMBlocks.VINTEUM_TORCH.get(), AMBlocks.VINTEUM_WALL_TORCH.get(), p, Direction.DOWN));
     // @formatter:on
 
     /**

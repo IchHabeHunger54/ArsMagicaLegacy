@@ -1,4 +1,4 @@
-// 1.21.1	2025-09-30T00:15:05.0331017	Loot Tables
+// 1.21.1	2025-10-02T13:43:36.8478198	Loot Tables
 f0e4c8134bf2f68e1425a328c83498f858e1e26c data/arsmagicalegacy/loot_table/blocks/altar_core.json
 32900dde32312718365d978d0183dc6f16140e5e data/arsmagicalegacy/loot_table/blocks/aum.json
 daf97df4684b563e6463619dc0c459960aa239d5 data/arsmagicalegacy/loot_table/blocks/cerublossom.json
@@ -46,6 +46,7 @@ b8fa9bbdb0260e98592974a2df8b36891d818587 data/arsmagicalegacy/loot_table/blocks/
 2f165c74d31f226c64c6a663c914573161893377 data/arsmagicalegacy/loot_table/blocks/witchwood_slab.json
 7cb49b98b61fce9f43751dab99c0a0314d809260 data/arsmagicalegacy/loot_table/blocks/witchwood_stairs.json
 8ffa1ced4d66946f1886cfb43b635a39965b48c0 data/arsmagicalegacy/loot_table/blocks/witchwood_trapdoor.json
+830df41a6a46556009fd9448ddc73bff1f6caa2a data/arsmagicalegacy/loot_table/blocks/wizards_chalk.json
 1487edb7912280bbc6fd269a8aa4672f9d441a96 data/arsmagicalegacy/loot_table/chests/modify/abandoned_mineshaft.json
 de42b13bd380e47d1c2fceaafae1b1171cf7a4a3 data/arsmagicalegacy/loot_table/chests/modify/ancient_city.json
 88bf7e3913e9bf5960171450a6fe3bd6a02df25b data/arsmagicalegacy/loot_table/chests/modify/ancient_city_ice_box.json

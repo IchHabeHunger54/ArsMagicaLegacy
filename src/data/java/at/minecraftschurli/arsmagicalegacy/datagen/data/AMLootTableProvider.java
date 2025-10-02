@@ -60,6 +60,9 @@ public final class AMLootTableProvider extends LootTableProvider {
                 .add(LootItem.lootTableItem(block).apply(CopyBlockState.copyState(block).copy(InscriptionTableBlock.TIER)))));
             dropSelf(AMBlocks.ALTAR_CORE.get());
             dropSelf(AMBlocks.MAGIC_WALL.get());
+            add(AMBlocks.WIZARDS_CHALK.get(), noDrop());
+            dropSelf(AMBlocks.VINTEUM_TORCH.get());
+            dropOther(AMBlocks.VINTEUM_WALL_TORCH.get(), AMBlocks.VINTEUM_TORCH.get());
             add(AMBlocks.CHIMERITE_ORE.get(), block -> createOreDrop(block, AMItems.CHIMERITE.get()));
             add(AMBlocks.DEEPSLATE_CHIMERITE_ORE.get(), block -> createOreDrop(block, AMItems.CHIMERITE.get()));
             dropSelf(AMBlocks.CHIMERITE_BLOCK.get());
@@ -104,8 +107,6 @@ public final class AMLootTableProvider extends LootTableProvider {
             dropPottedContents(AMBlocks.POTTED_TARMA_ROOT.get());
             dropSelf(AMBlocks.WAKEBLOOM.get());
             dropPottedContents(AMBlocks.POTTED_WAKEBLOOM.get());
-            dropSelf(AMBlocks.VINTEUM_TORCH.get());
-            dropOther(AMBlocks.VINTEUM_WALL_TORCH.get(), AMBlocks.VINTEUM_TORCH.get());
         }
     }
 

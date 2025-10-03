@@ -97,10 +97,17 @@ public record Spell(Optional<Component> name, Optional<ResourceLocation> icon, L
     }
 
     /**
-     * @return Whether this spell is continuous, i.e., can be cast by holding down the spell.
+     * @return Whether the spell is continuous, i.e., can be cast by holding down the spell.
      */
     public boolean isContinuous() {
         return currentShapeGroup().isContinuous();
+    }
+
+    /**
+     * @return Whether the spell is malformed, i.e., does not fulfill basic requirements to the spell's structure.
+     */
+    public boolean isMalformed() {
+        return currentShapeGroup().primaryShape() == null || grammar.components().isEmpty();
     }
 
     /**

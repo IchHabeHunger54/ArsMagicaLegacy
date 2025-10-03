@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.item;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
@@ -17,9 +18,11 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
+import java.util.List;
 import java.util.Optional;
 
 public class SpellItem extends DataComponentNamedItem<Spell> {
@@ -67,6 +70,12 @@ public class SpellItem extends DataComponentNamedItem<Spell> {
     @Override
     public int getUseDuration(ItemStack stack, LivingEntity entity) {
         return 72000;
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        Spell spell = stack.get(AMDataComponents.SPELL);
+        tooltipComponents.add(spell == null || spell.isMalformed() ? AMTranslations.SPELL_TOOLTIP_INVALID : Component.translatable(AMTranslations.SPELL_TOOLTIP_MANA_COST_KEY, spell.getManaCost()));
     }
 
     @Override

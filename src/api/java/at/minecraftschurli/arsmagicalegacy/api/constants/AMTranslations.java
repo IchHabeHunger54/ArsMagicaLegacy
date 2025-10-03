@@ -57,6 +57,7 @@ public interface AMTranslations {
     String OCCULUS_MISSING_KEY                       = "gui." + ArsMagicaApi.MOD_ID + ".occulus.missing";
     String SPELL_RECIPE_SHAPE_GROUP_KEY              = "item." + ArsMagicaApi.MOD_ID + ".spell_recipe.shape_group";
     String SPELL_CUSTOMIZATION_KEY                   = "key." + ArsMagicaApi.MOD_ID + ".spell_customization";
+    String SPELL_TOOLTIP_MANA_COST_KEY               = "item." + ArsMagicaApi.MOD_ID + ".spell.tooltip.mana_cost";
     String KEY_CATEGORY_KEY                          = "key.categories." + ArsMagicaApi.MOD_ID;
 
     String ABILITY_SEPARATOR_KEY               = ArsMagicaApi.MOD_ID + ".ability.separator";
@@ -81,13 +82,13 @@ public interface AMTranslations {
     String OCCULUS_FORGET_ALL_TOOLTIP_KEY      = "gui." + ArsMagicaApi.MOD_ID + ".occulus.forget_all.tooltip";
     String OCCULUS_NEXT_KEY                    = "gui." + ArsMagicaApi.MOD_ID + ".occulus.next";
     String OCCULUS_PREV_KEY                    = "gui." + ArsMagicaApi.MOD_ID + ".occulus.prev";
-    String RUNE_BAG_TITLE_KEY                  = "item." + ArsMagicaApi.MOD_ID + ".rune_bag.title";
     String SPELL_CUSTOMIZATION_COLOR_KEY       = "item." + ArsMagicaApi.MOD_ID + ".spell_customization.color";
     String SPELL_CUSTOMIZATION_COLOR_CLEAR_KEY = "item." + ArsMagicaApi.MOD_ID + ".spell_customization.color.clear";
     String SPELL_CUSTOMIZATION_NAME_KEY        = "item." + ArsMagicaApi.MOD_ID + ".spell_customization.name";
     String SPELL_RECIPE_AFFINITIES_KEY         = "item." + ArsMagicaApi.MOD_ID + ".spell_recipe.affinities";
     String SPELL_RECIPE_GRAMMAR_KEY            = "item." + ArsMagicaApi.MOD_ID + ".spell_recipe.grammar";
     String SPELL_RECIPE_INGREDIENTS_KEY        = "item." + ArsMagicaApi.MOD_ID + ".spell_recipe.ingredients";
+    String SPELL_TOOLTIP_INVALID_KEY           = "item." + ArsMagicaApi.MOD_ID + ".spell.tooltip.invalid";
 
     Component ABILITY_SEPARATOR               = Component.translatable(ABILITY_SEPARATOR_KEY);
     Component NO_TELEPORT                     = Component.translatable(NO_TELEPORT_KEY);
@@ -111,12 +112,12 @@ public interface AMTranslations {
     Component OCCULUS_FORGET_ALL_TOOLTIP      = Component.translatable(OCCULUS_FORGET_ALL_TOOLTIP_KEY);
     Component OCCULUS_NEXT                    = Component.translatable(OCCULUS_NEXT_KEY);
     Component OCCULUS_PREV                    = Component.translatable(OCCULUS_PREV_KEY);
-    Component RUNE_BAG_TITLE                  = Component.translatable(RUNE_BAG_TITLE_KEY);
     Component SPELL_CUSTOMIZATION_COLOR       = Component.translatable(SPELL_CUSTOMIZATION_COLOR_KEY);
     Component SPELL_CUSTOMIZATION_COLOR_CLEAR = Component.translatable(SPELL_CUSTOMIZATION_COLOR_CLEAR_KEY);
     Component SPELL_CUSTOMIZATION_NAME        = Component.translatable(SPELL_CUSTOMIZATION_NAME_KEY);
     Component SPELL_RECIPE_AFFINITIES         = Component.translatable(SPELL_RECIPE_AFFINITIES_KEY);
     Component SPELL_RECIPE_GRAMMAR            = Component.translatable(SPELL_RECIPE_GRAMMAR_KEY);
     Component SPELL_RECIPE_INGREDIENTS        = Component.translatable(SPELL_RECIPE_INGREDIENTS_KEY);
+    Component SPELL_TOOLTIP_INVALID           = Component.translatable(SPELL_TOOLTIP_INVALID_KEY);
     // @formatter:on
 }

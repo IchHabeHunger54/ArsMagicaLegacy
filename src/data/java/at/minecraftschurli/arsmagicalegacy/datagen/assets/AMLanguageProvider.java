@@ -626,7 +626,6 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.OCCULUS_PREV_KEY, "<");
         add(AMTranslations.PREVENT_BLOCK_KEY, "Mystical forces prevent you from using this block! Try crafting an Arcane Compendium to learn more.");
         add(AMTranslations.PREVENT_ITEM_KEY, "Mystical forces prevent you from using this item! Try crafting an Arcane Compendium to learn more.");
-        add(AMTranslations.RUNE_BAG_TITLE_KEY, "Rune Bag");
         add(AMTranslations.SPELL_CAST_BURNED_OUT_KEY, "Burned out!");
         add(AMTranslations.SPELL_CAST_MALFORMED_KEY, "Spell is malformed and cannot be cast!");
         add(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA_KEY, "Not enough mana to cast the spell!");
@@ -640,6 +639,8 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.SPELL_RECIPE_GRAMMAR_KEY, "Grammar");
         add(AMTranslations.SPELL_RECIPE_INGREDIENTS_KEY, "Ingredients");
         add(AMTranslations.SPELL_RECIPE_SHAPE_GROUP_KEY, "Shape Group %s");
+        add(AMTranslations.SPELL_TOOLTIP_INVALID_KEY, "Spell is malformed and cannot be cast!");
+        add(AMTranslations.SPELL_TOOLTIP_MANA_COST_KEY, "Mana Cost: %s");
         add("itemGroup." + ArsMagicaApi.MOD_ID, "Ars Magica: Legacy");
         add("potion.potency.5", "VI");
         add("potion.potency.6", "VII");

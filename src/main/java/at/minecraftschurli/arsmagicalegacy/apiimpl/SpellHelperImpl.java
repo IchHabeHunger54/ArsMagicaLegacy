@@ -56,6 +56,7 @@ import java.util.Optional;
 final class SpellHelperImpl implements SpellHelper {
     @Override
     public Either<Spell, Component> cast(Spell spell, LivingEntity caster, boolean consume, boolean awardXp) {
+        if (spell.isMalformed()) return Either.right(AMTranslations.SPELL_CAST_MALFORMED);
         if (caster.hasEffect(AMMobEffects.SILENCE)) return Either.right(AMTranslations.SPELL_CAST_SILENCED);
         ManaHelper manaHelper = ArsMagicaApi.manaHelper();
         BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
@@ -68,7 +69,6 @@ final class SpellHelperImpl implements SpellHelper {
             if (manaHelper.getMana(caster) < manaCost) return Either.right(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA);
             if (burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) < burnoutCost) return Either.right(AMTranslations.SPELL_CAST_BURNED_OUT);
         }
-        if (spell.currentShapeGroup().primaryShape() == null || spell.grammar().components().isEmpty()) return Either.right(AMTranslations.SPELL_CAST_MALFORMED);
         spell = castPrimary(spell, caster);
         if (event.isConsume() && !(caster instanceof Player player && player.isCreative())) {
             manaHelper.decreaseMana(caster, manaCost);

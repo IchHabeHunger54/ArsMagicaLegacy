@@ -7,6 +7,7 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.OcculusScreen;
+import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.SpellCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellrecipe.SpellRecipeScreen;
 import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleSpawnerManager;
 import at.minecraftschurli.arsmagicalegacy.entity.FallingStar;
@@ -132,12 +133,17 @@ public final class AMClientUtil {
         AMClientUtil.mc().setScreen(new OcculusScreen());
     }
 
+    public static void setSpellCustomizationScreen(Spell spell) {
+        AMClientUtil.mc().setScreen(new SpellCustomizationScreen(spell));
+    }
+
     public static void setSpellRecipeScreen(ItemStack stack, boolean playTurnSound, int startPage, @Nullable BlockPos lecternPos) {
         AMClientUtil.mc().setScreen(new SpellRecipeScreen(stack, playTurnSound, startPage, lecternPos));
     }
 
     public static List<? extends ControlledParticle> spawnParticles(ResourceLocation id, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        return ArsMagicaClientApi.spawnParticles(ParticleSpawnerManager.INSTANCE.get(id), position, color, caster, directEntity, hitResult);
+        ParticleSpawner spawner = ParticleSpawnerManager.INSTANCE.get(id);
+        return spawner != null ? ArsMagicaClientApi.spawnParticles(spawner, position, color, caster, directEntity, hitResult) : List.of();
     }
 
     public static void spawnFallingStarParticles(FallingStar entity, boolean ground) {

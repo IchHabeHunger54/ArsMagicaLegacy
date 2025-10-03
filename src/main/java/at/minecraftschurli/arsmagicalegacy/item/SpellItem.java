@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.item;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -20,9 +21,17 @@ public class SpellItem extends DataComponentNamedItem<Spell> {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack stack = player.getItemInHand(usedHand);
-        Either<Spell, Component> either = ArsMagicaApi.spellHelper().cast(stack.get(AMDataComponents.SPELL), player, true, true);
-        either.ifLeft(spell -> stack.set(AMDataComponents.SPELL, spell));
-        either.ifRight(message -> player.displayClientMessage(message, true));
+        Spell spell = stack.get(AMDataComponents.SPELL);
+        if (spell == null) return InteractionResultHolder.fail(stack);
+        if (spell.name().isEmpty() || spell.icon().isEmpty()) {
+            if (level.isClientSide()) {
+                AMClientUtil.setSpellCustomizationScreen(spell);
+            }
+            return InteractionResultHolder.consume(stack);
+        }
+        Either<Spell, Component> either = ArsMagicaApi.spellHelper().cast(spell, player, true, true)
+            .ifLeft(result -> stack.set(AMDataComponents.SPELL, result))
+            .ifRight(message -> player.displayClientMessage(message, true));
         return either.left().isPresent() ? InteractionResultHolder.success(stack) : InteractionResultHolder.fail(stack);
     }
 }

@@ -13,4 +13,9 @@ public class Beam extends PrimarySpellShape {
     public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster) {
         return spell;
     }
+
+    @Override
+    public boolean isContinuous() {
+        return true;
+    }
 }

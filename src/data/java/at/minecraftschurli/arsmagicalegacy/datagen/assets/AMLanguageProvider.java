@@ -219,6 +219,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTags.Items.INSCRIPTION_TABLE_BOOKS, "Inscription Table Books");
         add(AMTags.Items.OCCULUS_FORGET_ALL, "Occulus Forgetting Items");
         add(AMTags.Items.RUNES, "Runes");
+        add(AMTags.Items.SHOWS_SHAPE_GROUPS, "Shows Shape Groups");
         add(AMTags.Items.SPELLCRAFTING_START, "Spellcrafting Start Items");
         add(AMTags.Items.SPELLCRAFTING_END, "Spellcrafting End Items");
         add(AMTags.EntityTypes.AFFECTED_BY_ENDER_THORNS_ABILITY, "Affected by Ender Thorns Ability");
@@ -514,6 +515,11 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("bars_anchor_y", "Vertical Anchor", "Vertical anchor of the mana, burnout and level bars.");
         configTranslation("render_level_at_top", "Render Level At Top", "If true, renders the bars in order level number -> level bar -> mana bar -> burnout bar.\nIf false, renders the bars in order mana bar -> burnout bar -> level bar -> level number.");
         configTranslation("show_values", "Show Values", "Whether to show the exact values for mana, burnout and xp.");
+        configTranslation("shape_groups", "Shape Groups", "Configuration for the shape groups GUI layer. The size of the layer is 180x36.");
+        configTranslation("shape_groups_x", "Horizontal Position", "Horizontal position of the shape groups GUI layer.");
+        configTranslation("shape_groups_y", "Vertical Position", "Vertical position of the shape groups GUI layer.");
+        configTranslation("shape_groups_anchor_x", "Horizontal Anchor", "Horizontal anchor of the shape groups GUI layer.");
+        configTranslation("shape_groups_anchor_y", "Vertical Anchor", "Vertical anchor of the shape groups GUI layer.");
         add("ability", "swim_speed", "Swim Speed");
         add("ability", "ender_thorns", "Ender Thorns");
         add("ability", "nether_damage_water", "Damage in the Nether");

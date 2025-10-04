@@ -3,7 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStatModifier;
-import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import net.minecraft.core.component.DataComponentType;
 import org.jetbrains.annotations.Nullable;
 
@@ -17,6 +17,6 @@ public class ColorModifier extends SpellModifier {
     @Override
     @Nullable
     public DataComponentType<?> getDataComponentType() {
-        return AMSpells.COLOR_COMPONENT.get();
+        return AMDataComponents.SPELL_COLOR.get();
     }
 }

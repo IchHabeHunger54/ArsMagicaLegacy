@@ -11,7 +11,6 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
-import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.fml.loading.FMLLoader;
@@ -57,13 +56,6 @@ public abstract class ArsMagicaApi {
      */
     public static Registry<SpellPart> spellPartRegistry() {
         return INSTANCE.get().getSpellPartRegistry();
-    }
-
-    /**
-     * @return The spell data component registry.
-     */
-    public static Registry<DataComponentType<?>> spellDataComponentRegistry() {
-        return INSTANCE.get().getSpellDataComponentRegistry();
     }
 
     /**
@@ -128,9 +120,6 @@ public abstract class ArsMagicaApi {
 
     @ApiStatus.Internal
     protected abstract Registry<SpellPart> getSpellPartRegistry();
-
-    @ApiStatus.Internal
-    protected abstract Registry<DataComponentType<?>> getSpellDataComponentRegistry();
 
     @ApiStatus.Internal
     protected abstract Registry<MapCodec<? extends SpellIngredient>> getSpellIngredientRegistry();

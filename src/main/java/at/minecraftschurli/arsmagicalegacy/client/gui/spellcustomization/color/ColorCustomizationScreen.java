@@ -3,7 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.color;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.AbstractSpellPartCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
-import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -44,7 +44,7 @@ public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScre
     private EditBox editBox;
 
     public ColorCustomizationScreen(Function<DataComponentType<Integer>, @Nullable Integer> valueGetter, BiConsumer<DataComponentType<Integer>, @Nullable Integer> valueSetter) {
-        super(AMTranslations.SPELL_CUSTOMIZATION_COLOR, AMSpells.COLOR_COMPONENT.get(), valueGetter, valueSetter);
+        super(AMTranslations.SPELL_CUSTOMIZATION_COLOR, AMDataComponents.SPELL_COLOR.get(), valueGetter, valueSetter);
     }
 
     @Override

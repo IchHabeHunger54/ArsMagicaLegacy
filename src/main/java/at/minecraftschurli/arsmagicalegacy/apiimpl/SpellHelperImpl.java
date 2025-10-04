@@ -2,7 +2,6 @@ package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
@@ -26,11 +25,11 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellShapeGroup;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
-import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleSpawnerManager;
+import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
-import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.spell.ItemSpellIngredient;
+import at.minecraftschurli.arsmagicalegacy.spell.SpellDamage;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
@@ -133,6 +132,11 @@ final class SpellHelperImpl implements SpellHelper {
             }
             NeoForge.EVENT_BUS.post(new SpellPartCastEvent.Component(caster, spell, component, modifiers, directEntity, hitResult));
         }
+        SpellDamage damage = spell.dataComponents().grammar().get(AMDataComponents.SPELL_DAMAGE.get());
+        if (damage != null) {
+            damage.apply(caster, directEntity);
+            spell.updateDataComponents(components -> components.updateGrammar(grammar -> grammar.remove(AMDataComponents.SPELL_DAMAGE.get())));
+        }
         return spell;
     }
 
@@ -154,7 +158,7 @@ final class SpellHelperImpl implements SpellHelper {
 
     @Override
     public int getColor(List<SpellModifier> modifiers, Spell spell, int shapeGroupIndex) {
-        return spell.dataComponents().get(shapeGroupIndex).getOrDefault(AMSpells.COLOR_COMPONENT.get(), -1);
+        return spell.dataComponents().get(shapeGroupIndex).getOrDefault(AMDataComponents.SPELL_COLOR.get(), -1);
     }
 
     @Override

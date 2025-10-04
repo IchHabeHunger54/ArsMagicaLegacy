@@ -29,6 +29,7 @@ public final class AMServerConfig {
     public static final ModConfigSpec.DoubleValue AFFINITY_GAINS_XP_MODIFIER;
     public static final ModConfigSpec.DoubleValue AFFINITY_TOME_SHIFT;
     public static final ModConfigSpec.DoubleValue AFFINITY_TOME_REDUCTION;
+    public static final ModConfigSpec.DoubleValue DAMAGE_DAMAGE;
     public static final ModConfigSpec.DoubleValue EFFECT_DURATION;
     public static final ModConfigSpec.DoubleValue ATTRACT_RANGE;
     public static final ModConfigSpec.DoubleValue ATTRACT_SPEED;
@@ -198,6 +199,10 @@ public final class AMServerConfig {
             .defineInRange("affinity_tome_reduction", 0.1, 0, 1);
         builder.pop();
         builder.comment("Configuration of various component-specific values.").push("components");
+        DAMAGE_DAMAGE = builder
+            .comment("The damage of damage-based components, in half hearts. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "damage_damage")
+            .defineInRange("damage_damage", 4., 0, Short.MAX_VALUE);
         EFFECT_DURATION = builder
             .comment("The duration of effect-based components, in ticks. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "effect_duration")

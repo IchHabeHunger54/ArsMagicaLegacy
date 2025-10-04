@@ -109,7 +109,6 @@ final class AMEventHandler {
     @SubscribeEvent
     private static void newRegistry(NewRegistryEvent event) {
         event.register(ArsMagicaApi.spellPartRegistry());
-        event.register(ArsMagicaApi.spellDataComponentRegistry());
         event.register(ArsMagicaApi.spellIngredientRegistry());
         event.register(ArsMagicaApi.abilityEffectRegistry());
     }

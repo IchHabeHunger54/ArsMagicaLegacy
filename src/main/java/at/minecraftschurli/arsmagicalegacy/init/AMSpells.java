@@ -66,14 +66,10 @@ import at.minecraftschurli.arsmagicalegacy.spell.shape.Touch;
 import at.minecraftschurli.arsmagicalegacy.spell.shape.Wall;
 import at.minecraftschurli.arsmagicalegacy.spell.shape.Wave;
 import at.minecraftschurli.arsmagicalegacy.spell.shape.Zone;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.core.component.DataComponentType;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.Map;
@@ -117,12 +113,12 @@ public interface AMSpells {
     DeferredHolder<SpellPart, Contingency>  CONTINGENCY_FIRE   = register("contingency_fire",   Contingency::new);
     DeferredHolder<SpellPart, Contingency>  CONTINGENCY_HEALTH = register("contingency_health", Contingency::new);
 
-    DeferredHolder<SpellPart, Damage>             DROWNING_DAMAGE     = register("drowning_damage",     Damage::new);
-    DeferredHolder<SpellPart, Damage>             FIRE_DAMAGE         = register("fire_damage",         Damage::new);
-    DeferredHolder<SpellPart, Damage>             FROST_DAMAGE        = register("frost_damage",        Damage::new);
-    DeferredHolder<SpellPart, Damage>             LIGHTNING_DAMAGE    = register("lightning_damage",    Damage::new);
-    DeferredHolder<SpellPart, Damage>             MAGIC_DAMAGE        = register("magic_damage",        Damage::new);
-    DeferredHolder<SpellPart, Damage>             PHYSICAL_DAMAGE     = register("physical_damage",     Damage::new);
+    DeferredHolder<SpellPart, Damage>             DROWNING_DAMAGE     = register("drowning_damage",     () -> new Damage(AMDamageSources.SPELL_DROWNING));
+    DeferredHolder<SpellPart, Damage>             FIRE_DAMAGE         = register("fire_damage",         () -> new Damage(AMDamageSources.SPELL_FIRE));
+    DeferredHolder<SpellPart, Damage>             FROST_DAMAGE        = register("frost_damage",        () -> new Damage(AMDamageSources.SPELL_FROST));
+    DeferredHolder<SpellPart, Damage>             LIGHTNING_DAMAGE    = register("lightning_damage",    () -> new Damage(AMDamageSources.SPELL_LIGHTNING));
+    DeferredHolder<SpellPart, Damage>             MAGIC_DAMAGE        = register("magic_damage",        () -> new Damage(AMDamageSources.SPELL_MAGIC));
+    DeferredHolder<SpellPart, Damage>             PHYSICAL_DAMAGE     = register("physical_damage",     () -> new Damage(caster -> caster instanceof Player ? AMDamageSources.SPELL_PHYSICAL_PLAYER : AMDamageSources.SPELL_PHYSICAL));
     DeferredHolder<SpellPart, Effect>             ABSORPTION          = register("absorption",          () -> new Effect(MobEffects.ABSORPTION));
     DeferredHolder<SpellPart, Effect>             BLINDNESS           = register("blindness",           () -> new Effect(MobEffects.BLINDNESS));
     DeferredHolder<SpellPart, Effect>             HASTE               = register("haste",               () -> new Effect(MobEffects.DIG_SPEED));
@@ -213,16 +209,10 @@ public interface AMSpells {
     DeferredHolder<SpellPart, SpellModifier> TARGET_NON_SOLID = register("target_non_solid", () -> new SpellModifier(Map.of(TARGET_NON_SOLID_STAT, SpellStatModifier.add(1))));
     DeferredHolder<SpellPart, SpellModifier> VELOCITY         = register("velocity",         () -> new SpellModifier(Map.of(SPEED_STAT, SpellStatModifier.addMultipliedBase(0.5))));
     DeferredHolder<SpellPart, ColorModifier> COLOR            = register("color",            ColorModifier::new);
-
-    DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> COLOR_COMPONENT = register("color", Codec.INT, ByteBufCodecs.INT);
     // @formatter:on
 
     private static <T extends SpellPart> DeferredHolder<SpellPart, T> register(String name, Supplier<T> supplier) {
         return AMRegistries.SPELL_PARTS.register(name, supplier);
-    }
-
-    private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, Codec<T> codec, StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec) {
-        return AMRegistries.DATA_COMPONENTS.registerComponentType(name, builder -> builder.persistent(codec).networkSynchronized(streamCodec));
     }
 
     /**

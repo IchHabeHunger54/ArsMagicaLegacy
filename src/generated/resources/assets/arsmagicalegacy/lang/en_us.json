@@ -504,6 +504,8 @@
   "item.minecraft.tipped_arrow.effect.lesser_mana": "Arrow of Lesser Mana",
   "item.minecraft.tipped_arrow.effect.standard_mana": "Arrow of Standard Mana",
   "itemGroup.arsmagicalegacy": "Ars Magica: Legacy",
+  "key.arsmagicalegacy.next_shape_group": "Next Shape Group",
+  "key.arsmagicalegacy.prev_shape_group": "Previous Shape Group",
   "key.arsmagicalegacy.spell_customization": "Customize Spell",
   "key.categories.arsmagicalegacy": "Ars Magica: Legacy",
   "occulus_tab.arsmagicalegacy.affinity": "Affinity",

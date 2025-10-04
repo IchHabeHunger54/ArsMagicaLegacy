@@ -8,7 +8,6 @@
 - Test All Spell Parts & Particles
 - Inlays
 - Liquid Essence
-- Spell Book (including Overlay)
 - Shape Group Toggle & Overlay
 - Mage & Battlemage Armor
 - All Etherium-related features, including:

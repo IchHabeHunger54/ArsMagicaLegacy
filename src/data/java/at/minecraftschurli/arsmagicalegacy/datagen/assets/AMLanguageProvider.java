@@ -623,6 +623,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.INSCRIPTION_TABLE_NAME_KEY, "Name");
         add(AMTranslations.INSCRIPTION_TABLE_SEARCH_KEY, "Search");
         add(AMTranslations.KEY_CATEGORY_KEY, "Ars Magica: Legacy");
+        add(AMTranslations.NEXT_SHAPE_GROUP_KEY, "Next Shape Group");
         add(AMTranslations.NO_TELEPORT_KEY, "You are too distorted to teleport!");
         add(AMTranslations.NO_TELEPORT_NETHER_KEY, "The nether's force forbids to simply teleport out of it!");
         add(AMTranslations.NO_TELEPORT_OTHER_KEY, "The target is too distorted to be teleported!");
@@ -636,6 +637,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.OCCULUS_PREV_KEY, "<");
         add(AMTranslations.PREVENT_BLOCK_KEY, "Mystical forces prevent you from using this block! Try crafting an Arcane Compendium to learn more.");
         add(AMTranslations.PREVENT_ITEM_KEY, "Mystical forces prevent you from using this item! Try crafting an Arcane Compendium to learn more.");
+        add(AMTranslations.PREV_SHAPE_GROUP_KEY, "Previous Shape Group");
         add(AMTranslations.SPELL_CAST_BURNED_OUT_KEY, "Burned out!");
         add(AMTranslations.SPELL_CAST_MALFORMED_KEY, "Spell is malformed and cannot be cast!");
         add(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA_KEY, "Not enough mana to cast the spell!");

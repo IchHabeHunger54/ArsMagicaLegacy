@@ -75,6 +75,36 @@ public record Spell(Optional<Component> name, Optional<ResourceLocation> icon, L
     }
 
     /**
+     * @return The spell, with the next shape group set as active.
+     */
+    public Spell nextShapeGroup() {
+        Spell spell = this;
+        do {
+            spell = new Spell(name, icon, shapeGroups, spell.activeShapeGroup < shapeGroups.size() - 1 ? spell.activeShapeGroup + 1 : 0, grammar, dataComponents);
+        } while (spell.currentShapeGroup().isEmpty());
+        return spell;
+    }
+
+    /**
+     * @return The spell, with the previous shape group set as active.
+     */
+    public Spell prevShapeGroup() {
+        Spell spell = this;
+        do {
+            spell = new Spell(name, icon, shapeGroups, spell.activeShapeGroup > 0 ? spell.activeShapeGroup - 1 : shapeGroups.size() - 1, grammar, dataComponents);
+        } while (spell.currentShapeGroup().isEmpty());
+        return spell;
+    }
+
+    /**
+     * @param activeShapeGroup The active shape group index to set.
+     * @return The spell, with the given shape group index set as active.
+     */
+    public Spell setActiveShapeGroup(int activeShapeGroup) {
+        return new Spell(name, icon, shapeGroups, activeShapeGroup, grammar, dataComponents);
+    }
+
+    /**
      * @param operator The modifications to apply to the data components.
      * @return A new spell with the modifications to the data components applied.
      */

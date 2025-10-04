@@ -6,6 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterParticleCont
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterSpellIngredientRenderersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterSpellPartCustomizationScreensEvent;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
+import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
 import at.minecraftschurli.arsmagicalegacy.block.altar.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
@@ -48,6 +49,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
 import at.minecraftschurli.arsmagicalegacy.init.AMParticles;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import at.minecraftschurli.arsmagicalegacy.packet.SetActiveShapeGroupPacket;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -84,6 +86,7 @@ import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsE
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.client.settings.KeyModifier;
 import net.neoforged.neoforge.common.util.Lazy;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
 
 import java.io.IOException;
@@ -92,6 +95,8 @@ import java.util.stream.Stream;
 
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID, value = Dist.CLIENT)
 final class AMClientEventHandler {
+    private static final Lazy<KeyMapping> NEXT_SHAPE_GROUP = Lazy.of(() -> new KeyMapping(AMTranslations.NEXT_SHAPE_GROUP_KEY, KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_PERIOD, AMTranslations.KEY_CATEGORY_KEY));
+    private static final Lazy<KeyMapping> PREV_SHAPE_GROUP = Lazy.of(() -> new KeyMapping(AMTranslations.PREV_SHAPE_GROUP_KEY, KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_COMMA, AMTranslations.KEY_CATEGORY_KEY));
     private static final Lazy<KeyMapping> SPELL_CUSTOMIZATION = Lazy.of(() -> new KeyMapping(AMTranslations.SPELL_CUSTOMIZATION_KEY, KeyConflictContext.IN_GAME, KeyModifier.SHIFT, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, AMTranslations.KEY_CATEGORY_KEY));
 
     @SubscribeEvent
@@ -134,6 +139,8 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerKeyMappings(RegisterKeyMappingsEvent event) {
+        event.register(NEXT_SHAPE_GROUP.get());
+        event.register(PREV_SHAPE_GROUP.get());
         event.register(SPELL_CUSTOMIZATION.get());
     }
 
@@ -239,8 +246,25 @@ final class AMClientEventHandler {
         LocalPlayer player = AMClientUtil.player();
         if (player == null) return;
         ItemStack stack = player.getMainHandItem();
-        while (stack.has(AMDataComponents.SPELL) && SPELL_CUSTOMIZATION.get().consumeClick()) {
-            AMClientUtil.mc().setScreen(new SpellCustomizationScreen(stack.get(AMDataComponents.SPELL)));
+        if (!stack.has(AMDataComponents.SPELL)) {
+            stack = player.getOffhandItem();
+        }
+        if (stack.has(AMDataComponents.SPELL)) {
+            Spell originalSpell = stack.get(AMDataComponents.SPELL);
+            Spell spell = originalSpell;
+            while (NEXT_SHAPE_GROUP.get().consumeClick()) {
+                spell = spell.nextShapeGroup();
+            }
+            while (PREV_SHAPE_GROUP.get().consumeClick()) {
+                spell = spell.prevShapeGroup();
+            }
+            if (spell != originalSpell) {
+                stack.set(AMDataComponents.SPELL, spell);
+                PacketDistributor.sendToServer(new SetActiveShapeGroupPacket(spell.activeShapeGroup()));
+            }
+            while (SPELL_CUSTOMIZATION.get().consumeClick()) {
+                AMClientUtil.mc().setScreen(new SpellCustomizationScreen(spell));
+            }
         }
     }
 

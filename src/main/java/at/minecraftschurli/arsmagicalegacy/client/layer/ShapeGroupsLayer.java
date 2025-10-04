@@ -54,7 +54,7 @@ public class ShapeGroupsLayer implements LayeredDraw.Layer {
                 for (int k = 0; k < COLUMNS; k++) {
                     int index = j * COLUMNS + k;
                     if (index >= shapeGroup.size()) continue;
-                    guiGraphics.blit(x + k * SIZE + X_PADDING, y + j * SIZE + Y_PADDING, 0, SIZE, SIZE, SkillAtlasHolder.INSTANCE.get().getSprite(ArsMagicaApi.spellPartRegistry().getKey(shapeGroup.get(index))));
+                    guiGraphics.blit(x + i * WIDTH + k * SIZE + X_PADDING, y + j * SIZE + Y_PADDING, 0, SIZE, SIZE, SkillAtlasHolder.INSTANCE.get().getSprite(ArsMagicaApi.spellPartRegistry().getKey(shapeGroup.get(index))));
                 }
             }
             if (i == spell.activeShapeGroup()) continue;

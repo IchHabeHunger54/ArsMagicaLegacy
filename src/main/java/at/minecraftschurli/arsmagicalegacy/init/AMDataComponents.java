@@ -21,8 +21,8 @@ public interface AMDataComponents {
     DeferredHolder<DataComponentType<?>, DataComponentType<Spell>>              SPELL       = register(AMRegistries.DATA_COMPONENTS, "spell",       Spell.CODEC,      Spell.STREAM_CODEC);
     DeferredHolder<DataComponentType<?>, DataComponentType<Integer>>            TIER        = register(AMRegistries.DATA_COMPONENTS, "tier",        Codec.INT,        ByteBufCodecs.INT);
 
-    DeferredHolder<DataComponentType<?>, DataComponentType<Integer>>     SPELL_COLOR  = register(AMRegistries.DATA_COMPONENTS, "color",  Codec.INT, ByteBufCodecs.INT);
-    DeferredHolder<DataComponentType<?>, DataComponentType<SpellDamage>> SPELL_DAMAGE = register(AMRegistries.DATA_COMPONENTS, "damage", SpellDamage.CODEC);
+    DeferredHolder<DataComponentType<?>, DataComponentType<Integer>>     SPELL_COLOR  = register(AMRegistries.DATA_COMPONENTS, "spell_color",  Codec.INT, ByteBufCodecs.INT);
+    DeferredHolder<DataComponentType<?>, DataComponentType<SpellDamage>> SPELL_DAMAGE = register(AMRegistries.DATA_COMPONENTS, "spell_damage", SpellDamage.CODEC);
     // @formatter:on
 
     /**

@@ -57,10 +57,6 @@ final class AMDataGenerator {
         generator.addProvider(event.includeClient(), new AMSoundDefinitionProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new AMSpriteSourceProvider(output, lookupProvider, existingFileHelper));
         generator.addProvider(event.includeServer(), new AMAdvancementProvider(output, lookupProvider, existingFileHelper));
-        AMBlockTagsProvider blockTags = generator.addProvider(event.includeServer(), new AMBlockTagsProvider(output, lookupProvider, existingFileHelper));
-        generator.addProvider(event.includeServer(), new AMItemTagsProvider(output, lookupProvider, blockTags.contentsGetter(), existingFileHelper));
-        generator.addProvider(event.includeServer(), new AMDamageTypeTagsProvider(output, lookupProvider, existingFileHelper));
-        generator.addProvider(event.includeServer(), new AMEntityTypeTagsProvider(output, lookupProvider, existingFileHelper));
         lookupProvider = generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(output, lookupProvider, new RegistrySetBuilder()
             .add(Registries.DAMAGE_TYPE, AMDamageTypeProvider::addDamageTypes)
             .add(Registries.CONFIGURED_FEATURE, AMWorldgenProvider::addConfiguredFeatures)
@@ -77,6 +73,10 @@ final class AMDataGenerator {
         generator.addProvider(event.includeServer(), new AMGlobalLootModifierProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), new AMLootTableProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), new AMRecipeProvider(output, lookupProvider));
+        AMBlockTagsProvider blockTags = generator.addProvider(event.includeServer(), new AMBlockTagsProvider(output, lookupProvider, existingFileHelper));
+        generator.addProvider(event.includeServer(), new AMItemTagsProvider(output, lookupProvider, blockTags.contentsGetter(), existingFileHelper));
+        generator.addProvider(event.includeServer(), new AMDamageTypeTagsProvider(output, lookupProvider, existingFileHelper));
+        generator.addProvider(event.includeServer(), new AMEntityTypeTagsProvider(output, lookupProvider, existingFileHelper));
         generator.addProvider(event.includeServer(), new AMSpellPartDataProvider(output, lookupProvider));
     }
 }

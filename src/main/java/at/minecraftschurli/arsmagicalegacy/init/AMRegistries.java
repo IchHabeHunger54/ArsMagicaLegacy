@@ -30,7 +30,6 @@ public interface AMRegistries {
     DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(ArsMagicaApi.MOD_ID);
     DeferredRegister.Items  ITEMS  = DeferredRegister.createItems(ArsMagicaApi.MOD_ID);
     DeferredRegister.DataComponents DATA_COMPONENTS       = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE,           ArsMagicaApi.MOD_ID);
-    DeferredRegister.DataComponents SPELL_DATA_COMPONENTS = DeferredRegister.createDataComponents(AMRegistryKeys.SPELL_DATA_COMPONENT_TYPE, ArsMagicaApi.MOD_ID);
     DeferredRegister<Attribute>                               ATTRIBUTES            = DeferredRegister.create(Registries.ATTRIBUTE,                                     ArsMagicaApi.MOD_ID);
     DeferredRegister<BlockEntityType<?>>                      BLOCK_ENTITIES        = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE,                             ArsMagicaApi.MOD_ID);
     DeferredRegister<CreativeModeTab>                         CREATIVE_TABS         = DeferredRegister.create(Registries.CREATIVE_MODE_TAB,                             ArsMagicaApi.MOD_ID);
@@ -75,7 +74,6 @@ public interface AMRegistries {
         BLOCKS.register(bus);
         ITEMS.register(bus);
         DATA_COMPONENTS.register(bus);
-        SPELL_DATA_COMPONENTS.register(bus);
         ATTRIBUTES.register(bus);
         BLOCK_ENTITIES.register(bus);
         CREATIVE_TABS.register(bus);

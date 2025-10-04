@@ -91,6 +91,7 @@ public interface AMTags {
         TagKey<DamageType> AFFECTED_BY_FALL_DAMAGE_ABILITY = tag("affected_by_fall_damage_ability");
         TagKey<DamageType> AFFECTED_BY_FEATHER_FALLING_ABILITY = tag("affected_by_feather_falling_ability");
         TagKey<DamageType> AFFECTED_BY_MAGIC_DAMAGE_ABILITY = tag("affected_by_magic_damage_ability");
+        TagKey<DamageType> IS_SPELL = tag("is_spell");
 
         private static TagKey<DamageType> tag(String name) {
             return TagKey.create(Registries.DAMAGE_TYPE, ArsMagicaApi.modLoc(name));

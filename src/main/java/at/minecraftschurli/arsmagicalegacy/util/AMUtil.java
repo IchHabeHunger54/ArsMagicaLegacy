@@ -53,6 +53,13 @@ import java.util.function.ToIntFunction;
 import java.util.stream.Collector;
 
 public final class AMUtil {
+    public static final Codec<Integer> STRING_ENCODED_INT_CODEC = Codec.STRING.comapFlatMap(s -> {
+        try {
+            return DataResult.success(Integer.parseInt(s));
+        } catch (NumberFormatException e) {
+            return DataResult.error(e::getMessage);
+        }
+    }, String::valueOf);
     public static final Codec<Double> NON_NEGATIVE_DOUBLE_CODEC = Codec.DOUBLE.validate(d -> d >= 0 ? DataResult.success(d) : DataResult.error(() -> "Value must be non-negative: " + d));
     public static final Codec<Double> POSITIVE_DOUBLE_CODEC = Codec.DOUBLE.validate(d -> d > 0 ? DataResult.success(d) : DataResult.error(() -> "Value must be positive: " + d));
 

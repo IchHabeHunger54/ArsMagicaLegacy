@@ -222,11 +222,14 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTags.Items.SPELLCRAFTING_START, "Spellcrafting Start Items");
         add(AMTags.Items.SPELLCRAFTING_END, "Spellcrafting End Items");
         add(AMTags.EntityTypes.AFFECTED_BY_ENDER_THORNS_ABILITY, "Affected by Ender Thorns Ability");
+        add(AMTags.EntityTypes.AFFECTED_BY_SMITE_ABILITY, "Affected by Smite Ability");
+        add(AMTags.EntityTypes.AFFECTED_BY_NAUSEA_ABILITY, "Affected by Nausea Ability");
         add(AMTags.DamageTypes.AFFECTED_BY_FIRE_RESISTANCE_ABILITY, "Affected by Fire Resistance Ability");
         add(AMTags.DamageTypes.AFFECTED_BY_RESISTANCE_ABILITY, "Affected by Resistance Ability");
         add(AMTags.DamageTypes.AFFECTED_BY_FALL_DAMAGE_ABILITY, "Affected by Fall Damage Ability");
         add(AMTags.DamageTypes.AFFECTED_BY_FEATHER_FALLING_ABILITY, "Affected by Feather Falling Ability");
         add(AMTags.DamageTypes.AFFECTED_BY_MAGIC_DAMAGE_ABILITY, "Affected by Magic Damage Ability");
+        add(AMTags.DamageTypes.IS_SPELL, "Spell Damage");
         subtitleTranslation(AMSounds.ARCANE_GUARDIAN_AMBIENT, "Arcane Guardian hisses");
         subtitleTranslation(AMSounds.ARCANE_GUARDIAN_ATTACK, "Arcane Guardian attacks");
         subtitleTranslation(AMSounds.ARCANE_GUARDIAN_DEATH, "Arcane Guardian dies");
@@ -445,6 +448,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("affinity_tome_shift", "Affinity Tome Shift", "The amount to add to an affinity when using an Affinity Tome.");
         configTranslation("affinity_tome_reduction", "Affinity Tome Reduction", "The amount to subtract from all other affinities when using an Affinity Tome.");
         configTranslation("components", "Components", "Configuration of various component-specific values.");
+        configTranslation("damage_damage", "Damage Damage", "The damage of damage-based components, in half hearts. May be amplified by spell modifiers.");
         configTranslation("effect_duration", "Effect Duration", "The duration of effect-based components, in ticks. May be amplified by spell modifiers.");
         configTranslation("attract_range", "Attract Range", "The range of the Attract component. May be amplified by spell modifiers.");
         configTranslation("attract_speed", "Attract Speed", "The speed of the Attract component. May be amplified by spell modifiers.");

@@ -13,7 +13,6 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
-import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceKey;
 
 /**
@@ -22,10 +21,9 @@ import net.minecraft.resources.ResourceKey;
 public interface AMRegistryKeys {
     // @formatter:off
     // Static registries
-    ResourceKey<Registry<MapCodec<? extends AbilityEffect>>>   ABILITY_EFFECT            = ResourceKey.createRegistryKey(ArsMagicaApi.modLoc("ability_effect"));
-    ResourceKey<Registry<DataComponentType<?>>>                SPELL_DATA_COMPONENT_TYPE = ResourceKey.createRegistryKey(ArsMagicaApi.modLoc("spell_data_component_type"));
-    ResourceKey<Registry<MapCodec<? extends SpellIngredient>>> SPELL_INGREDIENT          = ResourceKey.createRegistryKey(ArsMagicaApi.modLoc("spell_ingredient"));
-    ResourceKey<Registry<SpellPart>>                           SPELL_PART                = ResourceKey.createRegistryKey(ArsMagicaApi.modLoc("spell_part"));
+    ResourceKey<Registry<MapCodec<? extends AbilityEffect>>>   ABILITY_EFFECT   = ResourceKey.createRegistryKey(ArsMagicaApi.modLoc("ability_effect"));
+    ResourceKey<Registry<MapCodec<? extends SpellIngredient>>> SPELL_INGREDIENT = ResourceKey.createRegistryKey(ArsMagicaApi.modLoc("spell_ingredient"));
+    ResourceKey<Registry<SpellPart>>                           SPELL_PART       = ResourceKey.createRegistryKey(ArsMagicaApi.modLoc("spell_part"));
     // Datapack registries
     ResourceKey<Registry<Ability>>          ABILITY            = ResourceKey.createRegistryKey(ArsMagicaApi.modLoc("ability"));
     ResourceKey<Registry<Affinity>>         AFFINITY           = ResourceKey.createRegistryKey(ArsMagicaApi.modLoc("affinity"));

@@ -14,7 +14,6 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
 import at.minecraftschurli.arsmagicalegacy.spell.SpellPartDataManager;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
-import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.registries.RegistryBuilder;
@@ -23,7 +22,6 @@ import vazkii.patchouli.api.PatchouliAPI;
 public final class ArsMagicaApiImpl extends ArsMagicaApi {
     private static final ResourceLocation ARCANE_COMPENDIUM = ArsMagicaApi.modLoc("arcane_compendium");
     private static final Registry<SpellPart> SPELL_PART_REGISTRY = new RegistryBuilder<>(AMRegistryKeys.SPELL_PART).sync(true).create();
-    private static final Registry<DataComponentType<?>> SPELL_DATA_COMPONENT_REGISTRY = new RegistryBuilder<>(AMRegistryKeys.SPELL_DATA_COMPONENT_TYPE).sync(true).create();
     private static final Registry<MapCodec<? extends SpellIngredient>> SPELL_INGREDIENT_REGISTRY = new RegistryBuilder<>(AMRegistryKeys.SPELL_INGREDIENT).sync(true).create();
     private static final Registry<MapCodec<? extends AbilityEffect>> ABILITY_EFFECT_REGISTRY = new RegistryBuilder<>(AMRegistryKeys.ABILITY_EFFECT).sync(true).create();
     private static final AbilityHelper ABILITY_HELPER = new AbilityHelperImpl();
@@ -40,11 +38,6 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     @Override
     protected Registry<SpellPart> getSpellPartRegistry() {
         return SPELL_PART_REGISTRY;
-    }
-
-    @Override
-    protected Registry<DataComponentType<?>> getSpellDataComponentRegistry() {
-        return SPELL_DATA_COMPONENT_REGISTRY;
     }
 
     @Override

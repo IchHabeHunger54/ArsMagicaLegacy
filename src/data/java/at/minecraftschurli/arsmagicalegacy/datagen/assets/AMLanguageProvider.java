@@ -461,6 +461,8 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("blizzard_height", "Blizzard Height", "The height of the Blizzard component, relative to its width.");
         configTranslation("blizzard_frost_duration", "Blizzard Frost Duration", "The duration of the frost applied by the Blizzard component. May be amplified by spell modifiers.");
         configTranslation("blizzard_tick_interval", "Blizzard Tick Interval", "The tick interval used by the Blizzard component.");
+        configTranslation("dig_mana_factor", "Dig Mana Factor", "The mana factor of the Dig component. The mana cost factor will be multiplied with the block's hardness.");
+        configTranslation("dig_tool_tier", "Dig Tool Tier", "The tool tier of the Dig component. May be amplified by spell modifiers.");
         configTranslation("explosion_range", "Explosion Range", "The range of the Explosion component. May be amplified by spell modifiers.");
         configTranslation("falling_star_damage", "Falling Star Damage", "The damage of the Falling Star component. May be amplified by spell modifiers.");
         configTranslation("falling_star_range", "Falling Star Range", "The range of the Falling Star component. May be amplified by spell modifiers.");

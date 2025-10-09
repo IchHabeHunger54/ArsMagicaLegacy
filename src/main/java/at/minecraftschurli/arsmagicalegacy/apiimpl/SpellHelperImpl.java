@@ -30,6 +30,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.arsmagicalegacy.spell.ItemSpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.spell.SpellDamage;
+import at.minecraftschurli.arsmagicalegacy.spell.ToolTiers;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
@@ -37,10 +38,12 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -159,6 +162,11 @@ final class SpellHelperImpl implements SpellHelper {
     @Override
     public int getColor(List<SpellModifier> modifiers, Spell spell, int shapeGroupIndex) {
         return spell.dataComponents().get(shapeGroupIndex).getOrDefault(AMDataComponents.SPELL_COLOR.get(), -1);
+    }
+
+    @Override
+    public TagKey<Block> getIncorrectTagForToolTier(int toolTier) {
+        return ToolTiers.INSTANCE.get(toolTier);
     }
 
     @Override

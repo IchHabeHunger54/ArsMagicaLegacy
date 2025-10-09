@@ -22,6 +22,7 @@ import at.minecraftschurli.arsmagicalegacy.datagen.data.AMLootTableProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMMagicProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMRecipeProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMSpellPartDataProvider;
+import at.minecraftschurli.arsmagicalegacy.datagen.data.AMToolTierProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMWorldgenProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -78,5 +79,6 @@ final class AMDataGenerator {
         generator.addProvider(event.includeServer(), new AMDamageTypeTagsProvider(output, lookupProvider, existingFileHelper));
         generator.addProvider(event.includeServer(), new AMEntityTypeTagsProvider(output, lookupProvider, existingFileHelper));
         generator.addProvider(event.includeServer(), new AMSpellPartDataProvider(output, lookupProvider));
+        generator.addProvider(event.includeServer(), new AMToolTierProvider(output, lookupProvider));
     }
 }

@@ -20,7 +20,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Abstract superclass for all data providers this mod adds.
+ * Abstract superclass for most data providers this mod adds.
  *
  * @param <T> The type of the objects being generated.
  * @param <B> The builder type to use.

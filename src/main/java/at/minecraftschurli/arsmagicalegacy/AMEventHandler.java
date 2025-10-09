@@ -47,6 +47,7 @@ import at.minecraftschurli.arsmagicalegacy.packet.SetLecternPagePacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SpellCustomizationPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.TakeSpellRecipeFromLecternPacket;
 import at.minecraftschurli.arsmagicalegacy.spell.SpellPartDataManager;
+import at.minecraftschurli.arsmagicalegacy.spell.ToolTiers;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.commands.CommandBuildContext;
@@ -128,6 +129,7 @@ final class AMEventHandler {
     @SubscribeEvent
     private static void addReloadListener(AddReloadListenerEvent event) {
         event.addListener(SpellPartDataManager.INSTANCE);
+        event.addListener(ToolTiers.INSTANCE);
     }
 
     @SubscribeEvent

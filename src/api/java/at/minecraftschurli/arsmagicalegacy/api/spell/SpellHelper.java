@@ -3,8 +3,10 @@ package at.minecraftschurli.arsmagicalegacy.api.spell;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -89,6 +91,12 @@ public interface SpellHelper {
      * @return The color of the {@link Spell}'s visual effects.
      */
     int getColor(List<SpellModifier> modifiers, Spell spell, int shapeGroupIndex);
+
+    /**
+     * @param toolTier The tool tier to get the incorrect block tag for.
+     * @return A tag specifying which blocks are not breakable by the given tool tier.
+     */
+    TagKey<Block> getIncorrectTagForToolTier(int toolTier);
 
     /**
      * @return The mana to burnout conversion ratio, used in spell cost calculation.

@@ -41,6 +41,8 @@ public final class AMServerConfig {
     public static final ModConfigSpec.DoubleValue BLIZZARD_HEIGHT;
     public static final ModConfigSpec.DoubleValue BLIZZARD_FROST_DURATION;
     public static final ModConfigSpec.IntValue BLIZZARD_TICK_INTERVAL;
+    public static final ModConfigSpec.DoubleValue DIG_MANA_FACTOR;
+    public static final ModConfigSpec.IntValue DIG_TOOL_TIER;
     public static final ModConfigSpec.DoubleValue EXPLOSION_RANGE;
     public static final ModConfigSpec.DoubleValue FALLING_STAR_DAMAGE;
     public static final ModConfigSpec.DoubleValue FALLING_STAR_RANGE;
@@ -247,6 +249,14 @@ public final class AMServerConfig {
             .comment("The tick interval used by the Blizzard component.")
             .translation(AMTranslations.CONFIG_KEY + "blizzard_tick_interval")
             .defineInRange("blizzard_tick_interval", 5, 1, 100);
+        DIG_MANA_FACTOR = builder
+            .comment("The mana factor of the Dig component. The mana cost factor will be multiplied with the block's hardness.")
+            .translation(AMTranslations.CONFIG_KEY + "dig_mana_factor")
+            .defineInRange("dig_mana_factor", 1.25, 0, Short.MAX_VALUE);
+        DIG_TOOL_TIER = builder
+            .comment("The tool tier of the Dig component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "dig_tool_tier")
+            .defineInRange("dig_tool_tier", 2, 0, 16);
         EXPLOSION_RANGE = builder
             .comment("The range of the Explosion component. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "explosion_range")

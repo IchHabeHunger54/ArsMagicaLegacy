@@ -565,6 +565,9 @@ public final class AMLanguageProvider extends LanguageProvider {
         add("affinity", "life", "Life");
         add("affinity", "arcane", "Arcane");
         add("affinity", "ender", "Ender");
+        add("etherium", "light", "Light Etherium");
+        add("etherium", "neutral", "Neutral Etherium");
+        add("etherium", "dark", "Dark Etherium");
         add("occulus_tab", "offense", "Offense");
         add("occulus_tab", "defense", "Defense");
         add("occulus_tab", "utility", "Utility");

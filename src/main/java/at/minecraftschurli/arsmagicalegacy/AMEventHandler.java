@@ -15,6 +15,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ability.Ability;
 import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityHelper;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
+import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.arsmagicalegacy.api.event.ManaCostCalculationEvent;
 import at.minecraftschurli.arsmagicalegacy.api.event.SpellCastEvent;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
@@ -121,6 +122,7 @@ final class AMEventHandler {
         event.dataPackRegistry(AMRegistryKeys.AFFINITY, Affinity.DIRECT_CODEC, Affinity.DIRECT_CODEC);
         event.dataPackRegistry(AMRegistryKeys.ALTAR_CAP_MATERIAL, AltarCapMaterial.DIRECT_CODEC, AltarCapMaterial.DIRECT_CODEC);
         event.dataPackRegistry(AMRegistryKeys.ALTAR_MATERIAL, AltarMaterial.DIRECT_CODEC, AltarMaterial.DIRECT_CODEC);
+        event.dataPackRegistry(AMRegistryKeys.ETHERIUM_TYPE, EtheriumType.DIRECT_CODEC, EtheriumType.DIRECT_CODEC);
         event.dataPackRegistry(AMRegistryKeys.OCCULUS_TAB, OcculusTab.DIRECT_CODEC, OcculusTab.DIRECT_CODEC);
         event.dataPackRegistry(AMRegistryKeys.SKILL, Skill.DIRECT_CODEC, Skill.DIRECT_CODEC);
         event.dataPackRegistry(AMRegistryKeys.SKILL_POINT, SkillPoint.DIRECT_CODEC, SkillPoint.DIRECT_CODEC);

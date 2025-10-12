@@ -1,4 +1,4 @@
-// 1.21.1	2025-10-04T01:55:57.2358436	Registries
+// 1.21.1	2025-10-12T22:22:57.5112445	Registries
 a2824e8666445c39ca58da47aedf77d31da43cec data/arsmagicalegacy/arsmagicalegacy/ability/clarity.json
 e221ec748729376e856802165a575f146ae31065 data/arsmagicalegacy/arsmagicalegacy/ability/enderman_pumpkin.json
 80053ef4569c59dfc7254f1dd3facffd80d41722 data/arsmagicalegacy/arsmagicalegacy/ability/ender_thorns.json
@@ -117,6 +117,9 @@ fb8d2dd96534e401cd034581195c78b5110ae063 data/arsmagicalegacy/arsmagicalegacy/al
 bd9b01de7b91cc477aa2b62b35ef419c68efc95f data/arsmagicalegacy/arsmagicalegacy/altar_material/waxed_weathered_cut_copper.json
 f3f8a3e52ba31b758e8d59023257b6c4a8e0e2ba data/arsmagicalegacy/arsmagicalegacy/altar_material/weathered_cut_copper.json
 4bdddbc0c9f5569cb7d4bee4e1e35af8cbdf97e1 data/arsmagicalegacy/arsmagicalegacy/altar_material/witchwood_planks.json
+e795f7409441fb650aaa7b46b6bb5fc5bc8aa10f data/arsmagicalegacy/arsmagicalegacy/etherium_type/dark.json
+c09e6a932b66355010a507496a0b46450f6b9fa7 data/arsmagicalegacy/arsmagicalegacy/etherium_type/light.json
+2d9d423e8652daa0822e40ebbf0c4f58839f1709 data/arsmagicalegacy/arsmagicalegacy/etherium_type/neutral.json
 c713fa9fe3b4c00725a52a5ad6214701e247a5ec data/arsmagicalegacy/arsmagicalegacy/occulus_tab/affinity.json
 368549ea6e73d1afb0851f69809e687f82fd5e5d data/arsmagicalegacy/arsmagicalegacy/occulus_tab/defense.json
 97c10a03b49b3f8f5908487f8efe6e3a99cef738 data/arsmagicalegacy/arsmagicalegacy/occulus_tab/offense.json

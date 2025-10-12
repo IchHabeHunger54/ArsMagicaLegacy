@@ -13,16 +13,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Function;
 
 @SuppressWarnings("DataFlowIssue")
-public class DataComponentSubtypeInterpreter<T> implements ISubtypeInterpreter<ItemStack> {
+public record DataComponentSubtypeInterpreter<T>(DataComponentType<T> type, Function<T, String> legacySubtype) implements ISubtypeInterpreter<ItemStack> {
     public static final DataComponentSubtypeInterpreter<Holder<Affinity>> AFFINITY = new DataComponentSubtypeInterpreter<>(AMDataComponents.AFFINITY.get(), holder -> holder.getKey().location().toString());
     public static final DataComponentSubtypeInterpreter<Holder<SkillPoint>> SKILL_POINT = new DataComponentSubtypeInterpreter<>(AMDataComponents.SKILL_POINT.get(), holder -> holder.getKey().location().toString());
-    private final DataComponentType<T> type;
-    private final Function<T, String> legacySubtype;
-
-    private DataComponentSubtypeInterpreter(DataComponentType<T> type, Function<T, String> legacySubtype) {
-        this.type = type;
-        this.legacySubtype = legacySubtype;
-    }
 
     @Override
     @Nullable

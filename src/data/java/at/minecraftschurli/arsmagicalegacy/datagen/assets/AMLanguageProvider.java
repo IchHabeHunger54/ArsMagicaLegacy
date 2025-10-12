@@ -7,6 +7,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
+import at.minecraftschurli.arsmagicalegacy.init.AMEtheriumTypes;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
@@ -36,6 +37,10 @@ public final class AMLanguageProvider extends LanguageProvider {
     protected void addTranslations() {
         itemIdTranslation(AMItems.SPELL);
         itemIdTranslation(AMItems.SPELL_RECIPE);
+        itemWithVariantTranslation(AMItems.ETHERIUM_PLACEHOLDER, AMEtheriumTypes.LIGHT.location(), "Light Etherium");
+        itemWithVariantTranslation(AMItems.ETHERIUM_PLACEHOLDER, AMEtheriumTypes.NEUTRAL.location(), "Neutral Etherium");
+        itemWithVariantTranslation(AMItems.ETHERIUM_PLACEHOLDER, AMEtheriumTypes.DARK.location(), "Dark Etherium");
+        itemIdTranslation(AMItems.ETHERIUM_PLACEHOLDER);
         blockIdTranslation(AMBlocks.SPELL_LIGHT);
         blockIdTranslation(AMBlocks.OCCULUS);
         blockIdTranslation(AMBlocks.INSCRIPTION_TABLE);
@@ -622,6 +627,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.COMMAND_SKILL_POINT_GET_KEY, "Player %s has %s skill points of type %s");
         add(AMTranslations.COMMAND_SKILL_POINT_SET_MULTIPLE_KEY, "Set %s skill points of type %s on %s players");
         add(AMTranslations.COMMAND_SKILL_POINT_SET_SINGLE_KEY, "Set %s skill points of type %s on player %s");
+        add(AMTranslations.ETHERIUM_ANY_KEY, "Any Etherium");
         add(AMTranslations.INSCRIPTION_TABLE_CLEAR_KEY, "Clear");
         add(AMTranslations.INSCRIPTION_TABLE_GIVE_SPELL_KEY, "Give Spell");
         add(AMTranslations.INSCRIPTION_TABLE_KEY, "Inscription Table");

@@ -1,7 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.assets;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import net.minecraft.data.PackOutput;
@@ -13,7 +12,6 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 public final class AMItemModelProvider extends ItemModelProvider {
     public AMItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -26,6 +24,7 @@ public final class AMItemModelProvider extends ItemModelProvider {
         basicItem(AMItems.SPELL);
         basicItemWithVariants(AMItems.SPELL, AMMagic.AFFINITIES_WITH_NONE);
         withExistingParent(AMItems.SPELL_RECIPE.getId().getPath(), mcLoc("item/written_book"));
+        basicItem(AMItems.ETHERIUM_PLACEHOLDER);
         blockItem(AMItems.OCCULUS);
         basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1);
         basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_2);

@@ -29,6 +29,10 @@
       "item": {
         "tag": "minecraft:walls"
       }
+    },
+    {
+      "type": "arsmagicalegacy:etherium",
+      "count": 2500
     }
   ]
 }

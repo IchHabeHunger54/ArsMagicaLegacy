@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
@@ -16,10 +17,11 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public interface AMDataComponents {
     // @formatter:off
-    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Affinity>>>   AFFINITY    = register(AMRegistries.DATA_COMPONENTS, "affinity",    Affinity.CODEC,   ByteBufCodecs.holderRegistry(AMRegistryKeys.AFFINITY));
-    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<SkillPoint>>> SKILL_POINT = register(AMRegistries.DATA_COMPONENTS, "skill_point", SkillPoint.CODEC, ByteBufCodecs.holderRegistry(AMRegistryKeys.SKILL_POINT));
-    DeferredHolder<DataComponentType<?>, DataComponentType<Spell>>              SPELL       = register(AMRegistries.DATA_COMPONENTS, "spell",       Spell.CODEC,      Spell.STREAM_CODEC);
-    DeferredHolder<DataComponentType<?>, DataComponentType<Integer>>            TIER        = register(AMRegistries.DATA_COMPONENTS, "tier",        Codec.INT,        ByteBufCodecs.INT);
+    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Affinity>>>     AFFINITY      = register(AMRegistries.DATA_COMPONENTS, "affinity",      Affinity.CODEC,     ByteBufCodecs.holderRegistry(AMRegistryKeys.AFFINITY));
+    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<EtheriumType>>> ETHERIUM_TYPE = register(AMRegistries.DATA_COMPONENTS, "etherium_type", EtheriumType.CODEC, ByteBufCodecs.holderRegistry(AMRegistryKeys.ETHERIUM_TYPE));
+    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<SkillPoint>>>   SKILL_POINT   = register(AMRegistries.DATA_COMPONENTS, "skill_point",   SkillPoint.CODEC,   ByteBufCodecs.holderRegistry(AMRegistryKeys.SKILL_POINT));
+    DeferredHolder<DataComponentType<?>, DataComponentType<Spell>>                SPELL         = register(AMRegistries.DATA_COMPONENTS, "spell",         Spell.CODEC,        Spell.STREAM_CODEC);
+    DeferredHolder<DataComponentType<?>, DataComponentType<Integer>>              TIER          = register(AMRegistries.DATA_COMPONENTS, "tier",          Codec.INT,          ByteBufCodecs.INT);
 
     DeferredHolder<DataComponentType<?>, DataComponentType<Integer>>     SPELL_COLOR  = register(AMRegistries.DATA_COMPONENTS, "spell_color",  Codec.INT, ByteBufCodecs.INT);
     DeferredHolder<DataComponentType<?>, DataComponentType<SpellDamage>> SPELL_DAMAGE = register(AMRegistries.DATA_COMPONENTS, "spell_damage", SpellDamage.CODEC);

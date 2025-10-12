@@ -33,6 +33,11 @@
       "item": {
         "item": "arsmagicalegacy:tarma_root"
       }
+    },
+    {
+      "type": "arsmagicalegacy:etherium",
+      "count": 5000,
+      "etherium_type": "arsmagicalegacy:light"
     }
   ]
 }

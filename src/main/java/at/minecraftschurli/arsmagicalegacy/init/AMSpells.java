@@ -8,6 +8,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStatModifier;
 import at.minecraftschurli.arsmagicalegacy.spell.ColorModifier;
+import at.minecraftschurli.arsmagicalegacy.spell.EtheriumSpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.spell.ItemSpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.spell.SpellModifiers;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Attract;
@@ -77,6 +78,7 @@ import java.util.function.Supplier;
 
 public interface AMSpells {
     DeferredHolder<MapCodec<? extends SpellIngredient>, MapCodec<ItemSpellIngredient>> ITEM_SPELL_INGREDIENT = AMRegistries.SPELL_INGREDIENTS.register("item", () -> ItemSpellIngredient.CODEC);
+    DeferredHolder<MapCodec<? extends SpellIngredient>, MapCodec<EtheriumSpellIngredient>> ETHERIUM_SPELL_INGREDIENT = AMRegistries.SPELL_INGREDIENTS.register("etherium", () -> EtheriumSpellIngredient.CODEC);
     DeferredHolder<EntityDataSerializer<?>, EntityDataSerializer<Spell>> DATA_SERIALIZER = AMRegistries.DATA_SERIALIZERS.register("spell", () -> EntityDataSerializer.forValueType(Spell.STREAM_CODEC));
 
     // @formatter:off

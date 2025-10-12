@@ -8,6 +8,10 @@
       "item": {
         "item": "minecraft:tnt"
       }
+    },
+    {
+      "type": "arsmagicalegacy:etherium",
+      "count": 1
     }
   ]
 }

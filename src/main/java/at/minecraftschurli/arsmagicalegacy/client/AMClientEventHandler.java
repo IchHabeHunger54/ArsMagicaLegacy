@@ -38,6 +38,7 @@ import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInView
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.OrbitPointController;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.AltarCoreRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.EmptyRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.renderer.EtheriumSpellIngredientRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.ItemSpellIngredientRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.SpellItemRenderer;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
@@ -76,6 +77,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
@@ -156,6 +158,12 @@ final class AMClientEventHandler {
         event.registerItem(new SpellItemRenderer(), AMItems.SPELL);
     }
 
+    @SuppressWarnings("DataFlowIssue")
+    @SubscribeEvent
+    private static void registerColorHandlersItem(RegisterColorHandlersEvent.Item event) {
+        event.register((stack, tintIndex) -> tintIndex == 0 && stack.has(AMDataComponents.ETHERIUM_TYPE) ? 0xff000000 | stack.get(AMDataComponents.ETHERIUM_TYPE).value().color() : -1, AMItems.ETHERIUM_PLACEHOLDER);
+    }
+
     @SubscribeEvent
     private static void registerParticleProviders(RegisterParticleProvidersEvent event) {
         // @formatter:off
@@ -213,6 +221,7 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void registerSpellIngredientRenderers(RegisterSpellIngredientRenderersEvent event) {
         event.register(AMSpells.ITEM_SPELL_INGREDIENT.get(), ItemSpellIngredientRenderer.INSTANCE);
+        event.register(AMSpells.ETHERIUM_SPELL_INGREDIENT.get(), EtheriumSpellIngredientRenderer.INSTANCE);
     }
 
     @SubscribeEvent

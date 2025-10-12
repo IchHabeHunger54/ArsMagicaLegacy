@@ -3,12 +3,15 @@ package at.minecraftschurli.arsmagicalegacy.datagen.data;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
+import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.data.SpellPartDataProvider;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
+import at.minecraftschurli.arsmagicalegacy.init.AMEtheriumTypes;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import at.minecraftschurli.arsmagicalegacy.spell.EtheriumSpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.spell.ItemSpellIngredient;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
@@ -32,20 +35,21 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
     @Override
     public void generate(HolderLookup.Provider provider) {
         HolderLookup.RegistryLookup<Affinity> affinities = provider.lookupOrThrow(AMRegistryKeys.AFFINITY);
+        HolderLookup.RegistryLookup<EtheriumType> etheriumTypes = provider.lookupOrThrow(AMRegistryKeys.ETHERIUM_TYPE);
         builder(AMSpells.AREA_OF_EFFECT, 2f)
-            .ingredient(new ItemSpellIngredient(Ingredient.of(Items.TNT), 1));
-            //.ingredient(new EtheriumSpellIngredient(EtheriumType.ANY, 1));
+            .ingredient(new ItemSpellIngredient(Ingredient.of(Items.TNT), 1))
+            .ingredient(new EtheriumSpellIngredient(1));
         builder(AMSpells.BEAM, 1f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMTags.Items.GEMS_TOPAZ), 1))
-            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.AUM.get()), 1));
-            //.ingredient(new EtheriumSpellIngredient(EtheriumType.LIGHT, 2500));
+            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.AUM.get()), 1))
+            .ingredient(new EtheriumSpellIngredient(etheriumTypes.getOrThrow(AMEtheriumTypes.LIGHT), 2500));
         builder(AMSpells.CHAIN, 1f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMTags.Items.GEMS_TOPAZ), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.AUM.get()), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(Tags.Items.STRINGS), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(Items.LEAD), 1))
-            .ingredient(new ItemSpellIngredient(Ingredient.of(Items.TRIPWIRE_HOOK), 1));
-            //.ingredient(new EtheriumSpellIngredient(EtheriumType.LIGHT, 2500));
+            .ingredient(new ItemSpellIngredient(Ingredient.of(Items.TRIPWIRE_HOOK), 1))
+            .ingredient(new EtheriumSpellIngredient(etheriumTypes.getOrThrow(AMEtheriumTypes.LIGHT), 2500));
         builder(AMSpells.CHANNEL, 0.5f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMTags.Items.DUSTS_VINTEUM), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.CERUBLOSSOM.get()), 1));
@@ -53,32 +57,32 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
             .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.LIGHTNING), AMItems.AFFINITY_ESSENCE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMTags.Items.GEMS_MOONSTONE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(Items.CLOCK), 1))
-            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.TARMA_ROOT.get()), 1));
-            //.ingredient(new EtheriumSpellIngredient(EtheriumType.ANY, 5000));
+            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.TARMA_ROOT.get()), 1))
+            .ingredient(new EtheriumSpellIngredient(5000));
         builder(AMSpells.CONTINGENCY_DEATH, 10f)
             .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.ENDER), AMItems.AFFINITY_ESSENCE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMTags.Items.GEMS_TOPAZ), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(Items.CLOCK), 1))
-            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.TARMA_ROOT.get()), 1));
-            //.ingredient(new EtheriumSpellIngredient(EtheriumType.DARK, 5000));
+            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.TARMA_ROOT.get()), 1))
+            .ingredient(new EtheriumSpellIngredient(etheriumTypes.getOrThrow(AMEtheriumTypes.DARK), 5000));
         builder(AMSpells.CONTINGENCY_FALL, 10f)
             .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.AIR), AMItems.AFFINITY_ESSENCE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMTags.Items.DUSTS_VINTEUM), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(Items.CLOCK), 1))
-            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.TARMA_ROOT.get()), 1));
-            //.ingredient(new EtheriumSpellIngredient(EtheriumType.ANY, 5000));
+            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.TARMA_ROOT.get()), 1))
+            .ingredient(new EtheriumSpellIngredient(5000));
         builder(AMSpells.CONTINGENCY_FIRE, 10f)
             .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.FIRE), AMItems.AFFINITY_ESSENCE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMTags.Items.GEMS_SUNSTONE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(Items.CLOCK), 1))
-            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.TARMA_ROOT.get()), 1));
-            //.ingredient(new EtheriumSpellIngredient(EtheriumType.ANY, 5000));
+            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.TARMA_ROOT.get()), 1))
+            .ingredient(new EtheriumSpellIngredient(5000));
         builder(AMSpells.CONTINGENCY_HEALTH, 10f)
             .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.LIFE), AMItems.AFFINITY_ESSENCE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMTags.Items.GEMS_CHIMERITE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(Items.CLOCK), 1))
-            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.TARMA_ROOT.get()), 1));
-            //.ingredient(new EtheriumSpellIngredient(EtheriumType.LIGHT, 5000));
+            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.TARMA_ROOT.get()), 1))
+            .ingredient(new EtheriumSpellIngredient(etheriumTypes.getOrThrow(AMEtheriumTypes.LIGHT), 5000));
         builder(AMSpells.PROJECTILE, 1f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMTags.Items.DUSTS_VINTEUM), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(Items.ARROW), 1))
@@ -101,17 +105,17 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMTags.Items.DUSTS_VINTEUM), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(Tags.Items.FENCES_WOODEN), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.MAGIC_WALL.get()), 1))
-            .ingredient(new ItemSpellIngredient(Ingredient.of(ItemTags.WALLS), 1));
-            //.ingredient(new EtheriumSpellIngredient(EtheriumType.ANY, 2500));
+            .ingredient(new ItemSpellIngredient(Ingredient.of(ItemTags.WALLS), 1))
+            .ingredient(new EtheriumSpellIngredient(2500));
         builder(AMSpells.WAVE, 2.5f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMTags.Items.DUSTS_VINTEUM), 1))
-            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.MAGIC_WALL.get()), 1));
-            //.ingredient(new EtheriumSpellIngredient(EtheriumType.ANY, 2500));
+            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.MAGIC_WALL.get()), 1))
+            .ingredient(new EtheriumSpellIngredient(2500));
         builder(AMSpells.ZONE, 2.5f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMTags.Items.GEMS_MOONSTONE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMTags.Items.GEMS_SUNSTONE), 1))
-            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.TARMA_ROOT.get()), 1));
-            //.ingredient(new EtheriumSpellIngredient(EnumSet.of(EtheriumType.LIGHT, EtheriumType.NEUTRAL, EtheriumType.DARK), 2500));
+            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.TARMA_ROOT.get()), 1))
+            .ingredient(new EtheriumSpellIngredient(2500));
         builder(AMSpells.DROWNING_DAMAGE, 25f)
             .affinity(affinities.getOrThrow(AMMagic.WATER), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.BLACK_RUNE), 1))
@@ -448,8 +452,8 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.GRAY_RUNE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMTags.Items.GEMS_CHIMERITE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMTags.Items.DUSTS_PURIFIED_VINTEUM), 1))
-            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.CERUBLOSSOM.get()), 1));
-            //.ingredient(new EtheriumSpellIngredient(EtheriumType.DARK, 2500));
+            .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.CERUBLOSSOM.get()), 1))
+            .ingredient(new EtheriumSpellIngredient(etheriumTypes.getOrThrow(AMEtheriumTypes.DARK), 2500));
         //builder(AMSpells.TELEKINESIS, 5f)
         //    .affinity(affinities.getOrThrow(AMMagic.ARCANE), 0.001f)
         //    .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.PURPLE_RUNE), 1))

@@ -44,6 +44,7 @@ import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -133,6 +134,10 @@ public final class AMUtil {
 
     public static <T> T getByTick(T[] array, int tick) {
         return array[tick % array.length];
+    }
+
+    public static <T> T getByTick(List<T> list, int tick) {
+        return list.get(tick % list.size());
     }
 
     public static VoxelShape joinShapes(VoxelShape first, VoxelShape... others) {

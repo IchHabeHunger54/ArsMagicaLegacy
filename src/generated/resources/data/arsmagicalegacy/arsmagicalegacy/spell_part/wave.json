@@ -15,6 +15,10 @@
       "item": {
         "item": "arsmagicalegacy:magic_wall"
       }
+    },
+    {
+      "type": "arsmagicalegacy:etherium",
+      "count": 2500
     }
   ]
 }

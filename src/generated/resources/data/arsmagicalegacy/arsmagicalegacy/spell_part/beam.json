@@ -15,6 +15,11 @@
       "item": {
         "item": "arsmagicalegacy:aum"
       }
+    },
+    {
+      "type": "arsmagicalegacy:etherium",
+      "count": 2500,
+      "etherium_type": "arsmagicalegacy:light"
     }
   ]
 }

@@ -74,6 +74,7 @@ public interface AMTranslations {
     String SPELL_CAST_SILENCED_KEY             = ArsMagicaApi.MOD_ID + ".spell_cast.silenced";
     String ALTAR_CORE_LOW_POWER_KEY            = "block." + ArsMagicaApi.MOD_ID + ".altar_core.low_power";
     String COMMAND_SKILL_LIST_SEPARATOR_KEY    = "commands." + ArsMagicaApi.MOD_ID + ".skill.list.separator";
+    String ETHERIUM_ANY_KEY                    = "etherium." + ArsMagicaApi.MOD_ID + ".any";
     String INSCRIPTION_TABLE_KEY               = "gui." + ArsMagicaApi.MOD_ID + ".inscription_table";
     String INSCRIPTION_TABLE_CLEAR_KEY         = "gui." + ArsMagicaApi.MOD_ID + ".inscription_table.clear";
     String INSCRIPTION_TABLE_GIVE_SPELL_KEY    = "gui." + ArsMagicaApi.MOD_ID + ".inscription_table.give_spell";
@@ -104,6 +105,7 @@ public interface AMTranslations {
     Component SPELL_CAST_SILENCED             = Component.translatable(SPELL_CAST_SILENCED_KEY);
     Component ALTAR_CORE_LOW_POWER            = Component.translatable(ALTAR_CORE_LOW_POWER_KEY);
     Component COMMAND_SKILL_LIST_SEPARATOR    = Component.translatable(COMMAND_SKILL_LIST_SEPARATOR_KEY);
+    Component ETHERIUM_ANY                    = Component.translatable(ETHERIUM_ANY_KEY);
     Component INSCRIPTION_TABLE               = Component.translatable(INSCRIPTION_TABLE_KEY);
     Component INSCRIPTION_TABLE_CLEAR         = Component.translatable(INSCRIPTION_TABLE_CLEAR_KEY);
     Component INSCRIPTION_TABLE_GIVE_SPELL    = Component.translatable(INSCRIPTION_TABLE_GIVE_SPELL_KEY);

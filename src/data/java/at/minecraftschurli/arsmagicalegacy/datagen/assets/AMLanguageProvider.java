@@ -49,6 +49,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         itemIdTranslation(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3);
         blockIdTranslation(AMBlocks.ALTAR_CORE);
         blockIdTranslation(AMBlocks.MAGIC_WALL);
+        blockIdTranslation(AMBlocks.OBELISK);
         blockIdTranslation(AMBlocks.WIZARDS_CHALK);
         addBlock(AMBlocks.VINTEUM_WALL_TORCH, idTranslation(AMBlocks.VINTEUM_TORCH.getId().getPath()));
         itemIdTranslation(AMItems.SPELL_PARCHMENT);

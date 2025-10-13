@@ -3,18 +3,42 @@ package at.minecraftschurli.arsmagicalegacy.datagen.assets;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.block.WizardsChalkBlock;
 import at.minecraftschurli.arsmagicalegacy.block.altar.AltarCoreBlock;
+import at.minecraftschurli.arsmagicalegacy.block.obelisk.ObeliskBlock;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.VariantBlockStateBuilder;
+import net.neoforged.neoforge.client.model.generators.loaders.ObjModelBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 
+import java.util.List;
+import java.util.function.ToIntFunction;
+import java.util.function.UnaryOperator;
+import java.util.stream.IntStream;
+
 public final class AMBlockStateProvider extends BlockStateProvider {
+    private static final ToIntFunction<Direction> ROTATE_90 = direction -> switch (direction) {
+        case SOUTH -> 90;
+        case WEST -> 180;
+        case NORTH -> 270;
+        default -> 0;
+    };
+    private static final ToIntFunction<Direction> ROTATE_180 = direction -> switch (direction) {
+        case WEST -> 90;
+        case NORTH -> 180;
+        case EAST -> 270;
+        default -> 0;
+    };
+
     public AMBlockStateProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, ArsMagicaApi.MOD_ID, existingFileHelper);
     }
@@ -22,13 +46,27 @@ public final class AMBlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         simpleBlock(AMBlocks.SPELL_LIGHT.get(), models().getExistingFile(mcLoc("block/air")));
-        horizontalBlock(AMBlocks.OCCULUS.get(), models().getExistingFile(ArsMagicaApi.modLoc("block/occulus")));
+        horizontalBlock(AMBlocks.OCCULUS.get(), models().getExistingFile(modLoc("block/occulus")));
         getVariantBuilder(AMBlocks.ALTAR_CORE.get())
             .partialState().with(AltarCoreBlock.FORMED, false).modelForState().modelFile(cubeAll(AMBlocks.ALTAR_CORE.get())).addModel()
-            .partialState().with(AltarCoreBlock.FORMED, true).modelForState().modelFile(models().getExistingFile(ArsMagicaApi.modLoc("block/altar_core_overlay"))).addModel();
-        simpleBlock(AMBlocks.MAGIC_WALL.get(), new ConfiguredModel(models().cubeAll(AMBlocks.MAGIC_WALL.getId().getPath(), AMBlocks.MAGIC_WALL.getId().withPrefix("block/")).renderType("translucent")));
-        wizardsChalkBlock(AMBlocks.WIZARDS_CHALK);
-        torchBlock(AMBlocks.VINTEUM_TORCH, AMBlocks.VINTEUM_WALL_TORCH);
+            .partialState().with(AltarCoreBlock.FORMED, true).modelForState().modelFile(models().getExistingFile(modLoc("block/altar_core_overlay"))).addModel();
+        simpleBlock(AMBlocks.MAGIC_WALL.get(), modelBuilder(models().cubeAll(AMBlocks.MAGIC_WALL.getId().getPath(), AMBlocks.MAGIC_WALL.getId().withPrefix("block/")).renderType("translucent")).build());
+        ResourceLocation obelisk = modLoc("block/obelisk.obj");
+        ResourceLocation stoneBricks = mcLoc("block/stone_bricks");
+        rotatedBlock(AMBlocks.OBELISK, List.of(
+            Pair.of(state -> state.with(ObeliskBlock.PART, ObeliskBlock.Part.LOWER).with(ObeliskBlock.LIT, true), modelBuilder(objModel("obelisk_lit", obelisk).texture("tex", modLoc("block/obelisk_lit")).texture("particle", stoneBricks))),
+            Pair.of(state -> state.with(ObeliskBlock.PART, ObeliskBlock.Part.LOWER).with(ObeliskBlock.LIT, false), modelBuilder(objModel("obelisk", obelisk).texture("tex", modLoc("block/obelisk")).texture("particle", stoneBricks))),
+            Pair.of(state -> state.with(ObeliskBlock.PART, ObeliskBlock.Part.MIDDLE), modelBuilder(particleModel("obelisk_particle", stoneBricks))),
+            Pair.of(state -> state.with(ObeliskBlock.PART, ObeliskBlock.Part.UPPER), modelBuilder(particleModel("obelisk_particle", stoneBricks)))
+        ), ROTATE_180);
+        rotatedBlock(AMBlocks.WIZARDS_CHALK, IntStream.range(0, 16)
+            .mapToObj(i -> Pair.<UnaryOperator<VariantBlockStateBuilder.PartialBlockstate>, ConfiguredModel.Builder<?>>of(
+                state -> state.with(WizardsChalkBlock.VARIANT, i),
+                modelBuilder(models().withExistingParent("wizards_chalk_" + i, "block/rail_flat").texture("rail", modLoc("block/wizards_chalk_" + i)).renderType("translucent")))
+            )
+            .toList(), ROTATE_180);
+        getVariantBuilder(AMBlocks.VINTEUM_TORCH.get()).partialState().setModels(modelBuilder(models().withExistingParent("vinteum_torch", "block/template_torch").texture("torch", modLoc("block/vinteum_torch")).renderType("cutout")).build());
+        rotatedBlock(AMBlocks.VINTEUM_WALL_TORCH, List.of(Pair.of(UnaryOperator.identity(), modelBuilder(models().withExistingParent("vinteum_wall_torch", "block/template_torch_wall").texture("torch", modLoc("block/vinteum_torch")).renderType("cutout")))), ROTATE_90);
         simpleBlock(AMBlocks.CHIMERITE_ORE);
         simpleBlock(AMBlocks.DEEPSLATE_CHIMERITE_ORE);
         simpleBlock(AMBlocks.CHIMERITE_BLOCK);
@@ -116,45 +154,31 @@ public final class AMBlockStateProvider extends BlockStateProvider {
         simpleBlock(pot.get(), models().withExistingParent(pot.getId().getPath(), "block/flower_pot_cross").texture("plant", blockTexture(plant.get())).renderType("cutout"));
     }
 
-    /**
-     * Adds a wizard's chalk model. Uses the block id as the texture name.
-     *
-     * @param block The block to generate the model for.
-     */
-    private void wizardsChalkBlock(DeferredBlock<? extends WizardsChalkBlock> block) {
-        ModelFile[] models = new ModelFile[16];
-        for (int i = 0; i < models.length; i++) {
-            models[i] = models().withExistingParent(block.getId().getPath() + "_" + i, "block/rail_flat").texture("rail", ResourceLocation.fromNamespaceAndPath(block.getId().getNamespace(), "block/" + block.getId().getPath() + "_" + i)).renderType("translucent");
-        }
-        getVariantBuilder(block.get()).forAllStates(state -> {
-            ConfiguredModel.Builder<?> builder = ConfiguredModel.builder().modelFile(models[state.getValue(WizardsChalkBlock.VARIANT)]);
-            return switch (state.getValue(BlockStateProperties.HORIZONTAL_FACING)) {
-                case NORTH -> builder.build();
-                case EAST -> builder.rotationY(90).build();
-                case SOUTH -> builder.rotationY(180).build();
-                case WEST -> builder.rotationY(270).build();
-                default -> new ConfiguredModel[0];
-            };
-        });
+    private BlockModelBuilder particleModel(String name, ResourceLocation particle) {
+        return models().getBuilder(name).texture("particle", particle);
     }
 
-    /**
-     * Adds a torch/wall torch model. Uses the normal torch block id as the texture name.
-     *
-     * @param torch     The torch block to generate the model for.
-     * @param wallTorch The wall torch block to generate the model for.
-     */
-    @SuppressWarnings("SameParameterValue")
-    private void torchBlock(DeferredBlock<?> torch, DeferredBlock<?> wallTorch) {
-        ModelFile file = models().withExistingParent(torch.getId().getPath(), "block/template_torch").texture("torch", modLoc("block/" + torch.getId().getPath())).renderType("cutout");
-        ModelFile wallFile = models().withExistingParent(wallTorch.getId().getPath(), "block/template_torch_wall").texture("torch", modLoc("block/" + torch.getId().getPath())).renderType("cutout");
-        getVariantBuilder(torch.get()).partialState().setModels(ConfiguredModel.builder().modelFile(file).build());
-        getVariantBuilder(wallTorch.get()).forAllStates(state -> switch (state.getValue(BlockStateProperties.HORIZONTAL_FACING)) {
-            case EAST -> ConfiguredModel.builder().modelFile(wallFile).build();
-            case SOUTH -> ConfiguredModel.builder().modelFile(wallFile).rotationY(90).build();
-            case WEST -> ConfiguredModel.builder().modelFile(wallFile).rotationY(180).build();
-            case NORTH -> ConfiguredModel.builder().modelFile(wallFile).rotationY(270).build();
-            default -> new ConfiguredModel[0];
-        });
+    private BlockModelBuilder objModel(String name, ResourceLocation location) {
+        return models().getBuilder(name)
+            .customLoader(ObjModelBuilder::begin)
+            .modelLocation(location.withPrefix("models/"))
+            .emissiveAmbient(false)
+            .automaticCulling(false)
+            .shadeQuads(false)
+            .end();
+    }
+
+    private ConfiguredModel.Builder<?> modelBuilder(ModelFile file) {
+        return ConfiguredModel.builder().modelFile(file);
+    }
+
+    private void rotatedBlock(DeferredBlock<?> block, List<Pair<UnaryOperator<VariantBlockStateBuilder.PartialBlockstate>, ConfiguredModel.Builder<?>>> list, ToIntFunction<Direction> rotation) {
+        VariantBlockStateBuilder builder = getVariantBuilder(block.get());
+        for (Direction direction : Direction.values()) {
+            if (direction.getAxis().isVertical()) continue;
+            for (Pair<UnaryOperator<VariantBlockStateBuilder.PartialBlockstate>, ConfiguredModel.Builder<?>> pair : list) {
+                pair.getFirst().apply(builder.partialState().with(BlockStateProperties.HORIZONTAL_FACING, direction)).setModels(pair.getSecond().rotationY(rotation.applyAsInt(direction)).build());
+            }
+        }
     }
 }

@@ -120,6 +120,15 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('S', Tags.Items.STONES)
             .unlockedBy(getHasName(AMItems.VINTEUM_DUST), has(AMTags.Items.DUSTS_VINTEUM))
             .save(output);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.OBELISK.get())
+            .pattern("VSV")
+            .pattern("SBS")
+            .pattern("VSV")
+            .define('V', AMTags.Items.DUSTS_VINTEUM)
+            .define('S', Tags.Items.STONES)
+            .define('B', ItemTags.STONE_BRICKS)
+            .unlockedBy(getHasName(AMItems.VINTEUM_DUST), has(AMTags.Items.DUSTS_VINTEUM))
+            .save(output);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, AMItems.WIZARDS_CHALK.get())
             .requires(AMTags.Items.DUSTS_VINTEUM)
             .requires(Items.BONE_MEAL)

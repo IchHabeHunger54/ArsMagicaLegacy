@@ -40,6 +40,7 @@ public interface AMItems {
     DeferredItem<InscriptionTableUpgradeItem>                  INSCRIPTION_TABLE_UPGRADE_TIER_3 = AMRegistries.ITEMS.registerItem("inscription_table_upgrade_tier_3", p -> new InscriptionTableUpgradeItem(p, 3));
     DeferredItem<BlockItem>                                    ALTAR_CORE                       = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.ALTAR_CORE);
     DeferredItem<BlockItem>                                    MAGIC_WALL                       = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.MAGIC_WALL);
+    DeferredItem<BlockItem>                                    OBELISK                          = AMRegistries.ITEMS.registerSimpleBlockItem(AMBlocks.OBELISK);
     DeferredItem<WizardsChalkItem>                             WIZARDS_CHALK                    = AMRegistries.ITEMS.registerItem("wizards_chalk", p -> new WizardsChalkItem(AMBlocks.WIZARDS_CHALK.get(), p.stacksTo(1).durability(100)));
     DeferredItem<BlockItem>                                    VINTEUM_TORCH                    = AMRegistries.ITEMS.registerItem("vinteum_torch", p -> new StandingAndWallBlockItem(AMBlocks.VINTEUM_TORCH.get(), AMBlocks.VINTEUM_WALL_TORCH.get(), p, Direction.DOWN));
     DeferredItem<Item>                                         SPELL_PARCHMENT                  = AMRegistries.ITEMS.registerSimpleItem("spell_parchment");

@@ -28,6 +28,7 @@ public interface AMCreativeTabs {
             output.accept(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3);
             output.accept(AMItems.ALTAR_CORE);
             output.accept(AMItems.MAGIC_WALL);
+            output.accept(AMItems.OBELISK);
             output.accept(AMItems.WIZARDS_CHALK);
             output.accept(AMItems.VINTEUM_TORCH);
             output.accept(AMItems.SPELL_PARCHMENT);

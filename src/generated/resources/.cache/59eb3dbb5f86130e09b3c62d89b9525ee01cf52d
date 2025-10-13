@@ -1,4 +1,4 @@
-// 1.21.1	2025-10-02T13:43:36.8478198	Loot Tables
+// 1.21.1	2025-10-13T21:14:33.554897478	Loot Tables
 f0e4c8134bf2f68e1425a328c83498f858e1e26c data/arsmagicalegacy/loot_table/blocks/altar_core.json
 32900dde32312718365d978d0183dc6f16140e5e data/arsmagicalegacy/loot_table/blocks/aum.json
 daf97df4684b563e6463619dc0c459960aa239d5 data/arsmagicalegacy/loot_table/blocks/cerublossom.json
@@ -13,6 +13,7 @@ d42f8f30f5126326214483c5d266fe631b476326 data/arsmagicalegacy/loot_table/blocks/
 2c73e12110810d1dd11b5012c8fe6677cb7c28cc data/arsmagicalegacy/loot_table/blocks/magic_wall.json
 5483c7845bc130ea789bc2ce99a170b494e54b18 data/arsmagicalegacy/loot_table/blocks/moonstone_block.json
 0875d1d17c3754ad135b1a3e8a72be9aa6ebbf8b data/arsmagicalegacy/loot_table/blocks/moonstone_ore.json
+5348bac8f5eeaadc6525882fd7f2fc99b0a0e9b3 data/arsmagicalegacy/loot_table/blocks/obelisk.json
 b20d80adf0ae68d99db6cb1d7bb3c52480fcc7a7 data/arsmagicalegacy/loot_table/blocks/occulus.json
 38cff8a06562e34b720b2feb63d79d91e883cd29 data/arsmagicalegacy/loot_table/blocks/potted_aum.json
 52251cce2ede9f750d77cd838b0ceb1974835f53 data/arsmagicalegacy/loot_table/blocks/potted_cerublossom.json

@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.datagen.data;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableBlock;
+import at.minecraftschurli.arsmagicalegacy.block.obelisk.ObeliskBlock;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
@@ -60,6 +61,7 @@ public final class AMLootTableProvider extends LootTableProvider {
                 .add(LootItem.lootTableItem(block).apply(CopyBlockState.copyState(block).copy(InscriptionTableBlock.TIER)))));
             dropSelf(AMBlocks.ALTAR_CORE.get());
             dropSelf(AMBlocks.MAGIC_WALL.get());
+            add(AMBlocks.OBELISK.get(), block -> createSinglePropConditionTable(block, ObeliskBlock.PART, ObeliskBlock.Part.LOWER));
             add(AMBlocks.WIZARDS_CHALK.get(), noDrop());
             dropSelf(AMBlocks.VINTEUM_TORCH.get());
             dropOther(AMBlocks.VINTEUM_WALL_TORCH.get(), AMBlocks.VINTEUM_TORCH.get());

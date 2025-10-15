@@ -10,8 +10,6 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
-import at.minecraftschurli.arsmagicalegacy.spell.SpellPartDataManager;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -73,10 +71,5 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     @Override
     protected SpellHelper getSpellHelper() {
         return SPELL_HELPER;
-    }
-
-    @Override
-    protected SpellPartData getSpellPartData(SpellPart part) {
-        return SpellPartDataManager.INSTANCE.getOrDefault(spellPartRegistry().getKey(part), SpellPartData.DEFAULT);
     }
 }

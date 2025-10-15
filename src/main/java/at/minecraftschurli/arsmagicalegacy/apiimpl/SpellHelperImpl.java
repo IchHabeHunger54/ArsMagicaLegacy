@@ -30,6 +30,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.arsmagicalegacy.spell.ItemSpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.spell.SpellDamage;
+import at.minecraftschurli.arsmagicalegacy.spell.SpellPartDataManager;
 import at.minecraftschurli.arsmagicalegacy.spell.ToolTiers;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.datafixers.util.Either;
@@ -146,6 +147,11 @@ final class SpellHelperImpl implements SpellHelper {
     @Override
     public Spell castSecondaryOrGrammar(Spell spell, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
         return spell.currentShapeGroup().secondaryShape() != null ? castSecondary(spell, caster, directEntity) : castGrammar(spell, caster, directEntity, hitResult);
+    }
+
+    @Override
+    public SpellPartData getData(SpellPart part) {
+        return SpellPartDataManager.INSTANCE.getOrDefault(ArsMagicaApi.spellPartRegistry().getKey(part), SpellPartData.DEFAULT);
     }
 
     @Override

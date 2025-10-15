@@ -59,7 +59,7 @@ public class Dig extends SpellComponent.CastBlock {
         SpellHelper helper = ArsMagicaApi.spellHelper();
         ManaHelper manaHelper = ArsMagicaApi.manaHelper();
         BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
-        TagKey<Block> incorrectTag = ToolTiers.INSTANCE.get((int) helper.getModifiedStat(AMServerConfig.DIG_TOOL_TIER.get(), AMSpells.MINING_POWER_STAT, modifiers, spell, caster, directEntity, hitResult));
+        TagKey<Block> incorrectTag = helper.getIncorrectTagForToolTier((int) helper.getModifiedStat(AMServerConfig.DIG_TOOL_TIER.get(), AMSpells.MINING_POWER_STAT, modifiers, spell, caster, directEntity, hitResult));
         if (state.requiresCorrectToolForDrops() && state.is(incorrectTag)) return spell;
         double manaCost = hardness * AMServerConfig.DIG_MANA_FACTOR.get();
         if (manaHelper.getMana(caster) <= manaCost || burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) <= manaCost) return spell;

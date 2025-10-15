@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.block.obelisk;
 
+import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.util.StringRepresentableEnum;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -25,6 +26,18 @@ public class ObeliskBlock extends AbstractFurnaceBlock {
         registerDefaultState(defaultBlockState().setValue(PART, Part.LOWER));
     }
 
+    @Nullable
+    public static ObeliskBlockEntity getBlockEntity(Level level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        if (!state.is(AMBlocks.OBELISK)) return null;
+        pos = switch (state.getValue(PART)) {
+            case LOWER -> pos;
+            case MIDDLE -> pos.below();
+            case UPPER -> pos.below(2);
+        };
+        return level.getBlockState(pos).is(AMBlocks.OBELISK) && level.getBlockState(pos).getValue(PART) == Part.LOWER && level.getBlockEntity(pos) instanceof ObeliskBlockEntity blockEntity ? blockEntity : null;
+    }
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
@@ -39,12 +52,15 @@ public class ObeliskBlock extends AbstractFurnaceBlock {
     @Override
     @Nullable
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return null;
+        return state.getValue(PART) == Part.LOWER ? new ObeliskBlockEntity(pos, state) : null;
     }
 
     @Override
     protected void openContainer(Level level, BlockPos pos, Player player) {
-
+        ObeliskBlockEntity blockEntity = getBlockEntity(level, pos);
+        if (blockEntity != null) {
+            player.openMenu(blockEntity, buf -> buf.writeBlockPos(pos));
+        }
     }
 
     @Override

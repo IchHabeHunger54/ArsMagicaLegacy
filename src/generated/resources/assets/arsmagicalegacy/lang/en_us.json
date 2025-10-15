@@ -409,6 +409,7 @@
   "gui.arsmagicalegacy.inscription_table.give_spell": "Give Spell",
   "gui.arsmagicalegacy.inscription_table.name": "Name",
   "gui.arsmagicalegacy.inscription_table.search": "Search",
+  "gui.arsmagicalegacy.obelisk": "Obelisk",
   "gui.arsmagicalegacy.occulus": "Occulus",
   "gui.arsmagicalegacy.occulus.ability": "%s (%s - %s)",
   "gui.arsmagicalegacy.occulus.details": "Hold Shift for details",

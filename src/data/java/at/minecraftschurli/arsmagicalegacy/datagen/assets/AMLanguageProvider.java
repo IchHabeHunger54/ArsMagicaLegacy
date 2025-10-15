@@ -639,6 +639,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.NO_TELEPORT_KEY, "You are too distorted to teleport!");
         add(AMTranslations.NO_TELEPORT_NETHER_KEY, "The nether's force forbids to simply teleport out of it!");
         add(AMTranslations.NO_TELEPORT_OTHER_KEY, "The target is too distorted to be teleported!");
+        add(AMTranslations.OBELISK_KEY, "Obelisk");
         add(AMTranslations.OCCULUS_ABILITY_KEY, "%s (%s - %s)");
         add(AMTranslations.OCCULUS_DETAILS_KEY, "Hold Shift for details");
         add(AMTranslations.OCCULUS_FORGET_ALL_KEY, "Forget All");

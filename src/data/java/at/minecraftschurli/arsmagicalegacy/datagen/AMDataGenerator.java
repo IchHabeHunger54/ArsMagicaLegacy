@@ -15,6 +15,7 @@ import at.minecraftschurli.arsmagicalegacy.datagen.data.AMAdvancementProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMBlockTagsProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMDamageTypeProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMDamageTypeTagsProvider;
+import at.minecraftschurli.arsmagicalegacy.datagen.data.AMDataMapProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMEntityTypeTagsProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMEtheriumTypeProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMGlobalLootModifierProvider;
@@ -73,6 +74,7 @@ final class AMDataGenerator {
             .add(AMRegistryKeys.ABILITY, AMAbilityProvider::addAbilities),
             Set.of(ArsMagicaApi.MOD_ID))).getRegistryProvider();
         generator.addProvider(event.includeServer(), new AMAdvancementProvider(output, lookupProvider, existingFileHelper));
+        generator.addProvider(event.includeServer(), new AMDataMapProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), new AMGlobalLootModifierProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), new AMLootTableProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), new AMRecipeProvider(output, lookupProvider));

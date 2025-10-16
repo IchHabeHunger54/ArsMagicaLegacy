@@ -62,9 +62,12 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -93,6 +96,8 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 
+import java.util.HashMap;
+
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID)
 final class AMEventHandler {
     private AMEventHandler() {
@@ -100,6 +105,26 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void commonSetup(FMLCommonSetupEvent event) {
+        // TODO 1.21.2+ replace strippables with data map
+        AxeItem.STRIPPABLES = new HashMap<>(AxeItem.STRIPPABLES);
+        AxeItem.STRIPPABLES.put(AMBlocks.WITCHWOOD_LOG.get(), AMBlocks.STRIPPED_WITCHWOOD_LOG.get());
+        AxeItem.STRIPPABLES.put(AMBlocks.WITCHWOOD.get(), AMBlocks.STRIPPED_WITCHWOOD.get());
+        FireBlock fire = (FireBlock) Blocks.FIRE;
+        fire.setFlammable(AMBlocks.WITCHWOOD_LOG.get(), 5, 5);
+        fire.setFlammable(AMBlocks.WITCHWOOD.get(), 5, 5);
+        fire.setFlammable(AMBlocks.STRIPPED_WITCHWOOD_LOG.get(), 5, 5);
+        fire.setFlammable(AMBlocks.STRIPPED_WITCHWOOD.get(), 5, 5);
+        fire.setFlammable(AMBlocks.WITCHWOOD_PLANKS.get(), 5, 20);
+        fire.setFlammable(AMBlocks.WITCHWOOD_SLAB.get(), 5, 20);
+        fire.setFlammable(AMBlocks.WITCHWOOD_STAIRS.get(), 5, 20);
+        fire.setFlammable(AMBlocks.WITCHWOOD_FENCE.get(), 5, 20);
+        fire.setFlammable(AMBlocks.WITCHWOOD_FENCE_GATE.get(), 5, 20);
+        fire.setFlammable(AMBlocks.WITCHWOOD_LEAVES.get(), 30, 60);
+        fire.setFlammable(AMBlocks.AUM.get(), 60, 100);
+        fire.setFlammable(AMBlocks.CERUBLOSSOM.get(), 60, 100);
+        fire.setFlammable(AMBlocks.DESERT_NOVA.get(), 60, 100);
+        fire.setFlammable(AMBlocks.TARMA_ROOT.get(), 60, 100);
+        fire.setFlammable(AMBlocks.WAKEBLOOM.get(), 60, 100);
         AMMultiblocks.init();
     }
 

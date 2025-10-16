@@ -8,7 +8,6 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -107,14 +106,6 @@ public abstract class ArsMagicaApi {
         return INSTANCE.get().getSpellHelper();
     }
 
-    /**
-     * @param part The {@link SpellPart} to get the {@link SpellPartData} for.
-     * @return A {@link SpellPartData} instance.
-     */
-    public static SpellPartData spellPartData(SpellPart part) {
-        return INSTANCE.get().getSpellPartData(part);
-    }
-
     @ApiStatus.Internal
     protected abstract ItemStack getBook();
 
@@ -141,7 +132,4 @@ public abstract class ArsMagicaApi {
 
     @ApiStatus.Internal
     protected abstract SpellHelper getSpellHelper();
-
-    @ApiStatus.Internal
-    protected abstract SpellPartData getSpellPartData(SpellPart part);
 }

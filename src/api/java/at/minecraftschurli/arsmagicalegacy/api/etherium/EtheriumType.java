@@ -9,6 +9,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.RegistryFileCodec;
 
+/**
+ * Represents an etherium type.
+ *
+ * @param color The color of the etherium type.
+ */
 public record EtheriumType(int color) {
     public static final Codec<EtheriumType> DIRECT_CODEC = RecordCodecBuilder.create(inst -> inst.group(
         Codec.INT.fieldOf("color").forGetter(EtheriumType::color)

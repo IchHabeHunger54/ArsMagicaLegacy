@@ -1,5 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
+import at.minecraftschurli.arsmagicalegacy.api.etherium.ObeliskFuel;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -24,5 +26,9 @@ public class AMDataMapProvider extends DataMapProvider {
             .add(AMItems.DESERT_NOVA.getId(), new Compostable(0.65f, false), false)
             .add(AMItems.TARMA_ROOT.getId(), new Compostable(0.65f, false), false)
             .add(AMItems.WAKEBLOOM.getId(), new Compostable(0.65f, false), false);
+        builder(ObeliskFuel.DATA_MAP)
+            .add(AMTags.Items.DUSTS_VINTEUM, new ObeliskFuel(200, 1), false)
+            .add(AMTags.Items.STORAGE_BLOCKS_VINTEUM, new ObeliskFuel(900, 2), false);
+            //.add(AMItems.LIQUID_ESSENCE_BUCKET.get(), new ObeliskFuel(1000, 2));
     }
 }

@@ -16,6 +16,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityHelper;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
+import at.minecraftschurli.arsmagicalegacy.api.etherium.ObeliskFuel;
 import at.minecraftschurli.arsmagicalegacy.api.event.ManaCostCalculationEvent;
 import at.minecraftschurli.arsmagicalegacy.api.event.SpellCastEvent;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
@@ -95,6 +96,7 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
+import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 
 import java.util.HashMap;
 
@@ -157,6 +159,11 @@ final class AMEventHandler {
     private static void addReloadListener(AddReloadListenerEvent event) {
         event.addListener(SpellPartDataManager.INSTANCE);
         event.addListener(ToolTiers.INSTANCE);
+    }
+
+    @SubscribeEvent
+    private static void registerDataMapTypes(RegisterDataMapTypesEvent event) {
+        event.register(ObeliskFuel.DATA_MAP);
     }
 
     @SubscribeEvent

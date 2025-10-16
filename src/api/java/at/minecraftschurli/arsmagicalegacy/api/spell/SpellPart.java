@@ -48,7 +48,7 @@ public abstract sealed class SpellPart permits PrimarySpellShape, SecondarySpell
      * @return The spell part's datapack-defined data.
      */
     public SpellPartData getData() {
-        return ArsMagicaApi.spellPartData(this);
+        return ArsMagicaApi.spellHelper().getData(this);
     }
 
     /**

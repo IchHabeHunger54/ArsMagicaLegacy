@@ -71,6 +71,12 @@ public interface SpellHelper {
     Spell castSecondaryOrGrammar(Spell spell, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult);
 
     /**
+     * @param part The {@link SpellPart} to get the {@link SpellPartData} for.
+     * @return The {@link SpellPartData} for the specified {@link SpellPart}.
+     */
+    SpellPartData getData(SpellPart part);
+
+    /**
      * Calculates the modifier-changed value from the base value.
      *
      * @param base         The base value to use.

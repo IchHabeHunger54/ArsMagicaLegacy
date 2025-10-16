@@ -1,0 +1,12 @@
+{
+  "values": {
+    "#c:dusts/vinteum": {
+      "burn_time": 200,
+      "etherium_per_tick": 1
+    },
+    "#c:storage_blocks/vinteum": {
+      "burn_time": 900,
+      "etherium_per_tick": 2
+    }
+  }
+}

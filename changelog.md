@@ -21,6 +21,7 @@
 - The Altar now accepts Shulker Boxes, Rune Bags and other container items, and will pull spell ingredients from them
 - Rune Bags can no longer be inserted into Shulker Boxes or similar containers
 - Affinity abilities now use an effect system that can be modified via datapacks
+- Made various witchwood and flower blocks/items flammable, compostable and strippable where appropriate
 - Various minor balancing tweaks
 
 # Removals

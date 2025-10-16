@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.block.obelisk;
 
-import at.minecraftschurli.arsmagicalegacy.init.AMItems;
+import at.minecraftschurli.arsmagicalegacy.api.etherium.ObeliskFuel;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -12,6 +12,6 @@ public class ObeliskSlot extends Slot {
 
     @Override
     public boolean mayPlace(ItemStack stack) {
-        return stack.is(AMItems.VINTEUM_DUST);//TODO
+        return ObeliskFuel.isFuel(stack);
     }
 }

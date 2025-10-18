@@ -11,7 +11,7 @@ import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
 
 import java.util.concurrent.CompletableFuture;
 
-public class AMDataMapProvider extends DataMapProvider {
+public final class AMDataMapProvider extends DataMapProvider {
     public AMDataMapProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(packOutput, lookupProvider);
     }

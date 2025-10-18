@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.block.obelisk;
 
+import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.util.StringRepresentableEnum;
 import com.mojang.serialization.MapCodec;
@@ -18,8 +19,13 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.Nullable;
 
 public class ObeliskBlock extends AbstractFurnaceBlock {
-    private static final MapCodec<ObeliskBlock> CODEC = simpleCodec(ObeliskBlock::new);
     public static final EnumProperty<Part> PART = EnumProperty.create("part", Part.class);
+    private static final MapCodec<ObeliskBlock> CODEC = simpleCodec(ObeliskBlock::new);
+    private static final BlockEntityTicker<?> TICKER = (level, pos, state, blockEntity) -> {
+        if (blockEntity instanceof ObeliskBlockEntity obelisk) {
+            obelisk.tick(level, pos, state);
+        }
+    };
 
     public ObeliskBlock(Properties properties) {
         super(properties);
@@ -63,10 +69,11 @@ public class ObeliskBlock extends AbstractFurnaceBlock {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return super.getTicker(level, state, blockEntityType);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return type == AMBlockEntities.OBELISK.get() && state.getValue(PART) == Part.LOWER ? (BlockEntityTicker<T>) TICKER : null;
     }
 
     @Override

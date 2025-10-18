@@ -8,7 +8,7 @@ import net.minecraft.tags.BlockTags;
 
 import java.util.concurrent.CompletableFuture;
 
-public class AMToolTierProvider extends ToolTierProvider {
+public final class AMToolTierProvider extends ToolTierProvider {
     public AMToolTierProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(output, lookupProvider, ArsMagicaApi.MOD_ID);
     }

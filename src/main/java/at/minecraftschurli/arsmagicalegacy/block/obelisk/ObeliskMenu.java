@@ -66,4 +66,12 @@ public class ObeliskMenu extends AbstractContainerMenu {
     public boolean stillValid(Player player) {
         return blockEntity.stillValid(player);
     }
+
+    public boolean isLit() {
+        return blockEntity.isLit();
+    }
+
+    public float getLitProgress() {
+        return blockEntity.getLitProgress();
+    }
 }

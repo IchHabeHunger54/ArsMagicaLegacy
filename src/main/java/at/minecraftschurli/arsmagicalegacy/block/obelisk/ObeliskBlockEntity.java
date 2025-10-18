@@ -251,4 +251,12 @@ public class ObeliskBlockEntity extends BlockEntity implements MenuProvider, Nam
         setChanged();
         return amount - min;
     }
+
+    public boolean isLit() {
+        return maxBurnTime > 0;
+    }
+
+    public float getLitProgress() {
+        return isLit() ? (float) burnTime / maxBurnTime : 0;
+    }
 }

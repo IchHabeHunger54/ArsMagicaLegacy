@@ -6,6 +6,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 
 public class ObeliskScreen extends AbstractContainerScreen<ObeliskMenu> {
@@ -18,6 +19,10 @@ public class ObeliskScreen extends AbstractContainerScreen<ObeliskMenu> {
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         guiGraphics.blit(BACKGROUND, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        if (menu.isLit()) {
+            int lit = Mth.ceil(menu.getLitProgress() * 13) + 1;
+            guiGraphics.blit(BACKGROUND, leftPos + 80, topPos + 45 - lit, 176, 14 - lit, 14, lit);
+        }
     }
 
     @Override

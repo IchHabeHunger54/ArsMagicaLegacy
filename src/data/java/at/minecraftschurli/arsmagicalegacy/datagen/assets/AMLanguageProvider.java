@@ -629,6 +629,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.COMMAND_SKILL_POINT_SET_MULTIPLE_KEY, "Set %s skill points of type %s on %s players");
         add(AMTranslations.COMMAND_SKILL_POINT_SET_SINGLE_KEY, "Set %s skill points of type %s on player %s");
         add(AMTranslations.ETHERIUM_ANY_KEY, "Any Etherium");
+        add(AMTranslations.ETHERIUM_KEY, "%s: %s / %s");
         add(AMTranslations.INSCRIPTION_TABLE_CLEAR_KEY, "Clear");
         add(AMTranslations.INSCRIPTION_TABLE_GIVE_SPELL_KEY, "Give Spell");
         add(AMTranslations.INSCRIPTION_TABLE_KEY, "Inscription Table");
@@ -666,6 +667,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.SPELL_RECIPE_SHAPE_GROUP_KEY, "Shape Group %s");
         add(AMTranslations.SPELL_TOOLTIP_INVALID_KEY, "Spell is malformed and cannot be cast!");
         add(AMTranslations.SPELL_TOOLTIP_MANA_COST_KEY, "Mana Cost: %s");
+        add("config.jade.plugin_arsmagicalegacy.etherium", "Etherium");
         add("itemGroup." + ArsMagicaApi.MOD_ID, "Ars Magica: Legacy");
         add("potion.potency.5", "VI");
         add("potion.potency.6", "VII");

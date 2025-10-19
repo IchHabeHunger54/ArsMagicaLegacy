@@ -63,6 +63,7 @@ public interface AMTranslations {
     String KEY_CATEGORY_KEY                          = "key.categories." + ArsMagicaApi.MOD_ID;
 
     String ABILITY_SEPARATOR_KEY               = ArsMagicaApi.MOD_ID + ".ability.separator";
+    String ETHERIUM_KEY                        = ArsMagicaApi.MOD_ID + ".etherium";
     String NO_TELEPORT_KEY                     = ArsMagicaApi.MOD_ID + ".no_teleport";
     String NO_TELEPORT_NETHER_KEY              = ArsMagicaApi.MOD_ID + ".no_teleport_nether";
     String NO_TELEPORT_OTHER_KEY               = ArsMagicaApi.MOD_ID + ".no_teleport_other";

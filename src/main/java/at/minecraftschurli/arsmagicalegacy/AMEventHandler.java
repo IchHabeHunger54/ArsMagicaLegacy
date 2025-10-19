@@ -13,6 +13,7 @@ import at.minecraftschurli.arsmagicalegacy.ability.ThornsAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.ability.Ability;
 import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityHelper;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMCapabilities;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
@@ -35,6 +36,7 @@ import at.minecraftschurli.arsmagicalegacy.compat.patchouli.AMMultiblocks;
 import at.minecraftschurli.arsmagicalegacy.effect.AMMobEffect;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
+import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
@@ -177,6 +179,7 @@ final class AMEventHandler {
     @SubscribeEvent
     private static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerItem(Capabilities.ItemHandler.ITEM, RuneBagItem::getItemHandler, AMItems.RUNE_BAG);
+        event.registerBlockEntity(AMCapabilities.BLOCK_ETHERIUM, AMBlockEntities.OBELISK.get(), (obelisk, $) -> obelisk);
     }
 
     @SubscribeEvent

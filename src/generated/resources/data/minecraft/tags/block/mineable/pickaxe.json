@@ -1,6 +1,9 @@
 {
   "values": [
     "arsmagicalegacy:occulus",
+    "arsmagicalegacy:altar_core",
+    "arsmagicalegacy:magic_wall",
+    "arsmagicalegacy:obelisk",
     "arsmagicalegacy:chimerite_ore",
     "arsmagicalegacy:deepslate_chimerite_ore",
     "arsmagicalegacy:chimerite_block",

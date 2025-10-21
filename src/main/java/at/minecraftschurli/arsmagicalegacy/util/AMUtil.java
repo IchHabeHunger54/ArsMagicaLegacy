@@ -15,6 +15,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -201,5 +202,13 @@ public final class AMUtil {
             hitResult = entityHitResult;
         }
         return hitResult;
+    }
+
+    public static <T> NonNullList<T> nonNullList(T defaultValue, T... entries) {
+        NonNullList<T> list = NonNullList.withSize(entries.length, defaultValue);
+        for (int i = 0; i < entries.length; i++) {
+            list.set(i, entries[i]);
+        }
+        return list;
     }
 }

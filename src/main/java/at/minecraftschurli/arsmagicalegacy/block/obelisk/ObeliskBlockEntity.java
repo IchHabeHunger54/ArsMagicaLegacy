@@ -7,6 +7,7 @@ import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.ObeliskFuel;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMEtheriumTypes;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -52,7 +53,7 @@ public class ObeliskBlockEntity extends BlockEntity implements MenuProvider, Nam
 
     public void tick(Level level, BlockPos pos, BlockState state) {
         if (burnTime > 0) {
-            etherium += etheriumPerTick;
+            etherium = Math.clamp(etherium + etheriumPerTick, 0, getMaxAmount());
             burnTime--;
             setChanged();
         }
@@ -112,7 +113,7 @@ public class ObeliskBlockEntity extends BlockEntity implements MenuProvider, Nam
         super.applyImplicitComponents(componentInput);
         name = componentInput.get(DataComponents.CUSTOM_NAME);
         lockCode = componentInput.getOrDefault(DataComponents.LOCK, LockCode.NO_LOCK);
-        componentInput.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY).copyInto(NonNullList.copyOf(List.of(stack)));
+        componentInput.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY).copyInto(AMUtil.nonNullList(ItemStack.EMPTY, stack));
     }
 
     @Override
@@ -258,5 +259,9 @@ public class ObeliskBlockEntity extends BlockEntity implements MenuProvider, Nam
 
     public float getLitProgress() {
         return isLit() ? (float) burnTime / maxBurnTime : 0;
+    }
+
+    private int getMaxAmount() {
+        return AMServerConfig.OBELISK_MAX_ETHERIUM.get();
     }
 }

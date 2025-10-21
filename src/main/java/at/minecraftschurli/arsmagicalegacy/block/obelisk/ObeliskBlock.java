@@ -16,6 +16,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.PushReaction;
 import org.jetbrains.annotations.Nullable;
 
 public class ObeliskBlock extends AbstractFurnaceBlock {
@@ -77,8 +79,55 @@ public class ObeliskBlock extends AbstractFurnaceBlock {
     }
 
     @Override
+    @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
+        Level level = context.getLevel();
+        for (int i = 0; i <= 2; i++) {
+            BlockPos pos = context.getClickedPos().above(i);
+            if (level.isOutsideBuildHeight(pos) || !level.getBlockState(pos).canBeReplaced(context)) return null;
+        }
         return super.getStateForPlacement(context).setValue(FACING, context.getHorizontalDirection().getOpposite());
+    }
+
+    @Override
+    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+        if (state.getValue(PART) != Part.LOWER) return;
+        level.setBlockAndUpdate(pos.above(), state.setValue(PART, Part.MIDDLE));
+        level.setBlockAndUpdate(pos.above(2), state.setValue(PART, Part.UPPER));
+    }
+
+    @Override
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+        Part part = state.getValue(PART);
+        BlockPos pos0 = switch (part) {
+            case UPPER -> pos.below();
+            case MIDDLE -> pos.above();
+            case LOWER -> pos.above(2);
+        };
+        BlockPos pos1 = switch (part) {
+            case UPPER -> pos.below(2);
+            case MIDDLE -> pos.below();
+            case LOWER -> pos.above();
+        };
+        destroy(level, player, pos0);
+        destroy(level, player, pos1);
+        return super.playerWillDestroy(level, pos, state, player);
+    }
+
+    @Override
+    public PushReaction getPistonPushReaction(BlockState state) {
+        return PushReaction.BLOCK;
+    }
+
+    private void destroy(Level level, Player player, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        if (!state.is(this)) return;
+        level.removeBlock(pos, false);
+        spawnDestroyParticles(level, player, pos, state);
+        level.gameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Context.of(player, state));
+        if (!level.isClientSide()) {
+            dropResources(state, level, pos, level.getBlockEntity(pos));
+        }
     }
 
     public enum Part implements StringRepresentableEnum {

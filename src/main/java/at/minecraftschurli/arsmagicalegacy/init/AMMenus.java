@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
-import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableMenu;
-import at.minecraftschurli.arsmagicalegacy.item.runebag.RuneBagMenu;
+import at.minecraftschurli.arsmagicalegacy.menu.InscriptionTableMenu;
+import at.minecraftschurli.arsmagicalegacy.menu.RuneBagMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.registries.DeferredHolder;

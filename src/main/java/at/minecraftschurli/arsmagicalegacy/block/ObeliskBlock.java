@@ -1,6 +1,7 @@
-package at.minecraftschurli.arsmagicalegacy.block.obelisk;
+package at.minecraftschurli.arsmagicalegacy.block;
 
 import at.minecraftschurli.arsmagicalegacy.api.etherium.ObeliskFuel;
+import at.minecraftschurli.arsmagicalegacy.blockentity.ObeliskBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.util.StringRepresentableEnum;

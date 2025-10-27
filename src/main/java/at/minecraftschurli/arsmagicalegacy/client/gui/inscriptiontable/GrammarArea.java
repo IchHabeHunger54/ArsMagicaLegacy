@@ -2,7 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable;
 
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
-import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableData;
+import at.minecraftschurli.arsmagicalegacy.blockentity.InscriptionTableBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Holder;
@@ -47,7 +47,7 @@ public class GrammarArea extends DragTargetArea {
         return part.isComponent() && contents.stream().noneMatch(e -> e.getSkill().getKey() == skill.getKey()) || part.isModifier() && !contents.isEmpty() && AMUtil.spellPart(contents.getFirst().getSkill()).value().isComponent();
     }
 
-    public void setFromData(InscriptionTableData data) {
+    public void setFromData(InscriptionTableBlockEntity.Data data) {
         contents.clear();
         data.grammar()
             .stream()

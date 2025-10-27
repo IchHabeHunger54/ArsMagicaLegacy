@@ -11,7 +11,7 @@ import at.minecraftschurli.arsmagicalegacy.item.DrinkItem;
 import at.minecraftschurli.arsmagicalegacy.item.SpellItem;
 import at.minecraftschurli.arsmagicalegacy.item.SpellRecipeItem;
 import at.minecraftschurli.arsmagicalegacy.item.WizardsChalkItem;
-import at.minecraftschurli.arsmagicalegacy.item.runebag.RuneBagItem;
+import at.minecraftschurli.arsmagicalegacy.item.RuneBagItem;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;

@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.client.gui;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.item.runebag.RuneBagMenu;
+import at.minecraftschurli.arsmagicalegacy.menu.RuneBagMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;

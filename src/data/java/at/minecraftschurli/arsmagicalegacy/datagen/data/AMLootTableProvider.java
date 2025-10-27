@@ -2,8 +2,8 @@ package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
-import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableBlock;
-import at.minecraftschurli.arsmagicalegacy.block.obelisk.ObeliskBlock;
+import at.minecraftschurli.arsmagicalegacy.block.InscriptionTableBlock;
+import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;

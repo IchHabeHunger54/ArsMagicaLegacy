@@ -1,26 +1,44 @@
 package at.minecraftschurli.arsmagicalegacy.block.obelisk;
 
+import at.minecraftschurli.arsmagicalegacy.api.etherium.ObeliskFuel;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.util.StringRepresentableEnum;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AbstractFurnaceBlock;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class ObeliskBlock extends AbstractFurnaceBlock {
+public class ObeliskBlock extends BaseEntityBlock {
+    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final EnumProperty<Part> PART = EnumProperty.create("part", Part.class);
     private static final MapCodec<ObeliskBlock> CODEC = simpleCodec(ObeliskBlock::new);
     private static final BlockEntityTicker<?> TICKER = (level, pos, state, blockEntity) -> {
@@ -31,7 +49,7 @@ public class ObeliskBlock extends AbstractFurnaceBlock {
 
     public ObeliskBlock(Properties properties) {
         super(properties);
-        registerDefaultState(defaultBlockState().setValue(PART, Part.LOWER));
+        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, false).setValue(PART, Part.LOWER));
     }
 
     @Nullable
@@ -47,35 +65,14 @@ public class ObeliskBlock extends AbstractFurnaceBlock {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        super.createBlockStateDefinition(builder);
-        builder.add(PART);
-    }
-
-    @Override
-    protected MapCodec<? extends AbstractFurnaceBlock> codec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
     @Override
-    @Nullable
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return state.getValue(PART) == Part.LOWER ? new ObeliskBlockEntity(pos, state) : null;
-    }
-
-    @Override
-    protected void openContainer(Level level, BlockPos pos, Player player) {
-        ObeliskBlockEntity blockEntity = getBlockEntity(level, pos);
-        if (blockEntity != null) {
-            player.openMenu(blockEntity, buf -> buf.writeBlockPos(pos));
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return type == AMBlockEntities.OBELISK.get() && state.getValue(PART) == Part.LOWER ? (BlockEntityTicker<T>) TICKER : null;
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(FACING, LIT, PART);
     }
 
     @Override
@@ -86,7 +83,7 @@ public class ObeliskBlock extends AbstractFurnaceBlock {
             BlockPos pos = context.getClickedPos().above(i);
             if (level.isOutsideBuildHeight(pos) || !level.getBlockState(pos).canBeReplaced(context)) return null;
         }
-        return super.getStateForPlacement(context).setValue(FACING, context.getHorizontalDirection().getOpposite());
+        return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
     @Override
@@ -115,8 +112,79 @@ public class ObeliskBlock extends AbstractFurnaceBlock {
     }
 
     @Override
+    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if (state.is(newState.getBlock())) return;
+        BlockEntity blockentity = level.getBlockEntity(pos);
+        if (blockentity instanceof ObeliskBlockEntity obelisk) {
+            if (level instanceof ServerLevel) {
+                Containers.dropContents(level, pos, obelisk);
+            }
+            super.onRemove(state, level, pos, newState, movedByPiston);
+            level.updateNeighbourForOutputSignal(pos, this);
+        } else {
+            super.onRemove(state, level, pos, newState, movedByPiston);
+        }
+    }
+
+    @Override
+    protected BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    protected BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (!ObeliskFuel.isFuel(stack)) return ItemInteractionResult.CONSUME;
+        ObeliskBlockEntity blockEntity = getBlockEntity(level, pos);
+        if (blockEntity == null) return ItemInteractionResult.CONSUME;
+        ItemStack slotStack = blockEntity.getItem(0).copy();
+        if (!slotStack.isEmpty() && !ItemStack.isSameItemSameComponents(slotStack, stack)) return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+        if (slotStack.isEmpty()) {
+            blockEntity.setItem(0, stack.copyWithCount(1));
+        } else {
+            slotStack.grow(1);
+            blockEntity.setItem(0, slotStack);
+        }
+        stack.shrink(1);
+        return ItemInteractionResult.SUCCESS;
+    }
+
+    @Override
+    protected boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
+    @Override
+    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+        return AbstractContainerMenu.getRedstoneSignalFromContainer(getBlockEntity(level, pos));
+    }
+
+    @Override
+    protected RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
+    }
+
+    @Override
     public PushReaction getPistonPushReaction(BlockState state) {
         return PushReaction.BLOCK;
+    }
+
+    @Override
+    @Nullable
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return state.getValue(PART) == Part.LOWER ? new ObeliskBlockEntity(pos, state) : null;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return type == AMBlockEntities.OBELISK.get() && state.getValue(PART) == Part.LOWER ? (BlockEntityTicker<T>) TICKER : null;
     }
 
     private void destroy(Level level, Player player, BlockPos pos) {

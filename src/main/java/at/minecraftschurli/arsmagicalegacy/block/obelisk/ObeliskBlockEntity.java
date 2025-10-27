@@ -37,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ObeliskBlockEntity extends BlockEntity implements MenuProvider, Nameable, StackedContentsCompatible, WorldlyContainer, EtheriumHandler {
+public class ObeliskBlockEntity extends BlockEntity implements Nameable, StackedContentsCompatible, WorldlyContainer, EtheriumHandler {
     private static final int[] SLOTS = new int[]{0};
     private LockCode lockCode = LockCode.NO_LOCK;
     private ItemStack stack = ItemStack.EMPTY;
@@ -208,12 +208,6 @@ public class ObeliskBlockEntity extends BlockEntity implements MenuProvider, Nam
     @Override
     public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
         return canTakeItem(this, index, stack);
-    }
-
-    @Override
-    @Nullable
-    public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return BaseContainerBlockEntity.canUnlock(player, lockCode, getDisplayName()) ? new ObeliskMenu(containerId, playerInventory, this) : null;
     }
 
     @Override

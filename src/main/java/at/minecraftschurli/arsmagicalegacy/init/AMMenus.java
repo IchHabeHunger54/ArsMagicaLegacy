@@ -1,7 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableMenu;
-import at.minecraftschurli.arsmagicalegacy.block.obelisk.ObeliskMenu;
 import at.minecraftschurli.arsmagicalegacy.item.runebag.RuneBagMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
@@ -9,7 +8,6 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 
 public interface AMMenus {
     DeferredHolder<MenuType<?>, MenuType<InscriptionTableMenu>> INSCRIPTION_TABLE = AMRegistries.MENUS.register("inscription_table", () -> IMenuTypeExtension.create(InscriptionTableMenu::new));
-    DeferredHolder<MenuType<?>, MenuType<ObeliskMenu>>          OBELISK           = AMRegistries.MENUS.register("obelisk",           () -> IMenuTypeExtension.create(ObeliskMenu::new));
     DeferredHolder<MenuType<?>, MenuType<RuneBagMenu>>          RUNE_BAG          = AMRegistries.MENUS.register("rune_bag",          () -> IMenuTypeExtension.create(RuneBagMenu::new));
 
     /**

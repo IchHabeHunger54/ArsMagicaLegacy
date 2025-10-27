@@ -4,7 +4,6 @@ import at.minecraftschurli.arsmagicalegacy.api.etherium.ObeliskFuel;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.util.StringRepresentableEnum;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -16,11 +15,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -36,11 +34,10 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class ObeliskBlock extends BaseEntityBlock {
+public class ObeliskBlock extends Block implements EntityBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final EnumProperty<Part> PART = EnumProperty.create("part", Part.class);
-    private static final MapCodec<ObeliskBlock> CODEC = simpleCodec(ObeliskBlock::new);
     private static final BlockEntityTicker<?> TICKER = (level, pos, state, blockEntity) -> {
         if (blockEntity instanceof ObeliskBlockEntity obelisk) {
             obelisk.tick(level, pos, state);
@@ -62,11 +59,6 @@ public class ObeliskBlock extends BaseEntityBlock {
             case UPPER -> pos.below(2);
         };
         return level.getBlockState(pos).is(AMBlocks.OBELISK) && level.getBlockState(pos).getValue(PART) == Part.LOWER && level.getBlockEntity(pos) instanceof ObeliskBlockEntity blockEntity ? blockEntity : null;
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Override
@@ -162,11 +154,6 @@ public class ObeliskBlock extends BaseEntityBlock {
     @Override
     protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
         return AbstractContainerMenu.getRedstoneSignalFromContainer(getBlockEntity(level, pos));
-    }
-
-    @Override
-    protected RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
     }
 
     @Override

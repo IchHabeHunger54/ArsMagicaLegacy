@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.item;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
-import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableBlock;
+import at.minecraftschurli.arsmagicalegacy.block.InscriptionTableBlock;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;

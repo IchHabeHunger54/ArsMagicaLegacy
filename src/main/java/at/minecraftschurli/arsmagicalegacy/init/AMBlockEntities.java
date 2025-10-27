@@ -1,8 +1,8 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
-import at.minecraftschurli.arsmagicalegacy.block.altar.AltarCoreBlockEntity;
-import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableBlockEntity;
-import at.minecraftschurli.arsmagicalegacy.block.obelisk.ObeliskBlockEntity;
+import at.minecraftschurli.arsmagicalegacy.blockentity.AltarCoreBlockEntity;
+import at.minecraftschurli.arsmagicalegacy.blockentity.InscriptionTableBlockEntity;
+import at.minecraftschurli.arsmagicalegacy.blockentity.ObeliskBlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;

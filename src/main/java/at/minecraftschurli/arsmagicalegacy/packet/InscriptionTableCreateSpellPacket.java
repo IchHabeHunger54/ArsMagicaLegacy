@@ -2,7 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.packet;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
-import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableBlockEntity;
+import at.minecraftschurli.arsmagicalegacy.blockentity.InscriptionTableBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;

@@ -5,8 +5,8 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
-import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableData;
-import at.minecraftschurli.arsmagicalegacy.block.inscriptiontable.InscriptionTableMenu;
+import at.minecraftschurli.arsmagicalegacy.blockentity.InscriptionTableBlockEntity;
+import at.minecraftschurli.arsmagicalegacy.menu.InscriptionTableMenu;
 import at.minecraftschurli.arsmagicalegacy.packet.InscriptionTableCreateSpellPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.InscriptionTableSyncPacket;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
@@ -42,7 +42,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     private GrammarArea grammarArea;
     private EditBox searchBar;
     private EditBox nameBar;
-    private InscriptionTableData cachedData;
+    private InscriptionTableBlockEntity.Data cachedData;
 
     public InscriptionTableScreen(InscriptionTableMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -200,7 +200,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     }
 
     private void sync() {
-        InscriptionTableData data = new InscriptionTableData(
+        InscriptionTableBlockEntity.Data data = new InscriptionTableBlockEntity.Data(
             Optional.of(Component.literal(nameBar.getValue())),
             grammarArea.getVisible().stream().map(Draggable::getSkill).toList(),
             shapeGroupAreas.stream().map(area -> area.getVisible().stream().map(Draggable::getSkill).toList()).toList());
@@ -245,7 +245,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     }
 
     private void updateCachedData() {
-        InscriptionTableData data = menu.getBlockEntity().getData();
+        InscriptionTableBlockEntity.Data data = menu.getBlockEntity().getData();
         if (data == cachedData) return;
         cachedData = data;
         cachedData.name().ifPresent(name -> nameBar.setValue(name.getString()));

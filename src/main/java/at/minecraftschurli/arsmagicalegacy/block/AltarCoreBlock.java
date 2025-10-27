@@ -1,5 +1,6 @@
-package at.minecraftschurli.arsmagicalegacy.block.altar;
+package at.minecraftschurli.arsmagicalegacy.block;
 
+import at.minecraftschurli.arsmagicalegacy.blockentity.AltarCoreBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;

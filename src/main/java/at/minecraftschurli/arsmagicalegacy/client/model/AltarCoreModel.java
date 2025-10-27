@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.client.model;
 
-import at.minecraftschurli.arsmagicalegacy.block.altar.AltarCoreBlock;
-import at.minecraftschurli.arsmagicalegacy.block.altar.AltarCoreBlockEntity;
+import at.minecraftschurli.arsmagicalegacy.block.AltarCoreBlock;
+import at.minecraftschurli.arsmagicalegacy.blockentity.AltarCoreBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;

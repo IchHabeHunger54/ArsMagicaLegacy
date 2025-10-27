@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.compat.jade;
 
-import at.minecraftschurli.arsmagicalegacy.block.obelisk.ObeliskBlock;
-import at.minecraftschurli.arsmagicalegacy.block.obelisk.ObeliskBlockEntity;
+import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
+import at.minecraftschurli.arsmagicalegacy.blockentity.ObeliskBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;

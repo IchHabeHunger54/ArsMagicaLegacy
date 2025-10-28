@@ -1,7 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.blockentity;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumHandler;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.ObeliskFuel;
@@ -17,10 +16,8 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
 import net.minecraft.world.LockCode;
-import net.minecraft.world.Nameable;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.StackedContents;
@@ -34,11 +31,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ObeliskBlockEntity extends BlockEntity implements Nameable, StackedContentsCompatible, WorldlyContainer, EtheriumHandler {
+public class ObeliskBlockEntity extends BlockEntity implements StackedContentsCompatible, WorldlyContainer, EtheriumHandler {
     private static final int[] SLOTS = new int[]{0};
     private LockCode lockCode = LockCode.NO_LOCK;
     private ItemStack stack = ItemStack.EMPTY;
-    private Component name;
     private int etherium;
     private int burnTime;
     private int maxBurnTime;
@@ -79,9 +75,6 @@ public class ObeliskBlockEntity extends BlockEntity implements Nameable, Stacked
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         lockCode = LockCode.fromTag(tag);
-        if (tag.contains("CustomName", CompoundTag.TAG_STRING)) {
-            name = parseCustomNameSafe(tag.getString("CustomName"), registries);
-        }
         stack = ItemStack.parseOptional(registries, tag.getCompound("Item"));
         etherium = tag.getInt("Etherium");
         burnTime = tag.getInt("BurnTime");
@@ -93,9 +86,6 @@ public class ObeliskBlockEntity extends BlockEntity implements Nameable, Stacked
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         lockCode.addToTag(tag);
-        if (name != null) {
-            tag.putString("CustomName", Component.Serializer.toJson(name, registries));
-        }
         if (!stack.isEmpty()) {
             tag.put("Item", stack.save(registries));
         }
@@ -108,7 +98,6 @@ public class ObeliskBlockEntity extends BlockEntity implements Nameable, Stacked
     @Override
     protected void applyImplicitComponents(BlockEntity.DataComponentInput componentInput) {
         super.applyImplicitComponents(componentInput);
-        name = componentInput.get(DataComponents.CUSTOM_NAME);
         lockCode = componentInput.getOrDefault(DataComponents.LOCK, LockCode.NO_LOCK);
         componentInput.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY).copyInto(AMUtil.nonNullList(ItemStack.EMPTY, stack));
     }
@@ -116,7 +105,6 @@ public class ObeliskBlockEntity extends BlockEntity implements Nameable, Stacked
     @Override
     protected void collectImplicitComponents(DataComponentMap.Builder components) {
         super.collectImplicitComponents(components);
-        components.set(DataComponents.CUSTOM_NAME, name);
         if (!lockCode.equals(LockCode.NO_LOCK)) {
             components.set(DataComponents.LOCK, lockCode);
         }
@@ -126,7 +114,6 @@ public class ObeliskBlockEntity extends BlockEntity implements Nameable, Stacked
     @SuppressWarnings("deprecation")
     @Override
     public void removeComponentsFromTag(CompoundTag tag) {
-        tag.remove("CustomName");
         tag.remove("Lock");
         tag.remove("Items");
     }
@@ -180,16 +167,6 @@ public class ObeliskBlockEntity extends BlockEntity implements Nameable, Stacked
     @Override
     public void clearContent() {
         stack = ItemStack.EMPTY;
-    }
-
-    @Override
-    public Component getName() {
-        return name == null ? AMTranslations.OBELISK : name;
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return getName();
     }
 
     @Override

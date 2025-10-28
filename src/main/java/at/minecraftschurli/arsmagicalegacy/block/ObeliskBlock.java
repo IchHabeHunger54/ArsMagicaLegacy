@@ -68,6 +68,7 @@ public class ObeliskBlock extends Block implements EntityBlock {
         builder.add(FACING, LIT, PART);
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
@@ -76,7 +77,7 @@ public class ObeliskBlock extends Block implements EntityBlock {
             BlockPos pos = context.getClickedPos().above(i);
             if (level.isOutsideBuildHeight(pos) || !level.getBlockState(pos).canBeReplaced(context)) return null;
         }
-        return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+        return super.getStateForPlacement(context).setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
     @Override

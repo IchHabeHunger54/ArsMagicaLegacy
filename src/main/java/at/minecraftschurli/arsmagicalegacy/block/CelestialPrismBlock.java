@@ -6,6 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.util.StringRepresentableEnum;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,8 +26,8 @@ public class CelestialPrismBlock extends Block implements EntityBlock {
     public static final EnumProperty<Part> PART = EnumProperty.create("part", Part.class);
     private static final VoxelShape SHAPE = Block.box(2, 0, 2, 14, 16, 14);
     private static final BlockEntityTicker<?> TICKER = (level, pos, state, blockEntity) -> {
-        if (blockEntity instanceof CelestialPrismBlockEntity obelisk) {
-            obelisk.tick(level, pos, state);
+        if (blockEntity instanceof CelestialPrismBlockEntity celestialPrism) {
+            celestialPrism.tick(level, pos, state);
         }
     };
 
@@ -90,6 +92,11 @@ public class CelestialPrismBlock extends Block implements EntityBlock {
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return type == AMBlockEntities.CELESTIAL_PRISM.get() && state.getValue(PART) == Part.LOWER ? (BlockEntityTicker<T>) TICKER : null;
+    }
+
+    @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SHAPE;
     }
 
     public enum Part implements StringRepresentableEnum {

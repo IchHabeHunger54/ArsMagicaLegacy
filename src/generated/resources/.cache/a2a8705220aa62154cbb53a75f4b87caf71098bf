@@ -1,4 +1,4 @@
-// 1.21.1	2025-10-21T15:28:49.295687533	Tags for minecraft:block mod id arsmagicalegacy
+// 1.21.1	2025-10-28T17:13:48.039802365	Tags for minecraft:block mod id arsmagicalegacy
 69c396cb051bbe9a130e6979b67065e5041b179d data/arsmagicalegacy/tags/block/aum_plantable_on.json
 69c396cb051bbe9a130e6979b67065e5041b179d data/arsmagicalegacy/tags/block/cerublossom_plantable_on.json
 c1b2a217bb3fcb7e1d67f5bc45409796720bd171 data/arsmagicalegacy/tags/block/desert_nova_plantable_on.json
@@ -25,7 +25,7 @@ dbe9773da22a20dd3089a9aac5ed7aa9cf81495c data/minecraft/tags/block/flower_pots.j
 cd4ee8afe25cbc17263f3bcd49ba4402450d4b66 data/minecraft/tags/block/leaves.json
 cc20d8d43b66ef761c1f2d6f55740085c58a35f3 data/minecraft/tags/block/logs.json
 13fa2ab7615e61b9438130d4c436430370b2acf0 data/minecraft/tags/block/mineable/axe.json
-db2718524dac24d63280834d62c50b4844699964 data/minecraft/tags/block/mineable/pickaxe.json
+7ec8400909104fa0f1bee71a5af50618726b6228 data/minecraft/tags/block/mineable/pickaxe.json
 74f13af5245edcd85eb79b9ddba0e16a3b9dcff4 data/minecraft/tags/block/needs_diamond_tool.json
 e60ce640b03c19e40fc4fd591174c0bb5f6849d1 data/minecraft/tags/block/needs_iron_tool.json
 f6c680cbfc60669a0327e55fe8ab003710752a68 data/minecraft/tags/block/needs_stone_tool.json

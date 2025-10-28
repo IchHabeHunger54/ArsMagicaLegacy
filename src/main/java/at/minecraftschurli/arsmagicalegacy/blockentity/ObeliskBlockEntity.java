@@ -219,7 +219,7 @@ public class ObeliskBlockEntity extends BlockEntity implements Nameable, Stacked
 
     @Override
     public int getMaxAmount(Holder<EtheriumType> type) {
-        return type.is(AMEtheriumTypes.NEUTRAL) ? AMServerConfig.OBELISK_MAX_ETHERIUM.get() : 0;
+        return type.is(AMEtheriumTypes.NEUTRAL) ? getMaxAmount() : 0;
     }
 
     @Override
@@ -242,14 +242,6 @@ public class ObeliskBlockEntity extends BlockEntity implements Nameable, Stacked
         etherium -= min;
         setChanged();
         return amount - min;
-    }
-
-    public boolean isLit() {
-        return maxBurnTime > 0;
-    }
-
-    public float getLitProgress() {
-        return isLit() ? (float) burnTime / maxBurnTime : 0;
     }
 
     private int getMaxAmount() {

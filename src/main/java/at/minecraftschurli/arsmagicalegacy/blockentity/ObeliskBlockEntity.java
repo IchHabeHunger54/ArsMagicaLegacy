@@ -32,8 +32,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ObeliskBlockEntity extends BlockEntity implements StackedContentsCompatible, WorldlyContainer, EtheriumHandler {
+    private static final String ITEMS_KEY = "Items";
+    private static final String ETHERIUM_KEY = "etherium";
+    private static final String BURN_TIME_KEY = "burn_time";
+    private static final String MAX_BURN_TIME_KEY = "max_burn_time";
+    private static final String ETHERIUM_PER_TICK_KEY = "etherium_per_tick";
     private static final int[] SLOTS = new int[]{0};
-    private LockCode lockCode = LockCode.NO_LOCK;
     private ItemStack stack = ItemStack.EMPTY;
     private int etherium;
     private int burnTime;
@@ -74,48 +78,41 @@ public class ObeliskBlockEntity extends BlockEntity implements StackedContentsCo
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        lockCode = LockCode.fromTag(tag);
-        stack = ItemStack.parseOptional(registries, tag.getCompound("Item"));
-        etherium = tag.getInt("Etherium");
-        burnTime = tag.getInt("BurnTime");
-        maxBurnTime = tag.getInt("MaxBurnTime");
-        etheriumPerTick = tag.getInt("EtheriumPerTick");
+        stack = ItemStack.parseOptional(registries, tag.getCompound(ITEMS_KEY));
+        etherium = tag.getInt(ETHERIUM_KEY);
+        burnTime = tag.getInt(BURN_TIME_KEY);
+        maxBurnTime = tag.getInt(MAX_BURN_TIME_KEY);
+        etheriumPerTick = tag.getInt(ETHERIUM_PER_TICK_KEY);
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
-        lockCode.addToTag(tag);
         if (!stack.isEmpty()) {
-            tag.put("Item", stack.save(registries));
+            tag.put(ITEMS_KEY, stack.save(registries));
         }
-        tag.putInt("Etherium", etherium);
-        tag.putInt("BurnTime", burnTime);
-        tag.putInt("MaxBurnTime", maxBurnTime);
-        tag.putInt("EtheriumPerTick", etheriumPerTick);
+        tag.putInt(ETHERIUM_KEY, etherium);
+        tag.putInt(BURN_TIME_KEY, burnTime);
+        tag.putInt(MAX_BURN_TIME_KEY, maxBurnTime);
+        tag.putInt(ETHERIUM_PER_TICK_KEY, etheriumPerTick);
     }
 
     @Override
     protected void applyImplicitComponents(BlockEntity.DataComponentInput componentInput) {
         super.applyImplicitComponents(componentInput);
-        lockCode = componentInput.getOrDefault(DataComponents.LOCK, LockCode.NO_LOCK);
         componentInput.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY).copyInto(AMUtil.nonNullList(ItemStack.EMPTY, stack));
     }
 
     @Override
     protected void collectImplicitComponents(DataComponentMap.Builder components) {
         super.collectImplicitComponents(components);
-        if (!lockCode.equals(LockCode.NO_LOCK)) {
-            components.set(DataComponents.LOCK, lockCode);
-        }
         components.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(NonNullList.copyOf(List.of(stack))));
     }
 
     @SuppressWarnings("deprecation")
     @Override
     public void removeComponentsFromTag(CompoundTag tag) {
-        tag.remove("Lock");
-        tag.remove("Items");
+        tag.remove(ITEMS_KEY);
     }
 
     @Override

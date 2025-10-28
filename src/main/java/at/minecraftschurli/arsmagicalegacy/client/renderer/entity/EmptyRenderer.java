@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.client.renderer;
+package at.minecraftschurli.arsmagicalegacy.client.renderer.entity;
 
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

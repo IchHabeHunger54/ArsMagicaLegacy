@@ -1,6 +1,7 @@
-// 1.21.1	2025-10-13T21:14:33.554897478	Loot Tables
+// 1.21.1	2025-10-28T16:12:08.844442714	Loot Tables
 f0e4c8134bf2f68e1425a328c83498f858e1e26c data/arsmagicalegacy/loot_table/blocks/altar_core.json
 32900dde32312718365d978d0183dc6f16140e5e data/arsmagicalegacy/loot_table/blocks/aum.json
+f502b9f2d3ee30de052cda0b3988eae4f3056b08 data/arsmagicalegacy/loot_table/blocks/celestial_prism.json
 daf97df4684b563e6463619dc0c459960aa239d5 data/arsmagicalegacy/loot_table/blocks/cerublossom.json
 8a4deec9686b20594baed24fcf1768c27608a89c data/arsmagicalegacy/loot_table/blocks/chimerite_block.json
 01d926dd5a348f69ef8f38ba7caa201e0e1326ed data/arsmagicalegacy/loot_table/blocks/chimerite_ore.json

@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
+import at.minecraftschurli.arsmagicalegacy.block.CelestialPrismBlock;
 import at.minecraftschurli.arsmagicalegacy.block.InscriptionTableBlock;
 import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
@@ -62,6 +63,7 @@ public final class AMLootTableProvider extends LootTableProvider {
             dropSelf(AMBlocks.ALTAR_CORE.get());
             dropSelf(AMBlocks.MAGIC_WALL.get());
             add(AMBlocks.OBELISK.get(), block -> createSinglePropConditionTable(block, ObeliskBlock.PART, ObeliskBlock.Part.LOWER));
+            add(AMBlocks.CELESTIAL_PRISM.get(), block -> createSinglePropConditionTable(block, CelestialPrismBlock.PART, CelestialPrismBlock.Part.LOWER));
             add(AMBlocks.WIZARDS_CHALK.get(), noDrop());
             dropSelf(AMBlocks.VINTEUM_TORCH.get());
             dropOther(AMBlocks.VINTEUM_WALL_TORCH.get(), AMBlocks.VINTEUM_TORCH.get());

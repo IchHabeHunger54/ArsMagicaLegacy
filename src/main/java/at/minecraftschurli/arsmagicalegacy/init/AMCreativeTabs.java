@@ -29,6 +29,7 @@ public interface AMCreativeTabs {
             output.accept(AMItems.ALTAR_CORE);
             output.accept(AMItems.MAGIC_WALL);
             output.accept(AMItems.OBELISK);
+            output.accept(AMItems.CELESTIAL_PRISM);
             output.accept(AMItems.WIZARDS_CHALK);
             output.accept(AMItems.VINTEUM_TORCH);
             output.accept(AMItems.SPELL_PARCHMENT);

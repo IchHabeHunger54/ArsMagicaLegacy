@@ -50,6 +50,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         blockIdTranslation(AMBlocks.ALTAR_CORE);
         blockIdTranslation(AMBlocks.MAGIC_WALL);
         blockIdTranslation(AMBlocks.OBELISK);
+        blockIdTranslation(AMBlocks.CELESTIAL_PRISM);
         blockIdTranslation(AMBlocks.WIZARDS_CHALK);
         addBlock(AMBlocks.VINTEUM_WALL_TORCH, idTranslation(AMBlocks.VINTEUM_TORCH.getId().getPath()));
         itemIdTranslation(AMItems.SPELL_PARCHMENT);
@@ -427,10 +428,14 @@ public final class AMLanguageProvider extends LanguageProvider {
         skillTranslation(AMMagic.MANA_REGENERATION_BOOST_3.location(), "Mana Regeneration III", "...just to get back every single mana point I have consumed before.", "talents", "Your mana regeneration is boosted by 15%%. This replaces the boosts of $(l:talents/mana_regen_1)Mana Regen I$() and $(l:talents/mana_regen_2)Mana Regen II$().");
         skillTranslation(AMMagic.SHIELD_OVERLOAD.location(), "Shield Overload", "No more wasting excess mana.", "talents", "When your mana bar is full, excess mana regenerated turns into a shield that protects you from 5%% of all incoming damage.");
         skillTranslation(AMMagic.SPELL_MOTION.location(), "Spell Motion", "I like to move it, move it.", "talents", "Manipulating the winds around you, you have found a way to move at normal speed while using spells.");
-        configTranslation("altar_check_interval", "Altar Check Interval", "The time in ticks between multiblock checks for the altar.");
-        configTranslation("inscription_table_in_world_upgrading", "Inscription Table In-World Upgrading", "Whether inscription table upgrading is allowed in-world. If disabled, the upgrades must be applied through crafting.");
         configTranslation("magic_advancement", "Magic Advancement", "Completing this advancement will unlock magic for the player. Leave empty to not require an advancement and have magic unlocked from the start.");
         configTranslation("mana_to_burnout_ratio", "Mana : Burnout Ratio", "The default mana to burnout ratio, used in calculating spell costs.");
+        configTranslation("altar_check_interval", "Altar Check Interval", "The time in ticks between multiblock checks for the altar.");
+        configTranslation("inscription_table_in_world_upgrading", "Inscription Table In-World Upgrading", "Whether inscription table upgrading is allowed in-world. If disabled, the upgrades must be applied through crafting.");
+        configTranslation("obelisk_max_etherium", "Obelisk Max Etherium", "The maximum etherium an Obelisk can store.");
+        configTranslation("celestial_prism_max_etherium", "Celestial Prism Max Etherium", "The maximum etherium a Celestial Prism can store.");
+        configTranslation("celestial_prism_etherium_per_tick", "Celestial Prism Etherium Per Tick", "The etherium a Celestial Prism produces each tick.");
+        configTranslation("black_aurem_max_etherium", "Black Aurem Max Etherium", "The maximum etherium a Black Aurem can store.");
         configTranslation("mana", "Mana", "Configuration for the mana leveling and regeneration of players.");
         configTranslation("mana_base", "Mana Base", "The base value for mana calculation. Mana is calculated as base + multiplier * (level - 1).");
         configTranslation("mana_multiplier", "Mana Multiplier", "The multiplier for mana calculation. Mana is calculated as base + multiplier * (level - 1).");

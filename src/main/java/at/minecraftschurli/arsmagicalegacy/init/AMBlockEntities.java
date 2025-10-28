@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.blockentity.AltarCoreBlockEntity;
+import at.minecraftschurli.arsmagicalegacy.blockentity.CelestialPrismBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.blockentity.InscriptionTableBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.blockentity.ObeliskBlockEntity;
 import net.minecraft.world.level.block.Block;
@@ -15,6 +16,7 @@ public interface AMBlockEntities {
     DeferredHolder<BlockEntityType<?>, BlockEntityType<InscriptionTableBlockEntity>> INSCRIPTION_TABLE = register("inscription_table", InscriptionTableBlockEntity::new, AMBlocks.INSCRIPTION_TABLE);
     DeferredHolder<BlockEntityType<?>, BlockEntityType<AltarCoreBlockEntity>>        ALTAR_CORE        = register("altar_core",        AltarCoreBlockEntity::new,        AMBlocks.ALTAR_CORE);
     DeferredHolder<BlockEntityType<?>, BlockEntityType<ObeliskBlockEntity>>          OBELISK           = register("obelisk",           ObeliskBlockEntity::new,          AMBlocks.OBELISK);
+    DeferredHolder<BlockEntityType<?>, BlockEntityType<CelestialPrismBlockEntity>>   CELESTIAL_PRISM   = register("celestial_prism",   CelestialPrismBlockEntity::new,   AMBlocks.CELESTIAL_PRISM);
 
     @SuppressWarnings("DataFlowIssue")
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>> register(String name, BlockEntityType.BlockEntitySupplier<T> factory, DeferredBlock<?>... blocks) {

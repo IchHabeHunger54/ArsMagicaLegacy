@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.assets;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.block.CelestialPrismBlock;
 import at.minecraftschurli.arsmagicalegacy.block.WizardsChalkBlock;
 import at.minecraftschurli.arsmagicalegacy.block.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
@@ -59,6 +60,9 @@ public final class AMBlockStateProvider extends BlockStateProvider {
             Pair.of(state -> state.with(ObeliskBlock.PART, ObeliskBlock.Part.MIDDLE), modelBuilder(particleModel("obelisk_particle", stoneBricks))),
             Pair.of(state -> state.with(ObeliskBlock.PART, ObeliskBlock.Part.UPPER), modelBuilder(particleModel("obelisk_particle", stoneBricks)))
         ), ROTATE_180);
+        getVariantBuilder(AMBlocks.CELESTIAL_PRISM.get())
+            .partialState().with(CelestialPrismBlock.PART, CelestialPrismBlock.Part.LOWER).setModels(modelBuilder(objModel("celestial_prism", modLoc("block/celestial_prism.obj")).texture("tex", modLoc("block/celestial_prism")).texture("particle", modLoc("block/celestial_prism"))).build())
+            .partialState().with(CelestialPrismBlock.PART, CelestialPrismBlock.Part.UPPER).setModels(modelBuilder(particleModel("celestial_prism_particle", modLoc("block/celestial_prism"))).build());
         rotatedBlock(AMBlocks.WIZARDS_CHALK, IntStream.range(0, 16)
             .mapToObj(i -> Pair.<UnaryOperator<VariantBlockStateBuilder.PartialBlockstate>, ConfiguredModel.Builder<?>>of(
                 state -> state.with(WizardsChalkBlock.VARIANT, i),

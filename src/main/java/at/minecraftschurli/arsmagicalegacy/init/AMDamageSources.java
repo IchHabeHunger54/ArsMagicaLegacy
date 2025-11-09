@@ -10,6 +10,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 
 public interface AMDamageSources {
+    // @formatter:off
     ResourceKey<DamageType> SPELL_DROWNING        = damageType("spell_drowning");
     ResourceKey<DamageType> SPELL_FIRE            = damageType("spell_fire");
     ResourceKey<DamageType> SPELL_FROST           = damageType("spell_frost");
@@ -18,6 +19,7 @@ public interface AMDamageSources {
     ResourceKey<DamageType> SPELL_PHYSICAL        = damageType("spell_physical");
     ResourceKey<DamageType> SPELL_PHYSICAL_PLAYER = damageType("spell_physical_player");
     ResourceKey<DamageType> FALLING_STAR          = damageType("falling_star");
+    // @formatter:on
 
     private static ResourceKey<DamageType> damageType(String name) {
         return ResourceKey.create(Registries.DAMAGE_TYPE, ArsMagicaApi.modLoc(name));

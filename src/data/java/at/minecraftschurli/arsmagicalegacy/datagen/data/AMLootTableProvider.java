@@ -9,7 +9,6 @@ import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
-import at.minecraftschurli.arsmagicalegacy.init.AMRegistries;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -49,7 +48,7 @@ public final class AMLootTableProvider extends LootTableProvider {
 
         @Override
         protected Iterable<Block> getKnownBlocks() {
-            return AMRegistries.BLOCKS.getEntries().stream().map(Holder::value).toList();
+            return AMBlocks.BLOCKS.getEntries().stream().map(Holder::value).toList();
         }
 
         @Override

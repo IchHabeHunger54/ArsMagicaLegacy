@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
+import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
@@ -10,12 +11,15 @@ import at.minecraftschurli.arsmagicalegacy.spell.data.SpellDamage;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public interface AMDataComponents {
+    DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ArsMagicaApi.MOD_ID);
     // @formatter:off
     DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Affinity>>>     AFFINITY      = register("affinity",      Affinity.CODEC,     ByteBufCodecs.holderRegistry(AMRegistryKeys.AFFINITY));
     DeferredHolder<DataComponentType<?>, DataComponentType<Holder<EtheriumType>>> ETHERIUM_TYPE = register("etherium_type", EtheriumType.CODEC, ByteBufCodecs.holderRegistry(AMRegistryKeys.ETHERIUM_TYPE));
@@ -28,17 +32,11 @@ public interface AMDataComponents {
     DeferredHolder<DataComponentType<?>, DataComponentType<RecallPosition>> SPELL_RECALL_POSITION = register("spell_recall_position", RecallPosition.CODEC, RecallPosition.STREAM_CODEC);
     // @formatter:on
 
-    /**
-     * Empty method used for classloading this class.
-     */
-    static void init() {
-    }
-
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, Codec<T> codec) {
-        return AMRegistries.DATA_COMPONENTS.registerComponentType(name, builder -> builder.persistent(codec));
+        return DATA_COMPONENTS.registerComponentType(name, builder -> builder.persistent(codec));
     }
 
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, Codec<T> codec, StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec) {
-        return AMRegistries.DATA_COMPONENTS.registerComponentType(name, builder -> builder.persistent(codec).networkSynchronized(streamCodec));
+        return DATA_COMPONENTS.registerComponentType(name, builder -> builder.persistent(codec).networkSynchronized(streamCodec));
     }
 }

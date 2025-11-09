@@ -1,10 +1,14 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public interface AMSounds {
+    DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(Registries.SOUND_EVENT, ArsMagicaApi.MOD_ID);
+    // @formatter:off
     DeferredHolder<SoundEvent, SoundEvent> ARCANE_GUARDIAN_AMBIENT          = register("entity.arcane_guardian.ambient");
     DeferredHolder<SoundEvent, SoundEvent> ARCANE_GUARDIAN_ATTACK           = register("entity.arcane_guardian.attack");
     DeferredHolder<SoundEvent, SoundEvent> ARCANE_GUARDIAN_DEATH            = register("entity.arcane_guardian.death");
@@ -75,14 +79,9 @@ public interface AMSounds {
     DeferredHolder<SoundEvent, SoundEvent> SPELLCRAFTING_ADD_INGREDIENT     = register("spellcrafting_add_ingredient");
     DeferredHolder<SoundEvent, SoundEvent> SPELLCRAFTING_FINISH             = register("spellcrafting_finish");
     DeferredHolder<SoundEvent, SoundEvent> TAKE_BOOK                        = register("take_book");
+    // @formatter:on
 
     private static DeferredHolder<SoundEvent, SoundEvent> register(String id) {
-        return AMRegistries.SOUND_EVENTS.register(id, () -> SoundEvent.createVariableRangeEvent(ArsMagicaApi.modLoc(id)));
-    }
-
-    /**
-     * Empty method used for classloading this class.
-     */
-    static void init() {
+        return SOUND_EVENTS.register(id, () -> SoundEvent.createVariableRangeEvent(ArsMagicaApi.modLoc(id)));
     }
 }

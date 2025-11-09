@@ -1,7 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.assets;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.init.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
@@ -25,7 +24,7 @@ public final class AMSoundDefinitionProvider extends SoundDefinitionsProvider {
     public void registerSounds() {
         sound(AMSounds.ARCANE_GUARDIAN_ATTACK, 5);
         sound(AMSounds.LIGHTNING_GUARDIAN_LIGHTNING_ROD, 3);
-        AMRegistries.SOUND_EVENTS.getEntries().forEach(this::sound);
+        AMSounds.SOUND_EVENTS.getEntries().forEach(this::sound);
     }
 
     @SuppressWarnings("DataFlowIssue")

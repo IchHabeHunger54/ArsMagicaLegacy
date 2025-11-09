@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.client.renderer;
+package at.minecraftschurli.arsmagicalegacy.client.renderer.block;
 
 import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.SpellIngredientRenderer;

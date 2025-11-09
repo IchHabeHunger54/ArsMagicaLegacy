@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.client.renderer;
+package at.minecraftschurli.arsmagicalegacy.client.renderer.item;
 
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;

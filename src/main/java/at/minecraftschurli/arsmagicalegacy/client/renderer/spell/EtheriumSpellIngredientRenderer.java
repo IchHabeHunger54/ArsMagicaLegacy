@@ -1,8 +1,7 @@
-package at.minecraftschurli.arsmagicalegacy.client.renderer;
+package at.minecraftschurli.arsmagicalegacy.client.renderer.spell;
 
 import at.minecraftschurli.arsmagicalegacy.api.client.SpellIngredientRenderer;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
-import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.spell.EtheriumSpellIngredient;
@@ -13,11 +12,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.core.Holder;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-
-import java.util.List;
 
 public class EtheriumSpellIngredientRenderer implements SpellIngredientRenderer<EtheriumSpellIngredient> {
     public static final EtheriumSpellIngredientRenderer INSTANCE = new EtheriumSpellIngredientRenderer();

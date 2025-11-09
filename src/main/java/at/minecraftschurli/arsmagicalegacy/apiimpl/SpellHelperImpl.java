@@ -139,7 +139,7 @@ final class SpellHelperImpl implements SpellHelper {
         SpellDamage damage = spell.dataComponents().grammar().get(AMDataComponents.SPELL_DAMAGE.get());
         if (damage != null) {
             damage.apply(caster, directEntity);
-            spell.updateDataComponents(components -> components.updateGrammar(grammar -> grammar.remove(AMDataComponents.SPELL_DAMAGE.get())));
+            spell = spell.updateDataComponents(components -> components.updateGrammar(grammar -> grammar.remove(AMDataComponents.SPELL_DAMAGE.get())));
         }
         return spell;
     }

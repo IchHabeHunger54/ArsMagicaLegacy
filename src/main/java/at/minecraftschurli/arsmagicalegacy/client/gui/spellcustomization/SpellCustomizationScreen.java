@@ -39,7 +39,7 @@ public class SpellCustomizationScreen extends Screen {
     protected void init() {
         leftPos = (width - WIDTH) / 2;
         topPos = (height - HEIGHT) / 2;
-        EditBox editBox = addRenderableWidget(new EditBox(AMClientUtil.font(), leftPos, topPos, WIDTH, 20, AMTranslations.SPELL_CUSTOMIZATION_NAME));
+        EditBox editBox = addRenderableWidget(new EditBox(AMClientUtil.font(), leftPos, topPos, WIDTH, 20, AMTranslations.SPELL_CUSTOMIZATION));
         spell.name().ifPresent(name -> editBox.setValue(name.getString()));
         editBox.setResponder(s -> setSpell(s.isEmpty() ? spell.clearName() : spell.setName(Component.literal(s))));
         addRenderableWidget(new SpellIconPanel(leftPos + 9, topPos + 25, 160, 69, this, spell.icon().orElse(null)));

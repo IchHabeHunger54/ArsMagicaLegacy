@@ -11,6 +11,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -67,6 +68,10 @@ public abstract class SpellShapeEntity extends SpellEntity {
 
     public void setSpell(Spell spell) {
         entityData.set(SPELL, spell);
+        LivingEntity owner = getOwner();
+        if (owner != null) {
+            owner.getItemInHand(InteractionHand.MAIN_HAND);
+        }
     }
 
     protected void spawnParticles(Vec3 position) {
@@ -84,10 +89,11 @@ public abstract class SpellShapeEntity extends SpellEntity {
             LivingEntity owner = getOwner();
             EntityHitResult hitResult = new EntityHitResult(entity);
             if (secondary) {
-                ArsMagicaApi.spellHelper().castSecondaryOrGrammar(spell, owner, this, hitResult);
+                spell = ArsMagicaApi.spellHelper().castSecondaryOrGrammar(spell, owner, this, hitResult);
             } else {
-                ArsMagicaApi.spellHelper().castGrammar(spell, owner, this, hitResult);
+                spell = ArsMagicaApi.spellHelper().castGrammar(spell, owner, this, hitResult);
             }
+            setSpell(spell);
         }
     }
 
@@ -108,5 +114,6 @@ public abstract class SpellShapeEntity extends SpellEntity {
             }
             spawnParticles(pos.getBottomCenter());
         });
+        setSpell(spell);
     }
 }

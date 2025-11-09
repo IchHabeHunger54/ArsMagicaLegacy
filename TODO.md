@@ -28,3 +28,4 @@
     - Jade (Etherium Contents, Connected Etherium)
     - JEI (Skill Category)
     - Patchouli
+    - Compat Recipes

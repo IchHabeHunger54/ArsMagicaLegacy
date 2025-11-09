@@ -53,8 +53,10 @@ public class SpellPartButton<T> extends Button {
 
     @Override
     protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        guiGraphics.blit(getX(), getY(), 8, SIZE, SIZE, sprite);
-        if (active) return;
+        if (active) {
+            guiGraphics.blit(getX(), getY(), 16, SIZE, SIZE, sprite);
+            return;
+        }
         guiGraphics.setColor(0.5f, 0.5f, 0.5f, 1);
         RenderSystem.enableBlend();
         guiGraphics.blit(getX(), getY(), 16, SIZE, SIZE, sprite);

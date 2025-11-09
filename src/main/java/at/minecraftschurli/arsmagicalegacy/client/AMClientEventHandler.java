@@ -15,6 +15,7 @@ import at.minecraftschurli.arsmagicalegacy.client.gui.RuneBagScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable.InscriptionTableScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.AffinityTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.SkillTreeTabRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.RecallCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.SpellCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.color.ColorCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.color.ColorWheelShader;
@@ -97,9 +98,9 @@ import java.util.stream.Stream;
 
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID, value = Dist.CLIENT)
 final class AMClientEventHandler {
-    private static final Lazy<KeyMapping> NEXT_SHAPE_GROUP = Lazy.of(() -> new KeyMapping(AMTranslations.NEXT_SHAPE_GROUP_KEY, KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_PERIOD, AMTranslations.KEY_CATEGORY_KEY));
-    private static final Lazy<KeyMapping> PREV_SHAPE_GROUP = Lazy.of(() -> new KeyMapping(AMTranslations.PREV_SHAPE_GROUP_KEY, KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_COMMA, AMTranslations.KEY_CATEGORY_KEY));
-    private static final Lazy<KeyMapping> SPELL_CUSTOMIZATION = Lazy.of(() -> new KeyMapping(AMTranslations.SPELL_CUSTOMIZATION_KEY, KeyConflictContext.IN_GAME, KeyModifier.SHIFT, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, AMTranslations.KEY_CATEGORY_KEY));
+    private static final Lazy<KeyMapping> NEXT_SHAPE_GROUP = Lazy.of(() -> new KeyMapping(AMTranslations.KEY_NEXT_SHAPE_GROUP_KEY, KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_PERIOD, AMTranslations.KEY_CATEGORY_KEY));
+    private static final Lazy<KeyMapping> PREV_SHAPE_GROUP = Lazy.of(() -> new KeyMapping(AMTranslations.KEY_PREV_SHAPE_GROUP_KEY, KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_COMMA, AMTranslations.KEY_CATEGORY_KEY));
+    private static final Lazy<KeyMapping> SPELL_CUSTOMIZATION = Lazy.of(() -> new KeyMapping(AMTranslations.KEY_SPELL_CUSTOMIZATION_KEY, KeyConflictContext.IN_GAME, KeyModifier.SHIFT, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, AMTranslations.KEY_CATEGORY_KEY));
 
     @SubscribeEvent
     private static void clientSetup(FMLClientSetupEvent event) {
@@ -227,6 +228,7 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void registerSpellPartCustomizationScreens(RegisterSpellPartCustomizationScreensEvent event) {
         event.register(AMSpells.COLOR, ColorCustomizationScreen::new);
+        event.register(AMSpells.RECALL, RecallCustomizationScreen::new);
     }
 
     @SubscribeEvent

@@ -11,6 +11,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import java.util.Optional;
@@ -55,8 +56,12 @@ public interface AMWorldgen {
     // @formatter:on
 
     TreeGrower WITCHWOOD_TREE_GROWER = new TreeGrower(ArsMagicaApi.MOD_ID + ":witchwood", Optional.of(WITCHWOOD_TREE_CONFIGURED_FEATURE), Optional.empty(), Optional.empty());
-    DeferredHolder<Feature<?>, MeteoriteFeature> METEORITE = AMRegistries.FEATURES.register("meteorite", MeteoriteFeature::new);
-    DeferredHolder<Feature<?>, SunstoneOreFeature> SUNSTONE_ORE = AMRegistries.FEATURES.register("sunstone_ore", SunstoneOreFeature::new);
+
+    DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Registries.FEATURE, ArsMagicaApi.MOD_ID);
+    // @formatter:off
+    DeferredHolder<Feature<?>, MeteoriteFeature>   METEORITE    = FEATURES.register("meteorite",    MeteoriteFeature::new);
+    DeferredHolder<Feature<?>, SunstoneOreFeature> SUNSTONE_ORE = FEATURES.register("sunstone_ore", SunstoneOreFeature::new);
+    // @formatter:on
 
     /**
      * @param name The name of the {@link ResourceKey}.
@@ -80,11 +85,5 @@ public interface AMWorldgen {
      */
     private static ResourceKey<BiomeModifier> biomeModifier(String name) {
         return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ArsMagicaApi.modLoc(name));
-    }
-
-    /**
-     * Empty method used for classloading this class.
-     */
-    static void init() {
     }
 }

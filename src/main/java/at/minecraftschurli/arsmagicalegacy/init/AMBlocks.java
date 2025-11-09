@@ -3,13 +3,13 @@ package at.minecraftschurli.arsmagicalegacy.init;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.block.AMFlowerBlock;
+import at.minecraftschurli.arsmagicalegacy.block.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.block.CelestialPrismBlock;
+import at.minecraftschurli.arsmagicalegacy.block.InscriptionTableBlock;
+import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
 import at.minecraftschurli.arsmagicalegacy.block.OcculusBlock;
 import at.minecraftschurli.arsmagicalegacy.block.WakebloomBlock;
 import at.minecraftschurli.arsmagicalegacy.block.WizardsChalkBlock;
-import at.minecraftschurli.arsmagicalegacy.block.AltarCoreBlock;
-import at.minecraftschurli.arsmagicalegacy.block.InscriptionTableBlock;
-import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.BlockFamily;
@@ -45,6 +45,7 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -64,6 +65,7 @@ public interface AMBlocks {
         .sign(AMBlocks.WITCHWOOD_SIGN.get(), AMBlocks.WITCHWOOD_WALL_SIGN.get())
         .getFamily());
 
+    DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(ArsMagicaApi.MOD_ID);
     // @formatter:off
     DeferredBlock<AirBlock>                SPELL_LIGHT                 = register("spell_light",                 AirBlock::new, copyProperties(Blocks.AIR).lightLevel($ -> 15));
     DeferredBlock<OcculusBlock>            OCCULUS                     = register("occulus",                     OcculusBlock::new, properties().strength(3, 5));
@@ -118,15 +120,15 @@ public interface AMBlocks {
     DeferredBlock<AMFlowerBlock>           TARMA_ROOT                  = register("tarma_root",                  p -> new AMFlowerBlock(MobEffects.DIG_SLOWDOWN, 7, AMTags.Blocks.TARMA_ROOT_PLANTABLE_ON, p), copyProperties(Blocks.POPPY));
     DeferredBlock<FlowerPotBlock>          POTTED_TARMA_ROOT           = register("potted_tarma_root",           p -> flowerPot(TARMA_ROOT, p).get(), copyProperties(Blocks.FLOWER_POT));
     DeferredBlock<WakebloomBlock>          WAKEBLOOM                   = register("wakebloom",                   WakebloomBlock::new, copyProperties(Blocks.POPPY));
-    DeferredBlock<FlowerPotBlock>          POTTED_WAKEBLOOM            = register("potted_wakebloom",            p -> flowerPot(WAKEBLOOM, p).get(), copyProperties(Blocks.FLOWER_POT));
+    DeferredBlock<FlowerPotBlock>          POTTED_WAKEBLOOM            = register("potted_wakebloom",            p -> flowerPot(WAKEBLOOM, p).get(), copyProperties(Blocks.FLOWER_POT));// @formatter:off
     // @formatter:on
 
     private static <B extends Block> DeferredBlock<B> register(String name, Function<BlockBehaviour.Properties, B> function, BlockBehaviour.Properties properties) {
-        return AMRegistries.BLOCKS.registerBlock(name, function, properties);
+        return BLOCKS.registerBlock(name, function, properties);
     }
 
     private static DeferredBlock<Block> register(String name, BlockBehaviour.Properties properties) {
-        return AMRegistries.BLOCKS.registerSimpleBlock(name, properties);
+        return BLOCKS.registerSimpleBlock(name, properties);
     }
 
     private static BlockBehaviour.Properties properties() {
@@ -148,11 +150,5 @@ public interface AMBlocks {
         Supplier<FlowerPotBlock> flowerPot = () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, flower, properties);
         ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(flower.getId(), flowerPot);
         return flowerPot;
-    }
-
-    /**
-     * Empty method used for classloading this class.
-     */
-    static void init() {
     }
 }

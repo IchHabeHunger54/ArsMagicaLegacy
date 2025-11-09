@@ -20,11 +20,35 @@ import at.minecraftschurli.arsmagicalegacy.ability.WaterDamageAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.ability.WaterHealthModifierAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.ability.Ability;
+import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.ResourceKey;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public interface AMAbilities {
+    DeferredRegister<MapCodec<? extends AbilityEffect>> ABILITY_EFFECTS = DeferredRegister.create(AMRegistryKeys.ABILITY_EFFECT, ArsMagicaApi.MOD_ID);
     // @formatter:off
+    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<AttributeAbilityEffect>>           ATTRIBUTE_EFFECT             = ABILITY_EFFECTS.register("attribute",             () -> AttributeAbilityEffect.CODEC);
+    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<DamageModifierAbilityEffect>>      DAMAGE_MODIFIER_EFFECT       = ABILITY_EFFECTS.register("damage_modifier",       () -> DamageModifierAbilityEffect.CODEC);
+    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<EndermanPumpkinAbilityEffect>>     ENDERMAN_PUMPKIN_EFFECT      = ABILITY_EFFECTS.register("enderman_pumpkin",      () -> EndermanPumpkinAbilityEffect.CODEC);
+    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<EffectAbilityEffect>>              EFFECT_EFFECT                = ABILITY_EFFECTS.register("effect",                () -> EffectAbilityEffect.CODEC);
+    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<EffectResistanceAbilityEffect>>    EFFECT_RESISTANCE_EFFECT     = ABILITY_EFFECTS.register("effect_resistance",     () -> EffectResistanceAbilityEffect.CODEC);
+    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<ExtraDamageAbilityEffect>>         EXTRA_DAMAGE_EFFECT          = ABILITY_EFFECTS.register("extra_damage",          () -> ExtraDamageAbilityEffect.CODEC);
+    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<FirePunchAbilityEffect>>           FIRE_PUNCH_EFFECT            = ABILITY_EFFECTS.register("fire_punch",            () -> FirePunchAbilityEffect.CODEC);
+    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<FrostPunchAbilityEffect>>          FROST_PUNCH_EFFECT           = ABILITY_EFFECTS.register("frost_punch",           () -> FrostPunchAbilityEffect.CODEC);
+    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<FrostWalkerAbilityEffect>>         FROST_WALKER_EFFECT          = ABILITY_EFFECTS.register("frost_walker",          () -> FrostWalkerAbilityEffect.CODEC);
+    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<JumpBoostAbilityEffect>>           JUMP_BOOST_EFFECT            = ABILITY_EFFECTS.register("jump_boost",            () -> JumpBoostAbilityEffect.CODEC);
+    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<KillEffectAbilityEffect>>          KILL_EFFECT_EFFECT           = ABILITY_EFFECTS.register("kill_effect",           () -> KillEffectAbilityEffect.CODEC);
+    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<LightHealthModifierAbilityEffect>> LIGHT_HEALTH_MODIFIER_EFFECT = ABILITY_EFFECTS.register("light_health_modifier", () -> LightHealthModifierAbilityEffect.CODEC);
+    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<ManaCostModifierAbilityEffect>>    MANA_COST_MODIFIER_EFFECT    = ABILITY_EFFECTS.register("mana_cost_modifier",    () -> ManaCostModifierAbilityEffect.CODEC);
+    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<NetherDamageAbilityEffect>>        NETHER_DAMAGE_EFFECT         = ABILITY_EFFECTS.register("nether_damage",         () -> NetherDamageAbilityEffect.CODEC);
+    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<SpellCastEffectAbilityEffect>>     SPELL_CAST_EFFECT_EFFECT     = ABILITY_EFFECTS.register("spell_cast_effect",     () -> SpellCastEffectAbilityEffect.CODEC);
+    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<ThornsAbilityEffect>>              THORNS_EFFECT                = ABILITY_EFFECTS.register("thorns",                () -> ThornsAbilityEffect.CODEC);
+    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<WaterDamageAbilityEffect>>         WATER_DAMAGE_EFFECT          = ABILITY_EFFECTS.register("water_damage",          () -> WaterDamageAbilityEffect.CODEC);
+    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<WaterHealthModifierAbilityEffect>> WATER_HEALTH_MODIFIER_EFFECT = ABILITY_EFFECTS.register("water_health_modifier", () -> WaterHealthModifierAbilityEffect.CODEC);
+
     ResourceKey<Ability> SWIM_SPEED             = key("swim_speed");
     ResourceKey<Ability> ENDER_THORNS           = key("ender_thorns");
     ResourceKey<Ability> NETHER_DAMAGE_WATER    = key("nether_damage_water");
@@ -61,28 +85,5 @@ public interface AMAbilities {
 
     private static ResourceKey<Ability> key(String name) {
         return ResourceKey.create(AMRegistryKeys.ABILITY, ArsMagicaApi.modLoc(name));
-    }
-
-    static void init() {
-        // @formatter:off
-        AMRegistries.ABILITY_EFFECTS.register("attribute",             () -> AttributeAbilityEffect.CODEC);
-        AMRegistries.ABILITY_EFFECTS.register("damage_modifier",       () -> DamageModifierAbilityEffect.CODEC);
-        AMRegistries.ABILITY_EFFECTS.register("enderman_pumpkin",      () -> EndermanPumpkinAbilityEffect.CODEC);
-        AMRegistries.ABILITY_EFFECTS.register("effect",                () -> EffectAbilityEffect.CODEC);
-        AMRegistries.ABILITY_EFFECTS.register("effect_resistance",     () -> EffectResistanceAbilityEffect.CODEC);
-        AMRegistries.ABILITY_EFFECTS.register("extra_damage",          () -> ExtraDamageAbilityEffect.CODEC);
-        AMRegistries.ABILITY_EFFECTS.register("fire_punch",            () -> FirePunchAbilityEffect.CODEC);
-        AMRegistries.ABILITY_EFFECTS.register("frost_punch",           () -> FrostPunchAbilityEffect.CODEC);
-        AMRegistries.ABILITY_EFFECTS.register("frost_walker",          () -> FrostWalkerAbilityEffect.CODEC);
-        AMRegistries.ABILITY_EFFECTS.register("jump_boost",            () -> JumpBoostAbilityEffect.CODEC);
-        AMRegistries.ABILITY_EFFECTS.register("kill_effect",           () -> KillEffectAbilityEffect.CODEC);
-        AMRegistries.ABILITY_EFFECTS.register("light_health_modifier", () -> LightHealthModifierAbilityEffect.CODEC);
-        AMRegistries.ABILITY_EFFECTS.register("mana_cost_modifier",    () -> ManaCostModifierAbilityEffect.CODEC);
-        AMRegistries.ABILITY_EFFECTS.register("nether_damage",         () -> NetherDamageAbilityEffect.CODEC);
-        AMRegistries.ABILITY_EFFECTS.register("spell_cast_effect",     () -> SpellCastEffectAbilityEffect.CODEC);
-        AMRegistries.ABILITY_EFFECTS.register("thorns",                () -> ThornsAbilityEffect.CODEC);
-        AMRegistries.ABILITY_EFFECTS.register("water_damage",          () -> WaterDamageAbilityEffect.CODEC);
-        AMRegistries.ABILITY_EFFECTS.register("water_health_modifier", () -> WaterHealthModifierAbilityEffect.CODEC);
-        // @formatter:on
     }
 }

@@ -1,10 +1,15 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
+import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.registries.Registries;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public interface AMParticles {
+    DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(Registries.PARTICLE_TYPE, ArsMagicaApi.MOD_ID);
+    // @formatter:off
     DeferredHolder<ParticleType<?>, SimpleParticleType> NONE_HAND      = register("none_hand");
     DeferredHolder<ParticleType<?>, SimpleParticleType> WATER_HAND     = register("water_hand");
     DeferredHolder<ParticleType<?>, SimpleParticleType> FIRE_HAND      = register("fire_hand");
@@ -32,14 +37,9 @@ public interface AMParticles {
     DeferredHolder<ParticleType<?>, SimpleParticleType> WATER_BALL     = register("water_ball");
     DeferredHolder<ParticleType<?>, SimpleParticleType> WIND           = register("wind");
     DeferredHolder<ParticleType<?>, SimpleParticleType> SYMBOLS        = register("symbols");
+    // @formatter:on
 
     private static DeferredHolder<ParticleType<?>, SimpleParticleType> register(String name) {
-        return AMRegistries.PARTICLES.register(name, () -> new SimpleParticleType(false));
-    }
-
-    /**
-     * Empty method used for classloading this class.
-     */
-    static void init() {
+        return PARTICLES.register(name, () -> new SimpleParticleType(false));
     }
 }

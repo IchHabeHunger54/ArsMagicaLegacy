@@ -20,7 +20,9 @@ public interface AMTranslations {
     String BARS_VALUE_BURNOUT_KEY                    = ArsMagicaApi.MOD_ID + ".bars_value.burnout";
     String BARS_VALUE_MANA_KEY                       = ArsMagicaApi.MOD_ID + ".bars_value.mana";
     String BARS_VALUE_XP_KEY                         = ArsMagicaApi.MOD_ID + ".bars_value.xp";
-    String SPELL_INGREDIENT_COUNT_KEY                = ArsMagicaApi.MOD_ID + ".spell_ingredient_count";
+    String ETHERIUM_KEY                              = ArsMagicaApi.MOD_ID + ".etherium";
+    String SPELL_INGREDIENT_COUNT_KEY                = ArsMagicaApi.MOD_ID + ".spell.ingredient_count";
+    String SPELL_MANA_COST_KEY                       = ArsMagicaApi.MOD_ID + ".spell.mana_cost";
     String COMMAND_AFFINITY_ADD_MULTIPLE_KEY         = "commands." + ArsMagicaApi.MOD_ID + ".affinity.add.multiple.success";
     String COMMAND_AFFINITY_ADD_SINGLE_KEY           = "commands." + ArsMagicaApi.MOD_ID + ".affinity.add.single.success";
     String COMMAND_AFFINITY_GET_KEY                  = "commands." + ArsMagicaApi.MOD_ID + ".affinity.get.success";
@@ -55,34 +57,32 @@ public interface AMTranslations {
     String OCCULUS_ABILITY_KEY                       = "gui." + ArsMagicaApi.MOD_ID + ".occulus.ability";
     String OCCULUS_DETAILS_KEY                       = "gui." + ArsMagicaApi.MOD_ID + ".occulus.details";
     String OCCULUS_MISSING_KEY                       = "gui." + ArsMagicaApi.MOD_ID + ".occulus.missing";
-    String SPELL_RECIPE_SHAPE_GROUP_KEY              = "item." + ArsMagicaApi.MOD_ID + ".spell_recipe.shape_group";
-    String SPELL_TOOLTIP_MANA_COST_KEY               = "item." + ArsMagicaApi.MOD_ID + ".spell.tooltip.mana_cost";
+    String SPELL_RECIPE_SHAPE_GROUP_KEY              = "gui." + ArsMagicaApi.MOD_ID + ".spell_recipe.shape_group";
     String KEY_NEXT_SHAPE_GROUP_KEY                  = "key." + ArsMagicaApi.MOD_ID + ".next_shape_group";
     String KEY_PREV_SHAPE_GROUP_KEY                  = "key." + ArsMagicaApi.MOD_ID + ".prev_shape_group";
     String KEY_SPELL_CUSTOMIZATION_KEY               = "key." + ArsMagicaApi.MOD_ID + ".spell_customization";
     String KEY_CATEGORY_KEY                          = "key.categories." + ArsMagicaApi.MOD_ID;
 
     String ABILITY_SEPARATOR_KEY                          = ArsMagicaApi.MOD_ID + ".ability.separator";
-    String ETHERIUM_KEY                                   = ArsMagicaApi.MOD_ID + ".etherium";
+    String ALTAR_CORE_LOW_POWER_KEY                       = ArsMagicaApi.MOD_ID + ".altar_core.low_power";
+    String ANY_ETHERIUM_KEY                               = ArsMagicaApi.MOD_ID + ".any_etherium";
     String NO_TELEPORT_KEY                                = ArsMagicaApi.MOD_ID + ".no_teleport";
     String NO_TELEPORT_NETHER_KEY                         = ArsMagicaApi.MOD_ID + ".no_teleport_nether";
     String NO_TELEPORT_OTHER_KEY                          = ArsMagicaApi.MOD_ID + ".no_teleport_other";
     String PREVENT_BLOCK_KEY                              = ArsMagicaApi.MOD_ID + ".prevent_block";
     String PREVENT_ITEM_KEY                               = ArsMagicaApi.MOD_ID + ".prevent_item";
     String RECALL_POSITION_NOT_SET_KEY                    = ArsMagicaApi.MOD_ID + ".recall_position_not_set";
-    String SPELL_CAST_BURNED_OUT_KEY                      = ArsMagicaApi.MOD_ID + ".spell_cast.burned_out";
-    String SPELL_CAST_MALFORMED_KEY                       = ArsMagicaApi.MOD_ID + ".spell_cast.malformed";
-    String SPELL_CAST_NOT_ENOUGH_MANA_KEY                 = ArsMagicaApi.MOD_ID + ".spell_cast.not_enough_mana";
-    String SPELL_CAST_SILENCED_KEY                        = ArsMagicaApi.MOD_ID + ".spell_cast.silenced";
-    String ALTAR_CORE_LOW_POWER_KEY                       = "block." + ArsMagicaApi.MOD_ID + ".altar_core.low_power";
+    String SPELL_CAST_BURNED_OUT_KEY                      = ArsMagicaApi.MOD_ID + ".spell.cast.burned_out";
+    String SPELL_CAST_MALFORMED_KEY                       = ArsMagicaApi.MOD_ID + ".spell.cast.malformed";
+    String SPELL_CAST_NOT_ENOUGH_MANA_KEY                 = ArsMagicaApi.MOD_ID + ".spell.cast.not_enough_mana";
+    String SPELL_CAST_SILENCED_KEY                        = ArsMagicaApi.MOD_ID + ".spell.cast.silenced";
+    String SPELL_INVALID_KEY                              = ArsMagicaApi.MOD_ID + ".spell.invalid";
     String COMMAND_SKILL_LIST_SEPARATOR_KEY               = "commands." + ArsMagicaApi.MOD_ID + ".skill.list.separator";
-    String ETHERIUM_ANY_KEY                               = "etherium." + ArsMagicaApi.MOD_ID + ".any";
     String INSCRIPTION_TABLE_KEY                          = "gui." + ArsMagicaApi.MOD_ID + ".inscription_table";
     String INSCRIPTION_TABLE_CLEAR_KEY                    = "gui." + ArsMagicaApi.MOD_ID + ".inscription_table.clear";
     String INSCRIPTION_TABLE_GIVE_SPELL_KEY               = "gui." + ArsMagicaApi.MOD_ID + ".inscription_table.give_spell";
     String INSCRIPTION_TABLE_NAME_KEY                     = "gui." + ArsMagicaApi.MOD_ID + ".inscription_table.name";
     String INSCRIPTION_TABLE_SEARCH_KEY                   = "gui." + ArsMagicaApi.MOD_ID + ".inscription_table.search";
-    String OBELISK_KEY                                    = "gui." + ArsMagicaApi.MOD_ID + ".obelisk";
     String OCCULUS_KEY                                    = "gui." + ArsMagicaApi.MOD_ID + ".occulus";
     String OCCULUS_FORGET_ALL_KEY                         = "gui." + ArsMagicaApi.MOD_ID + ".occulus.forget_all";
     String OCCULUS_FORGET_ALL_TOOLTIP_KEY                 = "gui." + ArsMagicaApi.MOD_ID + ".occulus.forget_all.tooltip";
@@ -101,9 +101,10 @@ public interface AMTranslations {
     String SPELL_RECIPE_AFFINITIES_KEY                    = "gui." + ArsMagicaApi.MOD_ID + ".spell_recipe.affinities";
     String SPELL_RECIPE_GRAMMAR_KEY                       = "gui." + ArsMagicaApi.MOD_ID + ".spell_recipe.grammar";
     String SPELL_RECIPE_INGREDIENTS_KEY                   = "gui." + ArsMagicaApi.MOD_ID + ".spell_recipe.ingredients";
-    String SPELL_TOOLTIP_INVALID_KEY                      = "item." + ArsMagicaApi.MOD_ID + ".spell.tooltip.invalid";
 
     Component ABILITY_SEPARATOR                          = Component.translatable(ABILITY_SEPARATOR_KEY);
+    Component ALTAR_CORE_LOW_POWER                       = Component.translatable(ALTAR_CORE_LOW_POWER_KEY);
+    Component ANY_ETHERIUM                               = Component.translatable(ANY_ETHERIUM_KEY);
     Component NO_TELEPORT                                = Component.translatable(NO_TELEPORT_KEY);
     Component NO_TELEPORT_NETHER                         = Component.translatable(NO_TELEPORT_NETHER_KEY);
     Component NO_TELEPORT_OTHER                          = Component.translatable(NO_TELEPORT_OTHER_KEY);
@@ -114,15 +115,13 @@ public interface AMTranslations {
     Component SPELL_CAST_MALFORMED                       = Component.translatable(SPELL_CAST_MALFORMED_KEY);
     Component SPELL_CAST_NOT_ENOUGH_MANA                 = Component.translatable(SPELL_CAST_NOT_ENOUGH_MANA_KEY);
     Component SPELL_CAST_SILENCED                        = Component.translatable(SPELL_CAST_SILENCED_KEY);
-    Component ALTAR_CORE_LOW_POWER                       = Component.translatable(ALTAR_CORE_LOW_POWER_KEY);
+    Component SPELL_INVALID                              = Component.translatable(SPELL_INVALID_KEY);
     Component COMMAND_SKILL_LIST_SEPARATOR               = Component.translatable(COMMAND_SKILL_LIST_SEPARATOR_KEY);
-    Component ETHERIUM_ANY                               = Component.translatable(ETHERIUM_ANY_KEY);
     Component INSCRIPTION_TABLE                          = Component.translatable(INSCRIPTION_TABLE_KEY);
     Component INSCRIPTION_TABLE_CLEAR                    = Component.translatable(INSCRIPTION_TABLE_CLEAR_KEY);
     Component INSCRIPTION_TABLE_GIVE_SPELL               = Component.translatable(INSCRIPTION_TABLE_GIVE_SPELL_KEY);
     Component INSCRIPTION_TABLE_NAME                     = Component.translatable(INSCRIPTION_TABLE_NAME_KEY);
     Component INSCRIPTION_TABLE_SEARCH                   = Component.translatable(INSCRIPTION_TABLE_SEARCH_KEY);
-    Component OBELISK                                    = Component.translatable(OBELISK_KEY);
     Component OCCULUS                                    = Component.translatable(OCCULUS_KEY);
     Component OCCULUS_FORGET_ALL                         = Component.translatable(OCCULUS_FORGET_ALL_KEY);
     Component OCCULUS_FORGET_ALL_TOOLTIP                 = Component.translatable(OCCULUS_FORGET_ALL_TOOLTIP_KEY);
@@ -141,6 +140,5 @@ public interface AMTranslations {
     Component SPELL_RECIPE_AFFINITIES                    = Component.translatable(SPELL_RECIPE_AFFINITIES_KEY);
     Component SPELL_RECIPE_GRAMMAR                       = Component.translatable(SPELL_RECIPE_GRAMMAR_KEY);
     Component SPELL_RECIPE_INGREDIENTS                   = Component.translatable(SPELL_RECIPE_INGREDIENTS_KEY);
-    Component SPELL_TOOLTIP_INVALID                      = Component.translatable(SPELL_TOOLTIP_INVALID_KEY);
     // @formatter:on
 }

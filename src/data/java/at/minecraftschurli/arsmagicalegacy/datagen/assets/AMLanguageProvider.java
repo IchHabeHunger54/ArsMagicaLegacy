@@ -598,6 +598,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.ABILITY_OUT_OF_SINGLE_KEY, "Shifted out of ability %s!");
         add(AMTranslations.ABILITY_SEPARATOR_KEY, ", ");
         add(AMTranslations.ALTAR_CORE_LOW_POWER_KEY, "Altar does not have enough power!");
+        add(AMTranslations.ANY_ETHERIUM_KEY, "Any Etherium");
         add(AMTranslations.BARS_VALUE_BURNOUT_KEY, "%s / %s");
         add(AMTranslations.BARS_VALUE_MANA_KEY, "%s / %s");
         add(AMTranslations.BARS_VALUE_XP_KEY, "%s / %s");
@@ -633,7 +634,6 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.COMMAND_SKILL_POINT_GET_KEY, "Player %s has %s skill points of type %s");
         add(AMTranslations.COMMAND_SKILL_POINT_SET_MULTIPLE_KEY, "Set %s skill points of type %s on %s players");
         add(AMTranslations.COMMAND_SKILL_POINT_SET_SINGLE_KEY, "Set %s skill points of type %s on player %s");
-        add(AMTranslations.ETHERIUM_ANY_KEY, "Any Etherium");
         add(AMTranslations.ETHERIUM_KEY, "%s: %s / %s");
         add(AMTranslations.INSCRIPTION_TABLE_CLEAR_KEY, "Clear");
         add(AMTranslations.INSCRIPTION_TABLE_GIVE_SPELL_KEY, "Give Spell");
@@ -647,7 +647,6 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.NO_TELEPORT_KEY, "You are too distorted to teleport!");
         add(AMTranslations.NO_TELEPORT_NETHER_KEY, "The nether's force forbids to simply teleport out of it!");
         add(AMTranslations.NO_TELEPORT_OTHER_KEY, "The target is too distorted to be teleported!");
-        add(AMTranslations.OBELISK_KEY, "Obelisk");
         add(AMTranslations.OCCULUS_ABILITY_KEY, "%s (%s - %s)");
         add(AMTranslations.OCCULUS_DETAILS_KEY, "Hold Shift for details");
         add(AMTranslations.OCCULUS_FORGET_ALL_KEY, "Forget All");
@@ -666,20 +665,20 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.SPELL_CUSTOMIZATION_COLOR_CLEAR_KEY, "Clear Color");
         add(AMTranslations.SPELL_CUSTOMIZATION_COLOR_KEY, "Customize Color");
         add(AMTranslations.SPELL_CUSTOMIZATION_KEY, "Spell Name");
-        add(AMTranslations.SPELL_CUSTOMIZATION_RECALL_KEY, "Customize Recall");
         add(AMTranslations.SPELL_CUSTOMIZATION_RECALL_CLEAR_KEY, "Clear Position");
         add(AMTranslations.SPELL_CUSTOMIZATION_RECALL_CLEAR_SUCCESS_KEY, "Recall position cleared!");
+        add(AMTranslations.SPELL_CUSTOMIZATION_RECALL_KEY, "Customize Recall");
         add(AMTranslations.SPELL_CUSTOMIZATION_RECALL_RESTORE_KEY, "Restore Position");
         add(AMTranslations.SPELL_CUSTOMIZATION_RECALL_RESTORE_SUCCESS_KEY, "Recall position restored!");
         add(AMTranslations.SPELL_CUSTOMIZATION_RECALL_SET_KEY, "Set Position");
         add(AMTranslations.SPELL_CUSTOMIZATION_RECALL_SET_SUCCESS_KEY, "Recall position set to your current position!");
         add(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, "x %s");
+        add(AMTranslations.SPELL_INVALID_KEY, "Spell is malformed and cannot be cast!");
+        add(AMTranslations.SPELL_MANA_COST_KEY, "Mana Cost: %s");
         add(AMTranslations.SPELL_RECIPE_AFFINITIES_KEY, "Affinities");
         add(AMTranslations.SPELL_RECIPE_GRAMMAR_KEY, "Grammar");
         add(AMTranslations.SPELL_RECIPE_INGREDIENTS_KEY, "Ingredients");
         add(AMTranslations.SPELL_RECIPE_SHAPE_GROUP_KEY, "Shape Group %s");
-        add(AMTranslations.SPELL_TOOLTIP_INVALID_KEY, "Spell is malformed and cannot be cast!");
-        add(AMTranslations.SPELL_TOOLTIP_MANA_COST_KEY, "Mana Cost: %s");
         add("config.jade.plugin_arsmagicalegacy.etherium", "Etherium");
         add("itemGroup." + ArsMagicaApi.MOD_ID, "Ars Magica: Legacy");
         add("potion.potency.5", "VI");

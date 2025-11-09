@@ -24,6 +24,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -133,8 +134,8 @@ public final class AMClientUtil {
         AMClientUtil.mc().setScreen(new OcculusScreen());
     }
 
-    public static void setSpellCustomizationScreen(Spell spell) {
-        AMClientUtil.mc().setScreen(new SpellCustomizationScreen(spell));
+    public static void setSpellCustomizationScreen(Spell spell, InteractionHand hand) {
+        AMClientUtil.mc().setScreen(new SpellCustomizationScreen(spell, hand));
     }
 
     public static void setSpellRecipeScreen(ItemStack stack, boolean playTurnSound, int startPage, @Nullable BlockPos lecternPos) {

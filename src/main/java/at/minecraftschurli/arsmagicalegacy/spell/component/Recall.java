@@ -5,7 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
-import at.minecraftschurli.arsmagicalegacy.spell.RecallPosition;
+import at.minecraftschurli.arsmagicalegacy.spell.data.RecallPosition;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;

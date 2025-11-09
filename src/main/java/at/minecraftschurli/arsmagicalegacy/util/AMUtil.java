@@ -67,6 +67,10 @@ public final class AMUtil {
     }, String::valueOf);
     public static final Codec<Double> NON_NEGATIVE_DOUBLE_CODEC = Codec.DOUBLE.validate(d -> d >= 0 ? DataResult.success(d) : DataResult.error(() -> "Value must be non-negative: " + d));
     public static final Codec<Double> POSITIVE_DOUBLE_CODEC = Codec.DOUBLE.validate(d -> d > 0 ? DataResult.success(d) : DataResult.error(() -> "Value must be positive: " + d));
+    public static final StreamCodec<ByteBuf, InteractionHand> INTERACTION_HAND_STREAM_CODEC = ByteBufCodecs.BOOL.map(
+        bool -> bool ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND,
+        hand -> hand == InteractionHand.MAIN_HAND
+    );
     public static final StreamCodec<ByteBuf, Vec3> VEC3_STREAM_CODEC = StreamCodec.composite(
         ByteBufCodecs.DOUBLE, Vec3::x,
         ByteBufCodecs.DOUBLE, Vec3::y,

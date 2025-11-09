@@ -256,9 +256,11 @@ final class AMClientEventHandler {
     private static void clientTickPost(ClientTickEvent.Post event) {
         LocalPlayer player = AMClientUtil.player();
         if (player == null) return;
-        ItemStack stack = player.getMainHandItem();
+        InteractionHand hand = InteractionHand.MAIN_HAND;
+        ItemStack stack = player.getItemInHand(hand);
         if (!stack.has(AMDataComponents.SPELL)) {
-            stack = player.getOffhandItem();
+            hand =  InteractionHand.OFF_HAND;
+            stack = player.getItemInHand(hand);
         }
         if (stack.has(AMDataComponents.SPELL)) {
             Spell originalSpell = stack.get(AMDataComponents.SPELL);
@@ -274,7 +276,7 @@ final class AMClientEventHandler {
                 PacketDistributor.sendToServer(new SetActiveShapeGroupPacket(spell.activeShapeGroup()));
             }
             while (SPELL_CUSTOMIZATION.get().consumeClick()) {
-                AMClientUtil.mc().setScreen(new SpellCustomizationScreen(spell));
+                AMClientUtil.mc().setScreen(new SpellCustomizationScreen(spell, hand));
             }
         }
     }

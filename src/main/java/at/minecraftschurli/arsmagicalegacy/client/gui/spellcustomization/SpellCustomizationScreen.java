@@ -17,6 +17,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -26,13 +27,15 @@ public class SpellCustomizationScreen extends Screen {
     private static final ResourceLocation SHAPE_GROUP = ArsMagicaApi.modLoc("textures/gui/spell_customization/shape_group.png");
     private static final int WIDTH = 180;
     private static final int HEIGHT = 178;
+    private final InteractionHand hand;
     private Spell spell;
     private int leftPos;
     private int topPos;
 
-    public SpellCustomizationScreen(Spell spell) {
+    public SpellCustomizationScreen(Spell spell, InteractionHand hand) {
         super(spell.name().orElse(AMItems.SPELL.toStack().getHoverName()));
         this.spell = spell;
+        this.hand = hand;
     }
 
     @Override
@@ -77,11 +80,11 @@ public class SpellCustomizationScreen extends Screen {
 
     public void setSpell(Spell spell) {
         this.spell = spell;
-        ItemStack stack = AMClientUtil.player().getMainHandItem();
+        ItemStack stack = AMClientUtil.player().getItemInHand(hand);
         if (stack.has(AMDataComponents.SPELL)) {
             stack.set(AMDataComponents.SPELL, spell);
         }
-        PacketDistributor.sendToServer(new SpellCustomizationPacket(spell));
+        PacketDistributor.sendToServer(new SpellCustomizationPacket(spell, hand));
     }
 
     @Override

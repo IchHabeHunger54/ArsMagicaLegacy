@@ -38,7 +38,7 @@ public class SpellItem extends DataComponentNamedItem<Spell> {
         if (spell == null) return InteractionResultHolder.fail(stack);
         if (spell.name().isEmpty() || spell.icon().isEmpty()) {
             if (level.isClientSide()) {
-                AMClientUtil.setSpellCustomizationScreen(spell);
+                AMClientUtil.setSpellCustomizationScreen(spell, usedHand);
             }
             return InteractionResultHolder.consume(stack);
         }

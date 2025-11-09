@@ -37,11 +37,11 @@ import at.minecraftschurli.arsmagicalegacy.client.particle.controller.LeaveTrail
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInKnockbackDirectionController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInViewDirectionController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.OrbitPointController;
-import at.minecraftschurli.arsmagicalegacy.client.renderer.AltarCoreRenderer;
-import at.minecraftschurli.arsmagicalegacy.client.renderer.EmptyRenderer;
-import at.minecraftschurli.arsmagicalegacy.client.renderer.EtheriumSpellIngredientRenderer;
-import at.minecraftschurli.arsmagicalegacy.client.renderer.ItemSpellIngredientRenderer;
-import at.minecraftschurli.arsmagicalegacy.client.renderer.SpellItemRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.renderer.block.AltarCoreRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.EmptyRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.renderer.spell.EtheriumSpellIngredientRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.renderer.spell.ItemSpellIngredientRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.renderer.item.SpellItemRenderer;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;

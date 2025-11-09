@@ -75,7 +75,7 @@ public class SpellItem extends DataComponentNamedItem<Spell> {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         Spell spell = stack.get(AMDataComponents.SPELL);
-        tooltipComponents.add(spell == null || spell.isMalformed() ? AMTranslations.SPELL_TOOLTIP_INVALID : Component.translatable(AMTranslations.SPELL_TOOLTIP_MANA_COST_KEY, spell.getManaCost()));
+        tooltipComponents.add(spell == null || spell.isMalformed() ? AMTranslations.SPELL_INVALID : Component.translatable(AMTranslations.SPELL_MANA_COST_KEY, spell.getManaCost()));
     }
 
     @Override

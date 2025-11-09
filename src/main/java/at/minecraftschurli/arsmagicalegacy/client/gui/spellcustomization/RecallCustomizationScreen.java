@@ -7,7 +7,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
-import at.minecraftschurli.arsmagicalegacy.spell.RecallPosition;
+import at.minecraftschurli.arsmagicalegacy.spell.data.RecallPosition;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;

@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.spell;
+package at.minecraftschurli.arsmagicalegacy.spell.data;
 
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.Codec;

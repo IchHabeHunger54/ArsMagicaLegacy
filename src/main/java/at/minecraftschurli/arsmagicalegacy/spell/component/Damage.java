@@ -7,7 +7,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
-import at.minecraftschurli.arsmagicalegacy.spell.SpellDamage;
+import at.minecraftschurli.arsmagicalegacy.spell.data.SpellDamage;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageType;

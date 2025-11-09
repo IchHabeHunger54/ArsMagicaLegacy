@@ -5,16 +5,14 @@ import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
-import at.minecraftschurli.arsmagicalegacy.spell.RecallPosition;
-import at.minecraftschurli.arsmagicalegacy.spell.SpellDamage;
-import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
+import at.minecraftschurli.arsmagicalegacy.spell.data.RecallPosition;
+import at.minecraftschurli.arsmagicalegacy.spell.data.SpellDamage;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 public interface AMDataComponents {

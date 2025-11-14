@@ -2,9 +2,12 @@ package at.minecraftschurli.arsmagicalegacy.spell.data;
 
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.Codec;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
@@ -18,6 +21,7 @@ import java.util.Optional;
 
 public record SpellDamage(Map<Integer, Map<ResourceKey<DamageType>, Float>> damage) {
     public static final Codec<SpellDamage> CODEC = Codec.unboundedMap(AMUtil.STRING_ENCODED_INT_CODEC, Codec.unboundedMap(ResourceKey.codec(Registries.DAMAGE_TYPE), Codec.FLOAT)).xmap(SpellDamage::new, SpellDamage::damage);
+    public static final StreamCodec<ByteBuf, SpellDamage> STREAM_CODEC = AMUtil.mapStreamCodec(ByteBufCodecs.INT, AMUtil.mapStreamCodec(ResourceKey.streamCodec(Registries.DAMAGE_TYPE), ByteBufCodecs.FLOAT)).map(SpellDamage::new, SpellDamage::damage);
     public static final SpellDamage EMPTY = new SpellDamage();
 
     public SpellDamage() {

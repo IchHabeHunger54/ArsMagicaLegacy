@@ -48,7 +48,9 @@ import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -216,11 +218,16 @@ public final class AMUtil {
         return hitResult;
     }
 
+    @SafeVarargs
     public static <T> NonNullList<T> nonNullList(T defaultValue, T... entries) {
         NonNullList<T> list = NonNullList.withSize(entries.length, defaultValue);
         for (int i = 0; i < entries.length; i++) {
             list.set(i, entries[i]);
         }
         return list;
+    }
+
+    public static <B extends ByteBuf, K, V> StreamCodec<B, Map<K, V>> mapStreamCodec(StreamCodec<? super B, K> keyStreamCodec, StreamCodec<? super B, V> valueStreamCodec) {
+        return ByteBufCodecs.map(HashMap::new, keyStreamCodec, valueStreamCodec);
     }
 }

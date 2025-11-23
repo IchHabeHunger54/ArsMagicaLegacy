@@ -1,6 +1,7 @@
-// 1.21.1	2025-10-28T16:18:12.125360445	Block States: arsmagicalegacy
+// 1.21.1	2025-11-23T22:04:04.8061308	Block States: arsmagicalegacy
 9ff96b56b738b4ea85e1140167a077e69db0178f assets/arsmagicalegacy/blockstates/altar_core.json
 beb7ab7de7f6ae890282ef38e36400685d083d78 assets/arsmagicalegacy/blockstates/aum.json
+30af4342d085e8fb94bdc195acfdc2f95908074c assets/arsmagicalegacy/blockstates/black_aurem.json
 e56c8a91f732e865e9d4ccde5fb9e0e5a9512afa assets/arsmagicalegacy/blockstates/celestial_prism.json
 41a6820d81a4f10a322441df3d03bd96ce3efecc assets/arsmagicalegacy/blockstates/cerublossom.json
 ceceed48dd9d01498eedc67f1dcd1052b88d2d62 assets/arsmagicalegacy/blockstates/chimerite_block.json
@@ -54,6 +55,7 @@ ea15851e101b5bed51079e09c20e3108874d26ab assets/arsmagicalegacy/blockstates/witc
 aed761f843558fef1097bb9419661c59e890eedb assets/arsmagicalegacy/blockstates/wizards_chalk.json
 c1fed8dab8b5583da0f1f5d41d67f58d0360c8cf assets/arsmagicalegacy/models/block/altar_core.json
 a92a86fd0961228b76c96d8d27427847da7fcb9d assets/arsmagicalegacy/models/block/aum.json
+8bac0cbdf24600f7bea0a472136d4a050dc677b5 assets/arsmagicalegacy/models/block/black_aurem.json
 44767ab9878f6ceb5541897f9c424a1bbb19559f assets/arsmagicalegacy/models/block/celestial_prism.json
 d8121fbca06f74f2c4cdbe8d829c32172201c1ab assets/arsmagicalegacy/models/block/celestial_prism_particle.json
 73320da5fccf4478a4a612157a9c174477193eb6 assets/arsmagicalegacy/models/block/cerublossom.json

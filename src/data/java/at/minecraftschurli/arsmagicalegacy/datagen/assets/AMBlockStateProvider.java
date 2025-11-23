@@ -63,6 +63,7 @@ public final class AMBlockStateProvider extends BlockStateProvider {
         getVariantBuilder(AMBlocks.CELESTIAL_PRISM.get())
             .partialState().with(CelestialPrismBlock.PART, CelestialPrismBlock.Part.LOWER).setModels(modelBuilder(objModel("celestial_prism", modLoc("block/celestial_prism.obj")).texture("tex", modLoc("block/celestial_prism")).texture("particle", modLoc("block/celestial_prism"))).build())
             .partialState().with(CelestialPrismBlock.PART, CelestialPrismBlock.Part.UPPER).setModels(modelBuilder(particleModel("celestial_prism_particle", modLoc("block/celestial_prism"))).build());
+        getVariantBuilder(AMBlocks.BLACK_AUREM.get()).partialState().setModels(modelBuilder(particleModel(AMBlocks.BLACK_AUREM.getId().getPath(), modLoc("block/black_aurem"))).build());
         rotatedBlock(AMBlocks.WIZARDS_CHALK, IntStream.range(0, 16)
             .mapToObj(i -> Pair.<UnaryOperator<VariantBlockStateBuilder.PartialBlockstate>, ConfiguredModel.Builder<?>>of(
                 state -> state.with(WizardsChalkBlock.VARIANT, i),

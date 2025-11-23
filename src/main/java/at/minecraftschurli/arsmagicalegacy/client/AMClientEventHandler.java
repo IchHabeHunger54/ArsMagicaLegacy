@@ -38,6 +38,7 @@ import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInKnoc
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInViewDirectionController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.OrbitPointController;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.AltarCoreRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.renderer.block.BlackAuremRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.EmptyRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.spell.EtheriumSpellIngredientRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.spell.ItemSpellIngredientRenderer;
@@ -117,6 +118,7 @@ final class AMClientEventHandler {
         event.registerEntityRenderer(AMEntities.WAVE.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.ZONE.get(), EmptyRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.ALTAR_CORE.get(), AltarCoreRenderer::new);
+        event.registerBlockEntityRenderer(AMBlockEntities.BLACK_AUREM.get(), BlackAuremRenderer::new);
     }
 
     @SubscribeEvent

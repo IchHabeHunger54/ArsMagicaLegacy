@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.block.AMFlowerBlock;
 import at.minecraftschurli.arsmagicalegacy.block.AltarCoreBlock;
+import at.minecraftschurli.arsmagicalegacy.block.BlackAuremBlock;
 import at.minecraftschurli.arsmagicalegacy.block.CelestialPrismBlock;
 import at.minecraftschurli.arsmagicalegacy.block.InscriptionTableBlock;
 import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
@@ -74,6 +75,7 @@ public interface AMBlocks {
     DeferredBlock<TransparentBlock>        MAGIC_WALL                  = register("magic_wall",                  TransparentBlock::new, properties().strength(3).noOcclusion().isValidSpawn(Blocks::never).isRedstoneConductor((state, level, pos) -> false).isSuffocating((state, level, pos) -> false).isViewBlocking((state, level, pos) -> false));
     DeferredBlock<ObeliskBlock>            OBELISK                     = register("obelisk",                     ObeliskBlock::new, copyProperties(Blocks.STONE).noOcclusion().lightLevel(state -> state.getValue(ObeliskBlock.LIT) ? 11 : 1));
     DeferredBlock<CelestialPrismBlock>     CELESTIAL_PRISM             = register("celestial_prism",             CelestialPrismBlock::new, properties().requiresCorrectToolForDrops().strength(1.5f, 6).noOcclusion().lightLevel(state -> 1).emissiveRendering((state, level, pos) -> true));
+    DeferredBlock<BlackAuremBlock>         BLACK_AUREM                 = register("black_aurem",                 BlackAuremBlock::new, properties().mapColor(MapColor.COLOR_RED).noOcclusion().noCollission().lightLevel(state -> 2));
     DeferredBlock<WizardsChalkBlock>       WIZARDS_CHALK               = register("wizards_chalk",               WizardsChalkBlock::new, properties().instabreak().noCollission().sound(SoundType.GRAVEL));
     DeferredBlock<TorchBlock>              VINTEUM_TORCH               = register("vinteum_torch",               p -> new TorchBlock(ParticleTypes.SMOKE, p), copyProperties(Blocks.TORCH));
     DeferredBlock<WallTorchBlock>          VINTEUM_WALL_TORCH          = register("vinteum_wall_torch",          p -> new WallTorchBlock(ParticleTypes.SMOKE, p), copyProperties(Blocks.WALL_TORCH).lootFrom(VINTEUM_TORCH));

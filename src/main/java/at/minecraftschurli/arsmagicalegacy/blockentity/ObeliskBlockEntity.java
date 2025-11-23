@@ -1,8 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.blockentity;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
-import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumHandler;
-import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
+import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumGeneratorBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.ObeliskFuel;
 import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
@@ -10,14 +9,12 @@ import at.minecraftschurli.arsmagicalegacy.init.AMEtheriumTypes;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
-import net.minecraft.world.LockCode;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.StackedContents;
@@ -31,23 +28,22 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ObeliskBlockEntity extends BlockEntity implements StackedContentsCompatible, WorldlyContainer, EtheriumHandler {
+public class ObeliskBlockEntity extends EtheriumGeneratorBlockEntity implements StackedContentsCompatible, WorldlyContainer {
     private static final String ITEMS_KEY = "Items";
-    private static final String ETHERIUM_KEY = "etherium";
     private static final String BURN_TIME_KEY = "burn_time";
     private static final String MAX_BURN_TIME_KEY = "max_burn_time";
     private static final String ETHERIUM_PER_TICK_KEY = "etherium_per_tick";
     private static final int[] SLOTS = new int[]{0};
     private ItemStack stack = ItemStack.EMPTY;
-    private int etherium;
     private int burnTime;
     private int maxBurnTime;
     private int etheriumPerTick;
 
     public ObeliskBlockEntity(BlockPos pos, BlockState state) {
-        super(AMBlockEntities.OBELISK.get(), pos, state);
+        super(AMBlockEntities.OBELISK.get(), pos, state, AMEtheriumTypes.NEUTRAL);
     }
 
+    @Override
     public void tick(Level level, BlockPos pos, BlockState state) {
         if (burnTime > 0) {
             etherium = Math.clamp(etherium + etheriumPerTick, 0, getMaxAmount());
@@ -76,10 +72,14 @@ public class ObeliskBlockEntity extends BlockEntity implements StackedContentsCo
     }
 
     @Override
+    public int getMaxAmount() {
+        return AMServerConfig.OBELISK_MAX_ETHERIUM.get();
+    }
+
+    @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         stack = ItemStack.parseOptional(registries, tag.getCompound(ITEMS_KEY));
-        etherium = tag.getInt(ETHERIUM_KEY);
         burnTime = tag.getInt(BURN_TIME_KEY);
         maxBurnTime = tag.getInt(MAX_BURN_TIME_KEY);
         etheriumPerTick = tag.getInt(ETHERIUM_PER_TICK_KEY);
@@ -91,7 +91,6 @@ public class ObeliskBlockEntity extends BlockEntity implements StackedContentsCo
         if (!stack.isEmpty()) {
             tag.put(ITEMS_KEY, stack.save(registries));
         }
-        tag.putInt(ETHERIUM_KEY, etherium);
         tag.putInt(BURN_TIME_KEY, burnTime);
         tag.putInt(MAX_BURN_TIME_KEY, maxBurnTime);
         tag.putInt(ETHERIUM_PER_TICK_KEY, etheriumPerTick);
@@ -184,41 +183,5 @@ public class ObeliskBlockEntity extends BlockEntity implements StackedContentsCo
     @Override
     public void fillStackedContents(StackedContents contents) {
         contents.accountStack(stack);
-    }
-
-    @Override
-    public int getAmount(Holder<EtheriumType> type) {
-        return type.is(AMEtheriumTypes.NEUTRAL) ? etherium : 0;
-    }
-
-    @Override
-    public int getMaxAmount(Holder<EtheriumType> type) {
-        return type.is(AMEtheriumTypes.NEUTRAL) ? getMaxAmount() : 0;
-    }
-
-    @Override
-    public void setAmount(Holder<EtheriumType> type, int amount) {
-        if (type.is(AMEtheriumTypes.NEUTRAL)) {
-            etherium = amount;
-            setChanged();
-        }
-    }
-
-    @Override
-    public int addAmount(Holder<EtheriumType> type, int amount) {
-        return amount;
-    }
-
-    @Override
-    public int subtractAmount(Holder<EtheriumType> type, int amount) {
-        if (!type.is(AMEtheriumTypes.NEUTRAL)) return amount;
-        int min = Math.min(etherium, amount);
-        etherium -= min;
-        setChanged();
-        return amount - min;
-    }
-
-    private int getMaxAmount() {
-        return AMServerConfig.OBELISK_MAX_ETHERIUM.get();
     }
 }

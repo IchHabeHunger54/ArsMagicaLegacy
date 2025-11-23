@@ -17,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
@@ -31,19 +30,13 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class ObeliskBlock extends Block implements EntityBlock {
+public class ObeliskBlock extends EtheriumGeneratorBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final EnumProperty<Part> PART = EnumProperty.create("part", Part.class);
-    private static final BlockEntityTicker<?> TICKER = (level, pos, state, blockEntity) -> {
-        if (blockEntity instanceof ObeliskBlockEntity obelisk) {
-            obelisk.tick(level, pos, state);
-        }
-    };
 
     public ObeliskBlock(Properties properties) {
         super(properties);
@@ -159,21 +152,15 @@ public class ObeliskBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public PushReaction getPistonPushReaction(BlockState state) {
-        return PushReaction.BLOCK;
-    }
-
-    @Override
     @Nullable
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return state.getValue(PART) == Part.LOWER ? new ObeliskBlockEntity(pos, state) : null;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return type == AMBlockEntities.OBELISK.get() && state.getValue(PART) == Part.LOWER ? (BlockEntityTicker<T>) TICKER : null;
+        return type == AMBlockEntities.OBELISK.get() && state.getValue(PART) == Part.LOWER ? super.getTicker(level, state, type) : null;
     }
 
     private void destroy(Level level, Player player, BlockPos pos) {

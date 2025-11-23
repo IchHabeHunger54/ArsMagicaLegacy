@@ -1,9 +1,8 @@
 package at.minecraftschurli.arsmagicalegacy.compat.jade;
 
+import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumGeneratorBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.block.CelestialPrismBlock;
 import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
-import at.minecraftschurli.arsmagicalegacy.blockentity.CelestialPrismBlockEntity;
-import at.minecraftschurli.arsmagicalegacy.blockentity.ObeliskBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -18,8 +17,7 @@ import snownee.jade.api.WailaPlugin;
 public final class AMJadePlugin implements IWailaPlugin {
     @Override
     public void register(IWailaCommonRegistration registration) {
-        registration.registerBlockDataProvider(EtheriumComponentProvider.INSTANCE, ObeliskBlockEntity.class);
-        registration.registerBlockDataProvider(EtheriumComponentProvider.INSTANCE, CelestialPrismBlockEntity.class);
+        registration.registerBlockDataProvider(EtheriumComponentProvider.INSTANCE, EtheriumGeneratorBlockEntity.class);
     }
 
     @Override

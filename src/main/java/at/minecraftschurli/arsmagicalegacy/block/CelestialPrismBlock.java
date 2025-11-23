@@ -9,7 +9,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -17,19 +16,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class CelestialPrismBlock extends Block implements EntityBlock {
+public class CelestialPrismBlock extends EtheriumGeneratorBlock {
     public static final EnumProperty<Part> PART = EnumProperty.create("part", Part.class);
     private static final VoxelShape SHAPE = Block.box(2, 0, 2, 14, 16, 14);
-    private static final BlockEntityTicker<?> TICKER = (level, pos, state, blockEntity) -> {
-        if (blockEntity instanceof CelestialPrismBlockEntity celestialPrism) {
-            celestialPrism.tick(level, pos, state);
-        }
-    };
 
     public CelestialPrismBlock(Properties properties) {
         super(properties);
@@ -77,21 +70,14 @@ public class CelestialPrismBlock extends Block implements EntityBlock {
 
     @Override
     @Nullable
-    public PushReaction getPistonPushReaction(BlockState state) {
-        return PushReaction.BLOCK;
-    }
-
-    @Override
-    @Nullable
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new CelestialPrismBlockEntity(pos, state);
+        return state.getValue(PART) == Part.LOWER ? new CelestialPrismBlockEntity(pos, state) : null;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return type == AMBlockEntities.CELESTIAL_PRISM.get() && state.getValue(PART) == Part.LOWER ? (BlockEntityTicker<T>) TICKER : null;
+        return type == AMBlockEntities.CELESTIAL_PRISM.get() && state.getValue(PART) == Part.LOWER ? super.getTicker(level, state, type) : null;
     }
 
     @Override

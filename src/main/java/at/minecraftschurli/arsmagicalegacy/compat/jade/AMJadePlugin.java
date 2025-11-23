@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.compat.jade;
 
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumGeneratorBlockEntity;
+import at.minecraftschurli.arsmagicalegacy.block.BlackAuremBlock;
 import at.minecraftschurli.arsmagicalegacy.block.CelestialPrismBlock;
 import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
 import net.minecraft.core.BlockPos;
@@ -24,6 +25,7 @@ public final class AMJadePlugin implements IWailaPlugin {
     public void registerClient(IWailaClientRegistration registration) {
         registration.registerBlockComponent(EtheriumComponentProvider.INSTANCE, ObeliskBlock.class);
         registration.registerBlockComponent(EtheriumComponentProvider.INSTANCE, CelestialPrismBlock.class);
+        registration.registerBlockComponent(EtheriumComponentProvider.INSTANCE, BlackAuremBlock.class);
         registration.addRayTraceCallback(((hitResult, accessor, original) -> {
             if (!(accessor instanceof BlockAccessor blockAccessor) || hitResult.getType() != HitResult.Type.BLOCK || !(hitResult instanceof BlockHitResult bhr)) return accessor;
             BlockPos pos = bhr.getBlockPos();

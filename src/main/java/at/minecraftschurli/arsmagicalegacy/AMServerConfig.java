@@ -12,7 +12,6 @@ public final class AMServerConfig {
     public static final ModConfigSpec.BooleanValue INSCRIPTION_TABLE_IN_WORLD_UPGRADING;
     public static final ModConfigSpec.IntValue OBELISK_MAX_ETHERIUM;
     public static final ModConfigSpec.IntValue CELESTIAL_PRISM_MAX_ETHERIUM;
-    public static final ModConfigSpec.IntValue CELESTIAL_PRISM_ETHERIUM_PER_TICK;
     public static final ModConfigSpec.IntValue BLACK_AUREM_MAX_ETHERIUM;
     public static final ModConfigSpec.DoubleValue MANA_BASE;
     public static final ModConfigSpec.DoubleValue MANA_MULTIPLIER;
@@ -120,10 +119,6 @@ public final class AMServerConfig {
         CELESTIAL_PRISM_MAX_ETHERIUM = builder
             .comment("The maximum etherium a Celestial Prism can store.")
             .translation(AMTranslations.CONFIG_KEY + "celestial_prism_max_etherium")
-            .defineInRange("celestial_prism_max_etherium", 5000, 1, Integer.MAX_VALUE);
-        CELESTIAL_PRISM_ETHERIUM_PER_TICK = builder
-            .comment("The etherium a Celestial Prism produces each tick.")
-            .translation(AMTranslations.CONFIG_KEY + "celestial_prism_etherium_per_tick")
             .defineInRange("celestial_prism_max_etherium", 5000, 1, Integer.MAX_VALUE);
         BLACK_AUREM_MAX_ETHERIUM = builder
             .comment("The maximum etherium a Black Aurem can store.")

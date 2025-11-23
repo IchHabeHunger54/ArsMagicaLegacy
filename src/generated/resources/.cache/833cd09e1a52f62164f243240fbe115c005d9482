@@ -1,4 +1,4 @@
-// 1.21.1	2025-10-13T23:06:51.833253172	Item Models: arsmagicalegacy
+// 1.21.1	2025-11-23T22:04:04.7986031	Item Models: arsmagicalegacy
 6e0b262bb6740bdbe7b3564e182497239ff375ac assets/arsmagicalegacy/models/item/affinity_essence_air.json
 84174d0bc6eb1016c4946a0937eb7ec35e19f1d8 assets/arsmagicalegacy/models/item/affinity_essence_arcane.json
 30a8164938d38c30eeb732879d3cd38955490293 assets/arsmagicalegacy/models/item/affinity_essence_earth.json
@@ -25,6 +25,7 @@ bd93b3eb1c4912992a4fc11a0801c861b24ddc01 assets/arsmagicalegacy/models/item/affi
 7a015fda319f9dd8d3baab4993daaec647132edb assets/arsmagicalegacy/models/item/arcane_compendium.json
 cc2cb15d367f1057fc85a254ed16a8d5ea9fd02b assets/arsmagicalegacy/models/item/arcane_compound.json
 479f46ca80005c14a383332494b60e0b757b4f70 assets/arsmagicalegacy/models/item/aum.json
+03d6d90c70548cf19223da5f99e65178ab7bd2cf assets/arsmagicalegacy/models/item/black_aurem.json
 9cc168c5c7d6018e6c02f1d8f40dd4fc008d1782 assets/arsmagicalegacy/models/item/black_rune.json
 1e97cd23f92995dada9ded0b943ed936fe532d26 assets/arsmagicalegacy/models/item/blank_rune.json
 78fda52d641e619051035ca42e0102740b412225 assets/arsmagicalegacy/models/item/blue_rune.json

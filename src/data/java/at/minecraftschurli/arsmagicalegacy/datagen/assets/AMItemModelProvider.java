@@ -31,6 +31,7 @@ public final class AMItemModelProvider extends ItemModelProvider {
         basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3);
         blockItem(AMItems.ALTAR_CORE);
         blockItem(AMItems.MAGIC_WALL);
+        singleTexture("black_aurem", ResourceLocation.withDefaultNamespace("item/generated"), "layer0", modLoc("block/black_aurem"));
         basicItem(AMItems.WIZARDS_CHALK);
         basicBlockItem(AMItems.VINTEUM_TORCH);
         basicItem(AMItems.SPELL_PARCHMENT);

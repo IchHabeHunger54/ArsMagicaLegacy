@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.blockentity.AltarCoreBlockEntity;
+import at.minecraftschurli.arsmagicalegacy.blockentity.BlackAuremBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.blockentity.CelestialPrismBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.blockentity.InscriptionTableBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.blockentity.ObeliskBlockEntity;
@@ -22,6 +23,7 @@ public interface AMBlockEntities {
     DeferredHolder<BlockEntityType<?>, BlockEntityType<AltarCoreBlockEntity>>        ALTAR_CORE        = register("altar_core",        AltarCoreBlockEntity::new,        AMBlocks.ALTAR_CORE);
     DeferredHolder<BlockEntityType<?>, BlockEntityType<ObeliskBlockEntity>>          OBELISK           = register("obelisk",           ObeliskBlockEntity::new,          AMBlocks.OBELISK);
     DeferredHolder<BlockEntityType<?>, BlockEntityType<CelestialPrismBlockEntity>>   CELESTIAL_PRISM   = register("celestial_prism",   CelestialPrismBlockEntity::new,   AMBlocks.CELESTIAL_PRISM);
+    DeferredHolder<BlockEntityType<?>, BlockEntityType<BlackAuremBlockEntity>>       BLACK_AUREM       = register("black_aurem",       BlackAuremBlockEntity::new,       AMBlocks.BLACK_AUREM);
     // @formatter:on
 
     @SuppressWarnings("DataFlowIssue")

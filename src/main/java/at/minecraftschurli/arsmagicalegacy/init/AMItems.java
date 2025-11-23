@@ -45,6 +45,7 @@ public interface AMItems {
     DeferredItem<BlockItem>                                    MAGIC_WALL                       = ITEMS.registerSimpleBlockItem(AMBlocks.MAGIC_WALL);
     DeferredItem<BlockItem>                                    OBELISK                          = ITEMS.registerSimpleBlockItem(AMBlocks.OBELISK);
     DeferredItem<BlockItem>                                    CELESTIAL_PRISM                  = ITEMS.registerSimpleBlockItem(AMBlocks.CELESTIAL_PRISM);
+    DeferredItem<BlockItem>                                    BLACK_AUREM                      = ITEMS.registerSimpleBlockItem(AMBlocks.BLACK_AUREM);
     DeferredItem<WizardsChalkItem>                             WIZARDS_CHALK                    = ITEMS.registerItem("wizards_chalk", p -> new WizardsChalkItem(AMBlocks.WIZARDS_CHALK.get(), p.stacksTo(1).durability(100)));
     DeferredItem<BlockItem>                                    VINTEUM_TORCH                    = ITEMS.registerItem("vinteum_torch", p -> new StandingAndWallBlockItem(AMBlocks.VINTEUM_TORCH.get(), AMBlocks.VINTEUM_WALL_TORCH.get(), p, Direction.DOWN));
     DeferredItem<Item>                                         SPELL_PARCHMENT                  = ITEMS.registerSimpleItem("spell_parchment");

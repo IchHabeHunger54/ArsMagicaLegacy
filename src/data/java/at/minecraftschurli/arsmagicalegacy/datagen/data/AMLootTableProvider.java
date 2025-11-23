@@ -63,6 +63,7 @@ public final class AMLootTableProvider extends LootTableProvider {
             dropSelf(AMBlocks.MAGIC_WALL.get());
             add(AMBlocks.OBELISK.get(), block -> createSinglePropConditionTable(block, ObeliskBlock.PART, ObeliskBlock.Part.LOWER));
             add(AMBlocks.CELESTIAL_PRISM.get(), block -> createSinglePropConditionTable(block, CelestialPrismBlock.PART, CelestialPrismBlock.Part.LOWER));
+            dropSelf(AMBlocks.BLACK_AUREM.get());
             add(AMBlocks.WIZARDS_CHALK.get(), noDrop());
             dropSelf(AMBlocks.VINTEUM_TORCH.get());
             dropOther(AMBlocks.VINTEUM_WALL_TORCH.get(), AMBlocks.VINTEUM_TORCH.get());

@@ -435,7 +435,6 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("inscription_table_in_world_upgrading", "Inscription Table In-World Upgrading", "Whether inscription table upgrading is allowed in-world. If disabled, the upgrades must be applied through crafting.");
         configTranslation("obelisk_max_etherium", "Obelisk Max Etherium", "The maximum etherium an Obelisk can store.");
         configTranslation("celestial_prism_max_etherium", "Celestial Prism Max Etherium", "The maximum etherium a Celestial Prism can store.");
-        configTranslation("celestial_prism_etherium_per_tick", "Celestial Prism Etherium Per Tick", "The etherium a Celestial Prism produces each tick.");
         configTranslation("black_aurem_max_etherium", "Black Aurem Max Etherium", "The maximum etherium a Black Aurem can store.");
         configTranslation("mana", "Mana", "Configuration for the mana leveling and regeneration of players.");
         configTranslation("mana_base", "Mana Base", "The base value for mana calculation. Mana is calculated as base + multiplier * (level - 1).");

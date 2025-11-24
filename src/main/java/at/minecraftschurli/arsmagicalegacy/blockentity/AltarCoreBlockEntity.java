@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.blockentity;
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumConsumerBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.AltarCapMaterial;
 import at.minecraftschurli.arsmagicalegacy.api.magic.AltarMaterial;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
@@ -21,7 +22,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -38,15 +41,19 @@ import net.neoforged.neoforge.client.model.data.ModelData;
 import net.neoforged.neoforge.client.model.data.ModelProperty;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.SequencedSet;
 
 @SuppressWarnings("DataFlowIssue")
-public class AltarCoreBlockEntity extends BlockEntity {
+public class AltarCoreBlockEntity extends BlockEntity implements EtheriumConsumerBlockEntity {
     public static final ModelProperty<BlockState> CAMO = new ModelProperty<>();
     private static final String CAMO_KEY = ArsMagicaApi.modLoc("camo").toString();
     private static final String POWER_KEY = ArsMagicaApi.modLoc("power").toString();
     private static final String CURRENT_KEY = ArsMagicaApi.modLoc("current").toString();
     private static final String SPELL_KEY = ArsMagicaApi.modLoc("spell").toString();
+    private static final String PROVIDERS_KEY = ArsMagicaApi.modLoc("providers").toString();
+    private final SequencedSet<BlockPos> etheriumProviders = new LinkedHashSet<>();
     private int checkCounter = 0;
     private Direction direction;
     private BlockPos lecternPos;
@@ -148,6 +155,13 @@ public class AltarCoreBlockEntity extends BlockEntity {
         }
         tag.putInt(POWER_KEY, power);
         tag.putInt(CURRENT_KEY, currentIngredient);
+        if (!etheriumProviders.isEmpty()) {
+            ListTag list = new ListTag();
+            for (BlockPos pos : etheriumProviders) {
+                list.add(BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).getOrThrow());
+            }
+            tag.put(PROVIDERS_KEY, list);
+        }
     }
 
     @Override
@@ -167,6 +181,12 @@ public class AltarCoreBlockEntity extends BlockEntity {
         if (tag.contains(CURRENT_KEY)) {
             currentIngredient = tag.getInt(CURRENT_KEY);
         }
+        if (tag.contains(PROVIDERS_KEY)) {
+            etheriumProviders.clear();
+            for (Tag pos : tag.getList(PROVIDERS_KEY, CompoundTag.TAG_COMPOUND)) {
+                etheriumProviders.add(BlockPos.CODEC.decode(NbtOps.INSTANCE, pos).map(Pair::getFirst).getOrThrow());
+            }
+        }
         if (level != null) {
             checkMultiblock();
         }
@@ -184,6 +204,23 @@ public class AltarCoreBlockEntity extends BlockEntity {
     }
 
     @Override
+    public SequencedSet<BlockPos> getBoundPositions() {
+        return etheriumProviders;
+    }
+
+    @Override
+    public void addPosition(BlockPos pos) {
+        etheriumProviders.add(pos);
+        setChanged();
+    }
+
+    @Override
+    public void removePosition(BlockPos pos) {
+        etheriumProviders.remove(pos);
+        setChanged();
+    }
+
+    @Override
     public ModelData getModelData() {
         return camo == null ? ModelData.EMPTY : ModelData.builder().with(CAMO, camo).build();
     }
@@ -196,6 +233,10 @@ public class AltarCoreBlockEntity extends BlockEntity {
     @Nullable
     public SpellIngredient getCurrentIngredient() {
         return hasRecipe() ? recipe.get(currentIngredient) : null;
+    }
+
+    public int getPower() {
+        return power;
     }
 
     public boolean hasRecipe() {

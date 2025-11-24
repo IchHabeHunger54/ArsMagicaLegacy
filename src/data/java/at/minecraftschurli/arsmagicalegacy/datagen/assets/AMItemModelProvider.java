@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.datagen.assets;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
+import at.minecraftschurli.arsmagicalegacy.item.CrystalWrenchItem;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -20,7 +21,7 @@ public final class AMItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        singleTexture("arcane_compendium", ResourceLocation.withDefaultNamespace("item/generated"), "layer0", modLoc("item/arcane_compendium"));
+        singleTexture("arcane_compendium", mcLoc("item/generated"), "layer0", modLoc("item/arcane_compendium"));
         basicItem(AMItems.SPELL);
         basicItemWithVariants(AMItems.SPELL, AMMagic.AFFINITIES_WITH_NONE);
         withExistingParent(AMItems.SPELL_RECIPE.getId().getPath(), mcLoc("item/written_book"));
@@ -31,7 +32,14 @@ public final class AMItemModelProvider extends ItemModelProvider {
         basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3);
         blockItem(AMItems.ALTAR_CORE);
         blockItem(AMItems.MAGIC_WALL);
-        singleTexture("black_aurem", ResourceLocation.withDefaultNamespace("item/generated"), "layer0", modLoc("block/black_aurem"));
+        singleTexture("black_aurem", mcLoc("item/generated"), "layer0", modLoc("block/black_aurem"));
+        getBuilder("crystal_wrench")
+            .override()
+            .predicate(CrystalWrenchItem.ACTIVE, 1)
+            .model(singleTexture("crystal_wrench_active", mcLoc("item/generated"), "layer0", modLoc("item/crystal_wrench_active")))
+            .end()
+            .texture("layer0", modLoc("item/crystal_wrench"));
+        basicItem(AMItems.CRYSTAL_WRENCH);
         basicItem(AMItems.WIZARDS_CHALK);
         basicBlockItem(AMItems.VINTEUM_TORCH);
         basicItem(AMItems.SPELL_PARCHMENT);

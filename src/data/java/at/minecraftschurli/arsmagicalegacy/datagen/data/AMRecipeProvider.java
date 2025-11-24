@@ -129,6 +129,14 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('B', ItemTags.STONE_BRICKS)
             .unlockedBy(getHasName(AMItems.VINTEUM_DUST), has(AMTags.Items.DUSTS_VINTEUM))
             .save(output);
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, AMItems.CRYSTAL_WRENCH.get())
+            .pattern("GTG")
+            .pattern(" G ")
+            .pattern(" G ")
+            .define('G', Tags.Items.INGOTS_GOLD)
+            .define('T', AMTags.Items.GEMS_TOPAZ)
+            .unlockedBy(getHasName(AMItems.TOPAZ), has(AMTags.Items.GEMS_TOPAZ))
+            .save(output);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, AMItems.WIZARDS_CHALK.get())
             .requires(AMTags.Items.DUSTS_VINTEUM)
             .requires(Items.BONE_MEAL)

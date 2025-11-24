@@ -17,6 +17,7 @@ public interface AMTranslations {
     String ABILITY_INTO_SINGLE_OUT_OF_MULTIPLE_KEY   = ArsMagicaApi.MOD_ID + ".ability.into_single_out_of_multiple";
     String ABILITY_INTO_MULTIPLE_OUT_OF_SINGLE_KEY   = ArsMagicaApi.MOD_ID + ".ability.into_multiple_out_of_single";
     String ABILITY_INTO_MULTIPLE_OUT_OF_MULTIPLE_KEY = ArsMagicaApi.MOD_ID + ".ability.into_multiple_out_of_multiple";
+    String ALTAR_CORE_POWER_KEY                      = ArsMagicaApi.MOD_ID + ".altar_core_power";
     String BARS_VALUE_BURNOUT_KEY                    = ArsMagicaApi.MOD_ID + ".bars_value.burnout";
     String BARS_VALUE_MANA_KEY                       = ArsMagicaApi.MOD_ID + ".bars_value.mana";
     String BARS_VALUE_XP_KEY                         = ArsMagicaApi.MOD_ID + ".bars_value.xp";

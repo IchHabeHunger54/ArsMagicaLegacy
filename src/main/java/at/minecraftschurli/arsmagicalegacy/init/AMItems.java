@@ -5,6 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.item.AffinityTomeItem;
+import at.minecraftschurli.arsmagicalegacy.item.CrystalWrenchItem;
 import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
 import at.minecraftschurli.arsmagicalegacy.item.DrinkItem;
 import at.minecraftschurli.arsmagicalegacy.item.InfinityOrbItem;
@@ -46,6 +47,7 @@ public interface AMItems {
     DeferredItem<BlockItem>                                    OBELISK                          = ITEMS.registerSimpleBlockItem(AMBlocks.OBELISK);
     DeferredItem<BlockItem>                                    CELESTIAL_PRISM                  = ITEMS.registerSimpleBlockItem(AMBlocks.CELESTIAL_PRISM);
     DeferredItem<BlockItem>                                    BLACK_AUREM                      = ITEMS.registerSimpleBlockItem(AMBlocks.BLACK_AUREM);
+    DeferredItem<CrystalWrenchItem>                            CRYSTAL_WRENCH                   = ITEMS.registerItem("crystal_wrench", p -> new CrystalWrenchItem(p.stacksTo(1)));
     DeferredItem<WizardsChalkItem>                             WIZARDS_CHALK                    = ITEMS.registerItem("wizards_chalk", p -> new WizardsChalkItem(AMBlocks.WIZARDS_CHALK.get(), p.stacksTo(1).durability(100)));
     DeferredItem<BlockItem>                                    VINTEUM_TORCH                    = ITEMS.registerItem("vinteum_torch", p -> new StandingAndWallBlockItem(AMBlocks.VINTEUM_TORCH.get(), AMBlocks.VINTEUM_WALL_TORCH.get(), p, Direction.DOWN));
     DeferredItem<Item>                                         SPELL_PARCHMENT                  = ITEMS.registerSimpleItem("spell_parchment");

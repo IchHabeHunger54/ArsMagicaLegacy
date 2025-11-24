@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,18 +42,6 @@ public class ObeliskBlock extends EtheriumGeneratorBlock {
     public ObeliskBlock(Properties properties) {
         super(properties);
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, false).setValue(PART, Part.LOWER));
-    }
-
-    @Nullable
-    public static ObeliskBlockEntity getBlockEntity(Level level, BlockPos pos) {
-        BlockState state = level.getBlockState(pos);
-        if (!state.is(AMBlocks.OBELISK)) return null;
-        pos = switch (state.getValue(PART)) {
-            case LOWER -> pos;
-            case MIDDLE -> pos.below();
-            case UPPER -> pos.below(2);
-        };
-        return level.getBlockState(pos).is(AMBlocks.OBELISK) && level.getBlockState(pos).getValue(PART) == Part.LOWER && level.getBlockEntity(pos) instanceof ObeliskBlockEntity blockEntity ? blockEntity : null;
     }
 
     @Override
@@ -127,7 +116,7 @@ public class ObeliskBlock extends EtheriumGeneratorBlock {
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (!ObeliskFuel.isFuel(stack)) return ItemInteractionResult.CONSUME;
-        ObeliskBlockEntity blockEntity = getBlockEntity(level, pos);
+        ObeliskBlockEntity blockEntity = getBlockEntity(level, pos, state);
         if (blockEntity == null) return ItemInteractionResult.CONSUME;
         ItemStack slotStack = blockEntity.getItem(0).copy();
         if (!slotStack.isEmpty() && !ItemStack.isSameItemSameComponents(slotStack, stack)) return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
@@ -148,7 +137,7 @@ public class ObeliskBlock extends EtheriumGeneratorBlock {
 
     @Override
     protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
-        return AbstractContainerMenu.getRedstoneSignalFromContainer(getBlockEntity(level, pos));
+        return AbstractContainerMenu.getRedstoneSignalFromContainer(getBlockEntity(level, pos, state));
     }
 
     @Override
@@ -161,6 +150,24 @@ public class ObeliskBlock extends EtheriumGeneratorBlock {
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return type == AMBlockEntities.OBELISK.get() && state.getValue(PART) == Part.LOWER ? super.getTicker(level, state, type) : null;
+    }
+
+    @Override
+    @Nullable
+    public ObeliskBlockEntity getBlockEntity(Level level, BlockPos pos, BlockState state) {
+        if (!state.is(this)) return null;
+        pos = switch (state.getValue(PART)) {
+            case LOWER -> pos;
+            case MIDDLE -> pos.below();
+            case UPPER -> pos.below(2);
+        };
+        return level.getBlockState(pos).is(this) && level.getBlockState(pos).getValue(PART) == Part.LOWER && level.getBlockEntity(pos) instanceof ObeliskBlockEntity blockEntity ? blockEntity : null;
+    }
+
+    @Override
+    @Nullable
+    public AABB getOutline(Level level, BlockPos pos, BlockState state) {
+        return state.getValue(PART) == Part.LOWER ? new AABB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 3, pos.getZ() + 1) : null;
     }
 
     private void destroy(Level level, Player player, BlockPos pos) {

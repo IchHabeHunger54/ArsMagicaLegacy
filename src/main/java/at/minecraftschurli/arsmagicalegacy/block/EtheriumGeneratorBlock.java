@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.block;
 
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumGeneratorBlockEntity;
+import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumHandlerBlock;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -11,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class EtheriumGeneratorBlock extends Block implements EntityBlock {
+public abstract class EtheriumGeneratorBlock extends Block implements EntityBlock, EtheriumHandlerBlock {
     private static final BlockEntityTicker<?> TICKER = (level, pos, state, blockEntity) -> {
         if (blockEntity instanceof EtheriumGeneratorBlockEntity etheriumGeneratorBlockEntity) {
             etheriumGeneratorBlockEntity.tick(level, pos, state);

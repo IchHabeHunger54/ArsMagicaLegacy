@@ -3,10 +3,12 @@ package at.minecraftschurli.arsmagicalegacy.block;
 import at.minecraftschurli.arsmagicalegacy.blockentity.BlackAuremBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -30,5 +32,15 @@ public class BlackAuremBlock extends EtheriumGeneratorBlock {
     @Override
     protected RenderShape getRenderShape(BlockState state) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
+    }
+
+    @Override
+    public BlockEntity getBlockEntity(Level level, BlockPos pos, BlockState state) {
+        return level.getBlockEntity(pos);
+    }
+
+    @Override
+    public AABB getOutline(Level level, BlockPos pos, BlockState state) {
+        return new AABB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
     }
 }

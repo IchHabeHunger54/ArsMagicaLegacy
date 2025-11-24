@@ -52,6 +52,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         blockIdTranslation(AMBlocks.OBELISK);
         blockIdTranslation(AMBlocks.CELESTIAL_PRISM);
         blockIdTranslation(AMBlocks.BLACK_AUREM);
+        itemIdTranslation(AMItems.CRYSTAL_WRENCH);
         blockIdTranslation(AMBlocks.WIZARDS_CHALK);
         addBlock(AMBlocks.VINTEUM_WALL_TORCH, idTranslation(AMBlocks.VINTEUM_TORCH.getId().getPath()));
         itemIdTranslation(AMItems.SPELL_PARCHMENT);
@@ -205,6 +206,8 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTags.Blocks.DESERT_NOVA_PLANTABLE_ON, "Soil for Desert Nova");
         add(AMTags.Blocks.TARMA_ROOT_PLANTABLE_ON, "Soil for Tarma Root");
         add(AMTags.Blocks.WIZARDS_AUTUMN_LEAVES, "Wizard's Autumn Leaves");
+        add(AMTags.Blocks.ETHERIUM_PROVIDERS, "Etherium Providers");
+        add(AMTags.Blocks.ETHERIUM_CONSUMERS, "Etherium Consumers");
         add(AMTags.Items.ORES_CHIMERITE, "Chimerite Ores");
         add(AMTags.Items.ORES_TOPAZ, "Topaz Ores");
         add(AMTags.Items.ORES_VINTEUM, "Vinteum Ores");
@@ -597,6 +600,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.ABILITY_OUT_OF_MULTIPLE_KEY, "Shifted out of abilities %s!");
         add(AMTranslations.ABILITY_OUT_OF_SINGLE_KEY, "Shifted out of ability %s!");
         add(AMTranslations.ABILITY_SEPARATOR_KEY, ", ");
+        add(AMTranslations.ALTAR_CORE_POWER_KEY, "Power: %s");
         add(AMTranslations.ALTAR_CORE_LOW_POWER_KEY, "Altar does not have enough power!");
         add(AMTranslations.ANY_ETHERIUM_KEY, "Any Etherium");
         add(AMTranslations.BARS_VALUE_BURNOUT_KEY, "%s / %s");
@@ -679,6 +683,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.SPELL_RECIPE_GRAMMAR_KEY, "Grammar");
         add(AMTranslations.SPELL_RECIPE_INGREDIENTS_KEY, "Ingredients");
         add(AMTranslations.SPELL_RECIPE_SHAPE_GROUP_KEY, "Shape Group %s");
+        add("config.jade.plugin_arsmagicalegacy.altar", "Altar");
         add("config.jade.plugin_arsmagicalegacy.etherium", "Etherium");
         add("itemGroup." + ArsMagicaApi.MOD_ID, "Ars Magica: Legacy");
         add("potion.potency.5", "VI");

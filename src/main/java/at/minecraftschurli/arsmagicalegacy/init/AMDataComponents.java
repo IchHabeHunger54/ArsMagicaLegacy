@@ -9,6 +9,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.spell.data.RecallPosition;
 import at.minecraftschurli.arsmagicalegacy.spell.data.SpellDamage;
 import com.mojang.serialization.Codec;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -18,14 +19,17 @@ import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.List;
+
 public interface AMDataComponents {
     DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ArsMagicaApi.MOD_ID);
     // @formatter:off
-    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Affinity>>>     AFFINITY      = register("affinity",      Affinity.CODEC,     ByteBufCodecs.holderRegistry(AMRegistryKeys.AFFINITY));
-    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<EtheriumType>>> ETHERIUM_TYPE = register("etherium_type", EtheriumType.CODEC, ByteBufCodecs.holderRegistry(AMRegistryKeys.ETHERIUM_TYPE));
-    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<SkillPoint>>>   SKILL_POINT   = register("skill_point",   SkillPoint.CODEC,   ByteBufCodecs.holderRegistry(AMRegistryKeys.SKILL_POINT));
-    DeferredHolder<DataComponentType<?>, DataComponentType<Spell>>                SPELL         = register("spell",         Spell.CODEC,        Spell.STREAM_CODEC);
-    DeferredHolder<DataComponentType<?>, DataComponentType<Integer>>              TIER          = register("tier",          Codec.INT,          ByteBufCodecs.INT);
+    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Affinity>>>     AFFINITY         = register("affinity",         Affinity.CODEC,           ByteBufCodecs.holderRegistry(AMRegistryKeys.AFFINITY));
+    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<EtheriumType>>> ETHERIUM_TYPE    = register("etherium_type",    EtheriumType.CODEC,       ByteBufCodecs.holderRegistry(AMRegistryKeys.ETHERIUM_TYPE));
+    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<SkillPoint>>>   SKILL_POINT      = register("skill_point",      SkillPoint.CODEC,         ByteBufCodecs.holderRegistry(AMRegistryKeys.SKILL_POINT));
+    DeferredHolder<DataComponentType<?>, DataComponentType<Spell>>                SPELL            = register("spell",            Spell.CODEC,              Spell.STREAM_CODEC);
+    DeferredHolder<DataComponentType<?>, DataComponentType<List<GlobalPos>>>      STORED_POSITIONS = register("stored_positions", GlobalPos.CODEC.listOf(), GlobalPos.STREAM_CODEC.apply(ByteBufCodecs.list()));
+    DeferredHolder<DataComponentType<?>, DataComponentType<Integer>>              TIER             = register("tier",             Codec.INT,                ByteBufCodecs.INT);
 
     DeferredHolder<DataComponentType<?>, DataComponentType<Integer>>        SPELL_COLOR           = register("spell_color",           Codec.INT,            ByteBufCodecs.INT);
     DeferredHolder<DataComponentType<?>, DataComponentType<SpellDamage>>    SPELL_DAMAGE          = register("spell_damage",          SpellDamage.CODEC,    SpellDamage.STREAM_CODEC);

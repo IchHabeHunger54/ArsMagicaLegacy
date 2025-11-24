@@ -30,6 +30,8 @@ public interface AMTags {
         TagKey<Block> DESERT_NOVA_PLANTABLE_ON = tag("desert_nova_plantable_on");
         TagKey<Block> TARMA_ROOT_PLANTABLE_ON = tag("tarma_root_plantable_on");
         TagKey<Block> WIZARDS_AUTUMN_LEAVES = tag("wizards_autumn_leaves");
+        TagKey<Block> ETHERIUM_PROVIDERS = tag("etherium_providers");
+        TagKey<Block> ETHERIUM_CONSUMERS = tag("etherium_consumers");
 
         private static TagKey<Block> cTag(String name) {
             return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", name));

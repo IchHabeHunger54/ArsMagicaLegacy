@@ -40,9 +40,9 @@ import at.minecraftschurli.arsmagicalegacy.client.particle.controller.OrbitPoint
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.AltarCoreRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.BlackAuremRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.EmptyRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.renderer.item.SpellItemRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.spell.EtheriumSpellIngredientRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.spell.ItemSpellIngredientRenderer;
-import at.minecraftschurli.arsmagicalegacy.client.renderer.item.SpellItemRenderer;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
@@ -52,6 +52,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
 import at.minecraftschurli.arsmagicalegacy.init.AMParticles;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import at.minecraftschurli.arsmagicalegacy.item.CrystalWrenchItem;
 import at.minecraftschurli.arsmagicalegacy.packet.SetActiveShapeGroupPacket;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.platform.InputConstants;
@@ -64,6 +65,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.block.BlockModelShaper;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceKey;
@@ -106,6 +108,7 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void clientSetup(FMLClientSetupEvent event) {
         ArsMagicaClientApiImpl.postEvents();
+        event.enqueueWork(() -> ItemProperties.register(AMItems.CRYSTAL_WRENCH.get(), CrystalWrenchItem.ACTIVE, (stack, level, player, seed) -> stack.has(AMDataComponents.STORED_POSITIONS) && !stack.get(AMDataComponents.STORED_POSITIONS).isEmpty() ? 1 : 0));
     }
 
     @SubscribeEvent

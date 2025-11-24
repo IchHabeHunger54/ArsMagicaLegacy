@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
@@ -83,6 +84,23 @@ public class CelestialPrismBlock extends EtheriumGeneratorBlock {
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
+    }
+
+    @Override
+    @Nullable
+    public BlockEntity getBlockEntity(Level level, BlockPos pos, BlockState state) {
+        if (!state.is(this)) return null;
+        pos = switch (state.getValue(PART)) {
+            case LOWER -> pos;
+            case UPPER -> pos.below(1);
+        };
+        return level.getBlockState(pos).is(this) && level.getBlockState(pos).getValue(PART) == Part.LOWER && level.getBlockEntity(pos) instanceof CelestialPrismBlockEntity blockEntity ? blockEntity : null;
+    }
+
+    @Override
+    @Nullable
+    public AABB getOutline(Level level, BlockPos pos, BlockState state) {
+        return state.getValue(PART) == Part.LOWER ? new AABB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 2, pos.getZ() + 1) : null;
     }
 
     public enum Part implements StringRepresentableEnum {

@@ -38,6 +38,7 @@ public final class ArsMagicaLegacy {
     private void register(IEventBus bus) {
         AMBlocks.BLOCKS.register(bus);
         AMItems.ITEMS.register(bus);
+        AMItems.ARMOR_MATERIALS.register(bus);
         AMDataComponents.DATA_COMPONENTS.register(bus);
         AMAttributes.ATTRIBUTES.register(bus);
         AMBlockEntities.BLOCK_ENTITIES.register(bus);

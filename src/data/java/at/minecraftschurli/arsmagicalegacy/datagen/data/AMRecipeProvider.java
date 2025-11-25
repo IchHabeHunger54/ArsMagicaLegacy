@@ -160,6 +160,16 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('P', Items.PAPER)
             .unlockedBy(getHasName(Items.PAPER), has(Items.PAPER))
             .save(output);
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, AMItems.MAGITECH_GOGGLES.get())
+            .pattern("LLL")
+            .pattern("CGC")
+            .pattern("TLT")
+            .define('L', Items.LEATHER)
+            .define('C', AMTags.Items.GEMS_CHIMERITE)
+            .define('T', AMTags.Items.GEMS_TOPAZ)
+            .define('G', Tags.Items.NUGGETS_GOLD)
+            .unlockedBy(getHasName(AMItems.TOPAZ), has(AMTags.Items.GEMS_TOPAZ))
+            .save(output);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, AMItems.MANA_CAKE.get(), 3)
             .requires(Tags.Items.CROPS_WHEAT)
             .requires(Items.SUGAR)

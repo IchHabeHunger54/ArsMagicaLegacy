@@ -38,6 +38,7 @@ public interface AMCreativeTabs {
             output.accept(AMItems.WIZARDS_CHALK);
             output.accept(AMItems.VINTEUM_TORCH);
             output.accept(AMItems.SPELL_PARCHMENT);
+            output.accept(AMItems.MAGITECH_GOGGLES);
             output.accept(AMItems.MANA_CAKE);
             output.accept(AMItems.MANA_MARTINI);
             acceptVariants(display, output, AMItems.INFINITY_ORB, AMRegistries.SKILL_POINT, (stack, holder) -> stack.set(AMDataComponents.SKILL_POINT, holder));

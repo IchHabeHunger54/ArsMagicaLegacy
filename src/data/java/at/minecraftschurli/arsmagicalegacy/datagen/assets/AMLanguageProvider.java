@@ -56,6 +56,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         blockIdTranslation(AMBlocks.WIZARDS_CHALK);
         addBlock(AMBlocks.VINTEUM_WALL_TORCH, idTranslation(AMBlocks.VINTEUM_TORCH.getId().getPath()));
         itemIdTranslation(AMItems.SPELL_PARCHMENT);
+        itemIdTranslation(AMItems.MAGITECH_GOGGLES);
         itemIdTranslation(AMItems.MANA_CAKE);
         itemIdTranslation(AMItems.MANA_MARTINI);
         itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.BLUE_POINT.location(), "Blue Infinity Orb");

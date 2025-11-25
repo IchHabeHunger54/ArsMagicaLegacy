@@ -1,7 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.entity;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
-import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.nbt.CompoundTag;

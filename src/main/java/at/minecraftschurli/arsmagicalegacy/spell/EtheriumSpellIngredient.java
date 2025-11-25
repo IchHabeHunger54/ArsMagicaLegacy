@@ -8,7 +8,6 @@ import at.minecraftschurli.arsmagicalegacy.blockentity.AltarCoreBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
-import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

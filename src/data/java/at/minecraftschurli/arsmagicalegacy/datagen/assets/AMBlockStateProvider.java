@@ -1,10 +1,10 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.assets;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.block.CelestialPrismBlock;
-import at.minecraftschurli.arsmagicalegacy.block.WizardsChalkBlock;
 import at.minecraftschurli.arsmagicalegacy.block.AltarCoreBlock;
+import at.minecraftschurli.arsmagicalegacy.block.CelestialPrismBlock;
 import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
+import at.minecraftschurli.arsmagicalegacy.block.WizardsChalkBlock;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Direction;

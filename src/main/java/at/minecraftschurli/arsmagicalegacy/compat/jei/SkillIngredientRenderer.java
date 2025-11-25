@@ -3,7 +3,6 @@ package at.minecraftschurli.arsmagicalegacy.compat.jei;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
-import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;

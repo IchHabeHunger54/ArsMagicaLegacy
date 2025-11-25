@@ -2,7 +2,6 @@ package at.minecraftschurli.arsmagicalegacy.api.client;
 
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;

@@ -3,11 +3,10 @@ package at.minecraftschurli.arsmagicalegacy.blockentity;
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMCapabilities;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumConsumerBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumHandler;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.AltarCapMaterial;
 import at.minecraftschurli.arsmagicalegacy.api.magic.AltarMaterial;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
@@ -230,7 +229,7 @@ public class AltarCoreBlockEntity extends BlockEntity implements EtheriumConsume
             for (Tag t : tag.getList(ETHERIUM_KEY, CompoundTag.TAG_COMPOUND)) {
                 CompoundTag compound = (CompoundTag) t;
                 if (compound.contains(TYPE_KEY) && compound.contains(AMOUNT_KEY)) {
-                    etherium.put(level.registryAccess().registryOrThrow(AMRegistryKeys.ETHERIUM_TYPE).getHolder(ResourceLocation.parse(compound.getString(TYPE_KEY))).get(), compound.getInt(AMOUNT_KEY));
+                    etherium.put(AMRegistries.etheriumTypes(level.registryAccess()).getHolder(ResourceLocation.parse(compound.getString(TYPE_KEY))).get(), compound.getInt(AMOUNT_KEY));
                 }
             }
         }
@@ -274,8 +273,7 @@ public class AltarCoreBlockEntity extends BlockEntity implements EtheriumConsume
 
     @Override
     public List<Holder<EtheriumType>> getEtheriumTypes() {
-        return level.registryAccess()
-            .registryOrThrow(AMRegistryKeys.ETHERIUM_TYPE)
+        return AMRegistries.etheriumTypes(level.registryAccess())
             .holders()
             .map(e -> (Holder<EtheriumType>) e)
             .toList();

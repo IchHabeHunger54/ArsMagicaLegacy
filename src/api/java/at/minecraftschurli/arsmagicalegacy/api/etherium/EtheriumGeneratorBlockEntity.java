@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.api.etherium;
 
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -61,7 +61,7 @@ public abstract class EtheriumGeneratorBlockEntity extends BlockEntity implement
     @SuppressWarnings("DataFlowIssue")
     @Override
     public List<Holder<EtheriumType>> getEtheriumTypes() {
-        return List.of(level.registryAccess().registryOrThrow(AMRegistryKeys.ETHERIUM_TYPE).getHolderOrThrow(etheriumType));
+        return List.of(AMRegistries.etheriumTypes(level.registryAccess()).getHolderOrThrow(etheriumType));
     }
 
     @Override

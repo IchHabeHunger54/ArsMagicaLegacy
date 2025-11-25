@@ -42,7 +42,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     private GrammarArea grammarArea;
     private EditBox searchBar;
     private EditBox nameBar;
-    private InscriptionTableBlockEntity.Data cachedData;
+    private InscriptionTableBlockEntity.MenuData cachedData;
 
     public InscriptionTableScreen(InscriptionTableMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -200,11 +200,11 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     }
 
     private void sync() {
-        InscriptionTableBlockEntity.Data data = new InscriptionTableBlockEntity.Data(
+        InscriptionTableBlockEntity.MenuData data = new InscriptionTableBlockEntity.MenuData(
             Optional.of(Component.literal(nameBar.getValue())),
             grammarArea.getVisible().stream().map(Draggable::getSkill).toList(),
             shapeGroupAreas.stream().map(area -> area.getVisible().stream().map(Draggable::getSkill).toList()).toList());
-        menu.getBlockEntity().setData(data);
+        menu.getBlockEntity().setMenuData(data);
         PacketDistributor.sendToServer(new InscriptionTableSyncPacket(menu.getBlockEntity().getBlockPos(), data));
     }
 
@@ -245,7 +245,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     }
 
     private void updateCachedData() {
-        InscriptionTableBlockEntity.Data data = menu.getBlockEntity().getData();
+        InscriptionTableBlockEntity.MenuData data = menu.getBlockEntity().getMenuData();
         if (data == cachedData) return;
         cachedData = data;
         cachedData.name().ifPresent(name -> nameBar.setValue(name.getString()));

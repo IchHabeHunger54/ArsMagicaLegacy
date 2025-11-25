@@ -110,13 +110,13 @@ public class InscriptionTableMenu extends AbstractContainerMenu {
         public void set(ItemStack stack) {
             super.set(stack);
             if (stack.has(AMDataComponents.SPELL)) {
-                blockEntity.setData(InscriptionTableBlockEntity.Data.fromSpell(stack.get(AMDataComponents.SPELL), blockEntity.getLevel().registryAccess()));
+                blockEntity.setMenuData(InscriptionTableBlockEntity.MenuData.fromSpell(stack.get(AMDataComponents.SPELL), blockEntity.getLevel().registryAccess()));
             }
         }
 
         @Override
         public Optional<ItemStack> tryRemove(int count, int decrement, Player player) {
-            Spell spell = blockEntity.getData().toSpell();
+            Spell spell = blockEntity.getMenuData().toSpell();
             return super.tryRemove(count, decrement, player).map(stack -> {
                 if (spell.isEmpty()) return stack;
                 BlockPos pos = blockEntity.getBlockPos();

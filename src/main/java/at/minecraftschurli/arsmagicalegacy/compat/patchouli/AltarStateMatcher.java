@@ -15,7 +15,7 @@ public class AltarStateMatcher implements IStateMatcher {
     private final TriPredicate<BlockGetter, BlockPos, BlockState> predicate;
 
     public AltarStateMatcher() {
-        predicate = (level, pos, state) -> AMRegistries.altarCapMaterials(level instanceof Level l ? l.registryAccess() : AMRegistries.registryAccess())
+        predicate = (level, pos, state) -> AMRegistries.altarMaterials(level instanceof Level l ? l.registryAccess() : AMRegistries.registryAccess())
             .stream()
             .anyMatch(material -> state.is(material.block()));
     }

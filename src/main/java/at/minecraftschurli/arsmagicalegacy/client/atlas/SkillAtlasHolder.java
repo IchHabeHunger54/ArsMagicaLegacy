@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.client.atlas;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;

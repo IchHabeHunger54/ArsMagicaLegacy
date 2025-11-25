@@ -47,16 +47,6 @@ public abstract class ArsMagicaClientApi {
     }
 
     /**
-     * @param ingredient The {@link SpellIngredient} to get the {@link SpellIngredientRenderer} for.
-     * @return The {@link SpellIngredientRenderer} for the given {@link SpellIngredient}.
-     * @param <T> The exact type of the {@link SpellIngredient}.
-     */
-    @Nullable
-    public static <T extends SpellIngredient> SpellIngredientRenderer<T> spellIngredientRenderer(T ingredient) {
-        return INSTANCE.get().getSpellIngredientRenderer(ingredient);
-    }
-
-    /**
      * @param spellPart The {@link SpellPart} to get the {@link SpellPartCustomizationScreen.Factory} for.
      * @return The {@link SpellPartCustomizationScreen.Factory} for the given {@link SpellPart}.
      */
@@ -85,10 +75,6 @@ public abstract class ArsMagicaClientApi {
     @ApiStatus.Internal
     @Nullable
     protected abstract ParticleController.Type getParticleController(ResourceLocation id);
-
-    @ApiStatus.Internal
-    @Nullable
-    protected abstract <T extends SpellIngredient> SpellIngredientRenderer<T> getSpellIngredientRenderer(T ingredient);
 
     @ApiStatus.Internal
     @Nullable

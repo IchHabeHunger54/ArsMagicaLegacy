@@ -9,22 +9,19 @@
 - Inlays
 - Liquid Essence
 - Mage & Battlemage Armor
-- All Etherium-related features, including:
-    - Etherium API
-    - Obelisk, Celestial Prism, Black Aurem
-    - Etherium Spell Ingredient
-    - Crystal Wrench
-    - Magitech Goggles
+- Magitech Goggles
 - Entities, including:
     - Mana Creepers & Mana Vortexes
     - Dryads
     - All Bosses
     - Their Projectiles
-- Altar Structure Checking
+- Altar Changes:
+    - Fixing
+    - Correct Etherium Pulling
+    - Better Structure Checking
 - Advancement Triggers
 - Rituals
 - Compat
     - Curios (Magitech Goggles)
-    - Jade (Etherium Contents, Connected Etherium)
     - Patchouli
     - Compat Recipes

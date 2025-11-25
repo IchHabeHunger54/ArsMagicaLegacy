@@ -2,7 +2,6 @@ package at.minecraftschurli.arsmagicalegacy.compat.jei;
 
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
-import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.subtypes.UidContext;

@@ -1,7 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.client.model.item;
 
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.resources.model.BakedModel;

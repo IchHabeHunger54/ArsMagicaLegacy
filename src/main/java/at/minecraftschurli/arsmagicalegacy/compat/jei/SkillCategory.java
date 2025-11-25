@@ -12,7 +12,6 @@ import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
-import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;

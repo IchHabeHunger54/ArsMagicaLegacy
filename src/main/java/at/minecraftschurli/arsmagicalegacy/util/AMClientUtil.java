@@ -3,7 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.util;
 import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.ControlledParticle;
 import at.minecraftschurli.arsmagicalegacy.api.client.ParticleSpawner;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.OcculusScreen;
@@ -57,10 +57,6 @@ public final class AMClientUtil {
 
     public static Font font() {
         return mc().font;
-    }
-
-    public static RegistryAccess registryAccess() {
-        return level().registryAccess();
     }
 
     public static int getRedI(int color) {
@@ -184,7 +180,7 @@ public final class AMClientUtil {
         SpellEntityKey key = new SpellEntityKey(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()), spell.grammar().primaryAffinity());
         SPELL_SHAPE_ENTITY_PARTICLE_SPAWNERS.computeIfAbsent(key, k -> {
             ParticleSpawner spawner = ParticleSpawnerManager.INSTANCE.get(key.id);
-            return new ParticleSpawner(entity.registryAccess().registryOrThrow(AMRegistryKeys.AFFINITY).get(key.affinity).particle(),
+            return new ParticleSpawner(AMRegistries.affinities().get(key.affinity).particle(),
                 spawner.count(),
                 spawner.minLifetime(),
                 spawner.maxLifetime(),

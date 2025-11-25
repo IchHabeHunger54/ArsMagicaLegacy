@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.api.magic;
 
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.Util;
@@ -32,7 +32,7 @@ public record Skill(List<Holder<Skill>> parents, Optional<Holder<SkillPoint>> co
         Codec.INT.fieldOf("y").forGetter(Skill::y),
         Codec.BOOL.optionalFieldOf("hidden", false).forGetter(Skill::hidden)
     ).apply(inst, Skill::new));
-    public static final Codec<Holder<Skill>> CODEC = RegistryFileCodec.create(AMRegistryKeys.SKILL, DIRECT_CODEC);
+    public static final Codec<Holder<Skill>> CODEC = RegistryFileCodec.create(AMRegistries.SKILL, DIRECT_CODEC);
 
     /**
      * @param holder The skill {@link Holder} to query.

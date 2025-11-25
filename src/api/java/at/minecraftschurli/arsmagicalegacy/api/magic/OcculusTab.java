@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.api.magic;
 
 import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.Util;
@@ -31,7 +31,7 @@ public record OcculusTab(int width, int height, int startX, int startY, int inde
         Codec.INT.fieldOf("index").forGetter(OcculusTab::index),
         ResourceLocation.CODEC.fieldOf("renderer").forGetter(OcculusTab::renderer)
     ).apply(inst, OcculusTab::new));
-    public static final Codec<Holder<OcculusTab>> CODEC = RegistryFileCodec.create(AMRegistryKeys.OCCULUS_TAB, DIRECT_CODEC);
+    public static final Codec<Holder<OcculusTab>> CODEC = RegistryFileCodec.create(AMRegistries.OCCULUS_TAB, DIRECT_CODEC);
 
     /**
      * @param holder The occulus tab {@link Holder} to query.

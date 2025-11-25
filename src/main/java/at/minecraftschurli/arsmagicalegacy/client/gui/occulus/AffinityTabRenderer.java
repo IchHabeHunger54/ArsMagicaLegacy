@@ -3,7 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.client.gui.occulus;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.ability.Ability;
 import at.minecraftschurli.arsmagicalegacy.api.client.OcculusTabRenderer;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
@@ -53,8 +53,8 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         tooltip.clear();
-        Registry<Affinity> affinities = AMClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.AFFINITY);
-        Registry<Ability> abilities = AMClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.ABILITY);
+        Registry<Affinity> affinities = AMRegistries.affinities();
+        Registry<Ability> abilities = AMRegistries.abilities();
         Font font = AMClientUtil.font();
         LocalPlayer player = AMClientUtil.player();
         int center = TAB_SIZE / 2 + RADIUS;

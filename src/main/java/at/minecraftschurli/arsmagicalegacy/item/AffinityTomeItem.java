@@ -2,7 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.item;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicHelper;
@@ -37,8 +37,7 @@ public class AffinityTomeItem extends DataComponentNamedItem<Holder<Affinity>> {
         Holder<Affinity> affinity = stack.get(AMDataComponents.AFFINITY);
         double shift = AMServerConfig.AFFINITY_TOME_SHIFT.get();
         double reduction = -AMServerConfig.AFFINITY_TOME_REDUCTION.get();
-        helper.addAffinityDepth(player, level.registryAccess()
-            .registryOrThrow(AMRegistryKeys.AFFINITY)
+        helper.addAffinityDepth(player, AMRegistries.affinities(level.registryAccess())
             .holders()
             .filter(e -> e.getKey() != Affinity.NONE)
             .map(e -> Map.entry(e, e.getKey() == affinity.getKey() ? shift : reduction))

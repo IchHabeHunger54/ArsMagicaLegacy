@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.compat.jei;
 
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import mezz.jei.api.ingredients.IIngredientHelper;
@@ -17,7 +17,7 @@ public class SkillIngredientHelper implements IIngredientHelper<Skill> {
 
     @Override
     public String getDisplayName(Skill skill) {
-        return Skill.getName(AMUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).wrapAsHolder(skill)).getString();
+        return Skill.getName(AMRegistries.skills().wrapAsHolder(skill)).getString();
     }
 
     @SuppressWarnings("removal")
@@ -29,7 +29,7 @@ public class SkillIngredientHelper implements IIngredientHelper<Skill> {
     @SuppressWarnings("DataFlowIssue")
     @Override
     public ResourceLocation getResourceLocation(Skill skill) {
-        return AMUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).getKey(skill);
+        return AMRegistries.skills().getKey(skill);
     }
 
     @Override

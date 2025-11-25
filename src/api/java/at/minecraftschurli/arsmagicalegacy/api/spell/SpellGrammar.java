@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.api.spell;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
@@ -29,7 +29,7 @@ public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List
     public static final int MAX_PARTS = 8;
     public static final SpellGrammar EMPTY = new SpellGrammar(List.of(), List.of());
     public static final Codec<SpellGrammar> CODEC = ArsMagicaApi.spellPartRegistry().byNameCodec().listOf(0, MAX_PARTS).fieldOf("parts").xmap(SpellGrammar::of, SpellGrammar::parts).codec();
-    public static final StreamCodec<RegistryFriendlyByteBuf, SpellGrammar> STREAM_CODEC = ByteBufCodecs.registry(AMRegistryKeys.SPELL_PART).apply(ByteBufCodecs.list()).map(SpellGrammar::of, SpellGrammar::parts);
+    public static final StreamCodec<RegistryFriendlyByteBuf, SpellGrammar> STREAM_CODEC = ByteBufCodecs.registry(AMRegistries.SPELL_PART).apply(ByteBufCodecs.list()).map(SpellGrammar::of, SpellGrammar::parts);
 
     /**
      * @deprecated Use {@link SpellGrammar#of(List)} instead.

@@ -2,7 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.event.BurnoutCostCalculationEvent;
@@ -81,7 +81,7 @@ final class SpellHelperImpl implements SpellHelper {
         }
         if (event.isAwardXp() && caster instanceof Player player) {
             MagicHelper helper = ArsMagicaApi.magicHelper();
-            Registry<Skill> registry = player.registryAccess().registryOrThrow(AMRegistryKeys.SKILL);
+            Registry<Skill> registry = AMRegistries.skills(player.registryAccess());
             boolean affinityGains = registry.containsKey(AMMagic.AFFINITY_GAINS_BOOST) && helper.knows(player, registry.getHolderOrThrow(AMMagic.AFFINITY_GAINS_BOOST));
             boolean continuous = spell.isContinuous();
             Map<Holder<Affinity>, Double> affinityShifts = spell.grammar().affinityShifts();

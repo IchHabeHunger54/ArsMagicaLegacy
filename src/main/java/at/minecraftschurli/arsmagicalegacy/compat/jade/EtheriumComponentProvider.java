@@ -2,7 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.compat.jade;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMCapabilities;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumHandler;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
@@ -32,9 +32,7 @@ class EtheriumComponentProvider implements IBlockComponentProvider, IServerDataP
         CompoundTag compoundTag = blockAccessor.getServerData();
         if (!compoundTag.contains(ETHERIUM_TYPES)) return;
         CompoundTag etheriumTag = compoundTag.getCompound(ETHERIUM_TYPES);
-        blockAccessor.getLevel()
-            .registryAccess()
-            .registryOrThrow(AMRegistryKeys.ETHERIUM_TYPE)
+        AMRegistries.etheriumTypes(blockAccessor instanceof Level l ? l.registryAccess() : AMRegistries.registryAccess())
             .holders()
             .filter(holder -> etheriumTag.contains(holder.getKey().location().toString()))
             .forEach(holder -> {
@@ -50,8 +48,7 @@ class EtheriumComponentProvider implements IBlockComponentProvider, IServerDataP
         EtheriumHandler capability = level.getCapability(AMCapabilities.BLOCK_ETHERIUM, blockAccessor.getPosition(), null);
         if (capability == null) return;
         CompoundTag etheriumTag = new CompoundTag();
-        level.registryAccess()
-            .registryOrThrow(AMRegistryKeys.ETHERIUM_TYPE)
+        AMRegistries.etheriumTypes(blockAccessor instanceof Level l ? l.registryAccess() : AMRegistries.registryAccess())
             .holders()
             .forEach(etheriumType -> {
                 int maxEtherium = capability.getMaxAmount(etheriumType);

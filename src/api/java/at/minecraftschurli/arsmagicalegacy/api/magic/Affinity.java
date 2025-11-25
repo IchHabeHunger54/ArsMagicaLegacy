@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.api.magic;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -18,7 +18,6 @@ import net.minecraft.sounds.SoundEvent;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 /**
  * Represents an affinity.
@@ -48,8 +47,8 @@ public record Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> m
             ParticleTypes.CODEC.fieldOf("particle").forGetter(Affinity::particle)
         ).apply(inst, Affinity::new));
     });
-    public static final Codec<Holder<Affinity>> CODEC = RegistryFileCodec.create(AMRegistryKeys.AFFINITY, DIRECT_CODEC);
-    public static final ResourceKey<Affinity> NONE = ResourceKey.create(AMRegistryKeys.AFFINITY, ArsMagicaApi.modLoc("none"));
+    public static final Codec<Holder<Affinity>> CODEC = RegistryFileCodec.create(AMRegistries.AFFINITY, DIRECT_CODEC);
+    public static final ResourceKey<Affinity> NONE = ResourceKey.create(AMRegistries.AFFINITY, ArsMagicaApi.modLoc("none"));
 
     /**
      * @param directOpposite The direct opposite affinity.

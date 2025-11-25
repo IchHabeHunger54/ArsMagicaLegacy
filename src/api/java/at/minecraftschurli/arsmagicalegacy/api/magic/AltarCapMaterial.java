@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.api.magic;
 
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
@@ -19,5 +19,5 @@ public record AltarCapMaterial(Block block, int power) {
         BuiltInRegistries.BLOCK.byNameCodec().fieldOf("block").forGetter(AltarCapMaterial::block),
         Codec.INT.fieldOf("power").forGetter(AltarCapMaterial::power)
     ).apply(inst, AltarCapMaterial::new));
-    public static final Codec<Holder<AltarCapMaterial>> CODEC = RegistryFileCodec.create(AMRegistryKeys.ALTAR_CAP_MATERIAL, DIRECT_CODEC);
+    public static final Codec<Holder<AltarCapMaterial>> CODEC = RegistryFileCodec.create(AMRegistries.ALTAR_CAP_MATERIAL, DIRECT_CODEC);
 }

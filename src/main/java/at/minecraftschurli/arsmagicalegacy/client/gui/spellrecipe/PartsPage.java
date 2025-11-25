@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.client.gui.spellrecipe;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
@@ -39,6 +39,6 @@ class PartsPage extends Page<Holder<SpellPart>> {
 
     @SuppressWarnings({"DataFlowIssue", "OptionalGetWithoutIsPresent"})
     private static Holder<Skill> skill(Holder<SpellPart> spellPart) {
-        return AMClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).getHolder(spellPart.getKey().location()).get();
+        return AMRegistries.skills().getHolder(spellPart.getKey().location()).get();
     }
 }

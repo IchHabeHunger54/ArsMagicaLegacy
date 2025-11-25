@@ -33,6 +33,7 @@ import at.minecraftschurli.arsmagicalegacy.spell.SpellPartDataManager;
 import at.minecraftschurli.arsmagicalegacy.spell.ToolTiers;
 import at.minecraftschurli.arsmagicalegacy.spell.data.SpellDamage;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
+import com.google.common.collect.Sets;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Holder;
@@ -55,6 +56,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 final class SpellHelperImpl implements SpellHelper {
     @Override
@@ -168,6 +170,18 @@ final class SpellHelperImpl implements SpellHelper {
     @Override
     public int getColor(List<SpellModifier> modifiers, Spell spell, int shapeGroupIndex) {
         return spell.dataComponents().get(shapeGroupIndex).getOrDefault(AMDataComponents.SPELL_COLOR.get(), -1);
+    }
+
+    @Override
+    public List<SpellModifier> getModifiers(SpellPart part) {
+        if (part.isModifier()) return List.of();
+        Set<SpellStat> stats = part.getStats();
+        return ArsMagicaApi.spellPartRegistry()
+            .stream()
+            .filter(SpellPart::isModifier)
+            .filter(p -> !Sets.intersection(stats, p.getStats()).isEmpty())
+            .map(p -> (SpellModifier) p)
+            .toList();
     }
 
     @Override

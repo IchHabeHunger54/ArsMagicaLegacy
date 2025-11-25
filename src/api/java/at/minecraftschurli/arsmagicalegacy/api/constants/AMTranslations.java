@@ -83,6 +83,10 @@ public interface AMTranslations {
     String INSCRIPTION_TABLE_GIVE_SPELL_KEY               = "gui." + ArsMagicaApi.MOD_ID + ".inscription_table.give_spell";
     String INSCRIPTION_TABLE_NAME_KEY                     = "gui." + ArsMagicaApi.MOD_ID + ".inscription_table.name";
     String INSCRIPTION_TABLE_SEARCH_KEY                   = "gui." + ArsMagicaApi.MOD_ID + ".inscription_table.search";
+    String JEI_SKILL_AFFINITY_BREAKDOWN_KEY               = "gui." + ArsMagicaApi.MOD_ID + ".jei.skill.affinity_breakdown";
+    String JEI_SKILL_INGREDIENTS_KEY                      = "gui." + ArsMagicaApi.MOD_ID + ".jei.skill.ingredients";
+    String JEI_SKILL_MODIFIED_BY_KEY                      = "gui." + ArsMagicaApi.MOD_ID + ".jei.skill.modified_by";
+    String JEI_SKILL_TITLE_KEY                            = "gui." + ArsMagicaApi.MOD_ID + ".jei.skill.title";
     String OCCULUS_KEY                                    = "gui." + ArsMagicaApi.MOD_ID + ".occulus";
     String OCCULUS_FORGET_ALL_KEY                         = "gui." + ArsMagicaApi.MOD_ID + ".occulus.forget_all";
     String OCCULUS_FORGET_ALL_TOOLTIP_KEY                 = "gui." + ArsMagicaApi.MOD_ID + ".occulus.forget_all.tooltip";
@@ -122,6 +126,10 @@ public interface AMTranslations {
     Component INSCRIPTION_TABLE_GIVE_SPELL               = Component.translatable(INSCRIPTION_TABLE_GIVE_SPELL_KEY);
     Component INSCRIPTION_TABLE_NAME                     = Component.translatable(INSCRIPTION_TABLE_NAME_KEY);
     Component INSCRIPTION_TABLE_SEARCH                   = Component.translatable(INSCRIPTION_TABLE_SEARCH_KEY);
+    Component JEI_SKILL_AFFINITY_BREAKDOWN               = Component.translatable(JEI_SKILL_AFFINITY_BREAKDOWN_KEY);
+    Component JEI_SKILL_INGREDIENTS                      = Component.translatable(JEI_SKILL_INGREDIENTS_KEY);
+    Component JEI_SKILL_MODIFIED_BY                      = Component.translatable(JEI_SKILL_MODIFIED_BY_KEY);
+    Component JEI_SKILL_TITLE                            = Component.translatable(JEI_SKILL_TITLE_KEY);
     Component OCCULUS                                    = Component.translatable(OCCULUS_KEY);
     Component OCCULUS_FORGET_ALL                         = Component.translatable(OCCULUS_FORGET_ALL_KEY);
     Component OCCULUS_FORGET_ALL_TOOLTIP                 = Component.translatable(OCCULUS_FORGET_ALL_TOOLTIP_KEY);

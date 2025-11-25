@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
@@ -80,14 +80,14 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public interface AMSpells {
-    DeferredRegister<MapCodec<? extends SpellIngredient>> SPELL_INGREDIENTS = DeferredRegister.create(AMRegistryKeys.SPELL_INGREDIENT, ArsMagicaApi.MOD_ID);
+    DeferredRegister<MapCodec<? extends SpellIngredient>> SPELL_INGREDIENTS = DeferredRegister.create(AMRegistries.SPELL_INGREDIENT, ArsMagicaApi.MOD_ID);
     DeferredHolder<MapCodec<? extends SpellIngredient>, MapCodec<ItemSpellIngredient>> ITEM_SPELL_INGREDIENT = SPELL_INGREDIENTS.register("item", () -> ItemSpellIngredient.CODEC);
     DeferredHolder<MapCodec<? extends SpellIngredient>, MapCodec<EtheriumSpellIngredient>> ETHERIUM_SPELL_INGREDIENT = SPELL_INGREDIENTS.register("etherium", () -> EtheriumSpellIngredient.CODEC);
 
     DeferredRegister<EntityDataSerializer<?>> DATA_SERIALIZERS = DeferredRegister.create(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, ArsMagicaApi.MOD_ID);
     DeferredHolder<EntityDataSerializer<?>, EntityDataSerializer<Spell>> DATA_SERIALIZER = DATA_SERIALIZERS.register("spell", () -> EntityDataSerializer.forValueType(Spell.STREAM_CODEC));
 
-    DeferredRegister<SpellPart> SPELL_PARTS = DeferredRegister.create(AMRegistryKeys.SPELL_PART, ArsMagicaApi.MOD_ID);
+    DeferredRegister<SpellPart> SPELL_PARTS = DeferredRegister.create(AMRegistries.SPELL_PART, ArsMagicaApi.MOD_ID);
     // @formatter:off
     SpellStat BOUNCE_STAT           = new SpellStat(ArsMagicaApi.modLoc("bounce"));
     SpellStat DAMAGE_STAT           = new SpellStat(ArsMagicaApi.modLoc("damage"));

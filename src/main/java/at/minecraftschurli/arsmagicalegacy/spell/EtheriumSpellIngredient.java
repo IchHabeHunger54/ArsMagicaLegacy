@@ -1,16 +1,21 @@
 package at.minecraftschurli.arsmagicalegacy.spell;
 
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.blockentity.AltarCoreBlockEntity;
+import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
+import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
@@ -58,5 +63,19 @@ public record EtheriumSpellIngredient(Optional<Holder<EtheriumType>> etheriumTyp
     @Override
     public boolean consume(Level level, BlockPos pos) {
         return level.getBlockEntity(pos) instanceof AltarCoreBlockEntity altar && altar.consumeEtherium(this);
+    }
+
+    @Override
+    public List<ItemStack> asItemStacks() {
+        return etheriumType.map(holder -> List.of(etheriumPlaceholder(holder))).orElseGet(() -> AMRegistries.etheriumTypes()
+            .holders()
+            .map(this::etheriumPlaceholder)
+            .toList());
+    }
+
+    private ItemStack etheriumPlaceholder(Holder<EtheriumType> holder) {
+        ItemStack stack = AMItems.ETHERIUM_PLACEHOLDER.toStack(count);
+        stack.set(AMDataComponents.ETHERIUM_TYPE, holder);
+        return stack;
     }
 }

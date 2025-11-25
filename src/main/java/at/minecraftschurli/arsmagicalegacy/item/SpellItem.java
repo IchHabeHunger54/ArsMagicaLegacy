@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.item;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
@@ -84,7 +84,7 @@ public class SpellItem extends DataComponentNamedItem<Spell> {
     }
 
     private void playSound(Level level, LivingEntity entity, Spell spell) {
-        Affinity affinity = level.registryAccess().registryOrThrow(AMRegistryKeys.AFFINITY).get(spell.grammar().primaryAffinity());
+        Affinity affinity = AMRegistries.affinities(level.registryAccess()).get(spell.grammar().primaryAffinity());
         if (affinity == null) return;
         Optional<Holder<SoundEvent>> optional = spell.isContinuous() ? affinity.loopSound() : affinity.castSound();
         optional.ifPresent(sound -> level.playSeededSound(null, entity, sound, SoundSource.PLAYERS, 1f, 1f, level.getRandom().nextLong()));

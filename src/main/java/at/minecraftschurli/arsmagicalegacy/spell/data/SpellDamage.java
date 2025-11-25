@@ -45,7 +45,7 @@ public record SpellDamage(Map<Integer, Map<ResourceKey<DamageType>, Float>> dama
             int invulnerableTime = entity.invulnerableTime;
             boolean hurtMarked = entity.hurtMarked;
             for (Map.Entry<ResourceKey<DamageType>, Float> entry : damageEntry.getValue().entrySet()) {
-                Optional<Holder.Reference<DamageType>> holder = damageTypes.getHolder(entry.getKey());
+                Optional<? extends Holder<DamageType>> holder = damageTypes.getHolder(entry.getKey());
                 if (holder.isEmpty()) continue;
                 DamageSource source = new DamageSource(holder.get(), directEntity, caster);
                 if (entity.isInvulnerableTo(source)) continue;

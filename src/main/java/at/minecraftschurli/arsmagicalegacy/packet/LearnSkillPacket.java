@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.packet;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import net.minecraft.core.Holder;
@@ -14,7 +14,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record LearnSkillPacket(Holder<Skill> skill) implements CustomPacketPayload {
     public static final Type<LearnSkillPacket> TYPE = new Type<>(ArsMagicaApi.modLoc("learn_skill"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, LearnSkillPacket> STREAM_CODEC = ByteBufCodecs.holderRegistry(AMRegistryKeys.SKILL).map(LearnSkillPacket::new, LearnSkillPacket::skill);
+    public static final StreamCodec<RegistryFriendlyByteBuf, LearnSkillPacket> STREAM_CODEC = ByteBufCodecs.holderRegistry(AMRegistries.SKILL).map(LearnSkillPacket::new, LearnSkillPacket::skill);
 
     @Override
     public Type<? extends CustomPacketPayload> type() {

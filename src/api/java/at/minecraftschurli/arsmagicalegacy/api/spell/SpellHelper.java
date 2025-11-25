@@ -99,6 +99,12 @@ public interface SpellHelper {
     int getColor(List<SpellModifier> modifiers, Spell spell, int shapeGroupIndex);
 
     /**
+     * @param part The {@link SpellPart} to query.
+     * @return A list of {@link SpellModifier} that can modify the given part.
+     */
+    List<SpellModifier> getModifiers(SpellPart part);
+
+    /**
      * @param toolTier The tool tier to get the incorrect block tag for.
      * @return A tag specifying which blocks are not breakable by the given tool tier.
      */

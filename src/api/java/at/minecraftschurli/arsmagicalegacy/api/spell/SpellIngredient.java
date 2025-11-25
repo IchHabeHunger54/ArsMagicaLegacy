@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
@@ -55,4 +56,9 @@ public interface SpellIngredient {
      * @return Whether the spell ingredient was consumed or not.
      */
     boolean consume(Level level, BlockPos pos);
+
+    /**
+     * @return A representation of the spell ingredients as item stacks, for use in GUI rendering.
+     */
+    List<ItemStack> asItemStacks();
 }

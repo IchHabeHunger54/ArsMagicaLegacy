@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
@@ -24,9 +24,9 @@ import java.util.List;
 public interface AMDataComponents {
     DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ArsMagicaApi.MOD_ID);
     // @formatter:off
-    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Affinity>>>     AFFINITY         = register("affinity",         Affinity.CODEC,           ByteBufCodecs.holderRegistry(AMRegistryKeys.AFFINITY));
-    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<EtheriumType>>> ETHERIUM_TYPE    = register("etherium_type",    EtheriumType.CODEC,       ByteBufCodecs.holderRegistry(AMRegistryKeys.ETHERIUM_TYPE));
-    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<SkillPoint>>>   SKILL_POINT      = register("skill_point",      SkillPoint.CODEC,         ByteBufCodecs.holderRegistry(AMRegistryKeys.SKILL_POINT));
+    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Affinity>>>     AFFINITY         = register("affinity",         Affinity.CODEC,           ByteBufCodecs.holderRegistry(AMRegistries.AFFINITY));
+    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<EtheriumType>>> ETHERIUM_TYPE    = register("etherium_type",    EtheriumType.CODEC,       ByteBufCodecs.holderRegistry(AMRegistries.ETHERIUM_TYPE));
+    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<SkillPoint>>>   SKILL_POINT      = register("skill_point",      SkillPoint.CODEC,         ByteBufCodecs.holderRegistry(AMRegistries.SKILL_POINT));
     DeferredHolder<DataComponentType<?>, DataComponentType<Spell>>                SPELL            = register("spell",            Spell.CODEC,              Spell.STREAM_CODEC);
     DeferredHolder<DataComponentType<?>, DataComponentType<List<GlobalPos>>>      STORED_POSITIONS = register("stored_positions", GlobalPos.CODEC.listOf(), GlobalPos.STREAM_CODEC.apply(ByteBufCodecs.list()));
     DeferredHolder<DataComponentType<?>, DataComponentType<Integer>>              TIER             = register("tier",             Codec.INT,                ByteBufCodecs.INT);

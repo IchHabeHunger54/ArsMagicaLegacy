@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
@@ -49,7 +49,7 @@ public final class AMRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildRecipes(RecipeOutput output, HolderLookup.Provider registries) {
-        HolderLookup.RegistryLookup<Affinity> affinities = registries.lookupOrThrow(AMRegistryKeys.AFFINITY);
+        HolderLookup.RegistryLookup<Affinity> affinities = registries.lookupOrThrow(AMRegistries.AFFINITY);
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.OCCULUS.get())
             .pattern("SGS")
             .pattern(" S ")

@@ -5,7 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ability.Ability;
 import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityHelper;
 import at.minecraftschurli.arsmagicalegacy.api.ability.EventTriggeredAbilityEffect;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicAttachment;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
@@ -26,7 +26,7 @@ import java.util.stream.Stream;
 public final class AbilityHelperImpl implements AbilityHelper {
     @Override
     public void onMagicChange(Player player, MagicAttachment oldData, MagicAttachment newData) {
-        Registry<Ability> registry = player.registryAccess().registryOrThrow(AMRegistryKeys.ABILITY);
+        Registry<Ability> registry = AMRegistries.abilities(player.registryAccess());
         Set<Holder<Ability>> oldSet = registry.holders()
             .filter(ability -> ability.value().test(oldData))
             .collect(Collectors.toSet());
@@ -55,8 +55,7 @@ public final class AbilityHelperImpl implements AbilityHelper {
 
     @Override
     public Stream<? extends Holder<Ability>> getActiveAbilities(Player player) {
-        return player.registryAccess()
-            .registryOrThrow(AMRegistryKeys.ABILITY)
+        return AMRegistries.abilities(player.registryAccess())
             .holders()
             .filter(e -> e.value().test(player));
     }

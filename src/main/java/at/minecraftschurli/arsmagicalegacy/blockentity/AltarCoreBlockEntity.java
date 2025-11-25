@@ -7,6 +7,7 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumConsumerBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumHandler;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.AltarCapMaterial;
 import at.minecraftschurli.arsmagicalegacy.api.magic.AltarMaterial;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
@@ -136,8 +137,8 @@ public class AltarCoreBlockEntity extends BlockEntity implements EtheriumConsume
     }
 
     private boolean checkMultiblock() {
-        Registry<AltarCapMaterial> capMaterialRegistry = level.registryAccess().registryOrThrow(AMRegistryKeys.ALTAR_CAP_MATERIAL);
-        Registry<AltarMaterial> materialRegistry = level.registryAccess().registryOrThrow(AMRegistryKeys.ALTAR_MATERIAL);
+        Registry<AltarCapMaterial> capMaterialRegistry = AMRegistries.altarCapMaterials(level.registryAccess());
+        Registry<AltarMaterial> materialRegistry = AMRegistries.altarMaterials(level.registryAccess());
         for (Direction direction : Direction.Plane.HORIZONTAL) {
             BlockPos pos = getBlockPos().relative(direction, 2).relative(direction.getCounterClockWise(), 2).below(3);
             BlockState state = level.getBlockState(pos);

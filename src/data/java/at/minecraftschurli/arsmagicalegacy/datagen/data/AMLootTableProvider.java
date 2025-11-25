@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.block.CelestialPrismBlock;
 import at.minecraftschurli.arsmagicalegacy.block.InscriptionTableBlock;
@@ -151,7 +151,7 @@ public final class AMLootTableProvider extends LootTableProvider {
         }
 
         protected void addTomeLoot(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output, ResourceKey<LootTable> lootTable, ResourceKey<Affinity> affinity, float chance) {
-            HolderLookup.RegistryLookup<Affinity> lookup = registries.lookupOrThrow(AMRegistryKeys.AFFINITY);
+            HolderLookup.RegistryLookup<Affinity> lookup = registries.lookupOrThrow(AMRegistries.AFFINITY);
             output.accept(ResourceKey.create(lootTable.registryKey(), affinity.location().withPath(lootTable.location().getPath().replace("chests/", "chests/modify/"))), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                 .add(LootItem.lootTableItem(AMItems.AFFINITY_TOME).apply(SetComponentsFunction.setComponent(AMDataComponents.AFFINITY.get(), lookup.getOrThrow(affinity))).setWeight(19))
                 .add(LootItem.lootTableItem(AMItems.AFFINITY_TOME).apply(SetComponentsFunction.setComponent(AMDataComponents.AFFINITY.get(), lookup.getOrThrow(AMMagic.LIFE))).setWeight(1))

@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
@@ -62,8 +62,7 @@ public class SpellPartSourceArea extends DragArea {
 
     @Override
     public List<Draggable> getAll() {
-        return AMClientUtil.registryAccess()
-            .registryOrThrow(AMRegistryKeys.SKILL)
+        return AMRegistries.skills()
             .holders()
             .filter(e -> ArsMagicaApi.magicHelper().knows(AMClientUtil.player(), e))
             .map(Draggable::new)

@@ -2,7 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.event.BurnoutCostCalculationEvent;
@@ -33,6 +33,7 @@ import at.minecraftschurli.arsmagicalegacy.spell.SpellPartDataManager;
 import at.minecraftschurli.arsmagicalegacy.spell.ToolTiers;
 import at.minecraftschurli.arsmagicalegacy.spell.data.SpellDamage;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
+import com.google.common.collect.Sets;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Holder;
@@ -55,6 +56,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 final class SpellHelperImpl implements SpellHelper {
     @Override
@@ -79,7 +81,7 @@ final class SpellHelperImpl implements SpellHelper {
         }
         if (event.isAwardXp() && caster instanceof Player player) {
             MagicHelper helper = ArsMagicaApi.magicHelper();
-            Registry<Skill> registry = player.registryAccess().registryOrThrow(AMRegistryKeys.SKILL);
+            Registry<Skill> registry = AMRegistries.skills(player.registryAccess());
             boolean affinityGains = registry.containsKey(AMMagic.AFFINITY_GAINS_BOOST) && helper.knows(player, registry.getHolderOrThrow(AMMagic.AFFINITY_GAINS_BOOST));
             boolean continuous = spell.isContinuous();
             Map<Holder<Affinity>, Double> affinityShifts = spell.grammar().affinityShifts();
@@ -168,6 +170,18 @@ final class SpellHelperImpl implements SpellHelper {
     @Override
     public int getColor(List<SpellModifier> modifiers, Spell spell, int shapeGroupIndex) {
         return spell.dataComponents().get(shapeGroupIndex).getOrDefault(AMDataComponents.SPELL_COLOR.get(), -1);
+    }
+
+    @Override
+    public List<SpellModifier> getModifiers(SpellPart part) {
+        if (part.isModifier()) return List.of();
+        Set<SpellStat> stats = part.getStats();
+        return ArsMagicaApi.spellPartRegistry()
+            .stream()
+            .filter(SpellPart::isModifier)
+            .filter(p -> !Sets.intersection(stats, p.getStats()).isEmpty())
+            .map(p -> (SpellModifier) p)
+            .toList();
     }
 
     @Override

@@ -3,7 +3,6 @@ package at.minecraftschurli.arsmagicalegacy.client;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterOcculusTabRenderersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterParticleControllersEvent;
-import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterSpellIngredientRenderersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterSpellPartCustomizationScreensEvent;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
@@ -41,8 +40,6 @@ import at.minecraftschurli.arsmagicalegacy.client.renderer.block.AltarCoreRender
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.BlackAuremRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.EmptyRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.item.SpellItemRenderer;
-import at.minecraftschurli.arsmagicalegacy.client.renderer.spell.EtheriumSpellIngredientRenderer;
-import at.minecraftschurli.arsmagicalegacy.client.renderer.spell.ItemSpellIngredientRenderer;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
@@ -222,12 +219,6 @@ final class AMClientEventHandler {
         event.register(MoveInViewDirectionController.ID,      MoveInViewDirectionController.CODEC);
         event.register(OrbitPointController.ID,               OrbitPointController.CODEC);
         // @formatter:on
-    }
-
-    @SubscribeEvent
-    private static void registerSpellIngredientRenderers(RegisterSpellIngredientRenderersEvent event) {
-        event.register(AMSpells.ITEM_SPELL_INGREDIENT.get(), ItemSpellIngredientRenderer.INSTANCE);
-        event.register(AMSpells.ETHERIUM_SPELL_INGREDIENT.get(), EtheriumSpellIngredientRenderer.INSTANCE);
     }
 
     @SubscribeEvent

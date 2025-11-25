@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.util;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
@@ -163,15 +163,6 @@ public final class AMUtil {
         return result.optimize();
     }
 
-    @SuppressWarnings("DataFlowIssue")
-    public static RegistryAccess registryAccess() {
-        return FMLEnvironment.dist.isClient() ? AMClientUtil.registryAccess() : ServerLifecycleHooks.getCurrentServer().registryAccess();
-    }
-
-    public static RegistryAccess registryAccess(BlockGetter blockGetter) {
-        return blockGetter instanceof Level level ? level.registryAccess() : registryAccess();
-    }
-
     public static Collector<MutableComponent, MutableComponent, MutableComponent> joiningComponents(Component delimiter) {
         return Collector.of(Component.empty()::copy, dropResult((c1, c2) -> !c1.getString().isEmpty() ? c1.append(delimiter).append(c2) : c1.append(c2)), (c1, c2) -> !c1.getString().isEmpty() ? c1.append(delimiter).append(c2) : c1.append(c2));
     }
@@ -189,7 +180,7 @@ public final class AMUtil {
     @SuppressWarnings("DataFlowIssue")
     @Nullable
     public static Holder<Skill> skill(Holder<SpellPart> part) {
-        return registryAccess().registryOrThrow(AMRegistryKeys.SKILL).getHolder(part.getKey().location()).orElse(null);
+        return AMRegistries.skills().getHolder(part.getKey().location()).orElse(null);
     }
 
     public static Vec3 bezier(Vec3 start, Vec3 control1, Vec3 control2, Vec3 end, double delta) {

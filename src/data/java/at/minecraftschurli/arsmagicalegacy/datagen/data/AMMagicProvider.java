@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.AltarCapMaterial;
 import at.minecraftschurli.arsmagicalegacy.api.magic.AltarMaterial;
@@ -287,7 +287,7 @@ public final class AMMagicProvider {
     }
 
     private static void addHiddenSkill(BootstrapContext<Skill> bootstrap, ResourceKey<Skill> key, ResourceKey<OcculusTab> tab, int x, int y) {
-        bootstrap.register(key, new Skill(List.of(), Optional.empty(), bootstrap.lookup(AMRegistryKeys.OCCULUS_TAB).getOrThrow(tab), x, y, true));
+        bootstrap.register(key, new Skill(List.of(), Optional.empty(), bootstrap.lookup(AMRegistries.OCCULUS_TAB).getOrThrow(tab), x, y, true));
     }
 
     private static void addHiddenSkill(BootstrapContext<Skill> bootstrap, DeferredHolder<SpellPart, ?> part, ResourceKey<OcculusTab> tab, int x, int y) {
@@ -298,8 +298,8 @@ public final class AMMagicProvider {
     private static Holder<Skill> addSkill(BootstrapContext<Skill> bootstrap, ResourceKey<Skill> key, ResourceKey<SkillPoint> point, ResourceKey<OcculusTab> tab, int x, int y, Holder<Skill>... parents) {
         return bootstrap.register(key, new Skill(
             Arrays.asList(parents),
-            Optional.of(bootstrap.lookup(AMRegistryKeys.SKILL_POINT).getOrThrow(point)),
-            bootstrap.lookup(AMRegistryKeys.OCCULUS_TAB).getOrThrow(tab),
+            Optional.of(bootstrap.lookup(AMRegistries.SKILL_POINT).getOrThrow(point)),
+            bootstrap.lookup(AMRegistries.OCCULUS_TAB).getOrThrow(tab),
             x,
             y,
             false));
@@ -312,14 +312,14 @@ public final class AMMagicProvider {
 
     @SuppressWarnings("DataFlowIssue")
     private static ResourceKey<Skill> fromPart(DeferredHolder<SpellPart, ?> part) {
-        return ResourceKey.create(AMRegistryKeys.SKILL, ArsMagicaApi.spellPartRegistry().getKey(part.get()));
+        return ResourceKey.create(AMRegistries.SKILL, ArsMagicaApi.spellPartRegistry().getKey(part.get()));
     }
 
     private static void addAltarCapMaterial(BootstrapContext<AltarCapMaterial> bootstrap, String name, Block block, int power) {
-        bootstrap.register(ResourceKey.create(AMRegistryKeys.ALTAR_CAP_MATERIAL, ArsMagicaApi.modLoc(name)), new AltarCapMaterial(block, power));
+        bootstrap.register(ResourceKey.create(AMRegistries.ALTAR_CAP_MATERIAL, ArsMagicaApi.modLoc(name)), new AltarCapMaterial(block, power));
     }
 
     private static void addAltarMaterial(BootstrapContext<AltarMaterial> bootstrap, BlockFamily blockFamily, int power) {
-        bootstrap.register(ResourceKey.create(AMRegistryKeys.ALTAR_MATERIAL, ArsMagicaApi.modLoc(BuiltInRegistries.BLOCK.getKey(blockFamily.getBaseBlock()).getPath())), new AltarMaterial(blockFamily.getBaseBlock(), (StairBlock) blockFamily.get(BlockFamily.Variant.STAIRS), power));
+        bootstrap.register(ResourceKey.create(AMRegistries.ALTAR_MATERIAL, ArsMagicaApi.modLoc(BuiltInRegistries.BLOCK.getKey(blockFamily.getBaseBlock()).getPath())), new AltarMaterial(blockFamily.getBaseBlock(), (StairBlock) blockFamily.get(BlockFamily.Variant.STAIRS), power));
     }
 }

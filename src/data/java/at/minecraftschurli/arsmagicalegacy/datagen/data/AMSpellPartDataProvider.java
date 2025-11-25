@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
@@ -34,8 +34,8 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
 
     @Override
     public void generate(HolderLookup.Provider provider) {
-        HolderLookup.RegistryLookup<Affinity> affinities = provider.lookupOrThrow(AMRegistryKeys.AFFINITY);
-        HolderLookup.RegistryLookup<EtheriumType> etheriumTypes = provider.lookupOrThrow(AMRegistryKeys.ETHERIUM_TYPE);
+        HolderLookup.RegistryLookup<Affinity> affinities = provider.lookupOrThrow(AMRegistries.AFFINITY);
+        HolderLookup.RegistryLookup<EtheriumType> etheriumTypes = provider.lookupOrThrow(AMRegistries.ETHERIUM_TYPE);
         builder(AMSpells.AREA_OF_EFFECT, 2f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(Items.TNT), 1))
             .ingredient(new EtheriumSpellIngredient(1));

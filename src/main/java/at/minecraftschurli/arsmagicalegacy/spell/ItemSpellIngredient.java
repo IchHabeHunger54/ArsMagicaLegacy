@@ -68,6 +68,13 @@ public record ItemSpellIngredient(Ingredient item, int count) implements SpellIn
         return false;
     }
 
+    @Override
+    public List<ItemStack> asItemStacks() {
+        return Arrays.stream(item.getItems())
+            .map(e -> e.copyWithCount(count))
+            .toList();
+    }
+
     private boolean consume(ItemStack stack) {
         IItemHandler handler = stack.getCapability(Capabilities.ItemHandler.ITEM);
         if (handler != null && testItemHandler(handler)) {

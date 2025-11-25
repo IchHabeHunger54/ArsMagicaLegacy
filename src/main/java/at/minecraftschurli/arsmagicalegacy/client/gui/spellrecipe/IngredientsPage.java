@@ -1,11 +1,12 @@
 package at.minecraftschurli.arsmagicalegacy.client.gui.spellrecipe;
 
-import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
-import at.minecraftschurli.arsmagicalegacy.api.client.SpellIngredientRenderer;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
@@ -21,10 +22,11 @@ class IngredientsPage extends Page<SpellIngredient> {
 
     @Override
     public void renderElement(SpellIngredient element, int index, GuiGraphics guiGraphics, int x, int y) {
-        SpellIngredientRenderer<SpellIngredient> renderer = ArsMagicaClientApi.spellIngredientRenderer(element);
-        if (renderer != null) {
-            renderer.renderInGui(element, guiGraphics, x + index % maxPerLine * (size + spacing), y + index / maxPerLine * (size + spacing), 0, 0);
-        }
+        ItemStack stack = AMUtil.getByTick(element.asItemStacks(), AMClientUtil.player().tickCount / 20).copyWithCount(element.count());
+        x = x + index % maxPerLine * (size + spacing);
+        y = y + index / maxPerLine * (size + spacing);
+        guiGraphics.renderItem(stack, x, y);
+        guiGraphics.renderItemDecorations(AMClientUtil.font(), stack, x, y);
     }
 
     @Override

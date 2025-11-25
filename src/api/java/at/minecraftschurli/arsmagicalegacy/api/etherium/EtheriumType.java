@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.api.etherium;
 
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.Util;
@@ -18,7 +18,7 @@ public record EtheriumType(int color) {
     public static final Codec<EtheriumType> DIRECT_CODEC = RecordCodecBuilder.create(inst -> inst.group(
         Codec.INT.fieldOf("color").forGetter(EtheriumType::color)
     ).apply(inst, EtheriumType::new));
-    public static final Codec<Holder<EtheriumType>> CODEC = RegistryFileCodec.create(AMRegistryKeys.ETHERIUM_TYPE, DIRECT_CODEC);
+    public static final Codec<Holder<EtheriumType>> CODEC = RegistryFileCodec.create(AMRegistries.ETHERIUM_TYPE, DIRECT_CODEC);
 
     /**
      * @param holder The etherium type {@link Holder} to query.

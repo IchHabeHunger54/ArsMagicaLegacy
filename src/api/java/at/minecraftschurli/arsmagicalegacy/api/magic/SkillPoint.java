@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.api.magic;
 
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.Util;
@@ -23,7 +23,7 @@ public record SkillPoint(int color, int minEarnLevel, int levelsForPoint) {
         Codec.INT.fieldOf("min_earn_level").forGetter(SkillPoint::minEarnLevel),
         Codec.INT.fieldOf("levels_for_point").forGetter(SkillPoint::levelsForPoint)
     ).apply(inst, SkillPoint::new));
-    public static final Codec<Holder<SkillPoint>> CODEC = RegistryFileCodec.create(AMRegistryKeys.SKILL_POINT, DIRECT_CODEC);
+    public static final Codec<Holder<SkillPoint>> CODEC = RegistryFileCodec.create(AMRegistries.SKILL_POINT, DIRECT_CODEC);
 
     /**
      * @param holder The skill point {@link Holder} to query.

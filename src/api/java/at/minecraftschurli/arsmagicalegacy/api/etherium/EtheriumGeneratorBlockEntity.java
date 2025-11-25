@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.api.etherium;
 
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -9,6 +10,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.List;
 
 /**
  * Simple implementation of an etherium generator, as used by the three generators in the base mod (Obelisk, Celestial Prism and Black Aurem).
@@ -53,6 +56,12 @@ public abstract class EtheriumGeneratorBlockEntity extends BlockEntity implement
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         tag.putInt(ETHERIUM_KEY, etherium);
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @Override
+    public List<Holder<EtheriumType>> getEtheriumTypes() {
+        return List.of(level.registryAccess().registryOrThrow(AMRegistryKeys.ETHERIUM_TYPE).getHolderOrThrow(etheriumType));
     }
 
     @Override

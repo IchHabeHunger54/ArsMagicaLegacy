@@ -50,18 +50,15 @@ class EtheriumComponentProvider implements IBlockComponentProvider, IServerDataP
         EtheriumHandler capability = level.getCapability(AMCapabilities.BLOCK_ETHERIUM, blockAccessor.getPosition(), null);
         if (capability == null) return;
         CompoundTag etheriumTag = new CompoundTag();
-        level.registryAccess()
-            .registryOrThrow(AMRegistryKeys.ETHERIUM_TYPE)
-            .holders()
-            .forEach(etheriumType -> {
-                int maxEtherium = capability.getMaxAmount(etheriumType);
-                if (maxEtherium > 0) {
-                    CompoundTag tag = new CompoundTag();
-                    tag.putInt(ETHERIUM, capability.getAmount(etheriumType));
-                    tag.putInt(MAX_ETHERIUM, maxEtherium);
-                    etheriumTag.put(etheriumType.getKey().location().toString(), tag);
-                }
-            });
+        capability.getEtheriumTypes().forEach(etheriumType -> {
+            int maxEtherium = capability.getMaxAmount(etheriumType);
+            if (maxEtherium > 0) {
+                CompoundTag tag = new CompoundTag();
+                tag.putInt(ETHERIUM, capability.getAmount(etheriumType));
+                tag.putInt(MAX_ETHERIUM, maxEtherium);
+                etheriumTag.put(etheriumType.getKey().location().toString(), tag);
+            }
+        });
         compoundTag.put(ETHERIUM_TYPES, etheriumTag);
     }
 

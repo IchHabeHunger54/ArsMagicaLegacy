@@ -2,10 +2,17 @@ package at.minecraftschurli.arsmagicalegacy.api.etherium;
 
 import net.minecraft.core.Holder;
 
+import java.util.List;
+
 /**
  * Represents an etherium capability handler.
  */
 public interface EtheriumHandler {
+    /**
+     * @return The {@link EtheriumType}s supported by the handler.
+     */
+    List<Holder<EtheriumType>> getEtheriumTypes();
+
     /**
      * @param type The {@link EtheriumType} to get the stored amount for.
      * @return The amount of the {@link EtheriumType} stored in the handler.

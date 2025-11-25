@@ -21,12 +21,14 @@ public final class AMJadePlugin implements IWailaPlugin {
     @Override
     public void register(IWailaCommonRegistration registration) {
         registration.registerBlockDataProvider(AltarComponentProvider.INSTANCE, AltarCoreBlockEntity.class);
+        registration.registerBlockDataProvider(EtheriumComponentProvider.INSTANCE, AltarCoreBlockEntity.class);
         registration.registerBlockDataProvider(EtheriumComponentProvider.INSTANCE, EtheriumGeneratorBlockEntity.class);
     }
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
         registration.registerBlockComponent(AltarComponentProvider.INSTANCE, AltarCoreBlock.class);
+        registration.registerBlockComponent(EtheriumComponentProvider.INSTANCE, AltarCoreBlock.class);
         registration.registerBlockComponent(EtheriumComponentProvider.INSTANCE, ObeliskBlock.class);
         registration.registerBlockComponent(EtheriumComponentProvider.INSTANCE, CelestialPrismBlock.class);
         registration.registerBlockComponent(EtheriumComponentProvider.INSTANCE, BlackAuremBlock.class);

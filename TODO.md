@@ -9,13 +9,13 @@
 - Inlays
 - Liquid Essence
 - Mage & Battlemage Armor
-- Magitech Goggles
 - Entities, including:
     - Mana Creepers & Mana Vortexes
     - Dryads
     - All Bosses
     - Their Projectiles
 - Altar Structure Checking
+- Obelisk/Celestial Prism/Black Aurem Multiblocks
 - Advancement Triggers
 - Rituals
 - Compat

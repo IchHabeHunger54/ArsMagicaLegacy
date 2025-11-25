@@ -1,4 +1,4 @@
-// 1.21.1	2025-11-24T13:36:57.115566234	Item Models: arsmagicalegacy
+// 1.21.1	2025-11-25T17:05:03.947947685	Item Models: arsmagicalegacy
 6e0b262bb6740bdbe7b3564e182497239ff375ac assets/arsmagicalegacy/models/item/affinity_essence_air.json
 84174d0bc6eb1016c4946a0937eb7ec35e19f1d8 assets/arsmagicalegacy/models/item/affinity_essence_arcane.json
 30a8164938d38c30eeb732879d3cd38955490293 assets/arsmagicalegacy/models/item/affinity_essence_earth.json
@@ -57,6 +57,7 @@ f23802e331e186775bfb9211aab6c426820e1f6a assets/arsmagicalegacy/models/item/ligh
 7de8caeb86db5ef926a02117b3d614ec253cf4e8 assets/arsmagicalegacy/models/item/lime_rune.json
 4efd9f80996b62a4cfa761ba92fa1e1eb3741e4e assets/arsmagicalegacy/models/item/magenta_rune.json
 31f73b71f6340806e253951fe796c55ba519a28e assets/arsmagicalegacy/models/item/magic_wall.json
+6fa5c59f2f5df549dee40d1f738c533e264cc876 assets/arsmagicalegacy/models/item/magitech_goggles.json
 832742322eac44f0c68d71fdf61fd6b7ea81231a assets/arsmagicalegacy/models/item/mana_cake.json
 c4e17685da9d9ca8b69c3f02bd2a8a4cbe5ad328 assets/arsmagicalegacy/models/item/mana_martini.json
 29e2e8f8d2a39b2a1650ef1531a047453daf1587 assets/arsmagicalegacy/models/item/moonstone.json

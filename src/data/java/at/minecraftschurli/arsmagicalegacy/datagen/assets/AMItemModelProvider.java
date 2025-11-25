@@ -43,6 +43,7 @@ public final class AMItemModelProvider extends ItemModelProvider {
         basicItem(AMItems.WIZARDS_CHALK);
         basicBlockItem(AMItems.VINTEUM_TORCH);
         basicItem(AMItems.SPELL_PARCHMENT);
+        basicItem(AMItems.MAGITECH_GOGGLES);
         basicItem(AMItems.MANA_CAKE);
         basicItem(AMItems.MANA_MARTINI);
         basicItem(AMItems.INFINITY_ORB);

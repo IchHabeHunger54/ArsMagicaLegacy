@@ -1,4 +1,4 @@
-// 1.21.1	2025-11-24T13:26:18.373363664	Recipes
+// 1.21.1	2025-11-25T17:05:03.952691394	Recipes
 6279e01386699f0af119f0b2b7107be085919ace data/arsmagicalegacy/advancement/recipes/building_blocks/stripped_witchwood.json
 b67df2b3b244672dbee9fc20c9f2b0e3a6d792ea data/arsmagicalegacy/advancement/recipes/building_blocks/witchwood.json
 93c9f5aa62f30aff1df72e966cd213d6efd1a3ab data/arsmagicalegacy/advancement/recipes/building_blocks/witchwood_planks.json
@@ -89,6 +89,7 @@ ad511a06426b23abfdbad3b31d7d44356b673333 data/arsmagicalegacy/advancement/recipe
 42a0e62e394bee6aeb6f17f5e8bf958aae190687 data/arsmagicalegacy/advancement/recipes/redstone/witchwood_pressure_plate.json
 d22bfb310347e205ba61c3c08b554a8f6fa54994 data/arsmagicalegacy/advancement/recipes/redstone/witchwood_trapdoor.json
 a39d21c1e4331a884e007878e4ed4ed7a7988bd6 data/arsmagicalegacy/advancement/recipes/tools/crystal_wrench.json
+a214880553ae3ed67174d0381493254c5172c4d1 data/arsmagicalegacy/advancement/recipes/tools/magitech_goggles.json
 525221c01efbcbeda73b7ec33f9096b81569fad2 data/arsmagicalegacy/advancement/recipes/tools/rune_bag.json
 88043f071c760ae1237c722def95f741708604b0 data/arsmagicalegacy/advancement/recipes/tools/wizards_chalk.json
 8578c04a8f8fcca304d0d7f6b0443d4c3a65daaf data/arsmagicalegacy/recipe/affinity_essence_air.json
@@ -133,6 +134,7 @@ a1b4f041b418bb70005d0e93956c59d524feafcb data/arsmagicalegacy/recipe/inscription
 d9f95d3438e1146d13385fb791c8b2d954cdc01f data/arsmagicalegacy/recipe/magenta_dye_from_wakebloom.json
 c710788359743d9b78a9c691709147e6e820de79 data/arsmagicalegacy/recipe/magenta_rune.json
 72c18f6f403a4ed4431927d265c007e277d791ca data/arsmagicalegacy/recipe/magic_wall.json
+b9a41b3c5f385d7748f670455b7737bd78e6f53c data/arsmagicalegacy/recipe/magitech_goggles.json
 d60aee629bf0d5aa1cc2b12b59293d04f851de3d data/arsmagicalegacy/recipe/mana_cake.json
 8d5824acdf9159e349ccf317e39aebccd98fafdf data/arsmagicalegacy/recipe/mana_martini.json
 aebcba65694ff3fda4ebc0391549c0c9b0a3058b data/arsmagicalegacy/recipe/moonstone.json

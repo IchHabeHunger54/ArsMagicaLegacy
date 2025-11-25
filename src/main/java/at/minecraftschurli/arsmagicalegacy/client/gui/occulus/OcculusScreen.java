@@ -104,7 +104,7 @@ public class OcculusScreen extends Screen {
         guiGraphics.blit(FRAME, leftPos, topPos + OcculusTabButton.SIZE, 0, 0, SIZE, SIZE);
         guiGraphics.blit(BUTTON_INDICATOR, maxPage == 0 ? leftPos + 6 + tab * OcculusTabButton.SIZE : leftPos + 28 + tab % 7 * OcculusTabButton.SIZE, topPos + OcculusTabButton.SIZE, 0, 0, OcculusTabButton.SIZE, FRAME_SIZE, OcculusTabButton.SIZE, FRAME_SIZE);
         if (renderer.hasSkillPointPanel()) {
-            List<Holder.Reference<SkillPoint>> holders = AMRegistries.skillPoints()
+            List<? extends Holder<SkillPoint>> holders = AMRegistries.skillPoints()
                 .holders()
                 .toList();
             List<MutableComponent> components = holders

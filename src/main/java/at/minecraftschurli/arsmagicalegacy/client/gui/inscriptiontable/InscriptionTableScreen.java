@@ -231,7 +231,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         sourceArea.setTypeFilter(
             shapeGroupAreas.stream().anyMatch(ShapeGroupArea::isEmpty),
             shapeGroupAreas.stream().anyMatch(e -> !e.isEmpty() && e.isNotFull() && e.getAll().stream().noneMatch(p -> {
-                Optional<Holder.Reference<SpellPart>> holder = ArsMagicaApi.spellPartRegistry().getHolder(p.getSkill().getKey().location());
+                Optional<? extends Holder<SpellPart>> holder = ArsMagicaApi.spellPartRegistry().getHolder(p.getSkill().getKey().location());
                 return holder.isPresent() && holder.get().value().isSecondaryShape();
             })),
             grammarArea.isNotFull(),

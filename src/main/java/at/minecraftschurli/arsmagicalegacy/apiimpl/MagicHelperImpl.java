@@ -53,7 +53,7 @@ final class MagicHelperImpl implements MagicHelper {
         int oldLevel = data.level();
         NeoForge.EVENT_BUS.post(new LevelChangeEvent(player, oldLevel, level));
         player.setData(AMAttachments.MAGIC, data.setLevel(level));
-        List<Holder.Reference<SkillPoint>> skillPoints = AMRegistries.skillPoints(player.registryAccess()).holders().toList();
+        List<? extends Holder<SkillPoint>> skillPoints = AMRegistries.skillPoints(player.registryAccess()).holders().toList();
         for (int i = oldLevel; i <= level; i++) {
             for (Holder<SkillPoint> holder : skillPoints) {
                 SkillPoint skillPoint = holder.value();

@@ -60,7 +60,7 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
         int center = TAB_SIZE / 2 + RADIUS;
         int count = affinities.size() - 1;
         double angleStep = Math.toRadians(360. / count);
-        List<Holder.Reference<Affinity>> list = affinities.holders()
+        List<? extends Holder<Affinity>> list = affinities.holders()
             .filter(holder -> holder.value().index() >= 0)
             .sorted(Comparator.comparing(holder -> holder.value().index()))
             .toList();

@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.spell;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
+import at.minecraftschurli.arsmagicalegacy.blockentity.AltarCoreBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -56,6 +57,6 @@ public record EtheriumSpellIngredient(Optional<Holder<EtheriumType>> etheriumTyp
 
     @Override
     public boolean consume(Level level, BlockPos pos) {
-        return false; //TODO
+        return level.getBlockEntity(pos) instanceof AltarCoreBlockEntity altar && altar.consumeEtherium(this);
     }
 }

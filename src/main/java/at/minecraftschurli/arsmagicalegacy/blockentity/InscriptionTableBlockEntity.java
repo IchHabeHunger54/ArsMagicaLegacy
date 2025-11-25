@@ -16,10 +16,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
@@ -32,7 +29,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -41,43 +37,38 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class InscriptionTableBlockEntity extends BlockEntity implements Container, MenuProvider {
-    private static final String INVENTORY_KEY = ArsMagicaApi.modLoc("inventory").toString();
-    private static final String SPELL_KEY = ArsMagicaApi.modLoc("spell").toString();
+public class InscriptionTableBlockEntity extends AMBlockEntity<InscriptionTableBlockEntity.Data> implements Container, MenuProvider {
     private ItemStack stack = ItemStack.EMPTY;
-    private Data data = Data.EMPTY;
+    private MenuData menuData = MenuData.EMPTY;
     private boolean open;
 
     public InscriptionTableBlockEntity(BlockPos pos, BlockState state) {
-        super(AMBlockEntities.INSCRIPTION_TABLE.get(), pos, state);
+        super(AMBlockEntities.INSCRIPTION_TABLE.get(), pos, state, Data.CODEC);
     }
 
-    public Data getData() {
-        return data;
+    public MenuData getMenuData() {
+        return menuData;
     }
 
-    public void setData(Data data) {
-        this.data = data;
+    public void setMenuData(MenuData menuData) {
+        this.menuData = menuData;
         setChanged();
     }
 
     public ItemStack setSpell(ItemStack stack) {
-        stack.set(AMDataComponents.SPELL, getData().toSpell());
+        stack.set(AMDataComponents.SPELL, getMenuData().toSpell());
         return stack;
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        stack = tag.contains(INVENTORY_KEY) ? ItemStack.parseOptional(registries, tag.getCompound(INVENTORY_KEY)) : ItemStack.EMPTY;
-        data = Data.CODEC.decode(NbtOps.INSTANCE, tag.getCompound(SPELL_KEY)).getOrThrow().getFirst();
+    public void fromData(Data data) {
+        stack = data.stack;
+        menuData = data.menuData;
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        tag.put(INVENTORY_KEY, stack.saveOptional(registries));
-        tag.put(SPELL_KEY, Data.CODEC.encodeStart(NbtOps.INSTANCE, data).getOrThrow());
+    public Data toData() {
+        return new Data(stack, menuData);
     }
 
     @Override
@@ -154,30 +145,30 @@ public class InscriptionTableBlockEntity extends BlockEntity implements Containe
         open = false;
     }
 
-    public record Data(Optional<Component> name, List<Holder<Skill>> grammar, List<List<Holder<Skill>>> shapeGroups) {
-        public static final Codec<Data> CODEC = RecordCodecBuilder.create(inst -> inst.group(
-            ComponentSerialization.CODEC.optionalFieldOf("name").forGetter(Data::name),
-            Skill.CODEC.listOf(0, SpellGrammar.MAX_PARTS).fieldOf("grammar").forGetter(Data::grammar),
-            Skill.CODEC.listOf(0, SpellShapeGroup.MAX_PARTS).listOf(0, Spell.MAX_SHAPE_GROUPS).fieldOf("shape_groups").forGetter(Data::shapeGroups)
-        ).apply(inst, Data::new));
-        public static final StreamCodec<RegistryFriendlyByteBuf, Data> STREAM_CODEC = StreamCodec.composite(
-            ComponentSerialization.STREAM_CODEC.apply(ByteBufCodecs::optional), Data::name,
-            ByteBufCodecs.holderRegistry(AMRegistries.SKILL).apply(ByteBufCodecs.list()), Data::grammar,
-            ByteBufCodecs.holderRegistry(AMRegistries.SKILL).apply(ByteBufCodecs.list()).apply(ByteBufCodecs.list()), Data::shapeGroups,
-            Data::new);
-        public static final Data EMPTY = new Data(Optional.empty(), List.of(), List.of());
+    public record MenuData(Optional<Component> name, List<Holder<Skill>> grammar, List<List<Holder<Skill>>> shapeGroups) {
+        public static final Codec<MenuData> CODEC = RecordCodecBuilder.create(inst -> inst.group(
+            ComponentSerialization.CODEC.optionalFieldOf("name").forGetter(MenuData::name),
+            Skill.CODEC.listOf(0, SpellGrammar.MAX_PARTS).fieldOf("grammar").forGetter(MenuData::grammar),
+            Skill.CODEC.listOf(0, SpellShapeGroup.MAX_PARTS).listOf(0, Spell.MAX_SHAPE_GROUPS).fieldOf("shape_groups").forGetter(MenuData::shapeGroups)
+        ).apply(inst, MenuData::new));
+        public static final StreamCodec<RegistryFriendlyByteBuf, MenuData> STREAM_CODEC = StreamCodec.composite(
+            ComponentSerialization.STREAM_CODEC.apply(ByteBufCodecs::optional), MenuData::name,
+            ByteBufCodecs.holderRegistry(AMRegistries.SKILL).apply(ByteBufCodecs.list()), MenuData::grammar,
+            ByteBufCodecs.holderRegistry(AMRegistries.SKILL).apply(ByteBufCodecs.list()).apply(ByteBufCodecs.list()), MenuData::shapeGroups,
+            MenuData::new);
+        public static final MenuData EMPTY = new MenuData(Optional.empty(), List.of(), List.of());
 
-        public static Data fromSpell(Spell spell, RegistryAccess registryAccess) {
+        public static MenuData fromSpell(Spell spell, RegistryAccess registryAccess) {
             List<List<Holder<Skill>>> groups = spell.shapeGroups()
                 .stream()
                 .map(e -> skills(e.parts(), registryAccess))
                 .toList();
-            return new Data(spell.name(), skills(spell.grammar().parts(), registryAccess), groups);
+            return new MenuData(spell.name(), skills(spell.grammar().parts(), registryAccess), groups);
         }
 
         public Spell toSpell() {
             List<SpellShapeGroup> groups = shapeGroups.stream()
-                .map(Data::spellParts)
+                .map(MenuData::spellParts)
                 .map(SpellShapeGroup::of)
                 .toList();
             return new Spell(name, Optional.empty(), groups, 0, SpellGrammar.of(spellParts(grammar)), SpellDataComponentMap.EMPTY);
@@ -202,5 +193,12 @@ public class InscriptionTableBlockEntity extends BlockEntity implements Containe
                 .map(e -> (Holder<Skill>) e)
                 .toList();
         }
+    }
+
+    public record Data(ItemStack stack, MenuData menuData) {
+        private static final Codec<Data> CODEC = RecordCodecBuilder.create(inst -> inst.group(
+            ItemStack.CODEC.optionalFieldOf("stack", ItemStack.EMPTY).forGetter(Data::stack),
+            MenuData.CODEC.fieldOf("menu_data").forGetter(Data::menuData)
+        ).apply(inst, Data::new));
     }
 }

@@ -47,9 +47,9 @@ public class GrammarArea extends DragTargetArea {
         return part.isComponent() && contents.stream().noneMatch(e -> e.getSkill().getKey() == skill.getKey()) || part.isModifier() && !contents.isEmpty() && AMUtil.spellPart(contents.getFirst().getSkill()).value().isComponent();
     }
 
-    public void setFromData(InscriptionTableBlockEntity.Data data) {
+    public void setFromData(InscriptionTableBlockEntity.MenuData menuData) {
         contents.clear();
-        data.grammar()
+        menuData.grammar()
             .stream()
             .map(Draggable::new)
             .forEach(contents::add);

@@ -15,10 +15,7 @@
     - Dryads
     - All Bosses
     - Their Projectiles
-- Altar Changes:
-    - Fixing
-    - Correct Etherium Pulling
-    - Better Structure Checking
+- Altar Structure Checking
 - Advancement Triggers
 - Rituals
 - Compat

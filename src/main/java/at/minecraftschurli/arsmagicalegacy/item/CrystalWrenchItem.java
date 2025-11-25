@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.item;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumConsumerBlockEntity;
+import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumHandlerBlock;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
@@ -32,7 +33,7 @@ public class CrystalWrenchItem extends Item {
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
-        BlockEntity blockEntity = level.getBlockEntity(pos);
+        BlockEntity blockEntity = state.getBlock() instanceof EtheriumHandlerBlock block ? block.getBlockEntity(level, pos, state) : level.getBlockEntity(pos);
         if (state.is(AMTags.Blocks.ETHERIUM_CONSUMERS) && blockEntity instanceof EtheriumConsumerBlockEntity consumer && stack.has(AMDataComponents.STORED_POSITIONS)) {
             List<BlockPos> list = stack.get(AMDataComponents.STORED_POSITIONS)
                 .stream()
@@ -51,7 +52,7 @@ public class CrystalWrenchItem extends Item {
         }
         if (state.is(AMTags.Blocks.ETHERIUM_PROVIDERS)) {
             List<GlobalPos> list = stack.has(AMDataComponents.STORED_POSITIONS) ? new ArrayList<>(stack.get(AMDataComponents.STORED_POSITIONS)) : new ArrayList<>();
-            list.add(new GlobalPos(level.dimension(), pos));
+            list.add(new GlobalPos(level.dimension(), blockEntity.getBlockPos()));
             stack.set(AMDataComponents.STORED_POSITIONS, list);
             return InteractionResult.SUCCESS;
         }

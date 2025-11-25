@@ -20,7 +20,7 @@ public record InscriptionTableCreateSpellPacket(BlockPos pos) implements CustomP
         Player player = context.player();
         Level level = player.level();
         if (player.isCreative() && level.isLoaded(pos) && level.getBlockEntity(pos) instanceof InscriptionTableBlockEntity blockEntity) {
-            Spell spell = blockEntity.getData().toSpell();
+            Spell spell = blockEntity.getMenuData().toSpell();
             if (!spell.isEmpty()) {
                 player.getInventory().add(blockEntity.setSpell(AMItems.SPELL.toStack()));
             }

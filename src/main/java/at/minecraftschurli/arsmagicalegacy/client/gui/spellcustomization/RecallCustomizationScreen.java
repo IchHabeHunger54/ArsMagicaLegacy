@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization;
 
 import at.minecraftschurli.arsmagicalegacy.api.client.AbstractSpellPartCustomizationScreen;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
@@ -70,7 +70,7 @@ public class RecallCustomizationScreen extends AbstractSpellPartCustomizationScr
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
-        Skill skill = AMClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).get(AMSpells.RECALL.getId());
+        Skill skill = AMRegistries.skills().get(AMSpells.RECALL.getId());
         guiGraphics.setColor(0.5f, 0.5f, 0.5f, 1);
         RenderSystem.enableBlend();
         guiGraphics.blit(leftPos + 84, topPos, 0, 32, 32, SkillAtlasHolder.INSTANCE.get().getSprite(skill));

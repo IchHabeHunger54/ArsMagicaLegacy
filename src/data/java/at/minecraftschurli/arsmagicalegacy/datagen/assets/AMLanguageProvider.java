@@ -644,6 +644,10 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.INSCRIPTION_TABLE_KEY, "Inscription Table");
         add(AMTranslations.INSCRIPTION_TABLE_NAME_KEY, "Name");
         add(AMTranslations.INSCRIPTION_TABLE_SEARCH_KEY, "Search");
+        add(AMTranslations.JEI_SKILL_AFFINITY_BREAKDOWN_KEY, "Affinity Breakdown:");
+        add(AMTranslations.JEI_SKILL_INGREDIENTS_KEY, "Ingredients:");
+        add(AMTranslations.JEI_SKILL_MODIFIED_BY_KEY, "Modified By:");
+        add(AMTranslations.JEI_SKILL_TITLE_KEY, "Spell Parts");
         add(AMTranslations.KEY_CATEGORY_KEY, "Ars Magica: Legacy");
         add(AMTranslations.KEY_NEXT_SHAPE_GROUP_KEY, "Next Shape Group");
         add(AMTranslations.KEY_PREV_SHAPE_GROUP_KEY, "Previous Shape Group");

@@ -1,12 +1,11 @@
 package at.minecraftschurli.arsmagicalegacy.client.renderer.block;
 
-import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
-import at.minecraftschurli.arsmagicalegacy.api.client.SpellIngredientRenderer;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.block.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.blockentity.AltarCoreBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.gui.Font;
@@ -16,7 +15,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -71,15 +69,8 @@ public class AltarCoreRenderer implements BlockEntityRenderer<AltarCoreBlockEnti
         poseStack.popPose();
         poseStack.pushPose();
         poseStack.mulPose(Axis.YP.rotationDegrees(level.getGameTime() % 360 + partialTick));
-        if (blockEntity.hasRecipe()) {
-            SpellIngredientRenderer<SpellIngredient> renderer = ArsMagicaClientApi.spellIngredientRenderer(ingredient);
-            if (renderer != null) {
-                renderer.renderInLevel(ingredient, poseStack, bufferSource, light, packedOverlay);
-            }
-        } else {
-            ItemStack stack = new ItemStack(Blocks.BARRIER);
-            itemRenderer.render(stack, ItemDisplayContext.GROUND, false, poseStack, bufferSource, light, OverlayTexture.NO_OVERLAY, itemRenderer.getModel(stack, level, null, 0));
-        }
+        ItemStack stack = blockEntity.hasRecipe() ? AMUtil.getByTick(ingredient.asItemStacks(), AMClientUtil.player().tickCount / 20).copyWithCount(1) : new ItemStack(Blocks.BARRIER);
+        itemRenderer.render(stack, ItemDisplayContext.GROUND, false, poseStack, bufferSource, light, packedOverlay, itemRenderer.getModel(stack, level, null, 0));
         poseStack.popPose();
         poseStack.popPose();
     }

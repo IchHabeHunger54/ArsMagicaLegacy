@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.api.magic;
 
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
@@ -24,5 +24,5 @@ public record AltarMaterial(Block block, StairBlock stair, int power) {
         BuiltInRegistries.BLOCK.byNameCodec().xmap(b -> b instanceof StairBlock s ? s : null, Function.identity()).fieldOf("stair").forGetter(AltarMaterial::stair),
         Codec.INT.fieldOf("power").forGetter(AltarMaterial::power)
     ).apply(inst, AltarMaterial::new));
-    public static final Codec<Holder<AltarMaterial>> CODEC = RegistryFileCodec.create(AMRegistryKeys.ALTAR_MATERIAL, DIRECT_CODEC);
+    public static final Codec<Holder<AltarMaterial>> CODEC = RegistryFileCodec.create(AMRegistries.ALTAR_MATERIAL, DIRECT_CODEC);
 }

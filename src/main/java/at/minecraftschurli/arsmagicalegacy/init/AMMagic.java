@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
@@ -48,19 +48,19 @@ public interface AMMagic {
     List<ResourceKey<SkillPoint>> SKILL_POINTS = List.of(BLUE_POINT, GREEN_POINT, RED_POINT);
 
     private static ResourceKey<Affinity> affinity(String name) {
-        return key(AMRegistryKeys.AFFINITY, name);
+        return key(AMRegistries.AFFINITY, name);
     }
 
     private static ResourceKey<OcculusTab> occulusTab(String name) {
-        return key(AMRegistryKeys.OCCULUS_TAB, name);
+        return key(AMRegistries.OCCULUS_TAB, name);
     }
 
     private static ResourceKey<SkillPoint> skillPoint(String name) {
-        return key(AMRegistryKeys.SKILL_POINT, name);
+        return key(AMRegistries.SKILL_POINT, name);
     }
 
     private static ResourceKey<Skill> skill(String name) {
-        return key(AMRegistryKeys.SKILL, name);
+        return key(AMRegistries.SKILL, name);
     }
 
     private static <T> ResourceKey<T> key(ResourceKey<Registry<T>> registryKey, String name) {

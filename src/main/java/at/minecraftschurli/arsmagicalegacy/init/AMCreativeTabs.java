@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -40,9 +40,9 @@ public interface AMCreativeTabs {
             output.accept(AMItems.SPELL_PARCHMENT);
             output.accept(AMItems.MANA_CAKE);
             output.accept(AMItems.MANA_MARTINI);
-            acceptVariants(display, output, AMItems.INFINITY_ORB, AMRegistryKeys.SKILL_POINT, (stack, holder) -> stack.set(AMDataComponents.SKILL_POINT, holder));
-            acceptVariants(display, output, AMItems.AFFINITY_ESSENCE, AMRegistryKeys.AFFINITY, (stack, holder) -> stack.set(AMDataComponents.AFFINITY, holder), Affinity.NONE);
-            acceptVariants(display, output, AMItems.AFFINITY_TOME, AMRegistryKeys.AFFINITY, (stack, holder) -> stack.set(AMDataComponents.AFFINITY, holder));
+            acceptVariants(display, output, AMItems.INFINITY_ORB, AMRegistries.SKILL_POINT, (stack, holder) -> stack.set(AMDataComponents.SKILL_POINT, holder));
+            acceptVariants(display, output, AMItems.AFFINITY_ESSENCE, AMRegistries.AFFINITY, (stack, holder) -> stack.set(AMDataComponents.AFFINITY, holder), Affinity.NONE);
+            acceptVariants(display, output, AMItems.AFFINITY_TOME, AMRegistries.AFFINITY, (stack, holder) -> stack.set(AMDataComponents.AFFINITY, holder));
             output.accept(AMItems.BLANK_RUNE);
             output.accept(AMItems.BLACK_RUNE);
             output.accept(AMItems.LIGHT_GRAY_RUNE);

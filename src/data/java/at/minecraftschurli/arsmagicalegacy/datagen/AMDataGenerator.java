@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.datagen;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
 import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMBlockStateProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMItemModelProvider;
@@ -61,14 +61,14 @@ final class AMDataGenerator {
             .add(Registries.CONFIGURED_FEATURE, AMWorldgenProvider::addConfiguredFeatures)
             .add(Registries.PLACED_FEATURE, AMWorldgenProvider::addPlacedFeatures)
             .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, AMWorldgenProvider::addBiomeModifiers)
-            .add(AMRegistryKeys.AFFINITY, AMMagicProvider::addAffinities)
-            .add(AMRegistryKeys.ALTAR_CAP_MATERIAL, AMMagicProvider::addAltarCapMaterials)
-            .add(AMRegistryKeys.ALTAR_MATERIAL, AMMagicProvider::addAltarMaterials)
-            .add(AMRegistryKeys.OCCULUS_TAB, AMMagicProvider::addOcculusTabs)
-            .add(AMRegistryKeys.SKILL_POINT, AMMagicProvider::addSkillPoints)
-            .add(AMRegistryKeys.SKILL, AMMagicProvider::addSkills)
-            .add(AMRegistryKeys.ABILITY, AMAbilityProvider::addAbilities)
-            .add(AMRegistryKeys.ETHERIUM_TYPE, AMEtheriumTypeProvider::addEtheriumTypes),
+            .add(AMRegistries.AFFINITY, AMMagicProvider::addAffinities)
+            .add(AMRegistries.ALTAR_CAP_MATERIAL, AMMagicProvider::addAltarCapMaterials)
+            .add(AMRegistries.ALTAR_MATERIAL, AMMagicProvider::addAltarMaterials)
+            .add(AMRegistries.OCCULUS_TAB, AMMagicProvider::addOcculusTabs)
+            .add(AMRegistries.SKILL_POINT, AMMagicProvider::addSkillPoints)
+            .add(AMRegistries.SKILL, AMMagicProvider::addSkills)
+            .add(AMRegistries.ABILITY, AMAbilityProvider::addAbilities)
+            .add(AMRegistries.ETHERIUM_TYPE, AMEtheriumTypeProvider::addEtheriumTypes),
             Set.of(ArsMagicaApi.MOD_ID))).getRegistryProvider();
         AMTagsProvider.addProviders(generator, event.includeServer(), output, lookupProvider, existingFileHelper);
         generator.addProvider(event.includeServer(), new AMAdvancementProvider(output, lookupProvider, existingFileHelper));

@@ -21,14 +21,14 @@ import at.minecraftschurli.arsmagicalegacy.ability.WaterHealthModifierAbilityEff
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.ability.Ability;
 import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityEffect;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.ResourceKey;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public interface AMAbilities {
-    DeferredRegister<MapCodec<? extends AbilityEffect>> ABILITY_EFFECTS = DeferredRegister.create(AMRegistryKeys.ABILITY_EFFECT, ArsMagicaApi.MOD_ID);
+    DeferredRegister<MapCodec<? extends AbilityEffect>> ABILITY_EFFECTS = DeferredRegister.create(AMRegistries.ABILITY_EFFECT, ArsMagicaApi.MOD_ID);
     // @formatter:off
     DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<AttributeAbilityEffect>>           ATTRIBUTE_EFFECT             = ABILITY_EFFECTS.register("attribute",             () -> AttributeAbilityEffect.CODEC);
     DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<DamageModifierAbilityEffect>>      DAMAGE_MODIFIER_EFFECT       = ABILITY_EFFECTS.register("damage_modifier",       () -> DamageModifierAbilityEffect.CODEC);
@@ -84,6 +84,6 @@ public interface AMAbilities {
     // @formatter:on
 
     private static ResourceKey<Ability> key(String name) {
-        return ResourceKey.create(AMRegistryKeys.ABILITY, ArsMagicaApi.modLoc(name));
+        return ResourceKey.create(AMRegistries.ABILITY, ArsMagicaApi.modLoc(name));
     }
 }

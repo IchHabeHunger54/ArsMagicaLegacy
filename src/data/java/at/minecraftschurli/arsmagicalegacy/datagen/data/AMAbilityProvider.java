@@ -19,7 +19,7 @@ import at.minecraftschurli.arsmagicalegacy.ability.ThornsAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.ability.WaterDamageAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.ability.WaterHealthModifierAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.api.ability.Ability;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.init.AMAbilities;
@@ -52,7 +52,7 @@ import java.util.Optional;
 
 public final class AMAbilityProvider {
     public static void addAbilities(BootstrapContext<Ability> bootstrap) {
-        HolderGetter<Affinity> affinities = bootstrap.lookup(AMRegistryKeys.AFFINITY);
+        HolderGetter<Affinity> affinities = bootstrap.lookup(AMRegistries.AFFINITY);
         HolderGetter<DamageType> damageTypes = bootstrap.lookup(Registries.DAMAGE_TYPE);
         HolderGetter<EntityType<?>> entityTypes = bootstrap.lookup(Registries.ENTITY_TYPE);
         // @formatter:off

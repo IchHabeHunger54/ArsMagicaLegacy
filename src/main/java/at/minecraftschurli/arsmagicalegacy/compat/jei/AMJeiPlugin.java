@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.compat.jei;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
@@ -39,7 +39,7 @@ public final class AMJeiPlugin implements IModPlugin {
 
     @Override
     public void registerIngredients(IModIngredientRegistration registration) {
-        registration.register(SKILL_TYPE, List.of(), new SkillIngredientHelper(), new SkillIngredientRenderer(), Skill.CODEC.xmap(Holder::value, AMUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL)::wrapAsHolder));
+        registration.register(SKILL_TYPE, List.of(), new SkillIngredientHelper(), new SkillIngredientRenderer(), Skill.CODEC.xmap(Holder::value, AMRegistries.skills()::wrapAsHolder));
     }
 
     @Override
@@ -56,8 +56,7 @@ public final class AMJeiPlugin implements IModPlugin {
 
     @Override
     public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
-        List<Skill> list = AMUtil.registryAccess()
-            .registryOrThrow(AMRegistryKeys.SKILL)
+        List<Skill> list = AMRegistries.skills()
             .holders()
             .filter(e -> ArsMagicaApi.spellPartRegistry().containsKey(e.getKey().location()))
             .sorted(Comparator.comparing(e -> Skill.getName(e).getString()))

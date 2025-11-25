@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.blockentity;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
@@ -162,8 +162,8 @@ public class InscriptionTableBlockEntity extends BlockEntity implements Containe
         ).apply(inst, Data::new));
         public static final StreamCodec<RegistryFriendlyByteBuf, Data> STREAM_CODEC = StreamCodec.composite(
             ComponentSerialization.STREAM_CODEC.apply(ByteBufCodecs::optional), Data::name,
-            ByteBufCodecs.holderRegistry(AMRegistryKeys.SKILL).apply(ByteBufCodecs.list()), Data::grammar,
-            ByteBufCodecs.holderRegistry(AMRegistryKeys.SKILL).apply(ByteBufCodecs.list()).apply(ByteBufCodecs.list()), Data::shapeGroups,
+            ByteBufCodecs.holderRegistry(AMRegistries.SKILL).apply(ByteBufCodecs.list()), Data::grammar,
+            ByteBufCodecs.holderRegistry(AMRegistries.SKILL).apply(ByteBufCodecs.list()).apply(ByteBufCodecs.list()), Data::shapeGroups,
             Data::new);
         public static final Data EMPTY = new Data(Optional.empty(), List.of(), List.of());
 
@@ -196,7 +196,7 @@ public class InscriptionTableBlockEntity extends BlockEntity implements Containe
             return parts.stream()
                 .map(ArsMagicaApi.spellPartRegistry()::getKey)
                 .filter(Objects::nonNull)
-                .map(registryAccess.registryOrThrow(AMRegistryKeys.SKILL)::getHolder)
+                .map(AMRegistries.skills(registryAccess)::getHolder)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .map(e -> (Holder<Skill>) e)

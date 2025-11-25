@@ -2,7 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.client.gui.occulus;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.OcculusTabRenderer;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
@@ -39,8 +39,7 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
         super(occulusTab);
         offsetX = Math.max(0, occulusTab.value().startX());
         offsetY = Math.max(0, occulusTab.value().startY());
-        skills = AMClientUtil.registryAccess()
-            .registryOrThrow(AMRegistryKeys.SKILL)
+        skills = AMRegistries.skills()
             .stream()
             .filter(skill -> skill.tab().getKey() == occulusTab.getKey())
             .toList();
@@ -50,8 +49,7 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         MagicHelper helper = ArsMagicaApi.magicHelper();
-        RegistryAccess registryAccess = AMClientUtil.registryAccess();
-        Registry<Skill> registry = registryAccess.registryOrThrow(AMRegistryKeys.SKILL);
+        Registry<Skill> registry = AMRegistries.skills();
         LocalPlayer player = AMClientUtil.player();
         mouseX += (int) offsetX;
         mouseY += (int) offsetY;
@@ -109,7 +107,7 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
         if (hoveredSkill == null) return;
         MagicHelper helper = ArsMagicaApi.magicHelper();
         LocalPlayer player = AMClientUtil.player();
-        Registry<Skill> registry = AMClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL);
+        Registry<Skill> registry = AMRegistries.skills();
         Holder<Skill> holder = registry.wrapAsHolder(hoveredSkill);
         guiGraphics.renderTooltip(AMClientUtil.font(), List.of(
             Skill.getName(holder).withColor(getColorForSkill(hoveredSkill)),
@@ -121,7 +119,7 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button != 0 || !(mouseX > 0) || !(mouseX < TAB_SIZE) || !(mouseY > 0) || !(mouseY < TAB_SIZE)) return super.mouseClicked(mouseX, mouseY, button);
         if (hoveredSkill != null) {
-            Holder<Skill> holder = AMClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).wrapAsHolder(hoveredSkill);
+            Holder<Skill> holder = AMRegistries.skills().wrapAsHolder(hoveredSkill);
             LocalPlayer player = AMClientUtil.player();
             if (ArsMagicaApi.magicHelper().canLearn(player, holder) || player.isCreative()) {
                 PacketDistributor.sendToServer(new LearnSkillPacket(holder));

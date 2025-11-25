@@ -1,13 +1,12 @@
 package at.minecraftschurli.arsmagicalegacy.spell;
 
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
-import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -67,8 +66,7 @@ public record EtheriumSpellIngredient(Optional<Holder<EtheriumType>> etheriumTyp
 
     @Override
     public List<ItemStack> asItemStacks() {
-        return etheriumType.map(holder -> List.of(etheriumPlaceholder(holder))).orElseGet(() -> AMUtil.registryAccess()
-            .registryOrThrow(AMRegistryKeys.ETHERIUM_TYPE)
+        return etheriumType.map(holder -> List.of(etheriumPlaceholder(holder))).orElseGet(() -> AMRegistries.etheriumTypes()
             .holders()
             .map(this::etheriumPlaceholder)
             .toList());

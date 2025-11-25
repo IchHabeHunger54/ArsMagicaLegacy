@@ -2,7 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.event.AffinityChangeEvent;
 import at.minecraftschurli.arsmagicalegacy.api.event.LevelChangeEvent;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
@@ -53,7 +53,7 @@ final class MagicHelperImpl implements MagicHelper {
         int oldLevel = data.level();
         NeoForge.EVENT_BUS.post(new LevelChangeEvent(player, oldLevel, level));
         player.setData(AMAttachments.MAGIC, data.setLevel(level));
-        List<Holder.Reference<SkillPoint>> skillPoints = player.registryAccess().registryOrThrow(AMRegistryKeys.SKILL_POINT).holders().toList();
+        List<Holder.Reference<SkillPoint>> skillPoints = AMRegistries.skillPoints(player.registryAccess()).holders().toList();
         for (int i = oldLevel; i <= level; i++) {
             for (Holder<SkillPoint> holder : skillPoints) {
                 SkillPoint skillPoint = holder.value();
@@ -110,7 +110,9 @@ final class MagicHelperImpl implements MagicHelper {
         setLevel(player, Math.max(1, getLevel(player)));
         ManaHelper manaHelper = ArsMagicaApi.manaHelper();
         manaHelper.setMana(player, manaHelper.getMaxMana(player));
-        player.registryAccess().registryOrThrow(AMRegistryKeys.SKILL_POINT).getHolder(AMMagic.BLUE_POINT).ifPresent(skillPoint -> addSkillPoint(player, skillPoint, AMServerConfig.EXTRA_SKILL_POINTS.get()));
+        AMRegistries.skillPoints(player.registryAccess())
+            .getHolder(AMMagic.BLUE_POINT)
+            .ifPresent(skillPoint -> addSkillPoint(player, skillPoint, AMServerConfig.EXTRA_SKILL_POINTS.get()));
     }
 
     @Override
@@ -133,12 +135,18 @@ final class MagicHelperImpl implements MagicHelper {
 
     @Override
     public List<? extends Holder<Skill>> getKnown(Player player) {
-        return player.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).holders().filter(holder -> knows(player, holder)).toList();
+        return AMRegistries.skills(player.registryAccess())
+            .holders()
+            .filter(holder -> knows(player, holder))
+            .toList();
     }
 
     @Override
     public List<? extends Holder<Skill>> getUnknown(Player player) {
-        return player.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).holders().filter(holder -> !knows(player, holder)).toList();
+        return AMRegistries.skills(player.registryAccess())
+            .holders()
+            .filter(holder -> !knows(player, holder))
+            .toList();
     }
 
     @Override
@@ -153,7 +161,7 @@ final class MagicHelperImpl implements MagicHelper {
 
     @Override
     public void learnAll(Player player) {
-        player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkills(set -> set.addAll(player.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).holders().toList())));
+        player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkills(set -> set.addAll(AMRegistries.skills().holders().toList())));
     }
 
     @Override

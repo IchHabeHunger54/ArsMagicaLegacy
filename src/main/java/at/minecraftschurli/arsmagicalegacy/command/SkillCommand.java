@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.command;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
@@ -24,22 +24,22 @@ public final class SkillCommand {
             .then(Commands.literal("learn")
                 .then(Commands.literal("*")
                     .executes(SkillCommand::learnAllSelf))
-                .then(Commands.argument("skill", ResourceArgument.resource(context, AMRegistryKeys.SKILL))
+                .then(Commands.argument("skill", ResourceArgument.resource(context, AMRegistries.SKILL))
                     .executes(SkillCommand::learnSelf))
                 .then(Commands.argument("target", EntityArgument.players())
                     .then(Commands.literal("*")
                         .executes(SkillCommand::learnAll))
-                    .then(Commands.argument("skill", ResourceArgument.resource(context, AMRegistryKeys.SKILL))
+                    .then(Commands.argument("skill", ResourceArgument.resource(context, AMRegistries.SKILL))
                         .executes(SkillCommand::learn))))
             .then(Commands.literal("forget")
                 .then(Commands.literal("*")
                     .executes(SkillCommand::forgetAllSelf))
-                .then(Commands.argument("skill", ResourceArgument.resource(context, AMRegistryKeys.SKILL))
+                .then(Commands.argument("skill", ResourceArgument.resource(context, AMRegistries.SKILL))
                     .executes(SkillCommand::forgetSelf))
                 .then(Commands.argument("target", EntityArgument.players())
                     .then(Commands.literal("*")
                         .executes(SkillCommand::forgetAll))
-                    .then(Commands.argument("skill", ResourceArgument.resource(context, AMRegistryKeys.SKILL))
+                    .then(Commands.argument("skill", ResourceArgument.resource(context, AMRegistries.SKILL))
                         .executes(SkillCommand::forget))))
             .then(Commands.literal("list")
                 .executes(SkillCommand::listKnownSelf)
@@ -62,7 +62,7 @@ public final class SkillCommand {
     }
 
     private static int learnSelf(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        Holder<Skill> holder = ResourceArgument.getResource(context, "skill", AMRegistryKeys.SKILL);
+        Holder<Skill> holder = ResourceArgument.getResource(context, "skill", AMRegistries.SKILL);
         return AMUtil.runCommandSelf(context, player -> ArsMagicaApi.magicHelper().learn(player, holder), name -> Component.translatable(AMTranslations.COMMAND_SKILL_LEARN_SINGLE_KEY, Skill.getName(holder), name));
     }
 
@@ -71,7 +71,7 @@ public final class SkillCommand {
     }
 
     private static int learn(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        Holder<Skill> holder = ResourceArgument.getResource(context, "skill", AMRegistryKeys.SKILL);
+        Holder<Skill> holder = ResourceArgument.getResource(context, "skill", AMRegistries.SKILL);
         return AMUtil.runCommand(context, player -> ArsMagicaApi.magicHelper().learn(player, holder), name -> Component.translatable(AMTranslations.COMMAND_SKILL_LEARN_SINGLE_KEY, Skill.getName(holder), name), size -> Component.translatable(AMTranslations.COMMAND_SKILL_LEARN_MULTIPLE_KEY, Skill.getName(holder), size));
     }
 
@@ -80,7 +80,7 @@ public final class SkillCommand {
     }
 
     private static int forgetSelf(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        Holder<Skill> holder = ResourceArgument.getResource(context, "skill", AMRegistryKeys.SKILL);
+        Holder<Skill> holder = ResourceArgument.getResource(context, "skill", AMRegistries.SKILL);
         return AMUtil.runCommandSelf(context, player -> ArsMagicaApi.magicHelper().forget(player, holder), name -> Component.translatable(AMTranslations.COMMAND_SKILL_FORGET_SINGLE_KEY, Skill.getName(holder), name));
     }
 
@@ -89,12 +89,12 @@ public final class SkillCommand {
     }
 
     private static int forget(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        Holder<Skill> holder = ResourceArgument.getResource(context, "skill", AMRegistryKeys.SKILL);
+        Holder<Skill> holder = ResourceArgument.getResource(context, "skill", AMRegistries.SKILL);
         return AMUtil.runCommand(context, player -> ArsMagicaApi.magicHelper().forget(player, holder), name -> Component.translatable(AMTranslations.COMMAND_SKILL_FORGET_SINGLE_KEY, Skill.getName(holder), name), size -> Component.translatable(AMTranslations.COMMAND_SKILL_FORGET_MULTIPLE_KEY, Skill.getName(holder), size));
     }
 
     private static int listAll(CommandContext<CommandSourceStack> context) {
-        List<? extends Holder<Skill>> holders = context.getSource().registryAccess().registryOrThrow(AMRegistryKeys.SKILL).holders().toList();
+        List<? extends Holder<Skill>> holders = AMRegistries.skills(context.getSource().registryAccess()).holders().toList();
         context.getSource().sendSuccess(() -> Component.translatable(AMTranslations.COMMAND_SKILL_LIST_ALL_KEY, skillsComponent(holders)), true);
         return holders.size();
     }

@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.compat.jei;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
@@ -28,7 +28,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
-import java.text.DecimalFormat;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -125,7 +124,7 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
     public void draw(Recipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         guiGraphics.blit(BACKGROUND, 0, 0, 0, 0, WIDTH, HEIGHT);
         Font font = AMClientUtil.font();
-        drawCentered(guiGraphics, font, Skill.getName(AMUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL).wrapAsHolder(recipe.skill)), 0);
+        drawCentered(guiGraphics, font, Skill.getName(AMRegistries.skills().wrapAsHolder(recipe.skill)), 0);
         int y = SLOT_SIZE * 2 + TEXT_BOTTOM_PADDING;
         drawCentered(guiGraphics, font, AMTranslations.JEI_SKILL_INGREDIENTS, y);
         y += (recipe.recipe.size() / INGREDIENT_COLUMNS + 1) * SLOT_SIZE + font.lineHeight + TEXT_BOTTOM_PADDING;
@@ -157,7 +156,7 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
     public record Recipe(Skill skill, List<SpellIngredient> recipe, Map<Holder<Affinity>, Double> affinityShifts, List<Skill> modifiers) {
         @SuppressWarnings("DataFlowIssue")
         public static Recipe of(Skill skill) {
-            Registry<Skill> skills = AMUtil.registryAccess().registryOrThrow(AMRegistryKeys.SKILL);
+            Registry<Skill> skills = AMRegistries.skills();
             Registry<SpellPart> spellParts = ArsMagicaApi.spellPartRegistry();
             SpellPart part = spellParts.get(skills.getKey(skill));
             SpellPartData data = part.getData();

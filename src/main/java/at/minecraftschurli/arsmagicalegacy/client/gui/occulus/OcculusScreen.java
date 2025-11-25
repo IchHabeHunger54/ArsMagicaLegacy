@@ -3,7 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.client.gui.occulus;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.OcculusTabRenderer;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistryKeys;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
@@ -62,7 +62,7 @@ public class OcculusScreen extends Screen {
         tabs.clear();
         buttons.clear();
         LocalPlayer player = AMClientUtil.player();
-        Registry<OcculusTab> registry = AMClientUtil.registryAccess().registryOrThrow(AMRegistryKeys.OCCULUS_TAB);
+        Registry<OcculusTab> registry = AMRegistries.occulusTabs();
         List<? extends Holder<OcculusTab>> list = registry
             .holders()
             .sorted(Comparator.comparingInt(e -> e.value().index()))
@@ -104,8 +104,7 @@ public class OcculusScreen extends Screen {
         guiGraphics.blit(FRAME, leftPos, topPos + OcculusTabButton.SIZE, 0, 0, SIZE, SIZE);
         guiGraphics.blit(BUTTON_INDICATOR, maxPage == 0 ? leftPos + 6 + tab * OcculusTabButton.SIZE : leftPos + 28 + tab % 7 * OcculusTabButton.SIZE, topPos + OcculusTabButton.SIZE, 0, 0, OcculusTabButton.SIZE, FRAME_SIZE, OcculusTabButton.SIZE, FRAME_SIZE);
         if (renderer.hasSkillPointPanel()) {
-            List<Holder.Reference<SkillPoint>> holders = AMClientUtil.registryAccess()
-                .registryOrThrow(AMRegistryKeys.SKILL_POINT)
+            List<Holder.Reference<SkillPoint>> holders = AMRegistries.skillPoints()
                 .holders()
                 .toList();
             List<MutableComponent> components = holders

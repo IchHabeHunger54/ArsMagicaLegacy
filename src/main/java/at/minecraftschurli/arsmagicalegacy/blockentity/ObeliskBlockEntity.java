@@ -14,6 +14,9 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Container;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Player;
@@ -115,6 +118,16 @@ public class ObeliskBlockEntity extends EtheriumGeneratorBlockEntity implements 
     }
 
     @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        return saveWithoutMetadata(registries);
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
     public int getContainerSize() {
         return 1;
     }
@@ -133,9 +146,7 @@ public class ObeliskBlockEntity extends EtheriumGeneratorBlockEntity implements 
     public ItemStack removeItem(int slot, int amount) {
         if (slot != 0) return ItemStack.EMPTY;
         ItemStack stack = getItem(slot).split(amount);
-        if (!stack.isEmpty()) {
-            setChanged();
-        }
+        setChanged();
         return stack;
     }
 
@@ -163,6 +174,7 @@ public class ObeliskBlockEntity extends EtheriumGeneratorBlockEntity implements 
     @Override
     public void clearContent() {
         stack = ItemStack.EMPTY;
+        setChanged();
     }
 
     @Override
@@ -183,5 +195,6 @@ public class ObeliskBlockEntity extends EtheriumGeneratorBlockEntity implements 
     @Override
     public void fillStackedContents(StackedContents contents) {
         contents.accountStack(stack);
+        setChanged();
     }
 }

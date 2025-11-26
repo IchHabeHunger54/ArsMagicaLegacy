@@ -31,6 +31,8 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.Nullable;
 
 public class ObeliskBlock extends EtheriumGeneratorBlock {
@@ -167,6 +169,13 @@ public class ObeliskBlock extends EtheriumGeneratorBlock {
     @Nullable
     public AABB getOutline(Level level, BlockPos pos, BlockState state) {
         return state.getValue(PART) == Part.LOWER ? new AABB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 3, pos.getZ() + 1) : null;
+    }
+
+    @Nullable
+    public static IItemHandler getItemHandler(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Direction direction) {
+        if (!(state.getBlock() instanceof ObeliskBlock block)) return null;
+        ObeliskBlockEntity obelisk = block.getBlockEntity(level, pos, state);
+        return obelisk == null ? null : new InvWrapper(obelisk);
     }
 
     private void destroy(Level level, Player player, BlockPos pos) {

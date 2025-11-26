@@ -126,15 +126,15 @@ public final class AMClientUtil {
     }
 
     public static void setOcculusScreen() {
-        AMClientUtil.mc().setScreen(new OcculusScreen());
+        mc().setScreen(new OcculusScreen());
     }
 
     public static void setSpellCustomizationScreen(Spell spell, InteractionHand hand) {
-        AMClientUtil.mc().setScreen(new SpellCustomizationScreen(spell, hand));
+        mc().setScreen(new SpellCustomizationScreen(spell, hand));
     }
 
     public static void setSpellRecipeScreen(ItemStack stack, boolean playTurnSound, int startPage, @Nullable BlockPos lecternPos) {
-        AMClientUtil.mc().setScreen(new SpellRecipeScreen(stack, playTurnSound, startPage, lecternPos));
+        mc().setScreen(new SpellRecipeScreen(stack, playTurnSound, startPage, lecternPos));
     }
 
     public static List<? extends ControlledParticle> spawnParticles(ResourceLocation id, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {

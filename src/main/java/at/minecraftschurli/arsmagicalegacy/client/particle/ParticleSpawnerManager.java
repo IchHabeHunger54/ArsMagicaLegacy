@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
-public class ParticleSpawnerManager extends AMDataManager<ParticleSpawner> {
+public final class ParticleSpawnerManager extends AMDataManager<ParticleSpawner> {
     public static final ParticleSpawnerManager INSTANCE = new ParticleSpawnerManager();
 
     private ParticleSpawnerManager() {

@@ -13,8 +13,8 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.block.AltarCoreBlock;
-import at.minecraftschurli.arsmagicalegacy.compat.patchouli.AMMultiblocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
+import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
@@ -28,9 +28,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -38,8 +35,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.pattern.BlockInWorld;
+import net.minecraft.world.level.block.state.pattern.BlockPattern;
+import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
+import net.minecraft.world.level.block.state.properties.Half;
+import net.minecraft.world.level.block.state.properties.StairsShape;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.neoforged.neoforge.client.model.data.ModelProperty;
 import org.jetbrains.annotations.Nullable;
@@ -67,10 +71,63 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
     private int power = 0;
     private int currentIngredient = 0;
     private Spell spell = Spell.EMPTY;
-    private List<SpellIngredient> recipe = List.of();
+    private List<SpellIngredient> recipe;
+    private final BlockPattern pattern = BlockPatternBuilder.start()
+        .aisle(
+            "BBBBB",
+            "BBBBB",
+            "BBCBB",
+            "BBBBB",
+            "BBBBB")
+        .aisle(
+            "    L",
+            "B   B",
+            "M   M",
+            "B   B",
+            "     ")
+        .aisle(
+            "I    ",
+            "B   B",
+            "M   M",
+            "B   B",
+            "     ")
+        .aisle(
+            "     ",
+            "B6 5B",
+            "M   M",
+            "B6 5B",
+            "     ")
+        .aisle(
+            "     ",
+            "C111C",
+            "2BOB4",
+            "C333C",
+            "     ")
+        .where(' ', block -> block.getState().isAir())
+        .where('L', block -> block.getState().is(Blocks.LECTERN))
+        .where('I', block -> block.getState().is(Blocks.LEVER))
+        .where('O', block -> block.getState().is(AMBlocks.ALTAR_CORE.get()))
+        .where('M', block -> block.getState().is(AMBlocks.MAGIC_WALL.get()))
+        .where('C', block -> capMaterial != null && block.getState().is(capMaterial.block()))
+        .where('B', block -> material != null && block.getState().is(material.block()))
+        .where('1', block -> checkStair(block, Rotation.NONE, Half.BOTTOM))
+        .where('2', block -> checkStair(block, Rotation.CLOCKWISE_90, Half.BOTTOM))
+        .where('3', block -> checkStair(block, Rotation.CLOCKWISE_180, Half.BOTTOM))
+        .where('4', block -> checkStair(block, Rotation.COUNTERCLOCKWISE_90, Half.BOTTOM))
+        .where('5', block -> checkStair(block, Rotation.CLOCKWISE_90, Half.TOP))
+        .where('6', block -> checkStair(block, Rotation.COUNTERCLOCKWISE_90, Half.TOP))
+        .build();
 
     public AltarCoreBlockEntity(BlockPos pos, BlockState state) {
         super(AMBlockEntities.ALTAR_CORE.get(), pos, state, Data.CODEC);
+    }
+
+    private boolean checkStair(BlockInWorld block, Rotation rotation, Half half) {
+        BlockState state = block.getState();
+        if (material == null) return false;
+        if (!state.is(material.stair())) return false;
+        if (direction == null) return false;
+        return state.getValue(StairBlock.FACING) == rotation.rotate(direction).getOpposite() && state.getValue(StairBlock.HALF) == half && state.getValue(StairBlock.SHAPE) == StairsShape.STRAIGHT && !state.getValue(StairBlock.WATERLOGGED);
     }
 
     public void tick(Level level, BlockPos pos, BlockState state) {
@@ -87,14 +144,16 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
                 camo = null;
                 power = 0;
                 currentIngredient = 0;
+                spell = Spell.EMPTY;
                 recipe = null;
                 setChanged();
             }
             if (state.getValue(AltarCoreBlock.FORMED) != multiblock) {
                 level.setBlockAndUpdate(pos, state.setValue(AltarCoreBlock.FORMED, multiblock));
             }
+            requestModelDataUpdate();
         }
-        if (!state.getValue(AltarCoreBlock.FORMED) || spell == null || recipe == null) return;
+        if (!state.getValue(AltarCoreBlock.FORMED) || spell.isEmpty() || recipe == null) return;
         if (currentIngredient >= recipe.size()) {
             currentIngredient = 0;
         }
@@ -144,7 +203,7 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
         if (lecternPos == null || leverPos == null || material == null || capMaterial == null || direction == null) return false;
         if (!level.getBlockState(lecternPos).is(Blocks.LECTERN) || !(level.getBlockEntity(lecternPos) instanceof LecternBlockEntity lectern)) return false;
         if (!level.getBlockState(leverPos).is(Blocks.LEVER)) return false;
-        if (AMMultiblocks.ALTAR.validate(level, getBlockPos().below(4)) == null) return false;
+        if (pattern.matches(level, getBlockPos().relative(direction, 2).relative(direction.getClockWise(), 2).below(4), Direction.UP, direction) == null) return false;
         camo = material.block().defaultBlockState();
         power = material.power() + capMaterial.power();
         if (!level.isClientSide()) {
@@ -187,18 +246,8 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-        return saveWithoutMetadata(registries);
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    @Override
     public ModelData getModelData() {
-        return camo == null ? ModelData.EMPTY : ModelData.builder().with(CAMO, camo).build();
+        return !getBlockState().getValue(AltarCoreBlock.FORMED) || camo == null ? ModelData.EMPTY : ModelData.builder().with(CAMO, camo).build();
     }
 
     @Override

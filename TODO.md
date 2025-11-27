@@ -2,9 +2,7 @@
 - Add Spell Modifier Functionality
      - Dismembering
      - Fortune
-     - Mining Power
      - Rune Power
-     - Silk Touch
 - Test All Spell Parts & Particles
 - Inlays
 - Liquid Essence

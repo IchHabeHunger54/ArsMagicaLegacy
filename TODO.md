@@ -15,7 +15,6 @@
     - Dryads
     - All Bosses
     - Their Projectiles
-- Altar Structure Checking
 - Obelisk/Celestial Prism/Black Aurem Multiblocks
 - Advancement Triggers
 - Rituals
@@ -23,3 +22,7 @@
     - Curios (Magitech Goggles)
     - Patchouli
     - Compat Recipes
+- Repository Setup
+    - README
+    - CI/CD
+    - License

@@ -1,11 +1,13 @@
 package at.minecraftschurli.arsmagicalegacy.spell.data;
 
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
+import at.minecraftschurli.arsmagicalegacy.util.DamageSourceWithItemStack;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
@@ -13,25 +15,32 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public record SpellDamage(Map<Integer, Map<ResourceKey<DamageType>, Float>> damage) {
-    public static final Codec<SpellDamage> CODEC = Codec.unboundedMap(AMUtil.STRING_ENCODED_INT_CODEC, Codec.unboundedMap(ResourceKey.codec(Registries.DAMAGE_TYPE), Codec.FLOAT)).xmap(SpellDamage::new, SpellDamage::damage);
-    public static final StreamCodec<ByteBuf, SpellDamage> STREAM_CODEC = AMUtil.mapStreamCodec(ByteBufCodecs.INT, AMUtil.mapStreamCodec(ResourceKey.streamCodec(Registries.DAMAGE_TYPE), ByteBufCodecs.FLOAT)).map(SpellDamage::new, SpellDamage::damage);
+public record SpellDamage(Map<Integer, Map<ResourceKey<DamageType>, Pair<Float, ItemStack>>> damage) {
+    private static final Codec<Map<ResourceKey<DamageType>, Pair<Float, ItemStack>>> DAMAGE_CODEC =
+        Codec.unboundedMap(ResourceKey.codec(Registries.DAMAGE_TYPE), Codec.pair(Codec.FLOAT, ItemStack.CODEC));
+    private static final StreamCodec<RegistryFriendlyByteBuf, Map<ResourceKey<DamageType>, Pair<Float, ItemStack>>> DAMAGE_STREAM_CODEC =
+        AMUtil.mapStreamCodec(ResourceKey.streamCodec(Registries.DAMAGE_TYPE), AMUtil.pairStreamCodec(ByteBufCodecs.FLOAT, ItemStack.STREAM_CODEC));
+    public static final Codec<SpellDamage> CODEC =
+        Codec.unboundedMap(AMUtil.STRING_ENCODED_INT_CODEC, DAMAGE_CODEC).xmap(SpellDamage::new, SpellDamage::damage);
+    public static final StreamCodec<RegistryFriendlyByteBuf, SpellDamage> STREAM_CODEC =
+        AMUtil.mapStreamCodec(ByteBufCodecs.INT, DAMAGE_STREAM_CODEC).map(SpellDamage::new, SpellDamage::damage);
     public static final SpellDamage EMPTY = new SpellDamage();
 
     public SpellDamage() {
-        this(new HashMap<>());
+        this(Map.of());
     }
 
-    public SpellDamage setDamage(Entity entity, ResourceKey<DamageType> type, float amount) {
-        Map<Integer, Map<ResourceKey<DamageType>, Float>> newDamage = new HashMap<>(damage);
-        Map<ResourceKey<DamageType>, Float> map = new HashMap<>(newDamage.getOrDefault(entity.getId(), new HashMap<>()));
-        map.put(type, amount);
+    public SpellDamage setDamage(Entity entity, ResourceKey<DamageType> type, float amount, ItemStack stack) {
+        Map<Integer, Map<ResourceKey<DamageType>, Pair<Float, ItemStack>>> newDamage = new HashMap<>(damage);
+        Map<ResourceKey<DamageType>, Pair<Float, ItemStack>> map = new HashMap<>(newDamage.getOrDefault(entity.getId(), new HashMap<>()));
+        map.put(type, Pair.of(amount, stack));
         newDamage.put(entity.getId(), map);
         return new SpellDamage(newDamage);
     }
@@ -39,17 +48,18 @@ public record SpellDamage(Map<Integer, Map<ResourceKey<DamageType>, Float>> dama
     public void apply(LivingEntity caster, Entity directEntity) {
         Level level = caster.level();
         Registry<DamageType> damageTypes = level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE);
-        for (Map.Entry<Integer, Map<ResourceKey<DamageType>, Float>> damageEntry : damage.entrySet()) {
+        for (Map.Entry<Integer, Map<ResourceKey<DamageType>, Pair<Float, ItemStack>>> damageEntry : damage.entrySet()) {
             Entity entity = level.getEntity(damageEntry.getKey());
             if (entity == null) continue;
             int invulnerableTime = entity.invulnerableTime;
             boolean hurtMarked = entity.hurtMarked;
-            for (Map.Entry<ResourceKey<DamageType>, Float> entry : damageEntry.getValue().entrySet()) {
+            for (Map.Entry<ResourceKey<DamageType>, Pair<Float, ItemStack>> entry : damageEntry.getValue().entrySet()) {
                 Optional<? extends Holder<DamageType>> holder = damageTypes.getHolder(entry.getKey());
                 if (holder.isEmpty()) continue;
-                DamageSource source = new DamageSource(holder.get(), directEntity, caster);
+                Pair<Float, ItemStack> value = entry.getValue();
+                DamageSource source = new DamageSourceWithItemStack(holder.get(), directEntity, caster, value.getSecond());
                 if (entity.isInvulnerableTo(source)) continue;
-                entity.hurt(source, entry.getValue());
+                entity.hurt(source, value.getFirst());
                 invulnerableTime = Math.max(invulnerableTime, entity.invulnerableTime);
                 hurtMarked |= entity.hurtMarked;
                 entity.invulnerableTime = 0;

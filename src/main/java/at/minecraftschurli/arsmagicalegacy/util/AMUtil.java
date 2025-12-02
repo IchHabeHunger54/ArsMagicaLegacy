@@ -9,6 +9,7 @@ import at.minecraftschurli.arsmagicalegacy.item.SpellRecipeItem;
 import at.minecraftschurli.arsmagicalegacy.packet.OpenBookInLecternPacket;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import io.netty.buffer.ByteBuf;
@@ -216,5 +217,22 @@ public final class AMUtil {
 
     public static <B extends ByteBuf, K, V> StreamCodec<B, Map<K, V>> mapStreamCodec(StreamCodec<? super B, K> keyStreamCodec, StreamCodec<? super B, V> valueStreamCodec) {
         return ByteBufCodecs.map(HashMap::new, keyStreamCodec, valueStreamCodec);
+    }
+
+    public static <B extends ByteBuf, F, S> StreamCodec<B, Pair<F, S>> pairStreamCodec(StreamCodec<? super B, F> firstStreamCodec, StreamCodec<? super B, S> secondStreamCodec) {
+        return new StreamCodec<>() {
+            @Override
+            public Pair<F, S> decode(B buffer) {
+                F first = firstStreamCodec.decode(buffer);
+                S second = secondStreamCodec.decode(buffer);
+                return Pair.of(first, second);
+            }
+
+            @Override
+            public void encode(B buffer, Pair<F, S> value) {
+                firstStreamCodec.encode(buffer, value.getFirst());
+                secondStreamCodec.encode(buffer, value.getSecond());
+            }
+        };
     }
 }

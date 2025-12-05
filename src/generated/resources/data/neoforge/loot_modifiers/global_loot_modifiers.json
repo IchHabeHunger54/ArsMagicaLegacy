@@ -1,5 +1,7 @@
 {
   "entries": [
+    "arsmagicalegacy:entities/wither_skeleton",
+    "arsmagicalegacy:entities/zombie",
     "arsmagicalegacy:chests/ancient_city",
     "arsmagicalegacy:chests/ancient_city_ice_box",
     "arsmagicalegacy:chests/shipwreck_treasure",
@@ -21,9 +23,7 @@
     "arsmagicalegacy:chests/stronghold_library",
     "arsmagicalegacy:chests/woodland_mansion",
     "arsmagicalegacy:chests/village/village_temple",
-    "arsmagicalegacy:chests/end_city_treasure",
-    "arsmagicalegacy:entities/wither_skeleton",
-    "arsmagicalegacy:entities/zombie"
+    "arsmagicalegacy:chests/end_city_treasure"
   ],
   "replace": false
 }

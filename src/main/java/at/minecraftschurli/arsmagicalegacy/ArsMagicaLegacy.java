@@ -51,6 +51,7 @@ public final class ArsMagicaLegacy {
         AMSounds.SOUND_EVENTS.register(bus);
         AMWorldgen.FEATURES.register(bus);
         AMLoot.LOOT_CONDITIONS.register(bus);
+        AMLoot.NUMBER_PROVIDERS.register(bus);
         AMAttachments.ATTACHMENTS.register(bus);
         AMSpells.DATA_SERIALIZERS.register(bus);
         AMLoot.GLOBAL_LOOT_MODIFIERS.register(bus);

@@ -2,9 +2,10 @@ package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -21,6 +22,8 @@ public final class AMGlobalLootModifierProvider extends GlobalLootModifierProvid
 
     @Override
     protected void start() {
+        addDismemberingModifier(EntityType.WITHER_SKELETON);
+        addDismemberingModifier(EntityType.ZOMBIE);
         addTomeModifier(BuiltInLootTables.ANCIENT_CITY);
         addTomeModifier(BuiltInLootTables.ANCIENT_CITY_ICE_BOX);
         addTomeModifier(BuiltInLootTables.SHIPWRECK_TREASURE);
@@ -45,8 +48,18 @@ public final class AMGlobalLootModifierProvider extends GlobalLootModifierProvid
         addTomeModifier(BuiltInLootTables.END_CITY_TREASURE);
     }
 
+    private void addDismemberingModifier(EntityType<?> entityType) {
+        ResourceKey<LootTable> table = entityType.getDefaultLootTable();
+        String path = table.location().getPath();
+        addModifier(table, path,  ArsMagicaApi.modLoc(path.replace("entities/", "entities/modify/")).withSuffix("_dismembering"));
+    }
+
     private void addTomeModifier(ResourceKey<LootTable> table) {
         String path = table.location().getPath();
-        add(path.replace("chests/", ""), new AddTableLootModifier(new LootItemCondition[]{LootTableIdCondition.builder(table.location()).build()}, ResourceKey.create(Registries.LOOT_TABLE, ArsMagicaApi.modLoc(path.replace("chests/", "chests/modify/")))));
+        addModifier(table, path, ArsMagicaApi.modLoc(path.replace("chests/", "chests/modify/")).withSuffix("_affinity_tome"));
+    }
+
+    private void addModifier(ResourceKey<LootTable> table, String modifier, ResourceLocation location) {
+        add(modifier, new AddTableLootModifier(new LootItemCondition[]{LootTableIdCondition.builder(table.location()).build()}, ResourceKey.create(table.registryKey(), location)));
     }
 }

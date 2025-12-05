@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
+import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.block.CelestialPrismBlock;
@@ -7,38 +8,57 @@ import at.minecraftschurli.arsmagicalegacy.block.InscriptionTableBlock;
 import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
+import at.minecraftschurli.arsmagicalegacy.init.AMEnchantments;
+import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
+import at.minecraftschurli.arsmagicalegacy.loot.EnchantmentLevelFromItemProvider;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.LevelBasedValue;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.CopyBlockState;
+import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.SetComponentsFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
+import java.util.stream.Stream;
 
 public final class AMLootTableProvider extends LootTableProvider {
     public AMLootTableProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-        super(output, Set.of(), List.of(new SubProviderEntry(AMBlockLootSubProvider::new, LootContextParamSets.BLOCK), new SubProviderEntry(AMChestLootSubProvider::new, LootContextParamSets.CHEST)), registries);
+        super(output, Set.of(), List.of(
+            new SubProviderEntry(AMBlockLootSubProvider::new, LootContextParamSets.BLOCK),
+            new SubProviderEntry(AMChestLootSubProvider::new, LootContextParamSets.CHEST),
+            new SubProviderEntry(AMEntityLootSubProvider::new, LootContextParamSets.ENTITY),
+            new SubProviderEntry(AMEntityModifiedLootSubProvider::new, LootContextParamSets.ENTITY)
+        ), registries);
     }
 
     private static class AMBlockLootSubProvider extends BlockLootSubProvider {
@@ -150,12 +170,59 @@ public final class AMLootTableProvider extends LootTableProvider {
             addTomeLoot(output, BuiltInLootTables.STRONGHOLD_LIBRARY, AMMagic.ENDER, 0.05f);
         }
 
-        protected void addTomeLoot(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output, ResourceKey<LootTable> lootTable, ResourceKey<Affinity> affinity, float chance) {
+        private void addTomeLoot(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output, ResourceKey<LootTable> lootTable, ResourceKey<Affinity> affinity, float chance) {
             HolderLookup.RegistryLookup<Affinity> lookup = registries.lookupOrThrow(AMRegistries.AFFINITY);
-            output.accept(ResourceKey.create(lootTable.registryKey(), affinity.location().withPath(lootTable.location().getPath().replace("chests/", "chests/modify/"))), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+            output.accept(ResourceKey.create(lootTable.registryKey(), affinity.location().withPath(lootTable.location().getPath().replace("chests/", "chests/modify/")).withSuffix("_affinity_tome")), LootTable.lootTable().withPool(LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1))
                 .add(LootItem.lootTableItem(AMItems.AFFINITY_TOME).apply(SetComponentsFunction.setComponent(AMDataComponents.AFFINITY.get(), lookup.getOrThrow(affinity))).setWeight(19))
                 .add(LootItem.lootTableItem(AMItems.AFFINITY_TOME).apply(SetComponentsFunction.setComponent(AMDataComponents.AFFINITY.get(), lookup.getOrThrow(AMMagic.LIFE))).setWeight(1))
-                .add(EmptyLootItem.emptyItem().setWeight((int) (20 / chance) - 20))));
+                .add(EmptyLootItem.emptyItem().setWeight((int) (20 / chance) - 20))
+            ));
+        }
+    }
+
+    private static class AMEntityLootSubProvider extends EntityLootSubProvider {
+        protected AMEntityLootSubProvider(HolderLookup.Provider registries) {
+            super(FeatureFlags.REGISTRY.allFlags(), registries);
+        }
+
+        @Override
+        public void generate() {
+        }
+
+        @SuppressWarnings("RedundantStreamOptionalCall")
+        @Override
+        protected Stream<EntityType<?>> getKnownEntityTypes() {
+            return AMEntities.ENTITIES.getEntries()
+                .stream()
+                .map(Holder::value)
+                .filter(e -> e.getCategory() != MobCategory.MISC)
+                .map(e -> e);
+        }
+    }
+
+    private static class AMEntityModifiedLootSubProvider implements LootTableSubProvider {
+        private final HolderLookup.Provider registries;
+
+        public AMEntityModifiedLootSubProvider(HolderLookup.Provider registries) {
+            this.registries = registries;
+        }
+
+        @Override
+        public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
+            addDismemberingLoot(output, EntityType.CREEPER.getDefaultLootTable(), Items.CREEPER_HEAD, 0.5f);
+            addDismemberingLoot(output, EntityType.PIGLIN.getDefaultLootTable(), Items.PIGLIN_HEAD, 0.5f);
+            addDismemberingLoot(output, EntityType.SKELETON.getDefaultLootTable(), Items.SKELETON_SKULL, 0.5f);
+            addDismemberingLoot(output, EntityType.WITHER_SKELETON.getDefaultLootTable(), Items.WITHER_SKELETON_SKULL, 0.5f);
+            addDismemberingLoot(output, EntityType.ZOMBIE.getDefaultLootTable(), Items.ZOMBIE_HEAD, 0.5f);
+        }
+
+        private void addDismemberingLoot(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output, ResourceKey<LootTable> lootTable, ItemLike item, float chance) {
+            output.accept(ResourceKey.create(lootTable.registryKey(), ArsMagicaApi.modLoc(lootTable.location().getPath().replace("entities/", "entities/modify/")).withSuffix("_dismembering")), LootTable.lootTable().withPool(LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1))
+                .add(LootItem.lootTableItem(item).when(LootItemRandomChanceCondition.randomChance(new EnchantmentLevelFromItemProvider(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(AMEnchantments.DISMEMBERING), LevelBasedValue.perLevel(chance)))))
+                .apply(LimitCount.limitCount(IntRange.exact(1)))
+            ));
         }
     }
 }

@@ -14,6 +14,7 @@ import at.minecraftschurli.arsmagicalegacy.datagen.data.AMAbilityProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMAdvancementProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMDamageTypeProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMDataMapProvider;
+import at.minecraftschurli.arsmagicalegacy.datagen.data.AMEnchantmentProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMEtheriumTypeProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMGlobalLootModifierProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMLootTableProvider;
@@ -58,6 +59,7 @@ final class AMDataGenerator {
         generator.addProvider(event.includeClient(), new AMSpriteSourceProvider(output, lookupProvider, existingFileHelper));
         lookupProvider = generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(output, lookupProvider, new RegistrySetBuilder()
             .add(Registries.DAMAGE_TYPE, AMDamageTypeProvider::addDamageTypes)
+            .add(Registries.ENCHANTMENT, AMEnchantmentProvider::addEnchantments)
             .add(Registries.CONFIGURED_FEATURE, AMWorldgenProvider::addConfiguredFeatures)
             .add(Registries.PLACED_FEATURE, AMWorldgenProvider::addPlacedFeatures)
             .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, AMWorldgenProvider::addBiomeModifiers)

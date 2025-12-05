@@ -1,4 +1,4 @@
-// 1.21.1	2025-12-05T09:42:56.769409801	Loot Tables
+// 1.21.1	2025-12-05T17:00:51.265009037	Loot Tables
 f0e4c8134bf2f68e1425a328c83498f858e1e26c data/arsmagicalegacy/loot_table/blocks/altar_core.json
 32900dde32312718365d978d0183dc6f16140e5e data/arsmagicalegacy/loot_table/blocks/aum.json
 eb1a581730e7ef2fb1b34eee0ad85fd9cbf9024f data/arsmagicalegacy/loot_table/blocks/black_aurem.json
@@ -75,5 +75,8 @@ ffb986f5439dd32a0d345a12078dd22c42b417b9 data/arsmagicalegacy/loot_table/chests/
 16ba293521fdd3c02a459db202efa33ecff3ba26 data/arsmagicalegacy/loot_table/chests/modify/village/village_taiga_house_affinity_tome.json
 bfeb143129e6880b839ee3f3fc14fb137c81b722 data/arsmagicalegacy/loot_table/chests/modify/village/village_temple_affinity_tome.json
 91636991db6440fe2d056efd46977a13a11cc77d data/arsmagicalegacy/loot_table/chests/modify/woodland_mansion_affinity_tome.json
-171b73dd0f8a7cdadd70304ae7f4ecdb95d593ce data/arsmagicalegacy/loot_table/entities/modify/wither_skeleton_dismembering.json
+c3b940968d1a09c7b9793037b80b6ba3950212af data/arsmagicalegacy/loot_table/entities/modify/creeper_dismembering.json
+75ed0d843a3784a84918e9cca56fadd4b98539b3 data/arsmagicalegacy/loot_table/entities/modify/piglin_dismembering.json
+ea86516bb13aec3fe050830a10938b667588cb87 data/arsmagicalegacy/loot_table/entities/modify/skeleton_dismembering.json
+ffa685e44abe5d09422aa7e516018278df341b72 data/arsmagicalegacy/loot_table/entities/modify/wither_skeleton_dismembering.json
 7363ca29eda9dac20a1b8a3b074c58cff03a933a data/arsmagicalegacy/loot_table/entities/modify/zombie_dismembering.json

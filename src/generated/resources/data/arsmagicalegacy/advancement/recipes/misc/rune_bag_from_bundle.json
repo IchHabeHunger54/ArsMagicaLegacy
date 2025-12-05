@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:rune_bag_from_bundle"
+        "recipe": "arsmagicalegacy:rune_bag_from_bundle"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:rune_bag_from_bundle"
+      "arsmagicalegacy:rune_bag_from_bundle"
     ]
   }
 }

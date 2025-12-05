@@ -1,4 +1,4 @@
-// 1.21.1	2025-12-05T09:44:04.396039406	Global Loot Modifiers : arsmagicalegacy
+// 1.21.1	2025-12-05T17:00:51.267814821	Global Loot Modifiers : arsmagicalegacy
 8b6797ea660d36935b6298efe0ab76ceda6da7d6 data/arsmagicalegacy/loot_modifiers/chests/abandoned_mineshaft.json
 1c049a4c6b0145bc02bff821fa13091400e5e2ad data/arsmagicalegacy/loot_modifiers/chests/ancient_city.json
 4ed953017e6c73119c8301f6ea712d4f81003384 data/arsmagicalegacy/loot_modifiers/chests/ancient_city_ice_box.json
@@ -23,4 +23,4 @@ e006ab62ca21d131096496bb30c69e84d59c46cb data/arsmagicalegacy/loot_modifiers/che
 81806bdb01fd4108126d40c7480aa5472059bf2b data/arsmagicalegacy/loot_modifiers/chests/woodland_mansion.json
 96cc41f9e0589b3e8d5fbb0c4b131885cf785e62 data/arsmagicalegacy/loot_modifiers/entities/wither_skeleton.json
 4ecb39a4e4e788e61a9a5b59329e37bea993641d data/arsmagicalegacy/loot_modifiers/entities/zombie.json
-0dcc8d8d980017de7f86f961ed3800a6f618d742 data/neoforge/loot_modifiers/global_loot_modifiers.json
+b0a7352b726c00b4e1668bfc652f0a56697999c7 data/neoforge/loot_modifiers/global_loot_modifiers.json

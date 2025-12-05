@@ -20,7 +20,7 @@
               "condition": "minecraft:random_chance"
             }
           ],
-          "name": "minecraft:wither_skeleton_skull"
+          "name": "minecraft:piglin_head"
         }
       ],
       "functions": [
@@ -32,5 +32,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "arsmagicalegacy:entities/modify/wither_skeleton_dismembering"
+  "random_sequence": "arsmagicalegacy:entities/modify/piglin_dismembering"
 }

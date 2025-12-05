@@ -385,7 +385,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .requires(Items.BUNDLE)
             .requires(AMTags.Items.RUNES)
             .unlockedBy("has_rune", has(AMTags.Items.RUNES))
-            .save(output, "rune_bag_from_bundle");
+            .save(output, ArsMagicaApi.modLoc("rune_bag_from_bundle"));
         oreSmelting(output, List.of(AMItems.CHIMERITE_ORE.get(), AMItems.DEEPSLATE_CHIMERITE_ORE.get()), AMItems.CHIMERITE.get(), 0.7f, 200, "chimerite");
         oreBlasting(output, List.of(AMItems.CHIMERITE_ORE.get(), AMItems.DEEPSLATE_CHIMERITE_ORE.get()), AMItems.CHIMERITE.get(), 0.7f, 100, "chimerite");
         nineBlockStorageRecipes(output, AMItems.CHIMERITE, AMTags.Items.GEMS_CHIMERITE, AMItems.CHIMERITE_BLOCK, AMTags.Items.STORAGE_BLOCKS_CHIMERITE);

@@ -5,7 +5,6 @@
 - Inlays
 - Liquid Essence
 - Mage & Battlemage Armor
-- Magitech Goggles Overlay
 - Entities, including:
     - Mana Creepers & Mana Vortexes
     - Dryads

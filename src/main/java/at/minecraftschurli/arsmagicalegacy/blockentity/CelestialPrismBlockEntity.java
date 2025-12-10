@@ -1,7 +1,9 @@
 package at.minecraftschurli.arsmagicalegacy.blockentity;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumGeneratorBlockEntity;
+import at.minecraftschurli.arsmagicalegacy.block.CelestialPrismBlock;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMEtheriumTypes;
 import net.minecraft.core.BlockPos;
@@ -9,6 +11,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.Nullable;
 
 public class CelestialPrismBlockEntity extends EtheriumGeneratorBlockEntity {
     private static final String TIME_KEY = "time";
@@ -44,5 +48,16 @@ public class CelestialPrismBlockEntity extends EtheriumGeneratorBlockEntity {
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         tag.putInt(TIME_KEY, time);
+    }
+
+    @Override
+    @Nullable
+    public AABB getOutline(Level level, BlockPos pos, BlockState state) {
+        return state.getValue(CelestialPrismBlock.PART) == CelestialPrismBlock.Part.LOWER ? AABB.encapsulatingFullBlocks(pos, pos.above()) : null;
+    }
+
+    @Override
+    public int getOutlineColor(Level level, BlockPos pos, BlockState state) {
+        return AMRegistries.etheriumTypes(level.registryAccess()).getOrThrow(AMEtheriumTypes.LIGHT).color();
     }
 }

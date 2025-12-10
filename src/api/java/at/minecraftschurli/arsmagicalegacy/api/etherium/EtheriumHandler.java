@@ -1,6 +1,11 @@
 package at.minecraftschurli.arsmagicalegacy.api.etherium;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -56,4 +61,26 @@ public interface EtheriumHandler {
      * @return The amount left to be subtracted.
      */
     int subtractAmount(Holder<EtheriumType> type, int amount);
+
+    /**
+     * Returns the block outline {@link AABB} to render when the Magitech Goggles are equipped. If the handler is not in a block context, this method should return null.
+     * If this is a block larger than 1x1x1, only the part that actually controls the logic should return an {@link AABB}, all other parts should return null.
+     *
+     * @param level The {@link Level} to use.
+     * @param pos   The {@link BlockPos} to use.
+     * @param state The {@link BlockState} to use.
+     * @return The block outline {@link AABB}.
+     */
+    @Nullable
+    AABB getOutline(Level level, BlockPos pos, BlockState state);
+
+    /**
+     * Returns the block outline color, in ARGB format.
+     *
+     * @param level The {@link Level} to use.
+     * @param pos   The {@link BlockPos} to use.
+     * @param state The {@link BlockState} to use.
+     * @return The block outline color.
+     */
+    int getOutlineColor(Level level, BlockPos pos, BlockState state);
 }

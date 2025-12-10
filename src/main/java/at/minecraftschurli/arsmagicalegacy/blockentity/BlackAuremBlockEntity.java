@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.blockentity;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumGeneratorBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMEtheriumTypes;
@@ -59,5 +60,15 @@ public class BlackAuremBlockEntity extends EtheriumGeneratorBlockEntity {
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         tag.putInt(TIME_KEY, time);
+    }
+
+    @Override
+    public AABB getOutline(Level level, BlockPos pos, BlockState state) {
+        return AABB.encapsulatingFullBlocks(pos, pos);
+    }
+
+    @Override
+    public int getOutlineColor(Level level, BlockPos pos, BlockState state) {
+        return AMRegistries.etheriumTypes(level.registryAccess()).getOrThrow(AMEtheriumTypes.DARK).color();
     }
 }

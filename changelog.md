@@ -1,5 +1,6 @@
 # Additions
 
+- Added visual indicators to the Magitech Goggles (they actually have a proper use now!)
 - Added a Forget All button to the Occulus
 - Added a notification when shifting into/out of affinity abilities
 - Added a Clear button to the Inscription Table

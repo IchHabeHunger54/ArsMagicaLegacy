@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
@@ -163,12 +162,6 @@ public class ObeliskBlock extends EtheriumGeneratorBlock {
             case UPPER -> pos.below(2);
         };
         return level.getBlockState(pos).is(this) && level.getBlockState(pos).getValue(PART) == Part.LOWER && level.getBlockEntity(pos) instanceof ObeliskBlockEntity blockEntity ? blockEntity : null;
-    }
-
-    @Override
-    @Nullable
-    public AABB getOutline(Level level, BlockPos pos, BlockState state) {
-        return state.getValue(PART) == Part.LOWER ? new AABB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 3, pos.getZ() + 1) : null;
     }
 
     @Nullable

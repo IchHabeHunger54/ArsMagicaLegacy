@@ -44,6 +44,7 @@ import net.minecraft.world.level.block.state.pattern.BlockPattern;
 import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.StairsShape;
+import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.neoforged.neoforge.client.model.data.ModelProperty;
 import org.jetbrains.annotations.Nullable;
@@ -302,6 +303,16 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
     @Override
     public int subtractAmount(Holder<EtheriumType> type, int amount) {
         return amount;
+    }
+
+    @Override
+    public AABB getOutline(Level level, BlockPos pos, BlockState state) {
+        return AABB.encapsulatingFullBlocks(pos, pos);
+    }
+
+    @Override
+    public int getOutlineColor(Level level, BlockPos pos, BlockState state) {
+        return 0xffffff;
     }
 
     @Nullable

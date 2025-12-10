@@ -22,6 +22,9 @@ public final class AMGlobalLootModifierProvider extends GlobalLootModifierProvid
 
     @Override
     protected void start() {
+        addDismemberingModifier(EntityType.CREEPER);
+        addDismemberingModifier(EntityType.PIGLIN);
+        addDismemberingModifier(EntityType.SKELETON);
         addDismemberingModifier(EntityType.WITHER_SKELETON);
         addDismemberingModifier(EntityType.ZOMBIE);
         addTomeModifier(BuiltInLootTables.ANCIENT_CITY);

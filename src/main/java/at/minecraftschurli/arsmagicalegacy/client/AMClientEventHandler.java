@@ -4,7 +4,9 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterOcculusTabRenderersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterParticleControllersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterSpellPartCustomizationScreensEvent;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMCapabilities;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
+import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumHandler;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
 import at.minecraftschurli.arsmagicalegacy.block.AltarCoreBlock;
@@ -36,6 +38,7 @@ import at.minecraftschurli.arsmagicalegacy.client.particle.controller.LeaveTrail
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInKnockbackDirectionController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInViewDirectionController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.OrbitPointController;
+import at.minecraftschurli.arsmagicalegacy.client.renderer.MagitechGogglesOverlayRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.AltarCoreRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.BlackAuremRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.EmptyRenderer;
@@ -50,6 +53,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
 import at.minecraftschurli.arsmagicalegacy.init.AMParticles;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.item.CrystalWrenchItem;
+import at.minecraftschurli.arsmagicalegacy.item.MagitechGogglesItem;
 import at.minecraftschurli.arsmagicalegacy.packet.SetActiveShapeGroupPacket;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.platform.InputConstants;
@@ -58,18 +62,25 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.block.BlockModelShaper;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.status.ChunkStatus;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -85,6 +96,7 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.event.RegisterShadersEvent;
 import net.neoforged.neoforge.client.event.RenderHandEvent;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.client.settings.KeyModifier;
@@ -102,6 +114,7 @@ final class AMClientEventHandler {
     private static final Lazy<KeyMapping> PREV_SHAPE_GROUP = Lazy.of(() -> new KeyMapping(AMTranslations.KEY_PREV_SHAPE_GROUP_KEY, KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_COMMA, AMTranslations.KEY_CATEGORY_KEY));
     private static final Lazy<KeyMapping> SPELL_CUSTOMIZATION = Lazy.of(() -> new KeyMapping(AMTranslations.KEY_SPELL_CUSTOMIZATION_KEY, KeyConflictContext.IN_GAME, KeyModifier.SHIFT, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, AMTranslations.KEY_CATEGORY_KEY));
 
+    @SuppressWarnings("DataFlowIssue")
     @SubscribeEvent
     private static void clientSetup(FMLClientSetupEvent event) {
         ArsMagicaClientApiImpl.postEvents();
@@ -273,6 +286,31 @@ final class AMClientEventHandler {
             }
             while (SPELL_CUSTOMIZATION.get().consumeClick()) {
                 AMClientUtil.mc().setScreen(new SpellCustomizationScreen(spell, hand));
+            }
+        }
+    }
+
+    @SubscribeEvent
+    private static void renderLevelStage(RenderLevelStageEvent event) {
+        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_LEVEL || !MagitechGogglesItem.shouldRender(AMClientUtil.player())) return;
+        int renderDistance = AMClientUtil.mc().options.getEffectiveRenderDistance();
+        ClientLevel level = AMClientUtil.level();
+        Vec3 camera = event.getCamera().getPosition();
+        PoseStack stack = event.getPoseStack();
+        MultiBufferSource bufferSource = AMClientUtil.mc().renderBuffers().bufferSource();
+        for (int x = -renderDistance; x <= renderDistance; x++) {
+            for (int z = -renderDistance; z <= renderDistance; z++) {
+                for (BlockPos pos : level.getChunk(x, z, ChunkStatus.FULL).getBlockEntitiesPos()) {
+                    EtheriumHandler cap = level.getCapability(AMCapabilities.BLOCK_ETHERIUM, pos, null);
+                    if (cap == null) continue;
+                    BlockState state = level.getBlockState(pos);
+                    AABB outline = cap.getOutline(level, pos, state);
+                    if (outline == null) continue;
+                    stack.pushPose();
+                    stack.translate(-camera.x, -camera.y, -camera.z);
+                    MagitechGogglesOverlayRenderer.render(stack, bufferSource, outline, 0.025f, 0xff000000 | cap.getOutlineColor(level, pos, state));
+                    stack.popPose();
+                }
             }
         }
     }

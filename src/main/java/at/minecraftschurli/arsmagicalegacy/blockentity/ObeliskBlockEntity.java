@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.blockentity;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumGeneratorBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.ObeliskFuel;
 import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
@@ -27,6 +28,7 @@ import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -196,5 +198,16 @@ public class ObeliskBlockEntity extends EtheriumGeneratorBlockEntity implements 
     public void fillStackedContents(StackedContents contents) {
         contents.accountStack(stack);
         setChanged();
+    }
+
+    @Override
+    @Nullable
+    public AABB getOutline(Level level, BlockPos pos, BlockState state) {
+        return state.getValue(ObeliskBlock.PART) == ObeliskBlock.Part.LOWER ? AABB.encapsulatingFullBlocks(pos, pos.above(2)) : null;
+    }
+
+    @Override
+    public int getOutlineColor(Level level, BlockPos pos, BlockState state) {
+        return AMRegistries.etheriumTypes(level.registryAccess()).getOrThrow(AMEtheriumTypes.NEUTRAL).color();
     }
 }

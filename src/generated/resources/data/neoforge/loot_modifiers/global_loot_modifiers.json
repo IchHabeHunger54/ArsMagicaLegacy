@@ -1,5 +1,8 @@
 {
   "entries": [
+    "arsmagicalegacy:entities/creeper",
+    "arsmagicalegacy:entities/piglin",
+    "arsmagicalegacy:entities/skeleton",
     "arsmagicalegacy:entities/wither_skeleton",
     "arsmagicalegacy:entities/zombie",
     "arsmagicalegacy:chests/ancient_city",

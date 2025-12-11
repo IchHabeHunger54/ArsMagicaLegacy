@@ -45,6 +45,7 @@ import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.StairsShape;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.neoforged.neoforge.client.model.data.ModelProperty;
 import org.jetbrains.annotations.Nullable;
@@ -307,7 +308,7 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
 
     @Override
     public AABB getOutline(Level level, BlockPos pos, BlockState state) {
-        return AABB.encapsulatingFullBlocks(pos, pos);
+        return AABB.unitCubeFromLowerCorner(Vec3.ZERO);
     }
 
     @Override

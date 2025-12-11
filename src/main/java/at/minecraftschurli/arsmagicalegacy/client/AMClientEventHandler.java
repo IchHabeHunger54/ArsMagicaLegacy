@@ -307,7 +307,7 @@ final class AMClientEventHandler {
                     AABB outline = cap.getOutline(level, pos, state);
                     if (outline == null) continue;
                     stack.pushPose();
-                    stack.translate(-camera.x, -camera.y, -camera.z);
+                    stack.translate(pos.getX() - camera.x, pos.getY() - camera.y, pos.getZ() - camera.z);
                     MagitechGogglesOverlayRenderer.render(stack, bufferSource, outline, 0.025f, 0xff000000 | cap.getOutlineColor(level, pos, state));
                     stack.popPose();
                 }

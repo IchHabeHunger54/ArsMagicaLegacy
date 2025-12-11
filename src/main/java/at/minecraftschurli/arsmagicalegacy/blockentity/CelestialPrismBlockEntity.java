@@ -12,6 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class CelestialPrismBlockEntity extends EtheriumGeneratorBlockEntity {
@@ -53,7 +54,7 @@ public class CelestialPrismBlockEntity extends EtheriumGeneratorBlockEntity {
     @Override
     @Nullable
     public AABB getOutline(Level level, BlockPos pos, BlockState state) {
-        return state.getValue(CelestialPrismBlock.PART) == CelestialPrismBlock.Part.LOWER ? AABB.encapsulatingFullBlocks(pos, pos.above()) : null;
+        return state.getValue(CelestialPrismBlock.PART) == CelestialPrismBlock.Part.LOWER ? new AABB(Vec3.ZERO, new Vec3(1, 2, 1)) : null;
     }
 
     @Override

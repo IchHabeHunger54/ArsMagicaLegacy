@@ -64,7 +64,7 @@ public class BlackAuremBlockEntity extends EtheriumGeneratorBlockEntity {
 
     @Override
     public AABB getOutline(Level level, BlockPos pos, BlockState state) {
-        return AABB.encapsulatingFullBlocks(pos, pos);
+        return AABB.unitCubeFromLowerCorner(Vec3.ZERO);
     }
 
     @Override

@@ -29,6 +29,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -203,7 +204,7 @@ public class ObeliskBlockEntity extends EtheriumGeneratorBlockEntity implements 
     @Override
     @Nullable
     public AABB getOutline(Level level, BlockPos pos, BlockState state) {
-        return state.getValue(ObeliskBlock.PART) == ObeliskBlock.Part.LOWER ? AABB.encapsulatingFullBlocks(pos, pos.above(2)) : null;
+        return state.getValue(ObeliskBlock.PART) == ObeliskBlock.Part.LOWER ? new AABB(Vec3.ZERO, new Vec3(1, 3, 1)) : null;
     }
 
     @Override

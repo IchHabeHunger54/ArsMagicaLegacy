@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.client.renderer;
 
 import at.minecraftschurli.arsmagicalegacy.client.AMRenderTypes;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -11,8 +12,8 @@ public final class MagitechGogglesOverlayRenderer {
     private MagitechGogglesOverlayRenderer() {
     }
 
-    public static void render(PoseStack stack, MultiBufferSource bufferSource, AABB aabb, float lineWidth, int color) {
-        renderBox(bufferSource.getBuffer(AMRenderTypes.LINES_WITH_WIDTH), stack.last().pose(), (float) aabb.minX, (float) aabb.minY, (float) aabb.minZ, (float) aabb.maxX, (float) aabb.maxY, (float) aabb.maxZ, lineWidth, (color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff, (color >> 24) & 0xff);
+    public static void render(Matrix4f matrix, MultiBufferSource bufferSource, AABB aabb, float lineWidth, int color) {
+        renderBox(bufferSource.getBuffer(AMRenderTypes.LINES_WITH_WIDTH), matrix, (float) aabb.minX, (float) aabb.minY, (float) aabb.minZ, (float) aabb.maxX, (float) aabb.maxY, (float) aabb.maxZ, lineWidth, (color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff, (color >> 24) & 0xff);
     }
 
     /**

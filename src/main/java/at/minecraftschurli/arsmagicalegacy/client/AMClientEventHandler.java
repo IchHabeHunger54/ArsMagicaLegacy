@@ -62,6 +62,7 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -293,11 +294,12 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void renderLevelStage(RenderLevelStageEvent event) {
         if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_LEVEL || !MagitechGogglesItem.shouldRender(AMClientUtil.player())) return;
-        int renderDistance = AMClientUtil.mc().options.getEffectiveRenderDistance();
+        Minecraft mc = AMClientUtil.mc();
+        int renderDistance = mc.options.getEffectiveRenderDistance();
         ClientLevel level = AMClientUtil.level();
         Vec3 camera = event.getCamera().getPosition();
         PoseStack stack = event.getPoseStack();
-        MultiBufferSource bufferSource = AMClientUtil.mc().renderBuffers().bufferSource();
+        MultiBufferSource bufferSource = mc.renderBuffers().bufferSource();
         for (int x = -renderDistance; x <= renderDistance; x++) {
             for (int z = -renderDistance; z <= renderDistance; z++) {
                 for (BlockPos pos : level.getChunk(x, z, ChunkStatus.FULL).getBlockEntitiesPos()) {
@@ -308,7 +310,7 @@ final class AMClientEventHandler {
                     if (outline == null) continue;
                     stack.pushPose();
                     stack.translate(pos.getX() - camera.x, pos.getY() - camera.y, pos.getZ() - camera.z);
-                    MagitechGogglesOverlayRenderer.render(stack, bufferSource, outline, 0.025f, 0xff000000 | cap.getOutlineColor(level, pos, state));
+                    MagitechGogglesOverlayRenderer.render(stack.last().pose(), bufferSource, outline, 0.025f, 0xff000000 | cap.getOutlineColor(level, pos, state));
                     stack.popPose();
                 }
             }

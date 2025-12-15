@@ -41,6 +41,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,11 +49,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntFunction;
+import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collector;
 
@@ -234,5 +237,9 @@ public final class AMUtil {
                 secondStreamCodec.encode(buffer, value.getSecond());
             }
         };
+    }
+
+    public static <T> Optional<T> ifModLoaded(String modId, Supplier<T> supplier) {
+        return ModList.get().isLoaded(modId) ? Optional.of(supplier.get()) : Optional.empty();
     }
 }

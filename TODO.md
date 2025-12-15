@@ -5,6 +5,9 @@
 - Inlays
 - Liquid Essence
 - Mage & Battlemage Armor
+- Magitech Goggles
+    - Fix FOV
+    - Connection Lines
 - Entities, including:
     - Mana Creepers & Mana Vortexes
     - Dryads
@@ -14,7 +17,6 @@
 - Advancement Triggers
 - Rituals
 - Compat
-    - Curios (Magitech Goggles)
     - Patchouli
     - Compat Recipes
 - Repository Setup

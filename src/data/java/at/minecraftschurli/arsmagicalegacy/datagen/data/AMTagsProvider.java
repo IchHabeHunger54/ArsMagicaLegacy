@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import top.theillusivec4.curios.api.CuriosTags;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -144,6 +145,7 @@ public final class AMTagsProvider {
             tag(AMTags.Items.SHOWS_SHAPE_GROUPS).add(AMItems.SPELL.get());
             tag(AMTags.Items.SPELLCRAFTING_START).add(AMItems.BLANK_RUNE.get());
             tag(AMTags.Items.SPELLCRAFTING_END).add(AMItems.SPELL_PARCHMENT.get());
+            tag(CuriosTags.HEAD).add(AMItems.MAGITECH_GOGGLES.get());
         }
     }
 

@@ -4,6 +4,8 @@ import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumGeneratorBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.block.CelestialPrismBlock;
+import at.minecraftschurli.arsmagicalegacy.compat.patchouli.AMMultiblocks;
+import at.minecraftschurli.arsmagicalegacy.compat.patchouli.MultiblockMatcher;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMEtheriumTypes;
 import net.minecraft.core.BlockPos;
@@ -16,6 +18,11 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class CelestialPrismBlockEntity extends EtheriumGeneratorBlockEntity {
+    private static final MultiblockMatcher CHALK = new MultiblockMatcher(AMMultiblocks.CELESTIAL_PRISM_CHALK);
+    private static final MultiblockMatcher PILLARS_1 = new MultiblockMatcher(AMMultiblocks.CELESTIAL_PRISM_PILLARS_1);
+    private static final MultiblockMatcher PILLARS_2 = new MultiblockMatcher(AMMultiblocks.CELESTIAL_PRISM_PILLARS_2);
+    private static final MultiblockMatcher PILLARS_3 = new MultiblockMatcher(AMMultiblocks.CELESTIAL_PRISM_PILLARS_3);
+    private static final MultiblockMatcher PILLARS_4 = new MultiblockMatcher(AMMultiblocks.CELESTIAL_PRISM_PILLARS_4);
     private static final String TIME_KEY = "time";
     private int time = 0;
 
@@ -27,8 +34,8 @@ public class CelestialPrismBlockEntity extends EtheriumGeneratorBlockEntity {
     public void tick(Level level, BlockPos pos, BlockState state) {
         if (etherium >= getMaxAmount() || !level.isDay() || !level.canSeeSky(pos.above())) return;
         time--;
-        if (time < 0) {
-            time = 6;
+        if (time <= 0) {
+            time = 6 - getTier(level, pos);
             etherium++;
         }
         setChanged();
@@ -37,6 +44,15 @@ public class CelestialPrismBlockEntity extends EtheriumGeneratorBlockEntity {
     @Override
     public int getMaxAmount() {
         return AMServerConfig.CELESTIAL_PRISM_MAX_ETHERIUM.get();
+    }
+
+    @Override
+    public int getTier(Level level, BlockPos pos) {
+        if (PILLARS_1.test(level, pos)) return 2;
+        if (PILLARS_2.test(level, pos)) return 3;
+        if (PILLARS_3.test(level, pos)) return 4;
+        if (PILLARS_4.test(level, pos)) return 5;
+        return CHALK.test(level, pos) ? 1 : 0;
     }
 
     @Override

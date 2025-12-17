@@ -75,36 +75,11 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
     private Spell spell = Spell.EMPTY;
     private List<SpellIngredient> recipe;
     private final BlockPattern pattern = BlockPatternBuilder.start()
-        .aisle(
-            "BBBBB",
-            "BBBBB",
-            "BBCBB",
-            "BBBBB",
-            "BBBBB")
-        .aisle(
-            "    L",
-            "B   B",
-            "M   M",
-            "B   B",
-            "     ")
-        .aisle(
-            "I    ",
-            "B   B",
-            "M   M",
-            "B   B",
-            "     ")
-        .aisle(
-            "     ",
-            "B6 5B",
-            "M   M",
-            "B6 5B",
-            "     ")
-        .aisle(
-            "     ",
-            "C111C",
-            "2BOB4",
-            "C333C",
-            "     ")
+        .aisle("BBBBB", "BBBBB", "BBCBB", "BBBBB", "BBBBB")
+        .aisle("    L", "B   B", "M   M", "B   B", "     ")
+        .aisle("I    ", "B   B", "M   M", "B   B", "     ")
+        .aisle("     ", "B6 5B", "M   M", "B6 5B", "     ")
+        .aisle("     ", "C111C", "2BOB4", "C333C", "     ")
         .where(' ', block -> block.getState().isAir())
         .where('L', block -> block.getState().is(Blocks.LECTERN))
         .where('I', block -> block.getState().is(Blocks.LEVER))

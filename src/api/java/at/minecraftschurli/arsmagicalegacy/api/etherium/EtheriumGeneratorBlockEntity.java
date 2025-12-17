@@ -46,6 +46,15 @@ public abstract class EtheriumGeneratorBlockEntity extends BlockEntity implement
      */
     public abstract int getMaxAmount();
 
+    /**
+     * Returns the tier of the generator at the given position.
+     *
+     * @param level The {@link Level} the generator is in.
+     * @param pos   The {@link BlockPos} at which the check should place.
+     * @return The tier of the generator.
+     */
+    public abstract int getTier(Level level, BlockPos pos);
+
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);

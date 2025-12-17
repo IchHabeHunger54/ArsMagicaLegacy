@@ -688,8 +688,10 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.SPELL_RECIPE_GRAMMAR_KEY, "Grammar");
         add(AMTranslations.SPELL_RECIPE_INGREDIENTS_KEY, "Ingredients");
         add(AMTranslations.SPELL_RECIPE_SHAPE_GROUP_KEY, "Shape Group %s");
+        add(AMTranslations.TIER_KEY, "Tier: %s");
         add("config.jade.plugin_arsmagicalegacy.altar", "Altar");
         add("config.jade.plugin_arsmagicalegacy.etherium", "Etherium");
+        add("config.jade.plugin_arsmagicalegacy.tier", "Tier");
         add("itemGroup." + ArsMagicaApi.MOD_ID, "Ars Magica: Legacy");
         add("potion.potency.5", "VI");
         add("potion.potency.6", "VII");

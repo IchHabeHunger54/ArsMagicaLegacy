@@ -24,6 +24,7 @@ public interface AMTranslations {
     String ETHERIUM_KEY                              = ArsMagicaApi.MOD_ID + ".etherium";
     String SPELL_INGREDIENT_COUNT_KEY                = ArsMagicaApi.MOD_ID + ".spell.ingredient_count";
     String SPELL_MANA_COST_KEY                       = ArsMagicaApi.MOD_ID + ".spell.mana_cost";
+    String TIER_KEY                                  = ArsMagicaApi.MOD_ID + ".tier";
     String COMMAND_AFFINITY_ADD_MULTIPLE_KEY         = "commands." + ArsMagicaApi.MOD_ID + ".affinity.add.multiple.success";
     String COMMAND_AFFINITY_ADD_SINGLE_KEY           = "commands." + ArsMagicaApi.MOD_ID + ".affinity.add.single.success";
     String COMMAND_AFFINITY_GET_KEY                  = "commands." + ArsMagicaApi.MOD_ID + ".affinity.get.success";

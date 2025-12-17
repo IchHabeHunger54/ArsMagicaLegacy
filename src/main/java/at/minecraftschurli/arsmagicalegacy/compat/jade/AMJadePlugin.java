@@ -23,6 +23,7 @@ public final class AMJadePlugin implements IWailaPlugin {
         registration.registerBlockDataProvider(AltarComponentProvider.INSTANCE, AltarCoreBlockEntity.class);
         registration.registerBlockDataProvider(EtheriumComponentProvider.INSTANCE, AltarCoreBlockEntity.class);
         registration.registerBlockDataProvider(EtheriumComponentProvider.INSTANCE, EtheriumGeneratorBlockEntity.class);
+        registration.registerBlockDataProvider(TierComponentProvider.INSTANCE, EtheriumGeneratorBlockEntity.class);
     }
 
     @Override
@@ -32,6 +33,9 @@ public final class AMJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(EtheriumComponentProvider.INSTANCE, ObeliskBlock.class);
         registration.registerBlockComponent(EtheriumComponentProvider.INSTANCE, CelestialPrismBlock.class);
         registration.registerBlockComponent(EtheriumComponentProvider.INSTANCE, BlackAuremBlock.class);
+        registration.registerBlockComponent(TierComponentProvider.INSTANCE, ObeliskBlock.class);
+        registration.registerBlockComponent(TierComponentProvider.INSTANCE, CelestialPrismBlock.class);
+        registration.registerBlockComponent(TierComponentProvider.INSTANCE, BlackAuremBlock.class);
         registration.addRayTraceCallback(((hitResult, accessor, original) -> {
             if (!(accessor instanceof BlockAccessor blockAccessor) || hitResult.getType() != HitResult.Type.BLOCK || !(hitResult instanceof BlockHitResult bhr)) return accessor;
             BlockPos pos = bhr.getBlockPos();

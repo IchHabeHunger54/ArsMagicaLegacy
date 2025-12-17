@@ -13,7 +13,6 @@
     - Dryads
     - All Bosses
     - Their Projectiles
-- Obelisk/Celestial Prism/Black Aurem Multiblocks
 - Advancement Triggers
 - Rituals
 - Compat

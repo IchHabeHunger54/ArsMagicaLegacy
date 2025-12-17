@@ -5,6 +5,8 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumGeneratorBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.ObeliskFuel;
 import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
+import at.minecraftschurli.arsmagicalegacy.compat.patchouli.AMMultiblocks;
+import at.minecraftschurli.arsmagicalegacy.compat.patchouli.MultiblockMatcher;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMEtheriumTypes;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
@@ -35,6 +37,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ObeliskBlockEntity extends EtheriumGeneratorBlockEntity implements StackedContentsCompatible, WorldlyContainer {
+    private static final MultiblockMatcher CHALK = new MultiblockMatcher(AMMultiblocks.OBELISK_CHALK);
+    private static final MultiblockMatcher PILLARS = new MultiblockMatcher(AMMultiblocks.OBELISK_PILLARS);
     private static final String ITEMS_KEY = "Items";
     private static final String BURN_TIME_KEY = "burn_time";
     private static final String MAX_BURN_TIME_KEY = "max_burn_time";
@@ -62,7 +66,7 @@ public class ObeliskBlockEntity extends EtheriumGeneratorBlockEntity implements 
             if (fuel != null) {
                 burnTime = fuel.burnTime();
                 maxBurnTime = fuel.burnTime();
-                etheriumPerTick = fuel.etheriumPerTick();
+                etheriumPerTick = fuel.etheriumPerTick() * (getTier(level, pos) + 1);
                 if (stack.hasCraftingRemainingItem()) {
                     stack = stack.getCraftingRemainingItem();
                 } else {
@@ -80,6 +84,11 @@ public class ObeliskBlockEntity extends EtheriumGeneratorBlockEntity implements 
     @Override
     public int getMaxAmount() {
         return AMServerConfig.OBELISK_MAX_ETHERIUM.get();
+    }
+
+    @Override
+    public int getTier(Level level, BlockPos pos) {
+        return PILLARS.test(level, pos) ? 2 : CHALK.test(level, pos) ? 1 : 0;
     }
 
     @Override

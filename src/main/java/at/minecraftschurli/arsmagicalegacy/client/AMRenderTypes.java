@@ -35,7 +35,7 @@ public final class AMRenderTypes {
     public static final RenderType LINES_WITH_WIDTH = RenderType.create(
         ArsMagicaApi.modLoc("lines_with_width").toString().replace(":", "_"),
         DefaultVertexFormat.POSITION_COLOR,
-        VertexFormat.Mode.TRIANGLES,
+        VertexFormat.Mode.QUADS,
         8192,
         false,
         false,

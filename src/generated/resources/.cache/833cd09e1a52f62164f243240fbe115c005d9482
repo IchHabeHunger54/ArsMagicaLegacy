@@ -1,4 +1,4 @@
-// 1.21.1	2025-11-25T17:05:03.947947685	Item Models: arsmagicalegacy
+// 1.21.1	2025-12-19T15:10:20.2117028	Item Models: arsmagicalegacy
 6e0b262bb6740bdbe7b3564e182497239ff375ac assets/arsmagicalegacy/models/item/affinity_essence_air.json
 84174d0bc6eb1016c4946a0937eb7ec35e19f1d8 assets/arsmagicalegacy/models/item/affinity_essence_arcane.json
 30a8164938d38c30eeb732879d3cd38955490293 assets/arsmagicalegacy/models/item/affinity_essence_earth.json
@@ -25,6 +25,10 @@ bd93b3eb1c4912992a4fc11a0801c861b24ddc01 assets/arsmagicalegacy/models/item/affi
 7a015fda319f9dd8d3baab4993daaec647132edb assets/arsmagicalegacy/models/item/arcane_compendium.json
 cc2cb15d367f1057fc85a254ed16a8d5ea9fd02b assets/arsmagicalegacy/models/item/arcane_compound.json
 479f46ca80005c14a383332494b60e0b757b4f70 assets/arsmagicalegacy/models/item/aum.json
+580dc6c1ad7abc24560ca8e93fe93a029ad4c547 assets/arsmagicalegacy/models/item/battlemage_boots.json
+d8b2e0f981903a0ba591b08f767495b2f1ce7273 assets/arsmagicalegacy/models/item/battlemage_chestplate.json
+207c2013cee9f69bd44b0d2c83cd3828d31ed46c assets/arsmagicalegacy/models/item/battlemage_helmet.json
+fe085d359408c9f131025759be45a7e824af6add assets/arsmagicalegacy/models/item/battlemage_leggings.json
 03d6d90c70548cf19223da5f99e65178ab7bd2cf assets/arsmagicalegacy/models/item/black_aurem.json
 9cc168c5c7d6018e6c02f1d8f40dd4fc008d1782 assets/arsmagicalegacy/models/item/black_rune.json
 1e97cd23f92995dada9ded0b943ed936fe532d26 assets/arsmagicalegacy/models/item/blank_rune.json
@@ -56,6 +60,10 @@ e5ab563b4ffb87d5a0bc7e67d4f7bb089f5c93ec assets/arsmagicalegacy/models/item/insc
 f23802e331e186775bfb9211aab6c426820e1f6a assets/arsmagicalegacy/models/item/light_gray_rune.json
 7de8caeb86db5ef926a02117b3d614ec253cf4e8 assets/arsmagicalegacy/models/item/lime_rune.json
 4efd9f80996b62a4cfa761ba92fa1e1eb3741e4e assets/arsmagicalegacy/models/item/magenta_rune.json
+d2009a05fd1491bd1054981535286fd1232d8fc8 assets/arsmagicalegacy/models/item/mage_boots.json
+81fa2919df0cd12ecc8acf0464fe921d3a47e867 assets/arsmagicalegacy/models/item/mage_chestplate.json
+bf4830e970edd94c32ac8f163368ba337b340783 assets/arsmagicalegacy/models/item/mage_helmet.json
+365eac1fcfbfda90d80c566397d7c61c71d09147 assets/arsmagicalegacy/models/item/mage_leggings.json
 31f73b71f6340806e253951fe796c55ba519a28e assets/arsmagicalegacy/models/item/magic_wall.json
 6fa5c59f2f5df549dee40d1f738c533e264cc876 assets/arsmagicalegacy/models/item/magitech_goggles.json
 832742322eac44f0c68d71fdf61fd6b7ea81231a assets/arsmagicalegacy/models/item/mana_cake.json

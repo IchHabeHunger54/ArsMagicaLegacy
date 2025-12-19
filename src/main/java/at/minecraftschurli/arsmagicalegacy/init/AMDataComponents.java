@@ -28,6 +28,7 @@ public interface AMDataComponents {
     // @formatter:off
     DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Affinity>>>     AFFINITY         = register("affinity",         Affinity.CODEC,           ByteBufCodecs.holderRegistry(AMRegistries.AFFINITY));
     DeferredHolder<DataComponentType<?>, DataComponentType<Holder<EtheriumType>>> ETHERIUM_TYPE    = register("etherium_type",    EtheriumType.CODEC,       ByteBufCodecs.holderRegistry(AMRegistries.ETHERIUM_TYPE));
+    DeferredHolder<DataComponentType<?>, DataComponentType<Double>>               MANA_REPAIR_COST = register("mana_repair_cost", Codec.DOUBLE,             ByteBufCodecs.DOUBLE);
     DeferredHolder<DataComponentType<?>, DataComponentType<Holder<SkillPoint>>>   SKILL_POINT      = register("skill_point",      SkillPoint.CODEC,         ByteBufCodecs.holderRegistry(AMRegistries.SKILL_POINT));
     DeferredHolder<DataComponentType<?>, DataComponentType<Spell>>                SPELL            = register("spell",            Spell.CODEC,              Spell.STREAM_CODEC);
     DeferredHolder<DataComponentType<?>, DataComponentType<List<GlobalPos>>>      STORED_POSITIONS = register("stored_positions", GlobalPos.CODEC.listOf(), GlobalPos.STREAM_CODEC.apply(ByteBufCodecs.list()));
@@ -38,10 +39,6 @@ public interface AMDataComponents {
     DeferredHolder<DataComponentType<?>, DataComponentType<SpellDamage>>    SPELL_DAMAGE          = register("spell_damage",          SpellDamage.CODEC,                     SpellDamage.STREAM_CODEC);
     DeferredHolder<DataComponentType<?>, DataComponentType<RecallPosition>> SPELL_RECALL_POSITION = register("spell_recall_position", RecallPosition.CODEC,                  RecallPosition.STREAM_CODEC);
     // @formatter:on
-
-    private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, Codec<T> codec) {
-        return DATA_COMPONENTS.registerComponentType(name, builder -> builder.persistent(codec));
-    }
 
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, Codec<T> codec, StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec) {
         return DATA_COMPONENTS.registerComponentType(name, builder -> builder.persistent(codec).networkSynchronized(streamCodec));

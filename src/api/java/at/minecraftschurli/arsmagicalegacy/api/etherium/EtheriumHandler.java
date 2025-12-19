@@ -8,6 +8,7 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.SequencedSet;
 
 /**
  * Represents an etherium capability handler.
@@ -83,4 +84,28 @@ public interface EtheriumHandler {
      * @return The block outline color.
      */
     int getOutlineColor(Level level, BlockPos pos, BlockState state);
+
+    /**
+     * @return Whether the handler is allowed to have connections to other handlers.
+     */
+    boolean canHaveConnectedPositions();
+
+    /**
+     * @return A {@link SequencedSet} of connections to other handlers. If {@link #canHaveConnectedPositions()} returns false, this is expected to be always empty.
+     */
+    SequencedSet<BlockPos> getConnectedPositions();
+
+    /**
+     * Adds a {@link BlockPos} to connect. If {@link #canHaveConnectedPositions()} returns false, this method should do nothing.
+     *
+     * @param pos The {@link BlockPos} to add.
+     */
+    void addConnectedPosition(BlockPos pos);
+
+    /**
+     * Removes a {@link BlockPos} to connect. If {@link #canHaveConnectedPositions()} returns false, this method should do nothing.
+     *
+     * @param pos The {@link BlockPos} to remove.
+     */
+    void removeConnectedPosition(BlockPos pos);
 }

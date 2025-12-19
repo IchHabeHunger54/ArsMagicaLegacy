@@ -83,6 +83,11 @@ public class SpellItem extends DataComponentNamedItem<Spell> {
         return false;
     }
 
+    @Override
+    public boolean isFoil(ItemStack stack) {
+        return false;
+    }
+
     private void playSound(Level level, LivingEntity entity, Spell spell) {
         Affinity affinity = AMRegistries.affinities(level.registryAccess()).get(spell.grammar().primaryAffinity());
         if (affinity == null) return;

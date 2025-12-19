@@ -10,7 +10,6 @@ import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
 import at.minecraftschurli.arsmagicalegacy.item.DrinkItem;
 import at.minecraftschurli.arsmagicalegacy.item.InfinityOrbItem;
 import at.minecraftschurli.arsmagicalegacy.item.InscriptionTableUpgradeItem;
-import at.minecraftschurli.arsmagicalegacy.item.MagitechGogglesItem;
 import at.minecraftschurli.arsmagicalegacy.item.RuneBagItem;
 import at.minecraftschurli.arsmagicalegacy.item.SpellItem;
 import at.minecraftschurli.arsmagicalegacy.item.SpellRecipeItem;
@@ -18,10 +17,9 @@ import at.minecraftschurli.arsmagicalegacy.item.WizardsChalkItem;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.HangingSignItem;
@@ -30,15 +28,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.StandingAndWallBlockItem;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 @SuppressWarnings("DataFlowIssue")
 public interface AMItems {
-    DeferredRegister<ArmorMaterial> ARMOR_MATERIALS = DeferredRegister.create(Registries.ARMOR_MATERIAL, ArsMagicaApi.MOD_ID);
-    DeferredHolder<ArmorMaterial, ArmorMaterial> MAGITECH_GOGGLES_MATERIAL = ARMOR_MATERIALS.register("magitech_goggles", MagitechGogglesItem.ARMOR_MATERIAL);
-
     DeferredRegister.Items ITEMS = DeferredRegister.createItems(ArsMagicaApi.MOD_ID);
     // @formatter:off
     DeferredItem<SpellItem>                                    SPELL                            = ITEMS.registerItem("spell", p -> new SpellItem(p.stacksTo(1).component(AMDataComponents.SPELL, Spell.EMPTY)));
@@ -58,7 +52,7 @@ public interface AMItems {
     DeferredItem<WizardsChalkItem>                             WIZARDS_CHALK                    = ITEMS.registerItem("wizards_chalk", p -> new WizardsChalkItem(AMBlocks.WIZARDS_CHALK.get(), p.stacksTo(1).durability(100)));
     DeferredItem<BlockItem>                                    VINTEUM_TORCH                    = ITEMS.registerItem("vinteum_torch", p -> new StandingAndWallBlockItem(AMBlocks.VINTEUM_TORCH.get(), AMBlocks.VINTEUM_WALL_TORCH.get(), p, Direction.DOWN));
     DeferredItem<Item>                                         SPELL_PARCHMENT                  = ITEMS.registerSimpleItem("spell_parchment");
-    DeferredItem<MagitechGogglesItem>                          MAGITECH_GOGGLES                 = ITEMS.registerItem("magitech_goggles", MagitechGogglesItem::new);
+    DeferredItem<ArmorItem>                                    MAGITECH_GOGGLES                 = ITEMS.registerItem("magitech_goggles", p -> new ArmorItem(AMArmorMaterials.MAGITECH_GOGGLES, ArmorItem.Type.HELMET, p.stacksTo(1)));
     DeferredItem<Item>                                         MANA_CAKE                        = ITEMS.registerSimpleItem("mana_cake", new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6f).alwaysEdible().effect(() -> new MobEffectInstance(AMMobEffects.MANA_REGENERATION, 600), 1).build()));
     DeferredItem<DrinkItem>                                    MANA_MARTINI                     = ITEMS.registerItem("mana_martini", p -> new DrinkItem(p.food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6f).alwaysEdible().effect(() -> new MobEffectInstance(AMMobEffects.BURNOUT_REDUCTION, 300), 1).usingConvertsTo(Items.GLASS_BOTTLE).build())));
     DeferredItem<InfinityOrbItem>                              INFINITY_ORB                     = ITEMS.registerItem("infinity_orb", InfinityOrbItem::new);
@@ -119,8 +113,8 @@ public interface AMItems {
     DeferredItem<BlockItem>                                    WITCHWOOD_TRAPDOOR               = ITEMS.registerSimpleBlockItem(AMBlocks.WITCHWOOD_TRAPDOOR);
     DeferredItem<BlockItem>                                    WITCHWOOD_BUTTON                 = ITEMS.registerSimpleBlockItem(AMBlocks.WITCHWOOD_BUTTON);
     DeferredItem<BlockItem>                                    WITCHWOOD_PRESSURE_PLATE         = ITEMS.registerSimpleBlockItem(AMBlocks.WITCHWOOD_PRESSURE_PLATE);
-    DeferredItem<BlockItem>                                    WITCHWOOD_SIGN                   = ITEMS.registerItem("witchwood_sign", p -> new SignItem(p, AMBlocks.WITCHWOOD_SIGN.get(), AMBlocks.WITCHWOOD_WALL_SIGN.get()), new Item.Properties().stacksTo(16));
-    DeferredItem<BlockItem>                                    WITCHWOOD_HANGING_SIGN           = ITEMS.registerItem("witchwood_hanging_sign", p -> new HangingSignItem(AMBlocks.WITCHWOOD_HANGING_SIGN.get(), AMBlocks.WITCHWOOD_WALL_HANGING_SIGN.get(), p), new Item.Properties().stacksTo(16));
+    DeferredItem<BlockItem>                                    WITCHWOOD_SIGN                   = ITEMS.registerItem("witchwood_sign", p -> new SignItem(p.stacksTo(16), AMBlocks.WITCHWOOD_SIGN.get(), AMBlocks.WITCHWOOD_WALL_SIGN.get()));
+    DeferredItem<BlockItem>                                    WITCHWOOD_HANGING_SIGN           = ITEMS.registerItem("witchwood_hanging_sign", p -> new HangingSignItem(AMBlocks.WITCHWOOD_HANGING_SIGN.get(), AMBlocks.WITCHWOOD_WALL_HANGING_SIGN.get(), p.stacksTo(16)));
     DeferredItem<BlockItem>                                    AUM                              = ITEMS.registerSimpleBlockItem(AMBlocks.AUM);
     DeferredItem<BlockItem>                                    CERUBLOSSOM                      = ITEMS.registerSimpleBlockItem(AMBlocks.CERUBLOSSOM);
     DeferredItem<BlockItem>                                    DESERT_NOVA                      = ITEMS.registerSimpleBlockItem(AMBlocks.DESERT_NOVA);

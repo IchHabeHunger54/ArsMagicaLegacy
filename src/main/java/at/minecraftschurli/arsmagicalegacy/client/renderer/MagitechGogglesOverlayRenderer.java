@@ -1,14 +1,36 @@
 package at.minecraftschurli.arsmagicalegacy.client.renderer;
 
 import at.minecraftschurli.arsmagicalegacy.client.AMRenderTypes;
+import at.minecraftschurli.arsmagicalegacy.init.AMItems;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import org.joml.Matrix4f;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 
 @SuppressWarnings("DuplicatedCode")
 public final class MagitechGogglesOverlayRenderer {
     private MagitechGogglesOverlayRenderer() {
+    }
+
+    public static boolean shouldRender(Player player) {
+        return player.getInventory().getArmor(3).is(AMItems.MAGITECH_GOGGLES) || AMUtil.ifModLoaded("curios", () -> CuriosApi.getCuriosInventory(player)
+                .map(ICuriosItemHandler::getCurios)
+                .map(map -> map.values()
+                    .stream()
+                    .map(ICurioStacksHandler::getStacks)
+                    .anyMatch(items -> {
+                        for (int i = 0; i < items.getSlots(); i++) {
+                            if (items.getStackInSlot(i).is(AMItems.MAGITECH_GOGGLES)) return true;
+                        }
+                        return false;
+                    }))
+                .orElse(false))
+            .orElse(false);
     }
 
     public static void render(Matrix4f matrix, MultiBufferSource bufferSource, AABB aabb, float lineWidth, int color) {

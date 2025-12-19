@@ -54,7 +54,6 @@ import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
 import at.minecraftschurli.arsmagicalegacy.init.AMParticles;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.item.CrystalWrenchItem;
-import at.minecraftschurli.arsmagicalegacy.item.MagitechGogglesItem;
 import at.minecraftschurli.arsmagicalegacy.packet.SetActiveShapeGroupPacket;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.platform.InputConstants;
@@ -295,7 +294,7 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void renderLevelStage(RenderLevelStageEvent event) {
-        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_LEVEL || !MagitechGogglesItem.shouldRender(AMClientUtil.player())) return;
+        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_LEVEL || !MagitechGogglesOverlayRenderer.shouldRender(AMClientUtil.player())) return;
         Minecraft mc = AMClientUtil.mc();
         int renderDistance = mc.options.getEffectiveRenderDistance();
         ClientLevel level = AMClientUtil.level();

@@ -1,8 +1,8 @@
 package at.minecraftschurli.arsmagicalegacy.item;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
-import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumConsumerBlockEntity;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMCapabilities;
+import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumHandler;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumHandlerBlock;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import net.minecraft.core.BlockPos;
@@ -34,28 +34,30 @@ public class CrystalWrenchItem extends Item {
         BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
         BlockEntity blockEntity = state.getBlock() instanceof EtheriumHandlerBlock block ? block.getBlockEntity(level, pos, state) : level.getBlockEntity(pos);
-        if (state.is(AMTags.Blocks.ETHERIUM_CONSUMERS) && blockEntity instanceof EtheriumConsumerBlockEntity consumer && stack.has(AMDataComponents.STORED_POSITIONS)) {
+        EtheriumHandler handler = level.getCapability(AMCapabilities.BLOCK_ETHERIUM, blockEntity.getBlockPos(), null);
+        if (handler == null) return super.useOn(context);
+        if (handler.canHaveConnectedPositions() && stack.has(AMDataComponents.STORED_POSITIONS)) {
             List<BlockPos> list = stack.get(AMDataComponents.STORED_POSITIONS)
                 .stream()
                 .filter(e -> e.dimension() == level.dimension())
                 .map(GlobalPos::pos)
+                .filter(e -> !e.equals(blockEntity.getBlockPos()))
                 .toList();
-            if (!list.isEmpty()) {
-                if (consumer.getBoundPositions().containsAll(list)) {
-                    list.forEach(consumer::removePosition);
-                } else {
-                    list.forEach(consumer::addPosition);
-                }
-                stack.set(AMDataComponents.STORED_POSITIONS, List.of());
-                return InteractionResult.SUCCESS;
+            if (list.isEmpty()) return super.useOn(context);
+            if (handler.getConnectedPositions().containsAll(list)) {
+                list.forEach(handler::removeConnectedPosition);
+            } else {
+                list.forEach(handler::addConnectedPosition);
             }
-        }
-        if (state.is(AMTags.Blocks.ETHERIUM_PROVIDERS)) {
+            stack.set(AMDataComponents.STORED_POSITIONS, List.of());
+        } else {
             List<GlobalPos> list = stack.has(AMDataComponents.STORED_POSITIONS) ? new ArrayList<>(stack.get(AMDataComponents.STORED_POSITIONS)) : new ArrayList<>();
-            list.add(new GlobalPos(level.dimension(), blockEntity.getBlockPos()));
+            GlobalPos globalPos = new GlobalPos(level.dimension(), blockEntity.getBlockPos());
+            if (!list.contains(globalPos)) {
+                list.add(globalPos);
+            }
             stack.set(AMDataComponents.STORED_POSITIONS, list);
-            return InteractionResult.SUCCESS;
         }
-        return super.useOn(context);
+        return InteractionResult.SUCCESS;
     }
 }

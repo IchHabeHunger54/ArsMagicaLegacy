@@ -11,13 +11,17 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.SequencedSet;
 
 /**
  * Simple implementation of an etherium generator, as used by the three generators in the base mod (Obelisk, Celestial Prism and Black Aurem).
  */
 public abstract class EtheriumGeneratorBlockEntity extends BlockEntity implements EtheriumHandler {
     private static final String ETHERIUM_KEY = "etherium";
+    private static final SequencedSet<BlockPos> POSITIONS = Collections.unmodifiableSequencedSet(new LinkedHashSet<>());
     protected final ResourceKey<EtheriumType> etheriumType;
     protected int etherium = 0;
 
@@ -103,5 +107,23 @@ public abstract class EtheriumGeneratorBlockEntity extends BlockEntity implement
         etherium -= min;
         setChanged();
         return amount - min;
+    }
+
+    @Override
+    public boolean canHaveConnectedPositions() {
+        return false;
+    }
+
+    @Override
+    public SequencedSet<BlockPos> getConnectedPositions() {
+        return POSITIONS;
+    }
+
+    @Override
+    public void addConnectedPosition(BlockPos pos) {
+    }
+
+    @Override
+    public void removeConnectedPosition(BlockPos pos) {
     }
 }

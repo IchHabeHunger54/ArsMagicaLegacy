@@ -4,7 +4,6 @@ import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMCapabilities;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
-import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumConsumerBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumHandler;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.arsmagicalegacy.api.magic.AltarCapMaterial;
@@ -59,7 +58,7 @@ import java.util.Optional;
 import java.util.SequencedSet;
 
 @SuppressWarnings("DataFlowIssue")
-public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Data> implements EtheriumConsumerBlockEntity, EtheriumHandler {
+public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Data> implements EtheriumHandler {
     public static final ModelProperty<BlockState> CAMO = new ModelProperty<>();
     private final SequencedSet<BlockPos> etheriumProviders = new LinkedHashSet<>();
     private final Map<ResourceKey<EtheriumType>, Integer> etherium = new HashMap<>();
@@ -228,18 +227,13 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
     }
 
     @Override
-    public SequencedSet<BlockPos> getBoundPositions() {
-        return etheriumProviders;
-    }
-
-    @Override
-    public void addPosition(BlockPos pos) {
+    public void addConnectedPosition(BlockPos pos) {
         etheriumProviders.add(pos);
         setChanged();
     }
 
     @Override
-    public void removePosition(BlockPos pos) {
+    public void removeConnectedPosition(BlockPos pos) {
         etheriumProviders.remove(pos);
         setChanged();
     }
@@ -289,6 +283,16 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
     @Override
     public int getOutlineColor(Level level, BlockPos pos, BlockState state) {
         return 0xffffff;
+    }
+
+    @Override
+    public boolean canHaveConnectedPositions() {
+        return true;
+    }
+
+    @Override
+    public SequencedSet<BlockPos> getConnectedPositions() {
+        return etheriumProviders;
     }
 
     @Nullable

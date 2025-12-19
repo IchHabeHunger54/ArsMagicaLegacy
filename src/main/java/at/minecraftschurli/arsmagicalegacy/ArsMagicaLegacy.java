@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.init.AMAbilities;
+import at.minecraftschurli.arsmagicalegacy.init.AMArmorMaterials;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
@@ -38,7 +39,7 @@ public final class ArsMagicaLegacy {
     private void register(IEventBus bus) {
         AMBlocks.BLOCKS.register(bus);
         AMItems.ITEMS.register(bus);
-        AMItems.ARMOR_MATERIALS.register(bus);
+        AMArmorMaterials.ARMOR_MATERIALS.register(bus);
         AMDataComponents.DATA_COMPONENTS.register(bus);
         AMAttributes.ATTRIBUTES.register(bus);
         AMBlockEntities.BLOCK_ENTITIES.register(bus);

@@ -16,6 +16,7 @@ import at.minecraftschurli.arsmagicalegacy.client.gui.RuneBagScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable.InscriptionTableScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.AffinityTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.SkillTreeTabRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.PlaceBlockCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.RecallCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.SpellCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.color.ColorCustomizationScreen;
@@ -238,6 +239,7 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void registerSpellPartCustomizationScreens(RegisterSpellPartCustomizationScreensEvent event) {
         event.register(AMSpells.COLOR, ColorCustomizationScreen::new);
+        event.register(AMSpells.PLACE_BLOCK, PlaceBlockCustomizationScreen::new);
         event.register(AMSpells.RECALL, RecallCustomizationScreen::new);
     }
 

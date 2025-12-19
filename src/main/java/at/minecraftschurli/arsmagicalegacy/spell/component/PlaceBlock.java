@@ -33,7 +33,7 @@ public class PlaceBlock extends SpellComponent.CastBlock {
     public Spell castBlock(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, BlockHitResult hitResult) {
         Level level = directEntity.level();
         if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return spell;
-        Block block = Blocks.STONE; //spell.dataComponents().grammar().get(AMDataComponents.SPELL_BLOCK.get());
+        Block block = spell.dataComponents().grammar().get(AMDataComponents.SPELL_BLOCK.get());
         if (block == null || block.defaultBlockState().isAir()) return spell;
         ServerPlayer player = caster instanceof ServerPlayer p ? p : FakePlayerFactory.get(serverLevel, GAME_PROFILE);
         ItemStack stack = new ItemStack(block.asItem());

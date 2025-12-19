@@ -39,6 +39,14 @@ public interface AMCreativeTabs {
             output.accept(AMItems.VINTEUM_TORCH);
             output.accept(AMItems.SPELL_PARCHMENT);
             output.accept(AMItems.MAGITECH_GOGGLES);
+            output.accept(AMItems.MAGE_HELMET);
+            output.accept(AMItems.MAGE_CHESTPLATE);
+            output.accept(AMItems.MAGE_LEGGINGS);
+            output.accept(AMItems.MAGE_BOOTS);
+            output.accept(AMItems.BATTLEMAGE_HELMET);
+            output.accept(AMItems.BATTLEMAGE_CHESTPLATE);
+            output.accept(AMItems.BATTLEMAGE_LEGGINGS);
+            output.accept(AMItems.BATTLEMAGE_BOOTS);
             output.accept(AMItems.MANA_CAKE);
             output.accept(AMItems.MANA_MARTINI);
             acceptVariants(display, output, AMItems.INFINITY_ORB, AMRegistries.SKILL_POINT, (stack, holder) -> stack.set(AMDataComponents.SKILL_POINT, holder));

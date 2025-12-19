@@ -138,6 +138,13 @@ public final class AMTagsProvider {
             tag(ItemTags.SIGNS).add(AMItems.WITCHWOOD_SIGN.get());
             tag(ItemTags.HANGING_SIGNS).add(AMItems.WITCHWOOD_HANGING_SIGN.get());
             tag(ItemTags.SMALL_FLOWERS).add(AMItems.AUM.get(), AMItems.CERUBLOSSOM.get(), AMItems.DESERT_NOVA.get(), AMItems.TARMA_ROOT.get(), AMItems.WAKEBLOOM.get());
+            tag(AMTags.Items.MAGITECH_GOGGLES_REPAIR_ITEMS).addTag(AMTags.Items.GEMS_TOPAZ);
+            tag(AMTags.Items.MAGE_ARMOR_REPAIR_ITEMS).add(AMItems.BLANK_RUNE.get());
+            tag(AMTags.Items.BATTLEMAGE_ARMOR_REPAIR_ITEMS).add(AMItems.BLANK_RUNE.get());
+            tag(ItemTags.HEAD_ARMOR).add(AMItems.MAGITECH_GOGGLES.get(), AMItems.MAGE_HELMET.get(), AMItems.BATTLEMAGE_HELMET.get());
+            tag(ItemTags.CHEST_ARMOR).add(AMItems.MAGE_CHESTPLATE.get(), AMItems.BATTLEMAGE_CHESTPLATE.get());
+            tag(ItemTags.LEG_ARMOR).add(AMItems.MAGE_LEGGINGS.get(), AMItems.BATTLEMAGE_LEGGINGS.get());
+            tag(ItemTags.FOOT_ARMOR).add(AMItems.MAGE_BOOTS.get(), AMItems.BATTLEMAGE_BOOTS.get());
             tag(ItemTags.LECTERN_BOOKS).add(AMItems.SPELL_RECIPE.get());
             tag(AMTags.Items.INSCRIPTION_TABLE_BOOKS).add(Items.WRITABLE_BOOK, AMItems.SPELL_RECIPE.get());
             tag(AMTags.Items.OCCULUS_FORGET_ALL).addTag(AMTags.Items.STORAGE_BLOCKS_VINTEUM);

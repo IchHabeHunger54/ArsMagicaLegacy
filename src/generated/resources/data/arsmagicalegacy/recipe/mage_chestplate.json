@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "L": {
+      "tag": "c:leathers"
+    },
+    "R": {
+      "item": "arsmagicalegacy:white_rune"
+    },
+    "W": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "L L",
+    "WRW",
+    "WWW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "arsmagicalegacy:mage_chestplate"
+  }
+}

@@ -62,6 +62,9 @@ public interface AMTags {
         TagKey<Item> DUSTS_ARCANE_ASH = cTag("dusts/arcane_ash");
         TagKey<Item> DUSTS_PURIFIED_VINTEUM = cTag("dusts/purified_vinteum");
         TagKey<Item> WITCHWOOD_LOGS = tag("witchwood_logs");
+        TagKey<Item> MAGITECH_GOGGLES_REPAIR_ITEMS = tag("repair_items/magitech_goggles");
+        TagKey<Item> MAGE_ARMOR_REPAIR_ITEMS = tag("repair_items/mage_armor");
+        TagKey<Item> BATTLEMAGE_ARMOR_REPAIR_ITEMS = tag("repair_items/battlemage_armor");
         TagKey<Item> INSCRIPTION_TABLE_BOOKS = tag("inscription_table_books");
         TagKey<Item> OCCULUS_FORGET_ALL = tag("occulus_forget_all");
         TagKey<Item> RUNES = tag("runes");

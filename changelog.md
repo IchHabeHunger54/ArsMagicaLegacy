@@ -5,6 +5,7 @@
 - Added a notification when shifting into/out of affinity abilities
 - Added a Clear button to the Inscription Table
 - Added several new config options for various spell parts
+- Added translations for the mod's tags
 
 # Changes
 
@@ -21,6 +22,7 @@
 - Changed how spell parts such as Color, Place Block or Recall store their metadata
 - The Altar now accepts Shulker Boxes, Rune Bags and other container items, and will pull spell ingredients from them
 - Rune Bags can no longer be inserted into Shulker Boxes or similar containers
+- Magitech Goggles are no longer unbreakable and can be repaired using Topaz
 - Moved some Affinity Tomes to other biomes or structures
 - Affinity abilities now use an effect system that can be modified via datapacks
 - Made various witchwood and flower blocks/items flammable, compostable and strippable where appropriate

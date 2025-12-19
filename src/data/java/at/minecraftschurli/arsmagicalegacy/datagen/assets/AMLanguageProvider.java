@@ -57,6 +57,14 @@ public final class AMLanguageProvider extends LanguageProvider {
         addBlock(AMBlocks.VINTEUM_WALL_TORCH, idTranslation(AMBlocks.VINTEUM_TORCH.getId().getPath()));
         itemIdTranslation(AMItems.SPELL_PARCHMENT);
         itemIdTranslation(AMItems.MAGITECH_GOGGLES);
+        itemIdTranslation(AMItems.MAGE_HELMET);
+        itemIdTranslation(AMItems.MAGE_CHESTPLATE);
+        itemIdTranslation(AMItems.MAGE_LEGGINGS);
+        itemIdTranslation(AMItems.MAGE_BOOTS);
+        itemIdTranslation(AMItems.BATTLEMAGE_HELMET);
+        itemIdTranslation(AMItems.BATTLEMAGE_CHESTPLATE);
+        itemIdTranslation(AMItems.BATTLEMAGE_LEGGINGS);
+        itemIdTranslation(AMItems.BATTLEMAGE_BOOTS);
         itemIdTranslation(AMItems.MANA_CAKE);
         itemIdTranslation(AMItems.MANA_MARTINI);
         itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.BLUE_POINT.location(), "Blue Infinity Orb");
@@ -228,6 +236,9 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTags.Items.DUSTS_ARCANE_ASH, "Arcane Ash Dusts");
         add(AMTags.Items.DUSTS_PURIFIED_VINTEUM, "Purified Vinteum Dusts");
         add(AMTags.Items.WITCHWOOD_LOGS, "Witchwood Logs");
+        add(AMTags.Items.MAGITECH_GOGGLES_REPAIR_ITEMS, "Magitech Goggles Repair Items");
+        add(AMTags.Items.MAGE_ARMOR_REPAIR_ITEMS, "Mage Armor Repair Items");
+        add(AMTags.Items.BATTLEMAGE_ARMOR_REPAIR_ITEMS, "Battlemage Armor Repair Items");
         add(AMTags.Items.INSCRIPTION_TABLE_BOOKS, "Inscription Table Books");
         add(AMTags.Items.OCCULUS_FORGET_ALL, "Occulus Forgetting Items");
         add(AMTags.Items.RUNES, "Runes");

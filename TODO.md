@@ -4,7 +4,6 @@
 - Test All Spell Parts & Particles
 - Inlays
 - Liquid Essence
-- Mage & Battlemage Armor
 - Magitech Goggles
     - Fix FOV
     - Connection Lines
@@ -18,6 +17,9 @@
 - Compat
     - Patchouli
     - Compat Recipes
+- Test With Sodium/Embeddium/Iris
+    - Altar Model & BER
+    - Magitech Goggles Overlay
 - Repository Setup
     - README
     - CI/CD

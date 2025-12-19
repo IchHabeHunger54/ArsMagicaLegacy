@@ -44,6 +44,14 @@ public final class AMItemModelProvider extends ItemModelProvider {
         basicBlockItem(AMItems.VINTEUM_TORCH);
         basicItem(AMItems.SPELL_PARCHMENT);
         basicItem(AMItems.MAGITECH_GOGGLES);
+        basicItem(AMItems.MAGE_HELMET);
+        basicItem(AMItems.MAGE_CHESTPLATE);
+        basicItem(AMItems.MAGE_LEGGINGS);
+        basicItem(AMItems.MAGE_BOOTS);
+        basicItem(AMItems.BATTLEMAGE_HELMET);
+        basicItem(AMItems.BATTLEMAGE_CHESTPLATE);
+        basicItem(AMItems.BATTLEMAGE_LEGGINGS);
+        basicItem(AMItems.BATTLEMAGE_BOOTS);
         basicItem(AMItems.MANA_CAKE);
         basicItem(AMItems.MANA_MARTINI);
         basicItem(AMItems.INFINITY_ORB);

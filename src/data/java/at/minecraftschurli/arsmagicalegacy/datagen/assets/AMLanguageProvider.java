@@ -674,6 +674,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.SPELL_CUSTOMIZATION_COLOR_CLEAR_KEY, "Clear Color");
         add(AMTranslations.SPELL_CUSTOMIZATION_COLOR_KEY, "Customize Color");
         add(AMTranslations.SPELL_CUSTOMIZATION_KEY, "Spell Name");
+        add(AMTranslations.SPELL_CUSTOMIZATION_PLACE_BLOCK_KEY, "Customize Place Block");
         add(AMTranslations.SPELL_CUSTOMIZATION_RECALL_CLEAR_KEY, "Clear Position");
         add(AMTranslations.SPELL_CUSTOMIZATION_RECALL_CLEAR_SUCCESS_KEY, "Recall position cleared!");
         add(AMTranslations.SPELL_CUSTOMIZATION_RECALL_KEY, "Customize Recall");

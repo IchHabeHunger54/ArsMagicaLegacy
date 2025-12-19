@@ -441,6 +441,7 @@
   "gui.arsmagicalegacy.spell_customization": "Spell Name",
   "gui.arsmagicalegacy.spell_customization.color": "Customize Color",
   "gui.arsmagicalegacy.spell_customization.color.clear": "Clear Color",
+  "gui.arsmagicalegacy.spell_customization.place_block": "Customize Place Block",
   "gui.arsmagicalegacy.spell_customization.recall": "Customize Recall",
   "gui.arsmagicalegacy.spell_customization.recall.clear": "Clear Position",
   "gui.arsmagicalegacy.spell_customization.recall.clear.success": "Recall position cleared!",

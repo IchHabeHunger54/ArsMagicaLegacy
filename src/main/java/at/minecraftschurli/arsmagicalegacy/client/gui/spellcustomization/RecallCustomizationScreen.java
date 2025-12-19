@@ -3,7 +3,6 @@ package at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization;
 import at.minecraftschurli.arsmagicalegacy.api.client.AbstractSpellPartCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
-import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
@@ -13,6 +12,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -27,6 +27,7 @@ public class RecallCustomizationScreen extends AbstractSpellPartCustomizationScr
     private static final int HEIGHT = 80;
     private static final int MESSAGE_TIME = 100;
     private static final int MESSAGE_ALPHA_START = 10;
+    private final TextureAtlasSprite sprite = SkillAtlasHolder.INSTANCE.get().getSprite(AMRegistries.skills().get(AMSpells.RECALL.getId()));
     private int leftPos;
     private int topPos;
     private Button clearButton;
@@ -70,10 +71,9 @@ public class RecallCustomizationScreen extends AbstractSpellPartCustomizationScr
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
-        Skill skill = AMRegistries.skills().get(AMSpells.RECALL.getId());
         guiGraphics.setColor(0.5f, 0.5f, 0.5f, 1);
         RenderSystem.enableBlend();
-        guiGraphics.blit(leftPos + 84, topPos, 0, 32, 32, SkillAtlasHolder.INSTANCE.get().getSprite(skill));
+        guiGraphics.blit(leftPos + 84, topPos, 0, 32, 32, sprite);
         RenderSystem.disableBlend();
         guiGraphics.setColor(1, 1, 1, 1);
         if (messageTime > 0 && message != null) {

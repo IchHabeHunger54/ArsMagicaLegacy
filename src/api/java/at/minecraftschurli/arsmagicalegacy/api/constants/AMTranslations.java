@@ -97,6 +97,7 @@ public interface AMTranslations {
     String SPELL_CUSTOMIZATION_KEY                        = "gui." + ArsMagicaApi.MOD_ID + ".spell_customization";
     String SPELL_CUSTOMIZATION_COLOR_KEY                  = "gui." + ArsMagicaApi.MOD_ID + ".spell_customization.color";
     String SPELL_CUSTOMIZATION_COLOR_CLEAR_KEY            = "gui." + ArsMagicaApi.MOD_ID + ".spell_customization.color.clear";
+    String SPELL_CUSTOMIZATION_PLACE_BLOCK_KEY            = "gui." + ArsMagicaApi.MOD_ID + ".spell_customization.place_block";
     String SPELL_CUSTOMIZATION_RECALL_KEY                 = "gui." + ArsMagicaApi.MOD_ID + ".spell_customization.recall";
     String SPELL_CUSTOMIZATION_RECALL_CLEAR_KEY           = "gui." + ArsMagicaApi.MOD_ID + ".spell_customization.recall.clear";
     String SPELL_CUSTOMIZATION_RECALL_CLEAR_SUCCESS_KEY   = "gui." + ArsMagicaApi.MOD_ID + ".spell_customization.recall.clear.success";
@@ -140,6 +141,7 @@ public interface AMTranslations {
     Component SPELL_CUSTOMIZATION                        = Component.translatable(SPELL_CUSTOMIZATION_KEY);
     Component SPELL_CUSTOMIZATION_COLOR                  = Component.translatable(SPELL_CUSTOMIZATION_COLOR_KEY);
     Component SPELL_CUSTOMIZATION_COLOR_CLEAR            = Component.translatable(SPELL_CUSTOMIZATION_COLOR_CLEAR_KEY);
+    Component SPELL_CUSTOMIZATION_PLACE_BLOCK            = Component.translatable(SPELL_CUSTOMIZATION_PLACE_BLOCK_KEY);
     Component SPELL_CUSTOMIZATION_RECALL                 = Component.translatable(SPELL_CUSTOMIZATION_RECALL_KEY);
     Component SPELL_CUSTOMIZATION_RECALL_CLEAR           = Component.translatable(SPELL_CUSTOMIZATION_RECALL_CLEAR_KEY);
     Component SPELL_CUSTOMIZATION_RECALL_CLEAR_SUCCESS   = Component.translatable(SPELL_CUSTOMIZATION_RECALL_CLEAR_SUCCESS_KEY);

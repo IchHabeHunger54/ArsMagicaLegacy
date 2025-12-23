@@ -31,6 +31,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -123,6 +124,13 @@ public final class AMClientUtil {
             case 5 -> new int[]{(int) (brightness * 255 + 0.5f), (int) (p * 255 + 0.5f), (int) (q * 255 + 0.5f)};
             default -> new int[]{0, 0, 0};
         };
+    }
+
+    public static int averageColors(int... colors) {
+        int red = Arrays.stream(colors).map(AMClientUtil::getRedI).sum();
+        int green = Arrays.stream(colors).map(AMClientUtil::getGreenI).sum();
+        int blue = Arrays.stream(colors).map(AMClientUtil::getBlueI).sum();
+        return (red / colors.length) << 16 | (green / colors.length) << 8 | (blue / colors.length);
     }
 
     public static void setOcculusScreen() {

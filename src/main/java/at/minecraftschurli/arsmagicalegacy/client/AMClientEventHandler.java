@@ -308,10 +308,17 @@ final class AMClientEventHandler {
                     if (cap == null) continue;
                     BlockState state = level.getBlockState(pos);
                     AABB outline = cap.getOutline(level, pos, state);
-                    if (outline == null) continue;
+                    int color = cap.getOutlineColor(level, pos, state);
                     stack.pushPose();
                     stack.translate(pos.getX() - camera.x, pos.getY() - camera.y, pos.getZ() - camera.z);
-                    MagitechGogglesOverlayRenderer.render(stack.last().pose(), bufferSource, outline, 0.025f, 0xff000000 | cap.getOutlineColor(level, pos, state));
+                    if (outline != null) {
+                        MagitechGogglesOverlayRenderer.renderBox(stack, bufferSource, outline, 0.025f, 0xff000000 | color);
+                    }
+                    for (BlockPos connectedPos : cap.getConnectedPositions()) {
+                        EtheriumHandler connectedCap = level.getCapability(AMCapabilities.BLOCK_ETHERIUM, connectedPos, null);
+                        int connectedColor = connectedCap == null ? color : AMClientUtil.averageColors(color, connectedCap.getOutlineColor(level, connectedPos, level.getBlockState(connectedPos)));
+                        MagitechGogglesOverlayRenderer.renderLine(stack, bufferSource, pos, connectedPos, 0.025f, 0xff000000 | connectedColor);
+                    }
                     stack.popPose();
                 }
             }

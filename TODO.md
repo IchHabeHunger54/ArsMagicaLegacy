@@ -6,7 +6,6 @@
 - Liquid Essence
 - Magitech Goggles
     - Fix FOV
-    - Connection Lines
 - Entities, including:
     - Mana Creepers & Mana Vortexes
     - Dryads

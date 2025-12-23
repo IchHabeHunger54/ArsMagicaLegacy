@@ -3,11 +3,16 @@ package at.minecraftschurli.arsmagicalegacy.client.renderer;
 import at.minecraftschurli.arsmagicalegacy.client.AMRenderTypes;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
@@ -33,8 +38,44 @@ public final class MagitechGogglesOverlayRenderer {
             .orElse(false);
     }
 
-    public static void render(Matrix4f matrix, MultiBufferSource bufferSource, AABB aabb, float lineWidth, int color) {
-        drawBox(bufferSource.getBuffer(AMRenderTypes.LINES_WITH_WIDTH), matrix, (float) aabb.minX, (float) aabb.minY, (float) aabb.minZ, (float) aabb.maxX, (float) aabb.maxY, (float) aabb.maxZ, lineWidth, (color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff, (color >> 24) & 0xff);
+    public static void renderBox(PoseStack stack, MultiBufferSource bufferSource, AABB aabb, float lineWidth, int color) {
+        drawBox(bufferSource.getBuffer(AMRenderTypes.LINES_WITH_WIDTH),
+            stack.last().pose(),
+            (float) aabb.minX,
+            (float) aabb.minY,
+            (float) aabb.minZ,
+            (float) aabb.maxX,
+            (float) aabb.maxY,
+            (float) aabb.maxZ,
+            lineWidth,
+            (color >> 16) & 0xff,
+            (color >> 8) & 0xff,
+            color & 0xff,
+            (color >> 24) & 0xff);
+    }
+
+    @SuppressWarnings("SuspiciousNameCombination")
+    public static void renderLine(PoseStack stack, MultiBufferSource bufferSource, BlockPos pos1, BlockPos pos2, float lineWidth, int color) {
+        stack.pushPose();
+        stack.translate(0.5f, 0.5f, 0.5f);
+        Vec3 vec3 = pos2.getCenter().subtract(pos1.getCenter());
+        double length = vec3.length();
+        Vector3f vec = vec3.toVector3f().normalize();
+        stack.mulPose(new Quaternionf().rotateAxis((float) Math.acos(new Vector3f(1, 0, 0).dot(vec)), new Vector3f(1, 0, 0).cross(vec)));
+        float halfWidth = lineWidth / 2;
+        drawCube(bufferSource.getBuffer(AMRenderTypes.LINES_WITH_WIDTH),
+            stack.last().pose(),
+            -halfWidth,
+            -halfWidth,
+            -halfWidth,
+            halfWidth + (float) length,
+            halfWidth,
+            halfWidth,
+            (color >> 16) & 0xff,
+            (color >> 8) & 0xff,
+            color & 0xff,
+            (color >> 24) & 0xff);
+        stack.popPose();
     }
 
     private static void drawBox(VertexConsumer vc, Matrix4f m, float x1, float y1, float z1, float x2, float y2, float z2, float lineWidth, int r, int g, int b, int a) {

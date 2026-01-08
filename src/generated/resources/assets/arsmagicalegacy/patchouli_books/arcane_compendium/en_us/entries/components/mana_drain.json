@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:components",
+  "icon": "arsmagicalegacy:textures/skill/mana_drain.png",
+  "name": "skill.arsmagicalegacy.mana_drain.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.components.mana_drain.page0.text"
+    }
+  ]
+}

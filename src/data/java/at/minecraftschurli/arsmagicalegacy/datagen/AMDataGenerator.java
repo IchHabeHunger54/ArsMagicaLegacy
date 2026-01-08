@@ -45,15 +45,13 @@ final class AMDataGenerator {
     @SubscribeEvent
     private static void gatherData(GatherDataEvent event) {
         if (event.includeClient()) {
-            ArsMagicaClientApiImpl.postEvents(); // Populate the api
+            ArsMagicaClientApiImpl.postEvents();
         }
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
         AMLanguageProvider languageProvider = new AMLanguageProvider(output);
-        generator.addProvider(event.includeClient() || event.includeServer(), new AMPatchouliBookProvider(output, lookupProvider, languageProvider::add, event.includeClient(), event.includeServer()));
-        generator.addProvider(event.includeClient(), languageProvider);
         generator.addProvider(event.includeClient(), new AMBlockStateProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new AMItemModelProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new AMParticleDescriptionProvider(output, existingFileHelper));
@@ -84,5 +82,7 @@ final class AMDataGenerator {
         generator.addProvider(event.includeServer(), new AMRecipeProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), new AMSpellPartDataProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), new AMToolTierProvider(output, lookupProvider));
+        generator.addProvider(event.includeClient() || event.includeServer(), new AMPatchouliBookProvider(output, lookupProvider, languageProvider::addCached, event.includeClient(), event.includeServer()));
+        generator.addProvider(event.includeClient(), languageProvider);
     }
 }

@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:components",
+  "icon": "arsmagicalegacy:textures/skill/divine_intervention.png",
+  "name": "skill.arsmagicalegacy.divine_intervention.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.components.divine_intervention.page0.text"
+    }
+  ]
+}

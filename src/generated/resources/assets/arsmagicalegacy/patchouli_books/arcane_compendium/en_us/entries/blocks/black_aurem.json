@@ -1,0 +1,36 @@
+{
+  "category": "arsmagicalegacy:blocks",
+  "icon": "arsmagicalegacy:black_aurem",
+  "name": "item.arsmagicalegacy.arcane_compendium.blocks.black_aurem.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.blocks.black_aurem.page0.text"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "multiblock_id": "arsmagicalegacy:black_aurem_chalk",
+      "name": "item.arsmagicalegacy.arcane_compendium.blocks.black_aurem.page1.title"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "multiblock_id": "arsmagicalegacy:black_aurem_pillars_1",
+      "name": "item.arsmagicalegacy.arcane_compendium.blocks.black_aurem.page2.title"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "multiblock_id": "arsmagicalegacy:black_aurem_pillars_2",
+      "name": "item.arsmagicalegacy.arcane_compendium.blocks.black_aurem.page3.title"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "multiblock_id": "arsmagicalegacy:black_aurem_pillars_3",
+      "name": "item.arsmagicalegacy.arcane_compendium.blocks.black_aurem.page4.title"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "multiblock_id": "arsmagicalegacy:black_aurem_pillars_4",
+      "name": "item.arsmagicalegacy.arcane_compendium.blocks.black_aurem.page5.title"
+    }
+  ]
+}

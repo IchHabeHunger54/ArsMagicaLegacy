@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:components",
+  "icon": "arsmagicalegacy:textures/skill/random_teleport.png",
+  "name": "skill.arsmagicalegacy.random_teleport.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.components.random_teleport.page0.text"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:components",
+  "icon": "arsmagicalegacy:textures/skill/life_tap.png",
+  "name": "skill.arsmagicalegacy.life_tap.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.components.life_tap.page0.text"
+    }
+  ]
+}

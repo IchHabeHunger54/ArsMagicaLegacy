@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:modifiers",
+  "icon": "arsmagicalegacy:textures/skill/range.png",
+  "name": "skill.arsmagicalegacy.range.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.modifiers.range.page0.text"
+    }
+  ]
+}

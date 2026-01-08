@@ -35,8 +35,8 @@ public interface AMMagic {
     ResourceKey<Skill>      AFFINITY_GAINS_BOOST      = skill("affinity_gains_boost");
     ResourceKey<Skill>      AUGMENTED_CASTING         = skill("augmented_casting");
     ResourceKey<Skill>      EXTRA_SUMMONS             = skill("extra_summons");
-    ResourceKey<Skill>      MAGE_BAND_1               = skill("mage_band_1");
-    ResourceKey<Skill>      MAGE_BAND_2               = skill("mage_band_2");
+    //ResourceKey<Skill>      MAGE_BAND_1               = skill("mage_band_1");
+    //ResourceKey<Skill>      MAGE_BAND_2               = skill("mage_band_2");
     ResourceKey<Skill>      MANA_REGENERATION_BOOST_1 = skill("mana_regeneration_boost_1");
     ResourceKey<Skill>      MANA_REGENERATION_BOOST_2 = skill("mana_regeneration_boost_2");
     ResourceKey<Skill>      MANA_REGENERATION_BOOST_3 = skill("mana_regeneration_boost_3");
@@ -46,6 +46,7 @@ public interface AMMagic {
     List<ResourceKey<Affinity>> AFFINITIES = List.of(WATER, FIRE, EARTH, AIR, ICE, LIGHTNING, NATURE, LIFE, ARCANE, ENDER);
     List<ResourceKey<Affinity>> AFFINITIES_WITH_NONE = Stream.concat(Stream.of(Affinity.NONE), AFFINITIES.stream()).toList();
     List<ResourceKey<SkillPoint>> SKILL_POINTS = List.of(BLUE_POINT, GREEN_POINT, RED_POINT);
+    List<ResourceKey<Skill>> TALENTS = List.of(AFFINITY_GAINS_BOOST, AUGMENTED_CASTING, EXTRA_SUMMONS, MANA_REGENERATION_BOOST_1, MANA_REGENERATION_BOOST_2, MANA_REGENERATION_BOOST_3, SHIELD_OVERLOAD, SPELL_MOTION);
 
     private static ResourceKey<Affinity> affinity(String name) {
         return key(AMRegistries.AFFINITY, name);

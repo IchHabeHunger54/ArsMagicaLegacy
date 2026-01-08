@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:shapes",
+  "icon": "arsmagicalegacy:textures/skill/wave.png",
+  "name": "skill.arsmagicalegacy.wave.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.shapes.wave.page0.text"
+    }
+  ]
+}

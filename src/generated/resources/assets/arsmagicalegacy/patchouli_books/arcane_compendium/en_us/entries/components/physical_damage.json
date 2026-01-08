@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:components",
+  "icon": "arsmagicalegacy:textures/skill/physical_damage.png",
+  "name": "skill.arsmagicalegacy.physical_damage.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.components.physical_damage.page0.text"
+    }
+  ]
+}

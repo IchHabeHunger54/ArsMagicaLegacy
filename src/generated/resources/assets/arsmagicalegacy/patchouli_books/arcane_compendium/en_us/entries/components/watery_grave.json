@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:components",
+  "icon": "arsmagicalegacy:textures/skill/watery_grave.png",
+  "name": "skill.arsmagicalegacy.watery_grave.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.components.watery_grave.page0.text"
+    }
+  ]
+}

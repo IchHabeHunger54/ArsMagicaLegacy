@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:components",
+  "icon": "arsmagicalegacy:textures/skill/slow_falling.png",
+  "name": "skill.arsmagicalegacy.slow_falling.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.components.slow_falling.page0.text"
+    }
+  ]
+}

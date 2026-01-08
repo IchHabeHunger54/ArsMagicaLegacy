@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:modifiers",
+  "icon": "arsmagicalegacy:textures/skill/dismembering.png",
+  "name": "skill.arsmagicalegacy.dismembering.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.modifiers.dismembering.page0.text"
+    }
+  ]
+}

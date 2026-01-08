@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:shapes",
+  "icon": "arsmagicalegacy:textures/skill/area_of_effect.png",
+  "name": "skill.arsmagicalegacy.area_of_effect.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.shapes.area_of_effect.page0.text"
+    }
+  ]
+}

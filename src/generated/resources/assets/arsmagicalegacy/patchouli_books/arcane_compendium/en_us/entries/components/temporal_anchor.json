@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:components",
+  "icon": "arsmagicalegacy:textures/skill/temporal_anchor.png",
+  "name": "skill.arsmagicalegacy.temporal_anchor.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.components.temporal_anchor.page0.text"
+    }
+  ]
+}

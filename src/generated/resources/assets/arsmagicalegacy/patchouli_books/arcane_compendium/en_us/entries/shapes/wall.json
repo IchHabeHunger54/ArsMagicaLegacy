@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:shapes",
+  "icon": "arsmagicalegacy:textures/skill/wall.png",
+  "name": "skill.arsmagicalegacy.wall.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.shapes.wall.page0.text"
+    }
+  ]
+}

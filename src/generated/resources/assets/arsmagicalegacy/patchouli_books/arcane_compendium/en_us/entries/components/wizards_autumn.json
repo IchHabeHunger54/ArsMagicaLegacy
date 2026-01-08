@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:components",
+  "icon": "arsmagicalegacy:textures/skill/wizards_autumn.png",
+  "name": "skill.arsmagicalegacy.wizards_autumn.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.components.wizards_autumn.page0.text"
+    }
+  ]
+}

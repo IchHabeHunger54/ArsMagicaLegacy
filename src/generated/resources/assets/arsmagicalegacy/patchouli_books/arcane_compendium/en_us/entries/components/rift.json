@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:components",
+  "icon": "arsmagicalegacy:textures/skill/rift.png",
+  "name": "skill.arsmagicalegacy.rift.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.components.rift.page0.text"
+    }
+  ]
+}

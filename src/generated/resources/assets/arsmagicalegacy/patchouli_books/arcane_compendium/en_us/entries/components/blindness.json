@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:components",
+  "icon": "arsmagicalegacy:textures/skill/blindness.png",
+  "name": "skill.arsmagicalegacy.blindness.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.components.blindness.page0.text"
+    }
+  ]
+}

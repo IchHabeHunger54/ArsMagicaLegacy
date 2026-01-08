@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:components",
+  "icon": "arsmagicalegacy:textures/skill/drowning_damage.png",
+  "name": "skill.arsmagicalegacy.drowning_damage.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.components.drowning_damage.page0.text"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:components",
+  "icon": "arsmagicalegacy:textures/skill/heal.png",
+  "name": "skill.arsmagicalegacy.heal.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.components.heal.page0.text"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:components",
+  "icon": "arsmagicalegacy:textures/skill/frost_damage.png",
+  "name": "skill.arsmagicalegacy.frost_damage.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.components.frost_damage.page0.text"
+    }
+  ]
+}

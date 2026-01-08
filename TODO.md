@@ -1,9 +1,13 @@
 - Add TODO Spell Shapes & Components
 - Add Spell Modifier Functionality
      - Rune Power
-- Test All Spell Parts & Particles
+- Test All Spell Parts and Particles
 - Inlays
 - Liquid Essence
+    - Liquid Essence Pools
+- Spell Book
+- Altar
+    - Change to Only Draw Etherium when Lever is Flipped
 - Magitech Goggles
     - Fix FOV
 - Entities, including:
@@ -13,6 +17,10 @@
     - Their Projectiles
 - Advancement Triggers
 - Rituals
+- Arcane Compendium
+    - Advancements
+    - Images
+    - Commented-out Parts in the Provider
 - Compat
     - Patchouli
     - Compat Recipes

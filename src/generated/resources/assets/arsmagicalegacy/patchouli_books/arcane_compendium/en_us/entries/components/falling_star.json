@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:components",
+  "icon": "arsmagicalegacy:textures/skill/falling_star.png",
+  "name": "skill.arsmagicalegacy.falling_star.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.components.falling_star.page0.text"
+    }
+  ]
+}

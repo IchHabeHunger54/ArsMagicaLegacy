@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:components",
+  "icon": "arsmagicalegacy:textures/skill/night_vision.png",
+  "name": "skill.arsmagicalegacy.night_vision.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.components.night_vision.page0.text"
+    }
+  ]
+}

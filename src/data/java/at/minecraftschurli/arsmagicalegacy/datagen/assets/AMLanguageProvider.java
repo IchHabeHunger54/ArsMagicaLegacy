@@ -28,13 +28,19 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public final class AMLanguageProvider extends LanguageProvider {
+    private final Map<String, String> cached = new HashMap<>();
+
     public AMLanguageProvider(PackOutput output) {
         super(output, ArsMagicaApi.MOD_ID, "en_us");
     }
 
     @Override
     protected void addTranslations() {
+        cached.forEach(this::add);
         itemIdTranslation(AMItems.SPELL);
         itemIdTranslation(AMItems.SPELL_RECIPE);
         itemWithVariantTranslation(AMItems.ETHERIUM_PLACEHOLDER, AMEtheriumTypes.LIGHT.location(), "Light Etherium");
@@ -603,6 +609,19 @@ public final class AMLanguageProvider extends LanguageProvider {
         add("skill_point", "green", "Green");
         add("skill_point", "red", "Red");
         add("death.attack", "falling_star", "%1$s was obliterated by a falling star");
+        arcaneCompendiumTranslation("affinities.fire.page0.text", "The fire affinity is associated with lava, explosions and the Nether. Fire components are usually offensive ones, like $(l:components/fire_damage)Fire Damage$(), $(l:components/ignition)Ignition$() or $(l:components/explosion)Explosion$().");
+        arcaneCompendiumTranslation("affinities.water.page0.text", "The water affinity is associated with swimming, drowning and potions. Its components therefore often use effects, such as $(l:components/water_breathing)Water Breathing$(), $(l:components/swift_swim)Swift Swim$() or $(l:components/watery_grave)Watery Grave$().");
+        arcaneCompendiumTranslation("affinities.earth.page0.text", "The earth affinity is associated with mining, protection and physical attacks. Earth components usually have some kind of physical interaction, like $(l:components/physical_damage)Physical Damage$(), $(l:components/dig)Dig$() or $(l:components/shield)Shield$().");
+        arcaneCompendiumTranslation("affinities.air.page0.text", "The air affinity is associated with jumping, flying and falling. Many of them use effects, such as $(l:components/jump_boost)Jump Boost$(), $(l:components/levitation)Levitation$() or $(l:components/slow_falling)Slow Falling$().");
+        arcaneCompendiumTranslation("affinities.ice.page0.text", "The ice affinity is associated with snow, frost and slowness. Popular examples include $(l:components/frost_damage)Frost Damage$(), $(l:components/frost)Frost$() and $(l:components/slowness)Slowness$().");
+        arcaneCompendiumTranslation("affinities.lightning.page0.text", "The lightning affinity is associated with speed, power and weather. Notable examples are $(l:components/lightning_damage)Lightning Damage$(), $(l:components/haste)Haste$() and $(l:components/storm)Storm$().");
+        arcaneCompendiumTranslation("affinities.nature.page0.text", "The nature affinity is associated with attraction, growth and harvest. As such, the most common components are $(l:components/attract)Attract$(), $(l:components/grow)Grow$() and $(l:components/harvest)Harvest$().");
+        arcaneCompendiumTranslation("affinities.life.page0.text", "The life affinity is associated with healing, resurrection and anti-undead measures. They are usually defensive, like $(l:components/heal)Heal$(), $(l:components/regeneration)Regeneration$() and $(l:components/summon)Summon$().");
+        arcaneCompendiumTranslation("affinities.arcane.page0.text", "The arcane affinity is associated with mana, enchantment and trickery. Arcane components are indirectly offensive for the most part, seen for example with $(l:components/invisibility)Invisibility$(), $(l:components/disarm)Disarm$() and $(l:components/mana_drain)Mana Drain$().");
+        arcaneCompendiumTranslation("affinities.ender.page0.text", "The ender affinity is associated with teleportation, darkness and the night. Ender components are the most powerful, but also the most expensive, with examples such as $(l:components/blindness)Blindness$(), $(l:components/astral_distortion)Astral Distortion$() and $(l:components/transplace)Transplace$().");
+        arcaneCompendiumTranslation("components.summon.page1.text", "Then, summon creatures by using the spell normally. The stronger the creature, the more mana this requires!$(br2)Tamable creatures such as wolves and cats are automatically tamed to their owner upon summoning. Other creatures are not, however they will still fight for you like a wolf would: attacking what you attack, and defending you from attackers.");
+        arcaneCompendiumTranslation("components.summon.page2.text", "Be aware that they will still have their usual weaknesses. For example, summoned zombies will still burn in sunlight, so you'll have to take precautions for that.$(br2)Summoned creatures drop no loot other than what was given to them (such as armor), as well as no experience. However, they can be interacted with normally otherwise, such as breeding, milking cows, or riding horses.");
+        arcaneCompendiumTranslation("shapes.chain.page1.text", "When jumping, the spell will try to prefer monsters of the same type. So for example, if you have a group of 4 zombies and 2 skeletons, and you target a zombie, you will always hit the 4 zombies and one of the skeletons.");
         add(AMTranslations.ABILITY_INTO_MULTIPLE_KEY, "Shifted into abilities %s!");
         add(AMTranslations.ABILITY_INTO_MULTIPLE_OUT_OF_MULTIPLE_KEY, "Shifted into abilities %s and out of abilities %s!");
         add(AMTranslations.ABILITY_INTO_MULTIPLE_OUT_OF_SINGLE_KEY, "Shifted into abilities %s and out of ability %s!");
@@ -714,6 +733,16 @@ public final class AMLanguageProvider extends LanguageProvider {
             if (chatFormatting.getColor() == null) continue;
             add("color." + chatFormatting.getName(), idTranslation(chatFormatting.getName()));
         }
+    }
+
+    /**
+     * Adds a cached translation, for use prior to this provider running.
+     *
+     * @param key         The translation key to use.
+     * @param translation The translation to use.
+     */
+    public void addCached(String key, String translation) {
+        cached.put(key, translation);
     }
 
     /**
@@ -835,7 +864,17 @@ public final class AMLanguageProvider extends LanguageProvider {
     private void skillTranslation(ResourceLocation skill, String name, String description, String compendiumType, String compendiumText) {
         add(Util.makeDescriptionId("skill", skill) + ".name", name);
         add(Util.makeDescriptionId("skill", skill) + ".description", description);
-        //arcaneCompendiumTranslation(compendiumType + "." + skill.getPath() + ".page0.text", compendiumText);
+        arcaneCompendiumTranslation(compendiumType + "." + skill.getPath() + ".page0.text", compendiumText);
+    }
+
+    /**
+     * Adds an arcane compendium entry translation.
+     *
+     * @param compendiumEntry The compendium entry to add the translation for.
+     * @param translation     The translation to use.
+     */
+    private void arcaneCompendiumTranslation(String compendiumEntry, String translation) {
+        add("item", "arcane_compendium." + compendiumEntry, translation);
     }
 
     /**

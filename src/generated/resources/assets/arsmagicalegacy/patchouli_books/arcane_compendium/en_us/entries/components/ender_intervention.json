@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:components",
+  "icon": "arsmagicalegacy:textures/skill/ender_intervention.png",
+  "name": "skill.arsmagicalegacy.ender_intervention.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.components.ender_intervention.page0.text"
+    }
+  ]
+}

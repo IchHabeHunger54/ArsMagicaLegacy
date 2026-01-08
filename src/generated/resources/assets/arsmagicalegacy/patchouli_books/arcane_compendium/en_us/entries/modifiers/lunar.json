@@ -1,0 +1,11 @@
+{
+  "category": "arsmagicalegacy:modifiers",
+  "icon": "arsmagicalegacy:textures/skill/lunar.png",
+  "name": "skill.arsmagicalegacy.lunar.name",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "item.arsmagicalegacy.arcane_compendium.modifiers.lunar.page0.text"
+    }
+  ]
+}

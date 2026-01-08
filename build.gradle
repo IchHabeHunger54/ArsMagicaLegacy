@@ -25,6 +25,10 @@ repositories {
         // JEI
         url = 'https://modmaven.dev'
     }
+    maven {
+        // EasyDatagenLib
+        url = uri("https://maven.minecraftschurli.at/maven-public")
+    }
 }
 
 sourceSets {
@@ -40,6 +44,7 @@ dependencies {
     implementation sourceSets.api.output
     dataImplementation sourceSets.api.output
     dataImplementation sourceSets.main.output
+    dataImplementation "com.github.minecraftschurlimods:easydatagenlib:${easydatagenlib_version}"
     testImplementation "org.junit.jupiter:junit-jupiter:${project.junit_version}"
     testImplementation "net.neoforged:testframework:${project.neo_version}"
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

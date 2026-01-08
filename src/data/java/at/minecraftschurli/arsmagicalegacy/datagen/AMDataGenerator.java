@@ -12,6 +12,7 @@ import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMSoundDefinitionProvi
 import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMSpriteSourceProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMAbilityProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMAdvancementProvider;
+import at.minecraftschurli.arsmagicalegacy.datagen.data.AMCuriosProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMDamageTypeProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMDataMapProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMEnchantmentProvider;
@@ -50,9 +51,11 @@ final class AMDataGenerator {
         PackOutput output = generator.getPackOutput();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+        AMLanguageProvider languageProvider = new AMLanguageProvider(output);
+        generator.addProvider(event.includeClient() || event.includeServer(), new AMPatchouliBookProvider(output, lookupProvider, languageProvider::add, event.includeClient(), event.includeServer()));
+        generator.addProvider(event.includeClient(), languageProvider);
         generator.addProvider(event.includeClient(), new AMBlockStateProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new AMItemModelProvider(output, existingFileHelper));
-        generator.addProvider(event.includeClient(), new AMLanguageProvider(output));
         generator.addProvider(event.includeClient(), new AMParticleDescriptionProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new AMParticleSpawnerProvider(output, lookupProvider));
         generator.addProvider(event.includeClient(), new AMSoundDefinitionProvider(output, existingFileHelper));
@@ -74,6 +77,7 @@ final class AMDataGenerator {
             Set.of(ArsMagicaApi.MOD_ID))).getRegistryProvider();
         AMTagsProvider.addProviders(generator, event.includeServer(), output, lookupProvider, existingFileHelper);
         generator.addProvider(event.includeServer(), new AMAdvancementProvider(output, lookupProvider, existingFileHelper));
+        generator.addProvider(event.includeServer(), new AMCuriosProvider(output, lookupProvider, existingFileHelper));
         generator.addProvider(event.includeServer(), new AMDataMapProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), new AMGlobalLootModifierProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), new AMLootTableProvider(output, lookupProvider));

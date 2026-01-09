@@ -9,7 +9,8 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.ShaderInstance;
+
+import java.util.Optional;
 
 public final class AMRenderTypes {
     private static final RenderStateShard.ShaderStateShard COLOR_WHEEL_SHADER = new RenderStateShard.ShaderStateShard(ColorWheelShader::getInstance);
@@ -23,11 +24,10 @@ public final class AMRenderTypes {
         RenderType.CompositeState.builder()
             .setShaderState(COLOR_WHEEL_SHADER)
             .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
-            .setDepthTestState(RenderStateShard.LEQUAL_DEPTH_TEST)
             .setLayeringState(new RenderStateShard.LayeringStateShard("set_uniforms", () -> {
-                setUniform("center", ColorWheelShader.getCenterX(), ColorWheelShader.getCenterY());
-                setUniform("radius", ColorWheelShader.getRadius());
-                setUniform("brightness", ColorWheelShader.getBrightness());
+                getUniform("center").ifPresent(uniform -> uniform.set(ColorWheelShader.getCenterX(), ColorWheelShader.getCenterY()));
+                getUniform("radius").ifPresent(uniform -> uniform.set(ColorWheelShader.getRadius()));
+                getUniform("brightness").ifPresent(uniform -> uniform.set(ColorWheelShader.getBrightness()));
             }, () -> {}))
             .createCompositeState(false));
     public static final RenderType SPELL_ICON = RenderType.itemEntityTranslucentCull(SpellIconAtlasHolder.ATLAS);
@@ -40,32 +40,11 @@ public final class AMRenderTypes {
         false,
         false,
         RenderType.CompositeState.builder()
-            .setTextureState(RenderStateShard.NO_TEXTURE)
             .setShaderState(RenderStateShard.POSITION_COLOR_SHADER)
             .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
-            .setDepthTestState(RenderStateShard.LEQUAL_DEPTH_TEST)
-            .setCullState(RenderStateShard.CULL)
-            .setLightmapState(RenderStateShard.NO_LIGHTMAP)
-            .setOverlayState(RenderStateShard.NO_OVERLAY)
-            .setLayeringState(RenderStateShard.NO_LAYERING)
-            .setOutputState(RenderStateShard.MAIN_TARGET)
-            .setTexturingState(RenderStateShard.DEFAULT_TEXTURING)
-            .setWriteMaskState(RenderStateShard.COLOR_DEPTH_WRITE)
             .createCompositeState(false));
 
-    private static void setUniform(String name, float value) {
-        ShaderInstance shader = RenderSystem.getShader();
-        if (shader == null) return;
-        Uniform uniform = shader.getUniform(name);
-        if (uniform == null) return;
-        uniform.set(value);
-    }
-
-    private static void setUniform(String name, float value1, float value2) {
-        ShaderInstance shader = RenderSystem.getShader();
-        if (shader == null) return;
-        Uniform uniform = shader.getUniform(name);
-        if (uniform == null) return;
-        uniform.set(value1, value2);
+    private static Optional<Uniform> getUniform(String name) {
+        return Optional.ofNullable(RenderSystem.getShader()).map(shader -> shader.getUniform(name));
     }
 }

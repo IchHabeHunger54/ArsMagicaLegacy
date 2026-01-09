@@ -111,9 +111,9 @@ import java.util.stream.Stream;
 
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID, value = Dist.CLIENT)
 final class AMClientEventHandler {
-    private static final Lazy<KeyMapping> NEXT_SHAPE_GROUP = Lazy.of(() -> new KeyMapping(AMTranslations.KEY_NEXT_SHAPE_GROUP_KEY, KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_PERIOD, AMTranslations.KEY_CATEGORY_KEY));
-    private static final Lazy<KeyMapping> PREV_SHAPE_GROUP = Lazy.of(() -> new KeyMapping(AMTranslations.KEY_PREV_SHAPE_GROUP_KEY, KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_COMMA, AMTranslations.KEY_CATEGORY_KEY));
-    private static final Lazy<KeyMapping> SPELL_CUSTOMIZATION = Lazy.of(() -> new KeyMapping(AMTranslations.KEY_SPELL_CUSTOMIZATION_KEY, KeyConflictContext.IN_GAME, KeyModifier.SHIFT, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, AMTranslations.KEY_CATEGORY_KEY));
+    private static final KeyMapping NEXT_SHAPE_GROUP = new KeyMapping(AMTranslations.KEY_NEXT_SHAPE_GROUP_KEY, KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_PERIOD, AMTranslations.KEY_CATEGORY_KEY);
+    private static final KeyMapping PREV_SHAPE_GROUP = new KeyMapping(AMTranslations.KEY_PREV_SHAPE_GROUP_KEY, KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_COMMA, AMTranslations.KEY_CATEGORY_KEY);
+    private static final KeyMapping SPELL_CUSTOMIZATION = new KeyMapping(AMTranslations.KEY_SPELL_CUSTOMIZATION_KEY, KeyConflictContext.IN_GAME, KeyModifier.SHIFT, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, AMTranslations.KEY_CATEGORY_KEY);
 
     @SuppressWarnings("DataFlowIssue")
     @SubscribeEvent
@@ -158,9 +158,9 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerKeyMappings(RegisterKeyMappingsEvent event) {
-        event.register(NEXT_SHAPE_GROUP.get());
-        event.register(PREV_SHAPE_GROUP.get());
-        event.register(SPELL_CUSTOMIZATION.get());
+        event.register(NEXT_SHAPE_GROUP);
+        event.register(PREV_SHAPE_GROUP);
+        event.register(SPELL_CUSTOMIZATION);
     }
 
     @SubscribeEvent
@@ -276,17 +276,17 @@ final class AMClientEventHandler {
         if (stack.has(AMDataComponents.SPELL)) {
             Spell originalSpell = stack.get(AMDataComponents.SPELL);
             Spell spell = originalSpell;
-            while (NEXT_SHAPE_GROUP.get().consumeClick()) {
+            while (NEXT_SHAPE_GROUP.consumeClick()) {
                 spell = spell.nextShapeGroup();
             }
-            while (PREV_SHAPE_GROUP.get().consumeClick()) {
+            while (PREV_SHAPE_GROUP.consumeClick()) {
                 spell = spell.prevShapeGroup();
             }
             if (spell != originalSpell) {
                 stack.set(AMDataComponents.SPELL, spell);
                 PacketDistributor.sendToServer(new SetActiveShapeGroupPacket(spell.activeShapeGroup()));
             }
-            while (SPELL_CUSTOMIZATION.get().consumeClick()) {
+            while (SPELL_CUSTOMIZATION.consumeClick()) {
                 AMClientUtil.mc().setScreen(new SpellCustomizationScreen(spell, hand));
             }
         }

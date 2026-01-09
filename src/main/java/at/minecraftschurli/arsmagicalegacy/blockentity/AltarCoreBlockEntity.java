@@ -34,6 +34,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LeverBlock;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
@@ -129,17 +130,20 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
             }
             requestModelDataUpdate();
         }
-        if (!state.getValue(AltarCoreBlock.FORMED) || spell.isEmpty() || recipe == null) return;
+        if (!state.getValue(AltarCoreBlock.FORMED) || spell == null || spell.isEmpty() || recipe == null) return;
         if (currentIngredient >= recipe.size()) {
             currentIngredient = 0;
         }
         SpellIngredient ingredient = getCurrentIngredient();
         if (ingredient == null) return;
         if (ingredient instanceof EtheriumSpellIngredient etheriumIngredient) {
+            BlockState lever = level.getBlockState(leverPos);
+            if (!lever.hasProperty(LeverBlock.POWERED) || !lever.getValue(LeverBlock.POWERED)) return;
+            Optional<Holder<EtheriumType>> etheriumType = etheriumIngredient.etheriumType();
             etheriumProviders.stream()
                 .map(p -> level.getCapability(AMCapabilities.BLOCK_ETHERIUM, p, null))
                 .filter(Objects::nonNull)
-                .filter(e -> etheriumIngredient.etheriumType().isEmpty() || e.getEtheriumTypes().contains(etheriumIngredient.etheriumType().get()))
+                .filter(e -> etheriumType.isEmpty() || e.getEtheriumTypes().stream().anyMatch(p -> etheriumType.get().is(p.getKey())))
                 .forEach(e -> {
                     for (Holder<EtheriumType> type : getEtheriumTypes()) {
                         etherium.put(type.getKey(), etherium.getOrDefault(type.getKey(), 0) + power - e.subtractAmount(type, power));
@@ -149,6 +153,7 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
         }
         if (!ingredient.consume(level, pos)) return;
         currentIngredient++;
+        setChanged();
         if (currentIngredient < recipe.size()) return;
         currentIngredient = 0;
         if (level.isClientSide()) return;

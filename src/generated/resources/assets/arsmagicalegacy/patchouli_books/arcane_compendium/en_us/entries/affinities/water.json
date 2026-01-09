@@ -10,6 +10,21 @@
     {
       "type": "patchouli:crafting",
       "recipe": "arsmagicalegacy:affinity_essence_water"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ability.arsmagicalegacy.swim_speed.description",
+      "title": "ability.arsmagicalegacy.swim_speed.name"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ability.arsmagicalegacy.nether_damage_water.description",
+      "title": "ability.arsmagicalegacy.nether_damage_water.name"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ability.arsmagicalegacy.ender_thorns.description",
+      "title": "ability.arsmagicalegacy.ender_thorns.name"
     }
   ]
 }

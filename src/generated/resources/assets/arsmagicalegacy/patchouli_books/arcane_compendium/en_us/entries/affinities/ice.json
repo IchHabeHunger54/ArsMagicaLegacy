@@ -10,6 +10,21 @@
     {
       "type": "patchouli:crafting",
       "recipe": "arsmagicalegacy:affinity_essence_ice"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ability.arsmagicalegacy.frost_punch.description",
+      "title": "ability.arsmagicalegacy.frost_punch.name"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ability.arsmagicalegacy.slowness.description",
+      "title": "ability.arsmagicalegacy.slowness.name"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ability.arsmagicalegacy.frost_walker.description",
+      "title": "ability.arsmagicalegacy.frost_walker.name"
     }
   ]
 }

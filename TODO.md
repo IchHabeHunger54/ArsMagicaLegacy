@@ -6,8 +6,6 @@
 - Liquid Essence
     - Liquid Essence Pools
 - Spell Book
-- Altar
-    - Change to Only Draw Etherium when Lever is Flipped
 - Magitech Goggles
     - Fix FOV
 - Entities, including:
@@ -21,9 +19,7 @@
     - Advancements
     - Images
     - Commented-out Parts in the Provider
-- Compat
-    - Patchouli
-    - Compat Recipes
+- Compat Recipes
 - Test With Sodium/Embeddium/Iris
     - Altar Model & BER
     - Magitech Goggles Overlay

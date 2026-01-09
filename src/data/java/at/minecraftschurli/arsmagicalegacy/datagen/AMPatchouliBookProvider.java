@@ -1,11 +1,13 @@
 package at.minecraftschurli.arsmagicalegacy.datagen;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.ability.Ability;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.compat.patchouli.AMMultiblocks;
+import at.minecraftschurli.arsmagicalegacy.datagen.data.AMAbilityProvider;
 import at.minecraftschurli.arsmagicalegacy.init.AMCreativeTabs;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
@@ -25,9 +27,13 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 final class AMPatchouliBookProvider extends PatchouliBookProvider {
     private final BiConsumer<String, String> translationConsumer;
@@ -381,14 +387,12 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
             .addSimpleTextPage("If you fully shift into an affinity, your affinities become locked. This means that your current affinity shifts are permanent and cannot be changed.$(br2)The only way to unlock them again is by using an $(l:items/affinity_tome)Affinity Tome$().")
             .addSimpleTextPage("There is also an affinity essence for each affinity, which is used in intermediate crafting for spell parts associated with that affinity. Affinity essences must be obtained from bosses, but can be duplicated through crafting later.")
             .build();
-/*TODO
-        Map<Holder<Affinity>, List<Holder.Reference<Ability>>> abilitiesByAffinity = lookupProvider
+        Map<ResourceKey<Affinity>, List<Holder.Reference<Ability>>> abilitiesByAffinity = lookupProvider
             .lookupOrThrow(AMRegistries.ABILITY)
             .listElements()
             .sorted(Comparator.comparing(e -> e.key().location(), ResourceLocation::compareNamespaced))
-            .sorted(Comparator.comparing(e -> e.value().bounds().min().orElse(0.)))
-            .collect(Collectors.groupingBy(e -> e.value().affinity()));
-*/
+            .sorted(Comparator.comparing(e -> AMAbilityProvider.PATCHOULI_ABILITY_DATA.get(e.getKey()).bounds().min().orElse(0.)))
+            .collect(Collectors.groupingBy(e -> AMAbilityProvider.PATCHOULI_ABILITY_DATA.get(e.getKey()).affinity()));
         for (Holder<Affinity> affinity : affinityRegistry.listElements().toList()) {
             ResourceKey<Affinity> key = affinity.getKey();
             ResourceLocation id = key.location();
@@ -396,12 +400,10 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
             TranslatedEntryBuilder entry = affinities.addEntry(id.getPath(), Util.makeDescriptionId("affinity", id), affinityEssence(affinityRegistry, key));
             entry.addSimpleTextPage(entry.getLangKey(0) + ".text");
             entry.addSimpleRecipePage("crafting", id.withPrefix("affinity_essence_"));
-/*
-            for (Holder.Reference<Ability> ability : abilitiesByAffinity.get(affinity)) {
+            for (Holder.Reference<Ability> ability : abilitiesByAffinity.get(key)) {
                 String translationKey = Util.makeDescriptionId("ability", ability.key().location());
                 entry.addSimpleTextPage(translationKey + ".description", translationKey + ".name");
             }
-*/
             entry.build();
         }
         affinities.build();

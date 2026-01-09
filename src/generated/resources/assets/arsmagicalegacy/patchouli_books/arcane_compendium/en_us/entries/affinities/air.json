@@ -10,6 +10,21 @@
     {
       "type": "patchouli:crafting",
       "recipe": "arsmagicalegacy:affinity_essence_air"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ability.arsmagicalegacy.feather_falling.description",
+      "title": "ability.arsmagicalegacy.feather_falling.name"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ability.arsmagicalegacy.jump_boost.description",
+      "title": "ability.arsmagicalegacy.jump_boost.name"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "ability.arsmagicalegacy.gravity.description",
+      "title": "ability.arsmagicalegacy.gravity.name"
     }
   ]
 }

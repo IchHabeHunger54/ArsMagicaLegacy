@@ -1,9 +1,11 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.assets;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.ability.Ability;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
+import at.minecraftschurli.arsmagicalegacy.init.AMAbilities;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
@@ -17,6 +19,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
@@ -450,6 +453,38 @@ public final class AMLanguageProvider extends LanguageProvider {
         skillTranslation(AMMagic.MANA_REGENERATION_BOOST_3.location(), "Mana Regeneration III", "...just to get back every single mana point I have consumed before.", "talents", "Your mana regeneration is boosted by 15%%. This replaces the boosts of $(l:talents/mana_regen_1)Mana Regen I$() and $(l:talents/mana_regen_2)Mana Regen II$().");
         skillTranslation(AMMagic.SHIELD_OVERLOAD.location(), "Shield Overload", "No more wasting excess mana.", "talents", "When your mana bar is full, excess mana regenerated turns into a shield that protects you from 5%% of all incoming damage.");
         skillTranslation(AMMagic.SPELL_MOTION.location(), "Spell Motion", "I like to move it, move it.", "talents", "Manipulating the winds around you, you have found a way to move at normal speed while using spells.");
+        abilityTranslation(AMAbilities.SWIM_SPEED, "Swim Speed", "After using water spells for some time, you develop better swimming skills. As you delve deeper, you notice your speed in water getting faster and faster.$(br2)Affinity: Water$(br)Range: 1 - 100 %%");
+        abilityTranslation(AMAbilities.ENDER_THORNS, "Ender Thorns", "Becoming part water, ender creatures that attack you now take damage themselves.$(br2)Affinity: Water$(br)Range: 100 %%");
+        abilityTranslation(AMAbilities.NETHER_DAMAGE_WATER, "Damage in the Nether", "Having fun with water magic has made you less suitable for fire. You will take damage in the nether, though not enough to kill you on its own.$(br2)Affinity: Water$(br)Range: 50 - 100 %%");
+        abilityTranslation(AMAbilities.FIRE_RESISTANCE, "Fire Resistance", "After using fire spells for some time, you develop some resistance to fire. As you delve deeper, you notice the resistance getting stronger and stronger.$(br2)Affinity: Fire$(br)Range: 1 - 100 %%");
+        abilityTranslation(AMAbilities.FIRE_PUNCH, "Fire Punch", "Becoming part fire, enemies you hit now get set on fire.$(br2)Affinity: Fire$(br)Range: 100 %%");
+        abilityTranslation(AMAbilities.WATER_DAMAGE_FIRE, "Damage in Water", "Having fun with fire magic has made you less suitable for water. You will take damage in water, though not enough to kill you on its own.$(br2)Affinity: Fire$(br)Range: 50 - 100 %%");
+        abilityTranslation(AMAbilities.RESISTANCE, "Resistance", "After using earth spells for some time, you develop some physical resistance. As you delve deeper, you notice the resistance getting stronger and stronger.$(br2)Affinity: Earth$(br)Range: 1 - 100 %%");
+        abilityTranslation(AMAbilities.HASTE, "Haste", "After using earth spells for some time, you develop better block breaking skills. As you delve deeper, you notice that speed getting faster and faster.$(br2)Affinity: Earth$(br)Range: 1 - 100 %%");
+        abilityTranslation(AMAbilities.FALL_DAMAGE, "Fall Damage", "Having fun with earth magic has made you heavier. You take more fall damage.$(br2)Affinity: Earth$(br)Range: 50 - 100 %%");
+        abilityTranslation(AMAbilities.JUMP_BOOST, "Jump Boost", "After using air spells for some time, you develop better jumping skills. As you delve deeper, you notice your jump strength getting stronger and stronger.$(br2)Affinity: Air$(br)Range: 1 - 100 %%");
+        abilityTranslation(AMAbilities.FEATHER_FALLING, "Feather Falling", "After using air spells for some time, you develop better landing skills. As you delve deeper, you notice your fall damage taken getting weaker and weaker.$(br2)Affinity: Air$(br)Range: 1 - 100 %%");
+        abilityTranslation(AMAbilities.GRAVITY, "Gravity", "Having fun with air magic has made you accidentally bend gravity. You fall a lot faster.$(br2)Affinity: Air$(br)Range: 50 - 100 %%");
+        abilityTranslation(AMAbilities.FROST_PUNCH, "Frost Punch", "After using ice spells for some time, you develop a frost punch, slowing your enemies. As you delve deeper, you notice the frost getting stronger and stronger.$(br2)Affinity: Ice$(br)Range: 1 - 100 %%");
+        abilityTranslation(AMAbilities.FROST_WALKER, "Frost Walker", "Becoming part ice, water now freezes under your feet.$(br2)Affinity: Ice$(br)Range: 100 %%");
+        abilityTranslation(AMAbilities.SLOWNESS, "Slowness", "Having fun with ice magic has made you shiver. You move slower.$(br2)Affinity: Ice$(br)Range: 50 - 100 %%");
+        abilityTranslation(AMAbilities.SPEED, "Speed", "After using lightning spells for some time, you develop better running skills. As you delve deeper, you notice your speed becoming faster and faster.$(br2)Affinity: Lightning$(br)Range: 1 - 100 %%");
+        abilityTranslation(AMAbilities.STEP_ASSIST, "Step Assist", "Becoming part lightning, you are now able to step up 1-block slopes.$(br2)Affinity: Lightning$(br)Range: 100 %%");
+        abilityTranslation(AMAbilities.WATER_DAMAGE_LIGHTNING, "Damage in Water", "Having fun with lightning magic has made you less suitable for water. You will take damage in water, though not enough to kill you on its own.$(br2)Affinity: Lightning$(br)Range: 50 - 100 %%");
+        abilityTranslation(AMAbilities.THORNS, "Thorns", "After using nature spells for some time, you feel nourished. As you delve deeper, you notice nourishment getting stronger and stronger.$(br2)Affinity: Nature$(br)Range: 1 - 100 %%");
+        abilityTranslation(AMAbilities.SATURATION, "Saturation", "Becoming one with nature, enemies that hit you now take a bit of damage themselves.$(br2)Affinity: Nature$(br)Range: 100 %%");
+        abilityTranslation(AMAbilities.NETHER_DAMAGE_NATURE, "Damage in the Nether", "Having fun with nature magic has made you less suitable for fire. You will take damage in the nether, though not enough to kill you on its own.$(br2)Affinity: Nature$(br)Range: 50 - 100 %%");
+        abilityTranslation(AMAbilities.SMITE, "Smite", "After using life spells for some time, you feel an urge to slay the undead. As you delve deeper, you notice your damage towards undeads getting stronger and stronger.$(br2)Affinity: Life$(br)Range: 1 - 100 %%");
+        abilityTranslation(AMAbilities.REGENERATION, "Regeneration", "Becoming one with life, you get a permanent regeneration effect.$(br2)Affinity: Life$(br)Range: 100 %%");
+        abilityTranslation(AMAbilities.NAUSEA, "Nausea", "Having fun with life magic has made you less suitable for killing. You will receive a nausea effect when killing a non-undead enemy.$(br2)Affinity: Life$(br)Range: 50 - 100 %%");
+        abilityTranslation(AMAbilities.MANA_REDUCTION, "Mana Reduction", "After using arcane spells for some time, your spells' mana requirements goes down. As you delve deeper, you notice the mana cost getting lower and lower.$(br2)Affinity: Arcane$(br)Range: 1 - 100 %%");
+        abilityTranslation(AMAbilities.CLARITY, "Clarity", "Becoming one with the arcane, you have a chance of receiving the Clarity effect upon casting, which allows you to cast your next spell for free.$(br2)Affinity: Arcane$(br)Range: 100 %%");
+        abilityTranslation(AMAbilities.MAGIC_DAMAGE, "Magic Damage", "Having fun with arcane magic has made you vulnerable against the very thing you use. You will receive more damage from magic sources.$(br2)Affinity: Arcane$(br)Range: 50 - 100 %%");
+        abilityTranslation(AMAbilities.POISON_RESISTANCE, "Poison Resistance", "After using ender spells for quite some time, you develop a resistance against toxins.$(br2)Affinity: Ender$(br)Range: 50 - 100 %%");
+        abilityTranslation(AMAbilities.NIGHT_VISION, "Night Vision", "After using ender spells for quite some time, you gain permanent night vision.$(br2)Affinity: Ender$(br)Range: 50 - 100 %%");
+        abilityTranslation(AMAbilities.ENDERMAN_PUMPKIN, "Enderman Pumpkin", "Becoming one with the end, endermen will treat you as one of their own and not attack you anymore when staring into their eyes.$(br2)Affinity: Ender$(br)Range: 100 %%");
+        abilityTranslation(AMAbilities.LIGHT_HEALTH_REDUCTION, "Light Health Reduction", "Toying around with ender magic consumes your life in light. When in direct sunlight, your maximum health decreases.$(br2)Affinity: Ender$(br)Range: 50 - 100 %%$(br)There have been rumors among the villagers of true ender mages that managed to nullify this effect...");
+        abilityTranslation(AMAbilities.WATER_HEALTH_REDUCTION, "Water Health Reduction", "Toying around with ender magic consumes your life in water. When in water, your maximum health decreases.$(br2)Affinity: Ender$(br)Range: 50 - 100 %%$(br)There have been rumors among the villagers of true ender mages that managed to nullify this effect...");
         configTranslation("magic_advancement", "Magic Advancement", "Completing this advancement will unlock magic for the player. Leave empty to not require an advancement and have magic unlocked from the start.");
         configTranslation("mana_to_burnout_ratio", "Mana : Burnout Ratio", "The default mana to burnout ratio, used in calculating spell costs.");
         configTranslation("altar_check_interval", "Altar Check Interval", "The time in ticks between multiblock checks for the altar.");
@@ -554,38 +589,6 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("shape_groups_y", "Vertical Position", "Vertical position of the shape groups GUI layer.");
         configTranslation("shape_groups_anchor_x", "Horizontal Anchor", "Horizontal anchor of the shape groups GUI layer.");
         configTranslation("shape_groups_anchor_y", "Vertical Anchor", "Vertical anchor of the shape groups GUI layer.");
-        add("ability", "swim_speed", "Swim Speed");
-        add("ability", "ender_thorns", "Ender Thorns");
-        add("ability", "nether_damage_water", "Damage in the Nether");
-        add("ability", "fire_resistance", "Fire Resistance");
-        add("ability", "fire_punch", "Fire Punch");
-        add("ability", "water_damage_fire", "Damage in Water");
-        add("ability", "resistance", "Resistance");
-        add("ability", "haste", "Haste");
-        add("ability", "fall_damage", "Fall Damage");
-        add("ability", "jump_boost", "Jump Boost");
-        add("ability", "feather_falling", "Feather Falling");
-        add("ability", "gravity", "Gravity");
-        add("ability", "frost_punch", "Frost Punch");
-        add("ability", "frost_walker", "Frost Walker");
-        add("ability", "slowness", "Slowness");
-        add("ability", "speed", "Speed");
-        add("ability", "step_assist", "Step Assist");
-        add("ability", "water_damage_lightning", "Damage in Water");
-        add("ability", "thorns", "Thorns");
-        add("ability", "saturation", "Saturation");
-        add("ability", "nether_damage_nature", "Damage in the Nether");
-        add("ability", "smite", "Smite");
-        add("ability", "regeneration", "Regeneration");
-        add("ability", "nausea", "Nausea");
-        add("ability", "mana_reduction", "Mana Reduction");
-        add("ability", "clarity", "Clarity");
-        add("ability", "magic_damage", "Magic Damage");
-        add("ability", "poison_resistance", "Poison Resistance");
-        add("ability", "night_vision", "Night Vision");
-        add("ability", "enderman_pumpkin", "Enderman Pumpkin");
-        add("ability", "light_health_reduction", "Light Health Reduction");
-        add("ability", "water_health_reduction", "Water Health Reduction");
         add("affinity", "none", "None");
         add("affinity", "water", "Water");
         add("affinity", "fire", "Fire");
@@ -853,7 +856,7 @@ public final class AMLanguageProvider extends LanguageProvider {
     }
 
     /**
-     * Adds a skill translation, including its compendium counterpart.
+     * Adds a skill translation, including its compendium description.
      *
      * @param skill          The skill id.
      * @param name           The skill name.
@@ -865,6 +868,18 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(Util.makeDescriptionId("skill", skill) + ".name", name);
         add(Util.makeDescriptionId("skill", skill) + ".description", description);
         arcaneCompendiumTranslation(compendiumType + "." + skill.getPath() + ".page0.text", compendiumText);
+    }
+
+    /**
+     * Adds an ability translation, including its compendium description.
+     *
+     * @param ability        The ability resource key.
+     * @param name           The ability name.
+     * @param description    The ability description.
+     */
+    private void abilityTranslation(ResourceKey<Ability> ability, String name, String description) {
+        add(Util.makeDescriptionId("ability", ability.location()) + ".name", name);
+        add(Util.makeDescriptionId("ability", ability.location()) + ".description", description);
     }
 
     /**

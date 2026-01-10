@@ -3,7 +3,7 @@
   "criteria": {
     "knows": {
       "conditions": {
-        "skills": [
+        "requirements": [
           "arsmagicalegacy:astral_distortion"
         ]
       },

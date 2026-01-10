@@ -26,6 +26,6 @@ public class SkillAtlasHolder extends TextureAtlasHolder {
     }
 
     public TextureAtlasSprite getSprite(Skill skill) {
-        return getSprite(AMRegistries.skills().getKey(skill));
+        return getSprite(AMRegistries.skills(true).getKey(skill));
     }
 }

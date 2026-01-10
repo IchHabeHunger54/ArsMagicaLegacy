@@ -38,6 +38,6 @@ class PartsPage extends Page<Holder<SpellPart>> {
 
     @SuppressWarnings({"DataFlowIssue", "OptionalGetWithoutIsPresent"})
     private static Holder<Skill> skill(Holder<SpellPart> spellPart) {
-        return AMRegistries.skills().getHolder(spellPart.getKey().location()).get();
+        return AMRegistries.skills(true).getHolder(spellPart.getKey().location()).get();
     }
 }

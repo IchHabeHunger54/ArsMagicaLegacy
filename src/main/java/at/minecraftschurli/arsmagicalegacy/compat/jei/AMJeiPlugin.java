@@ -38,7 +38,7 @@ public final class AMJeiPlugin implements IModPlugin {
 
     @Override
     public void registerIngredients(IModIngredientRegistration registration) {
-        registration.register(SKILL_TYPE, List.of(), new SkillIngredientHelper(), new SkillIngredientRenderer(), Skill.CODEC.xmap(Holder::value, AMRegistries.skills()::wrapAsHolder));
+        registration.register(SKILL_TYPE, List.of(), new SkillIngredientHelper(), new SkillIngredientRenderer(), Skill.CODEC.xmap(Holder::value, AMRegistries.skills(true)::wrapAsHolder));
     }
 
     @Override
@@ -53,9 +53,10 @@ public final class AMJeiPlugin implements IModPlugin {
         registration.addRecipeCatalyst(VanillaTypes.ITEM_STACK, AMItems.ALTAR_CORE.toStack(), SkillCategory.RECIPE_TYPE);
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Override
     public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
-        List<Skill> list = AMRegistries.skills()
+        List<Skill> list = AMRegistries.skills(true)
             .holders()
             .filter(e -> ArsMagicaApi.spellPartRegistry().containsKey(e.getKey().location()))
             .sorted(Comparator.comparing(e -> Skill.getName(e).getString()))

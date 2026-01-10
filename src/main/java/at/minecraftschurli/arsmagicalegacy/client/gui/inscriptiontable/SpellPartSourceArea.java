@@ -62,7 +62,7 @@ public class SpellPartSourceArea extends DragArea {
 
     @Override
     public List<Draggable> getAll() {
-        return AMRegistries.skills()
+        return AMRegistries.skills(true)
             .holders()
             .filter(e -> ArsMagicaApi.magicHelper().knows(AMClientUtil.player(), e))
             .map(Draggable::new)

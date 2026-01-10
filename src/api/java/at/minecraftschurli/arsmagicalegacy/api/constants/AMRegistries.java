@@ -17,7 +17,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
-import net.neoforged.fml.loading.FMLEnvironment;
 
 /**
  * Holds the registry keys of all registries added by Ars Magica: Legacy.
@@ -49,10 +48,11 @@ public interface AMRegistries {
     }
 
     /**
+     * @param client True if this is called from a client context, false if this is called from a server context.
      * @return The registry for {@link Ability}s.
      */
-    static Registry<Ability> abilities() {
-        return abilities(registryAccess());
+    static Registry<Ability> abilities(boolean client) {
+        return abilities(registryAccess(client));
     }
 
     /**
@@ -64,10 +64,11 @@ public interface AMRegistries {
     }
 
     /**
+     * @param client True if this is called from a client context, false if this is called from a server context.
      * @return The registry for {@link Affinity}s.
      */
-    static Registry<Affinity> affinities() {
-        return affinities(registryAccess());
+    static Registry<Affinity> affinities(boolean client) {
+        return affinities(registryAccess(client));
     }
 
     /**
@@ -79,10 +80,11 @@ public interface AMRegistries {
     }
 
     /**
+     * @param client True if this is called from a client context, false if this is called from a server context.
      * @return The registry for {@link AltarCapMaterial}s.
      */
-    static Registry<AltarCapMaterial> altarCapMaterials() {
-        return altarCapMaterials(registryAccess());
+    static Registry<AltarCapMaterial> altarCapMaterials(boolean client) {
+        return altarCapMaterials(registryAccess(client));
     }
 
     /**
@@ -94,10 +96,11 @@ public interface AMRegistries {
     }
 
     /**
+     * @param client True if this is called from a client context, false if this is called from a server context.
      * @return The registry for {@link AltarMaterial}s.
      */
-    static Registry<AltarMaterial> altarMaterials() {
-        return altarMaterials(registryAccess());
+    static Registry<AltarMaterial> altarMaterials(boolean client) {
+        return altarMaterials(registryAccess(client));
     }
 
     /**
@@ -109,10 +112,11 @@ public interface AMRegistries {
     }
 
     /**
+     * @param client True if this is called from a client context, false if this is called from a server context.
      * @return The registry for {@link EtheriumType}s.
      */
-    static Registry<EtheriumType> etheriumTypes() {
-        return etheriumTypes(registryAccess());
+    static Registry<EtheriumType> etheriumTypes(boolean client) {
+        return etheriumTypes(registryAccess(client));
     }
 
     /**
@@ -124,10 +128,11 @@ public interface AMRegistries {
     }
 
     /**
+     * @param client True if this is called from a client context, false if this is called from a server context.
      * @return The registry for {@link OcculusTab}s.
      */
-    static Registry<OcculusTab> occulusTabs() {
-        return occulusTabs(registryAccess());
+    static Registry<OcculusTab> occulusTabs(boolean client) {
+        return occulusTabs(registryAccess(client));
     }
 
     /**
@@ -139,10 +144,11 @@ public interface AMRegistries {
     }
 
     /**
+     * @param client True if this is called from a client context, false if this is called from a server context.
      * @return The registry for {@link Skill}s.
      */
-    static Registry<Skill> skills() {
-        return skills(registryAccess());
+    static Registry<Skill> skills(boolean client) {
+        return skills(registryAccess(client));
     }
 
     /**
@@ -154,19 +160,21 @@ public interface AMRegistries {
     }
 
     /**
+     * @param client True if this is called from a client context, false if this is called from a server context.
      * @return The registry for {@link SkillPoint}s.
      */
-    static Registry<SkillPoint> skillPoints() {
-        return skillPoints(registryAccess());
+    static Registry<SkillPoint> skillPoints(boolean client) {
+        return skillPoints(registryAccess(client));
     }
 
     /**
      * Returns the correct {@link RegistryAccess} for the current side.
      * Note that during scenarios such as world loading, this may be unreliable, use more reliable sources there, e.g. {@link Level#registryAccess()}.
      *
+     * @param client True if this is called from a client context, false if this is called from a server context.
      * @return The correct {@link RegistryAccess} for the current side.
      */
-    static RegistryAccess registryAccess() {
-        return FMLEnvironment.dist.isClient() ? ClientRegistryAccess.get() : ServerRegistryAccess.get();
+    static RegistryAccess registryAccess(boolean client) {
+        return client ? ClientRegistryAccess.get() : ServerRegistryAccess.get();
     }
 }

@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/summon",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/summon.png",
   "name": "skill.arsmagicalegacy.summon.name",

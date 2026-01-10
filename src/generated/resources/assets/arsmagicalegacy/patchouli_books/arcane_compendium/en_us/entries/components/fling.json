@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/fling",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/fling.png",
   "name": "skill.arsmagicalegacy.fling.name",

@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/piercing",
   "category": "arsmagicalegacy:modifiers",
   "icon": "arsmagicalegacy:textures/skill/piercing.png",
   "name": "skill.arsmagicalegacy.piercing.name",

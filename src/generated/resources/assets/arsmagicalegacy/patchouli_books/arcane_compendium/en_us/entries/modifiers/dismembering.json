@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/dismembering",
   "category": "arsmagicalegacy:modifiers",
   "icon": "arsmagicalegacy:textures/skill/dismembering.png",
   "name": "skill.arsmagicalegacy.dismembering.name",

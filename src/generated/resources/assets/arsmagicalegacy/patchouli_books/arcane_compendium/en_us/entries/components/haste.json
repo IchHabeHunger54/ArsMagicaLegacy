@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/haste",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/haste.png",
   "name": "skill.arsmagicalegacy.haste.name",

@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/lightning_damage",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/lightning_damage.png",
   "name": "skill.arsmagicalegacy.lightning_damage.name",

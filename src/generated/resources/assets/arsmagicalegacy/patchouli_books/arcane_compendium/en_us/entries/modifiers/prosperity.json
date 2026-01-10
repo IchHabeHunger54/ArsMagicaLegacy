@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/prosperity",
   "category": "arsmagicalegacy:modifiers",
   "icon": "arsmagicalegacy:textures/skill/prosperity.png",
   "name": "skill.arsmagicalegacy.prosperity.name",

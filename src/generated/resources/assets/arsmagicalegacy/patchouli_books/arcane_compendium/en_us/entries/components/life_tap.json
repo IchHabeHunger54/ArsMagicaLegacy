@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/life_tap",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/life_tap.png",
   "name": "skill.arsmagicalegacy.life_tap.name",

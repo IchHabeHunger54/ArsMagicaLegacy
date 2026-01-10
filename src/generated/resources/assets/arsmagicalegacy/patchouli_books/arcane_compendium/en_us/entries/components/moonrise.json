@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/moonrise",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/moonrise.png",
   "name": "skill.arsmagicalegacy.moonrise.name",

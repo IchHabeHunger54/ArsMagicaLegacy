@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/temporal_anchor",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/temporal_anchor.png",
   "name": "skill.arsmagicalegacy.temporal_anchor.name",

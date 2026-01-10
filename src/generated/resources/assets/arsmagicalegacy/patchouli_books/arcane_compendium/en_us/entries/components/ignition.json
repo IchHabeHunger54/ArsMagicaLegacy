@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/ignition",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/ignition.png",
   "name": "skill.arsmagicalegacy.ignition.name",

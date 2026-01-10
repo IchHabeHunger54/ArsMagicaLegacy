@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/damage",
   "category": "arsmagicalegacy:modifiers",
   "icon": "arsmagicalegacy:textures/skill/damage.png",
   "name": "skill.arsmagicalegacy.damage.name",

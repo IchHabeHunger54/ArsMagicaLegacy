@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/swiftness",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/swiftness.png",
   "name": "skill.arsmagicalegacy.swiftness.name",

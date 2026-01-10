@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/mana_drain",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/mana_drain.png",
   "name": "skill.arsmagicalegacy.mana_drain.name",

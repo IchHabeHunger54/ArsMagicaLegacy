@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/heal",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/heal.png",
   "name": "skill.arsmagicalegacy.heal.name",

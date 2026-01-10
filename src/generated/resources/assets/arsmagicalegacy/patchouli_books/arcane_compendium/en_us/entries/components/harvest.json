@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/harvest",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/harvest.png",
   "name": "skill.arsmagicalegacy.harvest.name",

@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/rift",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/rift.png",
   "name": "skill.arsmagicalegacy.rift.name",

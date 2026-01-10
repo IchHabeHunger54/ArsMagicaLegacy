@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/dig",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/dig.png",
   "name": "skill.arsmagicalegacy.dig.name",

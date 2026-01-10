@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/color",
   "category": "arsmagicalegacy:modifiers",
   "icon": "arsmagicalegacy:textures/skill/color.png",
   "name": "skill.arsmagicalegacy.color.name",

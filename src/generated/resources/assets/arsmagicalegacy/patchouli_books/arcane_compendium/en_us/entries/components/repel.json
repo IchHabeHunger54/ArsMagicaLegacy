@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/repel",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/repel.png",
   "name": "skill.arsmagicalegacy.repel.name",

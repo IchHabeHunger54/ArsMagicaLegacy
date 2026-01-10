@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/rune",
   "category": "arsmagicalegacy:shapes",
   "icon": "arsmagicalegacy:textures/skill/rune.png",
   "name": "skill.arsmagicalegacy.rune.name",

@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/explosion",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/explosion.png",
   "name": "skill.arsmagicalegacy.explosion.name",

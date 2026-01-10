@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/shield_overload",
   "category": "arsmagicalegacy:talents",
   "icon": "arsmagicalegacy:textures/skill/shield_overload.png",
   "name": "skill.arsmagicalegacy.shield_overload.name",

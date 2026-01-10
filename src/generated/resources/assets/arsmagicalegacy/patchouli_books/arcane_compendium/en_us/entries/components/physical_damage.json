@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/physical_damage",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/physical_damage.png",
   "name": "skill.arsmagicalegacy.physical_damage.name",

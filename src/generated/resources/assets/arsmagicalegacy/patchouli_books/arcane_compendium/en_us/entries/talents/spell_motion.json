@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/spell_motion",
   "category": "arsmagicalegacy:talents",
   "icon": "arsmagicalegacy:textures/skill/spell_motion.png",
   "name": "skill.arsmagicalegacy.spell_motion.name",

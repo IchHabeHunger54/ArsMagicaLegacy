@@ -16,7 +16,6 @@
 - Advancement Triggers
 - Rituals
 - Arcane Compendium
-    - Advancements
     - Images
     - Commented-out Parts in the Provider
 - Compat Recipes

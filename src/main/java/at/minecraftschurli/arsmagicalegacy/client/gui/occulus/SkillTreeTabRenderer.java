@@ -60,6 +60,7 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
             float endX = skill.x() + SKILL_SIZE / 2f;
             float endY = skill.y() + SKILL_SIZE / 2f;
             boolean knowsSkill = helper.knows(player, registry.wrapAsHolder(skill));
+            if (skill.hidden() && !knowsSkill) continue;
             for (Holder<Skill> holder : skill.parents()) {
                 Skill parent = holder.value();
                 float startX = parent.x() + SKILL_SIZE / 2f;
@@ -80,15 +81,17 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
         float tick = 0.75f + ((player.tickCount % 80) >= 40 ? (player.tickCount % 40) / 80f - 0.25f : 0.25f - (player.tickCount % 40) / 80f);
         for (Skill skill : skills) {
             Holder<Skill> holder = registry.wrapAsHolder(skill);
-            boolean knows = helper.knows(player, holder);
-            if (!knows && !helper.canLearn(player, holder)) {
-                guiGraphics.setColor(0.5f, 0.5f, 0.5f, 1);
-            } else if (!knows) {
-                int color = getColorForSkill(skill);
-                float red = Math.max(AMClientUtil.getRedF(color), 0.75f) * tick;
-                float green = Math.max(AMClientUtil.getGreenF(color), 0.75f) * tick;
-                float blue = Math.max(AMClientUtil.getBlueF(color), 0.75f) * tick;
-                guiGraphics.setColor(red, green, blue, 1);
+            if (!helper.knows(player, holder)) {
+                if (skill.hidden()) continue;
+                if (!helper.canLearn(player, holder)) {
+                    guiGraphics.setColor(0.5f, 0.5f, 0.5f, 1);
+                } else {
+                    int color = getColorForSkill(skill);
+                    float red = Math.max(AMClientUtil.getRedF(color), 0.75f) * tick;
+                    float green = Math.max(AMClientUtil.getGreenF(color), 0.75f) * tick;
+                    float blue = Math.max(AMClientUtil.getBlueF(color), 0.75f) * tick;
+                    guiGraphics.setColor(red, green, blue, 1);
+                }
             }
             RenderSystem.enableBlend();
             guiGraphics.blit(skill.x(), skill.y(), 16, SKILL_SIZE, SKILL_SIZE, SkillAtlasHolder.INSTANCE.get().getSprite(skill));

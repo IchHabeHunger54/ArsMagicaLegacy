@@ -24,9 +24,10 @@ public record LearnSkillPacket(Holder<Skill> skill) implements CustomPacketPaylo
     public void handle(IPayloadContext context) {
         MagicHelper helper = ArsMagicaApi.magicHelper();
         Player player = context.player();
-        if (helper.canLearn(player, skill)) {
+        boolean creative = player.isCreative();
+        if (helper.canLearn(player, skill) || creative) {
             helper.learn(player, skill);
-            if (!player.isCreative()) {
+            if (!creative) {
                 skill.value().cost().ifPresent(cost -> helper.addSkillPoint(player, cost, -1));
             }
         }

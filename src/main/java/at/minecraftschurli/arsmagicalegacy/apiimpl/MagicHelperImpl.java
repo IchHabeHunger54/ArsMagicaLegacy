@@ -169,7 +169,7 @@ final class MagicHelperImpl implements MagicHelper {
 
     @Override
     public void learnAll(Player player) {
-        player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkills(set -> set.addAll(AMRegistries.skills().holders().toList())));
+        player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkills(set -> set.addAll(AMRegistries.skills(false).holders().toList())));
         if (player instanceof ServerPlayer serverPlayer) {
             AMCriterionTriggers.SKILL_CHANGE.get().trigger(serverPlayer);
         }

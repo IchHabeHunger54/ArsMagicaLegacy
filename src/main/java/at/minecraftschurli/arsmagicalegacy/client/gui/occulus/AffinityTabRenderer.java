@@ -53,8 +53,8 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         tooltip.clear();
-        Registry<Affinity> affinities = AMRegistries.affinities();
-        Registry<Ability> abilities = AMRegistries.abilities();
+        Registry<Affinity> affinities = AMRegistries.affinities(true);
+        Registry<Ability> abilities = AMRegistries.abilities(true);
         Font font = AMClientUtil.font();
         LocalPlayer player = AMClientUtil.player();
         int center = TAB_SIZE / 2 + RADIUS;

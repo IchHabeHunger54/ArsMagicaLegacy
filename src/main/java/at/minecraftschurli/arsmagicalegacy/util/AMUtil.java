@@ -179,8 +179,8 @@ public final class AMUtil {
 
     @SuppressWarnings("DataFlowIssue")
     @Nullable
-    public static Holder<Skill> skill(Holder<SpellPart> part) {
-        return AMRegistries.skills().getHolder(part.getKey().location()).orElse(null);
+    public static Holder<Skill> skill(Holder<SpellPart> part, boolean client) {
+        return AMRegistries.skills(client).getHolder(part.getKey().location()).orElse(null);
     }
 
     public static Vec3 bezier(Vec3 start, Vec3 control1, Vec3 control2, Vec3 end, double delta) {

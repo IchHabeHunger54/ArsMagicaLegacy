@@ -34,7 +34,7 @@ public class SpellPartButton<T> extends Button {
 
     @SuppressWarnings("DataFlowIssue")
     public static <T> SpellPartButton<T> create(int x, int y, Holder<SpellPart> spellPart, SpellCustomizationScreen screen, int index) {
-        Holder<Skill> skill = AMUtil.skill(spellPart);
+        Holder<Skill> skill = AMUtil.skill(spellPart, true);
         SpellPartButton<T> button = new SpellPartButton<>(x, y, spellPart, SkillAtlasHolder.INSTANCE.get().getSprite(skill.value()));
         if (spellPart.value().getDataComponentType() != null) {
             button.valueGetter = type -> (index == -1 ? screen.getSpell().dataComponents().grammar() : screen.getSpell().dataComponents().shapeGroups().get(index)).get(type);

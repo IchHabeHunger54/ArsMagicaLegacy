@@ -27,7 +27,7 @@ public class RecallCustomizationScreen extends AbstractSpellPartCustomizationScr
     private static final int HEIGHT = 80;
     private static final int MESSAGE_TIME = 100;
     private static final int MESSAGE_ALPHA_START = 10;
-    private final TextureAtlasSprite sprite = SkillAtlasHolder.INSTANCE.get().getSprite(AMRegistries.skills().get(AMSpells.RECALL.getId()));
+    private final TextureAtlasSprite sprite = SkillAtlasHolder.INSTANCE.get().getSprite(AMRegistries.skills(true).get(AMSpells.RECALL.getId()));
     private int leftPos;
     private int topPos;
     private Button clearButton;

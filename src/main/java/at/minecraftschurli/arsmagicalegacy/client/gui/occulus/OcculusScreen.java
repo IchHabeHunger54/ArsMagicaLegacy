@@ -62,7 +62,7 @@ public class OcculusScreen extends Screen {
         tabs.clear();
         buttons.clear();
         LocalPlayer player = AMClientUtil.player();
-        Registry<OcculusTab> registry = AMRegistries.occulusTabs();
+        Registry<OcculusTab> registry = AMRegistries.occulusTabs(true);
         List<? extends Holder<OcculusTab>> list = registry
             .holders()
             .sorted(Comparator.comparingInt(e -> e.value().index()))
@@ -104,7 +104,7 @@ public class OcculusScreen extends Screen {
         guiGraphics.blit(FRAME, leftPos, topPos + OcculusTabButton.SIZE, 0, 0, SIZE, SIZE);
         guiGraphics.blit(BUTTON_INDICATOR, maxPage == 0 ? leftPos + 6 + tab * OcculusTabButton.SIZE : leftPos + 28 + tab % 7 * OcculusTabButton.SIZE, topPos + OcculusTabButton.SIZE, 0, 0, OcculusTabButton.SIZE, FRAME_SIZE, OcculusTabButton.SIZE, FRAME_SIZE);
         if (renderer.hasSkillPointPanel()) {
-            List<? extends Holder<SkillPoint>> holders = AMRegistries.skillPoints()
+            List<? extends Holder<SkillPoint>> holders = AMRegistries.skillPoints(true)
                 .holders()
                 .toList();
             List<MutableComponent> components = holders

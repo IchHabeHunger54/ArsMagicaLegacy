@@ -15,14 +15,14 @@ public class AltarStateMatcher implements IStateMatcher {
     private final TriPredicate<BlockGetter, BlockPos, BlockState> predicate;
 
     public AltarStateMatcher() {
-        predicate = (level, pos, state) -> AMRegistries.altarMaterials(level instanceof Level l ? l.registryAccess() : AMRegistries.registryAccess())
+        predicate = (level, pos, state) -> AMRegistries.altarMaterials(level instanceof Level l ? l.registryAccess() : AMRegistries.registryAccess(false))
             .stream()
             .anyMatch(material -> state.is(material.block()));
     }
 
     @Override
     public BlockState getDisplayedState(long ticks) {
-        AltarMaterial material = AMUtil.getByTick(AMRegistries.altarMaterials()
+        AltarMaterial material = AMUtil.getByTick(AMRegistries.altarMaterials(false)
             .stream()
             .toArray(AltarMaterial[]::new), (int) ticks / 20);
         return material == null ? Blocks.AIR.defaultBlockState() : material.block().defaultBlockState();

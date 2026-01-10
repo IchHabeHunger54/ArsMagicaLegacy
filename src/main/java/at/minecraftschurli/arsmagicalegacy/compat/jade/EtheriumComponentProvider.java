@@ -39,7 +39,7 @@ class EtheriumComponentProvider implements IBlockComponentProvider, IServerDataP
         CompoundTag compoundTag = blockAccessor.getServerData();
         if (!compoundTag.contains(ETHERIUM_TYPES)) return;
         CompoundTag etheriumTag = compoundTag.getCompound(ETHERIUM_TYPES);
-        AMRegistries.etheriumTypes(blockAccessor instanceof Level l ? l.registryAccess() : AMRegistries.registryAccess())
+        AMRegistries.etheriumTypes(blockAccessor instanceof Level l ? l.registryAccess() : AMRegistries.registryAccess(true))
             .holders()
             .filter(holder -> etheriumTag.contains(holder.getKey().location().toString()))
             .forEach(holder -> {

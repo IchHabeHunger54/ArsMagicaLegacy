@@ -16,7 +16,7 @@ public class SkillIngredientHelper implements IIngredientHelper<Skill> {
 
     @Override
     public String getDisplayName(Skill skill) {
-        return Skill.getName(AMRegistries.skills().wrapAsHolder(skill)).getString();
+        return Skill.getName(AMRegistries.skills(true).wrapAsHolder(skill)).getString();
     }
 
     @SuppressWarnings("removal")
@@ -28,7 +28,7 @@ public class SkillIngredientHelper implements IIngredientHelper<Skill> {
     @SuppressWarnings("DataFlowIssue")
     @Override
     public ResourceLocation getResourceLocation(Skill skill) {
-        return AMRegistries.skills().getKey(skill);
+        return AMRegistries.skills(true).getKey(skill);
     }
 
     @Override

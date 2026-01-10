@@ -18,6 +18,6 @@ public class SkillIngredientRenderer implements IIngredientRenderer<Skill> {
 
     @Override
     public List<Component> getTooltip(Skill skill, TooltipFlag tooltipFlag) {
-        return List.of(Skill.getName(AMRegistries.skills().wrapAsHolder(skill)));
+        return List.of(Skill.getName(AMRegistries.skills(true).wrapAsHolder(skill)));
     }
 }

@@ -187,7 +187,7 @@ public final class AMClientUtil {
         SpellEntityKey key = new SpellEntityKey(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()), spell.grammar().primaryAffinity());
         SPELL_SHAPE_ENTITY_PARTICLE_SPAWNERS.computeIfAbsent(key, k -> {
             ParticleSpawner spawner = ParticleSpawnerManager.INSTANCE.get(key.id);
-            return new ParticleSpawner(AMRegistries.affinities().get(key.affinity).particle(),
+            return new ParticleSpawner(AMRegistries.affinities(true).get(key.affinity).particle(),
                 spawner.count(),
                 spawner.minLifetime(),
                 spawner.maxLifetime(),

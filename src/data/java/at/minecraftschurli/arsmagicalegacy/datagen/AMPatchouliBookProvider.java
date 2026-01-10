@@ -352,9 +352,9 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
             if (spellPart == AMSpells.NAUSEA.get()) continue;
             if (spellPart == AMSpells.SCRAMBLE_SYNAPSES.get()) continue;
             TranslatedCategoryBuilder b = spellPart.isShape() ? shapes : spellPart.isComponent() ? components : modifiers;
-            ResourceLocation registryName = ArsMagicaApi.spellPartRegistry().getKey(spellPart);
-            TranslatedEntryBuilder entry = b.addEntry(registryName.getPath(), Util.makeDescriptionId("skill", registryName) + ".name", registryName.getNamespace() + ":textures/skill/" + registryName.getPath() + ".png");
-                //.setAdvancement(ArsMagicaApi.modLoc("book/" + registryName.getPath()));
+            ResourceLocation id = ArsMagicaApi.spellPartRegistry().getKey(spellPart);
+            TranslatedEntryBuilder entry = b.addEntry(id.getPath(), Util.makeDescriptionId("skill", id) + ".name", id.getNamespace() + ":textures/skill/" + id.getPath() + ".png")
+                .setAdvancement(ArsMagicaApi.modLoc("book/" + id.getPath()));
             entry.addSimpleTextPage(entry.getLangKey(0) + ".text");
             if (spellPart == AMSpells.CHAIN.get()) {
                 entry.addSimpleTextPage(entry.getLangKey(1) + ".text");
@@ -373,8 +373,8 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
             .setSortnum(7);
         for (ResourceKey<Skill> talent : AMMagic.TALENTS) {
             ResourceLocation id = talent.location();
-            TranslatedEntryBuilder entry = talents.addEntry(id.getPath(), Util.makeDescriptionId("skill", id) + ".name", id.getNamespace() + ":textures/skill/" + id.getPath() + ".png");
-                //.setAdvancement(ArsMagicaApi.modLoc("book/" + id.getPath()));
+            TranslatedEntryBuilder entry = talents.addEntry(id.getPath(), Util.makeDescriptionId("skill", id) + ".name", id.getNamespace() + ":textures/skill/" + id.getPath() + ".png")
+                .setAdvancement(ArsMagicaApi.modLoc("book/" + id.getPath()));
             entry.addSimpleTextPage(entry.getLangKey(0) + ".text").build();
         }
         talents.build();

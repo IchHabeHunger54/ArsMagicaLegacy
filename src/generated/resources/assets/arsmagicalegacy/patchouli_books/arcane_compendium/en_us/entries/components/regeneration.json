@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/regeneration",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/regeneration.png",
   "name": "skill.arsmagicalegacy.regeneration.name",

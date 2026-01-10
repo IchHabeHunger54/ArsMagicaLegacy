@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/watery_grave",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/watery_grave.png",
   "name": "skill.arsmagicalegacy.watery_grave.name",

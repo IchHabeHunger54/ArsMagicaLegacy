@@ -13,9 +13,11 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
+import at.minecraftschurli.arsmagicalegacy.init.AMCriterionTriggers;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
 import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.common.NeoForge;
@@ -152,21 +154,33 @@ final class MagicHelperImpl implements MagicHelper {
     @Override
     public void learn(Player player, Holder<Skill> skill) {
         player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkills(set -> set.add(skill)));
+        if (player instanceof ServerPlayer serverPlayer) {
+            AMCriterionTriggers.SKILL_CHANGE.get().trigger(serverPlayer);
+        }
     }
 
     @Override
     public void forget(Player player, Holder<Skill> skill) {
         player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkills(set -> set.remove(skill)));
+        if (player instanceof ServerPlayer serverPlayer) {
+            AMCriterionTriggers.SKILL_CHANGE.get().trigger(serverPlayer);
+        }
     }
 
     @Override
     public void learnAll(Player player) {
         player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkills(set -> set.addAll(AMRegistries.skills().holders().toList())));
+        if (player instanceof ServerPlayer serverPlayer) {
+            AMCriterionTriggers.SKILL_CHANGE.get().trigger(serverPlayer);
+        }
     }
 
     @Override
     public void forgetAll(Player player) {
         player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkills(Set::clear));
+        if (player instanceof ServerPlayer serverPlayer) {
+            AMCriterionTriggers.SKILL_CHANGE.get().trigger(serverPlayer);
+        }
     }
 
     @Override

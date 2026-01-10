@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/extra_summons",
   "category": "arsmagicalegacy:talents",
   "icon": "arsmagicalegacy:textures/skill/extra_summons.png",
   "name": "skill.arsmagicalegacy.extra_summons.name",

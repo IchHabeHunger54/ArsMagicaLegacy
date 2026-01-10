@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/effect_power",
   "category": "arsmagicalegacy:modifiers",
   "icon": "arsmagicalegacy:textures/skill/effect_power.png",
   "name": "skill.arsmagicalegacy.effect_power.name",

@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/solar",
   "category": "arsmagicalegacy:modifiers",
   "icon": "arsmagicalegacy:textures/skill/solar.png",
   "name": "skill.arsmagicalegacy.solar.name",

@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/duration",
   "category": "arsmagicalegacy:modifiers",
   "icon": "arsmagicalegacy:textures/skill/duration.png",
   "name": "skill.arsmagicalegacy.duration.name",

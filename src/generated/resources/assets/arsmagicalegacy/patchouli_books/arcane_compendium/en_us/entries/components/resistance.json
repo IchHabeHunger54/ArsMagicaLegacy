@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/resistance",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/resistance.png",
   "name": "skill.arsmagicalegacy.resistance.name",

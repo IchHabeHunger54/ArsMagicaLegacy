@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/blindness",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/blindness.png",
   "name": "skill.arsmagicalegacy.blindness.name",

@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/recall",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/recall.png",
   "name": "skill.arsmagicalegacy.recall.name",

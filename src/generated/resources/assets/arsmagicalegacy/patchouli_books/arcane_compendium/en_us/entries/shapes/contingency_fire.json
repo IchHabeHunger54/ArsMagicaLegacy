@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/contingency_fire",
   "category": "arsmagicalegacy:shapes",
   "icon": "arsmagicalegacy:textures/skill/contingency_fire.png",
   "name": "skill.arsmagicalegacy.contingency_fire.name",

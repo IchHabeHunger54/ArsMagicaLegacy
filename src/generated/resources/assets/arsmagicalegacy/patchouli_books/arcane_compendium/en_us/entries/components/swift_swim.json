@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/swift_swim",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/swift_swim.png",
   "name": "skill.arsmagicalegacy.swift_swim.name",

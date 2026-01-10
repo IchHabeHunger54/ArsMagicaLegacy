@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/daylight",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/daylight.png",
   "name": "skill.arsmagicalegacy.daylight.name",

@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/drowning_damage",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/drowning_damage.png",
   "name": "skill.arsmagicalegacy.drowning_damage.name",

@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/ender_intervention",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/ender_intervention.png",
   "name": "skill.arsmagicalegacy.ender_intervention.name",

@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/invisibility",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/invisibility.png",
   "name": "skill.arsmagicalegacy.invisibility.name",

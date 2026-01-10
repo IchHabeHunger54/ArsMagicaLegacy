@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/target_non_solid",
   "category": "arsmagicalegacy:modifiers",
   "icon": "arsmagicalegacy:textures/skill/target_non_solid.png",
   "name": "skill.arsmagicalegacy.target_non_solid.name",

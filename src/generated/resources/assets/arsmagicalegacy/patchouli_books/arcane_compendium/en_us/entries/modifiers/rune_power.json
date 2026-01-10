@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/rune_power",
   "category": "arsmagicalegacy:modifiers",
   "icon": "arsmagicalegacy:textures/skill/rune_power.png",
   "name": "skill.arsmagicalegacy.rune_power.name",

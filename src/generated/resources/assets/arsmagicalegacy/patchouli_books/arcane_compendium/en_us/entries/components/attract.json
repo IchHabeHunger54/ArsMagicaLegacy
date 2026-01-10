@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/attract",
   "category": "arsmagicalegacy:components",
   "icon": "arsmagicalegacy:textures/skill/attract.png",
   "name": "skill.arsmagicalegacy.attract.name",

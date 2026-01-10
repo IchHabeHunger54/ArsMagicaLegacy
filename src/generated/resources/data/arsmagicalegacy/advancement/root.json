@@ -1,10 +1,13 @@
 {
   "criteria": {
-    "vinteum_dust": {
+    "arcane_compendium": {
       "conditions": {
         "items": [
           {
-            "items": "arsmagicalegacy:vinteum_dust"
+            "components": {
+              "patchouli:book": "arsmagicalegacy:arcane_compendium"
+            },
+            "items": "patchouli:guide_book"
           }
         ]
       },
@@ -19,8 +22,11 @@
     },
     "hidden": true,
     "icon": {
+      "components": {
+        "patchouli:book": "arsmagicalegacy:arcane_compendium"
+      },
       "count": 1,
-      "id": "arsmagicalegacy:vinteum_dust"
+      "id": "patchouli:guide_book"
     },
     "show_toast": false,
     "title": {
@@ -29,7 +35,7 @@
   },
   "requirements": [
     [
-      "vinteum_dust"
+      "arcane_compendium"
     ]
   ],
   "sends_telemetry_event": true

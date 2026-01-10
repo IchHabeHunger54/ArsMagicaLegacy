@@ -8,6 +8,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMCreativeTabs;
+import at.minecraftschurli.arsmagicalegacy.init.AMCriterionTriggers;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
@@ -44,6 +45,7 @@ public final class ArsMagicaLegacy {
         AMAttributes.ATTRIBUTES.register(bus);
         AMBlockEntities.BLOCK_ENTITIES.register(bus);
         AMCreativeTabs.CREATIVE_TABS.register(bus);
+        AMCriterionTriggers.TRIGGER_TYPES.register(bus);
         AMEntities.ENTITIES.register(bus);
         AMMenus.MENUS.register(bus);
         AMMobEffects.MOB_EFFECTS.register(bus);

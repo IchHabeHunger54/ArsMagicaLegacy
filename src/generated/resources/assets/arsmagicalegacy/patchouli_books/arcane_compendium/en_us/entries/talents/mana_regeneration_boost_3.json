@@ -1,4 +1,5 @@
 {
+  "advancement": "arsmagicalegacy:book/mana_regeneration_boost_3",
   "category": "arsmagicalegacy:talents",
   "icon": "arsmagicalegacy:textures/skill/mana_regeneration_boost_3.png",
   "name": "skill.arsmagicalegacy.mana_regeneration_boost_3.name",

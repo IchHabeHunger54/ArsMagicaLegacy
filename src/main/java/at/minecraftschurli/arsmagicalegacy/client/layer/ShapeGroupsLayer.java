@@ -37,12 +37,12 @@ public class ShapeGroupsLayer implements LayeredDraw.Layer {
         if (AMClientUtil.mc().options.hideGui) return;
         Player player = AMClientUtil.player();
         if (player == null) return;
-        ItemStack itemStack = player.getMainHandItem();
-        if (!itemStack.is(AMTags.Items.SHOWS_SHAPE_GROUPS) || !itemStack.has(AMDataComponents.SPELL)) {
-            itemStack = player.getOffhandItem();
-            if (!itemStack.is(AMTags.Items.SHOWS_SHAPE_GROUPS) || !itemStack.has(AMDataComponents.SPELL)) return;
+        ItemStack item = player.getMainHandItem();
+        if (!item.is(AMTags.Items.SHOWS_SPELL_VISUALS) || !item.has(AMDataComponents.SPELL)) {
+            item = player.getOffhandItem();
+            if (!item.is(AMTags.Items.SHOWS_SPELL_VISUALS) || !item.has(AMDataComponents.SPELL)) return;
         }
-        Spell spell = itemStack.get(AMDataComponents.SPELL);
+        Spell spell = item.get(AMDataComponents.SPELL);
         int x = AMClientConfig.SHAPE_GROUPS_X_ANCHOR.get().getLocation(AMClientConfig.SHAPE_GROUPS_X);
         int y = AMClientConfig.SHAPE_GROUPS_Y_ANCHOR.get().getLocation(AMClientConfig.SHAPE_GROUPS_Y);
         List<SpellShapeGroup> shapeGroups = spell.shapeGroups();

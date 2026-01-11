@@ -4,7 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
 import at.minecraftschurli.arsmagicalegacy.item.SpellBookItem;
-import at.minecraftschurli.arsmagicalegacy.menu.container.ItemStackContainer;
+import at.minecraftschurli.arsmagicalegacy.menu.container.SpellBookContainer;
 import at.minecraftschurli.arsmagicalegacy.menu.slot.PlacePredicateSlot;
 import at.minecraftschurli.arsmagicalegacy.menu.slot.ViewSlot;
 import at.minecraftschurli.arsmagicalegacy.util.QuickMoveStack;
@@ -21,10 +21,12 @@ import java.util.function.Predicate;
 
 public class SpellBookMenu extends AbstractContainerMenu implements QuickMoveStack {
     private static final Predicate<ItemStack> PREDICATE = stack -> stack.is(AMItems.SPELL);
+    private final InteractionHand hand;
 
     public SpellBookMenu(int containerId, Inventory inventory, InteractionHand hand) {
         super(AMMenus.SPELL_BOOK.get(), containerId);
-        Container container = new ItemStackContainer(inventory.player.getItemInHand(hand), SpellBookItem.TOTAL_SLOTS);
+        this.hand = hand;
+        Container container = new SpellBookContainer(inventory.player.getItemInHand(hand));
         for (int i = 0; i < SpellBookItem.HOTBAR_SLOTS; i++) {
             addSlot(new PlacePredicateSlot(container, i, 18, 5 + (i * 18), PREDICATE));
         }
@@ -49,7 +51,7 @@ public class SpellBookMenu extends AbstractContainerMenu implements QuickMoveSta
 
     @Override
     public boolean stillValid(Player player) {
-        return ArsMagicaApi.magicHelper().knowsMagic(player);
+        return player.getItemInHand(hand).is(AMItems.SPELL_BOOK) && ArsMagicaApi.magicHelper().knowsMagic(player);
     }
 
     @Override

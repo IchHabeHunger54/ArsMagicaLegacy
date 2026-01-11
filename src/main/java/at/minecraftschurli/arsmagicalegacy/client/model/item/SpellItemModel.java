@@ -31,6 +31,9 @@ public class SpellItemModel extends BakedModelWrapper<BakedModel> {
                 Spell spell = stack.get(AMDataComponents.SPELL);
                 icon = spell.icon().orElse(null);
                 affinity = spell.grammar().primaryAffinity();
+            } else {
+                icon = null;
+                affinity = null;
             }
             return super.resolve(model, stack, level, entity, seed);
         }

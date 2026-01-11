@@ -2,7 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.item;
 
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.menu.SpellBookMenu;
-import at.minecraftschurli.arsmagicalegacy.menu.container.ItemStackContainer;
+import at.minecraftschurli.arsmagicalegacy.menu.container.SpellBookContainer;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -53,7 +53,7 @@ public class SpellBookItem extends Item {
     }
 
     public static IItemHandler getItemHandler(ItemStack stack, Void v) {
-        return new InvWrapper(new ItemStackContainer(stack, TOTAL_SLOTS));
+        return new InvWrapper(new SpellBookContainer(stack));
     }
 
     private static ItemStack getSelectedSpell(ItemStack stack) {

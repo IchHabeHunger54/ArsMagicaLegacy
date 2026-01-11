@@ -594,6 +594,11 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("shape_groups_y", "Vertical Position", "Vertical position of the shape groups GUI layer.");
         configTranslation("shape_groups_anchor_x", "Horizontal Anchor", "Horizontal anchor of the shape groups GUI layer.");
         configTranslation("shape_groups_anchor_y", "Vertical Anchor", "Vertical anchor of the shape groups GUI layer.");
+        configTranslation("spell_book", "Spell Book", "Configuration for the spell book GUI layer. The size of the layer is 148x22.");
+        configTranslation("spell_book_x", "Horizontal Position", "Horizontal position of the spell book GUI layer.");
+        configTranslation("spell_book_y", "Vertical Position", "Vertical position of the spell book GUI layer.");
+        configTranslation("spell_book_anchor_x", "Horizontal Anchor", "Horizontal anchor of the spell book GUI layer.");
+        configTranslation("spell_book_anchor_y", "Vertical Anchor", "Vertical anchor of the spell book GUI layer.");
         add("affinity", "none", "None");
         add("affinity", "water", "Water");
         add("affinity", "fire", "Fire");
@@ -705,6 +710,8 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.PREVENT_BLOCK_KEY, "Mystical forces prevent you from using this block! Try crafting an Arcane Compendium to learn more.");
         add(AMTranslations.PREVENT_ITEM_KEY, "Mystical forces prevent you from using this item! Try crafting an Arcane Compendium to learn more.");
         add(AMTranslations.RECALL_POSITION_NOT_SET_KEY, "No recall position set! Use the Spell Customization menu to set a position.");
+        add(AMTranslations.SPELL_BOOK_NO_SPELL_SELECTED_KEY, "No spell selected.");
+        add(AMTranslations.SPELL_BOOK_SELECTED_SPELL_KEY, "Selected spell: %s");
         add(AMTranslations.SPELL_CAST_BURNED_OUT_KEY, "Burned out!");
         add(AMTranslations.SPELL_CAST_MALFORMED_KEY, "Spell is malformed and cannot be cast!");
         add(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA_KEY, "Not enough mana to cast the spell!");

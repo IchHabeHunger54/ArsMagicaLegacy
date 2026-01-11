@@ -22,6 +22,7 @@ public interface AMTranslations {
     String BARS_VALUE_MANA_KEY                       = ArsMagicaApi.MOD_ID + ".bars_value.mana";
     String BARS_VALUE_XP_KEY                         = ArsMagicaApi.MOD_ID + ".bars_value.xp";
     String ETHERIUM_KEY                              = ArsMagicaApi.MOD_ID + ".etherium";
+    String SPELL_BOOK_SELECTED_SPELL_KEY             = ArsMagicaApi.MOD_ID + ".spell_book.selected_spell";
     String SPELL_INGREDIENT_COUNT_KEY                = ArsMagicaApi.MOD_ID + ".spell.ingredient_count";
     String SPELL_MANA_COST_KEY                       = ArsMagicaApi.MOD_ID + ".spell.mana_cost";
     String TIER_KEY                                  = ArsMagicaApi.MOD_ID + ".tier";
@@ -74,6 +75,7 @@ public interface AMTranslations {
     String PREVENT_BLOCK_KEY                              = ArsMagicaApi.MOD_ID + ".prevent_block";
     String PREVENT_ITEM_KEY                               = ArsMagicaApi.MOD_ID + ".prevent_item";
     String RECALL_POSITION_NOT_SET_KEY                    = ArsMagicaApi.MOD_ID + ".recall_position_not_set";
+    String SPELL_BOOK_NO_SPELL_SELECTED_KEY               = ArsMagicaApi.MOD_ID + ".spell_book.no_spell_selected";
     String SPELL_CAST_BURNED_OUT_KEY                      = ArsMagicaApi.MOD_ID + ".spell.cast.burned_out";
     String SPELL_CAST_MALFORMED_KEY                       = ArsMagicaApi.MOD_ID + ".spell.cast.malformed";
     String SPELL_CAST_NOT_ENOUGH_MANA_KEY                 = ArsMagicaApi.MOD_ID + ".spell.cast.not_enough_mana";
@@ -138,6 +140,7 @@ public interface AMTranslations {
     Component OCCULUS_FORGET_ALL_TOOLTIP                 = Component.translatable(OCCULUS_FORGET_ALL_TOOLTIP_KEY);
     Component OCCULUS_NEXT                               = Component.translatable(OCCULUS_NEXT_KEY);
     Component OCCULUS_PREV                               = Component.translatable(OCCULUS_PREV_KEY);
+    Component SPELL_BOOK_NO_SPELL_SELECTED               = Component.translatable(SPELL_BOOK_NO_SPELL_SELECTED_KEY);
     Component SPELL_CUSTOMIZATION                        = Component.translatable(SPELL_CUSTOMIZATION_KEY);
     Component SPELL_CUSTOMIZATION_COLOR                  = Component.translatable(SPELL_CUSTOMIZATION_COLOR_KEY);
     Component SPELL_CUSTOMIZATION_COLOR_CLEAR            = Component.translatable(SPELL_CUSTOMIZATION_COLOR_CLEAR_KEY);

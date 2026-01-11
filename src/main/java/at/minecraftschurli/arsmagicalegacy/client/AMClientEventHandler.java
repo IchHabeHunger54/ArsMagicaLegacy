@@ -25,6 +25,7 @@ import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.color.C
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.color.ColorWheelShader;
 import at.minecraftschurli.arsmagicalegacy.client.layer.BarsLayer;
 import at.minecraftschurli.arsmagicalegacy.client.layer.ShapeGroupsLayer;
+import at.minecraftschurli.arsmagicalegacy.client.layer.SpellBookLayer;
 import at.minecraftschurli.arsmagicalegacy.client.model.AltarCoreModel;
 import at.minecraftschurli.arsmagicalegacy.client.model.item.DataComponentOverrides;
 import at.minecraftschurli.arsmagicalegacy.client.model.item.ItemOverridesModel;
@@ -151,6 +152,7 @@ final class AMClientEventHandler {
     private static void registerGuiLayers(RegisterGuiLayersEvent event) {
         event.registerBelowAll(ArsMagicaApi.modLoc("bars"), new BarsLayer());
         event.registerBelowAll(ArsMagicaApi.modLoc("shape_groups"), new ShapeGroupsLayer());
+        event.registerBelowAll(ArsMagicaApi.modLoc("spell_book"), new SpellBookLayer());
     }
 
     @SubscribeEvent

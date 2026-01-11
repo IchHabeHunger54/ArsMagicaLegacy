@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.item;
 
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.menu.SpellBookMenu;
@@ -60,7 +61,12 @@ public class SpellBookItem extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
         ItemStack spell = getSelectedSpell(stack);
-        spell.getItem().appendHoverText(spell, context, tooltipComponents, tooltipFlag);
+        if (spell.isEmpty()) {
+            tooltipComponents.add(AMTranslations.SPELL_BOOK_NO_SPELL_SELECTED);
+        } else {
+            tooltipComponents.add(Component.translatable(AMTranslations.SPELL_BOOK_SELECTED_SPELL_KEY, spell.getHoverName()));
+            spell.getItem().appendHoverText(spell, context, tooltipComponents, tooltipFlag);
+        }
     }
 
     public static IItemHandler getItemHandler(ItemStack stack, Void v) {
@@ -91,6 +97,8 @@ public class SpellBookItem extends Item {
 
     private static ItemStack getSelectedSpell(ItemStack stack) {
         int index = stack.getOrDefault(AMDataComponents.SELECTED_INDEX, -1);
-        return index < 0 || index >= HOTBAR_SLOTS ? ItemStack.EMPTY : stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY).getStackInSlot(index);
+        if (index < 0 || index >= HOTBAR_SLOTS) return ItemStack.EMPTY;
+        ItemContainerContents container = stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY);
+        return index < container.getSlots() ? container.getStackInSlot(index) : ItemStack.EMPTY;
     }
 }

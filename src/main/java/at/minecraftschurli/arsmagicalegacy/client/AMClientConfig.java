@@ -15,6 +15,10 @@ public final class AMClientConfig {
     public static final ModConfigSpec.IntValue SHAPE_GROUPS_Y;
     public static final ModConfigSpec.EnumValue<LayerAnchor.X> SHAPE_GROUPS_X_ANCHOR;
     public static final ModConfigSpec.EnumValue<LayerAnchor.Y> SHAPE_GROUPS_Y_ANCHOR;
+    public static final ModConfigSpec.IntValue SPELL_BOOK_X;
+    public static final ModConfigSpec.IntValue SPELL_BOOK_Y;
+    public static final ModConfigSpec.EnumValue<LayerAnchor.X> SPELL_BOOK_X_ANCHOR;
+    public static final ModConfigSpec.EnumValue<LayerAnchor.Y> SPELL_BOOK_Y_ANCHOR;
     static final ModConfigSpec SPEC;
 
     static {
@@ -24,19 +28,19 @@ public final class AMClientConfig {
         BARS_X = builder
             .comment("Horizontal position of the mana, burnout and level bars.")
             .translation(AMTranslations.CONFIG_KEY + "bars_x")
-            .defineInRange("bars_x", 6, Short.MIN_VALUE, Short.MAX_VALUE);
+            .defineInRange("x", 6, Short.MIN_VALUE, Short.MAX_VALUE);
         BARS_Y = builder
             .comment("Vertical position of the mana, burnout and level bars.")
             .translation(AMTranslations.CONFIG_KEY + "bars_y")
-            .defineInRange("bars_y", -44, Short.MIN_VALUE, Short.MAX_VALUE);
+            .defineInRange("y", -44, Short.MIN_VALUE, Short.MAX_VALUE);
         BARS_X_ANCHOR = builder
             .comment("Horizontal anchor of the mana, burnout and level bars.")
             .translation(AMTranslations.CONFIG_KEY + "bars_anchor_x")
-            .defineEnum("bars_anchor_x", LayerAnchor.X.LEFT);
+            .defineEnum("anchor_x", LayerAnchor.X.LEFT);
         BARS_Y_ANCHOR = builder
             .comment("Vertical anchor of the mana, burnout and level bars.")
             .translation(AMTranslations.CONFIG_KEY + "bars_anchor_y")
-            .defineEnum("bars_anchor_y", LayerAnchor.Y.BOTTOM);
+            .defineEnum("anchor_y", LayerAnchor.Y.BOTTOM);
         RENDER_LEVEL_AT_TOP = builder
             .comment("If true, renders the bars in order level number -> level bar -> mana bar -> burnout bar.")
             .comment("If false, renders the bars in order mana bar -> burnout bar -> level bar -> level number.")
@@ -51,19 +55,37 @@ public final class AMClientConfig {
         SHAPE_GROUPS_X = builder
             .comment("Horizontal position of the shape groups GUI layer.")
             .translation(AMTranslations.CONFIG_KEY + "shape_groups_x")
-            .defineInRange("x", 0, Short.MIN_VALUE, Short.MAX_VALUE);
+            .defineInRange("x", 2, Short.MIN_VALUE, Short.MAX_VALUE);
         SHAPE_GROUPS_Y = builder
             .comment("Vertical position of the shape groups GUI layer.")
             .translation(AMTranslations.CONFIG_KEY + "shape_groups_y")
-            .defineInRange("y", 0, Short.MIN_VALUE, Short.MAX_VALUE);
+            .defineInRange("y", 2, Short.MIN_VALUE, Short.MAX_VALUE);
         SHAPE_GROUPS_X_ANCHOR = builder
             .comment("Horizontal anchor of the shape groups GUI layer.")
             .translation(AMTranslations.CONFIG_KEY + "shape_groups_anchor_x")
-            .defineEnum("shape_groups_anchor_x", LayerAnchor.X.LEFT);
+            .defineEnum("anchor_x", LayerAnchor.X.LEFT);
         SHAPE_GROUPS_Y_ANCHOR = builder
             .comment("Vertical anchor of the shape groups GUI layer.")
             .translation(AMTranslations.CONFIG_KEY + "shape_groups_anchor_y")
-            .defineEnum("shape_groups_anchor_y", LayerAnchor.Y.TOP);
+            .defineEnum("anchor_y", LayerAnchor.Y.TOP);
+        builder.pop();
+        builder.comment("Configuration for the shape groups GUI layer. The size of the layer is 148x22.").push("spell_book");
+        SPELL_BOOK_X = builder
+            .comment("Horizontal position of the shape groups GUI layer.")
+            .translation(AMTranslations.CONFIG_KEY + "spell_book_x")
+            .defineInRange("x", -205, Short.MIN_VALUE, Short.MAX_VALUE);
+        SPELL_BOOK_Y = builder
+            .comment("Vertical position of the shape groups GUI layer.")
+            .translation(AMTranslations.CONFIG_KEY + "spell_book_y")
+            .defineInRange("y", -20, Short.MIN_VALUE, Short.MAX_VALUE);
+        SPELL_BOOK_X_ANCHOR = builder
+            .comment("Horizontal anchor of the shape groups GUI layer.")
+            .translation(AMTranslations.CONFIG_KEY + "spell_book_anchor_x")
+            .defineEnum("anchor_x", LayerAnchor.X.CENTER);
+        SPELL_BOOK_Y_ANCHOR = builder
+            .comment("Vertical anchor of the shape groups GUI layer.")
+            .translation(AMTranslations.CONFIG_KEY + "spell_book_anchor_y")
+            .defineEnum("anchor_y", LayerAnchor.Y.BOTTOM);
         builder.pop();
         SPEC = builder.build();
     }

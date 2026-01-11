@@ -188,7 +188,7 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void registerColorHandlersItem(RegisterColorHandlersEvent.Item event) {
         event.register((stack, tintIndex) -> tintIndex == 0 && stack.has(AMDataComponents.ETHERIUM_TYPE) ? 0xff000000 | stack.get(AMDataComponents.ETHERIUM_TYPE).value().color() : -1, AMItems.ETHERIUM_PLACEHOLDER);
-        event.register((stack, tintIndex) -> tintIndex == 0 ? DyedItemColor.getOrDefault(stack, -1) : -1, AMItems.SPELL_BOOK.get());
+        event.register((stack, tintIndex) -> tintIndex == 1 ? 0xff000000 | DyedItemColor.getOrDefault(stack, 0) : -1, AMItems.SPELL_BOOK.get());
     }
 
     @SubscribeEvent

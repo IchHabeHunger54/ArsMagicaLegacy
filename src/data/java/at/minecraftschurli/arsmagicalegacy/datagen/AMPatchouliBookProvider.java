@@ -256,13 +256,11 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
             .addSimpleDoubleRecipePage("crafting", AMItems.PURPLE_RUNE.getId(), AMItems.RED_RUNE.getId())
             .addSimpleDoubleRecipePage("crafting", AMItems.WHITE_RUNE.getId(), AMItems.YELLOW_RUNE.getId())
             .build()
-/*
             .addEntry("spell_book", "Spell Book", new ItemStack(AMItems.SPELL_BOOK.get()))
             .addSimpleTextPage("The spell book is an easy way to store many spells in one slot. When right-clicking the spell book, the currently selected spell is executed. By shift-scrolling, the currently selected spell can be changed.")
             .addSimpleTextPage("When shift-right clicking the spell book, its storage is opened. That way, spells can be put into and out of the book, and be reorganized inside it.$(br2)The left part of the book is the book's hotbar, so to speak. If you want to use a spell that is not in the hotbar, you will have to open the book and move it there first.")
             .addSimpleRecipePage("crafting", AMItems.SPELL_BOOK.getId())
             .build()
-*/
             .addEntry("spell_parchment", "Spell Parchment", new ItemStack(AMItems.SPELL_PARCHMENT.get()))
             .addSimpleTextPage("Any mage that wants to cast spells without the need of some sort of staff or wand needs something to write the spell down on. This has worked for thousands of years, and surprisingly nothing more effective has been invented yet.")
             .addSimpleRecipePage("crafting", AMItems.SPELL_PARCHMENT.getId())

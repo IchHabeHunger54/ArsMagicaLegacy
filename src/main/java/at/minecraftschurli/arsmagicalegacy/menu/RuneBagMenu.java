@@ -2,7 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.menu;
 
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
-import at.minecraftschurli.arsmagicalegacy.item.RuneBagItem;
+import at.minecraftschurli.arsmagicalegacy.util.ItemStackContainer;
 import at.minecraftschurli.arsmagicalegacy.util.ViewSlot;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -40,7 +40,7 @@ public class RuneBagMenu extends AbstractContainerMenu {
     public RuneBagMenu(int containerId, Inventory inventory, InteractionHand hand) {
         super(AMMenus.RUNE_BAG.get(), containerId);
         this.hand = hand;
-        Container container = new RuneBagItem.Container(inventory.player.getItemInHand(hand));
+        Container container = new ItemStackContainer(inventory.player.getItemInHand(hand), RUNES.size());
         for (int i = 0; i < 16; i++) {
             addSlot(new RuneSlot(container, i, 8 + i % 8 * 18, 8 + i / 8 * 18, RUNES.get(i).get()));
         }
@@ -65,32 +65,29 @@ public class RuneBagMenu extends AbstractContainerMenu {
 
     @Override
     public ItemStack quickMoveStack(Player player, int index) {
-        ItemStack stack = ItemStack.EMPTY;
         Slot slot = slots.get(index);
-        if (!slot.hasItem()) return stack;
-        ItemStack slotStack = slot.getItem();
-        stack = slotStack.copy();
+        if (!slot.hasItem()) return ItemStack.EMPTY;
+        ItemStack stack = slot.getItem();
+        ItemStack stackCopy = stack.copy();
         if (index < RUNES.size()) {
-            if (!moveItemStackTo(slotStack, RUNES.size(), RUNES.size() + 36, true)) return ItemStack.EMPTY;
+            if (!moveItemStackTo(stack, RUNES.size(), RUNES.size() + 36, true)) return ItemStack.EMPTY;
         } else {
-            for (int i = 0; i < RUNES.size(); i++) {
-                if (slotStack.is(RUNES.get(i)) && slots.get(i).mayPlace(stack) && !moveItemStackTo(slotStack, i, i + 1, true)) return ItemStack.EMPTY;
-            }
+            if (!moveItemStackTo(stack, 0, RUNES.size(), false)) return ItemStack.EMPTY;
         }
-        if (slotStack.isEmpty()) {
+        if (stack.isEmpty()) {
             slot.set(ItemStack.EMPTY);
         } else {
             slot.setChanged();
         }
-        if (slotStack.getCount() == stack.getCount()) return ItemStack.EMPTY;
-        slot.onTake(player, slotStack);
-        return stack;
+        if (stack.getCount() == stackCopy.getCount()) return ItemStack.EMPTY;
+        slot.onTake(player, stack);
+        return stackCopy;
     }
 
     private static class RuneSlot extends Slot {
         private final Item item;
 
-        public RuneSlot(net.minecraft.world.Container container, int index, int x, int y, Item item) {
+        public RuneSlot(Container container, int index, int x, int y, Item item) {
             super(container, index, x, y);
             this.item = item;
         }

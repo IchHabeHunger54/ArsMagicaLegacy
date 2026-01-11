@@ -13,6 +13,7 @@ import at.minecraftschurli.arsmagicalegacy.block.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SpellIconAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.gui.RuneBagScreen;
+import at.minecraftschurli.arsmagicalegacy.client.gui.SpellBookScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable.InscriptionTableScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.AffinityTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.SkillTreeTabRenderer;
@@ -78,6 +79,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.phys.AABB;
@@ -139,6 +141,7 @@ final class AMClientEventHandler {
     private static void registerMenuScreens(RegisterMenuScreensEvent event) {
         event.register(AMMenus.INSCRIPTION_TABLE.get(), InscriptionTableScreen::new);
         event.register(AMMenus.RUNE_BAG.get(), RuneBagScreen::new);
+        event.register(AMMenus.SPELL_BOOK.get(), SpellBookScreen::new);
     }
 
     @SubscribeEvent
@@ -179,6 +182,7 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void registerColorHandlersItem(RegisterColorHandlersEvent.Item event) {
         event.register((stack, tintIndex) -> tintIndex == 0 && stack.has(AMDataComponents.ETHERIUM_TYPE) ? 0xff000000 | stack.get(AMDataComponents.ETHERIUM_TYPE).value().color() : -1, AMItems.ETHERIUM_PLACEHOLDER);
+        event.register((stack, tintIndex) -> tintIndex == 0 ? DyedItemColor.getOrDefault(stack, -1) : -1, AMItems.SPELL_BOOK.get());
     }
 
     @SubscribeEvent

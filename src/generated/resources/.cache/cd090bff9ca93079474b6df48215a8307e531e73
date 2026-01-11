@@ -1,4 +1,4 @@
-// 1.21.1	2026-01-10T16:22:42.8699149	Patchouli Book Provider
+// 1.21.1	2026-01-11T16:02:41.7723985	Patchouli Book Provider
 d14963c006403569ef2a52c30f2a7bf9e630adf5 assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/categories/affinities.json
 d1bc5251356b8f54fbeb5edfea4ea2cb78cea9ed assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/categories/blocks.json
 f0586636e347b6fe5688df02870bb757efd715d5 assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/categories/components.json
@@ -110,6 +110,7 @@ e8fb8f0a13374216863699045646f393bded440e assets/arsmagicalegacy/patchouli_books/
 e4dbd8a73ab482db23c5984afc6b54c5bc8cafff assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/items/purified_vinteum_dust.json
 b81a7a01dfaa2147115475dbd9b2139df4065ebf assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/items/runes.json
 b945a6666d8ea54980dbb37ed49592cc11b41ebe assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/items/rune_bag.json
+97d7a087edd2261370ae89d0d40ab39e9c40eeee assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/items/spell_book.json
 4cf779747673ff63e7cd5b4444383ecec211ed7b assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/items/spell_parchment.json
 1e4b6b0925f5b12ed688d8c51ae4a7d7523b76c0 assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/mechanics/crafting_altar.json
 3fce58ec8891bf52816dd9161145ffa9c4fd28d2 assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/mechanics/etherium.json

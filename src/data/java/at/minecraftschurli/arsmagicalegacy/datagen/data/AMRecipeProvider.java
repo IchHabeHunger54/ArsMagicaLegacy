@@ -160,6 +160,15 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('P', Items.PAPER)
             .unlockedBy(getHasName(Items.PAPER), has(Items.PAPER))
             .save(output);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.SPELL_BOOK.get())
+            .pattern("SLL")
+            .pattern("SPP")
+            .pattern("SLL")
+            .define('S', Tags.Items.STRINGS)
+            .define('L', Tags.Items.LEATHERS)
+            .define('P', Items.PAPER)
+            .unlockedBy(getHasName(Items.PAPER), has(Items.PAPER))
+            .save(output);
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, AMItems.MAGITECH_GOGGLES.get())
             .pattern("LLL")
             .pattern("CGC")

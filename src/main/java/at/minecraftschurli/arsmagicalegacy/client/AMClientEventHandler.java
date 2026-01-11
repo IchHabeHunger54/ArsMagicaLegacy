@@ -57,6 +57,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMParticles;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.item.CrystalWrenchItem;
 import at.minecraftschurli.arsmagicalegacy.packet.SetActiveShapeGroupPacket;
+import at.minecraftschurli.arsmagicalegacy.packet.SpellBookScrollPacket;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -79,6 +80,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -91,6 +93,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
@@ -296,6 +299,21 @@ final class AMClientEventHandler {
                 AMClientUtil.mc().setScreen(new SpellCustomizationScreen(spell, hand));
             }
         }
+    }
+
+    @SubscribeEvent
+    private static void inputMouseScrolling(InputEvent.MouseScrollingEvent event) {
+        double scroll = event.getScrollDeltaY();
+        if (scroll == 0) return;
+        Player player = AMClientUtil.player();
+        if (player == null || !player.isSecondaryUseActive()) return;
+        ItemStack stack = player.getMainHandItem();
+        if (!stack.is(AMItems.SPELL_BOOK)) {
+            stack = player.getOffhandItem();
+            if (!stack.is(AMItems.SPELL_BOOK)) return;
+        }
+        PacketDistributor.sendToServer(new SpellBookScrollPacket(scroll > 0));
+        event.setCanceled(true);
     }
 
     @SubscribeEvent

@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.spell.data;
 
-import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMExtraCodecs;
 import at.minecraftschurli.arsmagicalegacy.util.DamageSourceWithItemStack;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
@@ -27,11 +27,11 @@ public record SpellDamage(Map<Integer, Map<ResourceKey<DamageType>, Pair<Float, 
     private static final Codec<Map<ResourceKey<DamageType>, Pair<Float, ItemStack>>> DAMAGE_CODEC =
         Codec.unboundedMap(ResourceKey.codec(Registries.DAMAGE_TYPE), Codec.pair(Codec.FLOAT, ItemStack.CODEC));
     private static final StreamCodec<RegistryFriendlyByteBuf, Map<ResourceKey<DamageType>, Pair<Float, ItemStack>>> DAMAGE_STREAM_CODEC =
-        AMUtil.mapStreamCodec(ResourceKey.streamCodec(Registries.DAMAGE_TYPE), AMUtil.pairStreamCodec(ByteBufCodecs.FLOAT, ItemStack.STREAM_CODEC));
+        AMExtraCodecs.mapStreamCodec(ResourceKey.streamCodec(Registries.DAMAGE_TYPE), AMExtraCodecs.pairStreamCodec(ByteBufCodecs.FLOAT, ItemStack.STREAM_CODEC));
     public static final Codec<SpellDamage> CODEC =
-        Codec.unboundedMap(AMUtil.STRING_ENCODED_INT_CODEC, DAMAGE_CODEC).xmap(SpellDamage::new, SpellDamage::damage);
+        Codec.unboundedMap(AMExtraCodecs.STRING_ENCODED_INT_CODEC, DAMAGE_CODEC).xmap(SpellDamage::new, SpellDamage::damage);
     public static final StreamCodec<RegistryFriendlyByteBuf, SpellDamage> STREAM_CODEC =
-        AMUtil.mapStreamCodec(ByteBufCodecs.INT, DAMAGE_STREAM_CODEC).map(SpellDamage::new, SpellDamage::damage);
+        AMExtraCodecs.mapStreamCodec(ByteBufCodecs.INT, DAMAGE_STREAM_CODEC).map(SpellDamage::new, SpellDamage::damage);
     public static final SpellDamage EMPTY = new SpellDamage();
 
     public SpellDamage() {

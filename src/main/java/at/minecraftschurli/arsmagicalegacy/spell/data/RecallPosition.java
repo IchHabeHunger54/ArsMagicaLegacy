@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.spell.data;
 
-import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMExtraCodecs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
@@ -17,6 +17,6 @@ public record RecallPosition(ResourceKey<Level> dimension, Vec3 position) {
     ).apply(inst, RecallPosition::new));
     public static final StreamCodec<ByteBuf, RecallPosition> STREAM_CODEC = StreamCodec.composite(
         ResourceKey.streamCodec(Registries.DIMENSION), RecallPosition::dimension,
-        AMUtil.VEC3_STREAM_CODEC, RecallPosition::position,
+        AMExtraCodecs.VEC3_STREAM_CODEC, RecallPosition::position,
         RecallPosition::new);
 }

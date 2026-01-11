@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.ControlledParticle;
 import at.minecraftschurli.arsmagicalegacy.api.client.ParticleController;
 import at.minecraftschurli.arsmagicalegacy.api.client.ParticleControllerInstance;
+import at.minecraftschurli.arsmagicalegacy.util.AMExtraCodecs;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -14,7 +15,7 @@ import net.minecraft.world.phys.Vec3;
 public record ArcToEntityController(boolean stopOtherControllers, boolean killOnFinish, double speed) implements ParticleController {
     public static final ResourceLocation ID = ArsMagicaApi.modLoc("arc_to_entity");
     public static final MapCodec<ArcToEntityController> CODEC = RecordCodecBuilder.mapCodec(inst -> ParticleController.baseFields(inst)
-        .and(AMUtil.POSITIVE_DOUBLE_CODEC.optionalFieldOf("speed", 0.05).forGetter(ArcToEntityController::speed))
+        .and(AMExtraCodecs.POSITIVE_DOUBLE_CODEC.optionalFieldOf("speed", 0.05).forGetter(ArcToEntityController::speed))
         .apply(inst, ArcToEntityController::new));
     private static final String DELTA_KEY = "delta";
 

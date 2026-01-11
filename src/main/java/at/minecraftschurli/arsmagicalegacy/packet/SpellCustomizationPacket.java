@@ -3,7 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.packet;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
-import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMExtraCodecs;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -15,7 +15,7 @@ public record SpellCustomizationPacket(Spell spell, InteractionHand hand) implem
     public static final Type<SpellCustomizationPacket> TYPE = new Type<>(ArsMagicaApi.modLoc("spell_customization"));
     public static final StreamCodec<RegistryFriendlyByteBuf, SpellCustomizationPacket> STREAM_CODEC = StreamCodec.composite(
         Spell.STREAM_CODEC, SpellCustomizationPacket::spell,
-        AMUtil.INTERACTION_HAND_STREAM_CODEC, SpellCustomizationPacket::hand,
+        AMExtraCodecs.INTERACTION_HAND_STREAM_CODEC, SpellCustomizationPacket::hand,
         SpellCustomizationPacket::new);
 
     @Override

@@ -4,7 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.ControlledParticle;
 import at.minecraftschurli.arsmagicalegacy.api.client.ParticleController;
 import at.minecraftschurli.arsmagicalegacy.api.client.ParticleControllerInstance;
-import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMExtraCodecs;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.ResourceLocation;
@@ -16,8 +16,8 @@ import net.minecraft.world.phys.EntityHitResult;
 public record ApproachEntityController(boolean stopOtherControllers, boolean killOnFinish, double speed, double distance) implements ParticleController {
     public static final ResourceLocation ID = ArsMagicaApi.modLoc("approach_entity");
     public static final MapCodec<ApproachEntityController> CODEC = RecordCodecBuilder.mapCodec(inst -> ParticleController.baseFields(inst)
-        .and(AMUtil.POSITIVE_DOUBLE_CODEC.fieldOf("speed").forGetter(ApproachEntityController::speed))
-        .and(AMUtil.POSITIVE_DOUBLE_CODEC.fieldOf("distance").forGetter(ApproachEntityController::distance))
+        .and(AMExtraCodecs.POSITIVE_DOUBLE_CODEC.fieldOf("speed").forGetter(ApproachEntityController::speed))
+        .and(AMExtraCodecs.POSITIVE_DOUBLE_CODEC.fieldOf("distance").forGetter(ApproachEntityController::distance))
         .apply(inst, ApproachEntityController::new));
 
     public ApproachEntityController(double speed, double distance) {

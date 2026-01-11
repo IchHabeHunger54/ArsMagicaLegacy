@@ -4,7 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.ControlledParticle;
 import at.minecraftschurli.arsmagicalegacy.api.client.ParticleController;
 import at.minecraftschurli.arsmagicalegacy.api.client.ParticleControllerInstance;
-import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMExtraCodecs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -16,10 +16,10 @@ import net.minecraft.world.phys.Vec3;
 public record OrbitPointController(boolean stopOtherControllers, boolean killOnFinish, double minSpeed, double maxSpeed, double minDistance, double maxDistance, boolean followTarget) implements ParticleController {
     public static final ResourceLocation ID = ArsMagicaApi.modLoc("orbit_point");
     public static final MapCodec<OrbitPointController> CODEC = RecordCodecBuilder.mapCodec(inst -> ParticleController.baseFields(inst)
-        .and(AMUtil.doubleRangeCodec(0, 180).fieldOf("min_speed").forGetter(OrbitPointController::minSpeed))
-        .and(AMUtil.doubleRangeCodec(0, 180).fieldOf("max_speed").forGetter(OrbitPointController::maxSpeed))
-        .and(AMUtil.NON_NEGATIVE_DOUBLE_CODEC.optionalFieldOf("min_distance", 1.).forGetter(OrbitPointController::minDistance))
-        .and(AMUtil.POSITIVE_DOUBLE_CODEC.optionalFieldOf("max_distance", 1.5).forGetter(OrbitPointController::maxDistance))
+        .and(AMExtraCodecs.doubleRangeCodec(0, 180).fieldOf("min_speed").forGetter(OrbitPointController::minSpeed))
+        .and(AMExtraCodecs.doubleRangeCodec(0, 180).fieldOf("max_speed").forGetter(OrbitPointController::maxSpeed))
+        .and(AMExtraCodecs.NON_NEGATIVE_DOUBLE_CODEC.optionalFieldOf("min_distance", 1.).forGetter(OrbitPointController::minDistance))
+        .and(AMExtraCodecs.POSITIVE_DOUBLE_CODEC.optionalFieldOf("max_distance", 1.5).forGetter(OrbitPointController::maxDistance))
         .and(Codec.BOOL.optionalFieldOf("follow_target", false).forGetter(OrbitPointController::followTarget))
         .apply(inst, OrbitPointController::new));
     private static final String ANGLE_KEY = "angle";

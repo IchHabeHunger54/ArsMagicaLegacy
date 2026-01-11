@@ -43,6 +43,9 @@ public final class AMItemModelProvider extends ItemModelProvider {
         basicItem(AMItems.WIZARDS_CHALK);
         basicBlockItem(AMItems.VINTEUM_TORCH);
         basicItem(AMItems.SPELL_PARCHMENT);
+        withExistingParent(AMItems.SPELL_BOOK.getId().getPath() + "_handheld", mcLoc("item/generated"))
+            .texture("layer0", modLoc("item/spell_book"))
+            .texture("layer1", modLoc("item/spell_book_overlay"));
         basicItem(AMItems.MAGITECH_GOGGLES);
         basicItem(AMItems.MAGE_HELMET);
         basicItem(AMItems.MAGE_CHESTPLATE);

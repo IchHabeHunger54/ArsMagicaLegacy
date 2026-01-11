@@ -38,6 +38,7 @@ public interface AMCreativeTabs {
             output.accept(AMItems.WIZARDS_CHALK);
             output.accept(AMItems.VINTEUM_TORCH);
             output.accept(AMItems.SPELL_PARCHMENT);
+            output.accept(AMItems.SPELL_BOOK);
             output.accept(AMItems.MAGITECH_GOGGLES);
             output.accept(AMItems.MAGE_HELMET);
             output.accept(AMItems.MAGE_CHESTPLATE);

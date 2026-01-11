@@ -1,4 +1,4 @@
-// 1.21.1	2025-12-19T15:10:20.2227218	Recipes
+// 1.21.1	2026-01-11T16:02:41.7764265	Recipes
 6279e01386699f0af119f0b2b7107be085919ace data/arsmagicalegacy/advancement/recipes/building_blocks/stripped_witchwood.json
 b67df2b3b244672dbee9fc20c9f2b0e3a6d792ea data/arsmagicalegacy/advancement/recipes/building_blocks/witchwood.json
 93c9f5aa62f30aff1df72e966cd213d6efd1a3ab data/arsmagicalegacy/advancement/recipes/building_blocks/witchwood_planks.json
@@ -75,6 +75,7 @@ a61192f96282f161772b2552283a7b0d59e1fca1 data/arsmagicalegacy/advancement/recipe
 26f123ea448e0d52d13cbe1775aa8032a6903647 data/arsmagicalegacy/advancement/recipes/misc/red_dye_from_desert_nova.json
 01c487e226a7ad0268e68a6f3e7809f4300b9f6d data/arsmagicalegacy/advancement/recipes/misc/red_rune.json
 73b3b2403b896df87100917f8040e3d47eb6b067 data/arsmagicalegacy/advancement/recipes/misc/rune_bag_from_bundle.json
+c0a466a3239b787f1dde94c7ef989d73bf8ad95b data/arsmagicalegacy/advancement/recipes/misc/spell_book.json
 b826630fadec1baa70efcdc5f6e8753b87d7cddd data/arsmagicalegacy/advancement/recipes/misc/spell_parchment.json
 7d657b30a8db060a88f6e06122316a4bb44780bc data/arsmagicalegacy/advancement/recipes/misc/sunstone.json
 f67ef9ab57163ea12483ed8261bea5b676462fac data/arsmagicalegacy/advancement/recipes/misc/sunstone_block.json
@@ -171,6 +172,7 @@ ef597352a8f58f964f473fa80ede9803177dbb08 data/arsmagicalegacy/recipe/purified_vi
 cc3f592ef808d4cdddb80470f6f259ef9adfda4d data/arsmagicalegacy/recipe/red_rune.json
 7c106c3fb658fe223cb7b0db4660ad6abf0a01be data/arsmagicalegacy/recipe/rune_bag.json
 9a66850ffb179641651ab7bb812d5e1a5b3951ea data/arsmagicalegacy/recipe/rune_bag_from_bundle.json
+f928b6b490446905e25206c177b8e699650b1954 data/arsmagicalegacy/recipe/spell_book.json
 8f3e9a7ec4de10797126e071fbd10168902936a3 data/arsmagicalegacy/recipe/spell_parchment.json
 6797605626293c45d7d62f2d9a638915621f6445 data/arsmagicalegacy/recipe/stripped_witchwood.json
 3e3b4ee1175ef7942cefeb5a6ab45ade51e845b1 data/arsmagicalegacy/recipe/sunstone.json

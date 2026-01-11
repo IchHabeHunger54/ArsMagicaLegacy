@@ -29,6 +29,7 @@ public interface AMDataComponents {
     DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Affinity>>>     AFFINITY         = register("affinity",         Affinity.CODEC,           ByteBufCodecs.holderRegistry(AMRegistries.AFFINITY));
     DeferredHolder<DataComponentType<?>, DataComponentType<Holder<EtheriumType>>> ETHERIUM_TYPE    = register("etherium_type",    EtheriumType.CODEC,       ByteBufCodecs.holderRegistry(AMRegistries.ETHERIUM_TYPE));
     DeferredHolder<DataComponentType<?>, DataComponentType<Double>>               MANA_REPAIR_COST = register("mana_repair_cost", Codec.DOUBLE,             ByteBufCodecs.DOUBLE);
+    DeferredHolder<DataComponentType<?>, DataComponentType<Integer>>              SELECTED_INDEX   = register("selected_index",   Codec.INT,                ByteBufCodecs.INT);
     DeferredHolder<DataComponentType<?>, DataComponentType<Holder<SkillPoint>>>   SKILL_POINT      = register("skill_point",      SkillPoint.CODEC,         ByteBufCodecs.holderRegistry(AMRegistries.SKILL_POINT));
     DeferredHolder<DataComponentType<?>, DataComponentType<Spell>>                SPELL            = register("spell",            Spell.CODEC,              Spell.STREAM_CODEC);
     DeferredHolder<DataComponentType<?>, DataComponentType<List<GlobalPos>>>      STORED_POSITIONS = register("stored_positions", GlobalPos.CODEC.listOf(), GlobalPos.STREAM_CODEC.apply(ByteBufCodecs.list()));

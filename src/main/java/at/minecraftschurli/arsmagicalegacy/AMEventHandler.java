@@ -42,6 +42,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.arsmagicalegacy.item.RuneBagItem;
+import at.minecraftschurli.arsmagicalegacy.item.SpellBookItem;
 import at.minecraftschurli.arsmagicalegacy.packet.ForgetSkillsPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.InscriptionTableCreateSpellPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.InscriptionTableSyncPacket;
@@ -180,6 +181,7 @@ final class AMEventHandler {
     @SubscribeEvent
     private static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerItem(Capabilities.ItemHandler.ITEM, RuneBagItem::getItemHandler, AMItems.RUNE_BAG);
+        event.registerItem(Capabilities.ItemHandler.ITEM, SpellBookItem::getItemHandler, AMItems.SPELL_BOOK);
         event.registerBlock(Capabilities.ItemHandler.BLOCK, ObeliskBlock::getItemHandler, AMBlocks.OBELISK.get());
         event.registerBlockEntity(AMCapabilities.BLOCK_ETHERIUM, AMBlockEntities.ALTAR_CORE.get(), (blockEntity, $) -> blockEntity);
         event.registerBlockEntity(AMCapabilities.BLOCK_ETHERIUM, AMBlockEntities.OBELISK.get(), (blockEntity, $) -> blockEntity);

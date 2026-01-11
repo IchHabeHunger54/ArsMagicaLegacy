@@ -1,6 +1,6 @@
 - Add TODO Spell Shapes & Components
 - Add Spell Modifier Functionality
-     - Rune Power
+    - Rune Power
 - Test All Spell Parts and Particles
 - Inlays
 - Liquid Essence

@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
 
 public class ItemStackContainer extends SimpleContainer {
-    private final ItemStack stack;
+    protected final ItemStack stack;
 
     public ItemStackContainer(ItemStack stack, int size) {
         super(size);

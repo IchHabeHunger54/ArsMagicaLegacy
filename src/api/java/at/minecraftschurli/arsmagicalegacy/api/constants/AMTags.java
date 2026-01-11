@@ -68,7 +68,7 @@ public interface AMTags {
         TagKey<Item> INSCRIPTION_TABLE_BOOKS = tag("inscription_table_books");
         TagKey<Item> OCCULUS_FORGET_ALL = tag("occulus_forget_all");
         TagKey<Item> RUNES = tag("runes");
-        TagKey<Item> SHOWS_SHAPE_GROUPS = tag("shows_shape_groups");
+        TagKey<Item> SHOWS_SPELL_VISUALS = tag("shows_spell_visuals");
         TagKey<Item> SPELLCRAFTING_START = tag("spellcrafting_start");
         TagKey<Item> SPELLCRAFTING_END = tag("spellcrafting_end");
 

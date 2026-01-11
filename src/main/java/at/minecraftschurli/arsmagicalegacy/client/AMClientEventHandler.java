@@ -5,6 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterOcculusTabRe
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterParticleControllersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterSpellPartCustomizationScreensEvent;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMCapabilities;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumHandler;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
@@ -103,7 +104,6 @@ import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.client.settings.KeyModifier;
-import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
 
@@ -176,6 +176,7 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void registerClientExtensions(RegisterClientExtensionsEvent event) {
         event.registerItem(new SpellItemRenderer(), AMItems.SPELL);
+        event.registerItem(new SpellItemRenderer(), AMItems.SPELL_BOOK);
     }
 
     @SuppressWarnings("DataFlowIssue")
@@ -260,6 +261,7 @@ final class AMClientEventHandler {
         Map<ModelResourceLocation, BakedModel> models = event.getModels();
         models.computeIfPresent(BlockModelShaper.stateToModelLocation(AMBlocks.ALTAR_CORE.get().defaultBlockState().setValue(AltarCoreBlock.FORMED, true)), ($, model) -> new AltarCoreModel(model));
         models.computeIfPresent(ModelResourceLocation.inventory(AMItems.SPELL.getId()), ($, model) -> new SpellItemModel(model));
+        models.computeIfPresent(ModelResourceLocation.inventory(AMItems.SPELL_BOOK.getId()), ($, model) -> new SpellItemModel(model));
         ItemOverridesModel.register(models, AMItems.INSCRIPTION_TABLE, new DataComponentOverrides<>(AMDataComponents.TIER.get(), (tier, model, stack) -> tier == 0 ? null : ModelResourceLocation.standalone(ArsMagicaApi.modLoc("item/inscription_table_tier_" + tier))));
         ItemOverridesModel.register(models, AMItems.INFINITY_ORB, new DataComponentOverrides<>(AMDataComponents.SKILL_POINT.get(), DataComponentOverrides.holder()));
         ItemOverridesModel.register(models, AMItems.AFFINITY_ESSENCE, new DataComponentOverrides<>(AMDataComponents.AFFINITY.get(), DataComponentOverrides.holder()));
@@ -336,7 +338,7 @@ final class AMClientEventHandler {
     private static void renderHand(RenderHandEvent event) {
         if (!(AMClientUtil.player() instanceof LocalPlayer player) || player.isInvisible() || !ArsMagicaApi.magicHelper().knowsMagic(player)) return;
         ItemStack item = event.getItemStack();
-        if (!item.is(AMItems.SPELL)) return;
+        if (!item.is(AMTags.Items.SHOWS_SPELL_VISUALS) || !item.has(AMDataComponents.SPELL)) return;
         float swing = event.getSwingProgress();
         float swingSqrt = Mth.sqrt(swing);
         boolean isRightHand = (event.getHand() == InteractionHand.MAIN_HAND ? player.getMainArm() : player.getMainArm().getOpposite()) != HumanoidArm.LEFT;

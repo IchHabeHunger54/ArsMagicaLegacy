@@ -5,6 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
 import at.minecraftschurli.arsmagicalegacy.menu.container.ItemStackContainer;
 import at.minecraftschurli.arsmagicalegacy.menu.slot.PlacePredicateSlot;
 import at.minecraftschurli.arsmagicalegacy.menu.slot.ViewSlot;
+import at.minecraftschurli.arsmagicalegacy.util.QuickMoveStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
@@ -17,7 +18,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.List;
 
-public class RuneBagMenu extends AbstractContainerMenu {
+public class RuneBagMenu extends AbstractContainerMenu implements QuickMoveStack {
     private static final List<DeferredItem<?>> RUNES = List.of(
         AMItems.BLACK_RUNE,
         AMItems.GRAY_RUNE,
@@ -45,13 +46,13 @@ public class RuneBagMenu extends AbstractContainerMenu {
             final int j = i;
             addSlot(new PlacePredicateSlot(container, i, 8 + i % 8 * 18, 8 + i / 8 * 18, stack -> stack.is(RUNES.get(j))));
         }
+        for (int i = 0; i < 9; i++) {
+            addSlot(i == inventory.selected ? new ViewSlot(inventory, i, 8 + i * 18, 126) : new Slot(inventory, i, 8 + i * 18, 126));
+        }
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
                 addSlot(new Slot(inventory, i * 9 + j + 9, 8 + j * 18, 68 + i * 18));
             }
-        }
-        for (int i = 0; i < 9; i++) {
-            addSlot(i == inventory.selected ? new ViewSlot(inventory, i, 8 + i * 18, 126) : new Slot(inventory, i, 8 + i * 18, 126));
         }
     }
 
@@ -66,22 +67,16 @@ public class RuneBagMenu extends AbstractContainerMenu {
 
     @Override
     public ItemStack quickMoveStack(Player player, int index) {
-        Slot slot = slots.get(index);
-        if (!slot.hasItem()) return ItemStack.EMPTY;
-        ItemStack stack = slot.getItem();
-        ItemStack stackCopy = stack.copy();
-        if (index < RUNES.size()) {
-            if (!moveItemStackTo(stack, RUNES.size(), RUNES.size() + 36, true)) return ItemStack.EMPTY;
-        } else {
-            if (!moveItemStackTo(stack, 0, RUNES.size(), false)) return ItemStack.EMPTY;
-        }
-        if (stack.isEmpty()) {
-            slot.set(ItemStack.EMPTY);
-        } else {
-            slot.setChanged();
-        }
-        if (stack.getCount() == stackCopy.getCount()) return ItemStack.EMPTY;
-        slot.onTake(player, stack);
-        return stackCopy;
+        return QuickMoveStack.super.quickMoveStack(player, index);
+    }
+
+    @Override
+    public int getSlotCount() {
+        return RUNES.size();
+    }
+
+    @Override
+    public boolean moveItemStackTo(ItemStack stack, int startIndex, int endIndex, boolean reverseDirection) {
+        return super.moveItemStackTo(stack, startIndex, endIndex, reverseDirection);
     }
 }

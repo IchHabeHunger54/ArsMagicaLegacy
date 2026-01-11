@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.block.InscriptionTableBlock;
 import at.minecraftschurli.arsmagicalegacy.blockentity.InscriptionTableBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
 import at.minecraftschurli.arsmagicalegacy.menu.slot.InscriptionTableSlot;
+import at.minecraftschurli.arsmagicalegacy.util.QuickMoveStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -11,7 +12,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class InscriptionTableMenu extends AbstractContainerMenu {
+public class InscriptionTableMenu extends AbstractContainerMenu implements QuickMoveStack {
     private final InscriptionTableBlockEntity blockEntity;
 
     public InscriptionTableMenu(int containerId, Inventory inventory, InscriptionTableBlockEntity blockEntity) {
@@ -35,34 +36,23 @@ public class InscriptionTableMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int index) {
-        Slot slot = slots.get(index);
-        if (!slot.hasItem()) return ItemStack.EMPTY;
-        Slot tableSlot = slots.getFirst();
-        ItemStack stack = slot.getItem();
-        ItemStack originalStack = stack.copy();
-        if (index == 0) {
-            if (!moveItemStackTo(stack, 1, 37, false)) return ItemStack.EMPTY;
-        } else if (index > 0 && index < 10) {
-            if (tableSlot.getItem() == ItemStack.EMPTY && tableSlot.mayPlace(stack) && !moveItemStackTo(stack, 0, 1, false))
-                return ItemStack.EMPTY;
-            else if (!moveItemStackTo(stack, 10, 37, false)) return ItemStack.EMPTY;
-        } else if (index > 9 && index < 37) {
-            if (tableSlot.getItem() == ItemStack.EMPTY && tableSlot.mayPlace(stack) && !moveItemStackTo(stack, 0, 1, false))
-                return ItemStack.EMPTY;
-            else if (!moveItemStackTo(stack, 1, 10, true)) return ItemStack.EMPTY;
-        }
-        if (stack.isEmpty()) {
-            slot.set(ItemStack.EMPTY);
-        } else {
-            slot.setChanged();
-        }
-        return originalStack;
+    public boolean stillValid(Player player) {
+        return blockEntity.stillValid(player);
     }
 
     @Override
-    public boolean stillValid(Player player) {
-        return blockEntity.stillValid(player);
+    public ItemStack quickMoveStack(Player player, int index) {
+        return QuickMoveStack.super.quickMoveStack(player, index);
+    }
+
+    @Override
+    public int getSlotCount() {
+        return 1;
+    }
+
+    @Override
+    public boolean moveItemStackTo(ItemStack stack, int startIndex, int endIndex, boolean reverseDirection) {
+        return super.moveItemStackTo(stack, startIndex, endIndex, reverseDirection);
     }
 
     @Override

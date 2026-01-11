@@ -2,7 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.item;
 
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.menu.SpellBookMenu;
-import at.minecraftschurli.arsmagicalegacy.util.ItemStackContainer;
+import at.minecraftschurli.arsmagicalegacy.menu.container.ItemStackContainer;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;

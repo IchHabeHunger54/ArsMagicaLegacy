@@ -26,3 +26,7 @@
     - README
     - CI/CD
     - License
+- Textures
+    - Fix Misaligned Pixel in Crystal Wrench
+    - Fix Old Rune Outline in Rune Bag GUI
+    - Contact MoonlitLamps

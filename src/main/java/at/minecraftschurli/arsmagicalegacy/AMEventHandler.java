@@ -50,6 +50,7 @@ import at.minecraftschurli.arsmagicalegacy.packet.LearnSkillPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.OpenBookInLecternPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SetActiveShapeGroupPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SetLecternPagePacket;
+import at.minecraftschurli.arsmagicalegacy.packet.SpellBookScrollPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SpellCustomizationPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.TakeSpellRecipeFromLecternPacket;
 import at.minecraftschurli.arsmagicalegacy.spell.SpellPartDataManager;
@@ -199,6 +200,7 @@ final class AMEventHandler {
             .playToServer(LearnSkillPacket.TYPE, LearnSkillPacket.STREAM_CODEC, LearnSkillPacket::handle)
             .playToServer(SetActiveShapeGroupPacket.TYPE, SetActiveShapeGroupPacket.STREAM_CODEC, SetActiveShapeGroupPacket::handle)
             .playToServer(SetLecternPagePacket.TYPE, SetLecternPagePacket.STREAM_CODEC, SetLecternPagePacket::handle)
+            .playToServer(SpellBookScrollPacket.TYPE, SpellBookScrollPacket.STREAM_CODEC, SpellBookScrollPacket::handle)
             .playToServer(SpellCustomizationPacket.TYPE, SpellCustomizationPacket.STREAM_CODEC, SpellCustomizationPacket::handle)
             .playToServer(TakeSpellRecipeFromLecternPacket.TYPE, TakeSpellRecipeFromLecternPacket.STREAM_CODEC, TakeSpellRecipeFromLecternPacket::handle);
     }

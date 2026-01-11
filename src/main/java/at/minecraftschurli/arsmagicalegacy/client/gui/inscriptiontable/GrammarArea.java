@@ -8,6 +8,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Holder;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 public class GrammarArea extends DragTargetArea {
     private static final int X_PADDING = 4;
 
@@ -51,6 +53,7 @@ public class GrammarArea extends DragTargetArea {
         contents.clear();
         menuData.grammar()
             .stream()
+            .filter(Objects::nonNull)
             .map(Draggable::new)
             .forEach(contents::add);
     }

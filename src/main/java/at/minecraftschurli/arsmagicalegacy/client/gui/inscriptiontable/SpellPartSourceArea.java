@@ -64,6 +64,7 @@ public class SpellPartSourceArea extends DragArea {
     public List<Draggable> getAll() {
         return AMRegistries.skills(true)
             .holders()
+            .filter(Objects::nonNull)
             .filter(e -> ArsMagicaApi.magicHelper().knows(AMClientUtil.player(), e))
             .map(Draggable::new)
             .toList();
@@ -93,6 +94,7 @@ public class SpellPartSourceArea extends DragArea {
         List<Draggable> list = getAll()
             .stream()
             .map(Draggable::getSkill)
+            .filter(Objects::nonNull)
             .filter(e -> nameFilter == null || Skill.getName(e).getString().toLowerCase(Locale.ROOT).contains(nameFilter))
             .filter(this::isSkillVisible)
             .limit(ROWS * COLUMNS)

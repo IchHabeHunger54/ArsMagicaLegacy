@@ -5,7 +5,6 @@
 - Inlays
 - Liquid Essence
     - Liquid Essence Pools
-- Spell Book
 - Magitech Goggles
     - Fix FOV
 - Entities, including:

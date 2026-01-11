@@ -2,8 +2,9 @@ package at.minecraftschurli.arsmagicalegacy.menu;
 
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
-import at.minecraftschurli.arsmagicalegacy.util.ItemStackContainer;
-import at.minecraftschurli.arsmagicalegacy.util.ViewSlot;
+import at.minecraftschurli.arsmagicalegacy.menu.container.ItemStackContainer;
+import at.minecraftschurli.arsmagicalegacy.menu.slot.PlacePredicateSlot;
+import at.minecraftschurli.arsmagicalegacy.menu.slot.ViewSlot;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
@@ -11,7 +12,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.registries.DeferredItem;
 
@@ -42,7 +42,8 @@ public class RuneBagMenu extends AbstractContainerMenu {
         this.hand = hand;
         Container container = new ItemStackContainer(inventory.player.getItemInHand(hand), RUNES.size());
         for (int i = 0; i < 16; i++) {
-            addSlot(new RuneSlot(container, i, 8 + i % 8 * 18, 8 + i / 8 * 18, RUNES.get(i).get()));
+            final int j = i;
+            addSlot(new PlacePredicateSlot(container, i, 8 + i % 8 * 18, 8 + i / 8 * 18, stack -> stack.is(RUNES.get(j))));
         }
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
@@ -82,19 +83,5 @@ public class RuneBagMenu extends AbstractContainerMenu {
         if (stack.getCount() == stackCopy.getCount()) return ItemStack.EMPTY;
         slot.onTake(player, stack);
         return stackCopy;
-    }
-
-    private static class RuneSlot extends Slot {
-        private final Item item;
-
-        public RuneSlot(Container container, int index, int x, int y, Item item) {
-            super(container, index, x, y);
-            this.item = item;
-        }
-
-        @Override
-        public boolean mayPlace(ItemStack stack) {
-            return stack.is(item);
-        }
     }
 }

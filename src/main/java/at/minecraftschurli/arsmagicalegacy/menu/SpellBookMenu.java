@@ -4,8 +4,9 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
 import at.minecraftschurli.arsmagicalegacy.item.SpellBookItem;
-import at.minecraftschurli.arsmagicalegacy.util.ItemStackContainer;
-import at.minecraftschurli.arsmagicalegacy.util.ViewSlot;
+import at.minecraftschurli.arsmagicalegacy.menu.container.ItemStackContainer;
+import at.minecraftschurli.arsmagicalegacy.menu.slot.PlacePredicateSlot;
+import at.minecraftschurli.arsmagicalegacy.menu.slot.ViewSlot;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
@@ -15,16 +16,20 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.function.Predicate;
+
 public class SpellBookMenu extends AbstractContainerMenu {
+    private static final Predicate<ItemStack> PREDICATE = stack -> stack.is(AMItems.SPELL);
+
     public SpellBookMenu(int containerId, Inventory inventory, InteractionHand hand) {
         super(AMMenus.SPELL_BOOK.get(), containerId);
         Container container = new ItemStackContainer(inventory.player.getItemInHand(hand), SpellBookItem.TOTAL_SLOTS);
         for (int i = 0; i < SpellBookItem.HOTBAR_SLOTS; i++) {
-            addSlot(new SpellSlot(container, i, 18, 5 + (i * 18)));
+            addSlot(new PlacePredicateSlot(container, i, 18, 5 + (i * 18), PREDICATE));
         }
         for (int i = 0; i < SpellBookItem.INVENTORY_SLOTS / SpellBookItem.HOTBAR_SLOTS; i++) {
             for (int j = 0; j < SpellBookItem.HOTBAR_SLOTS; j++) {
-                addSlot(new SpellSlot(container, (i + 1) * SpellBookItem.HOTBAR_SLOTS + j, 138 + (i * 26), 5 + (j * 18)));
+                addSlot(new PlacePredicateSlot(container, (i + 1) * SpellBookItem.HOTBAR_SLOTS + j, 138 + (i * 26), 5 + (j * 18), PREDICATE));
             }
         }
         for (int i = 0; i < 3; i++) {
@@ -65,16 +70,5 @@ public class SpellBookMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player player) {
         return ArsMagicaApi.magicHelper().knowsMagic(player);
-    }
-
-    private static class SpellSlot extends Slot {
-        public SpellSlot(Container container, int index, int x, int y) {
-            super(container, index, x, y);
-        }
-
-        @Override
-        public boolean mayPlace(ItemStack stack) {
-            return stack.is(AMItems.SPELL);
-        }
     }
 }

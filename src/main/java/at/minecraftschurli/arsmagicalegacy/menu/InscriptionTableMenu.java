@@ -1,23 +1,15 @@
 package at.minecraftschurli.arsmagicalegacy.menu;
 
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
-import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.block.InscriptionTableBlock;
 import at.minecraftschurli.arsmagicalegacy.blockentity.InscriptionTableBlockEntity;
-import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
-import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
-import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
-import net.minecraft.core.BlockPos;
+import at.minecraftschurli.arsmagicalegacy.menu.slot.InscriptionTableSlot;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-
-import java.util.Optional;
 
 public class InscriptionTableMenu extends AbstractContainerMenu {
     private final InscriptionTableBlockEntity blockEntity;
@@ -26,7 +18,7 @@ public class InscriptionTableMenu extends AbstractContainerMenu {
         super(AMMenus.INSCRIPTION_TABLE.get(), containerId);
         this.blockEntity = blockEntity;
         blockEntity.startOpen(inventory.player);
-        addSlot(new RecipeSlot(blockEntity, 102, 74));
+        addSlot(new InscriptionTableSlot(blockEntity, 102, 74));
         for (int i = 0; i < 9; i++) {
             addSlot(new Slot(inventory, i, 30 + i * 18, 228));
         }
@@ -85,44 +77,5 @@ public class InscriptionTableMenu extends AbstractContainerMenu {
 
     public int getShapeGroups() {
         return blockEntity.getBlockState().getValue(InscriptionTableBlock.TIER) + 2;
-    }
-
-    public static class RecipeSlot extends Slot {
-        private final InscriptionTableBlockEntity blockEntity;
-
-        public RecipeSlot(InscriptionTableBlockEntity blockEntity, int x, int y) {
-            super(blockEntity, 0, x, y);
-            this.blockEntity = blockEntity;
-        }
-
-        @Override
-        public int getMaxStackSize() {
-            return 1;
-        }
-
-        @Override
-        public boolean mayPlace(ItemStack stack) {
-            return stack.is(AMTags.Items.INSCRIPTION_TABLE_BOOKS);
-        }
-
-        @SuppressWarnings("DataFlowIssue")
-        @Override
-        public void set(ItemStack stack) {
-            super.set(stack);
-            if (stack.has(AMDataComponents.SPELL)) {
-                blockEntity.setMenuData(InscriptionTableBlockEntity.MenuData.fromSpell(stack.get(AMDataComponents.SPELL), blockEntity.getLevel().registryAccess()));
-            }
-        }
-
-        @Override
-        public Optional<ItemStack> tryRemove(int count, int decrement, Player player) {
-            Spell spell = blockEntity.getMenuData().toSpell();
-            return super.tryRemove(count, decrement, player).map(stack -> {
-                if (spell.isEmpty()) return stack;
-                BlockPos pos = blockEntity.getBlockPos();
-                player.level().playSound(null, pos.getX(), pos.getY(), pos.getZ(), AMSounds.TAKE_BOOK.get(), SoundSource.BLOCKS, 1f, 1f);
-                return blockEntity.setSpell(AMItems.SPELL_RECIPE.toStack());
-            });
-        }
     }
 }

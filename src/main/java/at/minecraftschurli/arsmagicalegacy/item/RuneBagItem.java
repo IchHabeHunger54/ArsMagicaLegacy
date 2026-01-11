@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.item;
 
 import at.minecraftschurli.arsmagicalegacy.menu.RuneBagMenu;
-import at.minecraftschurli.arsmagicalegacy.util.ItemStackContainer;
+import at.minecraftschurli.arsmagicalegacy.menu.container.ItemStackContainer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;

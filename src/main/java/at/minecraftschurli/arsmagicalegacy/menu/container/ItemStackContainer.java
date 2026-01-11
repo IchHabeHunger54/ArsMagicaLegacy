@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.util;
+package at.minecraftschurli.arsmagicalegacy.menu.container;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.SimpleContainer;

@@ -1,0 +1,9 @@
+{
+  "type": "arsmagicalegacy:spell_transformation",
+  "predicate": {
+    "predicate_type": "minecraft:tag_match",
+    "tag": "minecraft:dirt"
+  },
+  "result": "minecraft:sand",
+  "spell_part": "arsmagicalegacy:drought"
+}

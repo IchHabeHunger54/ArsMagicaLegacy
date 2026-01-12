@@ -16,6 +16,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMLoot;
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.arsmagicalegacy.init.AMParticles;
+import at.minecraftschurli.arsmagicalegacy.init.AMRecipes;
 import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.init.AMWorldgen;
@@ -55,6 +56,8 @@ public final class ArsMagicaLegacy {
         AMWorldgen.FEATURES.register(bus);
         AMLoot.LOOT_CONDITIONS.register(bus);
         AMLoot.NUMBER_PROVIDERS.register(bus);
+        AMRecipes.RECIPE_SERIALIZERS.register(bus);
+        AMRecipes.RECIPE_TYPES.register(bus);
         AMAttachments.ATTACHMENTS.register(bus);
         AMSpells.DATA_SERIALIZERS.register(bus);
         AMLoot.GLOBAL_LOOT_MODIFIERS.register(bus);

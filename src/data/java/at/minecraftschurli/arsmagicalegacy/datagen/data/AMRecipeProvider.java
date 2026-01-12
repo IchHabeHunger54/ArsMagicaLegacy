@@ -8,7 +8,9 @@ import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
+import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
+import at.minecraftschurli.arsmagicalegacy.recipe.spelltransformation.SpellTransformationBuilder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
@@ -20,6 +22,7 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.flag.FeatureFlagSet;
@@ -35,6 +38,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 
@@ -512,6 +520,21 @@ public final class AMRecipeProvider extends RecipeProvider {
         oneToOneConversion(output, Items.RED_DYE, AMItems.DESERT_NOVA.get(), "red_dye");
         oneToOneConversion(output, Items.BROWN_DYE, AMItems.TARMA_ROOT.get(), "brown_dye");
         oneToOneConversion(output, Items.MAGENTA_DYE, AMItems.WAKEBLOOM.get(), "magenta_dye");
+        drought(output, "dirt", new TagMatchTest(BlockTags.DIRT), Blocks.SAND.defaultBlockState());
+        drought(output, "small_flowers", new TagMatchTest(BlockTags.SMALL_FLOWERS), Blocks.DEAD_BUSH.defaultBlockState());
+        drought(output, "clay", new BlockMatchTest(Blocks.CLAY), Blocks.SAND.defaultBlockState());
+        drought(output, "gravel", new BlockMatchTest(Blocks.GRAVEL), Blocks.SAND.defaultBlockState());
+        drought(output, "stone", new BlockMatchTest(Blocks.STONE), Blocks.COBBLESTONE.defaultBlockState());
+        drought(output, "infested_stone", new BlockMatchTest(Blocks.INFESTED_STONE), Blocks.INFESTED_COBBLESTONE.defaultBlockState());
+        drought(output, "stone_bricks", new BlockMatchTest(Blocks.STONE_BRICKS), Blocks.CRACKED_STONE_BRICKS.defaultBlockState());
+        drought(output, "infested_stone_bricks", new BlockMatchTest(Blocks.INFESTED_STONE_BRICKS), Blocks.INFESTED_CRACKED_STONE_BRICKS.defaultBlockState());
+        drought(output, "deepslate_bricks", new BlockMatchTest(Blocks.DEEPSLATE_BRICKS), Blocks.CRACKED_DEEPSLATE_BRICKS.defaultBlockState());
+        drought(output, "deepslate_tiles", new BlockMatchTest(Blocks.DEEPSLATE_TILES), Blocks.CRACKED_DEEPSLATE_TILES.defaultBlockState());
+        drought(output, "nether_bricks", new BlockMatchTest(Blocks.NETHER_BRICKS), Blocks.CRACKED_NETHER_BRICKS.defaultBlockState());
+        drought(output, "polished_blackstone_bricks", new BlockMatchTest(Blocks.POLISHED_BLACKSTONE_BRICKS), Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS.defaultBlockState());
+        drought(output, "quartz_block", new BlockMatchTest(Blocks.QUARTZ_BLOCK), Blocks.SMOOTH_QUARTZ.defaultBlockState());
+        drought(output, "sandstone", new BlockMatchTest(Blocks.SANDSTONE), Blocks.SMOOTH_SANDSTONE.defaultBlockState());
+        drought(output, "red_sandstone", new BlockMatchTest(Blocks.RED_SANDSTONE), Blocks.SMOOTH_RED_SANDSTONE.defaultBlockState());
     }
 
     /**
@@ -603,6 +626,10 @@ public final class AMRecipeProvider extends RecipeProvider {
             .group(group)
             .unlockedBy(getHasName(ingredient), has(ingredient))
             .save(output, ArsMagicaApi.modLoc(getConversionRecipeName(result, ingredient)));
+    }
+
+    private void drought(RecipeOutput output, String name, RuleTest ruleTest, BlockState result) {
+        new SpellTransformationBuilder(ruleTest, AMSpells.DROUGHT, result).save(output, ArsMagicaApi.modLoc("drought/" + name));
     }
 
     private static ItemStack affinityEssence(HolderLookup.RegistryLookup<Affinity> lookup, ResourceKey<Affinity> affinity) {

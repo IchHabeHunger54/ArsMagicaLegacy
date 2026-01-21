@@ -32,17 +32,19 @@ public final class AMRenderTypes {
             .createCompositeState(false));
     public static final RenderType SPELL_ICON = RenderType.itemEntityTranslucentCull(SpellIconAtlasHolder.ATLAS);
     public static final RenderType SPELL_ICON_FABULOUS = RenderType.entityTranslucentCull(SpellIconAtlasHolder.ATLAS);
-    public static final RenderType LINES_WITH_WIDTH = RenderType.create(
-        ArsMagicaApi.modLoc("lines_with_width").toString().replace(":", "_"),
-        DefaultVertexFormat.POSITION_COLOR,
+    public static final RenderType OUTLINE = RenderType.create(
+        ArsMagicaApi.modLoc("outline").toString().replace(":", "_"),
+        DefaultVertexFormat.POSITION_TEX_COLOR,
         VertexFormat.Mode.QUADS,
         8192,
         false,
         false,
         RenderType.CompositeState.builder()
-            .setShaderState(RenderStateShard.POSITION_COLOR_SHADER)
-            .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
-            .createCompositeState(false));
+            .setShaderState(RenderStateShard.RENDERTYPE_OUTLINE_SHADER)
+            .setTextureState(new RenderStateShard.TextureStateShard(ArsMagicaApi.modLoc("outline"), false, false))
+            .setDepthTestState(RenderStateShard.NO_DEPTH_TEST)
+            .setOutputState(RenderStateShard.OUTLINE_TARGET)
+            .createCompositeState(RenderType.OutlineProperty.IS_OUTLINE));
 
     private static Optional<Uniform> getUniform(String name) {
         return Optional.ofNullable(RenderSystem.getShader()).map(shader -> shader.getUniform(name));

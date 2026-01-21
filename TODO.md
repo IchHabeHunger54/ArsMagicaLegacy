@@ -5,8 +5,6 @@
 - Inlays
 - Liquid Essence
     - Liquid Essence Pools
-- Magitech Goggles
-    - Fix FOV
 - Entities, including:
     - Mana Creepers & Mana Vortexes
     - Dryads

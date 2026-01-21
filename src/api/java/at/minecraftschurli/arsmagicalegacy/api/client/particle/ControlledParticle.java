@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.api.client;
+package at.minecraftschurli.arsmagicalegacy.api.client.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;

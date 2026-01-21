@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.api.client.event;
 
-import at.minecraftschurli.arsmagicalegacy.api.client.SpellPartCustomizationScreen;
+import at.minecraftschurli.arsmagicalegacy.api.client.screen.SpellPartCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import net.minecraft.core.Holder;
 import net.neoforged.bus.api.Event;

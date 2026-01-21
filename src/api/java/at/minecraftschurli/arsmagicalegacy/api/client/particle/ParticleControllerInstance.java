@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.api.client;
+package at.minecraftschurli.arsmagicalegacy.api.client.particle;
 
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import net.minecraft.world.entity.Entity;

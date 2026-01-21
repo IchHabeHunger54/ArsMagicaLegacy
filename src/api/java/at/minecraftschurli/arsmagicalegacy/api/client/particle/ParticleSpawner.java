@@ -1,5 +1,6 @@
-package at.minecraftschurli.arsmagicalegacy.api.client;
+package at.minecraftschurli.arsmagicalegacy.api.client.particle;
 
+import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

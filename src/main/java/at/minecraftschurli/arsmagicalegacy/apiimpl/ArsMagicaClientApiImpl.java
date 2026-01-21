@@ -1,11 +1,11 @@
 package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
-import at.minecraftschurli.arsmagicalegacy.api.client.ControlledParticle;
+import at.minecraftschurli.arsmagicalegacy.api.client.particle.ControlledParticle;
 import at.minecraftschurli.arsmagicalegacy.api.client.OcculusTabRenderer;
-import at.minecraftschurli.arsmagicalegacy.api.client.ParticleController;
-import at.minecraftschurli.arsmagicalegacy.api.client.ParticleSpawner;
-import at.minecraftschurli.arsmagicalegacy.api.client.SpellPartCustomizationScreen;
+import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleController;
+import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleSpawner;
+import at.minecraftschurli.arsmagicalegacy.api.client.screen.SpellPartCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterOcculusTabRenderersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterParticleControllersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterSpellPartCustomizationScreensEvent;

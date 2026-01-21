@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.api.client;
+package at.minecraftschurli.arsmagicalegacy.api.client.screen;
 
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.component.DataComponentType;

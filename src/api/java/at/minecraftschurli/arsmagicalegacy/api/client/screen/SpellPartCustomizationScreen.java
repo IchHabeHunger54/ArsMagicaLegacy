@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.api.client;
+package at.minecraftschurli.arsmagicalegacy.api.client.screen;
 
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterSpellPartCustomizationScreensEvent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;

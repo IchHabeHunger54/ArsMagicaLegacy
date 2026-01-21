@@ -1,8 +1,8 @@
 package at.minecraftschurli.arsmagicalegacy.client.particle.controller;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.client.ParticleController;
-import at.minecraftschurli.arsmagicalegacy.api.client.ParticleControllerInstance;
+import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleController;
+import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleControllerInstance;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.ResourceLocation;

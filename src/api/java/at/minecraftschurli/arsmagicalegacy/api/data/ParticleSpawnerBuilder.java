@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.api.data;
 
-import at.minecraftschurli.arsmagicalegacy.api.client.ParticleController;
-import at.minecraftschurli.arsmagicalegacy.api.client.ParticleSpawner;
+import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleController;
+import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleSpawner;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;

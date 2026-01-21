@@ -1,8 +1,8 @@
 package at.minecraftschurli.arsmagicalegacy.util;
 
 import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
-import at.minecraftschurli.arsmagicalegacy.api.client.ControlledParticle;
-import at.minecraftschurli.arsmagicalegacy.api.client.ParticleSpawner;
+import at.minecraftschurli.arsmagicalegacy.api.client.particle.ControlledParticle;
+import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleSpawner;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;

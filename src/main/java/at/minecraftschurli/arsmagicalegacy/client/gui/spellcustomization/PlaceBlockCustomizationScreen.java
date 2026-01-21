@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.client.AbstractContainerSpellPartCustomizationScreen;
+import at.minecraftschurli.arsmagicalegacy.api.client.screen.AbstractContainerSpellPartCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;

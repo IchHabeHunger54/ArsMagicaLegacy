@@ -1,5 +1,9 @@
 package at.minecraftschurli.arsmagicalegacy.api.client;
 
+import at.minecraftschurli.arsmagicalegacy.api.client.particle.ControlledParticle;
+import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleController;
+import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleSpawner;
+import at.minecraftschurli.arsmagicalegacy.api.client.screen.SpellPartCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;

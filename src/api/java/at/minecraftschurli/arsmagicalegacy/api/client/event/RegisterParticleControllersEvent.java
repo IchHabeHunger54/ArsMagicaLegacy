@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.api.client.event;
 
-import at.minecraftschurli.arsmagicalegacy.api.client.ParticleController;
+import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleController;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.Event;

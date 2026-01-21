@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.api.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.client.ParticleSpawner;
+import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleSpawner;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.data.PackOutput;

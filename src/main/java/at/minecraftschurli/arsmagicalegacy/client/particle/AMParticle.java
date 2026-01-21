@@ -1,9 +1,9 @@
 package at.minecraftschurli.arsmagicalegacy.client.particle;
 
-import at.minecraftschurli.arsmagicalegacy.api.client.ControlledParticle;
-import at.minecraftschurli.arsmagicalegacy.api.client.ParticleController;
-import at.minecraftschurli.arsmagicalegacy.api.client.ParticleControllerInstance;
-import at.minecraftschurli.arsmagicalegacy.api.client.ParticleSpawner;
+import at.minecraftschurli.arsmagicalegacy.api.client.particle.ControlledParticle;
+import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleController;
+import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleControllerInstance;
+import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleSpawner;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;

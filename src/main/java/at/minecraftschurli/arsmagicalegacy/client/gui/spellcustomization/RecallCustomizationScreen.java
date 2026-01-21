@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization;
 
-import at.minecraftschurli.arsmagicalegacy.api.client.AbstractSpellPartCustomizationScreen;
+import at.minecraftschurli.arsmagicalegacy.api.client.screen.AbstractSpellPartCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;

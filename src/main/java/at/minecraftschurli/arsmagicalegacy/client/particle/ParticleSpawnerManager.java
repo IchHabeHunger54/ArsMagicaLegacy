@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.client.particle;
 
-import at.minecraftschurli.arsmagicalegacy.api.client.ParticleSpawner;
+import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleSpawner;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.arsmagicalegacy.util.AMDataManager;
 import com.google.gson.JsonElement;

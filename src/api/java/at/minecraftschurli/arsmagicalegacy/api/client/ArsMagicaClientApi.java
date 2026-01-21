@@ -4,13 +4,17 @@ import at.minecraftschurli.arsmagicalegacy.api.client.particle.ControlledParticl
 import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleController;
 import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleSpawner;
 import at.minecraftschurli.arsmagicalegacy.api.client.screen.SpellPartCustomizationScreen;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMCapabilities;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.loading.FMLLoader;
@@ -59,6 +63,24 @@ public abstract class ArsMagicaClientApi {
     }
 
     /**
+     * Renders the Magitech Goggles' outline for the given {@link BlockEntity}. This requires the {@link BlockEntity} to expose the {@link AMCapabilities#BLOCK_ETHERIUM} capability.
+     *
+     * @param blockEntity  The {@link BlockEntity} to render the outline for.
+     * @param poseStack    The {@link PoseStack} to use.
+     * @param bufferSource The {@link MultiBufferSource} to use.
+     */
+    public static void renderGogglesOutline(BlockEntity blockEntity, PoseStack poseStack, MultiBufferSource bufferSource) {
+        INSTANCE.get().doRenderGogglesOutline(blockEntity, poseStack, bufferSource);
+    }
+
+    /**
+     * @return Whether the Magitech Goggles' outlines should be rendered or not.
+     */
+    public static boolean shouldRenderGogglesOutline() {
+        return INSTANCE.get().doShouldRenderGogglesOutline();
+    }
+
+    /**
      * @param spawner      The {@link ParticleSpawner} to use.
      * @param position     The position of the particles.
      * @param color        The particle color to use. Use -1 to not set a color.
@@ -82,6 +104,12 @@ public abstract class ArsMagicaClientApi {
     @ApiStatus.Internal
     @Nullable
     protected abstract SpellPartCustomizationScreen.Factory<?, ?> getSpellPartCustomizationScreen(Holder<SpellPart> spellPart);
+
+    @ApiStatus.Internal
+    protected abstract void doRenderGogglesOutline(BlockEntity blockEntity, PoseStack poseStack, MultiBufferSource bufferSource);
+
+    @ApiStatus.Internal
+    protected abstract boolean doShouldRenderGogglesOutline();
 
     @ApiStatus.Internal
     protected abstract List<? extends ControlledParticle> doSpawnParticles(ParticleSpawner spawner, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);

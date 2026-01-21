@@ -39,7 +39,7 @@ public final class MagitechGogglesOverlayRenderer {
     }
 
     public static void renderBox(PoseStack stack, MultiBufferSource bufferSource, AABB aabb, float lineWidth, int color) {
-        drawBox(bufferSource.getBuffer(AMRenderTypes.LINES_WITH_WIDTH),
+        drawBox(bufferSource.getBuffer(AMRenderTypes.OUTLINE),
             stack.last().pose(),
             (float) aabb.minX,
             (float) aabb.minY,
@@ -63,7 +63,7 @@ public final class MagitechGogglesOverlayRenderer {
         Vector3f vec = vec3.toVector3f().normalize();
         stack.mulPose(new Quaternionf().rotateAxis((float) Math.acos(new Vector3f(1, 0, 0).dot(vec)), new Vector3f(1, 0, 0).cross(vec)));
         float halfWidth = lineWidth / 2;
-        drawCube(bufferSource.getBuffer(AMRenderTypes.LINES_WITH_WIDTH),
+        drawCube(bufferSource.getBuffer(AMRenderTypes.OUTLINE),
             stack.last().pose(),
             -halfWidth,
             -halfWidth,
@@ -141,6 +141,6 @@ public final class MagitechGogglesOverlayRenderer {
     }
 
     private static void vertex(VertexConsumer vc, Matrix4f m, float x, float y, float z, int r, int g, int b, int a) {
-        vc.addVertex(m, x, y, z).setColor(r, g, b, a);
+        vc.addVertex(m, x, y, z).setColor(r, g, b, a).setUv(0, 0);
     }
 }

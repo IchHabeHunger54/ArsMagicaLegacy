@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.client.renderer.block;
 
+import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.block.AltarCoreBlock;
@@ -73,6 +74,9 @@ public class AltarCoreRenderer implements BlockEntityRenderer<AltarCoreBlockEnti
         itemRenderer.render(stack, ItemDisplayContext.GROUND, false, poseStack, bufferSource, light, packedOverlay, itemRenderer.getModel(stack, level, null, 0));
         poseStack.popPose();
         poseStack.popPose();
+        if (ArsMagicaClientApi.shouldRenderGogglesOutline()) {
+            ArsMagicaClientApi.renderGogglesOutline(blockEntity, poseStack, bufferSource);
+        }
     }
 
     @Override

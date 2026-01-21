@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.client.renderer.block;
 
+import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
 import at.minecraftschurli.arsmagicalegacy.blockentity.BlackAuremBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -32,7 +33,11 @@ public class BlackAuremRenderer implements BlockEntityRenderer<BlackAuremBlockEn
     public void render(BlackAuremBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         Minecraft mc = AMClientUtil.mc();
         Camera camera = mc.gameRenderer.getMainCamera();
-        rotate(camera.getXRot(), camera.getYRot(), camera.getRoll(), camera.getLookVector(), camera.getUpVector(), camera.getLeftVector());
+        // Rotations adapted from Camera#setRotation
+        quaternion.rotationYXZ(-camera.getYRot() * RAD, camera.getXRot() * RAD, -camera.getRoll() * RAD);
+        FORWARDS.rotate(quaternion, camera.getLookVector());
+        UP.rotate(quaternion, camera.getUpVector());
+        LEFT.rotate(quaternion, camera.getLeftVector());
         poseStack.pushPose();
         poseStack.translate(0.5, 0.5, 0.5);
         poseStack.mulPose(quaternion);
@@ -44,13 +49,8 @@ public class BlackAuremRenderer implements BlockEntityRenderer<BlackAuremBlockEn
         buffer.addVertex(poseStack.last().pose(), 1, 1, 0).setColor(1f, 1f, 1f, 1f).setUv(sprite.getU0(), sprite.getV0()).setOverlay(OverlayTexture.NO_OVERLAY).setLight(packedLight).setNormal(poseStack.last(), 0, 1, 0);
         buffer.addVertex(poseStack.last().pose(), 1, -1, 0).setColor(1f, 1f, 1f, 1f).setUv(sprite.getU0(), sprite.getV1()).setOverlay(OverlayTexture.NO_OVERLAY).setLight(packedLight).setNormal(poseStack.last(), 0, 1, 0);
         poseStack.popPose();
-    }
-
-    // Adapted from Camera#setRotation
-    private void rotate(float xRot, float yRot, float roll, Vector3f forwards, Vector3f up, Vector3f left) {
-        quaternion.rotationYXZ(-yRot * RAD, xRot * RAD, -roll * RAD);
-        FORWARDS.rotate(quaternion, forwards);
-        UP.rotate(quaternion, up);
-        LEFT.rotate(quaternion, left);
+        if (ArsMagicaClientApi.shouldRenderGogglesOutline()) {
+            ArsMagicaClientApi.renderGogglesOutline(blockEntity, poseStack, bufferSource);
+        }
     }
 }

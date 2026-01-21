@@ -4,10 +4,8 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterOcculusTabRenderersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterParticleControllersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterSpellPartCustomizationScreensEvent;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMCapabilities;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
-import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumHandler;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
 import at.minecraftschurli.arsmagicalegacy.block.AltarCoreBlock;
@@ -42,9 +40,9 @@ import at.minecraftschurli.arsmagicalegacy.client.particle.controller.LeaveTrail
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInKnockbackDirectionController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInViewDirectionController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.OrbitPointController;
-import at.minecraftschurli.arsmagicalegacy.client.renderer.MagitechGogglesOverlayRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.AltarCoreRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.BlackAuremRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.renderer.block.EtheriumGeneratorRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.EmptyRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.item.SpellItemRenderer;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
@@ -66,17 +64,13 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.block.BlockModelShaper;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -84,10 +78,6 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DyedItemColor;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.chunk.status.ChunkStatus;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -104,7 +94,6 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.event.RegisterShadersEvent;
 import net.neoforged.neoforge.client.event.RenderHandEvent;
-import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.client.settings.KeyModifier;
@@ -139,6 +128,8 @@ final class AMClientEventHandler {
         event.registerEntityRenderer(AMEntities.ZONE.get(), EmptyRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.ALTAR_CORE.get(), AltarCoreRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.BLACK_AUREM.get(), BlackAuremRenderer::new);
+        event.registerBlockEntityRenderer(AMBlockEntities.CELESTIAL_PRISM.get(), EtheriumGeneratorRenderer::new);
+        event.registerBlockEntityRenderer(AMBlockEntities.OBELISK.get(), EtheriumGeneratorRenderer::new);
     }
 
     @SubscribeEvent
@@ -316,39 +307,6 @@ final class AMClientEventHandler {
         }
         PacketDistributor.sendToServer(new SpellBookScrollPacket(scroll > 0));
         event.setCanceled(true);
-    }
-
-    @SubscribeEvent
-    private static void renderLevelStage(RenderLevelStageEvent event) {
-        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_LEVEL || !MagitechGogglesOverlayRenderer.shouldRender(AMClientUtil.player())) return;
-        Minecraft mc = AMClientUtil.mc();
-        int renderDistance = mc.options.getEffectiveRenderDistance();
-        ClientLevel level = AMClientUtil.level();
-        Vec3 camera = event.getCamera().getPosition();
-        PoseStack stack = event.getPoseStack();
-        MultiBufferSource bufferSource = mc.renderBuffers().bufferSource();
-        for (int x = -renderDistance; x <= renderDistance; x++) {
-            for (int z = -renderDistance; z <= renderDistance; z++) {
-                for (BlockPos pos : level.getChunk(x, z, ChunkStatus.FULL).getBlockEntitiesPos()) {
-                    EtheriumHandler cap = level.getCapability(AMCapabilities.BLOCK_ETHERIUM, pos, null);
-                    if (cap == null) continue;
-                    BlockState state = level.getBlockState(pos);
-                    AABB outline = cap.getOutline(level, pos, state);
-                    int color = cap.getOutlineColor(level, pos, state);
-                    stack.pushPose();
-                    stack.translate(pos.getX() - camera.x, pos.getY() - camera.y, pos.getZ() - camera.z);
-                    if (outline != null) {
-                        MagitechGogglesOverlayRenderer.renderBox(stack, bufferSource, outline, 0.025f, 0xff000000 | color);
-                    }
-                    for (BlockPos connectedPos : cap.getConnectedPositions()) {
-                        EtheriumHandler connectedCap = level.getCapability(AMCapabilities.BLOCK_ETHERIUM, connectedPos, null);
-                        int connectedColor = connectedCap == null ? color : AMClientUtil.averageColors(color, connectedCap.getOutlineColor(level, connectedPos, level.getBlockState(connectedPos)));
-                        MagitechGogglesOverlayRenderer.renderLine(stack, bufferSource, pos, connectedPos, 0.025f, 0xff000000 | connectedColor);
-                    }
-                    stack.popPose();
-                }
-            }
-        }
     }
 
     /**

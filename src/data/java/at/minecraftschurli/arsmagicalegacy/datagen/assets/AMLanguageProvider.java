@@ -52,6 +52,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         itemIdTranslation(AMItems.ETHERIUM_PLACEHOLDER);
         blockIdTranslation(AMBlocks.SPELL_LIGHT);
         blockIdTranslation(AMBlocks.LIQUID_ETHERIUM);
+        blockIdTranslation(AMBlocks.LIQUID_ETHERIUM_CAULDRON);
         itemIdTranslation(AMItems.LIQUID_ETHERIUM_BUCKET);
         blockIdTranslation(AMBlocks.OCCULUS);
         blockIdTranslation(AMBlocks.INSCRIPTION_TABLE);

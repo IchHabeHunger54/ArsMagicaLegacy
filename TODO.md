@@ -1,12 +1,8 @@
-- Add TODO Spell Shapes & Components
+- Add TODO Spell Shapes and Components
 - Add Spell Modifier Functionality
     - Rune Power
 - Test All Spell Parts and Particles
 - Inlays
-- Liquid Essence
-    - Liquid Essence Pools
-    - Compendium Conversion
-    - Cauldron
 - Entities, including:
     - Mana Creepers & Mana Vortexes
     - Dryads
@@ -14,7 +10,9 @@
     - Their Projectiles
 - Advancement Triggers
 - Rituals
+- Fix Altar Not Showing the Next Ingredients Properly
 - Arcane Compendium
+    - Liquid Etherium Conversion
     - Images
     - Commented-out Parts in the Provider
 - Compat Recipes
@@ -26,6 +24,5 @@
     - CI/CD
     - License
 - Textures
-    - Fix Misaligned Pixel in Crystal Wrench
     - Fix Old Rune Outline in Rune Bag GUI
     - Contact MoonlitLamps

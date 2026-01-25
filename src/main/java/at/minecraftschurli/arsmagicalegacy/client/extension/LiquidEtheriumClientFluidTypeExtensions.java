@@ -34,6 +34,6 @@ public class LiquidEtheriumClientFluidTypeExtensions implements IClientFluidType
 
     @Override
     public Vector3f modifyFogColor(Camera camera, float partialTick, ClientLevel level, int renderDistance, float darkenWorldAmount, Vector3f fluidFogColor) {
-        return new Vector3f(0.25f, 1, 0.75f);
+        return new Vector3f(0.5f, 0.65625f, 0.9375f);
     }
 }

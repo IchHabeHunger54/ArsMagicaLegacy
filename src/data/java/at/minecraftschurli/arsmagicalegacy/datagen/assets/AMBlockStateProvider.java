@@ -48,6 +48,13 @@ public final class AMBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         simpleBlock(AMBlocks.SPELL_LIGHT.get(), models().getExistingFile(mcLoc("block/air")));
         simpleBlock(AMBlocks.LIQUID_ETHERIUM.get(), particleModel(AMBlocks.LIQUID_ETHERIUM.getId().getPath(), AMBlocks.LIQUID_ETHERIUM.getId().withPrefix("block/").withSuffix("_still")));
+        simpleBlock(AMBlocks.LIQUID_ETHERIUM_CAULDRON.get(), models().withExistingParent("liquid_etherium_cauldron", mcLoc("block/template_cauldron_full"))
+            .texture("bottom", mcLoc("block/cauldron_bottom"))
+            .texture("content", modLoc("block/liquid_etherium_still"))
+            .texture("inside", mcLoc("block/cauldron_inner"))
+            .texture("particle", mcLoc("block/cauldron_side"))
+            .texture("side", mcLoc("block/cauldron_side"))
+            .texture("top", mcLoc("block/cauldron_top")));
         horizontalBlock(AMBlocks.OCCULUS.get(), models().getExistingFile(modLoc("block/occulus")));
         getVariantBuilder(AMBlocks.ALTAR_CORE.get())
             .partialState().with(AltarCoreBlock.FORMED, false).modelForState().modelFile(cubeAll(AMBlocks.ALTAR_CORE.get())).addModel()

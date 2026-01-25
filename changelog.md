@@ -15,6 +15,8 @@
 - Renamed Liquid Essence to Liquid Etherium
 - Now generates in lakes in plains-like biomes, in addition to the centers of Moonstone meteorites
 - Now has underwater fog
+- Now can be placed in Cauldrons
+- Liquid Etherium Bucket can now be used by Dispensers
 
 ## Occulus
 

@@ -5,6 +5,8 @@
 - Inlays
 - Liquid Essence
     - Liquid Essence Pools
+    - Compendium Conversion
+    - Cauldron
 - Entities, including:
     - Mana Creepers & Mana Vortexes
     - Dryads

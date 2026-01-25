@@ -24,6 +24,7 @@ public interface AMCreativeTabs {
         .title(Component.translatable("itemGroup." + ArsMagicaApi.MOD_ID))
         .icon(ArsMagicaApi::book)
         .displayItems((display, output) -> {
+            output.accept(AMItems.LIQUID_ETHERIUM_BUCKET);
             output.accept(AMItems.OCCULUS);
             output.accept(AMItems.INSCRIPTION_TABLE);
             output.accept(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1);

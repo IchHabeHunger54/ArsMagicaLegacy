@@ -51,6 +51,8 @@ public final class AMLanguageProvider extends LanguageProvider {
         itemWithVariantTranslation(AMItems.ETHERIUM_PLACEHOLDER, AMEtheriumTypes.DARK.location(), "Dark Etherium");
         itemIdTranslation(AMItems.ETHERIUM_PLACEHOLDER);
         blockIdTranslation(AMBlocks.SPELL_LIGHT);
+        blockIdTranslation(AMBlocks.LIQUID_ETHERIUM);
+        itemIdTranslation(AMItems.LIQUID_ETHERIUM_BUCKET);
         blockIdTranslation(AMBlocks.OCCULUS);
         blockIdTranslation(AMBlocks.INSCRIPTION_TABLE);
         itemIdTranslation(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1);

@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.assets;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.init.AMFluids;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.item.CrystalWrenchItem;
@@ -9,6 +10,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.client.model.generators.loaders.DynamicFluidContainerModelBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredItem;
 
@@ -19,6 +21,7 @@ public final class AMItemModelProvider extends ItemModelProvider {
         super(output, ArsMagicaApi.MOD_ID, existingFileHelper);
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Override
     protected void registerModels() {
         singleTexture("arcane_compendium", mcLoc("item/generated"), "layer0", modLoc("item/arcane_compendium"));
@@ -26,6 +29,7 @@ public final class AMItemModelProvider extends ItemModelProvider {
         basicItemWithVariants(AMItems.SPELL, AMMagic.AFFINITIES_WITH_NONE);
         withExistingParent(AMItems.SPELL_RECIPE.getId().getPath(), mcLoc("item/written_book"));
         basicItem(AMItems.ETHERIUM_PLACEHOLDER);
+        withExistingParent(AMItems.LIQUID_ETHERIUM_BUCKET.getId().getPath(), ResourceLocation.fromNamespaceAndPath("neoforge", "item/bucket")).customLoader(DynamicFluidContainerModelBuilder::begin).fluid(AMFluids.LIQUID_ETHERIUM.get()).end();
         blockItem(AMItems.OCCULUS);
         basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1);
         basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_2);

@@ -47,6 +47,7 @@ public final class AMBlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         simpleBlock(AMBlocks.SPELL_LIGHT.get(), models().getExistingFile(mcLoc("block/air")));
+        simpleBlock(AMBlocks.LIQUID_ETHERIUM.get(), particleModel(AMBlocks.LIQUID_ETHERIUM.getId().getPath(), AMBlocks.LIQUID_ETHERIUM.getId().withPrefix("block/").withSuffix("_still")));
         horizontalBlock(AMBlocks.OCCULUS.get(), models().getExistingFile(modLoc("block/occulus")));
         getVariantBuilder(AMBlocks.ALTAR_CORE.get())
             .partialState().with(AltarCoreBlock.FORMED, false).modelForState().modelFile(cubeAll(AMBlocks.ALTAR_CORE.get())).addModel()

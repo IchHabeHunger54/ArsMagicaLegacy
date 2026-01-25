@@ -4,12 +4,14 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDamageSources;
+import at.minecraftschurli.arsmagicalegacy.init.AMEnchantments;
 import at.minecraftschurli.arsmagicalegacy.init.AMFluids;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.DamageTypeTagsProvider;
+import net.minecraft.data.tags.EnchantmentTagsProvider;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.data.tags.FluidTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -38,9 +40,10 @@ public final class AMTagsProvider {
         generator.addProvider(includeServer, new Fluid(output, lookupProvider, existingFileHelper));
         generator.addProvider(includeServer, new EntityType(output, lookupProvider, existingFileHelper));
         generator.addProvider(includeServer, new DamageType(output, lookupProvider, existingFileHelper));
+        generator.addProvider(includeServer, new Enchantment(output, lookupProvider, existingFileHelper));
     }
 
-    public static final class Block extends BlockTagsProvider {
+    private static final class Block extends BlockTagsProvider {
         public Block(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
             super(output, lookupProvider, ArsMagicaApi.MOD_ID, existingFileHelper);
         }
@@ -96,7 +99,7 @@ public final class AMTagsProvider {
         }
     }
 
-    public static final class Item extends ItemTagsProvider {
+    private static final class Item extends ItemTagsProvider {
         public Item(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<net.minecraft.world.level.block.Block>> blockTags, ExistingFileHelper existingFileHelper) {
             super(output, lookupProvider, blockTags, ArsMagicaApi.MOD_ID, existingFileHelper);
         }
@@ -163,7 +166,7 @@ public final class AMTagsProvider {
         }
     }
 
-    public static final class Fluid extends FluidTagsProvider {
+    private static final class Fluid extends FluidTagsProvider {
         public Fluid(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, ExistingFileHelper existingFileHelper) {
             super(output, provider, ArsMagicaApi.MOD_ID, existingFileHelper);
         }
@@ -174,7 +177,7 @@ public final class AMTagsProvider {
         }
     }
 
-    public static final class EntityType extends EntityTypeTagsProvider {
+    private static final class EntityType extends EntityTypeTagsProvider {
         public EntityType(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, ExistingFileHelper existingFileHelper) {
             super(output, provider, ArsMagicaApi.MOD_ID, existingFileHelper);
         }
@@ -187,7 +190,7 @@ public final class AMTagsProvider {
         }
     }
 
-    public static final class DamageType extends DamageTypeTagsProvider {
+    private static final class DamageType extends DamageTypeTagsProvider {
         public DamageType(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
             super(output, lookupProvider, ArsMagicaApi.MOD_ID, existingFileHelper);
         }
@@ -214,6 +217,17 @@ public final class AMTagsProvider {
             tag(AMTags.DamageTypes.AFFECTED_BY_FEATHER_FALLING_ABILITY).addTag(DamageTypeTags.IS_FALL);
             tag(AMTags.DamageTypes.AFFECTED_BY_MAGIC_DAMAGE_ABILITY).addTag(Tags.DamageTypes.IS_MAGIC).remove(Tags.DamageTypes.IS_POISON);
             tag(AMTags.DamageTypes.IS_SPELL).add(AMDamageSources.SPELL_DROWNING, AMDamageSources.SPELL_FIRE, AMDamageSources.SPELL_FROST, AMDamageSources.SPELL_LIGHTNING, AMDamageSources.SPELL_MAGIC, AMDamageSources.SPELL_PHYSICAL, AMDamageSources.SPELL_PHYSICAL_PLAYER);
+        }
+    }
+
+    private static final class Enchantment extends EnchantmentTagsProvider {
+        public Enchantment(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
+            super(output, lookupProvider, ArsMagicaApi.MOD_ID, existingFileHelper);
+        }
+
+        @Override
+        protected void addTags(HolderLookup.Provider provider) {
+            tag(Tags.Enchantments.INCREASE_ENTITY_DROPS).add(AMEnchantments.DISMEMBERING);
         }
     }
 }

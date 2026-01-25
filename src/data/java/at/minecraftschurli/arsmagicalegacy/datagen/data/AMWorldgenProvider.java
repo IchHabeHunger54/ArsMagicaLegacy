@@ -21,8 +21,8 @@ import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
@@ -42,246 +42,151 @@ import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.common.world.BiomeModifiers;
 import net.neoforged.neoforge.registries.DeferredBlock;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.OptionalInt;
 
+@SuppressWarnings("SameParameterValue")
 public final class AMWorldgenProvider {
     @SuppressWarnings("deprecation")
     public static void addConfiguredFeatures(BootstrapContext<ConfiguredFeature<?, ?>> bootstrap) {
-        bootstrap.register(
-            AMWorldgen.CHIMERITE_ORE_CONFIGURED_FEATURE,
-            ore(AMBlocks.CHIMERITE_ORE, AMBlocks.DEEPSLATE_CHIMERITE_ORE, 7, 0f)
-        );
-        bootstrap.register(
-            AMWorldgen.TOPAZ_ORE_CONFIGURED_FEATURE,
-            ore(AMBlocks.TOPAZ_ORE, AMBlocks.DEEPSLATE_TOPAZ_ORE, 4, 0.5f)
-        );
-        bootstrap.register(
-            AMWorldgen.TOPAZ_ORE_EXTRA_CONFIGURED_FEATURE,
-            ore(AMBlocks.TOPAZ_ORE, AMBlocks.DEEPSLATE_TOPAZ_ORE, 4, 0f)
-        );
-        bootstrap.register(
-            AMWorldgen.VINTEUM_ORE_CONFIGURED_FEATURE,
-            ore(AMBlocks.VINTEUM_ORE, AMBlocks.DEEPSLATE_VINTEUM_ORE, 10, 0f)
-        );
-        bootstrap.register(
-            AMWorldgen.MOONSTONE_METEORITE_CONFIGURED_FEATURE,
-            new ConfiguredFeature<>(AMWorldgen.METEORITE.get(), new MeteoriteFeature.Configuration(
-                Blocks.STONE.defaultBlockState(),
-                AMBlocks.MOONSTONE_ORE.get().defaultBlockState(),
-                AMBlocks.LIQUID_ETHERIUM.get().defaultBlockState(),
-                7,
-                5,
-                0.1f
-            ))
-        );
-        bootstrap.register(
-            AMWorldgen.SUNSTONE_ORE_CONFIGURED_FEATURE,
-            new ConfiguredFeature<>(AMWorldgen.SUNSTONE_ORE.get(), new OreConfiguration(
-                List.of(OreConfiguration.target(new TagMatchTest(BlockTags.BASE_STONE_NETHER), AMBlocks.SUNSTONE_ORE.get().defaultBlockState())),
-                4,
-                0f
-            ))
-        );
-        bootstrap.register(
-            AMWorldgen.WITCHWOOD_TREE_CONFIGURED_FEATURE,
-            new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
-                BlockStateProvider.simple(AMBlocks.WITCHWOOD_LOG.get()),
-                new DarkOakTrunkPlacer(9, 3, 1),
-                BlockStateProvider.simple(AMBlocks.WITCHWOOD_LEAVES.get()),
-                new DarkOakFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1)),
-                new ThreeLayersFeatureSize(1, 2, 1, 1, 2, OptionalInt.empty())
-            ).ignoreVines().build())
-        );
-        bootstrap.register(
-            AMWorldgen.AUM_CONFIGURED_FEATURE,
-            flower(64, AMBlocks.AUM)
-        );
-        bootstrap.register(
-            AMWorldgen.CERUBLOSSOM_CONFIGURED_FEATURE,
-            flower(64, AMBlocks.CERUBLOSSOM)
-        );
-        bootstrap.register(
-            AMWorldgen.DESERT_NOVA_CONFIGURED_FEATURE,
-            flower(64, AMBlocks.DESERT_NOVA)
-        );
-        bootstrap.register(
-            AMWorldgen.TARMA_ROOT_CONFIGURED_FEATURE,
-            flower(64, AMBlocks.TARMA_ROOT)
-        );
-        bootstrap.register(
-            AMWorldgen.WAKEBLOOM_CONFIGURED_FEATURE,
-            flower(64, AMBlocks.WAKEBLOOM)
-        );
-        bootstrap.register(
-            AMWorldgen.LIQUID_ETHERIUM_LAKE_CONFIGURED_FEATURE,
-            new ConfiguredFeature<>(Feature.LAKE, new LakeFeature.Configuration(
-                BlockStateProvider.simple(AMBlocks.LIQUID_ETHERIUM.get()),
-                BlockStateProvider.simple(Blocks.STONE))
-            )
-        );
+        registerOre(bootstrap, AMWorldgen.CHIMERITE_ORE_CONFIGURED_FEATURE, AMBlocks.CHIMERITE_ORE, AMBlocks.DEEPSLATE_CHIMERITE_ORE, 7, 0);
+        registerOre(bootstrap, AMWorldgen.TOPAZ_ORE_CONFIGURED_FEATURE, AMBlocks.TOPAZ_ORE, AMBlocks.DEEPSLATE_TOPAZ_ORE, 4, 0.5f);
+        registerOre(bootstrap, AMWorldgen.TOPAZ_ORE_EXTRA_CONFIGURED_FEATURE, AMBlocks.TOPAZ_ORE, AMBlocks.DEEPSLATE_TOPAZ_ORE, 4, 0);
+        registerOre(bootstrap, AMWorldgen.VINTEUM_ORE_CONFIGURED_FEATURE, AMBlocks.VINTEUM_ORE, AMBlocks.DEEPSLATE_VINTEUM_ORE, 10, 0);
+        register(bootstrap, AMWorldgen.MOONSTONE_METEORITE_CONFIGURED_FEATURE, AMWorldgen.METEORITE.get(), new MeteoriteFeature.Configuration(
+            Blocks.STONE.defaultBlockState(),
+            AMBlocks.MOONSTONE_ORE.get().defaultBlockState(),
+            AMBlocks.LIQUID_ETHERIUM.get().defaultBlockState(),
+            7,
+            5,
+            0.1f));
+        register(bootstrap, AMWorldgen.SUNSTONE_ORE_CONFIGURED_FEATURE, AMWorldgen.SUNSTONE_ORE.get(), new OreConfiguration(
+            List.of(OreConfiguration.target(new TagMatchTest(BlockTags.BASE_STONE_NETHER), AMBlocks.SUNSTONE_ORE.get().defaultBlockState())),
+            4,
+            0f));
+        register(bootstrap, AMWorldgen.WITCHWOOD_TREE_CONFIGURED_FEATURE, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
+            BlockStateProvider.simple(AMBlocks.WITCHWOOD_LOG.get()),
+            new DarkOakTrunkPlacer(9, 3, 1),
+            BlockStateProvider.simple(AMBlocks.WITCHWOOD_LEAVES.get()),
+            new DarkOakFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1)),
+            new ThreeLayersFeatureSize(1, 2, 1, 1, 2, OptionalInt.empty())).ignoreVines().build());
+        registerFlower(bootstrap, AMWorldgen.AUM_CONFIGURED_FEATURE, 64, AMBlocks.AUM);
+        registerFlower(bootstrap, AMWorldgen.CERUBLOSSOM_CONFIGURED_FEATURE, 64, AMBlocks.CERUBLOSSOM);
+        registerFlower(bootstrap, AMWorldgen.DESERT_NOVA_CONFIGURED_FEATURE, 64, AMBlocks.DESERT_NOVA);
+        registerFlower(bootstrap, AMWorldgen.TARMA_ROOT_CONFIGURED_FEATURE, 64, AMBlocks.TARMA_ROOT);
+        registerFlower(bootstrap, AMWorldgen.WAKEBLOOM_CONFIGURED_FEATURE, 64, AMBlocks.WAKEBLOOM);
+        register(bootstrap, AMWorldgen.LIQUID_ETHERIUM_LAKE_CONFIGURED_FEATURE, Feature.LAKE, new LakeFeature.Configuration(
+            BlockStateProvider.simple(AMBlocks.LIQUID_ETHERIUM.get()),
+            BlockStateProvider.simple(Blocks.STONE)));
     }
 
     public static void addPlacedFeatures(BootstrapContext<PlacedFeature> bootstrap) {
-        bootstrap.register(
-            AMWorldgen.CHIMERITE_ORE_PLACED_FEATURE,
-            ore(bootstrap, AMWorldgen.CHIMERITE_ORE_CONFIGURED_FEATURE, 6, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(16)))
-        );
-        bootstrap.register(
-            AMWorldgen.TOPAZ_ORE_PLACED_FEATURE,
-            ore(bootstrap, AMWorldgen.TOPAZ_ORE_CONFIGURED_FEATURE, 7, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(80)))
-        );
-        bootstrap.register(
-            AMWorldgen.TOPAZ_ORE_EXTRA_PLACED_FEATURE,
-            ore(bootstrap, AMWorldgen.TOPAZ_ORE_EXTRA_CONFIGURED_FEATURE, 100, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(480)))
-        );
-        bootstrap.register(
-            AMWorldgen.VINTEUM_ORE_PLACED_FEATURE,
-            ore(bootstrap, AMWorldgen.VINTEUM_ORE_CONFIGURED_FEATURE, 8, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(80)))
-        );
-        bootstrap.register(
-            AMWorldgen.MOONSTONE_METEORITE_PLACED_FEATURE,
-            placedFeature(bootstrap, AMWorldgen.MOONSTONE_METEORITE_CONFIGURED_FEATURE, RarityFilter.onAverageOnceEvery(200), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, HeightRangePlacement.uniform(VerticalAnchor.absolute(56), VerticalAnchor.absolute(180)), BiomeFilter.biome())
-        );
-        bootstrap.register(
-            AMWorldgen.SUNSTONE_ORE_PLACED_FEATURE,
-            ore(bootstrap, AMWorldgen.SUNSTONE_ORE_CONFIGURED_FEATURE, 32, HeightRangePlacement.uniform(VerticalAnchor.absolute(31), VerticalAnchor.absolute(33)))
-        );
-        bootstrap.register(
-            AMWorldgen.TREES_WITCHWOOD_PLACED_FEATURE,
-            placedFeature(bootstrap, AMWorldgen.WITCHWOOD_TREE_CONFIGURED_FEATURE, ImmutableList.<PlacementModifier>builder().addAll(VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.1f, 1), AMBlocks.WITCHWOOD_SAPLING.get())).add(RarityFilter.onAverageOnceEvery(8)).build())
-        );
-        bootstrap.register(
-            AMWorldgen.AUM_PLACED_FEATURE,
-            flower(bootstrap, AMWorldgen.AUM_CONFIGURED_FEATURE, 32)
-        );
-        bootstrap.register(
-            AMWorldgen.CERUBLOSSOM_PLACED_FEATURE,
-            flower(bootstrap, AMWorldgen.CERUBLOSSOM_CONFIGURED_FEATURE, 32)
-        );
-        bootstrap.register(
-            AMWorldgen.DESERT_NOVA_PLACED_FEATURE,
-            flower(bootstrap, AMWorldgen.DESERT_NOVA_CONFIGURED_FEATURE, 32)
-        );
-        bootstrap.register(
-            AMWorldgen.TARMA_ROOT_PLACED_FEATURE,
-            flower(bootstrap, AMWorldgen.TARMA_ROOT_CONFIGURED_FEATURE, 32)
-        );
-        bootstrap.register(
-            AMWorldgen.WAKEBLOOM_PLACED_FEATURE,
-            flower(bootstrap, AMWorldgen.WAKEBLOOM_CONFIGURED_FEATURE, 32)
-        );
-        bootstrap.register(
-            AMWorldgen.LIQUID_ETHERIUM_LAKE_PLACED_FEATURE,
-            placedFeature(bootstrap, AMWorldgen.LIQUID_ETHERIUM_LAKE_CONFIGURED_FEATURE, RarityFilter.onAverageOnceEvery(200), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome())
-        );
+        registerOre(bootstrap, AMWorldgen.CHIMERITE_ORE_PLACED_FEATURE, AMWorldgen.CHIMERITE_ORE_CONFIGURED_FEATURE, 6, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(16)));
+        registerOre(bootstrap, AMWorldgen.TOPAZ_ORE_PLACED_FEATURE, AMWorldgen.TOPAZ_ORE_CONFIGURED_FEATURE, 7, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(80)));
+        registerOre(bootstrap, AMWorldgen.TOPAZ_ORE_EXTRA_PLACED_FEATURE, AMWorldgen.TOPAZ_ORE_EXTRA_CONFIGURED_FEATURE, 100, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(480)));
+        registerOre(bootstrap, AMWorldgen.VINTEUM_ORE_PLACED_FEATURE, AMWorldgen.VINTEUM_ORE_CONFIGURED_FEATURE, 8, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(80)));
+        register(bootstrap, AMWorldgen.MOONSTONE_METEORITE_PLACED_FEATURE, AMWorldgen.MOONSTONE_METEORITE_CONFIGURED_FEATURE, List.of(
+            RarityFilter.onAverageOnceEvery(200),
+            InSquarePlacement.spread(),
+            PlacementUtils.HEIGHTMAP,
+            HeightRangePlacement.uniform(VerticalAnchor.absolute(56), VerticalAnchor.absolute(180)),
+            BiomeFilter.biome()));
+        registerOre(bootstrap, AMWorldgen.SUNSTONE_ORE_PLACED_FEATURE, AMWorldgen.SUNSTONE_ORE_CONFIGURED_FEATURE, 32, HeightRangePlacement.uniform(VerticalAnchor.absolute(31), VerticalAnchor.absolute(33)));
+        register(bootstrap, AMWorldgen.TREES_WITCHWOOD_PLACED_FEATURE, AMWorldgen.WITCHWOOD_TREE_CONFIGURED_FEATURE, ImmutableList.<PlacementModifier>builder()
+            .addAll(VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.1f, 1), AMBlocks.WITCHWOOD_SAPLING.get()))
+            .add(RarityFilter.onAverageOnceEvery(8))
+            .build());
+        registerFlower(bootstrap, AMWorldgen.AUM_PLACED_FEATURE, AMWorldgen.AUM_CONFIGURED_FEATURE, 32);
+        registerFlower(bootstrap, AMWorldgen.CERUBLOSSOM_PLACED_FEATURE, AMWorldgen.CERUBLOSSOM_CONFIGURED_FEATURE, 32);
+        registerFlower(bootstrap, AMWorldgen.DESERT_NOVA_PLACED_FEATURE, AMWorldgen.DESERT_NOVA_CONFIGURED_FEATURE, 32);
+        registerFlower(bootstrap, AMWorldgen.TARMA_ROOT_PLACED_FEATURE, AMWorldgen.TARMA_ROOT_CONFIGURED_FEATURE, 32);
+        registerFlower(bootstrap, AMWorldgen.WAKEBLOOM_PLACED_FEATURE, AMWorldgen.WAKEBLOOM_CONFIGURED_FEATURE, 32);
+        register(bootstrap, AMWorldgen.LIQUID_ETHERIUM_LAKE_PLACED_FEATURE, AMWorldgen.LIQUID_ETHERIUM_LAKE_CONFIGURED_FEATURE, List.of(
+            RarityFilter.onAverageOnceEvery(200),
+            InSquarePlacement.spread(),
+            PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+            BiomeFilter.biome()));
     }
 
     public static void addBiomeModifiers(BootstrapContext<BiomeModifier> bootstrap) {
-        bootstrap.register(
+        register(bootstrap,
             AMWorldgen.OVERWORLD_BIOME_MODIFIER,
-            addFeatures(
-                bootstrap,
-                HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD),
-                GenerationStep.Decoration.UNDERGROUND_ORES,
-                AMWorldgen.CHIMERITE_ORE_PLACED_FEATURE, AMWorldgen.TOPAZ_ORE_PLACED_FEATURE, AMWorldgen.VINTEUM_ORE_PLACED_FEATURE
-            )
-        );
-        bootstrap.register(
+            HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD),
+            GenerationStep.Decoration.UNDERGROUND_ORES,
+            AMWorldgen.CHIMERITE_ORE_PLACED_FEATURE, AMWorldgen.TOPAZ_ORE_PLACED_FEATURE, AMWorldgen.VINTEUM_ORE_PLACED_FEATURE);
+        register(bootstrap,
             AMWorldgen.NETHER_BIOME_MODIFIER,
-            addFeatures(
-                bootstrap,
-                HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_NETHER),
-                GenerationStep.Decoration.UNDERGROUND_ORES,
-                AMWorldgen.SUNSTONE_ORE_PLACED_FEATURE
-            )
-        );
-        bootstrap.register(
+            HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_NETHER),
+            GenerationStep.Decoration.UNDERGROUND_ORES,
+            AMWorldgen.SUNSTONE_ORE_PLACED_FEATURE);
+        register(bootstrap,
             AMWorldgen.NON_OCEAN_BIOME_MODIFIER,
-            addFeatures(
-                bootstrap,
-                HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.not(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OCEAN))),
-                GenerationStep.Decoration.LOCAL_MODIFICATIONS,
-                AMWorldgen.MOONSTONE_METEORITE_PLACED_FEATURE
-            )
-        );
-        bootstrap.register(
+            HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.not(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OCEAN))),
+            GenerationStep.Decoration.LOCAL_MODIFICATIONS,
+            AMWorldgen.MOONSTONE_METEORITE_PLACED_FEATURE);
+        register(bootstrap,
             AMWorldgen.PLAINS_BIOME_MODIFIER,
-            addFeatures(
-                bootstrap,
-                HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_PLAINS)),
-                GenerationStep.Decoration.LAKES,
-                AMWorldgen.LIQUID_ETHERIUM_LAKE_PLACED_FEATURE
-            )
-        );
-        bootstrap.register(
+            HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_PLAINS)),
+            GenerationStep.Decoration.LAKES,
+            AMWorldgen.LIQUID_ETHERIUM_LAKE_PLACED_FEATURE);
+        register(bootstrap,
             AMWorldgen.FOREST_BIOME_MODIFIER,
-            addFeatures(
-                bootstrap,
-                HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_FOREST)),
-                GenerationStep.Decoration.VEGETAL_DECORATION,
-                AMWorldgen.AUM_PLACED_FEATURE
-            )
-        );
-        bootstrap.register(
+            HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_FOREST)),
+            GenerationStep.Decoration.VEGETAL_DECORATION,
+            AMWorldgen.AUM_PLACED_FEATURE);
+        register(bootstrap,
             AMWorldgen.MOUNTAIN_BIOME_MODIFIER,
-            addFeatures(
-                bootstrap,
-                HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_MOUNTAIN)),
-                GenerationStep.Decoration.UNDERGROUND_ORES,
-                AMWorldgen.TOPAZ_ORE_EXTRA_PLACED_FEATURE
-            )
-        );
-        bootstrap.register(
+            HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_MOUNTAIN)),
+            GenerationStep.Decoration.UNDERGROUND_ORES,
+            AMWorldgen.TOPAZ_ORE_EXTRA_PLACED_FEATURE);
+        register(bootstrap,
             AMWorldgen.SANDY_BIOME_MODIFIER,
-            addFeatures(
-                bootstrap,
-                HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_SANDY)),
-                GenerationStep.Decoration.VEGETAL_DECORATION,
-                AMWorldgen.DESERT_NOVA_PLACED_FEATURE
-            )
-        );
-        bootstrap.register(
+            HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_SANDY)),
+            GenerationStep.Decoration.VEGETAL_DECORATION,
+            AMWorldgen.DESERT_NOVA_PLACED_FEATURE);
+        register(bootstrap,
             AMWorldgen.SPOOKY_BIOME_MODIFIER,
-            addFeatures(
-                bootstrap,
-                HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_SPOOKY)),
-                GenerationStep.Decoration.VEGETAL_DECORATION,
-                AMWorldgen.TREES_WITCHWOOD_PLACED_FEATURE
-            )
-        );
-        bootstrap.register(
+            HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_SPOOKY)),
+            GenerationStep.Decoration.VEGETAL_DECORATION,
+            AMWorldgen.TREES_WITCHWOOD_PLACED_FEATURE);
+        register(bootstrap,
             AMWorldgen.JUNGLE_OR_SWAMP_BIOME_MODIFIER,
-            addFeatures(
-                bootstrap,
-                HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.or(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_JUNGLE), HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_SWAMP))),
-                GenerationStep.Decoration.VEGETAL_DECORATION,
-                AMWorldgen.CERUBLOSSOM_PLACED_FEATURE, AMWorldgen.WAKEBLOOM_PLACED_FEATURE
-            )
-        );
-        bootstrap.register(
+            HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.or(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_JUNGLE), HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_SWAMP))),
+            GenerationStep.Decoration.VEGETAL_DECORATION,
+            AMWorldgen.CERUBLOSSOM_PLACED_FEATURE, AMWorldgen.WAKEBLOOM_PLACED_FEATURE);
+        register(bootstrap,
             AMWorldgen.MOUNTAIN_HILL_OR_UNDERGROUND_BIOME_MODIFIER,
-            addFeatures(
-                bootstrap,
-                HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.or(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_MOUNTAIN), HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_HILL), HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_UNDERGROUND))),
-                GenerationStep.Decoration.VEGETAL_DECORATION,
-                AMWorldgen.TARMA_ROOT_PLACED_FEATURE
-            )
-        );
+            HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.or(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_MOUNTAIN), HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_HILL), HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_UNDERGROUND))),
+            GenerationStep.Decoration.VEGETAL_DECORATION,
+            AMWorldgen.TARMA_ROOT_PLACED_FEATURE);
     }
 
     /**
-     * Creates a {@link ConfiguredFeature} for an ore.
+     * Registers a {@link ConfiguredFeature}.
      *
+     * @param bootstrap The {@link BootstrapContext} to use.
+     * @param key       The {@link ResourceKey} to use.
+     * @param feature   The registered {@link Feature} type to use.
+     * @param config    The {@link FeatureConfiguration} to use.
+     * @param <F>       The exact type of the {@link Feature}.
+     * @param <C>       The exact type of the {@link FeatureConfiguration}.
+     */
+    private static <F extends Feature<C>, C extends FeatureConfiguration> void register(BootstrapContext<ConfiguredFeature<?, ?>> bootstrap, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, C config) {
+        bootstrap.register(key, new ConfiguredFeature<>(feature, config));
+    }
+
+    /**
+     * Registers a {@link ConfiguredFeature} for an ore.
+     *
+     * @param bootstrap                The {@link BootstrapContext} to use.
+     * @param key                      The {@link ResourceKey} to use.
      * @param ore                      The ore block to place.
      * @param deepslateOre             The deepslate ore block to place.
      * @param veinSize                 The ore vein size.
      * @param airExposureDiscardChance The chance that a vein will be discarded if it touches air.
-     * @return A {@link ConfiguredFeature}.
      */
-    private static ConfiguredFeature<OreConfiguration, ?> ore(DeferredBlock<?> ore, DeferredBlock<?> deepslateOre, int veinSize, float airExposureDiscardChance) {
-        return new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
+    private static void registerOre(BootstrapContext<ConfiguredFeature<?, ?>> bootstrap, ResourceKey<ConfiguredFeature<?, ?>> key, DeferredBlock<?> ore, DeferredBlock<?> deepslateOre, int veinSize, float airExposureDiscardChance) {
+        register(bootstrap, key, Feature.ORE, new OreConfiguration(
             List.of(OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), ore.get().defaultBlockState()), OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), deepslateOre.get().defaultBlockState())),
             veinSize,
             airExposureDiscardChance
@@ -289,81 +194,68 @@ public final class AMWorldgenProvider {
     }
 
     /**
-     * Creates a {@link ConfiguredFeature} for a flower.
+     * Registers a {@link ConfiguredFeature} for a flower.
      *
-     * @param tries  The amount of placement tries.
-     * @param flower The flower to place.
-     * @return A {@link ConfiguredFeature}.
+     * @param bootstrap The {@link BootstrapContext} to use.
+     * @param key       The {@link ResourceKey} to use.
+     * @param tries     The amount of placement tries.
+     * @param flower    The flower to place.
      */
-    @SuppressWarnings("SameParameterValue")
-    private static ConfiguredFeature<RandomPatchConfiguration, ?> flower(int tries, DeferredBlock<?> flower) {
-        return new ConfiguredFeature<>(Feature.FLOWER, FeatureUtils.simpleRandomPatchConfiguration(
+    private static void registerFlower(BootstrapContext<ConfiguredFeature<?, ?>> bootstrap, ResourceKey<ConfiguredFeature<?, ?>> key, int tries, DeferredBlock<?> flower) {
+        register(bootstrap, key, Feature.FLOWER, FeatureUtils.simpleRandomPatchConfiguration(
             tries,
             PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(flower.get())))
         ));
     }
 
     /**
-     * Creates a {@link PlacedFeature}.
+     * Registers a {@link PlacedFeature}.
      *
-     * @param bootstrap         The {@link BootstrapContext} to use for lookups.
+     * @param bootstrap         The {@link BootstrapContext} to use.
+     * @param key               The {@link ResourceKey} to use.
      * @param configuredFeature The {@link ConfiguredFeature} to use as a base.
      * @param modifiers         The {@link PlacementModifier}s to apply to the {@link PlacedFeature}.
-     * @return A {@link PlacedFeature}.
      */
-    private static PlacedFeature placedFeature(BootstrapContext<?> bootstrap, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, PlacementModifier... modifiers) {
-        return placedFeature(bootstrap, configuredFeature, Arrays.asList(modifiers));
+    private static void register(BootstrapContext<PlacedFeature> bootstrap, ResourceKey<PlacedFeature> key, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, List<PlacementModifier> modifiers) {
+        bootstrap.register(key, new PlacedFeature(bootstrap.lookup(Registries.CONFIGURED_FEATURE).getOrThrow(configuredFeature), modifiers));
     }
 
     /**
-     * Creates a {@link PlacedFeature}.
+     * Registers a {@link PlacedFeature} for an ore.
      *
-     * @param bootstrap         The {@link BootstrapContext} to use for lookups.
-     * @param configuredFeature The {@link ConfiguredFeature} to use as a base.
-     * @param modifiers         The {@link PlacementModifier}s to apply to the {@link PlacedFeature}.
-     * @return A {@link PlacedFeature}.
-     */
-    private static PlacedFeature placedFeature(BootstrapContext<?> bootstrap, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, List<PlacementModifier> modifiers) {
-        return new PlacedFeature(bootstrap.lookup(Registries.CONFIGURED_FEATURE).getOrThrow(configuredFeature), modifiers);
-    }
-
-    /**
-     * Creates a {@link PlacedFeature} for an ore.
-     *
-     * @param bootstrap            The {@link BootstrapContext} to use for lookups.
+     * @param bootstrap            The {@link BootstrapContext} to use.
+     * @param key                  The {@link ResourceKey} to use.
      * @param configuredFeature    The {@link ConfiguredFeature} to use as a base.
      * @param veinCount            How common veins should be.
      * @param heightRangePlacement The height range distribution to use.
-     * @return A {@link PlacedFeature}.
      */
-    private static PlacedFeature ore(BootstrapContext<?> bootstrap, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, int veinCount, HeightRangePlacement heightRangePlacement) {
-        return placedFeature(bootstrap, configuredFeature, CountPlacement.of(veinCount), InSquarePlacement.spread(), heightRangePlacement, BiomeFilter.biome());
+    private static void registerOre(BootstrapContext<PlacedFeature> bootstrap, ResourceKey<PlacedFeature> key, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, int veinCount, HeightRangePlacement heightRangePlacement) {
+        register(bootstrap, key, configuredFeature, List.of(CountPlacement.of(veinCount), InSquarePlacement.spread(), heightRangePlacement, BiomeFilter.biome()));
     }
 
     /**
-     * Creates a {@link PlacedFeature} for an ore.
+     * Registers a {@link PlacedFeature} for a flower.
      *
-     * @param bootstrap         The {@link BootstrapContext} to use for lookups.
+     * @param bootstrap         The {@link BootstrapContext} to use.
+     * @param key               The {@link ResourceKey} to use.
      * @param configuredFeature The {@link ConfiguredFeature} to use as a base.
      * @param rarity            How rare patches should be.
-     * @return A {@link PlacedFeature}.
      */
-    @SuppressWarnings("SameParameterValue")
-    private static PlacedFeature flower(BootstrapContext<?> bootstrap, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, int rarity) {
-        return placedFeature(bootstrap, configuredFeature, RarityFilter.onAverageOnceEvery(rarity), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+    private static void registerFlower(BootstrapContext<PlacedFeature> bootstrap, ResourceKey<PlacedFeature> key, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, int rarity) {
+        register(bootstrap, key, configuredFeature, List.of(RarityFilter.onAverageOnceEvery(rarity), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()));
     }
 
     /**
-     * Creates a {@link BiomeModifiers.AddFeaturesBiomeModifier}.
+     * Registers a {@link BiomeModifiers.AddFeaturesBiomeModifier}.
      *
-     * @param bootstrap The {@link BootstrapContext} to use for lookups.
+     * @param bootstrap The {@link BootstrapContext} to use.
+     * @param key       The {@link ResourceKey} to use.
      * @param biomes    A {@link HolderSet} of biomes where the features will be added.
      * @param step      The generation step to use.
      * @param features  The keys of the features to generate.
-     * @return A {@link BiomeModifiers.AddFeaturesBiomeModifier}.
      */
     @SafeVarargs
-    private static BiomeModifiers.AddFeaturesBiomeModifier addFeatures(BootstrapContext<?> bootstrap, HolderSet<Biome> biomes, GenerationStep.Decoration step, ResourceKey<PlacedFeature>... features) {
-        return new BiomeModifiers.AddFeaturesBiomeModifier(biomes, HolderSets.direct(bootstrap, Registries.PLACED_FEATURE, features), step);
+    private static void register(BootstrapContext<BiomeModifier> bootstrap, ResourceKey<BiomeModifier> key, HolderSet<Biome> biomes, GenerationStep.Decoration step, ResourceKey<PlacedFeature>... features) {
+        bootstrap.register(key, new BiomeModifiers.AddFeaturesBiomeModifier(biomes, HolderSets.direct(bootstrap, Registries.PLACED_FEATURE, features), step));
     }
 }

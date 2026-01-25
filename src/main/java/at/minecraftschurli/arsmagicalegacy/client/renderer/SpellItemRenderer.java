@@ -12,16 +12,11 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
-public class SpellItemRenderer extends BlockEntityWithoutLevelRenderer implements IClientItemExtensions {
+public class SpellItemRenderer extends BlockEntityWithoutLevelRenderer {
     public static final SpellItemRenderer INSTANCE = new SpellItemRenderer();
 
     private SpellItemRenderer() {
         super(AMClientUtil.mc().getBlockEntityRenderDispatcher(), AMClientUtil.mc().getEntityModels());
-    }
-
-    @Override
-    public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-        return this;
     }
 
     @SuppressWarnings("deprecation")

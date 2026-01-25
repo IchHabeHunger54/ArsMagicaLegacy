@@ -89,13 +89,11 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
             .addSimpleRecipePage("crafting", AMItems.CRYSTAL_WRENCH.getId(), "To actually consume the Etherium, you need to link it to the $(l:mechanics/crafting_altar)altar$() by first right-clicking the generator, then the Altar Core with a Crystal Wrench.$(br2)To unlink them, select the combination again.")
             .addSimpleTextPage("If a spell requires Etherium, the generator is properly linked and has the required Etherium amount of the correct type, simply flip the lever on the altar. The required amount of Etherium will be drawn automatically.")
             .build()
-/*
-            .addEntry("liquid_essence", "Liquid Essence", new ItemStack(AMItems.LIQUID_ESSENCE_BUCKET.get()))
-            .addSimpleTextPage("Liquid Essence is a water-like substance that can rarely be found in plains and plains-like environments. For the most part, it acts exactly like water would, though it cannot be used to waterlog blocks, grow kelp, create bubble columns or other, rather exotic appliances.")
-            .addSimpleSpotlightPage(new ItemStack(AMItems.LIQUID_ESSENCE_BUCKET.get()), "Liquid Essence can be processed in an $(l:blocks/obelisk)Obelisk$() to create neutral $(l:mechanics/etherium)Etherium$(). One bucket of Liquid Essence is worth 1000 Etherium (or 10 units of $(l:blocks/ores#vinteum)vinteum$()).")
+            .addEntry("liquid_etherium", "Liquid Etherium", new ItemStack(AMItems.LIQUID_ETHERIUM_BUCKET.get()))
+            .addSimpleTextPage("Liquid Etherium is a water-like substance that can rarely be found in plains and plains-like environments. For the most part, it acts exactly like water would, though it cannot be used to waterlog blocks, create bubble columns or other, rather exotic appliances. Also, it does not create sources or trickle down from dripstones.")
+            .addSimpleSpotlightPage(new ItemStack(AMItems.LIQUID_ETHERIUM_BUCKET.get()), "Liquid Etherium can be processed in an $(l:blocks/obelisk)Obelisk$() to create neutral $(l:mechanics/etherium)Etherium$(). One bucket of Liquid Etherium is worth 1000 Etherium (or 10 units of $(l:blocks/ores#vinteum)vinteum$()).")
             .addSimpleRecipePage("crafting", ArsMagicaApi.modLoc("arcane_compendium"), "And as you should know by now, combining it with a Book yields a copy of the very book you are reading this in.")
             .build()
-*/
             .addEntry("shape_groups", "Shape Groups", new ItemStack(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1.get()))
             .addSimpleTextPage("Shape groups define how your spell is executed. A spell has multiple shape groups, each shape group is represented by one of the brown squares in the $(l:blocks/inscription_table)Inscription Table$(). The shape group can be changed by pressing $(k:arsmagicalegacy.next_shape_group) or $(k:arsmagicalegacy.prev_shape_group) for the next or the previous shape group, respectively.")
             .addSimpleTextPage("If you want to have more than two shape groups, you will need to upgrade your Inscription Table. This can be done by right-clicking it with an upgrade, or by putting it in a crafting field with one.$(br2)Upgrades need to be applied consecutively, i.e. level one, then level two, then level three. The Inscription Table will retain upgrades when broken.")

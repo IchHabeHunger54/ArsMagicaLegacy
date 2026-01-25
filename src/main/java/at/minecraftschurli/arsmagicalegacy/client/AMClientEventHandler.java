@@ -11,6 +11,7 @@ import at.minecraftschurli.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
 import at.minecraftschurli.arsmagicalegacy.block.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SpellIconAtlasHolder;
+import at.minecraftschurli.arsmagicalegacy.client.extension.LiquidEtheriumClientFluidTypeExtensions;
 import at.minecraftschurli.arsmagicalegacy.client.extension.SpellClientItemExtensions;
 import at.minecraftschurli.arsmagicalegacy.client.gui.RuneBagScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.SpellBookScreen;
@@ -49,6 +50,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
+import at.minecraftschurli.arsmagicalegacy.init.AMFluids;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
@@ -65,6 +67,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.block.BlockModelShaper;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
@@ -115,6 +119,8 @@ final class AMClientEventHandler {
     private static void clientSetup(FMLClientSetupEvent event) {
         ArsMagicaClientApiImpl.postEvents();
         event.enqueueWork(() -> ItemProperties.register(AMItems.CRYSTAL_WRENCH.get(), CrystalWrenchItem.ACTIVE, (stack, level, player, seed) -> stack.has(AMDataComponents.STORED_POSITIONS) && !stack.get(AMDataComponents.STORED_POSITIONS).isEmpty() ? 1 : 0));
+        ItemBlockRenderTypes.setRenderLayer(AMFluids.LIQUID_ETHERIUM.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(AMFluids.FLOWING_LIQUID_ETHERIUM.get(), RenderType.translucent());
     }
 
     @SubscribeEvent
@@ -171,8 +177,8 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerClientExtensions(RegisterClientExtensionsEvent event) {
-        event.registerItem(SpellClientItemExtensions.INSTANCE, AMItems.SPELL);
-        event.registerItem(SpellClientItemExtensions.INSTANCE, AMItems.SPELL_BOOK);
+        event.registerFluidType(LiquidEtheriumClientFluidTypeExtensions.INSTANCE, AMFluids.LIQUID_ETHERIUM_TYPE);
+        event.registerItem(SpellClientItemExtensions.INSTANCE, AMItems.SPELL, AMItems.SPELL_BOOK);
     }
 
     @SuppressWarnings("DataFlowIssue")

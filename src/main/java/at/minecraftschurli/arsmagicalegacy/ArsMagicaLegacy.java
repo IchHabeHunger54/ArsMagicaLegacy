@@ -11,6 +11,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMCreativeTabs;
 import at.minecraftschurli.arsmagicalegacy.init.AMCriterionTriggers;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
+import at.minecraftschurli.arsmagicalegacy.init.AMFluids;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMLoot;
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
@@ -41,6 +42,8 @@ public final class ArsMagicaLegacy {
     private void register(IEventBus bus) {
         AMBlocks.BLOCKS.register(bus);
         AMItems.ITEMS.register(bus);
+        AMFluids.FLUIDS.register(bus);
+        AMFluids.FLUID_TYPES.register(bus);
         AMArmorMaterials.ARMOR_MATERIALS.register(bus);
         AMDataComponents.DATA_COMPONENTS.register(bus);
         AMAttributes.ATTRIBUTES.register(bus);

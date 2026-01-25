@@ -24,6 +24,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
@@ -42,6 +43,7 @@ public interface AMItems {
     DeferredItem<SpellItem>                                    SPELL                            = ITEMS.registerItem("spell", p -> new SpellItem(p.stacksTo(1).component(AMDataComponents.SPELL, Spell.EMPTY)));
     DeferredItem<SpellRecipeItem>                              SPELL_RECIPE                     = ITEMS.registerItem("spell_recipe", p -> new SpellRecipeItem(p.stacksTo(1).component(AMDataComponents.SPELL, Spell.EMPTY)));
     DeferredItem<DataComponentNamedItem<Holder<EtheriumType>>> ETHERIUM_PLACEHOLDER             = ITEMS.registerItem("etherium_placeholder", p -> new DataComponentNamedItem<>(p, AMDataComponents.ETHERIUM_TYPE.get()).withTranslationKeyGetter((holder, name) -> Util.makeDescriptionId(name, holder.getKey().location())));
+    DeferredItem<BucketItem>                                   LIQUID_ETHERIUM_BUCKET           = ITEMS.registerItem("liquid_etherium", p -> new BucketItem(AMFluids.LIQUID_ETHERIUM.get(), p.craftRemainder(Items.BUCKET).stacksTo(1)));
     DeferredItem<BlockItem>                                    OCCULUS                          = ITEMS.registerSimpleBlockItem(AMBlocks.OCCULUS);
     DeferredItem<BlockItem>                                    INSCRIPTION_TABLE                = ITEMS.registerSimpleBlockItem(AMBlocks.INSCRIPTION_TABLE);
     DeferredItem<InscriptionTableUpgradeItem>                  INSCRIPTION_TABLE_UPGRADE_TIER_1 = ITEMS.registerItem("inscription_table_upgrade_tier_1", p -> new InscriptionTableUpgradeItem(p, 1));

@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.client.renderer.item;
+package at.minecraftschurli.arsmagicalegacy.client.renderer;
 
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
@@ -13,7 +13,9 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
 public class SpellItemRenderer extends BlockEntityWithoutLevelRenderer implements IClientItemExtensions {
-    public SpellItemRenderer() {
+    public static final SpellItemRenderer INSTANCE = new SpellItemRenderer();
+
+    private SpellItemRenderer() {
         super(AMClientUtil.mc().getBlockEntityRenderDispatcher(), AMClientUtil.mc().getEntityModels());
     }
 

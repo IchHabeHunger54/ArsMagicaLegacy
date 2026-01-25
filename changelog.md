@@ -13,7 +13,8 @@
 ## Liquid Etherium
 
 - Renamed Liquid Essence to Liquid Etherium
-- Added underwater fog to Liquid Etherium
+- Now generates in lakes in plains-like biomes, in addition to the centers of Moonstone meteorites
+- Now has underwater fog
 
 ## Occulus
 

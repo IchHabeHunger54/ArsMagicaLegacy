@@ -20,6 +20,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
@@ -46,6 +47,7 @@ import java.util.List;
 import java.util.OptionalInt;
 
 public final class AMWorldgenProvider {
+    @SuppressWarnings("deprecation")
     public static void addConfiguredFeatures(BootstrapContext<ConfiguredFeature<?, ?>> bootstrap) {
         bootstrap.register(
             AMWorldgen.CHIMERITE_ORE_CONFIGURED_FEATURE,
@@ -68,7 +70,7 @@ public final class AMWorldgenProvider {
             new ConfiguredFeature<>(AMWorldgen.METEORITE.get(), new MeteoriteFeature.Configuration(
                 Blocks.STONE.defaultBlockState(),
                 AMBlocks.MOONSTONE_ORE.get().defaultBlockState(),
-                Blocks.WATER.defaultBlockState(), //TODO liquid essence
+                AMBlocks.LIQUID_ETHERIUM.get().defaultBlockState(),
                 7,
                 5,
                 0.1f
@@ -112,6 +114,13 @@ public final class AMWorldgenProvider {
             AMWorldgen.WAKEBLOOM_CONFIGURED_FEATURE,
             flower(64, AMBlocks.WAKEBLOOM)
         );
+        bootstrap.register(
+            AMWorldgen.LIQUID_ETHERIUM_LAKE_CONFIGURED_FEATURE,
+            new ConfiguredFeature<>(Feature.LAKE, new LakeFeature.Configuration(
+                BlockStateProvider.simple(AMBlocks.LIQUID_ETHERIUM.get()),
+                BlockStateProvider.simple(Blocks.STONE))
+            )
+        );
     }
 
     public static void addPlacedFeatures(BootstrapContext<PlacedFeature> bootstrap) {
@@ -133,7 +142,7 @@ public final class AMWorldgenProvider {
         );
         bootstrap.register(
             AMWorldgen.MOONSTONE_METEORITE_PLACED_FEATURE,
-            placedFeature(bootstrap, AMWorldgen.MOONSTONE_METEORITE_CONFIGURED_FEATURE, RarityFilter.onAverageOnceEvery(128), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, HeightRangePlacement.uniform(VerticalAnchor.absolute(56), VerticalAnchor.absolute(180)), BiomeFilter.biome())
+            placedFeature(bootstrap, AMWorldgen.MOONSTONE_METEORITE_CONFIGURED_FEATURE, RarityFilter.onAverageOnceEvery(200), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, HeightRangePlacement.uniform(VerticalAnchor.absolute(56), VerticalAnchor.absolute(180)), BiomeFilter.biome())
         );
         bootstrap.register(
             AMWorldgen.SUNSTONE_ORE_PLACED_FEATURE,
@@ -163,6 +172,10 @@ public final class AMWorldgenProvider {
             AMWorldgen.WAKEBLOOM_PLACED_FEATURE,
             flower(bootstrap, AMWorldgen.WAKEBLOOM_CONFIGURED_FEATURE, 32)
         );
+        bootstrap.register(
+            AMWorldgen.LIQUID_ETHERIUM_LAKE_PLACED_FEATURE,
+            placedFeature(bootstrap, AMWorldgen.LIQUID_ETHERIUM_LAKE_CONFIGURED_FEATURE, RarityFilter.onAverageOnceEvery(200), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome())
+        );
     }
 
     public static void addBiomeModifiers(BootstrapContext<BiomeModifier> bootstrap) {
@@ -191,6 +204,15 @@ public final class AMWorldgenProvider {
                 HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.not(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OCEAN))),
                 GenerationStep.Decoration.LOCAL_MODIFICATIONS,
                 AMWorldgen.MOONSTONE_METEORITE_PLACED_FEATURE
+            )
+        );
+        bootstrap.register(
+            AMWorldgen.PLAINS_BIOME_MODIFIER,
+            addFeatures(
+                bootstrap,
+                HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_PLAINS)),
+                GenerationStep.Decoration.LAKES,
+                AMWorldgen.LIQUID_ETHERIUM_LAKE_PLACED_FEATURE
             )
         );
         bootstrap.register(

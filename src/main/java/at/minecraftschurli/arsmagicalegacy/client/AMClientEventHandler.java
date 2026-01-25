@@ -11,6 +11,7 @@ import at.minecraftschurli.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
 import at.minecraftschurli.arsmagicalegacy.block.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SpellIconAtlasHolder;
+import at.minecraftschurli.arsmagicalegacy.client.extension.SpellClientItemExtensions;
 import at.minecraftschurli.arsmagicalegacy.client.gui.RuneBagScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.SpellBookScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable.InscriptionTableScreen;
@@ -44,7 +45,6 @@ import at.minecraftschurli.arsmagicalegacy.client.renderer.block.AltarCoreRender
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.BlackAuremRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.EtheriumGeneratorRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.EmptyRenderer;
-import at.minecraftschurli.arsmagicalegacy.client.renderer.item.SpellItemRenderer;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
@@ -171,8 +171,8 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerClientExtensions(RegisterClientExtensionsEvent event) {
-        event.registerItem(new SpellItemRenderer(), AMItems.SPELL);
-        event.registerItem(new SpellItemRenderer(), AMItems.SPELL_BOOK);
+        event.registerItem(SpellClientItemExtensions.INSTANCE, AMItems.SPELL);
+        event.registerItem(SpellClientItemExtensions.INSTANCE, AMItems.SPELL_BOOK);
     }
 
     @SuppressWarnings("DataFlowIssue")

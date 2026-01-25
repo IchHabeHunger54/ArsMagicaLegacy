@@ -7,6 +7,9 @@ import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 public class SpellClientItemExtensions implements IClientItemExtensions {
     public static final SpellClientItemExtensions INSTANCE = new SpellClientItemExtensions();
 
+    private SpellClientItemExtensions() {
+    }
+
     @Override
     public BlockEntityWithoutLevelRenderer getCustomRenderer() {
         return SpellItemRenderer.INSTANCE;

@@ -39,6 +39,7 @@ import java.util.stream.IntStream;
 
 public final class AMClientUtil {
     private static final Map<SpellEntityKey, ParticleSpawner> SPELL_SHAPE_ENTITY_PARTICLE_SPAWNERS = new HashMap<>();
+    public static final ResourceLocation MISSINGNO = ResourceLocation.withDefaultNamespace("missingno");
 
     private AMClientUtil() {
     }

@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.client;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SpellIconAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.color.ColorWheelShader;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.shaders.Uniform;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -41,7 +42,7 @@ public final class AMRenderTypes {
         false,
         RenderType.CompositeState.builder()
             .setShaderState(RenderStateShard.RENDERTYPE_OUTLINE_SHADER)
-            .setTextureState(new RenderStateShard.TextureStateShard(ArsMagicaApi.modLoc("outline"), false, false))
+            .setTextureState(new RenderStateShard.EmptyTextureStateShard(() -> RenderSystem.setShaderTexture(0, AMClientUtil.MISSINGNO), () -> {}))
             .setDepthTestState(RenderStateShard.NO_DEPTH_TEST)
             .setOutputState(RenderStateShard.OUTLINE_TARGET)
             .createCompositeState(RenderType.OutlineProperty.IS_OUTLINE));

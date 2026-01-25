@@ -4,16 +4,19 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDamageSources;
+import at.minecraftschurli.arsmagicalegacy.init.AMFluids;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.DamageTypeTagsProvider;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
+import net.minecraft.data.tags.FluidTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
@@ -32,8 +35,9 @@ public final class AMTagsProvider {
     public static void addProviders(DataGenerator generator, boolean includeServer, PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
         Block blockTags = generator.addProvider(includeServer, new Block(output, lookupProvider, existingFileHelper));
         generator.addProvider(includeServer, new Item(output, lookupProvider, blockTags.contentsGetter(), existingFileHelper));
-        generator.addProvider(includeServer, new DamageType(output, lookupProvider, existingFileHelper));
+        generator.addProvider(includeServer, new Fluid(output, lookupProvider, existingFileHelper));
         generator.addProvider(includeServer, new EntityType(output, lookupProvider, existingFileHelper));
+        generator.addProvider(includeServer, new DamageType(output, lookupProvider, existingFileHelper));
     }
 
     public static final class Block extends BlockTagsProvider {
@@ -79,10 +83,11 @@ public final class AMTagsProvider {
             tag(AMTags.Blocks.DESERT_NOVA_PLANTABLE_ON).addTag(BlockTags.SAND);
             tag(AMTags.Blocks.TARMA_ROOT_PLANTABLE_ON).add(Blocks.CLAY, Blocks.GRAVEL).addTags(BlockTags.DIRT, BlockTags.SAND, BlockTags.STONE_ORE_REPLACEABLES, BlockTags.DEEPSLATE_ORE_REPLACEABLES);
             tag(AMTags.Blocks.WIZARDS_AUTUMN_LEAVES).addTag(BlockTags.LEAVES);
-            tag(AMTags.Blocks.ETHERIUM_PROVIDERS).add(AMBlocks.OBELISK.get(), AMBlocks.CELESTIAL_PRISM.get(), AMBlocks.BLACK_AUREM.get());
-            tag(AMTags.Blocks.ETHERIUM_CONSUMERS).add(AMBlocks.ALTAR_CORE.get());
+            tag(BlockTags.CAULDRONS).add(AMBlocks.LIQUID_ETHERIUM_CAULDRON.get());
             tag(BlockTags.SMALL_FLOWERS).add(AMBlocks.AUM.get(), AMBlocks.CERUBLOSSOM.get(), AMBlocks.DESERT_NOVA.get(), AMBlocks.TARMA_ROOT.get(), AMBlocks.WAKEBLOOM.get());
             tag(BlockTags.FLOWER_POTS).add(AMBlocks.POTTED_WITCHWOOD_SAPLING.get(), AMBlocks.POTTED_AUM.get(), AMBlocks.POTTED_CERUBLOSSOM.get(), AMBlocks.POTTED_DESERT_NOVA.get(), AMBlocks.POTTED_TARMA_ROOT.get(), AMBlocks.POTTED_WAKEBLOOM.get());
+            tag(AMTags.Blocks.ETHERIUM_PROVIDERS).add(AMBlocks.OBELISK.get(), AMBlocks.CELESTIAL_PRISM.get(), AMBlocks.BLACK_AUREM.get());
+            tag(AMTags.Blocks.ETHERIUM_CONSUMERS).add(AMBlocks.ALTAR_CORE.get());
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(AMBlocks.OCCULUS.get(), AMBlocks.ALTAR_CORE.get(), AMBlocks.MAGIC_WALL.get(), AMBlocks.OBELISK.get(), AMBlocks.CELESTIAL_PRISM.get(), AMBlocks.BLACK_AUREM.get(), AMBlocks.CHIMERITE_ORE.get(), AMBlocks.DEEPSLATE_CHIMERITE_ORE.get(), AMBlocks.CHIMERITE_BLOCK.get(), AMBlocks.TOPAZ_ORE.get(), AMBlocks.DEEPSLATE_TOPAZ_ORE.get(), AMBlocks.TOPAZ_BLOCK.get(), AMBlocks.VINTEUM_ORE.get(), AMBlocks.DEEPSLATE_VINTEUM_ORE.get(), AMBlocks.VINTEUM_BLOCK.get(), AMBlocks.MOONSTONE_ORE.get(), AMBlocks.DEEPSLATE_MOONSTONE_ORE.get(), AMBlocks.MOONSTONE_BLOCK.get(), AMBlocks.SUNSTONE_ORE.get(), AMBlocks.SUNSTONE_BLOCK.get());
             tag(BlockTags.MINEABLE_WITH_AXE).add(AMBlocks.INSCRIPTION_TABLE.get());
             tag(BlockTags.NEEDS_STONE_TOOL).add(AMBlocks.CHIMERITE_BLOCK.get(), AMBlocks.CHIMERITE_ORE.get(), AMBlocks.DEEPSLATE_CHIMERITE_ORE.get(), AMBlocks.TOPAZ_BLOCK.get(), AMBlocks.TOPAZ_ORE.get(), AMBlocks.DEEPSLATE_TOPAZ_ORE.get(), AMBlocks.VINTEUM_BLOCK.get(), AMBlocks.VINTEUM_ORE.get(), AMBlocks.DEEPSLATE_VINTEUM_ORE.get(), AMBlocks.MOONSTONE_BLOCK.get(), AMBlocks.SUNSTONE_BLOCK.get());
@@ -155,6 +160,17 @@ public final class AMTagsProvider {
             tag(AMTags.Items.SPELLCRAFTING_START).add(AMItems.BLANK_RUNE.get());
             tag(AMTags.Items.SPELLCRAFTING_END).add(AMItems.SPELL_PARCHMENT.get());
             tag(CuriosTags.HEAD).add(AMItems.MAGITECH_GOGGLES.get());
+        }
+    }
+
+    public static final class Fluid extends FluidTagsProvider {
+        public Fluid(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, ExistingFileHelper existingFileHelper) {
+            super(output, provider, ArsMagicaApi.MOD_ID, existingFileHelper);
+        }
+
+        @Override
+        protected void addTags(HolderLookup.Provider provider) {
+            tag(FluidTags.WATER).add(AMFluids.LIQUID_ETHERIUM.get(), AMFluids.FLOWING_LIQUID_ETHERIUM.get());
         }
     }
 

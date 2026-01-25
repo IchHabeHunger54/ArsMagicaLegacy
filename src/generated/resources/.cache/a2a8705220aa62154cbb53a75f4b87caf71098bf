@@ -1,4 +1,4 @@
-// 1.21.1	2025-11-24T13:26:18.374582839	Tags for minecraft:block mod id arsmagicalegacy
+// 1.21.1	2026-01-26T00:11:57.9874114	Tags for minecraft:block mod id arsmagicalegacy
 69c396cb051bbe9a130e6979b67065e5041b179d data/arsmagicalegacy/tags/block/aum_plantable_on.json
 69c396cb051bbe9a130e6979b67065e5041b179d data/arsmagicalegacy/tags/block/cerublossom_plantable_on.json
 c1b2a217bb3fcb7e1d67f5bc45409796720bd171 data/arsmagicalegacy/tags/block/desert_nova_plantable_on.json
@@ -7,8 +7,8 @@ c1b2a217bb3fcb7e1d67f5bc45409796720bd171 data/arsmagicalegacy/tags/block/desert_
 4c1bbc9a9b255ebcb379692a068dd9bbc9863000 data/arsmagicalegacy/tags/block/tarma_root_plantable_on.json
 09a8495f82a08691d533f5301ffce0cc0afe0bcf data/arsmagicalegacy/tags/block/witchwood_logs.json
 a4e8097fff07f9a74259d6b5dd583f3437ff28a2 data/arsmagicalegacy/tags/block/wizards_autumn_leaves.json
-4509a6dbe8b8c6353fbe06cefd812efe1dca2727 data/c/tags/block/fence_gates/wooden.json
 75597f58eaad48b98e64ba095c0e13b1573e0f4e data/c/tags/block/fences/wooden.json
+4509a6dbe8b8c6353fbe06cefd812efe1dca2727 data/c/tags/block/fence_gates/wooden.json
 9d1222c96750dd2905a15f534a0492165f0f5f18 data/c/tags/block/ores.json
 0cfa5b473056ef4e219ce978c6b1fd5a947ed556 data/c/tags/block/ores/chimerite.json
 e60ce640b03c19e40fc4fd591174c0bb5f6849d1 data/c/tags/block/ores/moonstone.json
@@ -21,6 +21,7 @@ a5efaf624ecc4e7aa79239bfda857f660c06c552 data/c/tags/block/storage_blocks/chimer
 44a23cc79dc5ba635c2c0cab92dcdf6d05104734 data/c/tags/block/storage_blocks/sunstone.json
 76df3f25234406bbe4c797c04449e8b9683eefcd data/c/tags/block/storage_blocks/topaz.json
 1b98676a20688653887cd8966162861777356e7e data/c/tags/block/storage_blocks/vinteum.json
+32c4fd6dc54906d3b1bc63d3d1deccae2da70f6b data/minecraft/tags/block/cauldrons.json
 d9eb014cca9e9eb1edefc2e7b423dacb98df705a data/minecraft/tags/block/ceiling_hanging_signs.json
 4509a6dbe8b8c6353fbe06cefd812efe1dca2727 data/minecraft/tags/block/fence_gates.json
 dbe9773da22a20dd3089a9aac5ed7aa9cf81495c data/minecraft/tags/block/flower_pots.json

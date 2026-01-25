@@ -27,5 +27,5 @@ public interface AMFluids {
         .canHydrate(true)));
     DeferredHolder<Fluid, BaseFlowingFluid.Source> LIQUID_ETHERIUM = FLUIDS.register("liquid_etherium", () -> new BaseFlowingFluid.Source(AMFluids.LIQUID_ETHERIUM_PROPERTIES));
     DeferredHolder<Fluid, BaseFlowingFluid.Flowing> FLOWING_LIQUID_ETHERIUM = FLUIDS.register("flowing_liquid_etherium", () -> new BaseFlowingFluid.Flowing(AMFluids.LIQUID_ETHERIUM_PROPERTIES));
-    BaseFlowingFluid.Properties LIQUID_ETHERIUM_PROPERTIES = new BaseFlowingFluid.Properties(LIQUID_ETHERIUM_TYPE, LIQUID_ETHERIUM, FLOWING_LIQUID_ETHERIUM).block(AMBlocks.LIQUID_ETHERIUM);
+    BaseFlowingFluid.Properties LIQUID_ETHERIUM_PROPERTIES = new BaseFlowingFluid.Properties(LIQUID_ETHERIUM_TYPE, LIQUID_ETHERIUM, FLOWING_LIQUID_ETHERIUM).block(AMBlocks.LIQUID_ETHERIUM).bucket(AMItems.LIQUID_ETHERIUM_BUCKET);
 }

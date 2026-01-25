@@ -73,6 +73,7 @@ public final class AMLootTableProvider extends LootTableProvider {
 
         @Override
         protected void generate() {
+            dropOther(AMBlocks.LIQUID_ETHERIUM_CAULDRON.get(), Items.CAULDRON);
             dropSelf(AMBlocks.OCCULUS.get());
             add(AMBlocks.INSCRIPTION_TABLE.get(), block -> LootTable.lootTable().withPool(LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1))

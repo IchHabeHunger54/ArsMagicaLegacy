@@ -28,6 +28,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
+import at.minecraftschurli.arsmagicalegacy.block.LiquidEtheriumCauldronBlock;
 import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
 import at.minecraftschurli.arsmagicalegacy.command.AffinityCommand;
 import at.minecraftschurli.arsmagicalegacy.command.MagicXpCommand;
@@ -39,6 +40,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
+import at.minecraftschurli.arsmagicalegacy.init.AMFluids;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.arsmagicalegacy.item.RuneBagItem;
@@ -56,11 +58,13 @@ import at.minecraftschurli.arsmagicalegacy.packet.TakeSpellRecipeFromLecternPack
 import at.minecraftschurli.arsmagicalegacy.spell.SpellPartDataManager;
 import at.minecraftschurli.arsmagicalegacy.spell.ToolTiers;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
+import at.minecraftschurli.arsmagicalegacy.util.DispenseBucketBehavior;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -73,6 +77,7 @@ import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
@@ -98,6 +103,7 @@ import net.neoforged.neoforge.event.entity.player.AdvancementEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.neoforge.fluids.RegisterCauldronFluidContentEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
@@ -132,6 +138,10 @@ final class AMEventHandler {
         fire.setFlammable(AMBlocks.DESERT_NOVA.get(), 60, 100);
         fire.setFlammable(AMBlocks.TARMA_ROOT.get(), 60, 100);
         fire.setFlammable(AMBlocks.WAKEBLOOM.get(), 60, 100);
+        event.enqueueWork(() -> {
+            CauldronInteraction.INTERACTIONS.forEach((k, v) -> v.map().put(AMItems.LIQUID_ETHERIUM_BUCKET.get(), LiquidEtheriumCauldronBlock::emptyBucket));
+            DispenserBlock.registerBehavior(AMItems.LIQUID_ETHERIUM_BUCKET, DispenseBucketBehavior.INSTANCE);
+        });
         AMMultiblocks.init();
     }
 
@@ -225,6 +235,11 @@ final class AMEventHandler {
         builder.addMix(Potions.AWKWARD, AMItems.ARCANE_ASH.get(), AMMobEffects.EPIC_MANA);
         builder.addMix(Potions.AWKWARD, AMItems.PURIFIED_VINTEUM_DUST.get(), AMMobEffects.LEGENDARY_MANA);
         builder.addMix(Potions.AWKWARD, AMItems.TARMA_ROOT.get(), AMMobEffects.INFUSED_MANA);
+    }
+
+    @SubscribeEvent
+    private static void registerCauldronFluidContent(RegisterCauldronFluidContentEvent event) {
+        event.register(AMBlocks.LIQUID_ETHERIUM_CAULDRON.get(), AMFluids.LIQUID_ETHERIUM.get(), 1000, null);
     }
 
     @SubscribeEvent

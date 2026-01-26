@@ -1,4 +1,8 @@
-// 1.21.1	2026-01-10T17:43:44.8660478	Advancements
+// 1.21.1	2026-01-26T02:31:25.1811711	Advancements
+c1845788897abd7dcb5a53c9c8fe4968adfadca4 data/arsmagicalegacy/advancement/affinity_fifty_percent.json
+d2a3a8803d92731ee6719b86702bf02b62a6bed5 data/arsmagicalegacy/advancement/affinity_full.json
+18a87544310aba469d3746a812f79368a17ed416 data/arsmagicalegacy/advancement/affinity_one_percent.json
+7cb4c2e91f4c63d5caaf954d00c69c195c7a5c22 data/arsmagicalegacy/advancement/affinity_tome.json
 6f8d25e4218e5ec890907459f4f00c36b788f1bf data/arsmagicalegacy/advancement/all_hidden_skills.json
 7b964e92013ee11882ab5971cc8ca7b9b673e497 data/arsmagicalegacy/advancement/all_skills.json
 4030b34cdf40ff7d2fa0e8fff91605ea63456eb8 data/arsmagicalegacy/advancement/book/absorption.json

@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.advancement.AffinityChangeTrigger;
+import at.minecraftschurli.arsmagicalegacy.advancement.LevelChangeTrigger;
 import at.minecraftschurli.arsmagicalegacy.advancement.SkillChangeTrigger;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import net.minecraft.advancements.CriterionTrigger;
@@ -13,6 +14,7 @@ public interface AMCriterionTriggers {
 
     // @formatter:off
     DeferredHolder<CriterionTrigger<?>, AffinityChangeTrigger> AFFINITY_CHANGE = TRIGGER_TYPES.register("affinity_change", AffinityChangeTrigger::new);
+    DeferredHolder<CriterionTrigger<?>, LevelChangeTrigger>    LEVEL_CHANGE    = TRIGGER_TYPES.register("level_change",    LevelChangeTrigger::new);
     DeferredHolder<CriterionTrigger<?>, SkillChangeTrigger>    SKILL_CHANGE    = TRIGGER_TYPES.register("skill_change",    SkillChangeTrigger::new);
     // @formatter:on
 }

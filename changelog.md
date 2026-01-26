@@ -2,6 +2,7 @@
 
 - Updated to 1.21.1
 - Rewrote most of the mod from the ground up for more overall stability going forward
+- Added new advancements for the mod
 - Added translations for the mod's tags
 - Various minor balancing tweaks
 

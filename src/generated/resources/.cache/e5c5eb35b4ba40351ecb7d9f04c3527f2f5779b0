@@ -1,4 +1,4 @@
-// 1.21.1	2026-01-26T02:31:25.1811711	Advancements
+// 1.21.1	2026-01-26T04:08:42.3537077	Advancements
 c1845788897abd7dcb5a53c9c8fe4968adfadca4 data/arsmagicalegacy/advancement/affinity_fifty_percent.json
 d2a3a8803d92731ee6719b86702bf02b62a6bed5 data/arsmagicalegacy/advancement/affinity_full.json
 18a87544310aba469d3746a812f79368a17ed416 data/arsmagicalegacy/advancement/affinity_one_percent.json
@@ -122,6 +122,8 @@ a631e895bb84c7d5a0b915b5dda2e05c6efacc31 data/arsmagicalegacy/advancement/book/w
 8179b47712fb3b3562c4efbceea2f4c4244fa6d9 data/arsmagicalegacy/advancement/book/wizards_autumn.json
 08fbef714b7562310fb4f883c35eea2c5073b9d1 data/arsmagicalegacy/advancement/book/zone.json
 3319d29eb669da08eaae2737f4b3597e75b5fc22 data/arsmagicalegacy/advancement/hidden_skill.json
+8ec2b04d4dbfabfb533178605de203447249ae2f data/arsmagicalegacy/advancement/level_10.json
+fa2311a574fdbe75f73f7c4f0dda2e1ab088b3d8 data/arsmagicalegacy/advancement/level_100.json
 91a69c9a09412c5f0b345acdb31fa410e6961f8a data/arsmagicalegacy/advancement/root.json
 c6f3d51237f22a099686ca7c5119cd9250842fd8 data/arsmagicalegacy/advancement/skill.json
 151961ba81fe673b4dc17b0ba7c86098d05c85af data/arsmagicalegacy/advancement/spell.json

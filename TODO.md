@@ -8,7 +8,6 @@
     - Dryads
     - All Bosses
     - Their Projectiles
-- Advancement Triggers
 - Rituals
 - Fix Altar Not Showing the Next Ingredients Properly
 - Arcane Compendium

@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.advancement.AffinityChangeTrigger;
+import at.minecraftschurli.arsmagicalegacy.advancement.LevelChangeTrigger;
 import at.minecraftschurli.arsmagicalegacy.advancement.SkillChangeTrigger;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
@@ -36,7 +37,7 @@ public final class AMAdvancementProvider extends AdvancementProvider {
     }
 
     private static class AdvancementSubProvider implements AdvancementGenerator {
-        @SuppressWarnings({"DataFlowIssue", "unchecked"})
+        @SuppressWarnings({"DataFlowIssue", "unchecked", "unused"})
         @Override
         public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> saver, ExistingFileHelper existingFileHelper) {
             HolderLookup.RegistryLookup<Affinity> affinities = registries.lookupOrThrow(AMRegistries.AFFINITY);
@@ -74,6 +75,10 @@ public final class AMAdvancementProvider extends AdvancementProvider {
                 builder -> builder.addCriterion("affinity", AffinityChangeTrigger.create(1)));
             AdvancementHolder affinityTome = advancement(saver, "affinity_tome", affinityFull, DataComponentNamedItem.set(AMItems.AFFINITY_TOME.toStack(), AMDataComponents.AFFINITY.get(), affinities.getOrThrow(Affinity.NONE)), AdvancementType.TASK, true,
                 builder -> builder.addCriterion("affinity", AffinityChangeTrigger.create(1, 0)));
+            AdvancementHolder level10 = advancement(saver, "level_10", spell, AMItems.MOONSTONE.toStack(), AdvancementType.TASK, false,
+                builder -> builder.addCriterion("level", LevelChangeTrigger.create(10)));
+            AdvancementHolder level100 = advancement(saver, "level_100", level10, AMItems.SUNSTONE.toStack(), AdvancementType.CHALLENGE, false,
+                builder -> builder.addCriterion("level", LevelChangeTrigger.create(100)));
         }
 
         private Component title(String name) {

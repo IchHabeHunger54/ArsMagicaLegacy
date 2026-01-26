@@ -343,6 +343,10 @@ public final class AMLanguageProvider extends LanguageProvider {
         advancementTranslation("hidden_skill", "Forbidden Magic", "Learn a silver skill");
         advancementTranslation("all_hidden_skills", "Sorcerer Supreme", "Learn all silver skills");
         advancementTranslation("spell", "You're A Wizard, Harry!", "Craft your first spell");
+        advancementTranslation("affinity_one_percent", "Supernatural", "Shift into an affinity");
+        advancementTranslation("affinity_fifty_percent", "Side Effects", "Shift deep enough into an affinity to experience negative effects");
+        advancementTranslation("affinity_full", "Locked In", "Lock into an affinity");
+        advancementTranslation("affinity_tome", "Breaking The Curse", "Break out of an affinity lock");
         skillTranslation(AMSpells.ABSORPTION.getId(), "Absorption", "Like a slightly flimsier shield.", "components", "You gain absorption hearts, like you would when eating a golden apple. This does not stack with golden apples.");
         skillTranslation(AMSpells.AREA_OF_EFFECT.getId(), "Area of Effect", "All around me!", "shapes", "After charging your spell, you can shape it into a blast that radiates outwards from the spell's origin. An AoE spell will not affect the caster.");
         skillTranslation(AMSpells.ASTRAL_DISTORTION.getId(), "Astral Distortion", "Going nowhere.", "components", "This spell entirely prevents teleportation of the target for some time. Also works on endermen and shulkers!");

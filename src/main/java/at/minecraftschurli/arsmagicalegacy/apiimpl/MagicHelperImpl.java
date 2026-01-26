@@ -310,7 +310,12 @@ final class MagicHelperImpl implements MagicHelper {
         for (Map.Entry<Holder<Affinity>, Double> entry : event.getAffinityShifts().entrySet()) {
             Holder<Affinity> affinity = entry.getKey();
             if (affinity.is(Affinity.NONE)) continue;
-            data = operator.apply(data, affinity, entry.getValue());
+            double value = entry.getValue();
+            data = operator.apply(data, affinity, value);
+            double originalValue = originalData.affinityShifts().get(affinity);
+            if (originalValue != value && player instanceof ServerPlayer serverPlayer) {
+                AMCriterionTriggers.AFFINITY_CHANGE.get().trigger(serverPlayer, affinity, originalValue, value);
+            }
         }
         player.setData(AMAttachments.MAGIC, data);
         updateAffinityLock(player);

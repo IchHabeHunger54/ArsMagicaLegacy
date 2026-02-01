@@ -105,9 +105,7 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
             guiGraphics.drawString(font, text, textX, textY, color, false);
             int stackX = (int) (textX + width / 2 - 8);
             int stackY = textY - 17;
-            ItemStack stack = DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinity);
-            guiGraphics.renderItem(stack, stackX, stackY);
-            guiGraphics.renderItemDecorations(font, stack, stackX, stackY);
+            AMClientUtil.renderItem(guiGraphics, font, DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinity), stackX, stackY);
             if (mouseX < stackX || mouseX >= stackX + 16 || mouseY < stackY || mouseY >= stackY + 16) continue;
             tooltip.add(Affinity.getName(affinity).copy().withColor(color));
             if (Screen.hasShiftDown()) {

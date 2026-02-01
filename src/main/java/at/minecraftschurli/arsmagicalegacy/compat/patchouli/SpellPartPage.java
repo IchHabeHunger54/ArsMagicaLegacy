@@ -119,8 +119,7 @@ public class SpellPartPage implements ICustomComponent {
     }
 
     private static void drawItemStack(GuiGraphics guiGraphics, IComponentRenderContext context, ItemStack stack, List<Component> tooltip, int x, int y, int mouseX, int mouseY) {
-        guiGraphics.renderItem(stack, x, y);
-        guiGraphics.renderItemDecorations(AMClientUtil.font(), stack, x, y);
+        AMClientUtil.renderItem(guiGraphics, stack, x, y);
         if (context.isAreaHovered(mouseX, mouseY, x, y, 16, 16)) {
             context.setHoverTooltipComponents(tooltip);
         }

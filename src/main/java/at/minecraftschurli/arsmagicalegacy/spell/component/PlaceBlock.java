@@ -39,7 +39,7 @@ public class PlaceBlock extends SpellComponent.CastBlock {
         Inventory inventory = player.getInventory();
         if (!player.isCreative() && !inventory.contains(stack)) return spell;
         BlockPos pos = hitResult.getBlockPos();
-        BlockPlaceContext context = new BlockPlaceContext(player, InteractionHand.MAIN_HAND, stack, hitResult);
+        BlockPlaceContext context = new BlockPlaceContext(level, player, InteractionHand.MAIN_HAND, stack, hitResult);
         if (!level.getBlockState(pos).canBeReplaced(context)) {
             pos = pos.offset(hitResult.getDirection().getNormal());
         }

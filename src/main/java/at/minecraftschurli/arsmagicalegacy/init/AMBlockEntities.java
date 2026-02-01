@@ -6,6 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.blockentity.BlackAuremBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.blockentity.CelestialPrismBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.blockentity.InscriptionTableBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.blockentity.ObeliskBlockEntity;
+import at.minecraftschurli.arsmagicalegacy.blockentity.SpellRuneBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -24,6 +25,7 @@ public interface AMBlockEntities {
     DeferredHolder<BlockEntityType<?>, BlockEntityType<ObeliskBlockEntity>>          OBELISK           = register("obelisk",           ObeliskBlockEntity::new,          AMBlocks.OBELISK);
     DeferredHolder<BlockEntityType<?>, BlockEntityType<CelestialPrismBlockEntity>>   CELESTIAL_PRISM   = register("celestial_prism",   CelestialPrismBlockEntity::new,   AMBlocks.CELESTIAL_PRISM);
     DeferredHolder<BlockEntityType<?>, BlockEntityType<BlackAuremBlockEntity>>       BLACK_AUREM       = register("black_aurem",       BlackAuremBlockEntity::new,       AMBlocks.BLACK_AUREM);
+    DeferredHolder<BlockEntityType<?>, BlockEntityType<SpellRuneBlockEntity>>        SPELL_RUNE        = register("spell_rune",        SpellRuneBlockEntity::new,        AMBlocks.SPELL_RUNE);
     // @formatter:on
 
     @SuppressWarnings("DataFlowIssue")

@@ -117,11 +117,11 @@ final class SpellHelperImpl implements SpellHelper {
     }
 
     @Override
-    public Spell castSecondary(Spell spell, LivingEntity caster, Entity directEntity) {
+    public Spell castSecondary(Spell spell, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
         SecondarySpellShape secondary = spell.currentShapeGroup().secondaryShape();
         List<SpellModifier> modifiers = spell.currentShapeGroup().secondaryModifiers();
         if (secondary != null) {
-            spell = secondary.cast(spell, modifiers, caster, directEntity);
+            spell = secondary.cast(spell, modifiers, caster, directEntity, hitResult);
             NeoForge.EVENT_BUS.post(new SpellPartCastEvent.SecondaryShape(caster, spell, secondary, modifiers, directEntity));
         }
         return spell;
@@ -148,7 +148,7 @@ final class SpellHelperImpl implements SpellHelper {
 
     @Override
     public Spell castSecondaryOrGrammar(Spell spell, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
-        return spell.currentShapeGroup().secondaryShape() != null ? castSecondary(spell, caster, directEntity) : castGrammar(spell, caster, directEntity, hitResult);
+        return spell.currentShapeGroup().secondaryShape() != null ? castSecondary(spell, caster, directEntity, hitResult) : castGrammar(spell, caster, directEntity, hitResult);
     }
 
     @Override

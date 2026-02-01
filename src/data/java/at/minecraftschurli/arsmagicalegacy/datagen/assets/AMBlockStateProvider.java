@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.block.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.block.CelestialPrismBlock;
 import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
+import at.minecraftschurli.arsmagicalegacy.block.SpellRuneBlock;
 import at.minecraftschurli.arsmagicalegacy.block.WizardsChalkBlock;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import com.mojang.datafixers.util.Pair;
@@ -12,6 +13,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
@@ -47,6 +49,21 @@ public final class AMBlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         simpleBlock(AMBlocks.SPELL_LIGHT.get(), models().getExistingFile(mcLoc("block/air")));
+        getVariantBuilder(AMBlocks.SPELL_RUNE.get()).forAllStates(state -> {
+            Direction direction = state.getValue(SpellRuneBlock.FACING);
+            AABB aabb = SpellRuneBlock.SHAPES.get(direction).bounds();
+            return modelBuilder(models().getBuilder("spell_rune_" + direction.getName())
+                .parent(models().getExistingFile(mcLoc("block/block")))
+                .texture("texture", modLoc("block/spell_rune"))
+                .element()
+                .from((float) aabb.minX * 16, (float) aabb.minY * 16, (float) aabb.minZ * 16)
+                .to((float) aabb.maxX * 16, (float) aabb.maxY * 16, (float) aabb.maxZ * 16)
+                .face(direction.getOpposite())
+                .texture("#texture")
+                .end()
+                .end()
+            ).build();
+        });
         simpleBlock(AMBlocks.LIQUID_ETHERIUM.get(), particleModel(AMBlocks.LIQUID_ETHERIUM.getId().getPath(), AMBlocks.LIQUID_ETHERIUM.getId().withPrefix("block/").withSuffix("_still")));
         simpleBlock(AMBlocks.LIQUID_ETHERIUM_CAULDRON.get(), models().withExistingParent("liquid_etherium_cauldron", mcLoc("block/template_cauldron_full"))
             .texture("bottom", mcLoc("block/cauldron_bottom"))

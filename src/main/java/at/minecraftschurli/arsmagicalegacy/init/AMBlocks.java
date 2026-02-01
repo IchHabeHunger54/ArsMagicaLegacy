@@ -10,6 +10,7 @@ import at.minecraftschurli.arsmagicalegacy.block.InscriptionTableBlock;
 import at.minecraftschurli.arsmagicalegacy.block.LiquidEtheriumCauldronBlock;
 import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
 import at.minecraftschurli.arsmagicalegacy.block.OcculusBlock;
+import at.minecraftschurli.arsmagicalegacy.block.SpellRuneBlock;
 import at.minecraftschurli.arsmagicalegacy.block.WakebloomBlock;
 import at.minecraftschurli.arsmagicalegacy.block.WizardsChalkBlock;
 import net.minecraft.core.Direction;
@@ -72,6 +73,7 @@ public interface AMBlocks {
     DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(ArsMagicaApi.MOD_ID);
     // @formatter:off
     DeferredBlock<AirBlock>                    SPELL_LIGHT                 = register("spell_light",                 AirBlock::new, copyProperties(Blocks.AIR).lightLevel($ -> 15));
+    DeferredBlock<SpellRuneBlock>              SPELL_RUNE                  = register("spell_rune",                  SpellRuneBlock::new, copyProperties(Blocks.AIR).noOcclusion());
     DeferredBlock<LiquidBlock>                 LIQUID_ETHERIUM             = register("liquid_etherium",             p -> new LiquidBlock(AMFluids.LIQUID_ETHERIUM.get(), p), properties().replaceable().noCollission().strength(100).pushReaction(PushReaction.DESTROY).noLootTable().liquid().sound(SoundType.EMPTY).lightLevel($ -> 5));
     DeferredBlock<LiquidEtheriumCauldronBlock> LIQUID_ETHERIUM_CAULDRON    = register("liquid_etherium_cauldron",    LiquidEtheriumCauldronBlock::new, copyProperties(Blocks.CAULDRON).lightLevel($ -> 5));
     DeferredBlock<OcculusBlock>                OCCULUS                     = register("occulus",                     OcculusBlock::new, properties().strength(3, 5));

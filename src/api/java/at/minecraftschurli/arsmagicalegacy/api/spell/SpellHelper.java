@@ -43,10 +43,11 @@ public interface SpellHelper {
      * @param spell        The {@link Spell} to cast.
      * @param caster       The {@link LivingEntity} casting the {@link Spell}.
      * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
+     * @param hitResult    The {@link HitResult} of the spell cast.
      * @return The {@link Spell} that was cast, potentially modified.
-     * @see SecondarySpellShape#cast(Spell, List, LivingEntity, Entity)
+     * @see SecondarySpellShape#cast(Spell, List, LivingEntity, Entity, HitResult)
      */
-    Spell castSecondary(Spell spell, LivingEntity caster, Entity directEntity);
+    Spell castSecondary(Spell spell, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult);
 
     /**
      * Casts the given {@link Spell}'s grammar.

@@ -1,6 +1,4 @@
 - Add TODO Spell Shapes and Components
-- Add Spell Modifier Functionality
-    - Rune Power
 - Test All Spell Parts and Particles
 - Inlays
 - Entities, including:

@@ -51,6 +51,7 @@ import at.minecraftschurli.arsmagicalegacy.packet.InscriptionTableSyncPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.LearnSkillPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.OpenBookInLecternPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SetActiveShapeGroupPacket;
+import at.minecraftschurli.arsmagicalegacy.packet.SetBlockEntityOwnerPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SetLecternPagePacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SpellBookScrollPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SpellCustomizationPacket;
@@ -119,7 +120,7 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void commonSetup(FMLCommonSetupEvent event) {
-        // TODO 1.21.2+ replace strippables with data map
+        // TODO 26.1 replace strippables with data map
         AxeItem.STRIPPABLES = new HashMap<>(AxeItem.STRIPPABLES);
         AxeItem.STRIPPABLES.put(AMBlocks.WITCHWOOD_LOG.get(), AMBlocks.STRIPPED_WITCHWOOD_LOG.get());
         AxeItem.STRIPPABLES.put(AMBlocks.WITCHWOOD.get(), AMBlocks.STRIPPED_WITCHWOOD.get());
@@ -205,6 +206,7 @@ final class AMEventHandler {
     private static void registerPayloadHandlers(RegisterPayloadHandlersEvent event) {
         event.registrar(ModList.get().getModFileById(ArsMagicaApi.MOD_ID).versionString())
             .playToClient(OpenBookInLecternPacket.TYPE, OpenBookInLecternPacket.STREAM_CODEC, OpenBookInLecternPacket::handle)
+            .playToClient(SetBlockEntityOwnerPacket.TYPE, SetBlockEntityOwnerPacket.STREAM_CODEC, SetBlockEntityOwnerPacket::handle)
             .playToServer(ForgetSkillsPacket.TYPE, ForgetSkillsPacket.STREAM_CODEC, ForgetSkillsPacket::handle)
             .playToServer(InscriptionTableCreateSpellPacket.TYPE, InscriptionTableCreateSpellPacket.STREAM_CODEC, InscriptionTableCreateSpellPacket::handle)
             .playToServer(InscriptionTableSyncPacket.TYPE, InscriptionTableSyncPacket.STREAM_CODEC, InscriptionTableSyncPacket::handle)

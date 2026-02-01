@@ -45,6 +45,7 @@ import at.minecraftschurli.arsmagicalegacy.client.particle.controller.OrbitPoint
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.AltarCoreRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.BlackAuremRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.EtheriumGeneratorRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.renderer.block.SpellRuneRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.EmptyRenderer;
 import at.minecraftschurli.arsmagicalegacy.compat.patchouli.SpellPartPage;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
@@ -141,6 +142,7 @@ final class AMClientEventHandler {
         event.registerBlockEntityRenderer(AMBlockEntities.BLACK_AUREM.get(), BlackAuremRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.CELESTIAL_PRISM.get(), EtheriumGeneratorRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.OBELISK.get(), EtheriumGeneratorRenderer::new);
+        event.registerBlockEntityRenderer(AMBlockEntities.SPELL_RUNE.get(), SpellRuneRenderer::new);
     }
 
     @SubscribeEvent

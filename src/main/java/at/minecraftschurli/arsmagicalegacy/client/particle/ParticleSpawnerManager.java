@@ -1,7 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.client.particle;
 
 import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleSpawner;
-import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.arsmagicalegacy.util.AMDataManager;
 import com.google.gson.JsonElement;
 import net.minecraft.resources.ResourceLocation;
@@ -20,7 +19,7 @@ public final class ParticleSpawnerManager extends AMDataManager<ParticleSpawner>
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager, ProfilerFiller profiler) {
-        AMClientUtil.clearParticleSpawnerCache();
+        ParticleUtil.clearParticleSpawnerCache();
         super.apply(map, resourceManager, profiler);
     }
 }

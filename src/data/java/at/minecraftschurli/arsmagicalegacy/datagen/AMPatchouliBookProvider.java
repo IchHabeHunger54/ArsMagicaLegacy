@@ -7,6 +7,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.compat.patchouli.AMMultiblocks;
+import at.minecraftschurli.arsmagicalegacy.compat.patchouli.SpellPartPage;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMAbilityProvider;
 import at.minecraftschurli.arsmagicalegacy.init.AMCreativeTabs;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
@@ -14,11 +15,14 @@ import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
+import com.github.minecraftschurlimods.easydatagenlib.mods.patchouli.AbstractPageBuilder;
 import com.github.minecraftschurlimods.easydatagenlib.mods.patchouli.BookBuilder;
+import com.github.minecraftschurlimods.easydatagenlib.mods.patchouli.EntryBuilder;
 import com.github.minecraftschurlimods.easydatagenlib.mods.patchouli.PatchouliBookProvider;
 import com.github.minecraftschurlimods.easydatagenlib.mods.patchouli.translated.TranslatedBookBuilder;
 import com.github.minecraftschurlimods.easydatagenlib.mods.patchouli.translated.TranslatedCategoryBuilder;
 import com.github.minecraftschurlimods.easydatagenlib.mods.patchouli.translated.TranslatedEntryBuilder;
+import com.google.gson.JsonObject;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -359,7 +363,7 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
                 entry.addSimpleTextPage(entry.getLangKey(1) + ".text");
                 entry.addSimpleTextPage(entry.getLangKey(2) + ".text");
             }
-            //entry.addPage(new SpellPartPageBuilder(registryName, entry)).build();
+            entry.addPage(new SpellPartPageBuilder(entry, id)).build();
             entry.build();
         }
         shapes.build();
@@ -412,5 +416,19 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
 
     private ItemStack affinityTome(HolderLookup<Affinity> affinities, ResourceKey<Affinity> affinity) {
         return DataComponentNamedItem.set(AMItems.AFFINITY_TOME.toStack(), AMDataComponents.AFFINITY.get(), affinities.getOrThrow(affinity));
+    }
+
+    private static class SpellPartPageBuilder extends AbstractPageBuilder<SpellPartPageBuilder> {
+        private final ResourceLocation part;
+
+        private SpellPartPageBuilder(EntryBuilder<?, ?, ?> builder, ResourceLocation part) {
+            super(SpellPartPage.ID, builder);
+            this.part = part;
+        }
+
+        @Override
+        protected void serialize(JsonObject jsonObject) {
+            jsonObject.addProperty("part", part.toString());
+        }
     }
 }

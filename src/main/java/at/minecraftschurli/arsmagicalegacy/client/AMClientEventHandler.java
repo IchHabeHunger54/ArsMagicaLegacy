@@ -46,6 +46,7 @@ import at.minecraftschurli.arsmagicalegacy.client.renderer.block.AltarCoreRender
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.BlackAuremRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.EtheriumGeneratorRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.EmptyRenderer;
+import at.minecraftschurli.arsmagicalegacy.compat.patchouli.SpellPartPage;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
@@ -103,8 +104,11 @@ import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.client.settings.KeyModifier;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
+import vazkii.patchouli.api.PatchouliAPI;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -121,6 +125,7 @@ final class AMClientEventHandler {
         event.enqueueWork(() -> ItemProperties.register(AMItems.CRYSTAL_WRENCH.get(), CrystalWrenchItem.ACTIVE, (stack, level, player, seed) -> stack.has(AMDataComponents.STORED_POSITIONS) && !stack.get(AMDataComponents.STORED_POSITIONS).isEmpty() ? 1 : 0));
         ItemBlockRenderTypes.setRenderLayer(AMFluids.LIQUID_ETHERIUM.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(AMFluids.FLOWING_LIQUID_ETHERIUM.get(), RenderType.translucent());
+        PatchouliAPI.get().registerTemplateAsBuiltin(SpellPartPage.ID, () -> new ByteArrayInputStream(SpellPartPage.TEMPLATE.getBytes(StandardCharsets.UTF_8)));
     }
 
     @SubscribeEvent

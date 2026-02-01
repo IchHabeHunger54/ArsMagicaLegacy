@@ -7,6 +7,10 @@
     {
       "type": "patchouli:text",
       "text": "item.arsmagicalegacy.arcane_compendium.shapes.area_of_effect.page0.text"
+    },
+    {
+      "type": "arsmagicalegacy:spell_part",
+      "part": "arsmagicalegacy:area_of_effect"
     }
   ]
 }

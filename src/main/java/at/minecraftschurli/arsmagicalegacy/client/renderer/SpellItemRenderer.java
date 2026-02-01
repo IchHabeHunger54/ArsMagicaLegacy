@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
 public class SpellItemRenderer extends BlockEntityWithoutLevelRenderer {
     public static final SpellItemRenderer INSTANCE = new SpellItemRenderer();

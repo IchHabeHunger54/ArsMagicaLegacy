@@ -29,7 +29,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.ItemStack;
 import org.joml.Matrix4f;
 
 import java.util.ArrayList;

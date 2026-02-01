@@ -11,6 +11,7 @@ import at.minecraftschurli.arsmagicalegacy.entity.SpellEntity;
 import at.minecraftschurli.arsmagicalegacy.entity.SpellShapeEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -132,6 +133,15 @@ public final class AMClientUtil {
 
     public static void setSpellRecipeScreen(ItemStack stack, boolean playTurnSound, int startPage, @Nullable BlockPos lecternPos) {
         mc().setScreen(new SpellRecipeScreen(stack, playTurnSound, startPage, lecternPos));
+    }
+
+    public static void renderItem(GuiGraphics guiGraphics, ItemStack stack, int x, int y) {
+        renderItem(guiGraphics, font(), stack, x, y);
+    }
+
+    public static void renderItem(GuiGraphics guiGraphics, Font font, ItemStack stack, int x, int y) {
+        guiGraphics.renderItem(stack, x, y);
+        guiGraphics.renderItemDecorations(font, stack, x, y);
     }
 
     public static List<? extends ControlledParticle> spawnParticles(ResourceLocation id, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {

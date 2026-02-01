@@ -25,8 +25,7 @@ class IngredientsPage extends Page<SpellIngredient> {
         ItemStack stack = AMUtil.getByTick(element.asItemStacks(), AMClientUtil.player().tickCount / 20).copyWithCount(element.count());
         x = x + index % maxPerLine * (size + spacing);
         y = y + index / maxPerLine * (size + spacing);
-        guiGraphics.renderItem(stack, x, y);
-        guiGraphics.renderItemDecorations(AMClientUtil.font(), stack, x, y);
+        AMClientUtil.renderItem(guiGraphics, stack, x, y);
     }
 
     @Override

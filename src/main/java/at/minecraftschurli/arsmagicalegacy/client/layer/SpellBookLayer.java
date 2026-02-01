@@ -36,16 +36,13 @@ public class SpellBookLayer implements LayeredDraw.Layer {
         ItemContainerContents container = item.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY);
         int x = AMClientConfig.SPELL_BOOK_X_ANCHOR.get().getLocation(AMClientConfig.SPELL_BOOK_X);
         int y = AMClientConfig.SPELL_BOOK_Y_ANCHOR.get().getLocation(AMClientConfig.SPELL_BOOK_Y);
-        Font font = AMClientUtil.font();
         PoseStack stack = guiGraphics.pose();
         stack.pushPose();
         stack.translate(x, y, 0);
         stack.scale(0.75f, 0.75f, 0.75f);
         guiGraphics.blit(TEXTURE, 0, 0, 0, 0, 0, 148, 22, 148, 22);
         for (int i = 0; i < Math.min(container.getSlots(), SpellBookItem.HOTBAR_SLOTS); i++) {
-            ItemStack spell = container.getStackInSlot(i);
-            guiGraphics.renderItem(spell, i * 18 + 3, 3);
-            guiGraphics.renderItemDecorations(font, spell, i * 18 + 3, 3);
+            AMClientUtil.renderItem(guiGraphics, container.getStackInSlot(i), i * 18 + 3, 3);
         }
         guiGraphics.blit(HIGHLIGHT_TEXTURE, index * 18 + 1, 1, 0, 0, 0, 20, 20, 20, 20);
         stack.popPose();

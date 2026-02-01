@@ -2,6 +2,8 @@ package at.minecraftschurli.arsmagicalegacy.entity;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
+import at.minecraftschurli.arsmagicalegacy.packet.SetEntityOwnerPacket;
+import at.minecraftschurli.arsmagicalegacy.util.OwnerSetter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -12,13 +14,13 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.OwnableEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-public abstract class SpellEntity extends Entity implements OwnableEntity {
+public abstract class SpellEntity extends Entity implements OwnableEntity, OwnerSetter {
     private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(SpellEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(SpellEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> OWNER = SynchedEntityData.defineId(SpellEntity.class, EntityDataSerializers.INT);
@@ -90,11 +92,21 @@ public abstract class SpellEntity extends Entity implements OwnableEntity {
     @Override
     @Nullable
     public UUID getOwnerUUID() {
-        return getOwner() instanceof Player player ? player.getUUID() : null;
+        LivingEntity owner = getOwner();
+        return owner != null ? owner.getUUID() : null;
     }
 
     public void setOwner(LivingEntity owner) {
-        entityData.set(OWNER, owner.getId());
+        int ownerId = owner.getId();
+        setOwner(ownerId);
+        if (!level().isClientSide()) {
+            PacketDistributor.sendToPlayersTrackingEntity(this, new SetEntityOwnerPacket(getId(), ownerId));
+        }
+    }
+
+    @Override
+    public void setOwner(int id) {
+        entityData.set(OWNER, id);
     }
 
     @Override

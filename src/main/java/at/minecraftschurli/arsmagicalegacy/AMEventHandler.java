@@ -52,6 +52,7 @@ import at.minecraftschurli.arsmagicalegacy.packet.LearnSkillPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.OpenBookInLecternPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SetActiveShapeGroupPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SetBlockEntityOwnerPacket;
+import at.minecraftschurli.arsmagicalegacy.packet.SetEntityOwnerPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SetLecternPagePacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SpellBookScrollPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SpellCustomizationPacket;
@@ -207,6 +208,7 @@ final class AMEventHandler {
         event.registrar(ModList.get().getModFileById(ArsMagicaApi.MOD_ID).versionString())
             .playToClient(OpenBookInLecternPacket.TYPE, OpenBookInLecternPacket.STREAM_CODEC, OpenBookInLecternPacket::handle)
             .playToClient(SetBlockEntityOwnerPacket.TYPE, SetBlockEntityOwnerPacket.STREAM_CODEC, SetBlockEntityOwnerPacket::handle)
+            .playToClient(SetEntityOwnerPacket.TYPE, SetEntityOwnerPacket.STREAM_CODEC, SetEntityOwnerPacket::handle)
             .playToServer(ForgetSkillsPacket.TYPE, ForgetSkillsPacket.STREAM_CODEC, ForgetSkillsPacket::handle)
             .playToServer(InscriptionTableCreateSpellPacket.TYPE, InscriptionTableCreateSpellPacket.STREAM_CODEC, InscriptionTableCreateSpellPacket::handle)
             .playToServer(InscriptionTableSyncPacket.TYPE, InscriptionTableSyncPacket.STREAM_CODEC, InscriptionTableSyncPacket::handle)

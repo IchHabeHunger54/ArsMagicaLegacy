@@ -7,6 +7,10 @@
     {
       "type": "patchouli:text",
       "text": "item.arsmagicalegacy.arcane_compendium.components.dig.page0.text"
+    },
+    {
+      "type": "arsmagicalegacy:spell_part",
+      "part": "arsmagicalegacy:dig"
     }
   ]
 }

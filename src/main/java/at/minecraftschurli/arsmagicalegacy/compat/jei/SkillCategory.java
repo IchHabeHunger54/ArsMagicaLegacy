@@ -71,16 +71,18 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
         int y = AMClientUtil.font().lineHeight + TEXT_BOTTOM_PADDING;
         builder.addSlot(RecipeIngredientRole.OUTPUT, (WIDTH - SLOT_SIZE) / 2, y).addIngredient(AMJeiPlugin.SKILL_TYPE, recipe.skill);
         y += SLOT_SIZE + TEXT_BOTTOM_PADDING;
-        for (int i = 0; i < ingredients.size(); i++) {
-            if (i % INGREDIENT_COLUMNS != 0) {
-                x += SLOT_SIZE;
-            } else {
-                x = (WIDTH - Math.min(ingredients.size() - i * INGREDIENT_COLUMNS, INGREDIENT_COLUMNS) * SLOT_SIZE) / 2;
-                y += SLOT_SIZE;
+        if (!ingredients.isEmpty()) {
+            for (int i = 0; i < ingredients.size(); i++) {
+                if (i % INGREDIENT_COLUMNS != 0) {
+                    x += SLOT_SIZE;
+                } else {
+                    x = (WIDTH - Math.min(ingredients.size() - i, INGREDIENT_COLUMNS) * SLOT_SIZE) / 2;
+                    y += SLOT_SIZE;
+                }
+                builder.addSlot(RecipeIngredientRole.INPUT, x, y).addItemStacks(ingredients.get(i).asItemStacks());
             }
-            builder.addSlot(RecipeIngredientRole.INPUT, x, y).addItemStacks(ingredients.get(i).asItemStacks());
+            y += SLOT_SIZE;
         }
-        y += SLOT_SIZE;
         if (!affinityShifts.isEmpty()) {
             x = getAffinityValueAnchor(affinityShifts) - 9;
             y += SLOT_SIZE + TEXT_BOTTOM_PADDING;
@@ -101,7 +103,7 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
                 if (i % INGREDIENT_COLUMNS != 0) {
                     x += SLOT_SIZE;
                 } else {
-                    x = (WIDTH - Math.min(modifiers.size() - i * INGREDIENT_COLUMNS, INGREDIENT_COLUMNS) * SLOT_SIZE) / 2;
+                    x = (WIDTH - Math.min(modifiers.size() - i, INGREDIENT_COLUMNS) * SLOT_SIZE) / 2;
                     y += SLOT_SIZE;
                 }
                 builder.addSlot(RecipeIngredientRole.CATALYST, x, y).addIngredient(AMJeiPlugin.SKILL_TYPE, modifiers.get(i));

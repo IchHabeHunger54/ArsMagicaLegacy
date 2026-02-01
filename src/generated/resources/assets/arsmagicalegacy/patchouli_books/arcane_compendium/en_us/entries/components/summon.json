@@ -15,6 +15,10 @@
     {
       "type": "patchouli:text",
       "text": "item.arsmagicalegacy.arcane_compendium.components.summon.page2.text"
+    },
+    {
+      "type": "arsmagicalegacy:spell_part",
+      "part": "arsmagicalegacy:summon"
     }
   ]
 }

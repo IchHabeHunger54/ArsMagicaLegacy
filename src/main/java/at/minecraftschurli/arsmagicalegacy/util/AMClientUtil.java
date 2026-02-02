@@ -28,8 +28,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public final class AMClientUtil {
-    public static final ResourceLocation MISSINGNO = ResourceLocation.withDefaultNamespace("missingno");
-
     private AMClientUtil() {
     }
 

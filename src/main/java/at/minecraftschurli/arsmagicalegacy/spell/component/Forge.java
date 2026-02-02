@@ -62,7 +62,7 @@ public class Forge extends SpellComponent.CastBoth {
             item.setDefaultPickUpDelay();
             level.addFreshEntity(item);
         }
-        villager.hurt(caster instanceof Player player ? level.damageSources().playerAttack(player) : caster != null ? level.damageSources().mobAttack(caster) : level.damageSources().genericKill(), 5000);
+        villager.hurt(caster instanceof Player player ? level.damageSources().playerAttack(player) : caster != null ? level.damageSources().mobAttack(caster) : level.damageSources().onFire(), 5000);
         return spell;
     }
 }

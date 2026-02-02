@@ -568,6 +568,8 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("melt_armor_factor", "Melt Armor Factor", "When the Melt Armor component is cast, what factor the armor's durability will be multiplied with.");
         configTranslation("random_teleport_max_tries", "Random Teleport Max Tries", "How many times the Random Teleport component will try to find a position.");
         configTranslation("random_teleport_range", "Random Teleport Range", "The range of the Random Teleport component. May be amplified by spell modifiers.");
+        configTranslation("repel_range", "Repel Range", "The range of the Repel component. May be amplified by spell modifiers.");
+        configTranslation("repel_speed", "Repel Speed", "The speed of the Repel component. May be amplified by spell modifiers.");
         configTranslation("storm_duration", "Storm Duration", "The duration used by the Storm component. May be amplified by spell modifiers.");
         configTranslation("storm_range", "Storm Range", "The range used by the Storm component. May be amplified by spell modifiers.");
         configTranslation("storm_lightning_bolt_chance", "Storm Lightning Bolt Chance", "The chance for the Storm component to summon a lightning bolt somewhere in range.");

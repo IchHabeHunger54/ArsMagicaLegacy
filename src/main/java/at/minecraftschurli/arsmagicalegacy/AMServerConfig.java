@@ -69,6 +69,8 @@ public final class AMServerConfig {
     public static final ModConfigSpec.DoubleValue MELT_ARMOR_FACTOR;
     public static final ModConfigSpec.IntValue RANDOM_TELEPORT_MAX_TRIES;
     public static final ModConfigSpec.DoubleValue RANDOM_TELEPORT_RANGE;
+    public static final ModConfigSpec.DoubleValue REPEL_RANGE;
+    public static final ModConfigSpec.DoubleValue REPEL_SPEED;
     public static final ModConfigSpec.DoubleValue STORM_DURATION;
     public static final ModConfigSpec.DoubleValue STORM_RANGE;
     public static final ModConfigSpec.DoubleValue STORM_LIGHTNING_BOLT_CHANCE;
@@ -366,6 +368,14 @@ public final class AMServerConfig {
             .comment("The range of the Random Teleport component. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "random_teleport_range")
             .defineInRange("random_teleport_range", 16., 1, 64);
+        REPEL_RANGE = builder
+            .comment("The range of the Repel component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "repel_range")
+            .defineInRange("repel_range", 4., 1, 16);
+        REPEL_SPEED = builder
+            .comment("The speed of the Repel component. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "repel_speed")
+            .defineInRange("repel_speed", 1., 1, 16);
         STORM_DURATION = builder
             .comment("The duration used by the Storm component. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "storm_duration")

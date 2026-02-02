@@ -2,12 +2,10 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
-import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import at.minecraftschurli.arsmagicalegacy.spell.TeleportComponent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -20,19 +18,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class RandomTeleport extends SpellComponent.CastEntity {
+public class RandomTeleport extends TeleportComponent {
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
-        Entity entity = hitResult.getEntity();
-        if (caster != null && caster.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
-            caster.sendSystemMessage(AMTranslations.NO_TELEPORT);
-        } else if (entity instanceof LivingEntity living && living.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
-            if (caster != null) {
-                caster.sendSystemMessage(AMTranslations.NO_TELEPORT_OTHER);
-            }
-        } else if (level instanceof ServerLevel serverLevel) {
+    protected void teleport(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult, Entity entity) {
+        if (level instanceof ServerLevel serverLevel) {
             RandomSource random = serverLevel.getRandom();
-            double range = ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.RANDOM_TELEPORT_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, serverLevel, caster, directEntity, hitResult);
+            double range = ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.RANDOM_TELEPORT_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult);
             for (int i = 0; i < AMServerConfig.RANDOM_TELEPORT_MAX_TRIES.get(); i++) {
                 Vec3 vec = entity.position().add(random.nextDouble() * range - range / 2, random.nextDouble() * range - range / 2, random.nextDouble() * range - range / 2);
                 BlockPos pos = BlockPos.containing(vec);
@@ -42,6 +33,5 @@ public class RandomTeleport extends SpellComponent.CastEntity {
                 }
             }
         }
-        return spell;
     }
 }

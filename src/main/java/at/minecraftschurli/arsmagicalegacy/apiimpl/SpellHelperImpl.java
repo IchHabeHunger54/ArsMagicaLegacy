@@ -162,7 +162,7 @@ final class SpellHelperImpl implements SpellHelper {
         double modified = base;
         for (SpellModifier modifier : modifiers) {
             if (modifier.getStats().contains(stat)) {
-                modified = modifier.getModifier(stat).modify(base, modified, spell, caster, directEntity, hitResult);
+                modified = modifier.getModifier(stat).modify(base, modified, spell, level, caster, directEntity, hitResult);
             }
         }
         return modified;

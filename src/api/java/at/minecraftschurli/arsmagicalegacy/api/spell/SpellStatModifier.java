@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.api.spell;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -10,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
  */
 @FunctionalInterface
 public interface SpellStatModifier {
-    SpellStatModifier NOOP = (base, modified, spell, caster, directEntity, hitResult) -> modified;
+    SpellStatModifier NOOP = (base, modified, spell, level, caster, directEntity, hitResult) -> modified;
 
     /**
      * Calculates a modified value.
@@ -23,14 +24,14 @@ public interface SpellStatModifier {
      * @param hitResult    The {@link HitResult} of the spell cast.
      * @return A modified value.
      */
-    double modify(double base, double modified, Spell spell, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult);
+    double modify(double base, double modified, Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
 
     /**
      * @param value The value to add.
      * @return A spell stat modifier that adds the given value to the modified value.
      */
     static SpellStatModifier add(double value) {
-        return (base, modified, spell, caster, directEntity, hitResult) -> modified + value;
+        return (base, modified, spell, level, caster, directEntity, hitResult) -> modified + value;
     }
 
     /**
@@ -38,7 +39,7 @@ public interface SpellStatModifier {
      * @return A spell stat modifier that multiplies the given value with the modified value.
      */
     static SpellStatModifier multiply(double value) {
-        return (base, modified, spell, caster, directEntity, hitResult) -> modified * value;
+        return (base, modified, spell, level, caster, directEntity, hitResult) -> modified * value;
     }
 
     /**
@@ -46,7 +47,7 @@ public interface SpellStatModifier {
      * @return A spell stat modifier that adds the base value, multiplied with the given value, to the modified value.
      */
     static SpellStatModifier addMultipliedBase(double value) {
-        return (base, modified, spell, caster, directEntity, hitResult) -> modified + base * value;
+        return (base, modified, spell, level, caster, directEntity, hitResult) -> modified + base * value;
     }
 
     /**
@@ -54,6 +55,6 @@ public interface SpellStatModifier {
      * @return A spell stat modifier that adds the modified value, multiplied with the given value, to the modified value.
      */
     static SpellStatModifier addMultipliedTotal(double value) {
-        return (base, modified, spell, caster, directEntity, hitResult) -> modified + modified * value;
+        return (base, modified, spell, level, caster, directEntity, hitResult) -> modified + modified * value;
     }
 }

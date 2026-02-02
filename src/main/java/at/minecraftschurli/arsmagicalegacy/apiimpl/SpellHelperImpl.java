@@ -25,12 +25,14 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellShapeGroup;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
+import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.arsmagicalegacy.spell.ItemSpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.spell.SpellPartDataManager;
 import at.minecraftschurli.arsmagicalegacy.spell.ToolTiers;
+import at.minecraftschurli.arsmagicalegacy.spell.data.ContingencyAttachment;
 import at.minecraftschurli.arsmagicalegacy.spell.data.SpellDamage;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.google.common.collect.Sets;
@@ -185,6 +187,19 @@ final class SpellHelperImpl implements SpellHelper {
             .filter(p -> !Sets.intersection(stats, p.getStats()).isEmpty())
             .map(p -> (SpellModifier) p)
             .toList();
+    }
+
+    @Override
+    public void setContingency(LivingEntity entity, ResourceLocation contingency, Spell spell) {
+        entity.setData(AMAttachments.CONTINGENCY, new ContingencyAttachment(contingency, spell));
+    }
+
+    @Override
+    public void triggerContingency(LivingEntity entity, ResourceLocation contingency) {
+        ContingencyAttachment attachment = entity.getData(AMAttachments.CONTINGENCY);
+        if (attachment.contingency().equals(contingency)) {
+            castGrammar(attachment.spell(), entity.level(), entity, entity, new EntityHitResult(entity));
+        }
     }
 
     @Override

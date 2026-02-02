@@ -70,6 +70,7 @@ import at.minecraftschurli.arsmagicalegacy.spell.shape.Wave;
 import at.minecraftschurli.arsmagicalegacy.spell.shape.Zone;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.network.syncher.EntityDataSerializer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -105,6 +106,12 @@ public interface AMSpells {
     SpellStat SPEED_STAT            = new SpellStat(ArsMagicaApi.modLoc("speed"));
     SpellStat TARGET_NON_SOLID_STAT = new SpellStat(ArsMagicaApi.modLoc("target_non_solid"));
 
+    ResourceLocation CONTINGENCY_DAMAGE_ID = ArsMagicaApi.modLoc("damage");
+    ResourceLocation CONTINGENCY_DEATH_ID  = ArsMagicaApi.modLoc("death");
+    ResourceLocation CONTINGENCY_FALL_ID   = ArsMagicaApi.modLoc("fall");
+    ResourceLocation CONTINGENCY_FIRE_ID   = ArsMagicaApi.modLoc("fire");
+    ResourceLocation CONTINGENCY_HEALTH_ID = ArsMagicaApi.modLoc("health");
+
     DeferredHolder<SpellPart, AreaOfEffect> AREA_OF_EFFECT     = register("area_of_effect",     AreaOfEffect::new);
     DeferredHolder<SpellPart, Beam>         BEAM               = register("beam",               Beam::new);
     DeferredHolder<SpellPart, Chain>        CHAIN              = register("chain",              Chain::new);
@@ -116,11 +123,11 @@ public interface AMSpells {
     DeferredHolder<SpellPart, Wall>         WALL               = register("wall",               Wall::new);
     DeferredHolder<SpellPart, Wave>         WAVE               = register("wave",               Wave::new);
     DeferredHolder<SpellPart, Zone>         ZONE               = register("zone",               Zone::new);
-    DeferredHolder<SpellPart, Contingency>  CONTINGENCY_DAMAGE = register("contingency_damage", Contingency::new);
-    DeferredHolder<SpellPart, Contingency>  CONTINGENCY_DEATH  = register("contingency_death",  Contingency::new);
-    DeferredHolder<SpellPart, Contingency>  CONTINGENCY_FALL   = register("contingency_fall",   Contingency::new);
-    DeferredHolder<SpellPart, Contingency>  CONTINGENCY_FIRE   = register("contingency_fire",   Contingency::new);
-    DeferredHolder<SpellPart, Contingency>  CONTINGENCY_HEALTH = register("contingency_health", Contingency::new);
+    DeferredHolder<SpellPart, Contingency>  CONTINGENCY_DAMAGE = register("contingency_damage", () -> new Contingency(CONTINGENCY_DAMAGE_ID));
+    DeferredHolder<SpellPart, Contingency>  CONTINGENCY_DEATH  = register("contingency_death",  () -> new Contingency(CONTINGENCY_DEATH_ID));
+    DeferredHolder<SpellPart, Contingency>  CONTINGENCY_FALL   = register("contingency_fall",   () -> new Contingency(CONTINGENCY_FALL_ID));
+    DeferredHolder<SpellPart, Contingency>  CONTINGENCY_FIRE   = register("contingency_fire",   () -> new Contingency(CONTINGENCY_FIRE_ID));
+    DeferredHolder<SpellPart, Contingency>  CONTINGENCY_HEALTH = register("contingency_health", () -> new Contingency(CONTINGENCY_HEALTH_ID));
 
     DeferredHolder<SpellPart, Damage>             DROWNING_DAMAGE     = register("drowning_damage",     () -> new Damage(AMDamageSources.SPELL_DROWNING));
     DeferredHolder<SpellPart, Damage>             FIRE_DAMAGE         = register("fire_damage",         () -> new Damage(AMDamageSources.SPELL_FIRE));

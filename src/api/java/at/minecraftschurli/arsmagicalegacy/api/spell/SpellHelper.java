@@ -113,6 +113,23 @@ public interface SpellHelper {
     List<SpellModifier> getModifiers(SpellPart part);
 
     /**
+     * Sets a contingency {@link Spell}.
+     *
+     * @param entity      The {@link LivingEntity} to set the contingency {@link Spell} on.
+     * @param contingency The name of the contingency to trigger the contingency {@link Spell} for.
+     * @param spell       The {@link Spell} to cast when the contingency is triggered.
+     */
+    void setContingency(LivingEntity entity, ResourceLocation contingency, Spell spell);
+
+    /**
+     * Triggers a contingency.
+     *
+     * @param entity      The {@link LivingEntity} to trigger the contingency for.
+     * @param contingency The name of the contingency to trigger.
+     */
+    void triggerContingency(LivingEntity entity, ResourceLocation contingency);
+
+    /**
      * @param toolTier The tool tier to get the incorrect block tag for.
      * @return A tag specifying which blocks are not breakable by the given tool tier.
      */

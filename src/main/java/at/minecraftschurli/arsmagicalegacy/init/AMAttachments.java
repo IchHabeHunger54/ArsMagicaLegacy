@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.init;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicAttachment;
 import at.minecraftschurli.arsmagicalegacy.effect.TemporalAnchorEffect;
+import at.minecraftschurli.arsmagicalegacy.spell.data.ContingencyAttachment;
 import com.mojang.serialization.Codec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -17,10 +18,11 @@ import java.util.function.Supplier;
 public interface AMAttachments {
     DeferredRegister<AttachmentType<?>> ATTACHMENTS = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, ArsMagicaApi.MOD_ID);
     // @formatter:off
-    DeferredHolder<AttachmentType<?>, AttachmentType<Double>>          BURNOUT = register("burnout", () -> 0.,                      Codec.DOUBLE,          ByteBufCodecs.DOUBLE);
-    DeferredHolder<AttachmentType<?>, AttachmentType<Integer>>         FROST   = register("frost",   () -> 0,                       Codec.INT,             ByteBufCodecs.INT);
-    DeferredHolder<AttachmentType<?>, AttachmentType<MagicAttachment>> MAGIC   = register("magic",   () -> MagicAttachment.DEFAULT, MagicAttachment.CODEC, MagicAttachment.STREAM_CODEC);
-    DeferredHolder<AttachmentType<?>, AttachmentType<Double>>          MANA    = register("mana",    () -> 0.,                      Codec.DOUBLE,          ByteBufCodecs.DOUBLE);
+    DeferredHolder<AttachmentType<?>, AttachmentType<Double>>                BURNOUT     = register("burnout",     () -> 0.,                            Codec.DOUBLE,                ByteBufCodecs.DOUBLE);
+    DeferredHolder<AttachmentType<?>, AttachmentType<ContingencyAttachment>> CONTINGENCY = register("contingency", () -> ContingencyAttachment.DEFAULT, ContingencyAttachment.CODEC, ContingencyAttachment.STREAM_CODEC);
+    DeferredHolder<AttachmentType<?>, AttachmentType<Integer>>               FROST       = register("frost",       () -> 0,                             Codec.INT,                   ByteBufCodecs.INT);
+    DeferredHolder<AttachmentType<?>, AttachmentType<MagicAttachment>>       MAGIC       = register("magic",       () -> MagicAttachment.DEFAULT,       MagicAttachment.CODEC,       MagicAttachment.STREAM_CODEC);
+    DeferredHolder<AttachmentType<?>, AttachmentType<Double>>                MANA        = register("mana",        () -> 0.,                            Codec.DOUBLE,                ByteBufCodecs.DOUBLE);
     DeferredHolder<AttachmentType<?>, AttachmentType<TemporalAnchorEffect.Snapshot>> TEMPORAL_ANCHOR_SNAPSHOT = ATTACHMENTS.register("temporal_anchor_snapshot", () -> AttachmentType.<TemporalAnchorEffect.Snapshot>builder(() -> null).serialize(TemporalAnchorEffect.Snapshot.CODEC).build());
     // @formatter:on
 

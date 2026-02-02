@@ -43,6 +43,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMFluids;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
+import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.item.RuneBagItem;
 import at.minecraftschurli.arsmagicalegacy.item.SpellBookItem;
 import at.minecraftschurli.arsmagicalegacy.packet.ForgetSkillsPacket;
@@ -100,6 +101,7 @@ import net.neoforged.neoforge.event.entity.living.EnderManAngerEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
+import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.player.AdvancementEvent;
@@ -286,6 +288,12 @@ final class AMEventHandler {
             if (living.hasEffect(AMMobEffects.WATERY_GRAVE) && entity.isInWaterOrBubble()) {
                 entity.setDeltaMovement(entity.getDeltaMovement().x(), entity.getPose() == Pose.SWIMMING ? 0 : Math.min(0, entity.getDeltaMovement().y()), entity.getDeltaMovement().z());
             }
+            if (living.getHealth() * 4 < living.getMaxHealth()) {
+                ArsMagicaApi.spellHelper().triggerContingency(living, AMSpells.CONTINGENCY_HEALTH_ID);
+            }
+            if (living.isOnFire()) {
+                ArsMagicaApi.spellHelper().triggerContingency(living, AMSpells.CONTINGENCY_FIRE_ID);
+            }
         }
         if (!entity.hasData(AMAttachments.FROST)) return;
         int frost = entity.getData(AMAttachments.FROST);
@@ -335,8 +343,11 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void livingDamagePost(LivingDamageEvent.Post event) {
-        if (!(event.getEntity() instanceof Player player)) return;
-        ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, ThornsAbilityEffect.CODEC);
+        LivingEntity entity = event.getEntity();
+        ArsMagicaApi.spellHelper().triggerContingency(entity, AMSpells.CONTINGENCY_DAMAGE_ID);
+        if (entity instanceof Player player) {
+            ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, ThornsAbilityEffect.CODEC);
+        }
     }
 
     @SubscribeEvent
@@ -347,6 +358,7 @@ final class AMEventHandler {
             event.setCanceled(true);
             return;
         }
+        ArsMagicaApi.spellHelper().triggerContingency(entity, AMSpells.CONTINGENCY_DEATH_ID);
         if (!(event.getSource().getEntity() instanceof Player player)) return;
         ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, KillEffectAbilityEffect.CODEC);
     }
@@ -355,6 +367,11 @@ final class AMEventHandler {
     private static void livingJump(LivingEvent.LivingJumpEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
         ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, JumpBoostAbilityEffect.CODEC);
+    }
+
+    @SubscribeEvent
+    private static void livingFall(LivingFallEvent event) {
+        ArsMagicaApi.spellHelper().triggerContingency(event.getEntity(), AMSpells.CONTINGENCY_FALL_ID);
     }
 
     @SuppressWarnings("ConstantValue")

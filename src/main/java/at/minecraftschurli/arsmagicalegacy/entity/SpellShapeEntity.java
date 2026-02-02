@@ -89,9 +89,9 @@ public abstract class SpellShapeEntity extends SpellEntity {
             LivingEntity owner = getOwner();
             EntityHitResult hitResult = new EntityHitResult(entity);
             if (secondary) {
-                spell = ArsMagicaApi.spellHelper().castSecondaryOrGrammar(spell, owner, this, hitResult);
+                spell = ArsMagicaApi.spellHelper().castSecondaryOrGrammar(spell, level(), owner, this, hitResult);
             } else {
-                spell = ArsMagicaApi.spellHelper().castGrammar(spell, owner, this, hitResult);
+                spell = ArsMagicaApi.spellHelper().castGrammar(spell, level(), owner, this, hitResult);
             }
             setSpell(spell);
         }
@@ -108,9 +108,9 @@ public abstract class SpellShapeEntity extends SpellEntity {
         BlockPos.betweenClosedStream(aabb).filter(blockPredicate).forEach(pos -> {
             HitResult hitResult = AMUtil.getHitResult(position(), position().add(getDeltaMovement()), this, blockContext, fluidContext);
             if (secondary) {
-                ArsMagicaApi.spellHelper().castSecondaryOrGrammar(spell, owner, this, hitResult);
+                ArsMagicaApi.spellHelper().castSecondaryOrGrammar(spell, level(), owner, this, hitResult);
             } else {
-                ArsMagicaApi.spellHelper().castGrammar(spell, owner, this, hitResult);
+                ArsMagicaApi.spellHelper().castGrammar(spell, level(), owner, this, hitResult);
             }
             spawnParticles(pos.getBottomCenter());
         });

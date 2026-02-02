@@ -35,10 +35,8 @@ public class Rune extends SecondarySpellShape {
     }
 
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
-        if (!(hitResult instanceof BlockHitResult blockHitResult)) return spell;
-        Level level = caster.level();
-        if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return spell;
+    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+        if (level.isClientSide() || !(level instanceof ServerLevel serverLevel) || !(hitResult instanceof BlockHitResult blockHitResult)) return spell;
         ServerPlayer player = caster instanceof ServerPlayer p ? p : FakePlayerFactory.get(serverLevel, GAME_PROFILE);
         Direction direction = blockHitResult.getDirection();
         BlockPos pos = blockHitResult.getBlockPos().offset(direction.getNormal());
@@ -46,7 +44,7 @@ public class Rune extends SecondarySpellShape {
         if (state != null) {
             level.setBlockAndUpdate(pos, state);
             if (level.getBlockEntity(pos) instanceof SpellRuneBlockEntity spellRune) {
-                spellRune.setData(spell, (int) ArsMagicaApi.spellHelper().getModifiedStat(1, AMSpells.RUNE_POWER_STAT, modifiers, spell, caster, directEntity, hitResult), caster);
+                spellRune.setData(spell, (int) ArsMagicaApi.spellHelper().getModifiedStat(1, AMSpells.RUNE_POWER_STAT, modifiers, spell, level, caster, directEntity, hitResult), caster);
             }
         }
         return spell;

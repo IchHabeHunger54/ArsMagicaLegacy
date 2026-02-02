@@ -17,9 +17,8 @@ import java.util.List;
 
 public class Disarm extends SpellComponent.CastEntity {
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
+    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
         if (!(hitResult.getEntity() instanceof LivingEntity entity)) return spell;
-        Level level = caster.level();
         if (entity instanceof EnderMan enderMan) {
             BlockState state = enderMan.getCarriedBlock();
             if (state != null) {

@@ -45,8 +45,7 @@ public class Dig extends SpellComponent.CastBlock {
     }
 
     @Override
-    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, BlockHitResult hitResult) {
-        Level level = directEntity.level();
+    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, BlockHitResult hitResult) {
         if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return spell;
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
@@ -55,7 +54,7 @@ public class Dig extends SpellComponent.CastBlock {
         SpellHelper helper = ArsMagicaApi.spellHelper();
         ManaHelper manaHelper = ArsMagicaApi.manaHelper();
         BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
-        TagKey<Block> incorrectTag = helper.getIncorrectTagForToolTier((int) helper.getModifiedStat(AMServerConfig.DIG_TOOL_TIER.get(), AMSpells.MINING_POWER_STAT, modifiers, spell, caster, directEntity, hitResult));
+        TagKey<Block> incorrectTag = helper.getIncorrectTagForToolTier((int) helper.getModifiedStat(AMServerConfig.DIG_TOOL_TIER.get(), AMSpells.MINING_POWER_STAT, modifiers, spell, level, caster, directEntity, hitResult));
         if (state.requiresCorrectToolForDrops() && state.is(incorrectTag)) return spell;
         double manaCost = hardness * AMServerConfig.DIG_MANA_FACTOR.get();
         if (manaHelper.getMana(caster) <= manaCost || burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) <= manaCost) return spell;
@@ -71,8 +70,8 @@ public class Dig extends SpellComponent.CastBlock {
         ItemStack stack = AMItems.SPELL.toStack();
         stack.set(DataComponents.TOOL, new Tool(List.of(Tool.Rule.deniesDrops(incorrectTag)), Float.MAX_VALUE, 0));
         Registry<Enchantment> enchantments = level.registryAccess().registryOrThrow(Registries.ENCHANTMENT);
-        stack.enchant(enchantments.getHolderOrThrow(Enchantments.FORTUNE), (int) helper.getModifiedStat(0, AMSpells.FORTUNE_STAT, modifiers, spell, caster, directEntity, hitResult));
-        stack.enchant(enchantments.getHolderOrThrow(Enchantments.SILK_TOUCH), (int) helper.getModifiedStat(0, AMSpells.SILK_TOUCH_STAT, modifiers, spell, caster, directEntity, hitResult));
+        stack.enchant(enchantments.getHolderOrThrow(Enchantments.FORTUNE), (int) helper.getModifiedStat(0, AMSpells.FORTUNE_STAT, modifiers, spell, level, caster, directEntity, hitResult));
+        stack.enchant(enchantments.getHolderOrThrow(Enchantments.SILK_TOUCH), (int) helper.getModifiedStat(0, AMSpells.SILK_TOUCH_STAT, modifiers, spell, level, caster, directEntity, hitResult));
         state.getBlock().playerDestroy(level, player, pos, state, level.getBlockEntity(pos), stack);
         return spell;
     }

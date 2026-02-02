@@ -19,14 +19,13 @@ import java.util.List;
 
 public class EnderIntervention extends SpellComponent.CastEntity {
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
+    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
         if (!(hitResult.getEntity() instanceof LivingEntity entity)) return spell;
         if (caster.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
             caster.sendSystemMessage(AMTranslations.NO_TELEPORT);
         } else if (entity.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
             caster.sendSystemMessage(AMTranslations.NO_TELEPORT_OTHER);
         } else {
-            Level level = caster.level();
             ResourceKey<Level> dimension = level.dimension();
             if (dimension == Level.NETHER) {
                 caster.sendSystemMessage(AMTranslations.NO_TELEPORT_NETHER);

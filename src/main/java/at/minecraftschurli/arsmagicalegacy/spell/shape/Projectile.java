@@ -21,8 +21,7 @@ public class Projectile extends PrimarySpellShape {
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster) {
-        Level level = caster.level();
+    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster) {
         if (level.isClientSide()) return spell;
         var projectile = AMEntities.PROJECTILE.get().create(level);
         projectile.setPos(caster.getEyePosition());
@@ -30,13 +29,13 @@ public class Projectile extends PrimarySpellShape {
         projectile.setOwner(caster);
         projectile.setSpell(spell);
         SpellHelper helper = ArsMagicaApi.spellHelper();
-        projectile.setDeltaMovement(caster.getLookAngle().scale(helper.getModifiedStat(AMServerConfig.PROJECTILE_SPEED.get(), AMSpells.SPEED_STAT, modifiers, spell, caster, caster, null)));
+        projectile.setDeltaMovement(caster.getLookAngle().scale(helper.getModifiedStat(AMServerConfig.PROJECTILE_SPEED.get(), AMSpells.SPEED_STAT, modifiers, spell, level, caster, caster, null)));
         projectile.setColor(helper.getColor(modifiers, spell, spell.activeShapeGroup()));
-        projectile.setTargetNonSolid(helper.getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, spell, caster, caster, null) > 0);
-        projectile.setDuration((int) helper.getModifiedStat(AMServerConfig.PROJECTILE_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, caster, caster, null));
-        projectile.setBounces((int) helper.getModifiedStat(0, AMSpells.BOUNCE_STAT, modifiers, spell, caster, caster, null));
-        projectile.setPierces((int) helper.getModifiedStat(0, AMSpells.PIERCING_STAT, modifiers, spell, caster, caster, null));
-        projectile.setGravity((float) (helper.getModifiedStat(0, AMSpells.GRAVITY_STAT, modifiers, spell, caster, caster, null) * AMServerConfig.PROJECTILE_GRAVITY.get()));
+        projectile.setTargetNonSolid(helper.getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, spell, level, caster, caster, null) > 0);
+        projectile.setDuration((int) helper.getModifiedStat(AMServerConfig.PROJECTILE_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, level, caster, caster, null));
+        projectile.setBounces((int) helper.getModifiedStat(0, AMSpells.BOUNCE_STAT, modifiers, spell, level, caster, caster, null));
+        projectile.setPierces((int) helper.getModifiedStat(0, AMSpells.PIERCING_STAT, modifiers, spell, level, caster, caster, null));
+        projectile.setGravity((float) (helper.getModifiedStat(0, AMSpells.GRAVITY_STAT, modifiers, spell, level, caster, caster, null) * AMServerConfig.PROJECTILE_GRAVITY.get()));
         level.addFreshEntity(projectile);
         return spell;
     }

@@ -21,8 +21,7 @@ public class Wave extends PrimarySpellShape {
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster) {
-        Level level = caster.level();
+    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster) {
         if (level.isClientSide()) return spell;
         var wave = AMEntities.WAVE.get().create(level);
         wave.setPos(caster.getEyePosition());
@@ -30,12 +29,12 @@ public class Wave extends PrimarySpellShape {
         wave.setOwner(caster);
         wave.setSpell(spell);
         SpellHelper helper = ArsMagicaApi.spellHelper();
-        wave.setDeltaMovement(caster.getLookAngle().scale(helper.getModifiedStat(AMServerConfig.WAVE_SPEED.get(), AMSpells.SPEED_STAT, modifiers, spell, caster, caster, null)));
+        wave.setDeltaMovement(caster.getLookAngle().scale(helper.getModifiedStat(AMServerConfig.WAVE_SPEED.get(), AMSpells.SPEED_STAT, modifiers, spell, level, caster, caster, null)));
         wave.setColor(helper.getColor(modifiers, spell, spell.activeShapeGroup()));
-        wave.setTargetNonSolid(helper.getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, spell, caster, caster, null) > 0);
-        wave.setDuration((int) helper.getModifiedStat(AMServerConfig.WAVE_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, caster, caster, null));
-        wave.setGravity((float) (helper.getModifiedStat(0, AMSpells.GRAVITY_STAT, modifiers, spell, caster, caster, null) * AMServerConfig.WAVE_GRAVITY.get()));
-        wave.setRange((float) helper.getModifiedStat(AMServerConfig.WAVE_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, caster, caster, null));
+        wave.setTargetNonSolid(helper.getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, spell, level, caster, caster, null) > 0);
+        wave.setDuration((int) helper.getModifiedStat(AMServerConfig.WAVE_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, level, caster, caster, null));
+        wave.setGravity((float) (helper.getModifiedStat(0, AMSpells.GRAVITY_STAT, modifiers, spell, level, caster, caster, null) * AMServerConfig.WAVE_GRAVITY.get()));
+        wave.setRange((float) helper.getModifiedStat(AMServerConfig.WAVE_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, caster, null));
         level.addFreshEntity(wave);
         return spell;
     }

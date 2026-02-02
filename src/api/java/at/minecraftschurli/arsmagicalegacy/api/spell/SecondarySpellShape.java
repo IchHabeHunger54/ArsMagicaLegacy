@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.api.spell;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -51,11 +52,12 @@ public abstract non-sealed class SecondarySpellShape extends SpellPart {
      *
      * @param spell        The {@link Spell} being cast.
      * @param modifiers    The {@link SpellModifier}s to consider.
+     * @param level        The {@link Level} the {@link Spell} is cast in.
      * @param caster       The {@link LivingEntity} casting the {@link Spell}.
      * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
      * @param hitResult    The {@link HitResult} of the spell cast.
      * @return The {@link Spell} that was cast, potentially modified.
-     * @see SpellHelper#castSecondary(Spell, LivingEntity, Entity, HitResult)
+     * @see SpellHelper#castSecondary(Spell, Level, LivingEntity, Entity, HitResult)
      */
-    public abstract Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult);
+    public abstract Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult);
 }

@@ -24,8 +24,7 @@ public class Wall extends SecondarySpellShape {
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
-        Level level = caster.level();
+    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
         if (level.isClientSide()) return spell;
         var wall = AMEntities.WALL.get().create(level);
         wall.setPos(directEntity.getEyePosition());
@@ -34,9 +33,9 @@ public class Wall extends SecondarySpellShape {
         wall.setSpell(spell);
         SpellHelper helper = ArsMagicaApi.spellHelper();
         wall.setColor(helper.getColor(modifiers, spell, spell.activeShapeGroup()));
-        wall.setTargetNonSolid(helper.getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, spell, caster, caster, hitResult) > 0);
-        wall.setDuration((int) helper.getModifiedStat(AMServerConfig.WALL_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, caster, caster, hitResult));
-        wall.setRange((float) helper.getModifiedStat(AMServerConfig.WALL_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, caster, caster, hitResult));
+        wall.setTargetNonSolid(helper.getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, spell, level, caster, caster, hitResult) > 0);
+        wall.setDuration((int) helper.getModifiedStat(AMServerConfig.WALL_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, level, caster, caster, hitResult));
+        wall.setRange((float) helper.getModifiedStat(AMServerConfig.WALL_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, caster, hitResult));
         level.addFreshEntity(wall);
         return spell;
     }

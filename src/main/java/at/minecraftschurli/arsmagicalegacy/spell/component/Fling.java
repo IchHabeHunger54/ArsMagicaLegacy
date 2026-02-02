@@ -8,6 +8,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 
 import java.util.List;
@@ -18,9 +19,9 @@ public class Fling extends SpellComponent.CastEntity {
     }
 
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
+    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
         Entity entity = hitResult.getEntity();
-        entity.setDeltaMovement(entity.getDeltaMovement().add(0, ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.FLING_SPEED.get(), AMSpells.SPEED_STAT, modifiers, spell, caster, directEntity, hitResult), 0));
+        entity.setDeltaMovement(entity.getDeltaMovement().add(0, ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.FLING_SPEED.get(), AMSpells.SPEED_STAT, modifiers, spell, level, caster, directEntity, hitResult), 0));
         return spell;
     }
 }

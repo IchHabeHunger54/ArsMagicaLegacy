@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import com.google.common.collect.Sets;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -58,26 +59,28 @@ public abstract non-sealed class SpellComponent extends SpellPart {
      *
      * @param spell        The {@link Spell} being cast.
      * @param modifiers    The {@link SpellModifier}s to consider.
+     * @param level        The {@link Level} the {@link Spell} is cast in.
      * @param caster       The {@link LivingEntity} casting the {@link Spell}.
      * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
      * @param hitResult    The {@link HitResult} of the spell cast.
      * @return The {@link Spell} that was cast, potentially modified.
      */
-    public abstract Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult);
+    public abstract Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult);
 
     /**
      * Spawns particles for the part. May only be called on the client.
      *
      * @param spell        The {@link Spell} being cast.
      * @param modifiers    The {@link SpellModifier}s to consider.
+     * @param level        The {@link Level} the {@link Spell} is cast in.
      * @param caster       The {@link LivingEntity} casting the {@link Spell}.
      * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
      * @param hitResult    The {@link HitResult} of the spell cast.
      */
     @SuppressWarnings("DataFlowIssue")
-    public void spawnParticles(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public void spawnParticles(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
         if (hitResult != null && hitResult.getType() != HitResult.Type.MISS) {
-            ArsMagicaApi.spellHelper().spawnParticles(ArsMagicaApi.spellPartRegistry().wrapAsHolder(this).getKey().location(), spell, modifiers, caster, directEntity, hitResult);
+            ArsMagicaApi.spellHelper().spawnParticles(ArsMagicaApi.spellPartRegistry().wrapAsHolder(this).getKey().location(), spell, modifiers, level, caster, directEntity, hitResult);
         }
     }
 
@@ -93,14 +96,14 @@ public abstract non-sealed class SpellComponent extends SpellPart {
         }
 
         @Override
-        public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
-            return hitResult instanceof BlockHitResult blockHitResult ? castBlock(spell, modifiers, caster, directEntity, blockHitResult) : spell;
+        public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+            return hitResult instanceof BlockHitResult blockHitResult ? castBlock(spell, modifiers, level, caster, directEntity, blockHitResult) : spell;
         }
 
         @Override
-        public void spawnParticles(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+        public void spawnParticles(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
             if (hitResult instanceof BlockHitResult) {
-                super.spawnParticles(spell, modifiers, caster, directEntity, hitResult);
+                super.spawnParticles(spell, modifiers, level, caster, directEntity, hitResult);
             }
         }
 
@@ -109,12 +112,13 @@ public abstract non-sealed class SpellComponent extends SpellPart {
          *
          * @param spell        The {@link Spell} being cast.
          * @param modifiers    The {@link SpellModifier}s to consider.
+         * @param level        The {@link Level} the {@link Spell} is cast in.
          * @param caster       The {@link LivingEntity} casting the {@link Spell}.
          * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
          * @param hitResult    The {@link BlockHitResult} of the spell cast.
          * @return The {@link Spell} that was cast, potentially modified.
          */
-        public abstract Spell castBlock(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, BlockHitResult hitResult);
+        public abstract Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, BlockHitResult hitResult);
     }
 
     /**
@@ -129,14 +133,14 @@ public abstract non-sealed class SpellComponent extends SpellPart {
         }
 
         @Override
-        public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
-            return hitResult instanceof EntityHitResult entityHitResult ? castEntity(spell, modifiers, caster, directEntity, entityHitResult) : spell;
+        public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+            return hitResult instanceof EntityHitResult entityHitResult ? castEntity(spell, modifiers, level, caster, directEntity, entityHitResult) : spell;
         }
 
         @Override
-        public void spawnParticles(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+        public void spawnParticles(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
             if (hitResult instanceof EntityHitResult) {
-                super.spawnParticles(spell, modifiers, caster, directEntity, hitResult);
+                super.spawnParticles(spell, modifiers, level, caster, directEntity, hitResult);
             }
         }
 
@@ -145,12 +149,13 @@ public abstract non-sealed class SpellComponent extends SpellPart {
          *
          * @param spell        The {@link Spell} being cast.
          * @param modifiers    The {@link SpellModifier}s to consider.
+         * @param level        The {@link Level} the {@link Spell} is cast in.
          * @param caster       The {@link LivingEntity} casting the {@link Spell}.
          * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
          * @param hitResult    The {@link EntityHitResult} of the spell cast.
          * @return The {@link Spell} that was cast, potentially modified.
          */
-        public abstract Spell castEntity(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, EntityHitResult hitResult);
+        public abstract Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, EntityHitResult hitResult);
     }
 
     /**
@@ -165,10 +170,10 @@ public abstract non-sealed class SpellComponent extends SpellPart {
         }
 
         @Override
-        public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+        public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
             return switch (hitResult) {
-                case BlockHitResult blockHitResult -> castBlock(spell, modifiers, caster, directEntity, blockHitResult);
-                case EntityHitResult entityHitResult -> castEntity(spell, modifiers, caster, directEntity, entityHitResult);
+                case BlockHitResult blockHitResult -> castBlock(spell, modifiers, level, caster, directEntity, blockHitResult);
+                case EntityHitResult entityHitResult -> castEntity(spell, modifiers, level, caster, directEntity, entityHitResult);
                 case null, default -> spell;
             };
         }
@@ -178,23 +183,25 @@ public abstract non-sealed class SpellComponent extends SpellPart {
          *
          * @param spell        The {@link Spell} being cast.
          * @param modifiers    The {@link SpellModifier}s to consider.
+         * @param level        The {@link Level} the {@link Spell} is cast in.
          * @param caster       The {@link LivingEntity} casting the {@link Spell}.
          * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
          * @param hitResult    The {@link BlockHitResult} of the spell cast.
          * @return The {@link Spell} that was cast, potentially modified.
          */
-        public abstract Spell castBlock(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, BlockHitResult hitResult);
+        public abstract Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, BlockHitResult hitResult);
 
         /**
          * Casts this part on an entity.
          *
          * @param spell        The {@link Spell} being cast.
          * @param modifiers    The {@link SpellModifier}s to consider.
+         * @param level        The {@link Level} the {@link Spell} is cast in.
          * @param caster       The {@link LivingEntity} casting the {@link Spell}.
          * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
          * @param hitResult    The {@link EntityHitResult} of the spell cast.
          * @return The {@link Spell} that was cast, potentially modified.
          */
-        public abstract Spell castEntity(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, EntityHitResult hitResult);
+        public abstract Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, EntityHitResult hitResult);
     }
 }

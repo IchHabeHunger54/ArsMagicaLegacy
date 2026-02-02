@@ -23,15 +23,14 @@ public class Blink extends SpellComponent.CastEntity {
     }
 
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
+    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
         Entity entity = hitResult.getEntity();
         if (caster.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
             caster.sendSystemMessage(AMTranslations.NO_TELEPORT);
         } else if (entity instanceof LivingEntity living && living.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
             caster.sendSystemMessage(AMTranslations.NO_TELEPORT_OTHER);
         } else {
-            Level level = entity.level();
-            for (int i = (int) Math.round(ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.BLINK_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, caster, directEntity, hitResult)); i > 0; i--) {
+            for (int i = (int) Math.round(ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.BLINK_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult)); i > 0; i--) {
                 Vec3 angle = entity.getLookAngle().normalize();
                 double x = entity.getX() + angle.x() * i;
                 double y = entity.getY() + angle.y() * i;

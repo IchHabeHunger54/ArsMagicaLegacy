@@ -79,7 +79,7 @@ public class Projectile extends SpellShapeEntity {
                 setDeltaMovement(newX, newY, newZ);
                 setBounces(getBounces() - 1);
             } else {
-                ArsMagicaApi.spellHelper().castSecondaryOrGrammar(getSpell(), owner, this, result);
+                ArsMagicaApi.spellHelper().castSecondaryOrGrammar(getSpell(), level, owner, this, result);
                 decreasePierces();
             }
         } else if (result instanceof EntityHitResult hitResult) {

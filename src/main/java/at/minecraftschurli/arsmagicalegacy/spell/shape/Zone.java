@@ -24,8 +24,7 @@ public class Zone extends SecondarySpellShape {
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
-        Level level = caster.level();
+    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
         if (level.isClientSide()) return spell;
         var zone = AMEntities.ZONE.get().create(level);
         zone.setPos(directEntity.getEyePosition());
@@ -34,10 +33,10 @@ public class Zone extends SecondarySpellShape {
         zone.setSpell(spell);
         SpellHelper helper = ArsMagicaApi.spellHelper();
         zone.setColor(helper.getColor(modifiers, spell, spell.activeShapeGroup()));
-        zone.setTargetNonSolid(helper.getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, spell, caster, caster, hitResult) > 0);
-        zone.setDuration((int) helper.getModifiedStat(AMServerConfig.ZONE_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, caster, caster, hitResult));
-        zone.setGravity((float) (helper.getModifiedStat(0, AMSpells.GRAVITY_STAT, modifiers, spell, caster, caster, hitResult) * AMServerConfig.ZONE_GRAVITY.get()));
-        zone.setRange((float) helper.getModifiedStat(AMServerConfig.ZONE_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, caster, caster, hitResult));
+        zone.setTargetNonSolid(helper.getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, spell, level, caster, caster, hitResult) > 0);
+        zone.setDuration((int) helper.getModifiedStat(AMServerConfig.ZONE_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, level, caster, caster, hitResult));
+        zone.setGravity((float) (helper.getModifiedStat(0, AMSpells.GRAVITY_STAT, modifiers, spell, level, caster, caster, hitResult) * AMServerConfig.ZONE_GRAVITY.get()));
+        zone.setRange((float) helper.getModifiedStat(AMServerConfig.ZONE_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, caster, hitResult));
         level.addFreshEntity(zone);
         return spell;
     }

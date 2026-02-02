@@ -8,6 +8,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -22,14 +23,14 @@ public class Repel extends SpellComponent {
     }
 
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
         if (hitResult == null || hitResult.getType() == HitResult.Type.MISS) return spell;
         SpellHelper helper = ArsMagicaApi.spellHelper();
-        double range = helper.getModifiedStat(4, AMSpells.RANGE_STAT, modifiers, spell, caster, directEntity, hitResult);
-        double speed = helper.getModifiedStat(1, AMSpells.SPEED_STAT, modifiers, spell, caster, directEntity, hitResult);
+        double range = helper.getModifiedStat(4, AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult);
+        double speed = helper.getModifiedStat(1, AMSpells.SPEED_STAT, modifiers, spell, level, caster, directEntity, hitResult);
         Entity target = hitResult instanceof EntityHitResult result ? result.getEntity() : null;
         Vec3 targetPos = hitResult.getLocation();
-        for (Entity entity : caster.level().getEntities(target, target == null ? AABB.ofSize(targetPos, range, range, range) : target.getBoundingBox().inflate(range))) {
+        for (Entity entity : level.getEntities(target, target == null ? AABB.ofSize(targetPos, range, range, range) : target.getBoundingBox().inflate(range))) {
             if (entity == caster || entity == directEntity) continue;
             Vec3 vec = entity.position();
             entity.setDeltaMovement(entity.getDeltaMovement().add(vec.subtract(targetPos).scale(speed / (targetPos.distanceTo(vec) * 0.9 + 0.09))));

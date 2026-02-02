@@ -22,8 +22,7 @@ import java.util.Optional;
 
 public class Drought extends SpellComponent.CastBlock {
     @Override
-    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, BlockHitResult hitResult) {
-        Level level = directEntity.level();
+    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, BlockHitResult hitResult) {
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
         BlockPos normalPos = pos.offset(hitResult.getDirection().getNormal());

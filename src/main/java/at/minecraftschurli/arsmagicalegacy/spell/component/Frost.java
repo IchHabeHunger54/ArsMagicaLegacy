@@ -9,6 +9,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 
 import java.util.List;
@@ -19,9 +20,9 @@ public class Frost extends SpellComponent.CastEntity {
     }
 
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
+    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
         Entity entity = hitResult.getEntity();
-        entity.setData(AMAttachments.FROST, Math.max(entity.getData(AMAttachments.FROST), (int) ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.FROST_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, caster, directEntity, hitResult)));
+        entity.setData(AMAttachments.FROST, Math.max(entity.getData(AMAttachments.FROST), (int) ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.FROST_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, level, caster, directEntity, hitResult)));
         return spell;
     }
 }

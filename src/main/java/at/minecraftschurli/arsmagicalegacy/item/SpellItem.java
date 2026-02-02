@@ -46,7 +46,7 @@ public class SpellItem extends DataComponentNamedItem<Spell> {
             player.startUsingItem(usedHand);
             return InteractionResultHolder.consume(stack);
         }
-        Either<Spell, Component> either = ArsMagicaApi.spellHelper().cast(spell, player, true, true)
+        Either<Spell, Component> either = ArsMagicaApi.spellHelper().cast(spell, level, player, true, true)
             .ifLeft(result -> stack.set(AMDataComponents.SPELL, result))
             .ifRight(message -> player.displayClientMessage(message, true));
         playSound(level, player, spell);
@@ -57,7 +57,7 @@ public class SpellItem extends DataComponentNamedItem<Spell> {
     public void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {
         Spell spell = stack.get(AMDataComponents.SPELL);
         if (spell == null || !spell.isContinuous()) return;
-        ArsMagicaApi.spellHelper().cast(spell, livingEntity, true, true)
+        ArsMagicaApi.spellHelper().cast(spell, level, livingEntity, true, true)
             .ifLeft(result -> stack.set(AMDataComponents.SPELL, result))
             .ifRight(message -> {
                 if (livingEntity instanceof Player player) {

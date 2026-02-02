@@ -32,8 +32,7 @@ import java.util.Optional;
 
 public class Forge extends SpellComponent.CastBoth {
     @Override
-    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, BlockHitResult hitResult) {
-        Level level = caster.level();
+    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, BlockHitResult hitResult) {
         if (level.isClientSide()) return spell;
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
@@ -55,9 +54,8 @@ public class Forge extends SpellComponent.CastBoth {
     }
 
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
+    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
         if (!AMServerConfig.FORGE_SMELTS_VILLAGERS.get() || !(hitResult.getEntity() instanceof Villager villager)) return spell;
-        Level level = villager.level();
         if (!level.isClientSide()) {
             ItemEntity item = new ItemEntity(level, villager.getX(), villager.getY(), villager.getZ(), new ItemStack(Items.EMERALD));
             item.setDefaultPickUpDelay();

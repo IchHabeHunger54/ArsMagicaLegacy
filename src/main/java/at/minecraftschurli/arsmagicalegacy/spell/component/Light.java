@@ -26,8 +26,7 @@ public class Light extends SpellComponent.CastBoth {
     }
 
     @Override
-    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, BlockHitResult hitResult) {
-        Level level = caster.level();
+    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, BlockHitResult hitResult) {
         Direction direction = hitResult.getDirection();
         BlockPos pos = hitResult.getBlockPos().offset(direction.getNormal());
         if (level.getBlockState(pos).isAir()) {
@@ -37,10 +36,10 @@ public class Light extends SpellComponent.CastBoth {
     }
 
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
+    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
         if (!(hitResult.getEntity() instanceof LivingEntity living)) return spell;
         SpellHelper helper = ArsMagicaApi.spellHelper();
-        living.addEffect(new MobEffectInstance(AMMobEffects.ILLUMINATION, (int) helper.getModifiedStat(AMServerConfig.EFFECT_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, caster, directEntity, hitResult)));
+        living.addEffect(new MobEffectInstance(AMMobEffects.ILLUMINATION, (int) helper.getModifiedStat(AMServerConfig.EFFECT_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, level, caster, directEntity, hitResult)));
         return spell;
     }
 }

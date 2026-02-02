@@ -22,10 +22,10 @@ public class Explosion extends SpellComponent {
     }
 
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
         if (hitResult != null && hitResult.getType() != HitResult.Type.MISS) {
             Vec3 location = hitResult.getLocation();
-            caster.level().explode(directEntity, location.x(), location.y(), location.z(), (float) ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.EXPLOSION_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, caster, directEntity, hitResult), caster instanceof Player ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.MOB);
+            level.explode(directEntity, location.x(), location.y(), location.z(), (float) ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.EXPLOSION_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult), caster instanceof Player ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.MOB);
         }
         return spell;
     }

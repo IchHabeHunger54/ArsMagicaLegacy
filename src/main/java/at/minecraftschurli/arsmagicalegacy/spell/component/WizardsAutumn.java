@@ -22,11 +22,10 @@ public class WizardsAutumn extends SpellComponent {
     }
 
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
         if (hitResult == null || hitResult.getType() == HitResult.Type.MISS) return spell;
-        Level level = caster.level();
         BlockPos origin = BlockPos.containing(hitResult.getLocation());
-        int range = (int) ArsMagicaApi.spellHelper().getModifiedStat(2, AMSpells.RANGE_STAT, modifiers, spell, caster, directEntity, hitResult);
+        int range = (int) ArsMagicaApi.spellHelper().getModifiedStat(2, AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult);
         for (int i = -range; i <= range; i++) {
             for (int j = -range; j <= range; j++) {
                 for (int k = -range; k <= range; k++) {

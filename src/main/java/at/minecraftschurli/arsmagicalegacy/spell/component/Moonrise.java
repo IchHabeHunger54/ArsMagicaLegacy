@@ -6,6 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,9 +14,9 @@ import java.util.List;
 
 public class Moonrise extends SpellComponent {
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
-        if (caster.level() instanceof ServerLevel level && level.getDayTime() % 24000 < 12000) {
-            level.setDayTime(level.getDayTime() + 12000);
+    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+        if (level instanceof ServerLevel serverLevel && serverLevel.getDayTime() % 24000 < 12000) {
+            serverLevel.setDayTime(serverLevel.getDayTime() + 12000);
         }
         return spell;
     }

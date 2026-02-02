@@ -29,8 +29,7 @@ public class PlaceBlock extends SpellComponent.CastBlock {
     private static final GameProfile GAME_PROFILE = new GameProfile(UUID.randomUUID(), ArsMagicaApi.MOD_ID + "_place_block");
 
     @Override
-    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, BlockHitResult hitResult) {
-        Level level = directEntity.level();
+    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, BlockHitResult hitResult) {
         if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return spell;
         Block block = spell.dataComponents().grammar().get(AMDataComponents.SPELL_BLOCK.get());
         if (block == null || block.defaultBlockState().isAir()) return spell;

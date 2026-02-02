@@ -45,6 +45,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -60,7 +61,7 @@ import java.util.Set;
 
 final class SpellHelperImpl implements SpellHelper {
     @Override
-    public Either<Spell, Component> cast(Spell spell, LivingEntity caster, boolean consume, boolean awardXp) {
+    public Either<Spell, Component> cast(Spell spell, Level level, LivingEntity caster, boolean consume, boolean awardXp) {
         if (spell.isMalformed()) return Either.right(AMTranslations.SPELL_CAST_MALFORMED);
         if (caster.hasEffect(AMMobEffects.SILENCE)) return Either.right(AMTranslations.SPELL_CAST_SILENCED);
         ManaHelper manaHelper = ArsMagicaApi.manaHelper();
@@ -74,7 +75,7 @@ final class SpellHelperImpl implements SpellHelper {
             if (manaHelper.getMana(caster) < manaCost) return Either.right(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA);
             if (burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) < burnoutCost) return Either.right(AMTranslations.SPELL_CAST_BURNED_OUT);
         }
-        spell = castPrimary(spell, caster);
+        spell = castPrimary(spell, level, caster);
         if (event.isConsume() && !(caster instanceof Player player && player.isCreative())) {
             manaHelper.decreaseMana(caster, manaCost);
             burnoutHelper.increaseBurnout(caster, burnoutCost);
@@ -106,35 +107,35 @@ final class SpellHelperImpl implements SpellHelper {
     }
 
     @Override
-    public Spell castPrimary(Spell spell, LivingEntity caster) {
+    public Spell castPrimary(Spell spell, Level level, LivingEntity caster) {
         PrimarySpellShape primary = spell.currentShapeGroup().primaryShape();
         List<SpellModifier> modifiers = spell.currentShapeGroup().primaryModifiers();
         if (primary != null) {
-            spell = primary.cast(spell, modifiers, caster);
+            spell = primary.cast(spell, modifiers, level, caster);
             NeoForge.EVENT_BUS.post(new SpellPartCastEvent.PrimaryShape(caster, spell, primary, modifiers));
         }
         return spell;
     }
 
     @Override
-    public Spell castSecondary(Spell spell, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public Spell castSecondary(Spell spell, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
         SecondarySpellShape secondary = spell.currentShapeGroup().secondaryShape();
         List<SpellModifier> modifiers = spell.currentShapeGroup().secondaryModifiers();
         if (secondary != null) {
-            spell = secondary.cast(spell, modifiers, caster, directEntity, hitResult);
+            spell = secondary.cast(spell, modifiers, level, caster, directEntity, hitResult);
             NeoForge.EVENT_BUS.post(new SpellPartCastEvent.SecondaryShape(caster, spell, secondary, modifiers, directEntity));
         }
         return spell;
     }
 
     @Override
-    public Spell castGrammar(Spell spell, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public Spell castGrammar(Spell spell, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
         for (Pair<SpellComponent, List<SpellModifier>> pair : spell.grammar().components()) {
             SpellComponent component = pair.getFirst();
             List<SpellModifier> modifiers = pair.getSecond();
-            spell = component.cast(spell, modifiers, caster, directEntity, hitResult);
+            spell = component.cast(spell, modifiers, level, caster, directEntity, hitResult);
             if (caster.level().isClientSide()) {
-                component.spawnParticles(spell, modifiers, caster, directEntity, hitResult);
+                component.spawnParticles(spell, modifiers, level, caster, directEntity, hitResult);
             }
             NeoForge.EVENT_BUS.post(new SpellPartCastEvent.Component(caster, spell, component, modifiers, directEntity, hitResult));
         }
@@ -147,8 +148,8 @@ final class SpellHelperImpl implements SpellHelper {
     }
 
     @Override
-    public Spell castSecondaryOrGrammar(Spell spell, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
-        return spell.currentShapeGroup().secondaryShape() != null ? castSecondary(spell, caster, directEntity, hitResult) : castGrammar(spell, caster, directEntity, hitResult);
+    public Spell castSecondaryOrGrammar(Spell spell, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+        return spell.currentShapeGroup().secondaryShape() != null ? castSecondary(spell, level, caster, directEntity, hitResult) : castGrammar(spell, level, caster, directEntity, hitResult);
     }
 
     @Override
@@ -157,7 +158,7 @@ final class SpellHelperImpl implements SpellHelper {
     }
 
     @Override
-    public double getModifiedStat(double base, SpellStat stat, List<SpellModifier> modifiers, Spell spell, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public double getModifiedStat(double base, SpellStat stat, List<SpellModifier> modifiers, Spell spell, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
         double modified = base;
         for (SpellModifier modifier : modifiers) {
             if (modifier.getStats().contains(stat)) {
@@ -233,7 +234,7 @@ final class SpellHelperImpl implements SpellHelper {
     }
 
     @Override
-    public void spawnParticles(ResourceLocation part, Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, HitResult hitResult) {
+    public void spawnParticles(ResourceLocation part, Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, HitResult hitResult) {
         if (!caster.level().isClientSide()) return;
         AMClientUtil.spawnParticles(part, switch (hitResult) {
             case BlockHitResult blockHitResult -> blockHitResult.getBlockPos().getBottomCenter();

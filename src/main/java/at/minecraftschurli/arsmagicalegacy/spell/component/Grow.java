@@ -8,6 +8,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -16,16 +17,16 @@ import java.util.List;
 
 public class Grow extends SpellComponent.CastBlock {
     @Override
-    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, LivingEntity caster, Entity directEntity, BlockHitResult hitResult) {
-        if (!(caster.level() instanceof ServerLevel level)) return spell;
+    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, BlockHitResult hitResult) {
+        if (!(level instanceof ServerLevel serverLevel)) return spell;
         BlockPos pos = hitResult.getBlockPos();
-        BlockState state = level.getBlockState(pos);
+        BlockState state = serverLevel.getBlockState(pos);
         if (!(state.getBlock() instanceof BonemealableBlock) && hitResult.getDirection() == Direction.UP) {
             pos = pos.above();
-            state = level.getBlockState(pos);
+            state = serverLevel.getBlockState(pos);
         }
-        if (state.getBlock() instanceof BonemealableBlock block && block.isValidBonemealTarget(level, pos, state) && block.isBonemealSuccess(level, level.getRandom(), pos, state)) {
-            block.performBonemeal(level, level.getRandom(), pos, state);
+        if (state.getBlock() instanceof BonemealableBlock block && block.isValidBonemealTarget(serverLevel, pos, state) && block.isBonemealSuccess(serverLevel, serverLevel.getRandom(), pos, state)) {
+            block.performBonemeal(serverLevel, serverLevel.getRandom(), pos, state);
         }
         return spell;
     }

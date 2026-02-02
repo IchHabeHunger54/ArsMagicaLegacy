@@ -1,11 +1,9 @@
 package at.minecraftschurli.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
-import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
+import at.minecraftschurli.arsmagicalegacy.spell.TeleportComponent;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -18,25 +16,17 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class Transplace extends SpellComponent.CastEntity {
+public class Transplace extends TeleportComponent {
     public static final ResourceLocation CASTER_PARTICLES = ArsMagicaApi.modLoc("transplace_caster");
 
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
-        Entity entity = hitResult.getEntity();
-        if (caster != null && caster.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
-            caster.sendSystemMessage(AMTranslations.NO_TELEPORT);
-        } else if (entity instanceof LivingEntity living && living.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
-            if (caster != null) {
-                caster.sendSystemMessage(AMTranslations.NO_TELEPORT_OTHER);
-            }
-        } else if (!level.isClientSide() && caster != null) {
+    protected void teleport(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult, Entity entity) {
+        if (!level.isClientSide() && caster != null) {
             Vec3 targetPos = entity.position();
             Vec3 casterPos = caster.position();
             entity.teleportTo(casterPos.x(), casterPos.y(), casterPos.z());
             caster.teleportTo(targetPos.x(), targetPos.y(), targetPos.z());
         }
-        return spell;
     }
 
     @Override

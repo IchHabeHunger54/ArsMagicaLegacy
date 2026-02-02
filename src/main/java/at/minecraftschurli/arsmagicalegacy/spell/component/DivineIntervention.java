@@ -2,9 +2,8 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
-import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
+import at.minecraftschurli.arsmagicalegacy.spell.TeleportComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -17,28 +16,18 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class DivineIntervention extends SpellComponent.CastEntity {
+public class DivineIntervention extends TeleportComponent {
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
-        if (!(hitResult.getEntity() instanceof LivingEntity entity)) return spell;
-        if (caster != null && caster.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
-            caster.sendSystemMessage(AMTranslations.NO_TELEPORT);
-        } else if (entity.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
+    protected void teleport(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult, Entity entity) {
+        ResourceKey<Level> dimension = level.dimension();
+        if (dimension == Level.NETHER) {
             if (caster != null) {
-                caster.sendSystemMessage(AMTranslations.NO_TELEPORT_OTHER);
+                caster.sendSystemMessage(AMTranslations.NO_TELEPORT_NETHER);
             }
-        } else {
-            ResourceKey<Level> dimension = level.dimension();
-            if (dimension == Level.NETHER) {
-                if (caster != null) {
-                    caster.sendSystemMessage(AMTranslations.NO_TELEPORT_NETHER);
-                }
-            } else if (dimension != Level.OVERWORLD && level instanceof ServerLevel server) {
-                entity.changeDimension(entity instanceof ServerPlayer player
-                    ? player.findRespawnPositionAndUseSpawnBlock(false, DimensionTransition.DO_NOTHING)
-                    : new DimensionTransition(server.getServer().overworld(), server.getSharedSpawnPos().getBottomCenter(), entity.getDeltaMovement(), entity.getYRot(), entity.getXRot(), DimensionTransition.DO_NOTHING));
-            }
+        } else if (dimension != Level.OVERWORLD && level instanceof ServerLevel server) {
+            entity.changeDimension(entity instanceof ServerPlayer player
+                ? player.findRespawnPositionAndUseSpawnBlock(false, DimensionTransition.DO_NOTHING)
+                : new DimensionTransition(server.getServer().overworld(), server.getSharedSpawnPos().getBottomCenter(), entity.getDeltaMovement(), entity.getYRot(), entity.getXRot(), DimensionTransition.DO_NOTHING));
         }
-        return spell;
     }
 }

@@ -32,10 +32,10 @@ public class Storm extends SpellComponent {
         if (!(level instanceof ServerLevel serverLevel)) return spell;
         SpellHelper helper = ArsMagicaApi.spellHelper();
         if (!(serverLevel.getRainLevel(1f) > 0.9)) {
-            serverLevel.setWeatherParameters(0, (int) helper.getModifiedStat(AMServerConfig.STORM_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, serverLevel, caster, directEntity, hitResult), true, true);
+            serverLevel.setWeatherParameters(0, (int) helper.getModifiedStat(AMServerConfig.STORM_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, level, caster, directEntity, hitResult), true, true);
         }
         if (directEntity == null) return spell;
-        int range = (int) helper.getModifiedStat(AMServerConfig.STORM_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, serverLevel, caster, directEntity, hitResult);
+        int range = (int) helper.getModifiedStat(AMServerConfig.STORM_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult);
         RandomSource random = serverLevel.getRandom();
         double randomValue = random.nextDouble();
         if (randomValue < AMServerConfig.STORM_LIGHTNING_BOLT_CHANCE.get()) {

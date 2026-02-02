@@ -2,9 +2,8 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
-import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
+import at.minecraftschurli.arsmagicalegacy.spell.TeleportComponent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -18,31 +17,21 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class EnderIntervention extends SpellComponent.CastEntity {
+public class EnderIntervention extends TeleportComponent {
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
-        if (!(hitResult.getEntity() instanceof LivingEntity entity)) return spell;
-        if (caster != null && caster.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
-            caster.sendSystemMessage(AMTranslations.NO_TELEPORT);
-        } else if (entity.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
+    protected void teleport(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult, Entity entity) {
+        ResourceKey<Level> dimension = level.dimension();
+        if (dimension == Level.NETHER) {
             if (caster != null) {
-                caster.sendSystemMessage(AMTranslations.NO_TELEPORT_OTHER);
+                caster.sendSystemMessage(AMTranslations.NO_TELEPORT_NETHER);
             }
-        } else {
-            ResourceKey<Level> dimension = level.dimension();
-            if (dimension == Level.NETHER) {
-                if (caster != null) {
-                    caster.sendSystemMessage(AMTranslations.NO_TELEPORT_NETHER);
-                }
-            } else if (dimension != Level.END && level instanceof ServerLevel server) {
-                ServerLevel end = server.getServer().getLevel(Level.END);
-                if (end != null) {
-                    BlockPos pos = ServerLevel.END_SPAWN_POINT;
-                    EndPlatformFeature.createEndPlatform(end, pos.below(), true);
-                    entity.changeDimension(new DimensionTransition(end, pos.getBottomCenter(), entity.getDeltaMovement(), entity.getYRot(), entity.getXRot(), DimensionTransition.DO_NOTHING));
-                }
+        } else if (dimension != Level.END && level instanceof ServerLevel server) {
+            ServerLevel end = server.getServer().getLevel(Level.END);
+            if (end != null) {
+                BlockPos pos = ServerLevel.END_SPAWN_POINT;
+                EndPlatformFeature.createEndPlatform(end, pos.below(), true);
+                entity.changeDimension(new DimensionTransition(end, pos.getBottomCenter(), entity.getDeltaMovement(), entity.getYRot(), entity.getXRot(), DimensionTransition.DO_NOTHING));
             }
         }
-        return spell;
     }
 }

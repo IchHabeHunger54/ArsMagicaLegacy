@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.spell.component;
 
+import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
@@ -26,8 +27,8 @@ public class Repel extends SpellComponent {
     public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         if (hitResult == null || hitResult.getType() == HitResult.Type.MISS) return spell;
         SpellHelper helper = ArsMagicaApi.spellHelper();
-        double range = helper.getModifiedStat(4, AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult);
-        double speed = helper.getModifiedStat(1, AMSpells.SPEED_STAT, modifiers, spell, level, caster, directEntity, hitResult);
+        double range = helper.getModifiedStat(AMServerConfig.REPEL_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult);
+        double speed = helper.getModifiedStat(AMServerConfig.REPEL_SPEED.get(), AMSpells.SPEED_STAT, modifiers, spell, level, caster, directEntity, hitResult);
         Entity target = hitResult instanceof EntityHitResult result ? result.getEntity() : null;
         Vec3 targetPos = hitResult.getLocation();
         for (Entity entity : level.getEntities(target, target == null ? AABB.ofSize(targetPos, range, range, range) : target.getBoundingBox().inflate(range))) {

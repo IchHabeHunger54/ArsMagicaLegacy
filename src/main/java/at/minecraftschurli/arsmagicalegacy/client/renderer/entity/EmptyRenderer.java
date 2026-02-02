@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.client.renderer.entity;
 
-import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -13,6 +13,6 @@ public class EmptyRenderer extends EntityRenderer<Entity> {
 
     @Override
     public ResourceLocation getTextureLocation(Entity entity) {
-        return AMClientUtil.MISSINGNO;
+        return AMUtil.MISSINGNO;
     }
 }

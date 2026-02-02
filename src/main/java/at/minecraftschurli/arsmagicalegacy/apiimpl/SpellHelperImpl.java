@@ -158,7 +158,7 @@ final class SpellHelperImpl implements SpellHelper {
     }
 
     @Override
-    public double getModifiedStat(double base, SpellStat stat, List<SpellModifier> modifiers, Spell spell, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public double getModifiedStat(double base, SpellStat stat, List<SpellModifier> modifiers, Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         double modified = base;
         for (SpellModifier modifier : modifiers) {
             if (modifier.getStats().contains(stat)) {
@@ -234,8 +234,8 @@ final class SpellHelperImpl implements SpellHelper {
     }
 
     @Override
-    public void spawnParticles(ResourceLocation part, Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, HitResult hitResult) {
-        if (!caster.level().isClientSide()) return;
+    public void spawnParticles(ResourceLocation part, Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, HitResult hitResult) {
+        if (!level.isClientSide()) return;
         AMClientUtil.spawnParticles(part, switch (hitResult) {
             case BlockHitResult blockHitResult -> blockHitResult.getBlockPos().getBottomCenter();
             case EntityHitResult entityHitResult -> hitResult.getLocation().add(0, entityHitResult.getEntity().getEyeHeight(), 0);

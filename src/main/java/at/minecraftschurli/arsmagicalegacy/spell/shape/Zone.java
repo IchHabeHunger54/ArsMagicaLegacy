@@ -24,7 +24,7 @@ public class Zone extends SecondarySpellShape {
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         if (level.isClientSide()) return spell;
         var zone = AMEntities.ZONE.get().create(level);
         zone.setPos(directEntity.getEyePosition());

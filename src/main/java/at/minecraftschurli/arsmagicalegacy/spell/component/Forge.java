@@ -26,13 +26,14 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
 
 public class Forge extends SpellComponent.CastBoth {
     @Override
-    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, BlockHitResult hitResult) {
+    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
         if (level.isClientSide()) return spell;
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
@@ -54,14 +55,14 @@ public class Forge extends SpellComponent.CastBoth {
     }
 
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
+    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
         if (!AMServerConfig.FORGE_SMELTS_VILLAGERS.get() || !(hitResult.getEntity() instanceof Villager villager)) return spell;
         if (!level.isClientSide()) {
             ItemEntity item = new ItemEntity(level, villager.getX(), villager.getY(), villager.getZ(), new ItemStack(Items.EMERALD));
             item.setDefaultPickUpDelay();
             level.addFreshEntity(item);
         }
-        villager.hurt(caster instanceof Player player ? level.damageSources().playerAttack(player) : level.damageSources().mobAttack(caster), 5000);
+        villager.hurt(caster instanceof Player player ? level.damageSources().playerAttack(player) : caster != null ? level.damageSources().mobAttack(caster) : level.damageSources().genericKill(), 5000);
         return spell;
     }
 }

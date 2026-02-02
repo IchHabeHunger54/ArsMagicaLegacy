@@ -59,5 +59,5 @@ public abstract non-sealed class SecondarySpellShape extends SpellPart {
      * @return The {@link Spell} that was cast, potentially modified.
      * @see SpellHelper#castSecondary(Spell, Level, LivingEntity, Entity, HitResult)
      */
-    public abstract Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult);
+    public abstract Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
 }

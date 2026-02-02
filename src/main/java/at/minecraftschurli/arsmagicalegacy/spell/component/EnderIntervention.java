@@ -14,21 +14,26 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.feature.EndPlatformFeature;
 import net.minecraft.world.level.portal.DimensionTransition;
 import net.minecraft.world.phys.EntityHitResult;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class EnderIntervention extends SpellComponent.CastEntity {
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
+    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
         if (!(hitResult.getEntity() instanceof LivingEntity entity)) return spell;
-        if (caster.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
+        if (caster != null && caster.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
             caster.sendSystemMessage(AMTranslations.NO_TELEPORT);
         } else if (entity.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
-            caster.sendSystemMessage(AMTranslations.NO_TELEPORT_OTHER);
+            if (caster != null) {
+                caster.sendSystemMessage(AMTranslations.NO_TELEPORT_OTHER);
+            }
         } else {
             ResourceKey<Level> dimension = level.dimension();
             if (dimension == Level.NETHER) {
-                caster.sendSystemMessage(AMTranslations.NO_TELEPORT_NETHER);
+                if (caster != null) {
+                    caster.sendSystemMessage(AMTranslations.NO_TELEPORT_NETHER);
+                }
             } else if (dimension != Level.END && level instanceof ServerLevel server) {
                 ServerLevel end = server.getServer().getLevel(Level.END);
                 if (end != null) {

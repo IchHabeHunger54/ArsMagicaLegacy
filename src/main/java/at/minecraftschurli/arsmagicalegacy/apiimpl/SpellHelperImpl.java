@@ -61,14 +61,16 @@ import java.util.Set;
 
 final class SpellHelperImpl implements SpellHelper {
     @Override
-    public Either<Spell, Component> cast(Spell spell, Level level, LivingEntity caster, boolean consume, boolean awardXp) {
+    public Either<Spell, Component> cast(Spell spell, Level level, @Nullable LivingEntity caster, boolean consume, boolean awardXp) {
         if (spell.isMalformed()) return Either.right(AMTranslations.SPELL_CAST_MALFORMED);
-        if (caster.hasEffect(AMMobEffects.SILENCE)) return Either.right(AMTranslations.SPELL_CAST_SILENCED);
+        if (caster != null && caster.hasEffect(AMMobEffects.SILENCE)) return Either.right(AMTranslations.SPELL_CAST_SILENCED);
         ManaHelper manaHelper = ArsMagicaApi.manaHelper();
         BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
-        double manaCost = caster.hasEffect(AMMobEffects.CLARITY) ? 0 : NeoForge.EVENT_BUS.post(new ManaCostCalculationEvent(caster, spell, spell.getManaCost(), burnoutHelper.getBurnout(caster))).getResult();
-        double burnoutCost = caster.hasEffect(AMMobEffects.CLARITY) ? 0 : NeoForge.EVENT_BUS.post(new BurnoutCostCalculationEvent(caster, spell, spell.grammar().getBurnoutCost())).getBurnout();
-        caster.removeEffect(AMMobEffects.CLARITY);
+        double manaCost = caster != null && caster.hasEffect(AMMobEffects.CLARITY) ? 0 : NeoForge.EVENT_BUS.post(new ManaCostCalculationEvent(caster, spell, spell.getManaCost(), burnoutHelper.getBurnout(caster))).getResult();
+        double burnoutCost = caster != null && caster.hasEffect(AMMobEffects.CLARITY) ? 0 : NeoForge.EVENT_BUS.post(new BurnoutCostCalculationEvent(caster, spell, spell.grammar().getBurnoutCost())).getBurnout();
+        if (caster != null) {
+            caster.removeEffect(AMMobEffects.CLARITY);
+        }
         SpellCastEvent.Pre event = new SpellCastEvent.Pre(caster, spell, manaCost, burnoutCost, consume, awardXp);
         if (event.isCanceled()) return Either.right(event.getCancellationMessage());
         if (event.isConsume() && !(caster instanceof Player player && player.isCreative())) {
@@ -107,7 +109,7 @@ final class SpellHelperImpl implements SpellHelper {
     }
 
     @Override
-    public Spell castPrimary(Spell spell, Level level, LivingEntity caster) {
+    public Spell castPrimary(Spell spell, Level level, @Nullable LivingEntity caster) {
         PrimarySpellShape primary = spell.currentShapeGroup().primaryShape();
         List<SpellModifier> modifiers = spell.currentShapeGroup().primaryModifiers();
         if (primary != null) {
@@ -118,7 +120,7 @@ final class SpellHelperImpl implements SpellHelper {
     }
 
     @Override
-    public Spell castSecondary(Spell spell, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public Spell castSecondary(Spell spell, Level level, @Nullable LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
         SecondarySpellShape secondary = spell.currentShapeGroup().secondaryShape();
         List<SpellModifier> modifiers = spell.currentShapeGroup().secondaryModifiers();
         if (secondary != null) {
@@ -129,26 +131,26 @@ final class SpellHelperImpl implements SpellHelper {
     }
 
     @Override
-    public Spell castGrammar(Spell spell, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public Spell castGrammar(Spell spell, Level level, @Nullable LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
         for (Pair<SpellComponent, List<SpellModifier>> pair : spell.grammar().components()) {
             SpellComponent component = pair.getFirst();
             List<SpellModifier> modifiers = pair.getSecond();
             spell = component.cast(spell, modifiers, level, caster, directEntity, hitResult);
-            if (caster.level().isClientSide()) {
+            if (level.isClientSide()) {
                 component.spawnParticles(spell, modifiers, level, caster, directEntity, hitResult);
             }
             NeoForge.EVENT_BUS.post(new SpellPartCastEvent.Component(caster, spell, component, modifiers, directEntity, hitResult));
         }
         SpellDamage damage = spell.dataComponents().grammar().get(AMDataComponents.SPELL_DAMAGE.get());
         if (damage != null) {
-            damage.apply(caster, directEntity);
+            damage.apply(level, caster, directEntity);
             spell = spell.updateDataComponents(components -> components.updateGrammar(grammar -> grammar.remove(AMDataComponents.SPELL_DAMAGE.get())));
         }
         return spell;
     }
 
     @Override
-    public Spell castSecondaryOrGrammar(Spell spell, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public Spell castSecondaryOrGrammar(Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         return spell.currentShapeGroup().secondaryShape() != null ? castSecondary(spell, level, caster, directEntity, hitResult) : castGrammar(spell, level, caster, directEntity, hitResult);
     }
 

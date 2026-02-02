@@ -10,6 +10,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -19,10 +20,10 @@ public class LifeDrain extends SpellComponent.CastEntity {
     }
 
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
-        if (!(hitResult.getEntity() instanceof LivingEntity entity)) return spell;
+    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
+        if (caster == null || !(hitResult.getEntity() instanceof LivingEntity entity)) return spell;
         float damage = (float) ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.LIFE_DRAIN_DAMAGE.get(), entity.isInvertedHealAndHarm() ? AMSpells.HEALING_STAT : AMSpells.DAMAGE_STAT, modifiers, spell, level, caster, directEntity, hitResult);
-        if (entity.hurt(entity.damageSources().indirectMagic(caster, directEntity), damage)) {
+        if (entity.hurt(level.damageSources().indirectMagic(caster, directEntity), damage)) {
             caster.heal(damage);
         }
         return spell;

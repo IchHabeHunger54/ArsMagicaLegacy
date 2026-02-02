@@ -96,7 +96,7 @@ public interface SpellHelper {
      * @param hitResult    The {@link HitResult} of the spell cast.
      * @return A modifier-changed value.
      */
-    double getModifiedStat(double base, SpellStat stat, List<SpellModifier> modifiers, Spell spell, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult);
+    double getModifiedStat(double base, SpellStat stat, List<SpellModifier> modifiers, Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
 
     /**
      * @param modifiers       The {@link SpellModifier}s to check.
@@ -150,5 +150,5 @@ public interface SpellHelper {
      * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
      * @param hitResult    The {@link HitResult} of the spell cast.
      */
-    void spawnParticles(ResourceLocation part, Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, HitResult hitResult);
+    void spawnParticles(ResourceLocation part, Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, HitResult hitResult);
 }

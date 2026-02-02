@@ -17,6 +17,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class Light extends SpellComponent.CastBoth {
     }
 
     @Override
-    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, BlockHitResult hitResult) {
+    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
         Direction direction = hitResult.getDirection();
         BlockPos pos = hitResult.getBlockPos().offset(direction.getNormal());
         if (level.getBlockState(pos).isAir()) {
@@ -36,7 +37,7 @@ public class Light extends SpellComponent.CastBoth {
     }
 
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
+    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
         if (!(hitResult.getEntity() instanceof LivingEntity living)) return spell;
         SpellHelper helper = ArsMagicaApi.spellHelper();
         living.addEffect(new MobEffectInstance(AMMobEffects.ILLUMINATION, (int) helper.getModifiedStat(AMServerConfig.EFFECT_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, level, caster, directEntity, hitResult)));

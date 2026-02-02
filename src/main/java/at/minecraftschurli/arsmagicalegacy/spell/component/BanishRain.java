@@ -21,7 +21,7 @@ public class BanishRain extends SpellComponent {
     }
 
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         if (level instanceof ServerLevel serverLevel && serverLevel.isRaining()) {
             serverLevel.setWeatherParameters((int) ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.BANISH_RAIN_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, serverLevel, caster, directEntity, hitResult), 0, false, false);
         }

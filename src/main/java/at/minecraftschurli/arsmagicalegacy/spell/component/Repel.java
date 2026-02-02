@@ -23,7 +23,7 @@ public class Repel extends SpellComponent {
     }
 
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         if (hitResult == null || hitResult.getType() == HitResult.Type.MISS) return spell;
         SpellHelper helper = ArsMagicaApi.spellHelper();
         double range = helper.getModifiedStat(4, AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult);

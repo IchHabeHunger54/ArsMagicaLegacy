@@ -12,12 +12,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class Grow extends SpellComponent.CastBlock {
     @Override
-    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, BlockHitResult hitResult) {
+    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
         if (!(level instanceof ServerLevel serverLevel)) return spell;
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = serverLevel.getBlockState(pos);

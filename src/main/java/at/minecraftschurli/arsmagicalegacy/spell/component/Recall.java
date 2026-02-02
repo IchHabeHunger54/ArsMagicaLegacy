@@ -13,12 +13,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class Recall extends SpellComponent.CastEntity {
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
+    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
         RecallPosition position = spell.dataComponents().grammar().get(AMDataComponents.SPELL_RECALL_POSITION.get());
         Entity entity = hitResult.getEntity();
         if (position == null && caster instanceof Player player) {

@@ -14,6 +14,7 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -23,7 +24,8 @@ public class Touch extends PrimarySpellShape {
     }
 
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster) {
+    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster) {
+        if (caster == null) return spell;
         Vec3 eyePos = caster.getEyePosition();
         boolean targetNonSolid = ArsMagicaApi.spellHelper().getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, spell, level, caster, caster, null) > 0;
         ClipContext.Block blockContext = targetNonSolid ? ClipContext.Block.OUTLINE : ClipContext.Block.COLLIDER;

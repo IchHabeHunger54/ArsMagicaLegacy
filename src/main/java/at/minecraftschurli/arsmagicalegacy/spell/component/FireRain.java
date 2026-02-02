@@ -24,11 +24,13 @@ public class FireRain extends SpellComponent {
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         if (level.isClientSide() || hitResult == null || hitResult.getType() == HitResult.Type.MISS) return spell;
         var fireRain = AMEntities.FIRE_RAIN.get().create(level);
         fireRain.setPos(hitResult.getLocation());
-        fireRain.setOwner(caster);
+        if (caster != null) {
+            fireRain.setOwner(caster);
+        }
         SpellHelper helper = ArsMagicaApi.spellHelper();
         fireRain.setColor(helper.getColor(modifiers, spell, -1));
         fireRain.setDuration((int) helper.getModifiedStat(AMServerConfig.FIRE_RAIN_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, level, caster, directEntity, hitResult));

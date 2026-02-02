@@ -11,6 +11,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class Projectile extends PrimarySpellShape {
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster) {
+    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster) {
         if (level.isClientSide()) return spell;
         var projectile = AMEntities.PROJECTILE.get().create(level);
         projectile.setPos(caster.getEyePosition());

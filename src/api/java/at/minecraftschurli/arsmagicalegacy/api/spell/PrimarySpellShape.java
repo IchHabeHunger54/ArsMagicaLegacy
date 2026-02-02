@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.api.spell;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Set;
@@ -61,5 +62,5 @@ public abstract non-sealed class PrimarySpellShape extends SpellPart {
      * @return The {@link Spell} that was cast, potentially modified.
      * @see SpellHelper#castPrimary(Spell, Level, LivingEntity)
      */
-    public abstract Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster);
+    public abstract Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster);
 }

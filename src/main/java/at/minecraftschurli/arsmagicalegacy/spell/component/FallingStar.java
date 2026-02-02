@@ -24,11 +24,13 @@ public class FallingStar extends SpellComponent {
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         if (level.isClientSide() || level.dimensionType().hasCeiling() || hitResult == null || hitResult.getType() == HitResult.Type.MISS) return spell;
         var fallingStar = AMEntities.FALLING_STAR.get().create(level);
         fallingStar.setPos(hitResult.getLocation().add(0, AMServerConfig.FALLING_STAR_SPAWN_HEIGHT.get(), 0));
-        fallingStar.setOwner(caster);
+        if (caster != null) {
+            fallingStar.setOwner(caster);
+        }
         SpellHelper helper = ArsMagicaApi.spellHelper();
         fallingStar.setColor(helper.getColor(modifiers, spell, -1));
         fallingStar.setDeltaMovement(0, -helper.getModifiedStat(AMServerConfig.FALLING_STAR_SPEED.get(), AMSpells.SPEED_STAT, modifiers, spell, level, caster, directEntity, hitResult), 0);

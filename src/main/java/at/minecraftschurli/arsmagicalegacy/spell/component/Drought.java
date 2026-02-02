@@ -16,13 +16,14 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
 
 public class Drought extends SpellComponent.CastBlock {
     @Override
-    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, BlockHitResult hitResult) {
+    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
         BlockPos normalPos = pos.offset(hitResult.getDirection().getNormal());

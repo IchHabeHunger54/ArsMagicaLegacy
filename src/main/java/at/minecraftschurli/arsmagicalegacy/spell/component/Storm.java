@@ -28,41 +28,46 @@ public class Storm extends SpellComponent {
     }
 
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         if (!(level instanceof ServerLevel serverLevel)) return spell;
         SpellHelper helper = ArsMagicaApi.spellHelper();
         if (!(serverLevel.getRainLevel(1f) > 0.9)) {
             serverLevel.setWeatherParameters(0, (int) helper.getModifiedStat(AMServerConfig.STORM_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, serverLevel, caster, directEntity, hitResult), true, true);
         }
+        if (directEntity == null) return spell;
         int range = (int) helper.getModifiedStat(AMServerConfig.STORM_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, serverLevel, caster, directEntity, hitResult);
         RandomSource random = serverLevel.getRandom();
         double randomValue = random.nextDouble();
         if (randomValue < AMServerConfig.STORM_LIGHTNING_BOLT_CHANCE.get()) {
-            double x = caster.getX() + random.nextDouble() * range - range / 2.;
-            double z = caster.getZ() + random.nextDouble() * range - range / 2.;
-            double y = caster.getY();
+            double x = directEntity.getX() + random.nextDouble() * range - range / 2.;
+            double z = directEntity.getZ() + random.nextDouble() * range - range / 2.;
+            double y = directEntity.getY();
             while (!serverLevel.canSeeSky(BlockPos.containing(x, y, z))) {
                 y++;
             }
             while (serverLevel.getBlockState(BlockPos.containing(x, y - 1, z)).getBlock().equals(Blocks.AIR)) {
                 y--;
             }
-            LightningBolt bolt = new LightningBolt(EntityType.LIGHTNING_BOLT, serverLevel);
-            bolt.setPos(x, y, z);
-            bolt.setVisualOnly(false);
-            serverLevel.addFreshEntity(bolt);
+            LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(serverLevel);
+            if (bolt != null) {
+                bolt.setPos(x, y, z);
+                bolt.setVisualOnly(false);
+                serverLevel.addFreshEntity(bolt);
+            }
         } else if (randomValue < AMServerConfig.STORM_LIGHTNING_BOLT_TARGET_CHANCE.get()) {
-            List<Entity> entities = serverLevel.getEntities(caster, caster.getBoundingBox().inflate(range / 2., range / 2., range / 2.));
+            List<Entity> entities = serverLevel.getEntities(caster, directEntity.getBoundingBox().inflate(range / 2., range / 2., range / 2.));
             if (entities.isEmpty()) return spell;
             Entity entity = entities.get(random.nextInt(entities.size()));
             if (entity == null || !serverLevel.canSeeSky(entity.blockPosition())) return spell;
             if (caster instanceof Player player) {
                 entity.hurt(serverLevel.damageSources().playerAttack(player), 1);
             }
-            LightningBolt bolt = new LightningBolt(EntityType.LIGHTNING_BOLT, serverLevel);
-            bolt.setPos(entity.position());
-            bolt.setVisualOnly(false);
-            serverLevel.addFreshEntity(bolt);
+            LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(serverLevel);
+            if (bolt != null) {
+                bolt.setPos(entity.position());
+                bolt.setVisualOnly(false);
+                serverLevel.addFreshEntity(bolt);
+            }
         }
         return spell;
     }

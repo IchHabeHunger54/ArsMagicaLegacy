@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.UUID;
@@ -29,7 +30,7 @@ public class PlaceBlock extends SpellComponent.CastBlock {
     private static final GameProfile GAME_PROFILE = new GameProfile(UUID.randomUUID(), ArsMagicaApi.MOD_ID + "_place_block");
 
     @Override
-    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, BlockHitResult hitResult) {
+    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
         if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return spell;
         Block block = spell.dataComponents().grammar().get(AMDataComponents.SPELL_BLOCK.get());
         if (block == null || block.defaultBlockState().isAir()) return spell;

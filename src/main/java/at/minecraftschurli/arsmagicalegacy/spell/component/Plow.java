@@ -12,12 +12,13 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class Plow extends SpellComponent.CastBlock {
     @Override
-    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, BlockHitResult hitResult) {
+    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
         ItemStack stack = new ItemStack(Items.WOODEN_HOE);
         stack.useOn(new UseOnContext(level, caster instanceof Player player ? player : null, InteractionHand.MAIN_HAND, stack, hitResult));
         return spell;

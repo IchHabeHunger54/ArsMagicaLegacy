@@ -14,7 +14,7 @@ import java.util.List;
 //TODO
 public class AreaOfEffect extends SecondarySpellShape {
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         return spell;
     }
 }

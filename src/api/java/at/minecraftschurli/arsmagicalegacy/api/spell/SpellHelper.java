@@ -27,7 +27,7 @@ public interface SpellHelper {
      * @param awardXp Whether to award xp or not.
      * @return An {@link Either} containing either the potentially modified {@link Spell} that was cast, or an error message.
      */
-    Either<Spell, Component> cast(Spell spell, Level level, LivingEntity caster, boolean consume, boolean awardXp);
+    Either<Spell, Component> cast(Spell spell, Level level, @Nullable LivingEntity caster, boolean consume, boolean awardXp);
 
     /**
      * Casts the given {@link Spell}'s primary shape.
@@ -38,7 +38,7 @@ public interface SpellHelper {
      * @return The {@link Spell} that was cast, potentially modified.
      * @see PrimarySpellShape#cast(Spell, List, Level, LivingEntity)
      */
-    Spell castPrimary(Spell spell, Level level, LivingEntity caster);
+    Spell castPrimary(Spell spell, Level level, @Nullable LivingEntity caster);
 
     /**
      * Casts the given {@link Spell}'s secondary shape.
@@ -51,7 +51,7 @@ public interface SpellHelper {
      * @return The {@link Spell} that was cast, potentially modified.
      * @see SecondarySpellShape#cast(Spell, List, Level, LivingEntity, Entity, HitResult)
      */
-    Spell castSecondary(Spell spell, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult);
+    Spell castSecondary(Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
 
     /**
      * Casts the given {@link Spell}'s grammar.
@@ -63,7 +63,7 @@ public interface SpellHelper {
      * @param hitResult    The {@link HitResult} of the spell cast.
      * @return The {@link Spell} that was cast, potentially modified.
      */
-    Spell castGrammar(Spell spell, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult);
+    Spell castGrammar(Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
 
     /**
      * If present, casts the given {@link Spell}'s secondary shape. Otherwise, casts the given {@link Spell}'s grammar.
@@ -75,7 +75,7 @@ public interface SpellHelper {
      * @param hitResult    The {@link HitResult} of the spell cast.
      * @return The {@link Spell} that was cast, potentially modified.
      */
-    Spell castSecondaryOrGrammar(Spell spell, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult);
+    Spell castSecondaryOrGrammar(Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
 
     /**
      * @param part The {@link SpellPart} to get the {@link SpellPartData} for.

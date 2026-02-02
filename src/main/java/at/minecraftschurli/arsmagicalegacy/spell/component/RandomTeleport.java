@@ -16,17 +16,20 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class RandomTeleport extends SpellComponent.CastEntity {
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, EntityHitResult hitResult) {
+    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
         Entity entity = hitResult.getEntity();
-        if (caster.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
+        if (caster != null && caster.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
             caster.sendSystemMessage(AMTranslations.NO_TELEPORT);
         } else if (entity instanceof LivingEntity living && living.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
-            caster.sendSystemMessage(AMTranslations.NO_TELEPORT_OTHER);
+            if (caster != null) {
+                caster.sendSystemMessage(AMTranslations.NO_TELEPORT_OTHER);
+            }
         } else if (level instanceof ServerLevel serverLevel) {
             RandomSource random = serverLevel.getRandom();
             double range = ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.RANDOM_TELEPORT_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, serverLevel, caster, directEntity, hitResult);

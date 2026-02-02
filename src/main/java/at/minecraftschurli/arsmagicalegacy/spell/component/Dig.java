@@ -33,6 +33,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.UUID;
@@ -45,7 +46,7 @@ public class Dig extends SpellComponent.CastBlock {
     }
 
     @Override
-    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, BlockHitResult hitResult) {
+    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
         if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return spell;
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);

@@ -24,11 +24,13 @@ public class Blizzard extends SpellComponent {
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         if (level.isClientSide() || hitResult == null || hitResult.getType() == HitResult.Type.MISS) return spell;
         var blizzard = AMEntities.BLIZZARD.get().create(level);
         blizzard.setPos(hitResult.getLocation());
-        blizzard.setOwner(caster);
+        if (caster != null) {
+            blizzard.setOwner(caster);
+        }
         SpellHelper helper = ArsMagicaApi.spellHelper();
         blizzard.setColor(helper.getColor(modifiers, spell, -1));
         blizzard.setDuration((int) helper.getModifiedStat(AMServerConfig.BLIZZARD_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, level, caster, directEntity, hitResult));

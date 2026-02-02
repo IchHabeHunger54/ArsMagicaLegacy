@@ -18,6 +18,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,8 +47,7 @@ public record SpellDamage(Map<Integer, Map<ResourceKey<DamageType>, Pair<Float, 
         return new SpellDamage(newDamage);
     }
 
-    public void apply(LivingEntity caster, Entity directEntity) {
-        Level level = caster.level();
+    public void apply(Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity) {
         Registry<DamageType> damageTypes = level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE);
         for (Map.Entry<Integer, Map<ResourceKey<DamageType>, Pair<Float, ItemStack>>> damageEntry : damage.entrySet()) {
             Entity entity = level.getEntity(damageEntry.getKey());
@@ -58,12 +58,21 @@ public record SpellDamage(Map<Integer, Map<ResourceKey<DamageType>, Pair<Float, 
                 Optional<? extends Holder<DamageType>> holder = damageTypes.getHolder(entry.getKey());
                 if (holder.isEmpty()) continue;
                 Pair<Float, ItemStack> value = entry.getValue();
-                ItemStack oldStack = caster.getMainHandItem();
-                caster.setItemInHand(InteractionHand.MAIN_HAND, value.getSecond());
-                DamageSource source = new DamageSourceWithItemStack(holder.get(), directEntity, caster, value.getSecond());
-                if (entity.isInvulnerableTo(source)) continue;
-                entity.hurt(source, value.getFirst());
-                caster.setItemInHand(InteractionHand.MAIN_HAND, oldStack);
+                if (caster != null) {
+                    ItemStack oldStack = caster.getMainHandItem();
+                    caster.setItemInHand(InteractionHand.MAIN_HAND, value.getSecond());
+                    DamageSource source = new DamageSourceWithItemStack(holder.get(), directEntity, caster, value.getSecond());
+                    if (entity.isInvulnerableTo(source)) {
+                        caster.setItemInHand(InteractionHand.MAIN_HAND, oldStack);
+                        continue;
+                    }
+                    entity.hurt(source, value.getFirst());
+                    caster.setItemInHand(InteractionHand.MAIN_HAND, oldStack);
+                } else {
+                    DamageSource source = new DamageSourceWithItemStack(holder.get(), directEntity, caster, value.getSecond());
+                    if (entity.isInvulnerableTo(source)) continue;
+                    entity.hurt(source, value.getFirst());
+                }
                 invulnerableTime = Math.max(invulnerableTime, entity.invulnerableTime);
                 hurtMarked |= entity.hurtMarked;
                 entity.invulnerableTime = 0;

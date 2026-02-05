@@ -5,7 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
-import at.minecraftschurli.arsmagicalegacy.spell.data.RecallPosition;
+import at.minecraftschurli.arsmagicalegacy.util.GlobalVec3;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,7 +20,7 @@ import java.util.List;
 public class Recall extends SpellComponent.CastEntity {
     @Override
     public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
-        RecallPosition position = spell.dataComponents().grammar().get(AMDataComponents.SPELL_RECALL_POSITION.get());
+        GlobalVec3 position = spell.dataComponents().grammar().get(AMDataComponents.SPELL_RECALL_POSITION.get());
         Entity entity = hitResult.getEntity();
         if (position == null && caster instanceof Player player) {
             player.displayClientMessage(AMTranslations.RECALL_POSITION_NOT_SET, true);

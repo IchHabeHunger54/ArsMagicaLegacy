@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.spell.data;
+package at.minecraftschurli.arsmagicalegacy.attachment;
 
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;

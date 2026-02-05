@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.spell.data;
+package at.minecraftschurli.arsmagicalegacy.spell;
 
 import at.minecraftschurli.arsmagicalegacy.util.AMExtraCodecs;
 import at.minecraftschurli.arsmagicalegacy.util.DamageSourceWithItemStack;
@@ -33,11 +33,7 @@ public record SpellDamage(Map<Integer, Map<ResourceKey<DamageType>, Pair<Float, 
         Codec.unboundedMap(AMExtraCodecs.STRING_ENCODED_INT_CODEC, DAMAGE_CODEC).xmap(SpellDamage::new, SpellDamage::damage);
     public static final StreamCodec<RegistryFriendlyByteBuf, SpellDamage> STREAM_CODEC =
         AMExtraCodecs.mapStreamCodec(ByteBufCodecs.INT, DAMAGE_STREAM_CODEC).map(SpellDamage::new, SpellDamage::damage);
-    public static final SpellDamage EMPTY = new SpellDamage();
-
-    public SpellDamage() {
-        this(Map.of());
-    }
+    public static final SpellDamage EMPTY = new SpellDamage(Map.of());
 
     public SpellDamage setDamage(Entity entity, ResourceKey<DamageType> type, float amount, ItemStack stack) {
         Map<Integer, Map<ResourceKey<DamageType>, Pair<Float, ItemStack>>> newDamage = new HashMap<>(damage);

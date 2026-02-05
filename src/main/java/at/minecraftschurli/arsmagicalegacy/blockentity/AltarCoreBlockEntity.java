@@ -34,6 +34,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.LeverBlock;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.StairBlock;
@@ -112,7 +113,8 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
         if (checkCounter <= 0) {
             checkCounter = AMServerConfig.ALTAR_CHECK_INTERVAL.get();
             boolean multiblock = checkMultiblock();
-            if (!multiblock) {
+            BlockState lectern = level.getBlockState(lecternPos);
+            if (!multiblock || !lectern.is(Blocks.LECTERN) || !lectern.getValue(LecternBlock.HAS_BOOK)) {
                 direction = null;
                 lecternPos = null;
                 leverPos = null;
@@ -156,6 +158,7 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
         setChanged();
         if (currentIngredient < recipe.size()) return;
         currentIngredient = 0;
+        setChanged();
         if (level.isClientSide()) return;
         ItemEntity entity = new ItemEntity(level, pos.getX() + 0.5, pos.getY() - 1.5, pos.getZ() + 0.5, SpellItem.set(AMItems.SPELL.toStack(), AMDataComponents.SPELL.get(), spell), 0, 0.2, 0);
         entity.setPickUpDelay(40);

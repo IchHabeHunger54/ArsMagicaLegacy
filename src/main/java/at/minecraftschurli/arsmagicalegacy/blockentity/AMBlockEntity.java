@@ -10,6 +10,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,13 +31,13 @@ public abstract class AMBlockEntity<T> extends BlockEntity {
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        fromData(codec.decode(NbtOps.INSTANCE, tag.get(DATA_KEY)).map(Pair::getFirst).getOrThrow());
+        fromData(codec.decode(RegistryOps.create(NbtOps.INSTANCE, registries), tag.get(DATA_KEY)).map(Pair::getFirst).getOrThrow());
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
-        tag.put(DATA_KEY, codec.encodeStart(NbtOps.INSTANCE, toData()).getOrThrow());
+        tag.put(DATA_KEY, codec.encodeStart(RegistryOps.create(NbtOps.INSTANCE, registries), toData()).getOrThrow());
     }
 
     @Override

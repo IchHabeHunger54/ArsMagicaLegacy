@@ -7,7 +7,6 @@
     - All Bosses
     - Their Projectiles
 - Rituals
-- Fix Altar Not Showing the Next Ingredients Properly
 - Arcane Compendium
     - Liquid Etherium Conversion
     - Images

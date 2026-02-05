@@ -6,7 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
-import at.minecraftschurli.arsmagicalegacy.spell.data.RecallPosition;
+import at.minecraftschurli.arsmagicalegacy.util.GlobalVec3;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-public class RecallCustomizationScreen extends AbstractSpellPartCustomizationScreen<RecallPosition> {
+public class RecallCustomizationScreen extends AbstractSpellPartCustomizationScreen<GlobalVec3> {
     private static final int WIDTH = 200;
     private static final int HEIGHT = 80;
     private static final int MESSAGE_TIME = 100;
@@ -31,11 +31,11 @@ public class RecallCustomizationScreen extends AbstractSpellPartCustomizationScr
     private int leftPos;
     private int topPos;
     private Button clearButton;
-    private RecallPosition oldValue;
+    private GlobalVec3 oldValue;
     private Component message;
     private long messageTime;
 
-    public RecallCustomizationScreen(Function<DataComponentType<RecallPosition>, @Nullable RecallPosition> valueGetter, BiConsumer<DataComponentType<RecallPosition>, @Nullable RecallPosition> valueSetter) {
+    public RecallCustomizationScreen(Function<DataComponentType<GlobalVec3>, @Nullable GlobalVec3> valueGetter, BiConsumer<DataComponentType<GlobalVec3>, @Nullable GlobalVec3> valueSetter) {
         super(AMTranslations.SPELL_CUSTOMIZATION_RECALL, AMDataComponents.SPELL_RECALL_POSITION.get(), valueGetter, valueSetter);
     }
 
@@ -45,7 +45,7 @@ public class RecallCustomizationScreen extends AbstractSpellPartCustomizationScr
         topPos = (height - HEIGHT) / 2;
         addRenderableWidget(Button.builder(AMTranslations.SPELL_CUSTOMIZATION_RECALL_SET, $ -> {
             LocalPlayer player = AMClientUtil.player();
-            value = new RecallPosition(player.level().dimension(), player.position());
+            value = new GlobalVec3(player.level().dimension(), player.position());
             clearButton.active = true;
             message = AMTranslations.SPELL_CUSTOMIZATION_RECALL_SET_SUCCESS;
             messageTime = MESSAGE_TIME;

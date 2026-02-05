@@ -6,8 +6,8 @@ import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
-import at.minecraftschurli.arsmagicalegacy.spell.data.RecallPosition;
-import at.minecraftschurli.arsmagicalegacy.spell.data.SpellDamage;
+import at.minecraftschurli.arsmagicalegacy.util.GlobalVec3;
+import at.minecraftschurli.arsmagicalegacy.spell.SpellDamage;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.Holder;
@@ -35,10 +35,10 @@ public interface AMDataComponents {
     DeferredHolder<DataComponentType<?>, DataComponentType<List<GlobalPos>>>      STORED_POSITIONS = register("stored_positions", GlobalPos.CODEC.listOf(), GlobalPos.STREAM_CODEC.apply(ByteBufCodecs.list()));
     DeferredHolder<DataComponentType<?>, DataComponentType<Integer>>              TIER             = register("tier",             Codec.INT,                ByteBufCodecs.INT);
 
-    DeferredHolder<DataComponentType<?>, DataComponentType<Block>>          SPELL_BLOCK           = register("spell_block",           BuiltInRegistries.BLOCK.byNameCodec(), ByteBufCodecs.registry(Registries.BLOCK));
-    DeferredHolder<DataComponentType<?>, DataComponentType<Integer>>        SPELL_COLOR           = register("spell_color",           Codec.INT,                             ByteBufCodecs.INT);
-    DeferredHolder<DataComponentType<?>, DataComponentType<SpellDamage>>    SPELL_DAMAGE          = register("spell_damage",          SpellDamage.CODEC,                     SpellDamage.STREAM_CODEC);
-    DeferredHolder<DataComponentType<?>, DataComponentType<RecallPosition>> SPELL_RECALL_POSITION = register("spell_recall_position", RecallPosition.CODEC,                  RecallPosition.STREAM_CODEC);
+    DeferredHolder<DataComponentType<?>, DataComponentType<Block>>       SPELL_BLOCK           = register("spell_block",           BuiltInRegistries.BLOCK.byNameCodec(), ByteBufCodecs.registry(Registries.BLOCK));
+    DeferredHolder<DataComponentType<?>, DataComponentType<Integer>>     SPELL_COLOR           = register("spell_color",           Codec.INT,                             ByteBufCodecs.INT);
+    DeferredHolder<DataComponentType<?>, DataComponentType<SpellDamage>> SPELL_DAMAGE          = register("spell_damage",          SpellDamage.CODEC,                     SpellDamage.STREAM_CODEC);
+    DeferredHolder<DataComponentType<?>, DataComponentType<GlobalVec3>>  SPELL_RECALL_POSITION = register("spell_recall_position", GlobalVec3.CODEC,                      GlobalVec3.STREAM_CODEC);
     // @formatter:on
 
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, Codec<T> codec, StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec) {

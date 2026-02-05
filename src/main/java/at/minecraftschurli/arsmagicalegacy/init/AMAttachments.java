@@ -2,8 +2,8 @@ package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicAttachment;
-import at.minecraftschurli.arsmagicalegacy.effect.TemporalAnchorEffect;
-import at.minecraftschurli.arsmagicalegacy.spell.data.ContingencyAttachment;
+import at.minecraftschurli.arsmagicalegacy.attachment.TemporalAnchorAttachment;
+import at.minecraftschurli.arsmagicalegacy.attachment.ContingencyAttachment;
 import com.mojang.serialization.Codec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -23,7 +23,7 @@ public interface AMAttachments {
     DeferredHolder<AttachmentType<?>, AttachmentType<Integer>>               FROST       = register("frost",       () -> 0,                             Codec.INT,                   ByteBufCodecs.INT);
     DeferredHolder<AttachmentType<?>, AttachmentType<MagicAttachment>>       MAGIC       = register("magic",       () -> MagicAttachment.DEFAULT,       MagicAttachment.CODEC,       MagicAttachment.STREAM_CODEC);
     DeferredHolder<AttachmentType<?>, AttachmentType<Double>>                MANA        = register("mana",        () -> 0.,                            Codec.DOUBLE,                ByteBufCodecs.DOUBLE);
-    DeferredHolder<AttachmentType<?>, AttachmentType<TemporalAnchorEffect.Snapshot>> TEMPORAL_ANCHOR_SNAPSHOT = ATTACHMENTS.register("temporal_anchor_snapshot", () -> AttachmentType.<TemporalAnchorEffect.Snapshot>builder(() -> null).serialize(TemporalAnchorEffect.Snapshot.CODEC).build());
+    DeferredHolder<AttachmentType<?>, AttachmentType<TemporalAnchorAttachment>> TEMPORAL_ANCHOR_SNAPSHOT = ATTACHMENTS.register("temporal_anchor_snapshot", () -> AttachmentType.<TemporalAnchorAttachment>builder(() -> null).serialize(TemporalAnchorAttachment.CODEC).build());
     // @formatter:on
 
     private static <T> DeferredHolder<AttachmentType<?>, AttachmentType<T>> register(String name, Supplier<T> defaultValueSupplier, Codec<T> codec, StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec) {

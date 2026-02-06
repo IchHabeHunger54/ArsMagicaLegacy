@@ -96,6 +96,7 @@ public interface AMTranslations {
     String OCCULUS_FORGET_ALL_TOOLTIP_KEY                 = "gui." + ArsMagicaApi.MOD_ID + ".occulus.forget_all.tooltip";
     String OCCULUS_NEXT_KEY                               = "gui." + ArsMagicaApi.MOD_ID + ".occulus.next";
     String OCCULUS_PREV_KEY                               = "gui." + ArsMagicaApi.MOD_ID + ".occulus.prev";
+    String RIFT_KEY                                       = "gui." + ArsMagicaApi.MOD_ID + ".rift";
     String SPELL_CUSTOMIZATION_KEY                        = "gui." + ArsMagicaApi.MOD_ID + ".spell_customization";
     String SPELL_CUSTOMIZATION_COLOR_KEY                  = "gui." + ArsMagicaApi.MOD_ID + ".spell_customization.color";
     String SPELL_CUSTOMIZATION_COLOR_CLEAR_KEY            = "gui." + ArsMagicaApi.MOD_ID + ".spell_customization.color.clear";
@@ -140,6 +141,7 @@ public interface AMTranslations {
     Component OCCULUS_FORGET_ALL_TOOLTIP                 = Component.translatable(OCCULUS_FORGET_ALL_TOOLTIP_KEY);
     Component OCCULUS_NEXT                               = Component.translatable(OCCULUS_NEXT_KEY);
     Component OCCULUS_PREV                               = Component.translatable(OCCULUS_PREV_KEY);
+    Component RIFT                                       = Component.translatable(RIFT_KEY);
     Component SPELL_BOOK_NO_SPELL_SELECTED               = Component.translatable(SPELL_BOOK_NO_SPELL_SELECTED_KEY);
     Component SPELL_CUSTOMIZATION                        = Component.translatable(SPELL_CUSTOMIZATION_KEY);
     Component SPELL_CUSTOMIZATION_COLOR                  = Component.translatable(SPELL_CUSTOMIZATION_COLOR_KEY);

@@ -13,6 +13,7 @@ import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SpellIconAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.extension.LiquidEtheriumClientFluidTypeExtensions;
 import at.minecraftschurli.arsmagicalegacy.client.extension.SpellClientItemExtensions;
+import at.minecraftschurli.arsmagicalegacy.client.gui.RiftScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.RuneBagScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.SpellBookScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable.InscriptionTableScreen;
@@ -148,6 +149,7 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void registerMenuScreens(RegisterMenuScreensEvent event) {
         event.register(AMMenus.INSCRIPTION_TABLE.get(), InscriptionTableScreen::new);
+        event.register(AMMenus.RIFT.get(), RiftScreen::new);
         event.register(AMMenus.RUNE_BAG.get(), RuneBagScreen::new);
         event.register(AMMenus.SPELL_BOOK.get(), SpellBookScreen::new);
     }

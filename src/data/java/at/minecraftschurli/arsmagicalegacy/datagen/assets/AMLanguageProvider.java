@@ -722,6 +722,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.PREVENT_BLOCK_KEY, "Mystical forces prevent you from using this block! Try crafting an Arcane Compendium to learn more.");
         add(AMTranslations.PREVENT_ITEM_KEY, "Mystical forces prevent you from using this item! Try crafting an Arcane Compendium to learn more.");
         add(AMTranslations.RECALL_POSITION_NOT_SET_KEY, "No recall position set! Use the Spell Customization menu to set a position.");
+        add(AMTranslations.RIFT_KEY, "Rift");
         add(AMTranslations.SPELL_BOOK_NO_SPELL_SELECTED_KEY, "No spell selected.");
         add(AMTranslations.SPELL_BOOK_SELECTED_SPELL_KEY, "Selected spell: %s");
         add(AMTranslations.SPELL_CAST_BURNED_OUT_KEY, "Burned out!");

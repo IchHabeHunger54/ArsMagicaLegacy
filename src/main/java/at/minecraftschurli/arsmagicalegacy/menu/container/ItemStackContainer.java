@@ -11,8 +11,7 @@ public class ItemStackContainer extends SimpleContainer {
     public ItemStackContainer(ItemStack stack, int size) {
         super(size);
         this.stack = stack;
-        ItemContainerContents contents = stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY);
-        contents.copyInto(getItems());
+        stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY).copyInto(getItems());
     }
 
     @Override

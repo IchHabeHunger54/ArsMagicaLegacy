@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class Transplace extends TeleportComponent {
-    public static final ResourceLocation CASTER_PARTICLES = ArsMagicaApi.modLoc("transplace_caster");
+    public static final ResourceLocation CASTER_PARTICLES = ArsMagicaApi.id("transplace_caster");
 
     @Override
     protected void teleport(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult, Entity entity) {

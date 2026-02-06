@@ -20,8 +20,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 public class PlaceBlockCustomizationScreen extends AbstractContainerSpellPartCustomizationScreen<Block> {
-    private static final ResourceLocation INVENTORY = ArsMagicaApi.modLoc("textures/gui/spell_customization/inventory.png");
-    private static final ResourceLocation SLOT = ArsMagicaApi.modLoc("textures/gui/spell_customization/place_block.png");
+    private static final ResourceLocation INVENTORY = ArsMagicaApi.id("textures/gui/spell_customization/inventory.png");
+    private static final ResourceLocation SLOT = ArsMagicaApi.id("textures/gui/spell_customization/place_block.png");
     private final Container container;
 
     public PlaceBlockCustomizationScreen(Function<DataComponentType<Block>, @Nullable Block> valueGetter, BiConsumer<DataComponentType<Block>, @Nullable Block> valueSetter) {

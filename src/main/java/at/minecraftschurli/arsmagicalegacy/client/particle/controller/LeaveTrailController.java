@@ -11,7 +11,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.ResourceLocation;
 
 public record LeaveTrailController(boolean stopOtherControllers, boolean killOnFinish, ParticleSpawner spawner) implements ParticleController {
-    public static final ResourceLocation ID = ArsMagicaApi.modLoc("leave_trail");
+    public static final ResourceLocation ID = ArsMagicaApi.id("leave_trail");
     public static final MapCodec<LeaveTrailController> CODEC = RecordCodecBuilder.mapCodec(inst -> ParticleController.baseFields(inst)
         .and(ParticleSpawner.CODEC.fieldOf("spawner").forGetter(LeaveTrailController::spawner))
         .apply(inst, LeaveTrailController::new));

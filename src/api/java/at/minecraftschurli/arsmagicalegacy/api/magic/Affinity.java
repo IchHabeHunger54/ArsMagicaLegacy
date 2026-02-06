@@ -48,7 +48,7 @@ public record Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> m
         ).apply(inst, Affinity::new));
     });
     public static final Codec<Holder<Affinity>> CODEC = RegistryFileCodec.create(AMRegistries.AFFINITY, DIRECT_CODEC);
-    public static final ResourceKey<Affinity> NONE = ResourceKey.create(AMRegistries.AFFINITY, ArsMagicaApi.modLoc("none"));
+    public static final ResourceKey<Affinity> NONE = ResourceKey.create(AMRegistries.AFFINITY, ArsMagicaApi.id("none"));
 
     /**
      * @param directOpposite The direct opposite affinity.

@@ -13,7 +13,7 @@ import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
 
 class TierComponentProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
-    private static final ResourceLocation ID = ArsMagicaApi.modLoc("tier");
+    private static final ResourceLocation ID = ArsMagicaApi.id("tier");
     private static final String TIER = "power";
     static final TierComponentProvider INSTANCE = new TierComponentProvider();
 

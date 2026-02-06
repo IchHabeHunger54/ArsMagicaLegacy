@@ -65,6 +65,6 @@ public interface AMMagic {
     }
 
     private static <T> ResourceKey<T> key(ResourceKey<Registry<T>> registryKey, String name) {
-        return ResourceKey.create(registryKey, ArsMagicaApi.modLoc(name));
+        return ResourceKey.create(registryKey, ArsMagicaApi.id(name));
     }
 }

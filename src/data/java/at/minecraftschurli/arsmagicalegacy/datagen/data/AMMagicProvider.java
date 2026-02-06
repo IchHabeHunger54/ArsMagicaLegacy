@@ -145,11 +145,11 @@ public final class AMMagicProvider {
     }
 
     public static void addOcculusTabs(BootstrapContext<OcculusTab> bootstrap) {
-        bootstrap.register(AMMagic.OFFENSE, new OcculusTab(368, 320, 85, 0, 0, ArsMagicaApi.modLoc("skill_tree")));
-        bootstrap.register(AMMagic.DEFENSE, new OcculusTab(320, 368, 38, 0, 1, ArsMagicaApi.modLoc("skill_tree")));
-        bootstrap.register(AMMagic.UTILITY, new OcculusTab(320, 368, 38, 0, 2, ArsMagicaApi.modLoc("skill_tree")));
-        bootstrap.register(AMMagic.TALENT, new OcculusTab(224, 196, 14, 0, 3, ArsMagicaApi.modLoc("skill_tree")));
-        bootstrap.register(AMMagic.AFFINITY, new OcculusTab(196, 196, 0, 0, 4, ArsMagicaApi.modLoc("affinity")));
+        bootstrap.register(AMMagic.OFFENSE, new OcculusTab(368, 320, 85, 0, 0, ArsMagicaApi.id("skill_tree")));
+        bootstrap.register(AMMagic.DEFENSE, new OcculusTab(320, 368, 38, 0, 1, ArsMagicaApi.id("skill_tree")));
+        bootstrap.register(AMMagic.UTILITY, new OcculusTab(320, 368, 38, 0, 2, ArsMagicaApi.id("skill_tree")));
+        bootstrap.register(AMMagic.TALENT, new OcculusTab(224, 196, 14, 0, 3, ArsMagicaApi.id("skill_tree")));
+        bootstrap.register(AMMagic.AFFINITY, new OcculusTab(196, 196, 0, 0, 4, ArsMagicaApi.id("affinity")));
     }
 
     public static void addSkillPoints(BootstrapContext<SkillPoint> bootstrap) {
@@ -316,10 +316,10 @@ public final class AMMagicProvider {
     }
 
     private static void addAltarCapMaterial(BootstrapContext<AltarCapMaterial> bootstrap, String name, Block block, int power) {
-        bootstrap.register(ResourceKey.create(AMRegistries.ALTAR_CAP_MATERIAL, ArsMagicaApi.modLoc(name)), new AltarCapMaterial(block, power));
+        bootstrap.register(ResourceKey.create(AMRegistries.ALTAR_CAP_MATERIAL, ArsMagicaApi.id(name)), new AltarCapMaterial(block, power));
     }
 
     private static void addAltarMaterial(BootstrapContext<AltarMaterial> bootstrap, BlockFamily blockFamily, int power) {
-        bootstrap.register(ResourceKey.create(AMRegistries.ALTAR_MATERIAL, ArsMagicaApi.modLoc(BuiltInRegistries.BLOCK.getKey(blockFamily.getBaseBlock()).getPath())), new AltarMaterial(blockFamily.getBaseBlock(), (StairBlock) blockFamily.get(BlockFamily.Variant.STAIRS), power));
+        bootstrap.register(ResourceKey.create(AMRegistries.ALTAR_MATERIAL, ArsMagicaApi.id(BuiltInRegistries.BLOCK.getKey(blockFamily.getBaseBlock()).getPath())), new AltarMaterial(blockFamily.getBaseBlock(), (StairBlock) blockFamily.get(BlockFamily.Variant.STAIRS), power));
     }
 }

@@ -10,5 +10,5 @@ import org.jetbrains.annotations.Nullable;
  * Holds the capabilities added by Ars Magica: Legacy.
  */
 public interface AMCapabilities {
-    BlockCapability<EtheriumHandler, @Nullable Direction> BLOCK_ETHERIUM = BlockCapability.createSided(ArsMagicaApi.modLoc("etherium"), EtheriumHandler.class);
+    BlockCapability<EtheriumHandler, @Nullable Direction> BLOCK_ETHERIUM = BlockCapability.createSided(ArsMagicaApi.id("etherium"), EtheriumHandler.class);
 }

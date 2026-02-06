@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 
 public class BarsLayer implements LayeredDraw.Layer {
-    private static final ResourceLocation TEXTURE = ArsMagicaApi.modLoc("textures/gui/bar.png");
+    private static final ResourceLocation TEXTURE = ArsMagicaApi.id("textures/gui/bar.png");
     private static final int WIDTH = 80;
     private static final int HEIGHT = 10;
 

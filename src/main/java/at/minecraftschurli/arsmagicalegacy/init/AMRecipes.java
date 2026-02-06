@@ -16,5 +16,5 @@ public interface AMRecipes {
 
     DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Registries.RECIPE_TYPE, ArsMagicaApi.MOD_ID);
     DeferredHolder<RecipeType<?>, RecipeType<SpellTransformationRecipe>> SPELL_TRANSFORMATION_TYPE =
-        RECIPE_TYPES.register("spell_transformation", () -> RecipeType.simple(ArsMagicaApi.modLoc("spell_transformation")));
+        RECIPE_TYPES.register("spell_transformation", () -> RecipeType.simple(ArsMagicaApi.id("spell_transformation")));
 }

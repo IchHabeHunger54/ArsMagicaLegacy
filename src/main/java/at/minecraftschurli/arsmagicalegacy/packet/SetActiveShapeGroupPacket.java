@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetActiveShapeGroupPacket(int activeShapeGroup) implements CustomPacketPayload {
-    public static final Type<SetActiveShapeGroupPacket> TYPE = new Type<>(ArsMagicaApi.modLoc("set_active_shape_group"));
+    public static final Type<SetActiveShapeGroupPacket> TYPE = new Type<>(ArsMagicaApi.id("set_active_shape_group"));
     public static final StreamCodec<ByteBuf, SetActiveShapeGroupPacket> STREAM_CODEC = ByteBufCodecs.INT.map(SetActiveShapeGroupPacket::new, SetActiveShapeGroupPacket::activeShapeGroup);
 
     @SuppressWarnings("DataFlowIssue")

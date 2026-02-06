@@ -10,7 +10,7 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.Mth;
 
 public record ChangeSizeController(boolean stopOtherControllers, boolean killOnFinish, float from, float to, int duration) implements ParticleController {
-    public static final ResourceLocation ID = ArsMagicaApi.modLoc("change_size");
+    public static final ResourceLocation ID = ArsMagicaApi.id("change_size");
     public static final MapCodec<ChangeSizeController> CODEC = RecordCodecBuilder.mapCodec(inst -> ParticleController.baseFields(inst)
         .and(ExtraCodecs.POSITIVE_FLOAT.optionalFieldOf("from", 0.5f).forGetter(ChangeSizeController::from))
         .and(ExtraCodecs.POSITIVE_FLOAT.optionalFieldOf("to", 0.05f).forGetter(ChangeSizeController::to))

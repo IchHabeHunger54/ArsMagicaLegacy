@@ -219,7 +219,7 @@ public final class AMLootTableProvider extends LootTableProvider {
         }
 
         private void addDismemberingLoot(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output, ResourceKey<LootTable> lootTable, ItemLike item, float chance) {
-            output.accept(ResourceKey.create(lootTable.registryKey(), ArsMagicaApi.modLoc(lootTable.location().getPath().replace("entities/", "entities/modify/")).withSuffix("_dismembering")), LootTable.lootTable().withPool(LootPool.lootPool()
+            output.accept(ResourceKey.create(lootTable.registryKey(), ArsMagicaApi.id(lootTable.location().getPath().replace("entities/", "entities/modify/")).withSuffix("_dismembering")), LootTable.lootTable().withPool(LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1))
                 .add(LootItem.lootTableItem(item).when(LootItemRandomChanceCondition.randomChance(new EnchantmentLevelFromItemProvider(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(AMEnchantments.DISMEMBERING), LevelBasedValue.perLevel(chance)))))
                 .apply(LimitCount.limitCount(IntRange.exact(1)))

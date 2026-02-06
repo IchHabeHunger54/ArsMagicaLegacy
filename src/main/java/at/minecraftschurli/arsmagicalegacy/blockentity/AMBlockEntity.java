@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class AMBlockEntity<T> extends BlockEntity {
-    private static final String DATA_KEY = ArsMagicaApi.modLoc("data").toString();
+    private static final String DATA_KEY = ArsMagicaApi.id("data").toString();
     private final Codec<T> codec;
 
     public AMBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, Codec<T> codec) {

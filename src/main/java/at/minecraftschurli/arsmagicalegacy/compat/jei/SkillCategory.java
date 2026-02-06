@@ -34,7 +34,7 @@ import java.util.Map;
 @SuppressWarnings("DataFlowIssue")
 public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
     public static final RecipeType<Recipe> RECIPE_TYPE = RecipeType.create(ArsMagicaApi.MOD_ID, "skill", Recipe.class);
-    private static final ResourceLocation BACKGROUND = ArsMagicaApi.modLoc("textures/gui/skill_category.png");
+    private static final ResourceLocation BACKGROUND = ArsMagicaApi.id("textures/gui/skill_category.png");
     private static final Comparator<Holder<Affinity>> COMPARATOR = Comparator.comparing(Holder::getKey);
     private static final int INGREDIENT_COLUMNS = 7;
     private static final int SLOT_SIZE = 18;

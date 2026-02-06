@@ -13,7 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record LearnSkillPacket(Holder<Skill> skill) implements CustomPacketPayload {
-    public static final Type<LearnSkillPacket> TYPE = new Type<>(ArsMagicaApi.modLoc("learn_skill"));
+    public static final Type<LearnSkillPacket> TYPE = new Type<>(ArsMagicaApi.id("learn_skill"));
     public static final StreamCodec<RegistryFriendlyByteBuf, LearnSkillPacket> STREAM_CODEC = ByteBufCodecs.holderRegistry(AMRegistries.SKILL).map(LearnSkillPacket::new, LearnSkillPacket::skill);
 
     @Override

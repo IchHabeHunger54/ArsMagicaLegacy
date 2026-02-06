@@ -22,7 +22,7 @@ import java.util.List;
 @JeiPlugin
 public final class AMJeiPlugin implements IModPlugin {
     public static final IIngredientType<Skill> SKILL_TYPE = () -> Skill.class;
-    private static final ResourceLocation ID = ArsMagicaApi.modLoc(ArsMagicaApi.MOD_ID);
+    private static final ResourceLocation ID = ArsMagicaApi.id(ArsMagicaApi.MOD_ID);
 
     @Override
     public ResourceLocation getPluginUid() {

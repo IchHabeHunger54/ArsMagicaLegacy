@@ -16,7 +16,7 @@ import java.util.Optional;
 public final class AMRenderTypes {
     private static final RenderStateShard.ShaderStateShard COLOR_WHEEL_SHADER = new RenderStateShard.ShaderStateShard(ColorWheelShader::getInstance);
     public static final RenderType COLOR_WHEEL = RenderType.create(
-        ArsMagicaApi.modLoc("color_wheel").toString().replace(":", "_"),
+        ArsMagicaApi.id("color_wheel").toString().replace(":", "_"),
         DefaultVertexFormat.POSITION_COLOR,
         VertexFormat.Mode.QUADS,
         256,
@@ -34,7 +34,7 @@ public final class AMRenderTypes {
     public static final RenderType SPELL_ICON = RenderType.itemEntityTranslucentCull(SpellIconAtlasHolder.ATLAS);
     public static final RenderType SPELL_ICON_FABULOUS = RenderType.entityTranslucentCull(SpellIconAtlasHolder.ATLAS);
     public static final RenderType OUTLINE = RenderType.create(
-        ArsMagicaApi.modLoc("outline").toString().replace(":", "_"),
+        ArsMagicaApi.id("outline").toString().replace(":", "_"),
         DefaultVertexFormat.POSITION_TEX_COLOR,
         VertexFormat.Mode.QUADS,
         8192,

@@ -26,7 +26,7 @@ import java.util.Optional;
 
 public final class ToolTiers extends SimplePreparableReloadListener<JsonObject> {
     public static final ToolTiers INSTANCE = new ToolTiers();
-    public static final ResourceLocation PATH = ArsMagicaApi.modLoc("tool_tiers.json");
+    public static final ResourceLocation PATH = ArsMagicaApi.id("tool_tiers.json");
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().setLenient().create();
     private static final Logger LOGGER = LoggerFactory.getLogger(ToolTiers.class);
     private final Int2ObjectMap<TagKey<Block>> contents = new Int2ObjectOpenHashMap<>();

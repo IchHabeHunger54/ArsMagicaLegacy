@@ -71,7 +71,7 @@ public interface AMWorldgen {
      * @return A {@link ResourceKey} for a {@link ConfiguredFeature}.
      */
     private static ResourceKey<ConfiguredFeature<?, ?>> configuredFeature(String name) {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, ArsMagicaApi.modLoc(name));
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, ArsMagicaApi.id(name));
     }
 
     /**
@@ -79,7 +79,7 @@ public interface AMWorldgen {
      * @return A {@link ResourceKey} for a {@link PlacedFeature}.
      */
     private static ResourceKey<PlacedFeature> placedFeature(String name) {
-        return ResourceKey.create(Registries.PLACED_FEATURE, ArsMagicaApi.modLoc(name));
+        return ResourceKey.create(Registries.PLACED_FEATURE, ArsMagicaApi.id(name));
     }
 
     /**
@@ -87,6 +87,6 @@ public interface AMWorldgen {
      * @return A {@link ResourceKey} for a {@link BiomeModifier}.
      */
     private static ResourceKey<BiomeModifier> biomeModifier(String name) {
-        return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ArsMagicaApi.modLoc(name));
+        return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ArsMagicaApi.id(name));
     }
 }

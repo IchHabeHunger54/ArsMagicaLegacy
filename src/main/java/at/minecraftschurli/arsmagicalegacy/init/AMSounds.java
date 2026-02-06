@@ -82,6 +82,6 @@ public interface AMSounds {
     // @formatter:on
 
     private static DeferredHolder<SoundEvent, SoundEvent> register(String id) {
-        return SOUND_EVENTS.register(id, () -> SoundEvent.createVariableRangeEvent(ArsMagicaApi.modLoc(id)));
+        return SOUND_EVENTS.register(id, () -> SoundEvent.createVariableRangeEvent(ArsMagicaApi.id(id)));
     }
 }

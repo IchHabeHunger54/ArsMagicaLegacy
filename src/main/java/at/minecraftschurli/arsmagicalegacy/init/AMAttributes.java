@@ -20,6 +20,6 @@ public interface AMAttributes {
     // @formatter:on
 
     private static DeferredHolder<Attribute, Attribute> register(String name, Function<String, Attribute> factory, Attribute.Sentiment sentiment) {
-        return ATTRIBUTES.register(name, () -> factory.apply(Util.makeDescriptionId("attribute", ArsMagicaApi.modLoc(name))).setSentiment(sentiment).setSyncable(true));
+        return ATTRIBUTES.register(name, () -> factory.apply(Util.makeDescriptionId("attribute", ArsMagicaApi.id(name))).setSentiment(sentiment).setSyncable(true));
     }
 }

@@ -22,7 +22,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScreen<Integer> {
-    private static final ResourceLocation BACKGROUND = ArsMagicaApi.modLoc("textures/gui/spell_customization/color.png");
+    private static final ResourceLocation BACKGROUND = ArsMagicaApi.id("textures/gui/spell_customization/color.png");
     private static final int WIDTH = 180;
     private static final int HEIGHT = 130;
     private static final int COLUMNS = 4;

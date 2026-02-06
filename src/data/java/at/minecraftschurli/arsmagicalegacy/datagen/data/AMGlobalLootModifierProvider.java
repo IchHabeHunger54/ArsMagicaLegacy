@@ -54,12 +54,12 @@ public final class AMGlobalLootModifierProvider extends GlobalLootModifierProvid
     private void addDismemberingModifier(EntityType<?> entityType) {
         ResourceKey<LootTable> table = entityType.getDefaultLootTable();
         String path = table.location().getPath();
-        addModifier(table, path,  ArsMagicaApi.modLoc(path.replace("entities/", "entities/modify/")).withSuffix("_dismembering"));
+        addModifier(table, path,  ArsMagicaApi.id(path.replace("entities/", "entities/modify/")).withSuffix("_dismembering"));
     }
 
     private void addTomeModifier(ResourceKey<LootTable> table) {
         String path = table.location().getPath();
-        addModifier(table, path, ArsMagicaApi.modLoc(path.replace("chests/", "chests/modify/")).withSuffix("_affinity_tome"));
+        addModifier(table, path, ArsMagicaApi.id(path.replace("chests/", "chests/modify/")).withSuffix("_affinity_tome"));
     }
 
     private void addModifier(ResourceKey<LootTable> table, String modifier, ResourceLocation location) {

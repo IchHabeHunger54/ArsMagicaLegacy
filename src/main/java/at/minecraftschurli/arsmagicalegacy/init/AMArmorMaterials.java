@@ -25,7 +25,7 @@ public interface AMArmorMaterials {
     DeferredHolder<ArmorMaterial, ArmorMaterial> BATTLEMAGE = register("battlemage", defenseMap(3, 8, 6, 3), 10, SoundEvents.ARMOR_EQUIP_NETHERITE, AMTags.Items.BATTLEMAGE_ARMOR_REPAIR_ITEMS, 1);
 
     private static DeferredHolder<ArmorMaterial, ArmorMaterial> register(String name, Map<ArmorItem.Type, Integer> defense, int enchantmentValue, Holder<SoundEvent> equipSound, TagKey<Item> repairItems, float toughness) {
-        return ARMOR_MATERIALS.register(name, () -> new ArmorMaterial(defense, enchantmentValue, equipSound, () -> Ingredient.of(repairItems), List.of(new ArmorMaterial.Layer(ArsMagicaApi.modLoc(name))), toughness, 0));
+        return ARMOR_MATERIALS.register(name, () -> new ArmorMaterial(defense, enchantmentValue, equipSound, () -> Ingredient.of(repairItems), List.of(new ArmorMaterial.Layer(ArsMagicaApi.id(name))), toughness, 0));
     }
 
     private static EnumMap<ArmorItem.Type, Integer> defenseMap(int helmet, int chestplate, int leggings, int boots) {

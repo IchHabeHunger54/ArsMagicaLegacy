@@ -16,19 +16,19 @@ import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
 
 public final class AMMultiblocks {
-    public static final ResourceLocation ALTAR = ArsMagicaApi.modLoc("altar");
-    public static final ResourceLocation OBELISK_CHALK = ArsMagicaApi.modLoc("obelisk_chalk");
-    public static final ResourceLocation OBELISK_PILLARS = ArsMagicaApi.modLoc("obelisk_pillars");
-    public static final ResourceLocation CELESTIAL_PRISM_CHALK = ArsMagicaApi.modLoc("celestial_prism_chalk");
-    public static final ResourceLocation CELESTIAL_PRISM_PILLARS_1 = ArsMagicaApi.modLoc("celestial_prism_pillars_1");
-    public static final ResourceLocation CELESTIAL_PRISM_PILLARS_2 = ArsMagicaApi.modLoc("celestial_prism_pillars_2");
-    public static final ResourceLocation CELESTIAL_PRISM_PILLARS_3 = ArsMagicaApi.modLoc("celestial_prism_pillars_3");
-    public static final ResourceLocation CELESTIAL_PRISM_PILLARS_4 = ArsMagicaApi.modLoc("celestial_prism_pillars_4");
-    public static final ResourceLocation BLACK_AUREM_CHALK = ArsMagicaApi.modLoc("black_aurem_chalk");
-    public static final ResourceLocation BLACK_AUREM_PILLARS_1 = ArsMagicaApi.modLoc("black_aurem_pillars_1");
-    public static final ResourceLocation BLACK_AUREM_PILLARS_2 = ArsMagicaApi.modLoc("black_aurem_pillars_2");
-    public static final ResourceLocation BLACK_AUREM_PILLARS_3 = ArsMagicaApi.modLoc("black_aurem_pillars_3");
-    public static final ResourceLocation BLACK_AUREM_PILLARS_4 = ArsMagicaApi.modLoc("black_aurem_pillars_4");
+    public static final ResourceLocation ALTAR = ArsMagicaApi.id("altar");
+    public static final ResourceLocation OBELISK_CHALK = ArsMagicaApi.id("obelisk_chalk");
+    public static final ResourceLocation OBELISK_PILLARS = ArsMagicaApi.id("obelisk_pillars");
+    public static final ResourceLocation CELESTIAL_PRISM_CHALK = ArsMagicaApi.id("celestial_prism_chalk");
+    public static final ResourceLocation CELESTIAL_PRISM_PILLARS_1 = ArsMagicaApi.id("celestial_prism_pillars_1");
+    public static final ResourceLocation CELESTIAL_PRISM_PILLARS_2 = ArsMagicaApi.id("celestial_prism_pillars_2");
+    public static final ResourceLocation CELESTIAL_PRISM_PILLARS_3 = ArsMagicaApi.id("celestial_prism_pillars_3");
+    public static final ResourceLocation CELESTIAL_PRISM_PILLARS_4 = ArsMagicaApi.id("celestial_prism_pillars_4");
+    public static final ResourceLocation BLACK_AUREM_CHALK = ArsMagicaApi.id("black_aurem_chalk");
+    public static final ResourceLocation BLACK_AUREM_PILLARS_1 = ArsMagicaApi.id("black_aurem_pillars_1");
+    public static final ResourceLocation BLACK_AUREM_PILLARS_2 = ArsMagicaApi.id("black_aurem_pillars_2");
+    public static final ResourceLocation BLACK_AUREM_PILLARS_3 = ArsMagicaApi.id("black_aurem_pillars_3");
+    public static final ResourceLocation BLACK_AUREM_PILLARS_4 = ArsMagicaApi.id("black_aurem_pillars_4");
     private static final String[][] ALTAR_STRUCTURE = new String[][]{
         {" C2C ", " 3B1 ", " 3O1 ", " 3B1 ", " C4C "},
         {" BMB ", " 6 6 ", "     ", " 5 5 ", " BMB "},

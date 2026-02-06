@@ -39,7 +39,7 @@ public abstract class ArsMagicaApi {
      * @param path The path of the {@link ResourceLocation}.
      * @return A new {@link ResourceLocation}.
      */
-    public static ResourceLocation modLoc(String path) {
+    public static ResourceLocation id(String path) {
         return ResourceLocation.fromNamespaceAndPath(ArsMagicaApi.MOD_ID, path);
     }
 

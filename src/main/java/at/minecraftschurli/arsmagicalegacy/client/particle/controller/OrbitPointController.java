@@ -14,7 +14,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 
 public record OrbitPointController(boolean stopOtherControllers, boolean killOnFinish, double minSpeed, double maxSpeed, double minDistance, double maxDistance, boolean followTarget) implements ParticleController {
-    public static final ResourceLocation ID = ArsMagicaApi.modLoc("orbit_point");
+    public static final ResourceLocation ID = ArsMagicaApi.id("orbit_point");
     public static final MapCodec<OrbitPointController> CODEC = RecordCodecBuilder.mapCodec(inst -> ParticleController.baseFields(inst)
         .and(AMExtraCodecs.doubleRangeCodec(0, 180).fieldOf("min_speed").forGetter(OrbitPointController::minSpeed))
         .and(AMExtraCodecs.doubleRangeCodec(0, 180).fieldOf("max_speed").forGetter(OrbitPointController::maxSpeed))

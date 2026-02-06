@@ -9,5 +9,5 @@ import net.minecraft.resources.ResourceLocation;
  * @param id The id of the stat.
  */
 public record SpellStat(ResourceLocation id) {
-    public static final SpellStat COLOR = new SpellStat(ArsMagicaApi.modLoc("color"));
+    public static final SpellStat COLOR = new SpellStat(ArsMagicaApi.id("color"));
 }

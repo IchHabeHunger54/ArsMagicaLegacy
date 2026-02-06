@@ -54,14 +54,14 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
         TranslatedBookBuilder builder = createBookBuilder("arcane_compendium", "Arcane Compendium", "A renewed look into Minecraft with a splash of magic...", translationConsumer, lookupProvider)
             .setBookTexture(ResourceLocation.fromNamespaceAndPath("patchouli", "textures/gui/book_purple.png"))
             .setCreativeTab(AMCreativeTabs.MAIN.getId())
-            .setModel(ArsMagicaApi.modLoc("arcane_compendium"))
+            .setModel(ArsMagicaApi.id("arcane_compendium"))
             .setVersion("1");
         builder.addCategory("mechanics", "Mechanics", "", new ItemStack(AMItems.ALTAR_CORE.get()))
             .setSortnum(0)
             .addEntry("getting_started", "Getting Started", ArsMagicaApi.book())
             .setPriority(true)
             .addSimpleTextPage("Spellcrafting looks complex from a distance, but gets very easy when doing it more often.$(br2)You start by crafting an $(l:blocks/occulus)Occulus$(), placing it down and opening it. Through the Occulus, you can unlock new skills. Skills come in four categories, more on that in a minute.")
-            .addImagePage(ArsMagicaApi.modLoc("patchouli_books/arcane_compendium/en_us/images/occulus.png")).setText("The Occulus has five tabs, the first four of which are skill tree tabs.").build()
+            .addImagePage(ArsMagicaApi.id("patchouli_books/arcane_compendium/en_us/images/occulus.png")).setText("The Occulus has five tabs, the first four of which are skill tree tabs.").build()
             .addSimpleTextPage("The first category of skills, shapes, determine how the spell is cast. For example, $(l:shapes/self)Self$() means that the spell is cast onto yourself, while $(l:shapes/projectile)Projectile$() shoots a projectile that casts the spell on whatever it hits.$(br2)Shapes have a square outline in the Occulus.", "Shapes")
             .addSimpleTextPage("The second skill category, the components, represent what the spell does. For instance, $(l:components/physical_damage)Physical Damage$() acts as if the spell hit the target with a sword, while $(l:components/dig)Dig$() breaks the targeted block. As you may have guessed, some components only affect blocks, some only affect mobs, some affect both, and very few affect neither, instead doing something else entirely.$(br2)Components have an octagonal outline in the Occulus.", "Components")
             .addSimpleTextPage("Next up, modifiers. Modifiers can affect both shapes and components, but not every combination will turn out to actually have an effect (what sense would $(l:components/fire_damage)Fire Damage$() + $(l:modifiers/gravity)Gravity$() make?) The book tells you most, but not all useful combinations.$(br2)Modifiers have a rotated square outline in the Occulus.", "Modifiers")
@@ -69,9 +69,9 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
             .addSimpleTextPage("A word should also go to the Affinity tab of the Occulus. This tab displays your affinity depths. It would be too complex to explain this here, so for further reading, please consult the $(l:affinities/affinities)affinity chapter$().", "Affinities")
             .addSimpleTextPage("At this point, you may rightfully ask yourself: Why should I learn all this? We will catch up to this in a moment. For now, the next thing you need is an $(l:blocks/inscription_table)Inscription Table$(). The Inscription Table is where you will assemble your spell. Since this can be complex for novices, it will be explained in detail on the following pages.")
             .addSimpleTextPage("1) The Source Area contains all skills you currently know.$(br)2) A slot that takes in a Book & Quill. The spell recipe will be written onto this book.$(br)3) A total of five brown squares, the so-called $(l:mechanics/shape_groups)shape group$() areas. You can drag shapes and modifiers here. For the beginning, you should only be using the first one.$(br)4) The spell grammar section. This is where components and component-related modifiers go.")
-            .addImagePage(ArsMagicaApi.modLoc("patchouli_books/arcane_compendium/en_us/images/inscription_table_1.png")).setText("The search bar can be used to quickly find a spell part. The name bar can be used to name your spell, this is not required though.").build()
-            .addImagePage(ArsMagicaApi.modLoc("patchouli_books/arcane_compendium/en_us/images/inscription_table_2.png")).setText("Drag the skills down to the shape groups and the spell grammar section.").build()
-            .addImagePage(ArsMagicaApi.modLoc("patchouli_books/arcane_compendium/en_us/images/inscription_table_3.png")).setText("The shown spell recipe is $(l:shapes/projectile)Projectile$()-$(l:components/dig)Dig$(), which is recommended for beginners.").build()
+            .addImagePage(ArsMagicaApi.id("patchouli_books/arcane_compendium/en_us/images/inscription_table_1.png")).setText("The search bar can be used to quickly find a spell part. The name bar can be used to name your spell, this is not required though.").build()
+            .addImagePage(ArsMagicaApi.id("patchouli_books/arcane_compendium/en_us/images/inscription_table_2.png")).setText("Drag the skills down to the shape groups and the spell grammar section.").build()
+            .addImagePage(ArsMagicaApi.id("patchouli_books/arcane_compendium/en_us/images/inscription_table_3.png")).setText("The shown spell recipe is $(l:shapes/projectile)Projectile$()-$(l:components/dig)Dig$(), which is recommended for beginners.").build()
             .addSimpleTextPage("Note that not every combination is allowed in the Inscription Table. Do not worry, though, since you will notice soon enough that you are trying to do something that is not permitted.$(br2)Once you are done, simply take out the book. To get back the book without writing the spell recipe, instead shift-move the book out of the table.")
             .addSimpleTextPage("Now that you have your spell recipe, you can do the final step: crafting the spell at the $(l:mechanics/crafting_altar)Crafting Altar$(). Please refer to its section to find out how to construct it. $(br2)To start crafting the spell, put the recipe onto the altar's lectern. The items you need to throw in will appear above it, always starting with a $(l:items/runes)Blank Rune$() and ending with a $(l:items/spell_parchment)Spell Parchment$().")
             .addSimpleTextPage("When first using the spell, you must choose an icon and a name for the spell. After that, you are done! It is heavily recommended to at least read the other chapters in this category, as they cover most things to know in magic.$(br2)Happy spellcasting!")
@@ -96,7 +96,7 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
             .addEntry("liquid_etherium", "Liquid Etherium", new ItemStack(AMItems.LIQUID_ETHERIUM_BUCKET.get()))
             .addSimpleTextPage("Liquid Etherium is a water-like substance that can rarely be found in plains and plains-like environments. For the most part, it acts exactly like water would, though it cannot be used to waterlog blocks, create bubble columns or other, rather exotic appliances. Also, it does not create sources or trickle down from dripstones.")
             .addSimpleSpotlightPage(new ItemStack(AMItems.LIQUID_ETHERIUM_BUCKET.get()), "Liquid Etherium can be processed in an $(l:blocks/obelisk)Obelisk$() to create neutral $(l:mechanics/etherium)Etherium$(). One bucket of Liquid Etherium is worth 1000 Etherium (or 10 units of $(l:blocks/ores#vinteum)vinteum$()).")
-            .addSimpleRecipePage("crafting", ArsMagicaApi.modLoc("arcane_compendium"), "And as you should know by now, combining it with a Book yields a copy of the very book you are reading this in.")
+            .addSimpleRecipePage("crafting", ArsMagicaApi.id("arcane_compendium"), "And as you should know by now, combining it with a Book yields a copy of the very book you are reading this in.")
             .build()
             .addEntry("shape_groups", "Shape Groups", new ItemStack(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1.get()))
             .addSimpleTextPage("Shape groups define how your spell is executed. A spell has multiple shape groups, each shape group is represented by one of the brown squares in the $(l:blocks/inscription_table)Inscription Table$(). The shape group can be changed by pressing $(k:arsmagicalegacy.next_shape_group) or $(k:arsmagicalegacy.prev_shape_group) for the next or the previous shape group, respectively.")
@@ -142,9 +142,9 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
             .addSpotlightPage(new ItemStack(AMItems.DESERT_NOVA.get())).setText("Desert Novas grow in dry conditions. The Nova has extraordinary magical properties for a desert plant, and is highly sought after. It is one of the two plants used in the $(l:items/purified_vinteum_dust)purification process of Vinteum Dust$().").setAnchor("desert_nova").build()
             .addSpotlightPage(new ItemStack(AMItems.TARMA_ROOT.get())).setText("Lighter than it looks, Tarma Root grows in mountain biomes. It is an ingredient in spells and air essences.").setAnchor("tarma_root").build()
             .addSpotlightPage(new ItemStack(AMItems.WAKEBLOOM.get())).setText("Growing on the surface of water in warm climates, Wakebloom is used in water-based spells frequently, as well as being a component in water affinity essences.").setAnchor("wakebloom").build()
-            .addSimpleDoubleRecipePage("crafting", ArsMagicaApi.modLoc("pink_dye_from_aum"), ArsMagicaApi.modLoc("blue_dye_from_cerublossom"))
-            .addSimpleDoubleRecipePage("crafting", ArsMagicaApi.modLoc("red_dye_from_desert_nova"), ArsMagicaApi.modLoc("brown_dye_from_tarma_root"))
-            .addSimpleRecipePage("crafting", ArsMagicaApi.modLoc("magenta_dye_from_wakebloom"))
+            .addSimpleDoubleRecipePage("crafting", ArsMagicaApi.id("pink_dye_from_aum"), ArsMagicaApi.id("blue_dye_from_cerublossom"))
+            .addSimpleDoubleRecipePage("crafting", ArsMagicaApi.id("red_dye_from_desert_nova"), ArsMagicaApi.id("brown_dye_from_tarma_root"))
+            .addSimpleRecipePage("crafting", ArsMagicaApi.id("magenta_dye_from_wakebloom"))
             .build()
 /*
             .addEntry("inlays", "Inlays", new ItemStack(AMItems.IRON_INLAY.get()))
@@ -354,7 +354,7 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
             TranslatedCategoryBuilder b = spellPart.isShape() ? shapes : spellPart.isComponent() ? components : modifiers;
             ResourceLocation id = ArsMagicaApi.spellPartRegistry().getKey(spellPart);
             TranslatedEntryBuilder entry = b.addEntry(id.getPath(), Util.makeDescriptionId("skill", id) + ".name", id.getNamespace() + ":textures/skill/" + id.getPath() + ".png")
-                .setAdvancement(ArsMagicaApi.modLoc("book/" + id.getPath()));
+                .setAdvancement(ArsMagicaApi.id("book/" + id.getPath()));
             entry.addSimpleTextPage(entry.getLangKey(0) + ".text");
             if (spellPart == AMSpells.CHAIN.get()) {
                 entry.addSimpleTextPage(entry.getLangKey(1) + ".text");
@@ -374,7 +374,7 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
         for (ResourceKey<Skill> talent : AMMagic.TALENTS) {
             ResourceLocation id = talent.location();
             TranslatedEntryBuilder entry = talents.addEntry(id.getPath(), Util.makeDescriptionId("skill", id) + ".name", id.getNamespace() + ":textures/skill/" + id.getPath() + ".png")
-                .setAdvancement(ArsMagicaApi.modLoc("book/" + id.getPath()));
+                .setAdvancement(ArsMagicaApi.id("book/" + id.getPath()));
             entry.addSimpleTextPage(entry.getLangKey(0) + ".text").build();
         }
         talents.build();

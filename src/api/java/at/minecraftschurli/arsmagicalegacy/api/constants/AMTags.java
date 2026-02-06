@@ -38,7 +38,7 @@ public interface AMTags {
         }
 
         private static TagKey<Block> tag(String name) {
-            return TagKey.create(Registries.BLOCK, ArsMagicaApi.modLoc(name));
+            return TagKey.create(Registries.BLOCK, ArsMagicaApi.id(name));
         }
     }
 
@@ -77,7 +77,7 @@ public interface AMTags {
         }
 
         private static TagKey<Item> tag(String name) {
-            return TagKey.create(Registries.ITEM, ArsMagicaApi.modLoc(name));
+            return TagKey.create(Registries.ITEM, ArsMagicaApi.id(name));
         }
     }
 
@@ -87,7 +87,7 @@ public interface AMTags {
         TagKey<EntityType<?>> AFFECTED_BY_NAUSEA_ABILITY = tag("affected_by_nausea_ability");
 
         private static TagKey<EntityType<?>> tag(String name) {
-            return TagKey.create(Registries.ENTITY_TYPE, ArsMagicaApi.modLoc(name));
+            return TagKey.create(Registries.ENTITY_TYPE, ArsMagicaApi.id(name));
         }
     }
 
@@ -100,7 +100,7 @@ public interface AMTags {
         TagKey<DamageType> IS_SPELL = tag("is_spell");
 
         private static TagKey<DamageType> tag(String name) {
-            return TagKey.create(Registries.DAMAGE_TYPE, ArsMagicaApi.modLoc(name));
+            return TagKey.create(Registries.DAMAGE_TYPE, ArsMagicaApi.id(name));
         }
     }
 }

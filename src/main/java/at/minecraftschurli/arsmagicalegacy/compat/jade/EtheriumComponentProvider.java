@@ -24,7 +24,7 @@ import java.util.SequencedSet;
 
 @SuppressWarnings("DataFlowIssue")
 class EtheriumComponentProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
-    private static final ResourceLocation ID = ArsMagicaApi.modLoc("etherium");
+    private static final ResourceLocation ID = ArsMagicaApi.id("etherium");
     private static final String ETHERIUM_TYPES = "etherium_types";
     private static final String ETHERIUM = "etherium";
     private static final String MAX_ETHERIUM = "max_etherium";

@@ -84,6 +84,6 @@ public interface AMAbilities {
     // @formatter:on
 
     private static ResourceKey<Ability> key(String name) {
-        return ResourceKey.create(AMRegistries.ABILITY, ArsMagicaApi.modLoc(name));
+        return ResourceKey.create(AMRegistries.ABILITY, ArsMagicaApi.id(name));
     }
 }

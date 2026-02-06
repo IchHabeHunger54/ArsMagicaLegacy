@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record InscriptionTableSyncPacket(BlockPos pos, InscriptionTableBlockEntity.MenuData data) implements CustomPacketPayload {
-    public static final Type<InscriptionTableSyncPacket> TYPE = new Type<>(ArsMagicaApi.modLoc("inscription_table_sync"));
+    public static final Type<InscriptionTableSyncPacket> TYPE = new Type<>(ArsMagicaApi.id("inscription_table_sync"));
     public static final StreamCodec<RegistryFriendlyByteBuf, InscriptionTableSyncPacket> STREAM_CODEC = StreamCodec.composite(
         BlockPos.STREAM_CODEC, InscriptionTableSyncPacket::pos,
         InscriptionTableBlockEntity.MenuData.STREAM_CODEC, InscriptionTableSyncPacket::data,

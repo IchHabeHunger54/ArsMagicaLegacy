@@ -31,9 +31,9 @@ import java.util.Comparator;
 import java.util.List;
 
 public class OcculusScreen extends Screen {
-    private static final ResourceLocation BUTTON_INDICATOR = ArsMagicaApi.modLoc("textures/gui/occulus/tab_button_indicator.png");
-    private static final ResourceLocation FRAME = ArsMagicaApi.modLoc("textures/gui/occulus/frame.png");
-    private static final ResourceLocation SKILL_POINTS = ArsMagicaApi.modLoc("textures/gui/occulus/skill_points.png");
+    private static final ResourceLocation BUTTON_INDICATOR = ArsMagicaApi.id("textures/gui/occulus/tab_button_indicator.png");
+    private static final ResourceLocation FRAME = ArsMagicaApi.id("textures/gui/occulus/frame.png");
+    private static final ResourceLocation SKILL_POINTS = ArsMagicaApi.id("textures/gui/occulus/skill_points.png");
     private static final int SIZE = 210;
     private static final int FRAME_SIZE = 7;
     private final List<Holder<OcculusTab>> tabs = new ArrayList<>();

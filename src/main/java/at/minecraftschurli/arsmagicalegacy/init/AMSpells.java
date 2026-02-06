@@ -90,27 +90,27 @@ public interface AMSpells {
 
     DeferredRegister<SpellPart> SPELL_PARTS = DeferredRegister.create(AMRegistries.SPELL_PART, ArsMagicaApi.MOD_ID);
     // @formatter:off
-    SpellStat BOUNCE_STAT           = new SpellStat(ArsMagicaApi.modLoc("bounce"));
-    SpellStat DAMAGE_STAT           = new SpellStat(ArsMagicaApi.modLoc("damage"));
-    SpellStat DISMEMBERING_STAT     = new SpellStat(ArsMagicaApi.modLoc("dismembering"));
-    SpellStat DURATION_STAT         = new SpellStat(ArsMagicaApi.modLoc("duration"));
-    SpellStat EFFECT_POWER_STAT     = new SpellStat(ArsMagicaApi.modLoc("effect_power"));
-    SpellStat FORTUNE_STAT          = new SpellStat(ArsMagicaApi.modLoc("fortune"));
-    SpellStat GRAVITY_STAT          = new SpellStat(ArsMagicaApi.modLoc("gravity"));
-    SpellStat HEALING_STAT          = new SpellStat(ArsMagicaApi.modLoc("healing"));
-    SpellStat MINING_POWER_STAT     = new SpellStat(ArsMagicaApi.modLoc("mining_power"));
-    SpellStat PIERCING_STAT         = new SpellStat(ArsMagicaApi.modLoc("piercing"));
-    SpellStat RANGE_STAT            = new SpellStat(ArsMagicaApi.modLoc("range"));
-    SpellStat RUNE_POWER_STAT       = new SpellStat(ArsMagicaApi.modLoc("rune_power"));
-    SpellStat SILK_TOUCH_STAT       = new SpellStat(ArsMagicaApi.modLoc("silk_touch"));
-    SpellStat SPEED_STAT            = new SpellStat(ArsMagicaApi.modLoc("speed"));
-    SpellStat TARGET_NON_SOLID_STAT = new SpellStat(ArsMagicaApi.modLoc("target_non_solid"));
+    SpellStat BOUNCE_STAT           = new SpellStat(ArsMagicaApi.id("bounce"));
+    SpellStat DAMAGE_STAT           = new SpellStat(ArsMagicaApi.id("damage"));
+    SpellStat DISMEMBERING_STAT     = new SpellStat(ArsMagicaApi.id("dismembering"));
+    SpellStat DURATION_STAT         = new SpellStat(ArsMagicaApi.id("duration"));
+    SpellStat EFFECT_POWER_STAT     = new SpellStat(ArsMagicaApi.id("effect_power"));
+    SpellStat FORTUNE_STAT          = new SpellStat(ArsMagicaApi.id("fortune"));
+    SpellStat GRAVITY_STAT          = new SpellStat(ArsMagicaApi.id("gravity"));
+    SpellStat HEALING_STAT          = new SpellStat(ArsMagicaApi.id("healing"));
+    SpellStat MINING_POWER_STAT     = new SpellStat(ArsMagicaApi.id("mining_power"));
+    SpellStat PIERCING_STAT         = new SpellStat(ArsMagicaApi.id("piercing"));
+    SpellStat RANGE_STAT            = new SpellStat(ArsMagicaApi.id("range"));
+    SpellStat RUNE_POWER_STAT       = new SpellStat(ArsMagicaApi.id("rune_power"));
+    SpellStat SILK_TOUCH_STAT       = new SpellStat(ArsMagicaApi.id("silk_touch"));
+    SpellStat SPEED_STAT            = new SpellStat(ArsMagicaApi.id("speed"));
+    SpellStat TARGET_NON_SOLID_STAT = new SpellStat(ArsMagicaApi.id("target_non_solid"));
 
-    ResourceLocation CONTINGENCY_DAMAGE_ID = ArsMagicaApi.modLoc("damage");
-    ResourceLocation CONTINGENCY_DEATH_ID  = ArsMagicaApi.modLoc("death");
-    ResourceLocation CONTINGENCY_FALL_ID   = ArsMagicaApi.modLoc("fall");
-    ResourceLocation CONTINGENCY_FIRE_ID   = ArsMagicaApi.modLoc("fire");
-    ResourceLocation CONTINGENCY_HEALTH_ID = ArsMagicaApi.modLoc("health");
+    ResourceLocation CONTINGENCY_DAMAGE_ID = ArsMagicaApi.id("damage");
+    ResourceLocation CONTINGENCY_DEATH_ID  = ArsMagicaApi.id("death");
+    ResourceLocation CONTINGENCY_FALL_ID   = ArsMagicaApi.id("fall");
+    ResourceLocation CONTINGENCY_FIRE_ID   = ArsMagicaApi.id("fire");
+    ResourceLocation CONTINGENCY_HEALTH_ID = ArsMagicaApi.id("health");
 
     DeferredHolder<SpellPart, AreaOfEffect> AREA_OF_EFFECT     = register("area_of_effect",     AreaOfEffect::new);
     DeferredHolder<SpellPart, Beam>         BEAM               = register("beam",               Beam::new);

@@ -729,6 +729,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.SPELL_CAST_MALFORMED_KEY, "Spell is malformed and cannot be cast!");
         add(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA_KEY, "Not enough mana to cast the spell!");
         add(AMTranslations.SPELL_CAST_SILENCED_KEY, "Silenced!");
+        add(AMTranslations.SPELL_CUSTOMIZATION_ACTIVE_KEY, "%s (Click to Modify)");
         add(AMTranslations.SPELL_CUSTOMIZATION_COLOR_CLEAR_KEY, "Clear Color");
         add(AMTranslations.SPELL_CUSTOMIZATION_COLOR_KEY, "Customize Color");
         add(AMTranslations.SPELL_CUSTOMIZATION_KEY, "Spell Name");

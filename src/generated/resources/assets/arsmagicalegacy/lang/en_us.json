@@ -509,6 +509,7 @@
   "gui.arsmagicalegacy.occulus.missing": "You lack the skill points or parent skills to learn this skill!",
   "gui.arsmagicalegacy.occulus.next": ">",
   "gui.arsmagicalegacy.occulus.prev": "<",
+  "gui.arsmagicalegacy.rift": "Rift",
   "gui.arsmagicalegacy.spell_customization": "Spell Name",
   "gui.arsmagicalegacy.spell_customization.color": "Customize Color",
   "gui.arsmagicalegacy.spell_customization.color.clear": "Clear Color",

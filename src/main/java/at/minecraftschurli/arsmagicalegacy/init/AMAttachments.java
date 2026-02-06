@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicAttachment;
+import at.minecraftschurli.arsmagicalegacy.attachment.RiftAttachment;
 import at.minecraftschurli.arsmagicalegacy.attachment.TemporalAnchorAttachment;
 import at.minecraftschurli.arsmagicalegacy.attachment.ContingencyAttachment;
 import com.mojang.serialization.Codec;
@@ -23,6 +24,7 @@ public interface AMAttachments {
     DeferredHolder<AttachmentType<?>, AttachmentType<Integer>>               FROST       = register("frost",       () -> 0,                             Codec.INT,                   ByteBufCodecs.INT);
     DeferredHolder<AttachmentType<?>, AttachmentType<MagicAttachment>>       MAGIC       = register("magic",       () -> MagicAttachment.DEFAULT,       MagicAttachment.CODEC,       MagicAttachment.STREAM_CODEC);
     DeferredHolder<AttachmentType<?>, AttachmentType<Double>>                MANA        = register("mana",        () -> 0.,                            Codec.DOUBLE,                ByteBufCodecs.DOUBLE);
+    DeferredHolder<AttachmentType<?>, AttachmentType<RiftAttachment>>        RIFT        = register("rift",        () -> RiftAttachment.DEFAULT,        RiftAttachment.CODEC,        RiftAttachment.STREAM_CODEC);
     DeferredHolder<AttachmentType<?>, AttachmentType<TemporalAnchorAttachment>> TEMPORAL_ANCHOR_SNAPSHOT = ATTACHMENTS.register("temporal_anchor_snapshot", () -> AttachmentType.<TemporalAnchorAttachment>builder(() -> null).serialize(TemporalAnchorAttachment.CODEC).build());
     // @formatter:on
 

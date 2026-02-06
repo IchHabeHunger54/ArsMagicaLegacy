@@ -58,39 +58,6 @@ public final class AMUtil {
     private AMUtil() {
     }
 
-    public static boolean handleLecternUse(Level level, BlockPos pos, BlockState state, LecternBlockEntity lectern, Player player, InteractionHand hand) {
-        ItemStack book = lectern.getBook();
-        if (book.isEmpty()) {
-            ItemStack stack = player.getItemInHand(hand);
-            if (!stack.is(ItemTags.LECTERN_BOOKS) || !stack.is(AMItems.SPELL_RECIPE)) return false;
-            int pageCount = SpellRecipeItem.getPageCount(stack);
-            if (pageCount == 0) return false;
-            lectern.setBook(stack.consumeAndReturn(1, player));
-            LecternBlock.resetBookState(player, level, pos, state, true);
-            level.playSound(null, pos, SoundEvents.BOOK_PUT, SoundSource.BLOCKS, 1f, 1f);
-            lectern.pageCount = pageCount;
-            return true;
-        } else if (book.is(AMItems.SPELL_RECIPE)) {
-            if (player.isSecondaryUseActive()) {
-                takeLecternBook(player, level, pos);
-            } else if (!level.isClientSide() && player instanceof ServerPlayer sp) {
-                PacketDistributor.sendToPlayer(sp, new OpenBookInLecternPacket(pos, book));
-            }
-            return true;
-        }
-        return false;
-    }
-
-    public static void takeLecternBook(Player player, Level level, BlockPos pos) {
-        if (!(level.getBlockEntity(pos) instanceof LecternBlockEntity lectern)) return;
-        ItemStack stack = lectern.getBook();
-        lectern.setBook(ItemStack.EMPTY);
-        LecternBlock.resetBookState(player, level, pos, level.getBlockState(pos), false);
-        if (!player.getInventory().add(stack)) {
-            player.drop(stack, false);
-        }
-    }
-
     public static <T> int getCommandSelf(CommandContext<CommandSourceStack> context, Function<ServerPlayer, T> function, ToIntFunction<T> toIntFunction, BiFunction<Component, T, Component> messageFactory) throws CommandSyntaxException {
         ServerPlayer player = context.getSource().getPlayerOrException();
         T value = function.apply(player);
@@ -123,30 +90,6 @@ public final class AMUtil {
         return players.size();
     }
 
-    public static <T> T getByTick(T[] array, int tick) {
-        return array[tick % array.length];
-    }
-
-    public static <T> T getByTick(List<T> list, int tick) {
-        return list.get(tick % list.size());
-    }
-
-    public static VoxelShape joinShapes(VoxelShape first, VoxelShape... others) {
-        VoxelShape result = first;
-        for (VoxelShape shape : others) {
-            result = Shapes.joinUnoptimized(result, shape, BooleanOp.OR);
-        }
-        return result.optimize();
-    }
-
-    public static Collector<MutableComponent, MutableComponent, MutableComponent> joiningComponents(Component delimiter) {
-        return Collector.of(Component.empty()::copy, dropResult((c1, c2) -> !c1.getString().isEmpty() ? c1.append(delimiter).append(c2) : c1.append(c2)), (c1, c2) -> !c1.getString().isEmpty() ? c1.append(delimiter).append(c2) : c1.append(c2));
-    }
-
-    public static <A, B> BiConsumer<A, B> dropResult(BiFunction<A, B, ?> function) {
-        return function::apply;
-    }
-
     @SuppressWarnings("DataFlowIssue")
     @Nullable
     public static Holder<SpellPart> spellPart(Holder<Skill> skill) {
@@ -169,6 +112,18 @@ public final class AMUtil {
             .add(end.scale(delta * delta * delta));
     }
 
+    public static <A, B> BiConsumer<A, B> dropResult(BiFunction<A, B, ?> function) {
+        return function::apply;
+    }
+
+    public static <T> T getByTick(T[] array, int tick) {
+        return array[tick % array.length];
+    }
+
+    public static <T> T getByTick(List<T> list, int tick) {
+        return list.get(tick % list.size());
+    }
+
     public static HitResult getHitResult(Vec3 from, Vec3 to, Entity entity, ClipContext.Block blockContext, ClipContext.Fluid fluidContext) {
         HitResult hitResult = entity.level().clip(new ClipContext(from, to, blockContext, fluidContext, entity));
         if (hitResult.getType() != HitResult.Type.MISS) {
@@ -181,6 +136,45 @@ public final class AMUtil {
         return hitResult;
     }
 
+    public static boolean handleLecternUse(Level level, BlockPos pos, BlockState state, LecternBlockEntity lectern, Player player, InteractionHand hand) {
+        ItemStack book = lectern.getBook();
+        if (book.isEmpty()) {
+            ItemStack stack = player.getItemInHand(hand);
+            if (!stack.is(ItemTags.LECTERN_BOOKS) || !stack.is(AMItems.SPELL_RECIPE)) return false;
+            int pageCount = SpellRecipeItem.getPageCount(stack);
+            if (pageCount == 0) return false;
+            lectern.setBook(stack.consumeAndReturn(1, player));
+            LecternBlock.resetBookState(player, level, pos, state, true);
+            level.playSound(null, pos, SoundEvents.BOOK_PUT, SoundSource.BLOCKS, 1f, 1f);
+            lectern.pageCount = pageCount;
+            return true;
+        } else if (book.is(AMItems.SPELL_RECIPE)) {
+            if (player.isSecondaryUseActive()) {
+                takeLecternBook(player, level, pos);
+            } else if (!level.isClientSide() && player instanceof ServerPlayer sp) {
+                PacketDistributor.sendToPlayer(sp, new OpenBookInLecternPacket(pos, book));
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public static <T> Optional<T> ifModLoaded(String modId, Supplier<T> supplier) {
+        return ModList.get().isLoaded(modId) ? Optional.of(supplier.get()) : Optional.empty();
+    }
+
+    public static VoxelShape joinShapes(VoxelShape first, VoxelShape... others) {
+        VoxelShape result = first;
+        for (VoxelShape shape : others) {
+            result = Shapes.joinUnoptimized(result, shape, BooleanOp.OR);
+        }
+        return result.optimize();
+    }
+
+    public static Collector<MutableComponent, MutableComponent, MutableComponent> joiningComponents(Component delimiter) {
+        return Collector.of(Component.empty()::copy, dropResult((c1, c2) -> !c1.getString().isEmpty() ? c1.append(delimiter).append(c2) : c1.append(c2)), (c1, c2) -> !c1.getString().isEmpty() ? c1.append(delimiter).append(c2) : c1.append(c2));
+    }
+
     @SafeVarargs
     public static <T> NonNullList<T> nonNullList(T defaultValue, T... entries) {
         NonNullList<T> list = NonNullList.withSize(entries.length, defaultValue);
@@ -190,7 +184,13 @@ public final class AMUtil {
         return list;
     }
 
-    public static <T> Optional<T> ifModLoaded(String modId, Supplier<T> supplier) {
-        return ModList.get().isLoaded(modId) ? Optional.of(supplier.get()) : Optional.empty();
+    public static void takeLecternBook(Player player, Level level, BlockPos pos) {
+        if (!(level.getBlockEntity(pos) instanceof LecternBlockEntity lectern)) return;
+        ItemStack stack = lectern.getBook();
+        lectern.setBook(ItemStack.EMPTY);
+        LecternBlock.resetBookState(player, level, pos, level.getBlockState(pos), false);
+        if (!player.getInventory().add(stack)) {
+            player.drop(stack, false);
+        }
     }
 }

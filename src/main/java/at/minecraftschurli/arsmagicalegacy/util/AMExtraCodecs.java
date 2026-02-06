@@ -1,20 +1,15 @@
 package at.minecraftschurli.arsmagicalegacy.util;
 
 import com.google.gson.JsonParser;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.commands.arguments.blocks.BlockStateParser;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.HashMap;
@@ -39,26 +34,6 @@ public final class AMExtraCodecs {
         ByteBufCodecs.DOUBLE, Vec3::y,
         ByteBufCodecs.DOUBLE, Vec3::z,
         Vec3::new);
-    public static final Codec<BlockState> BLOCK_STATE_CODEC = Codec.STRING.comapFlatMap(
-        left -> {
-            try {
-                return DataResult.success(BlockStateParser.parseForBlock(BuiltInRegistries.BLOCK.asLookup(), left, false).blockState());
-            } catch (CommandSyntaxException e) {
-                return DataResult.error(e::getMessage);
-            }
-        },
-        BlockStateParser::serialize
-    );
-    public static final StreamCodec<ByteBuf, BlockState> BLOCK_STATE_STREAM_CODEC = ByteBufCodecs.STRING_UTF8.map(
-        left -> {
-            try {
-                return BlockStateParser.parseForBlock(BuiltInRegistries.BLOCK.asLookup(), left, false).blockState();
-            } catch (CommandSyntaxException e) {
-                return Blocks.AIR.defaultBlockState();
-            }
-        },
-        BlockStateParser::serialize
-    );
 
     private AMExtraCodecs() {
     }

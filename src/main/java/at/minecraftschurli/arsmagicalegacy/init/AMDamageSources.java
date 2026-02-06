@@ -22,7 +22,7 @@ public interface AMDamageSources {
     // @formatter:on
 
     private static ResourceKey<DamageType> damageType(String name) {
-        return ResourceKey.create(Registries.DAMAGE_TYPE, ArsMagicaApi.modLoc(name));
+        return ResourceKey.create(Registries.DAMAGE_TYPE, ArsMagicaApi.id(name));
     }
 
     private static Holder<DamageType> damageType(RegistryAccess registryAccess, ResourceKey<DamageType> damageType) {

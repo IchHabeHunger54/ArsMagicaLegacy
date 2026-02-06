@@ -21,7 +21,7 @@ public record ObeliskFuel(int burnTime, int etheriumPerTick) {
         ExtraCodecs.POSITIVE_INT.fieldOf("burn_time").forGetter(ObeliskFuel::burnTime),
         ExtraCodecs.POSITIVE_INT.fieldOf("etherium_per_tick").forGetter(ObeliskFuel::etheriumPerTick)
     ).apply(inst, ObeliskFuel::new));
-    public static final DataMapType<Item, ObeliskFuel> DATA_MAP = DataMapType.builder(ArsMagicaApi.modLoc("obelisk_fuel"), Registries.ITEM, CODEC)
+    public static final DataMapType<Item, ObeliskFuel> DATA_MAP = DataMapType.builder(ArsMagicaApi.id("obelisk_fuel"), Registries.ITEM, CODEC)
         .synced(CODEC, true)
         .build();
 

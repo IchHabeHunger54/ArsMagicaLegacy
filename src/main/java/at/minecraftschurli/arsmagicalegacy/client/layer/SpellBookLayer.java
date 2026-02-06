@@ -17,8 +17,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
 
 public class SpellBookLayer implements LayeredDraw.Layer {
-    private static final ResourceLocation TEXTURE = ArsMagicaApi.modLoc("textures/gui/spell_book/overlay.png");
-    private static final ResourceLocation HIGHLIGHT_TEXTURE = ArsMagicaApi.modLoc("textures/gui/spell_book/highlight.png");
+    private static final ResourceLocation TEXTURE = ArsMagicaApi.id("textures/gui/spell_book/overlay.png");
+    private static final ResourceLocation HIGHLIGHT_TEXTURE = ArsMagicaApi.id("textures/gui/spell_book/highlight.png");
 
     @Override
     public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {

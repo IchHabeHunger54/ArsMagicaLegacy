@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CrystalWrenchItem extends Item {
-    public static final ResourceLocation ACTIVE = ArsMagicaApi.modLoc("crystal_wrench_active");
+    public static final ResourceLocation ACTIVE = ArsMagicaApi.id("crystal_wrench_active");
 
     public CrystalWrenchItem(Properties properties) {
         super(properties);

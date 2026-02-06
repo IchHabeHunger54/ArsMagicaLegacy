@@ -100,7 +100,7 @@ public final class AMServerConfig {
         MAGIC_ADVANCEMENT = builder
             .comment("Completing this advancement will unlock magic for the player. Leave empty to not require an advancement and have magic unlocked from the start.")
             .translation(AMTranslations.CONFIG_KEY + "magic_advancement")
-            .define("magic_advancement", ArsMagicaApi.modLoc("root").toString(), AMServerConfig::isValidResourceLocationOrEmpty);
+            .define("magic_advancement", ArsMagicaApi.id("root").toString(), AMServerConfig::isValidResourceLocationOrEmpty);
         MANA_TO_BURNOUT_RATIO = builder
             .comment("The default mana to burnout ratio, used in calculating spell costs.")
             .translation(AMTranslations.CONFIG_KEY + "mana_to_burnout_ratio")

@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SpellCustomizationPacket(Spell spell, InteractionHand hand) implements CustomPacketPayload {
-    public static final Type<SpellCustomizationPacket> TYPE = new Type<>(ArsMagicaApi.modLoc("spell_customization"));
+    public static final Type<SpellCustomizationPacket> TYPE = new Type<>(ArsMagicaApi.id("spell_customization"));
     public static final StreamCodec<RegistryFriendlyByteBuf, SpellCustomizationPacket> STREAM_CODEC = StreamCodec.composite(
         Spell.STREAM_CODEC, SpellCustomizationPacket::spell,
         AMExtraCodecs.INTERACTION_HAND_STREAM_CODEC, SpellCustomizationPacket::hand,

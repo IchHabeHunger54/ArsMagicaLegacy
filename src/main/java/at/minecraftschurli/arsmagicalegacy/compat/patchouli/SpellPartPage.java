@@ -33,7 +33,7 @@ import java.util.function.UnaryOperator;
 
 @SuppressWarnings({"DataFlowIssue", "unused"})
 public class SpellPartPage implements ICustomComponent {
-    public static final ResourceLocation ID = ArsMagicaApi.modLoc("spell_part");
+    public static final ResourceLocation ID = ArsMagicaApi.id("spell_part");
     public static final String TEMPLATE = "{\"components\":[{\"type\":\"patchouli:custom\",\"class\":\"at.minecraftschurli.arsmagicalegacy.compat.patchouli.SpellPartPage\",\"part\":\"#part\"}]}";
     private static final Comparator<Holder<Affinity>> COMPARATOR = Comparator.comparing(Holder::getKey);
     private static final int INGREDIENT_COLUMNS = 6;

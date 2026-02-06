@@ -32,9 +32,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionTableMenu> {
-    private static final ResourceLocation BACKGROUND = ArsMagicaApi.modLoc("textures/gui/inscription_table/background.png");
-    private static final ResourceLocation SHAPE_GROUP = ArsMagicaApi.modLoc("textures/gui/inscription_table/shape_group.png");
-    private static final ResourceLocation SLOT = ArsMagicaApi.modLoc("textures/gui/inscription_table/slot.png");
+    private static final ResourceLocation BACKGROUND = ArsMagicaApi.id("textures/gui/inscription_table/background.png");
+    private static final ResourceLocation SHAPE_GROUP = ArsMagicaApi.id("textures/gui/inscription_table/shape_group.png");
+    private static final ResourceLocation SLOT = ArsMagicaApi.id("textures/gui/inscription_table/slot.png");
     private final List<DragArea> dragAreas = new ArrayList<>();
     private final List<ShapeGroupArea> shapeGroupAreas = new ArrayList<>();
     private Draggable dragged;

@@ -22,7 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.List;
 
 public class ShapeGroupsLayer implements LayeredDraw.Layer {
-    private static final ResourceLocation TEXTURE = ArsMagicaApi.modLoc("textures/gui/shape_group.png");
+    private static final ResourceLocation TEXTURE = ArsMagicaApi.id("textures/gui/shape_group.png");
     private static final int ROWS = ShapeGroupArea.ROWS;
     private static final int COLUMNS = ShapeGroupArea.COLUMNS;
     private static final int X_PADDING = ShapeGroupArea.X_PADDING;

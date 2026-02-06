@@ -925,7 +925,7 @@ public final class AMLanguageProvider extends LanguageProvider {
      * @param translation The translation to add.
      */
     private void add(String type, String name, String translation) {
-        add(Util.makeDescriptionId(type, ArsMagicaApi.modLoc(name)), translation);
+        add(Util.makeDescriptionId(type, ArsMagicaApi.id(name)), translation);
     }
 
     /**

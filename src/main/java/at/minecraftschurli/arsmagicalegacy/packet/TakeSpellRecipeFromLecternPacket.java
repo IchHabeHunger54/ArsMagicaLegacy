@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record TakeSpellRecipeFromLecternPacket(BlockPos pos) implements CustomPacketPayload {
-    public static final Type<TakeSpellRecipeFromLecternPacket> TYPE = new Type<>(ArsMagicaApi.modLoc("take_spell_recipe_from_lectern"));
+    public static final Type<TakeSpellRecipeFromLecternPacket> TYPE = new Type<>(ArsMagicaApi.id("take_spell_recipe_from_lectern"));
     public static final StreamCodec<ByteBuf, TakeSpellRecipeFromLecternPacket> STREAM_CODEC = BlockPos.STREAM_CODEC.map(TakeSpellRecipeFromLecternPacket::new, TakeSpellRecipeFromLecternPacket::pos);
 
     public void handle(IPayloadContext context) {

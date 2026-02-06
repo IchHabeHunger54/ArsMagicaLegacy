@@ -22,9 +22,9 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 public class SpellCustomizationScreen extends Screen {
-    private static final ResourceLocation GRAMMAR = ArsMagicaApi.modLoc("textures/gui/spell_customization/grammar.png");
-    private static final ResourceLocation ICONS = ArsMagicaApi.modLoc("textures/gui/spell_customization/icons.png");
-    private static final ResourceLocation SHAPE_GROUP = ArsMagicaApi.modLoc("textures/gui/spell_customization/shape_group.png");
+    private static final ResourceLocation GRAMMAR = ArsMagicaApi.id("textures/gui/spell_customization/grammar.png");
+    private static final ResourceLocation ICONS = ArsMagicaApi.id("textures/gui/spell_customization/icons.png");
+    private static final ResourceLocation SHAPE_GROUP = ArsMagicaApi.id("textures/gui/spell_customization/shape_group.png");
     private static final int WIDTH = 180;
     private static final int HEIGHT = 178;
     private final InteractionHand hand;

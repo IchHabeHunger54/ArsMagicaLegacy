@@ -18,7 +18,7 @@ import net.neoforged.neoforge.registries.RegistryBuilder;
 import vazkii.patchouli.api.PatchouliAPI;
 
 public final class ArsMagicaApiImpl extends ArsMagicaApi {
-    private static final ResourceLocation ARCANE_COMPENDIUM = ArsMagicaApi.modLoc("arcane_compendium");
+    private static final ResourceLocation ARCANE_COMPENDIUM = ArsMagicaApi.id("arcane_compendium");
     private static final Registry<SpellPart> SPELL_PART_REGISTRY = new RegistryBuilder<>(AMRegistries.SPELL_PART).sync(true).create();
     private static final Registry<MapCodec<? extends SpellIngredient>> SPELL_INGREDIENT_REGISTRY = new RegistryBuilder<>(AMRegistries.SPELL_INGREDIENT).sync(true).create();
     private static final Registry<MapCodec<? extends AbilityEffect>> ABILITY_EFFECT_REGISTRY = new RegistryBuilder<>(AMRegistries.ABILITY_EFFECT).sync(true).create();

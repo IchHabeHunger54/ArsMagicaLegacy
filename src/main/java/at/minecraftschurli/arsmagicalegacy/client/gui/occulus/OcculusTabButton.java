@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 public class OcculusTabButton extends Button {
     public static final int SIZE = 22;
     public static final int ICON_SIZE = 20;
-    private static final ResourceLocation TEXTURE = ArsMagicaApi.modLoc("textures/gui/occulus/tab_button.png");
+    private static final ResourceLocation TEXTURE = ArsMagicaApi.id("textures/gui/occulus/tab_button.png");
     private final Holder<OcculusTab> tab;
 
     public OcculusTabButton(Holder<OcculusTab> tab, int x, int y, OnPress onPress) {

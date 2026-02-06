@@ -10,9 +10,9 @@ import org.joml.Vector3f;
 
 public class LiquidEtheriumClientFluidTypeExtensions implements IClientFluidTypeExtensions {
     public static final LiquidEtheriumClientFluidTypeExtensions INSTANCE = new LiquidEtheriumClientFluidTypeExtensions();
-    private static final ResourceLocation STILL_TEXTURE = ArsMagicaApi.modLoc("block/liquid_etherium_still");
-    private static final ResourceLocation FLOWING_TEXTURE = ArsMagicaApi.modLoc("block/liquid_etherium_flowing");
-    private static final ResourceLocation UNDERWATER_TEXTURE = ArsMagicaApi.modLoc("textures/misc/in_liquid_etherium.png");
+    private static final ResourceLocation STILL_TEXTURE = ArsMagicaApi.id("block/liquid_etherium_still");
+    private static final ResourceLocation FLOWING_TEXTURE = ArsMagicaApi.id("block/liquid_etherium_flowing");
+    private static final ResourceLocation UNDERWATER_TEXTURE = ArsMagicaApi.id("textures/misc/in_liquid_etherium.png");
 
     private LiquidEtheriumClientFluidTypeExtensions() {
     }

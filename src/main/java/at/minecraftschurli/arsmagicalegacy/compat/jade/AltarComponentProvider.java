@@ -13,7 +13,7 @@ import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
 
 class AltarComponentProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
-    private static final ResourceLocation ID = ArsMagicaApi.modLoc("altar");
+    private static final ResourceLocation ID = ArsMagicaApi.id("altar");
     private static final String POWER = "power";
     static final AltarComponentProvider INSTANCE = new AltarComponentProvider();
 

@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public record FloatUpwardController(boolean stopOtherControllers, boolean killOnFinish, double jitter, double minSpeed, double maxSpeed) implements ParticleController {
-    public static final ResourceLocation ID = ArsMagicaApi.modLoc("float_upward");
+    public static final ResourceLocation ID = ArsMagicaApi.id("float_upward");
     public static final MapCodec<FloatUpwardController> CODEC = RecordCodecBuilder.mapCodec(inst -> ParticleController.baseFields(inst)
         .and(AMExtraCodecs.NON_NEGATIVE_DOUBLE_CODEC.optionalFieldOf("jitter", 0.).forGetter(FloatUpwardController::jitter))
         .and(Codec.DOUBLE.fieldOf("min_speed").forGetter(FloatUpwardController::minSpeed))

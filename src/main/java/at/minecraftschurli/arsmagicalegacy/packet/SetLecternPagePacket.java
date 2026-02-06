@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetLecternPagePacket(BlockPos pos, int page) implements CustomPacketPayload {
-    public static final Type<SetLecternPagePacket> TYPE = new Type<>(ArsMagicaApi.modLoc("set_lectern_page"));
+    public static final Type<SetLecternPagePacket> TYPE = new Type<>(ArsMagicaApi.id("set_lectern_page"));
     public static final StreamCodec<ByteBuf, SetLecternPagePacket> STREAM_CODEC = StreamCodec.composite(
         BlockPos.STREAM_CODEC, SetLecternPagePacket::pos,
         ByteBufCodecs.INT, SetLecternPagePacket::page,

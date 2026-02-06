@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 public record ForgetSkillsPacket() implements CustomPacketPayload {
-    public static final Type<ForgetSkillsPacket> TYPE = new Type<>(ArsMagicaApi.modLoc("forget_skills"));
+    public static final Type<ForgetSkillsPacket> TYPE = new Type<>(ArsMagicaApi.id("forget_skills"));
     public static final StreamCodec<ByteBuf, ForgetSkillsPacket> STREAM_CODEC = StreamCodec.unit(new ForgetSkillsPacket());
 
     public void handle(IPayloadContext context) {

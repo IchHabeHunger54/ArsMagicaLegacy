@@ -11,7 +11,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 
 public record MoveInViewDirectionController(boolean stopOtherControllers, boolean killOnFinish, double minSpeed, double maxSpeed) implements ParticleController {
-    public static final ResourceLocation ID = ArsMagicaApi.modLoc("move_in_view_direction");
+    public static final ResourceLocation ID = ArsMagicaApi.id("move_in_view_direction");
     public static final MapCodec<MoveInViewDirectionController> CODEC = RecordCodecBuilder.mapCodec(inst -> ParticleController.baseFields(inst)
         .and(Codec.DOUBLE.fieldOf("min_speed").forGetter(MoveInViewDirectionController::minSpeed))
         .and(Codec.DOUBLE.fieldOf("max_speed").forGetter(MoveInViewDirectionController::maxSpeed))

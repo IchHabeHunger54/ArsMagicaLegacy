@@ -47,16 +47,16 @@ public final class AMAdvancementProvider extends AdvancementProvider {
 
             AdvancementHolder bookRoot = Advancement.Builder.advancement()
                 .addCriterion("arcane_compendium", bookCriterion)
-                .save(saver, ArsMagicaApi.modLoc("book/root").toString());
+                .save(saver, ArsMagicaApi.id("book/root").toString());
             registries.lookupOrThrow(AMRegistries.SKILL).listElements().forEach(skill -> Advancement.Builder.advancement()
                 .parent(bookRoot)
                 .addCriterion("knows", SkillChangeTrigger.create(List.of(skill)))
-                .save(saver, ArsMagicaApi.modLoc("book/" + skill.getKey().location().getPath()).toString()));
+                .save(saver, ArsMagicaApi.id("book/" + skill.getKey().location().getPath()).toString()));
 
             AdvancementHolder root = Advancement.Builder.advancement()
-                .display(book, title("root"), description("root"), ArsMagicaApi.modLoc("textures/gui/advancements/background.png"), AdvancementType.TASK, false, false, true)
+                .display(book, title("root"), description("root"), ArsMagicaApi.id("textures/gui/advancements/background.png"), AdvancementType.TASK, false, false, true)
                 .addCriterion("arcane_compendium", bookCriterion)
-                .save(saver, ArsMagicaApi.modLoc("root").toString());
+                .save(saver, ArsMagicaApi.id("root").toString());
             AdvancementHolder skill = advancement(saver, "skill", root, AMItems.OCCULUS.toStack(), AdvancementType.TASK, false,
                 builder -> builder.addCriterion("knows", SkillChangeTrigger.create(SkillChangeTrigger.Requirements.ANY_NON_HIDDEN)));
             AdvancementHolder allSkills = advancement(saver, "all_skills", skill, AMItems.OCCULUS.toStack(), AdvancementType.CHALLENGE, false,
@@ -94,7 +94,7 @@ public final class AMAdvancementProvider extends AdvancementProvider {
                 .parent(parent)
                 .display(icon, title(name), description(name), null, type, true, true, hidden);
             consumer.accept(builder);
-            return builder.save(saver, ArsMagicaApi.modLoc(name).toString());
+            return builder.save(saver, ArsMagicaApi.id(name).toString());
         }
     }
 }

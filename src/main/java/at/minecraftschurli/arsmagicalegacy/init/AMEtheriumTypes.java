@@ -7,8 +7,8 @@ import net.minecraft.resources.ResourceKey;
 
 public interface AMEtheriumTypes {
     // @formatter:off
-    ResourceKey<EtheriumType> LIGHT   = ResourceKey.create(AMRegistries.ETHERIUM_TYPE, ArsMagicaApi.modLoc("light"));
-    ResourceKey<EtheriumType> NEUTRAL = ResourceKey.create(AMRegistries.ETHERIUM_TYPE, ArsMagicaApi.modLoc("neutral"));
-    ResourceKey<EtheriumType> DARK    = ResourceKey.create(AMRegistries.ETHERIUM_TYPE, ArsMagicaApi.modLoc("dark"));
+    ResourceKey<EtheriumType> LIGHT   = ResourceKey.create(AMRegistries.ETHERIUM_TYPE, ArsMagicaApi.id("light"));
+    ResourceKey<EtheriumType> NEUTRAL = ResourceKey.create(AMRegistries.ETHERIUM_TYPE, ArsMagicaApi.id("neutral"));
+    ResourceKey<EtheriumType> DARK    = ResourceKey.create(AMRegistries.ETHERIUM_TYPE, ArsMagicaApi.id("dark"));
     // @formatter:on
 }

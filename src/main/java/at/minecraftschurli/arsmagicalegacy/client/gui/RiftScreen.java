@@ -9,8 +9,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class RiftScreen extends AbstractContainerScreen<RiftMenu> {
-    private static final ResourceLocation BACKGROUND = ArsMagicaApi.modLoc("textures/gui/rift/background.png");
-    private static final ResourceLocation SLOT = ArsMagicaApi.modLoc("textures/gui/rift/slot.png");
+    private static final ResourceLocation BACKGROUND = ArsMagicaApi.id("textures/gui/rift/background.png");
+    private static final ResourceLocation SLOT = ArsMagicaApi.id("textures/gui/rift/slot.png");
     private final int rows;
 
     public RiftScreen(RiftMenu menu, Inventory playerInventory, Component title) {

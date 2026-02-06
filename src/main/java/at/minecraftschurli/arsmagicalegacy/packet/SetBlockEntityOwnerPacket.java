@@ -10,7 +10,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetBlockEntityOwnerPacket(BlockPos pos, int owner) implements CustomPacketPayload {
-    public static final Type<SetBlockEntityOwnerPacket> TYPE = new Type<>(ArsMagicaApi.modLoc("set_block_entity_owner"));
+    public static final Type<SetBlockEntityOwnerPacket> TYPE = new Type<>(ArsMagicaApi.id("set_block_entity_owner"));
     public static final StreamCodec<ByteBuf, SetBlockEntityOwnerPacket> STREAM_CODEC = StreamCodec.composite(
         BlockPos.STREAM_CODEC, SetBlockEntityOwnerPacket::pos,
         ByteBufCodecs.INT, SetBlockEntityOwnerPacket::owner,

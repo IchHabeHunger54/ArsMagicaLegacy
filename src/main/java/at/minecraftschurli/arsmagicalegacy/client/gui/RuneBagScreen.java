@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class RuneBagScreen extends AbstractContainerScreen<RuneBagMenu> {
-    private static final ResourceLocation BACKGROUND = ArsMagicaApi.modLoc("textures/gui/rune_bag.png");
+    private static final ResourceLocation BACKGROUND = ArsMagicaApi.id("textures/gui/rune_bag.png");
 
     public RuneBagScreen(RuneBagMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);

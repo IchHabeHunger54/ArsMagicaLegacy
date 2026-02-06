@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class Heal extends SpellComponent.CastEntity {
-    public static final ResourceLocation UNDEAD_PARTICLES = ArsMagicaApi.modLoc("heal_undead");
+    public static final ResourceLocation UNDEAD_PARTICLES = ArsMagicaApi.id("heal_undead");
 
     public Heal() {
         super(AMSpells.HEALING_STAT);

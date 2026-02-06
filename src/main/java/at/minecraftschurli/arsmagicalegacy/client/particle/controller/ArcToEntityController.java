@@ -13,7 +13,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
 public record ArcToEntityController(boolean stopOtherControllers, boolean killOnFinish, double speed) implements ParticleController {
-    public static final ResourceLocation ID = ArsMagicaApi.modLoc("arc_to_entity");
+    public static final ResourceLocation ID = ArsMagicaApi.id("arc_to_entity");
     public static final MapCodec<ArcToEntityController> CODEC = RecordCodecBuilder.mapCodec(inst -> ParticleController.baseFields(inst)
         .and(AMExtraCodecs.POSITIVE_DOUBLE_CODEC.optionalFieldOf("speed", 0.05).forGetter(ArcToEntityController::speed))
         .apply(inst, ArcToEntityController::new));

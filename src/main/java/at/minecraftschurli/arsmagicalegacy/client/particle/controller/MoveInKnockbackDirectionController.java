@@ -11,7 +11,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 
 public record MoveInKnockbackDirectionController(boolean stopOtherControllers, boolean killOnFinish, double minSpeed, double maxSpeed) implements ParticleController {
-    public static final ResourceLocation ID = ArsMagicaApi.modLoc("move_in_knockback_direction");
+    public static final ResourceLocation ID = ArsMagicaApi.id("move_in_knockback_direction");
     public static final MapCodec<MoveInKnockbackDirectionController> CODEC = RecordCodecBuilder.mapCodec(inst -> ParticleController.baseFields(inst)
         .and(Codec.DOUBLE.fieldOf("min_speed").forGetter(MoveInKnockbackDirectionController::minSpeed))
         .and(Codec.DOUBLE.fieldOf("max_speed").forGetter(MoveInKnockbackDirectionController::maxSpeed))

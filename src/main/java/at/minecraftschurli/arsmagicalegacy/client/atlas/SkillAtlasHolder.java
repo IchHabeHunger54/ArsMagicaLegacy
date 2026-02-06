@@ -12,8 +12,8 @@ import net.neoforged.neoforge.common.util.Lazy;
 import org.jetbrains.annotations.Nullable;
 
 public class SkillAtlasHolder extends TextureAtlasHolder {
-    public static final ResourceLocation ATLAS = ArsMagicaApi.modLoc("textures/atlas/skill.png");
-    public static final ResourceLocation ATLAS_INFO = ArsMagicaApi.modLoc("skill");
+    public static final ResourceLocation ATLAS = ArsMagicaApi.id("textures/atlas/skill.png");
+    public static final ResourceLocation ATLAS_INFO = ArsMagicaApi.id("skill");
     public static final Lazy<SkillAtlasHolder> INSTANCE = Lazy.of(SkillAtlasHolder::new);
 
     private SkillAtlasHolder() {

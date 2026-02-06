@@ -511,6 +511,7 @@
   "gui.arsmagicalegacy.occulus.prev": "<",
   "gui.arsmagicalegacy.rift": "Rift",
   "gui.arsmagicalegacy.spell_customization": "Spell Name",
+  "gui.arsmagicalegacy.spell_customization.active": "%s (Click to Modify)",
   "gui.arsmagicalegacy.spell_customization.color": "Customize Color",
   "gui.arsmagicalegacy.spell_customization.color.clear": "Clear Color",
   "gui.arsmagicalegacy.spell_customization.place_block": "Customize Place Block",

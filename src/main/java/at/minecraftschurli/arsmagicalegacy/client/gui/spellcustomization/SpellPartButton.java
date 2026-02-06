@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization;
 
 import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.screen.SpellPartCustomizationScreen;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
@@ -46,8 +47,9 @@ public class SpellPartButton<T> extends Button {
                 }
             })));
         }
-        button.setTooltip(Tooltip.create(Skill.getName(skill)));
         button.active = ArsMagicaClientApi.spellPartCustomizationScreen(spellPart) != null;
+        Component name = Skill.getName(skill);
+        button.setTooltip(Tooltip.create(button.active ? Component.translatable(AMTranslations.SPELL_CUSTOMIZATION_ACTIVE_KEY, name) : name));
         return button;
     }
 

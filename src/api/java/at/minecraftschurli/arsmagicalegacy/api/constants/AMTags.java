@@ -65,6 +65,7 @@ public interface AMTags {
         TagKey<Item> MAGITECH_GOGGLES_REPAIR_ITEMS = tag("repair_items/magitech_goggles");
         TagKey<Item> MAGE_ARMOR_REPAIR_ITEMS = tag("repair_items/mage_armor");
         TagKey<Item> BATTLEMAGE_ARMOR_REPAIR_ITEMS = tag("repair_items/battlemage_armor");
+        TagKey<Item> ARCANE_COMPENDIUM_BOOKS = tag("arcane_compendium_books");
         TagKey<Item> INSCRIPTION_TABLE_BOOKS = tag("inscription_table_books");
         TagKey<Item> OCCULUS_FORGET_ALL = tag("occulus_forget_all");
         TagKey<Item> RUNES = tag("runes");

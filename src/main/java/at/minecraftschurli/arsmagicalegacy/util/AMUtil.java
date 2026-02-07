@@ -1,9 +1,13 @@
 package at.minecraftschurli.arsmagicalegacy.util;
 
+import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
+import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.item.SpellRecipeItem;
 import at.minecraftschurli.arsmagicalegacy.packet.OpenBookInLecternPacket;
@@ -31,15 +35,18 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.fml.ModList;
+import net.neoforged.neoforge.attachment.AttachmentHolder;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -112,6 +119,35 @@ public final class AMUtil {
             .add(end.scale(delta * delta * delta));
     }
 
+    public static void doCompendiumConversion(AttachmentHolder entity, Level level, Vec3 vec, AABB aabb, Supplier<ItemStack> bookGetter, Consumer<ItemStack> bookSetter) {
+        if (!bookGetter.get().is(AMTags.Items.ARCANE_COMPENDIUM_BOOKS)) {
+            if (entity.hasData(AMAttachments.COMPENDIUM_TIMER)) {
+                entity.removeData(AMAttachments.COMPENDIUM_TIMER);
+            }
+            return;
+        }
+        List<BlockPos> positions = new ArrayList<>();
+        for (BlockPos pos : BlockPos.betweenClosed(BlockPos.containing(aabb.getMinPosition()), BlockPos.containing(aabb.getMaxPosition()))) {
+            BlockPos above = pos.above();
+            if (level.getBlockState(pos).is(AMBlocks.LIQUID_ETHERIUM) && !level.getBlockState(above).isSolidRender(level, above)) {
+                positions.add(pos);
+            }
+        }
+        if (!positions.isEmpty()) {
+            int timer = entity.getData(AMAttachments.COMPENDIUM_TIMER);
+            if (timer >= AMServerConfig.ARCANE_COMPENDIUM_CONVERSION_DURATION.getAsInt()) {
+                bookSetter.accept(ArsMagicaApi.book());
+                //TODO spawn particles
+                entity.removeData(AMAttachments.COMPENDIUM_TIMER);
+            } else {
+                //TODO spawn particles
+                entity.setData(AMAttachments.COMPENDIUM_TIMER, timer + 1);
+            }
+        } else if (entity.hasData(AMAttachments.COMPENDIUM_TIMER)) {
+            entity.removeData(AMAttachments.COMPENDIUM_TIMER);
+        }
+    }
+
     public static <A, B> BiConsumer<A, B> dropResult(BiFunction<A, B, ?> function) {
         return function::apply;
     }
@@ -172,7 +208,7 @@ public final class AMUtil {
     }
 
     public static Collector<MutableComponent, MutableComponent, MutableComponent> joiningComponents(Component delimiter) {
-        return Collector.of(Component.empty()::copy, dropResult((c1, c2) -> !c1.getString().isEmpty() ? c1.append(delimiter).append(c2) : c1.append(c2)), (c1, c2) -> !c1.getString().isEmpty() ? c1.append(delimiter).append(c2) : c1.append(c2));
+        return Collector.of(Component::empty, dropResult((c1, c2) -> !c1.getString().isEmpty() ? c1.append(delimiter).append(c2) : c1.append(c2)), (c1, c2) -> !c1.getString().isEmpty() ? c1.append(delimiter).append(c2) : c1.append(c2));
     }
 
     @SafeVarargs

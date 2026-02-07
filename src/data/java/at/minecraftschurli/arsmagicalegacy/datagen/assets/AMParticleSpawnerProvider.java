@@ -13,6 +13,7 @@ import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInKnoc
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInViewDirectionController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.OrbitPointController;
 import at.minecraftschurli.arsmagicalegacy.entity.FallingStar;
+import at.minecraftschurli.arsmagicalegacy.entity.ManaVortex;
 import at.minecraftschurli.arsmagicalegacy.init.AMParticles;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Heal;
@@ -30,6 +31,14 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
 
     @Override
     public void generate(HolderLookup.Provider provider) {
+        builder(ManaVortex.PARTICLES, AMParticles.EMBER.get(), 1, 10, 20)
+            .offset(-0.2, 0.2, -0.2, 0.2, -0.2, 0.2)
+            .color(0x3d3dcc);
+        builder(ManaVortex.PARTICLES_DEATH, AMParticles.EMBER.get(), 72, 20)
+            .offset(-0.2, 0.2, -0.2, 0.2, -0.2, 0.2)
+            .speed(-0.1, 0.1, -0.1, 0.1, -0.1, 0.1)
+            .color(0x3d3dcc)
+            .controller(new FadeOutController(false, true, 0.05f));
         builder(AMSpells.ABSORPTION.getId(), AMParticles.STARDUST.get(), 25, 20)
             .offset(-0.5, 0.5, -1.5, -0.5, -0.5, 0.5)
             .color(0x007fff)

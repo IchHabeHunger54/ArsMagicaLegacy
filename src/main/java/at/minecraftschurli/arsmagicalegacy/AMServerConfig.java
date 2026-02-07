@@ -13,6 +13,10 @@ public final class AMServerConfig {
     public static final ModConfigSpec.IntValue OBELISK_MAX_ETHERIUM;
     public static final ModConfigSpec.IntValue CELESTIAL_PRISM_MAX_ETHERIUM;
     public static final ModConfigSpec.IntValue BLACK_AUREM_MAX_ETHERIUM;
+    public static final ModConfigSpec.DoubleValue MANA_VORTEX_DAMAGE;
+    public static final ModConfigSpec.DoubleValue MANA_VORTEX_MAX_DAMAGE;
+    public static final ModConfigSpec.DoubleValue MANA_VORTEX_RANGE;
+    public static final ModConfigSpec.DoubleValue MANA_VORTEX_STEAL;
     public static final ModConfigSpec.DoubleValue MANA_BASE;
     public static final ModConfigSpec.DoubleValue MANA_MULTIPLIER;
     public static final ModConfigSpec.DoubleValue MANA_REGENERATION;
@@ -126,6 +130,26 @@ public final class AMServerConfig {
             .comment("The maximum etherium a Black Aurem can store.")
             .translation(AMTranslations.CONFIG_KEY + "black_aurem_max_etherium")
             .defineInRange("black_aurem_max_etherium", 5000, 1, Integer.MAX_VALUE);
+        builder.pop();
+        builder.comment("Configuration for the various entities.").push("entities");
+        builder.comment("Configuration for the Mana Vortex spawned by Mana Creepers.").push("mana_vortex");
+        MANA_VORTEX_DAMAGE = builder
+            .comment("The amount of damage the Mana Vortex deals per stolen mana point.")
+            .translation(AMTranslations.CONFIG_KEY + "mana_vortex_damage")
+            .defineInRange("damage", 0.01, 0, 10);
+        MANA_VORTEX_MAX_DAMAGE = builder
+            .comment("The maximum damage the Mana Vortex can deal.")
+            .translation(AMTranslations.CONFIG_KEY + "mana_vortex_max_damage")
+            .defineInRange("max_damage", 100., 1, 1000000);
+        MANA_VORTEX_RANGE = builder
+            .comment("The range of the Mana Vortex.")
+            .translation(AMTranslations.CONFIG_KEY + "mana_vortex_range")
+            .defineInRange("range", 4., 1, 16);
+        MANA_VORTEX_STEAL = builder
+            .comment("The amount of mana a Mana Vortex will steal each tick, as a multiplier of the target's max mana.")
+            .translation(AMTranslations.CONFIG_KEY + "mana_vortex_steal")
+            .defineInRange("steal", 0.01, 0, 1);
+        builder.pop();
         builder.pop();
         builder.comment("Configuration for the mana leveling and regeneration of players.").push("mana");
         MANA_BASE = builder

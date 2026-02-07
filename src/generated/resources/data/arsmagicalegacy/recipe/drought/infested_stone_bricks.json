@@ -4,6 +4,8 @@
     "block": "minecraft:infested_stone_bricks",
     "predicate_type": "minecraft:block_match"
   },
-  "result": "minecraft:infested_cracked_stone_bricks",
+  "result": {
+    "Name": "minecraft:infested_cracked_stone_bricks"
+  },
   "spell_part": "arsmagicalegacy:drought"
 }

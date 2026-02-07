@@ -48,6 +48,7 @@ import at.minecraftschurli.arsmagicalegacy.client.renderer.block.BlackAuremRende
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.EtheriumGeneratorRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.SpellRuneRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.EmptyRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.ManaCreeperRenderer;
 import at.minecraftschurli.arsmagicalegacy.compat.patchouli.SpellPartPage;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
@@ -135,6 +136,8 @@ final class AMClientEventHandler {
         event.registerEntityRenderer(AMEntities.BLIZZARD.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.FALLING_STAR.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.FIRE_RAIN.get(), EmptyRenderer::new);
+        event.registerEntityRenderer(AMEntities.MANA_CREEPER.get(), ManaCreeperRenderer::new);
+        event.registerEntityRenderer(AMEntities.MANA_VORTEX.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.PROJECTILE.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.WALL.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.WAVE.get(), EmptyRenderer::new);

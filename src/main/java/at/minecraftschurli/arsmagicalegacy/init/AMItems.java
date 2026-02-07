@@ -33,6 +33,7 @@ import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.item.component.ItemContainerContents;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -135,5 +136,6 @@ public interface AMItems {
     DeferredItem<BlockItem>                                    DESERT_NOVA                      = ITEMS.registerSimpleBlockItem(AMBlocks.DESERT_NOVA);
     DeferredItem<BlockItem>                                    TARMA_ROOT                       = ITEMS.registerSimpleBlockItem(AMBlocks.TARMA_ROOT);
     DeferredItem<BlockItem>                                    WAKEBLOOM                        = ITEMS.registerItem("wakebloom", p -> new PlaceOnWaterBlockItem(AMBlocks.WAKEBLOOM.get(), p));
+    DeferredItem<DeferredSpawnEggItem>                         MANA_CREEPER_SPAWN_EGG           = ITEMS.registerItem("mana_creeper_spawn_egg", p -> new DeferredSpawnEggItem(AMEntities.MANA_CREEPER, 0x1abfb5, 0x368580, p));
     // @formatter:on
 }

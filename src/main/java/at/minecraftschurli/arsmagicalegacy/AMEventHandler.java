@@ -36,10 +36,12 @@ import at.minecraftschurli.arsmagicalegacy.command.SkillCommand;
 import at.minecraftschurli.arsmagicalegacy.command.SkillPointCommand;
 import at.minecraftschurli.arsmagicalegacy.compat.patchouli.AMMultiblocks;
 import at.minecraftschurli.arsmagicalegacy.effect.AMMobEffect;
+import at.minecraftschurli.arsmagicalegacy.entity.ManaCreeper;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
+import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMFluids;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
@@ -94,6 +96,7 @@ import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
@@ -184,6 +187,11 @@ final class AMEventHandler {
     @SubscribeEvent
     private static void registerDataMapTypes(RegisterDataMapTypesEvent event) {
         event.register(ObeliskFuel.DATA_MAP);
+    }
+
+    @SubscribeEvent
+    private static void entityAttributeCreation(EntityAttributeCreationEvent event) {
+        event.put(AMEntities.MANA_CREEPER.get(), ManaCreeper.createAttributes().build());
     }
 
     @SubscribeEvent

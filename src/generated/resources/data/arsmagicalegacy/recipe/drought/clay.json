@@ -4,6 +4,8 @@
     "block": "minecraft:clay",
     "predicate_type": "minecraft:block_match"
   },
-  "result": "minecraft:sand",
+  "result": {
+    "Name": "minecraft:sand"
+  },
   "spell_part": "arsmagicalegacy:drought"
 }

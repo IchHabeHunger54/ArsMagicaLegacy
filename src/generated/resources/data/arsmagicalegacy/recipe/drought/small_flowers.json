@@ -4,6 +4,8 @@
     "predicate_type": "minecraft:tag_match",
     "tag": "minecraft:small_flowers"
   },
-  "result": "minecraft:dead_bush",
+  "result": {
+    "Name": "minecraft:dead_bush"
+  },
   "spell_part": "arsmagicalegacy:drought"
 }

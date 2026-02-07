@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
+import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMWorldgen;
 import at.minecraftschurli.arsmagicalegacy.worldgen.HolderSets;
 import at.minecraftschurli.arsmagicalegacy.worldgen.MeteoriteFeature;
@@ -15,6 +16,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
@@ -159,6 +161,10 @@ public final class AMWorldgenProvider {
             HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.or(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_MOUNTAIN), HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_HILL), HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_UNDERGROUND))),
             GenerationStep.Decoration.VEGETAL_DECORATION,
             AMWorldgen.TARMA_ROOT_PLACED_FEATURE);
+        bootstrap.register(AMWorldgen.SPAWN_MANA_CREEPERS_BIOME_MODIFIER, BiomeModifiers.AddSpawnsBiomeModifier.singleSpawn(
+            HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.not(HolderSets.biomeTag(bootstrap, Tags.Biomes.NO_DEFAULT_MONSTERS))),
+            new MobSpawnSettings.SpawnerData(AMEntities.MANA_CREEPER.get(), 10, 1, 4)
+        ));
     }
 
     /**

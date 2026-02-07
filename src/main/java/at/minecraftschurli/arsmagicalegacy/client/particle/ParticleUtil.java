@@ -7,9 +7,9 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.entity.FallingStar;
+import at.minecraftschurli.arsmagicalegacy.entity.ManaVortex;
 import at.minecraftschurli.arsmagicalegacy.entity.SpellEntity;
 import at.minecraftschurli.arsmagicalegacy.entity.SpellShapeEntity;
-import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -55,10 +55,19 @@ public final class ParticleUtil {
                 particle.setParticleSpeed(speed.x(), 0, speed.z());
             }
         } else {
-            list = AMClientUtil.spawnParticles(FallingStar.FALL_PARTICLES, position, color, owner, entity, null);
+            list = spawnParticles(FallingStar.FALL_PARTICLES, position, color, owner, entity, null);
         }
         if (color == -1) {
             list.forEach(particle -> particle.setColor(particle.random().nextInt(0xffffff)));
+        }
+    }
+
+    public static void spawnManaVortexParticles(ManaVortex entity) {
+        int duration = entity.getDuration() - entity.tickCount;
+        if (duration > 30) {
+            spawnParticles(ManaVortex.PARTICLES, entity.position(), -1, null, entity, null);
+        } else if (duration <= 5) {
+            spawnParticles(ManaVortex.PARTICLES_DEATH, entity.position(), -1, null, entity, null);
         }
     }
 

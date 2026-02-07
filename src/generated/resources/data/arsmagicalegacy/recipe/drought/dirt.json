@@ -4,6 +4,8 @@
     "predicate_type": "minecraft:tag_match",
     "tag": "minecraft:dirt"
   },
-  "result": "minecraft:sand",
+  "result": {
+    "Name": "minecraft:sand"
+  },
   "spell_part": "arsmagicalegacy:drought"
 }

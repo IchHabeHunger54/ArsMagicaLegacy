@@ -1,12 +1,12 @@
 package at.minecraftschurli.arsmagicalegacy.util;
 
-import at.minecraftschurli.arsmagicalegacy.api.client.particle.ControlledParticle;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.OcculusScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.SpellCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellrecipe.SpellRecipeScreen;
 import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleUtil;
 import at.minecraftschurli.arsmagicalegacy.entity.FallingStar;
+import at.minecraftschurli.arsmagicalegacy.entity.ManaVortex;
 import at.minecraftschurli.arsmagicalegacy.entity.SpellEntity;
 import at.minecraftschurli.arsmagicalegacy.entity.SpellShapeEntity;
 import net.minecraft.client.Minecraft;
@@ -25,7 +25,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
-import java.util.List;
 
 public final class AMClientUtil {
     private AMClientUtil() {
@@ -142,12 +141,16 @@ public final class AMClientUtil {
         guiGraphics.renderItemDecorations(font, stack, x, y);
     }
 
-    public static List<? extends ControlledParticle> spawnParticles(ResourceLocation id, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        return ParticleUtil.spawnParticles(id, position, color, caster, directEntity, hitResult);
+    public static void spawnParticles(ResourceLocation id, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+        ParticleUtil.spawnParticles(id, position, color, caster, directEntity, hitResult);
     }
 
     public static void spawnFallingStarParticles(FallingStar entity, boolean ground) {
         ParticleUtil.spawnFallingStarParticles(entity, ground);
+    }
+
+    public static void spawnManaVortexParticles(ManaVortex entity) {
+        ParticleUtil.spawnManaVortexParticles(entity);
     }
 
     public static void spawnSpellEntityParticles(SpellEntity entity, double range, double verticalRange, int color, @Nullable LivingEntity caster) {

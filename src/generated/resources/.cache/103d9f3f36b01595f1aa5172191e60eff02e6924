@@ -1,4 +1,4 @@
-// 1.21.1	2026-01-25T19:42:27.435212	Registries
+// 1.21.1	2026-02-07T01:20:11.4611923	Registries
 a2824e8666445c39ca58da47aedf77d31da43cec data/arsmagicalegacy/arsmagicalegacy/ability/clarity.json
 e221ec748729376e856802165a575f146ae31065 data/arsmagicalegacy/arsmagicalegacy/ability/enderman_pumpkin.json
 80053ef4569c59dfc7254f1dd3facffd80d41722 data/arsmagicalegacy/arsmagicalegacy/ability/ender_thorns.json
@@ -261,6 +261,7 @@ f25fee205bbc099d1ad8f6605374eed1ecc73328 data/arsmagicalegacy/neoforge/biome_mod
 b495787880ae18caab6a8b018982703fc7bf7b3f data/arsmagicalegacy/neoforge/biome_modifier/overworld.json
 3bf0913254c263134d0656ece6105df9f485da30 data/arsmagicalegacy/neoforge/biome_modifier/plains.json
 0fea6e9f0eca8f9260ae9c1d0965ac52b884a072 data/arsmagicalegacy/neoforge/biome_modifier/sandy.json
+d37801465d459700e984d201bb77e23fca721f55 data/arsmagicalegacy/neoforge/biome_modifier/spawn_mana_creepers.json
 df7220e448978dabd2d4c0d9154dccb679d35198 data/arsmagicalegacy/neoforge/biome_modifier/spooky.json
 0c162d1873a995589afb646fae31018ca4e88fee data/arsmagicalegacy/worldgen/configured_feature/aum.json
 bd8da394d01702f3269659531436b517926eb79e data/arsmagicalegacy/worldgen/configured_feature/cerublossom.json

@@ -1,0 +1,20 @@
+package at.minecraftschurli.arsmagicalegacy.client.renderer.entity;
+
+import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import net.minecraft.client.renderer.entity.CreeperRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.monster.Creeper;
+
+public class ManaCreeperRenderer extends CreeperRenderer {
+    public static final ResourceLocation TEXTURE = ArsMagicaApi.id("textures/entity/mana_creeper.png");
+
+    public ManaCreeperRenderer(EntityRendererProvider.Context context) {
+        super(context);
+    }
+
+    @Override
+    public ResourceLocation getTextureLocation(Creeper entity) {
+        return TEXTURE;
+    }
+}

@@ -54,7 +54,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         blockIdTranslation(AMBlocks.SPELL_RUNE);
         blockIdTranslation(AMBlocks.LIQUID_ETHERIUM);
         blockIdTranslation(AMBlocks.LIQUID_ETHERIUM_CAULDRON);
-        itemIdTranslation(AMItems.LIQUID_ETHERIUM_BUCKET);
+        addItem(AMItems.LIQUID_ETHERIUM_BUCKET, "Liquid Etherium Bucket");
         blockIdTranslation(AMBlocks.OCCULUS);
         blockIdTranslation(AMBlocks.INSCRIPTION_TABLE);
         itemIdTranslation(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1);
@@ -256,6 +256,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTags.Items.MAGITECH_GOGGLES_REPAIR_ITEMS, "Magitech Goggles Repair Items");
         add(AMTags.Items.MAGE_ARMOR_REPAIR_ITEMS, "Mage Armor Repair Items");
         add(AMTags.Items.BATTLEMAGE_ARMOR_REPAIR_ITEMS, "Battlemage Armor Repair Items");
+        add(AMTags.Items.ARCANE_COMPENDIUM_BOOKS, "Arcane Compendium Books");
         add(AMTags.Items.INSCRIPTION_TABLE_BOOKS, "Inscription Table Books");
         add(AMTags.Items.OCCULUS_FORGET_ALL, "Occulus Forgetting Items");
         add(AMTags.Items.RUNES, "Runes");
@@ -511,8 +512,12 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("obelisk_max_etherium", "Obelisk Max Etherium", "The maximum etherium an Obelisk can store.");
         configTranslation("celestial_prism_max_etherium", "Celestial Prism Max Etherium", "The maximum etherium a Celestial Prism can store.");
         configTranslation("black_aurem_max_etherium", "Black Aurem Max Etherium", "The maximum etherium a Black Aurem can store.");
+        configTranslation("items", "Items", "Configuration for the various items.");
+        configTranslation("arcane_compendium_conversion_check_interval", "Arcane Compendium Conversion Check Interval", "The time in ticks between checks for the Arcane Compendium conversion. Set to 0 to disable the conversion entirely.");
+        configTranslation("arcane_compendium_conversion_duration", "Arcane Compendium Conversion Duration", "The time in ticks that the Arcane Compendium conversion takes.");
+        configTranslation("arcane_compendium_conversion_horizontal_range", "Arcane Compendium Conversion Horizontal Range", "The horizontal range of the Arcane Compendium conversion.");
+        configTranslation("arcane_compendium_conversion_vertical_range", "Arcane Compendium Conversion Vertical Range", "The vertical range of the Arcane Compendium conversion.");
         configTranslation("entities", "Entities", "Configuration for the various entities.");
-        configTranslation("mana_vortex", "Mana Vortex", "Configuration for the Mana Vortex spawned by Mana Creepers.");
         configTranslation("mana_vortex_damage", "Mana Vortex Damage", "The amount of damage the Mana Vortex deals per stolen mana point.");
         configTranslation("mana_vortex_max_damage", "Mana Vortex Max Damage", "The maximum damage the Mana Vortex can deal.");
         configTranslation("mana_vortex_range", "Mana Vortex Range", "The range of the Mana Vortex.");

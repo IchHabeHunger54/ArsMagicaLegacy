@@ -76,6 +76,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.alchemy.PotionBrewing;
@@ -86,6 +87,7 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
+import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -288,6 +290,15 @@ final class AMEventHandler {
     @SubscribeEvent
     private static void entityTickPost(EntityTickEvent.Post event) {
         Entity entity = event.getEntity();
+        Level level = entity.level();
+        if (entity instanceof ItemFrame itemFrame && (itemFrame.hasData(AMAttachments.COMPENDIUM_TIMER) || level.getGameTime() % AMServerConfig.ARCANE_COMPENDIUM_CONVERSION_DURATION.getAsInt() == 0)) {
+            int range = AMServerConfig.ARCANE_COMPENDIUM_CONVERSION_HORIZONTAL_RANGE.getAsInt();
+            BlockPos pos = itemFrame.getPos().offset(itemFrame.getDirection().getNormal().multiply(Math.ceilDiv(range, 2))).below();
+            AMUtil.doCompendiumConversion(itemFrame, level, itemFrame.position(), AABB.encapsulatingFullBlocks(
+                pos.offset(-range / 2, 0, -range / 2),
+                pos.offset(range / 2, 1 - AMServerConfig.ARCANE_COMPENDIUM_CONVERSION_VERTICAL_RANGE.getAsInt(), range / 2)
+            ), itemFrame::getItem, itemFrame::setItem);
+        }
         if (entity instanceof LivingEntity living) {
             ManaHelper manaHelper = ArsMagicaApi.manaHelper();
             manaHelper.increaseMana(living, manaHelper.getManaRegeneration(living));

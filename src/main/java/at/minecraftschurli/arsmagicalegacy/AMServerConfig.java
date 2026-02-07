@@ -13,6 +13,10 @@ public final class AMServerConfig {
     public static final ModConfigSpec.IntValue OBELISK_MAX_ETHERIUM;
     public static final ModConfigSpec.IntValue CELESTIAL_PRISM_MAX_ETHERIUM;
     public static final ModConfigSpec.IntValue BLACK_AUREM_MAX_ETHERIUM;
+    public static final ModConfigSpec.IntValue ARCANE_COMPENDIUM_CONVERSION_CHECK_INTERVAL;
+    public static final ModConfigSpec.IntValue ARCANE_COMPENDIUM_CONVERSION_DURATION;
+    public static final ModConfigSpec.IntValue ARCANE_COMPENDIUM_CONVERSION_HORIZONTAL_RANGE;
+    public static final ModConfigSpec.IntValue ARCANE_COMPENDIUM_CONVERSION_VERTICAL_RANGE;
     public static final ModConfigSpec.DoubleValue MANA_VORTEX_DAMAGE;
     public static final ModConfigSpec.DoubleValue MANA_VORTEX_MAX_DAMAGE;
     public static final ModConfigSpec.DoubleValue MANA_VORTEX_RANGE;
@@ -131,8 +135,25 @@ public final class AMServerConfig {
             .translation(AMTranslations.CONFIG_KEY + "black_aurem_max_etherium")
             .defineInRange("black_aurem_max_etherium", 5000, 1, Integer.MAX_VALUE);
         builder.pop();
+        builder.comment("Configuration for the various items.").push("items");
+        ARCANE_COMPENDIUM_CONVERSION_CHECK_INTERVAL = builder
+            .comment("The time in ticks between checks for the Arcane Compendium conversion. Set to 0 to disable the conversion entirely.")
+            .translation(AMTranslations.CONFIG_KEY + "arcane_compendium_conversion_check_interval")
+            .defineInRange("arcane_compendium_conversion_check_interval", 20, 0, 200);
+        ARCANE_COMPENDIUM_CONVERSION_DURATION = builder
+            .comment("The time in ticks that the Arcane Compendium conversion takes.")
+            .translation(AMTranslations.CONFIG_KEY + "arcane_compendium_conversion_duration")
+            .defineInRange("arcane_compendium_conversion_duration", 50, 1, 1200);
+        ARCANE_COMPENDIUM_CONVERSION_HORIZONTAL_RANGE = builder
+            .comment("The horizontal range of the Arcane Compendium conversion.")
+            .translation(AMTranslations.CONFIG_KEY + "arcane_compendium_conversion_horizontal_range")
+            .defineInRange("arcane_compendium_conversion_horizontal_range", 3, 1, 16);
+        ARCANE_COMPENDIUM_CONVERSION_VERTICAL_RANGE = builder
+            .comment("The vertical range of the Arcane Compendium conversion.")
+            .translation(AMTranslations.CONFIG_KEY + "arcane_compendium_conversion_vertical_range")
+            .defineInRange("arcane_compendium_conversion_vertical_range", 2, 1, 16);
+        builder.pop();
         builder.comment("Configuration for the various entities.").push("entities");
-        builder.comment("Configuration for the Mana Vortex spawned by Mana Creepers.").push("mana_vortex");
         MANA_VORTEX_DAMAGE = builder
             .comment("The amount of damage the Mana Vortex deals per stolen mana point.")
             .translation(AMTranslations.CONFIG_KEY + "mana_vortex_damage")
@@ -149,7 +170,6 @@ public final class AMServerConfig {
             .comment("The amount of mana a Mana Vortex will steal each tick, as a multiplier of the target's max mana.")
             .translation(AMTranslations.CONFIG_KEY + "mana_vortex_steal")
             .defineInRange("steal", 0.01, 0, 1);
-        builder.pop();
         builder.pop();
         builder.comment("Configuration for the mana leveling and regeneration of players.").push("mana");
         MANA_BASE = builder

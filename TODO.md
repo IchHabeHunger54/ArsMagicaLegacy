@@ -2,7 +2,6 @@
 - Test All Spell Parts and Particles
 - Inlays
 - Entities, including:
-    - Mana Creepers & Mana Vortexes
     - Dryads
     - All Bosses
     - Their Projectiles

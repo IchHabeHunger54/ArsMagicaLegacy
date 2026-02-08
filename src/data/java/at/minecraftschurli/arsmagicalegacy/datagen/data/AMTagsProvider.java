@@ -156,7 +156,7 @@ public final class AMTagsProvider {
             tag(ItemTags.BOOKSHELF_BOOKS).add(AMItems.SPELL_BOOK.get());
             tag(ItemTags.LECTERN_BOOKS).add(AMItems.SPELL_RECIPE.get());
             tag(ItemTags.DYEABLE).add(AMItems.SPELL_BOOK.get());
-            tag(AMTags.Items.ARCANE_COMPENDIUM_BOOKS).add(Items.BOOK, Items.WRITABLE_BOOK);
+            tag(AMTags.Items.ARCANE_COMPENDIUM_BOOKS).add(Items.BOOK);
             tag(AMTags.Items.INSCRIPTION_TABLE_BOOKS).add(Items.WRITABLE_BOOK, AMItems.SPELL_RECIPE.get());
             tag(AMTags.Items.OCCULUS_FORGET_ALL).addTag(AMTags.Items.STORAGE_BLOCKS_VINTEUM);
             tag(AMTags.Items.RUNES).add(AMItems.BLANK_RUNE.get(), AMItems.WHITE_RUNE.get(), AMItems.ORANGE_RUNE.get(), AMItems.MAGENTA_RUNE.get(), AMItems.LIGHT_BLUE_RUNE.get(), AMItems.YELLOW_RUNE.get(), AMItems.LIME_RUNE.get(), AMItems.PINK_RUNE.get(), AMItems.GRAY_RUNE.get(), AMItems.LIGHT_GRAY_RUNE.get(), AMItems.CYAN_RUNE.get(), AMItems.PURPLE_RUNE.get(), AMItems.BLUE_RUNE.get(), AMItems.BROWN_RUNE.get(), AMItems.GREEN_RUNE.get(), AMItems.RED_RUNE.get(), AMItems.BLACK_RUNE.get());

@@ -16,6 +16,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
@@ -27,6 +28,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
@@ -35,14 +37,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.fml.ModList;
-import net.neoforged.neoforge.attachment.AttachmentHolder;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
@@ -119,36 +119,41 @@ public final class AMUtil {
             .add(end.scale(delta * delta * delta));
     }
 
-    public static void doCompendiumConversion(AttachmentHolder entity, Level level, Vec3 vec, AABB aabb, Supplier<ItemStack> bookGetter, Consumer<ItemStack> bookSetter) {
-        if (!bookGetter.get().is(AMTags.Items.ARCANE_COMPENDIUM_BOOKS)) {
-            if (entity.hasData(AMAttachments.COMPENDIUM_TIMER)) {
-                entity.removeData(AMAttachments.COMPENDIUM_TIMER);
+    public static void doCompendiumConversion(ItemFrame itemFrame) {
+        if (!itemFrame.getItem().is(AMTags.Items.ARCANE_COMPENDIUM_BOOKS)) {
+            if (itemFrame.hasData(AMAttachments.COMPENDIUM_TIMER)) {
+                itemFrame.removeData(AMAttachments.COMPENDIUM_TIMER);
             }
             return;
         }
+        Direction direction = itemFrame.getDirection();
+        if (direction.getAxis() == Direction.Axis.Y) return;
+        int range = AMServerConfig.ARCANE_COMPENDIUM_CONVERSION_HORIZONTAL_RANGE.getAsInt();
+        Level level = itemFrame.level();
+        BlockPos pos = itemFrame.getPos().offset(direction.getNormal().multiply(Math.ceilDiv(range, 2))).below();
         List<BlockPos> positions = new ArrayList<>();
-        for (BlockPos pos : BlockPos.betweenClosed(BlockPos.containing(aabb.getMinPosition()), BlockPos.containing(aabb.getMaxPosition()))) {
-            BlockPos above = pos.above();
-            if (level.getBlockState(pos).is(AMBlocks.LIQUID_ETHERIUM) && !level.getBlockState(above).isSolidRender(level, above)) {
-                positions.add(new BlockPos(pos));
+        for (BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-range / 2, 0, -range / 2), pos.offset(range / 2, 1 - AMServerConfig.ARCANE_COMPENDIUM_CONVERSION_VERTICAL_RANGE.getAsInt(), range / 2))) {
+            BlockPos above = blockPos.above();
+            if (level.getBlockState(blockPos).is(AMBlocks.LIQUID_ETHERIUM) && !level.getBlockState(above).isSolidRender(level, above)) {
+                positions.add(new BlockPos(blockPos));
             }
         }
         if (!positions.isEmpty()) {
-            int timer = entity.getData(AMAttachments.COMPENDIUM_TIMER);
+            int timer = itemFrame.getData(AMAttachments.COMPENDIUM_TIMER);
             if (timer >= AMServerConfig.ARCANE_COMPENDIUM_CONVERSION_DURATION.getAsInt()) {
-                bookSetter.accept(ArsMagicaApi.book());
+                itemFrame.setItem(ArsMagicaApi.book());
                 if (level.isClientSide()) {
-                    AMClientUtil.spawnArcaneCompendiumConversionFinishParticles(vec);
+                    AMClientUtil.spawnArcaneCompendiumConversionFinishParticles(itemFrame.position());
                 }
-                entity.removeData(AMAttachments.COMPENDIUM_TIMER);
+                itemFrame.removeData(AMAttachments.COMPENDIUM_TIMER);
             } else {
                 if (level.isClientSide()) {
-                    AMClientUtil.spawnArcaneCompendiumConversionParticles(positions, vec);
+                    AMClientUtil.spawnArcaneCompendiumConversionParticles(positions, itemFrame.position());
                 }
-                entity.setData(AMAttachments.COMPENDIUM_TIMER, timer + 1);
+                itemFrame.setData(AMAttachments.COMPENDIUM_TIMER, timer + 1);
             }
-        } else if (entity.hasData(AMAttachments.COMPENDIUM_TIMER)) {
-            entity.removeData(AMAttachments.COMPENDIUM_TIMER);
+        } else if (itemFrame.hasData(AMAttachments.COMPENDIUM_TIMER)) {
+            itemFrame.removeData(AMAttachments.COMPENDIUM_TIMER);
         }
     }
 

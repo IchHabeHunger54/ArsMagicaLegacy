@@ -7,7 +7,6 @@
     - Their Projectiles
 - Rituals
 - Arcane Compendium
-    - Liquid Etherium Conversion
     - Images
     - Commented-out Parts in the Provider
 - Compat Recipes

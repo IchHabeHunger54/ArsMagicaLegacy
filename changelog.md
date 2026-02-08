@@ -49,6 +49,7 @@
     - Agility: Renamed to Swiftness. Now uses the Swiftness effect. The Agility effect was removed.
     - Dismembering: Is now functional.
     - Frost: No longer utilizes an effect, allowing it to stack with similar effects from other mods. The Frost effect was removed.
+    - Grow: Now supports a variety of new crops.
     - Harvest: Now supports a variety of new crops. No longer has a built-in AoE effect.
     - Plant: Renamed to Replant. Now acts as an upgrade to Harvest that also replants the crops if applicable.
     - Rune Procs: Renamed to Rune Power.

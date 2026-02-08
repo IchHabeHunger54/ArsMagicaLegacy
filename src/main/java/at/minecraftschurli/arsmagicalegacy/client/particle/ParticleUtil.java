@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.client.particle;
 
+import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.particle.ControlledParticle;
 import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleSpawner;
@@ -10,6 +11,7 @@ import at.minecraftschurli.arsmagicalegacy.entity.FallingStar;
 import at.minecraftschurli.arsmagicalegacy.entity.ManaVortex;
 import at.minecraftschurli.arsmagicalegacy.entity.SpellEntity;
 import at.minecraftschurli.arsmagicalegacy.entity.SpellShapeEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -27,6 +29,8 @@ import java.util.Map;
 import java.util.stream.IntStream;
 
 public final class ParticleUtil {
+    public static final ResourceLocation ARCANE_COMPENDIUM_CONVERSION = ArsMagicaApi.id("arcane_compendium_conversion");
+    public static final ResourceLocation ARCANE_COMPENDIUM_CONVERSION_FINISH = ArsMagicaApi.id("arcane_compendium_conversion_finish");
     private static final Map<SpellEntityKey, ParticleSpawner> SPELL_SHAPE_ENTITY_PARTICLE_SPAWNERS = new HashMap<>();
 
     private ParticleUtil() {
@@ -35,6 +39,20 @@ public final class ParticleUtil {
     public static List<? extends ControlledParticle> spawnParticles(ResourceLocation id, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         ParticleSpawner spawner = ParticleSpawnerManager.INSTANCE.get(id);
         return spawner != null ? ArsMagicaClientApi.spawnParticles(spawner, position, color, caster, directEntity, hitResult) : List.of();
+    }
+
+    public static void spawnArcaneCompendiumConversionParticles(List<BlockPos> from, Vec3 to) {
+        for (BlockPos pos : from) {
+            spawnParticles(ARCANE_COMPENDIUM_CONVERSION, Vec3.atCenterOf(pos), -1, null, null, null).forEach(particle -> {
+                Vec3 distance = to.subtract(particle.getPos());
+                Vec3 vec = distance.normalize().scale((distance.length() + 1) / particle.getLifetime());
+                particle.setParticleSpeed(vec.x, vec.y, vec.z);
+            });
+        }
+    }
+
+    public static void spawnArcaneCompendiumConversionFinishParticles(Vec3 position) {
+        spawnParticles(ARCANE_COMPENDIUM_CONVERSION_FINISH, position, -1, null, null, null);
     }
 
     public static void spawnFallingStarParticles(FallingStar entity, boolean ground) {

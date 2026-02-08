@@ -1,4 +1,5 @@
 {
+  "alpha": 0.6,
   "count": 20,
   "gravity": 1.0,
   "max_lifetime": 40,

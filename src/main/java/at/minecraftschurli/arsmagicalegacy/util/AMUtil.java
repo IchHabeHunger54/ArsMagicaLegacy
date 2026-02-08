@@ -130,17 +130,21 @@ public final class AMUtil {
         for (BlockPos pos : BlockPos.betweenClosed(BlockPos.containing(aabb.getMinPosition()), BlockPos.containing(aabb.getMaxPosition()))) {
             BlockPos above = pos.above();
             if (level.getBlockState(pos).is(AMBlocks.LIQUID_ETHERIUM) && !level.getBlockState(above).isSolidRender(level, above)) {
-                positions.add(pos);
+                positions.add(new BlockPos(pos));
             }
         }
         if (!positions.isEmpty()) {
             int timer = entity.getData(AMAttachments.COMPENDIUM_TIMER);
             if (timer >= AMServerConfig.ARCANE_COMPENDIUM_CONVERSION_DURATION.getAsInt()) {
                 bookSetter.accept(ArsMagicaApi.book());
-                //TODO spawn particles
+                if (level.isClientSide()) {
+                    AMClientUtil.spawnArcaneCompendiumConversionFinishParticles(vec);
+                }
                 entity.removeData(AMAttachments.COMPENDIUM_TIMER);
             } else {
-                //TODO spawn particles
+                if (level.isClientSide()) {
+                    AMClientUtil.spawnArcaneCompendiumConversionParticles(positions, vec);
+                }
                 entity.setData(AMAttachments.COMPENDIUM_TIMER, timer + 1);
             }
         } else if (entity.hasData(AMAttachments.COMPENDIUM_TIMER)) {

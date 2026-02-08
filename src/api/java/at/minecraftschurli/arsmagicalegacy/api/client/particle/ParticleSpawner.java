@@ -15,7 +15,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 
 /**
- * Represents a particle spawner. A particle spawner is looked up by id in {@link ArsMagicaClientApi#spawnParticles(ResourceLocation, Vec3, int, LivingEntity, Entity, HitResult)} and used to spawn particles.
+ * Represents a particle spawner. A particle spawner is looked up by id in {@link ArsMagicaClientApi#spawnParticles(ParticleSpawner, Vec3, int, LivingEntity, Entity, HitResult)} and used to spawn particles.
  *
  * @param particle    The {@link ParticleOptions} to use.
  * @param count       The amount of particles to spawn.
@@ -58,7 +58,7 @@ public record ParticleSpawner(
         Codec.FLOAT.optionalFieldOf("gravity", 0f).forGetter(ParticleSpawner::gravity),
         Codec.FLOAT.optionalFieldOf("scale", 1f).forGetter(ParticleSpawner::scale),
         Codec.INT.optionalFieldOf("color", -1).forGetter(ParticleSpawner::color),
-        Codec.FLOAT.optionalFieldOf("scale", 1f).forGetter(ParticleSpawner::scale),
+        Codec.FLOAT.optionalFieldOf("alpha", 1f).forGetter(ParticleSpawner::alpha),
         ParticleController.CODEC.listOf().optionalFieldOf("controllers", List.of()).forGetter(ParticleSpawner::controllers)
     ).apply(inst, ParticleSpawner::new));
 }

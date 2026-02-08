@@ -25,6 +25,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.List;
 
 public final class AMClientUtil {
     private AMClientUtil() {
@@ -143,6 +144,14 @@ public final class AMClientUtil {
 
     public static void spawnParticles(ResourceLocation id, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         ParticleUtil.spawnParticles(id, position, color, caster, directEntity, hitResult);
+    }
+
+    public static void spawnArcaneCompendiumConversionParticles(List<BlockPos> from, Vec3 to) {
+        ParticleUtil.spawnArcaneCompendiumConversionParticles(from, to);
+    }
+
+    public static void spawnArcaneCompendiumConversionFinishParticles(Vec3 position) {
+        ParticleUtil.spawnArcaneCompendiumConversionFinishParticles(position);
     }
 
     public static void spawnFallingStarParticles(FallingStar entity, boolean ground) {

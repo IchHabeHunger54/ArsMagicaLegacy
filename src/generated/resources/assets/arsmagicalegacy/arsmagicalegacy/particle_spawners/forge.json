@@ -1,4 +1,5 @@
 {
+  "alpha": 0.1,
   "count": 1,
   "max_lifetime": 20,
   "min_lifetime": 20,

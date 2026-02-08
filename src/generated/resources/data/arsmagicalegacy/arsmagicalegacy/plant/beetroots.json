@@ -1,0 +1,40 @@
+{
+  "all_states": {
+    "block": "minecraft:beetroots",
+    "predicate_type": "minecraft:block_match"
+  },
+  "crop": {
+    "count": 1,
+    "id": "minecraft:beetroot"
+  },
+  "directions": [
+    "down"
+  ],
+  "growth_type": {
+    "type": "arsmagicalegacy:crop"
+  },
+  "harvest_states": [
+    {
+      "from": {
+        "Name": "minecraft:beetroots",
+        "Properties": {
+          "age": "3"
+        }
+      },
+      "to": {
+        "Name": "minecraft:beetroots",
+        "Properties": {
+          "age": "0"
+        }
+      }
+    }
+  ],
+  "seed": {
+    "count": 1,
+    "id": "minecraft:beetroot_seeds"
+  },
+  "soil": {
+    "block": "minecraft:farmland",
+    "predicate_type": "minecraft:block_match"
+  }
+}

@@ -7,6 +7,7 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
+import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
@@ -19,9 +20,10 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 public final class ArsMagicaApiImpl extends ArsMagicaApi {
     private static final ResourceLocation ARCANE_COMPENDIUM = ArsMagicaApi.id("arcane_compendium");
-    private static final Registry<SpellPart> SPELL_PART_REGISTRY = new RegistryBuilder<>(AMRegistries.SPELL_PART).sync(true).create();
-    private static final Registry<MapCodec<? extends SpellIngredient>> SPELL_INGREDIENT_REGISTRY = new RegistryBuilder<>(AMRegistries.SPELL_INGREDIENT).sync(true).create();
     private static final Registry<MapCodec<? extends AbilityEffect>> ABILITY_EFFECT_REGISTRY = new RegistryBuilder<>(AMRegistries.ABILITY_EFFECT).sync(true).create();
+    private static final Registry<MapCodec<? extends GrowthType>> GROWTH_TYPE_REGISTRY = new RegistryBuilder<>(AMRegistries.GROWTH_TYPE).sync(true).create();
+    private static final Registry<MapCodec<? extends SpellIngredient>> SPELL_INGREDIENT_REGISTRY = new RegistryBuilder<>(AMRegistries.SPELL_INGREDIENT).sync(true).create();
+    private static final Registry<SpellPart> SPELL_PART_REGISTRY = new RegistryBuilder<>(AMRegistries.SPELL_PART).sync(true).create();
     private static final AbilityHelper ABILITY_HELPER = new AbilityHelperImpl();
     private static final BurnoutHelper BURNOUT_HELPER = new BurnoutHelperImpl();
     private static final MagicHelper MAGIC_HELPER = new MagicHelperImpl();
@@ -34,8 +36,13 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     }
 
     @Override
-    protected Registry<SpellPart> getSpellPartRegistry() {
-        return SPELL_PART_REGISTRY;
+    protected Registry<MapCodec<? extends AbilityEffect>> getAbilityEffectRegistry() {
+        return ABILITY_EFFECT_REGISTRY;
+    }
+
+    @Override
+    protected Registry<MapCodec<? extends GrowthType>> getGrowthTypeRegistry() {
+        return GROWTH_TYPE_REGISTRY;
     }
 
     @Override
@@ -44,8 +51,8 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     }
 
     @Override
-    protected Registry<MapCodec<? extends AbilityEffect>> getAbilityEffectRegistry() {
-        return ABILITY_EFFECT_REGISTRY;
+    protected Registry<SpellPart> getSpellPartRegistry() {
+        return SPELL_PART_REGISTRY;
     }
 
     @Override

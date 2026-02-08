@@ -25,6 +25,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
@@ -34,7 +35,9 @@ import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LecternBlock;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
@@ -43,6 +46,8 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.fml.ModList;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
@@ -117,6 +122,17 @@ public final class AMUtil {
             .add(control1.scale(3 * invertedDelta * invertedDelta * delta))
             .add(control2.scale(3 * invertedDelta * delta * delta))
             .add(end.scale(delta * delta * delta));
+    }
+
+    public static boolean cancelDestroyBlock(Level level, BlockPos pos, BlockState state, Player player) {
+        if (NeoForge.EVENT_BUS.post(new BlockEvent.BreakEvent(level, pos, state, player)).isCanceled()) return true;
+        state = state.getBlock().playerWillDestroy(level, pos, state, player);
+        level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
+        if (state.onDestroyedByPlayer(level, pos, player, true, level.getFluidState(pos))) {
+            player.awardStat(Stats.BLOCK_MINED.get(state.getBlock()));
+            return false;
+        }
+        return true;
     }
 
     public static void doCompendiumConversion(ItemFrame itemFrame) {

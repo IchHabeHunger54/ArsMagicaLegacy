@@ -11,6 +11,7 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import org.slf4j.Logger;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +33,10 @@ public class AMDataManager<T> extends SimpleJsonResourceReloadListener {
 
     public T getOrDefault(ResourceLocation id, T defaultValue) {
         return values.getOrDefault(id, defaultValue);
+    }
+
+    public Map<ResourceLocation, T> getAll() {
+        return Collections.unmodifiableMap(values);
     }
 
     @Override

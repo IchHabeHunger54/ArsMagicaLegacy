@@ -28,8 +28,8 @@ import java.util.concurrent.CompletableFuture;
 public abstract class AbstractDataProvider<T, B extends AbstractDataProvider.Builder<T>> implements DataProvider {
     private final PackOutput.PathProvider pathProvider;
     private final CompletableFuture<HolderLookup.Provider> lookupProvider;
-    private final String modId;
-    private final String name;
+    protected final String modId;
+    protected final String name;
     private final Codec<T> codec;
     private final List<B> builders = new ArrayList<>();
 

@@ -5,6 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
+import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
@@ -51,24 +52,31 @@ public abstract class ArsMagicaApi {
     }
 
     /**
-     * @return The spell part registry.
+     * @return The {@link AbilityEffect} registry.
      */
-    public static Registry<SpellPart> spellPartRegistry() {
-        return INSTANCE.get().getSpellPartRegistry();
+    public static Registry<MapCodec<? extends AbilityEffect>> abilityEffectRegistry() {
+        return INSTANCE.get().getAbilityEffectRegistry();
     }
 
     /**
-     * @return The spell ingredient registry.
+     * @return The {@link GrowthType} registry.
+     */
+    public static Registry<MapCodec<? extends GrowthType>> growthTypeRegistry() {
+        return INSTANCE.get().getGrowthTypeRegistry();
+    }
+
+    /**
+     * @return The {@link SpellIngredient} registry.
      */
     public static Registry<MapCodec<? extends SpellIngredient>> spellIngredientRegistry() {
         return INSTANCE.get().getSpellIngredientRegistry();
     }
 
     /**
-     * @return The ability effect registry.
+     * @return The {@link SpellPart} registry.
      */
-    public static Registry<MapCodec<? extends AbilityEffect>> abilityEffectRegistry() {
-        return INSTANCE.get().getAbilityEffectRegistry();
+    public static Registry<SpellPart> spellPartRegistry() {
+        return INSTANCE.get().getSpellPartRegistry();
     }
 
     /**
@@ -110,13 +118,16 @@ public abstract class ArsMagicaApi {
     protected abstract ItemStack getBook();
 
     @ApiStatus.Internal
-    protected abstract Registry<SpellPart> getSpellPartRegistry();
+    protected abstract Registry<MapCodec<? extends AbilityEffect>> getAbilityEffectRegistry();
+
+    @ApiStatus.Internal
+    protected abstract Registry<MapCodec<? extends GrowthType>> getGrowthTypeRegistry();
 
     @ApiStatus.Internal
     protected abstract Registry<MapCodec<? extends SpellIngredient>> getSpellIngredientRegistry();
 
     @ApiStatus.Internal
-    protected abstract Registry<MapCodec<? extends AbilityEffect>> getAbilityEffectRegistry();
+    protected abstract Registry<SpellPart> getSpellPartRegistry();
 
     @ApiStatus.Internal
     protected abstract AbilityHelper getAbilityHelper();

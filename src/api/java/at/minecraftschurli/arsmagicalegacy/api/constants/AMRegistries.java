@@ -10,6 +10,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.AltarMaterial;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
+import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import com.mojang.serialization.MapCodec;
@@ -26,6 +27,7 @@ public interface AMRegistries {
     // @formatter:off
     // Static registries
     ResourceKey<Registry<MapCodec<? extends AbilityEffect>>>   ABILITY_EFFECT   = ResourceKey.createRegistryKey(ArsMagicaApi.id("ability_effect"));
+    ResourceKey<Registry<MapCodec<? extends GrowthType>>>      GROWTH_TYPE      = ResourceKey.createRegistryKey(ArsMagicaApi.id("growth_type"));
     ResourceKey<Registry<MapCodec<? extends SpellIngredient>>> SPELL_INGREDIENT = ResourceKey.createRegistryKey(ArsMagicaApi.id("spell_ingredient"));
     ResourceKey<Registry<SpellPart>>                           SPELL_PART       = ResourceKey.createRegistryKey(ArsMagicaApi.id("spell_part"));
     // Datapack registries

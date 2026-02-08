@@ -20,6 +20,7 @@ import at.minecraftschurli.arsmagicalegacy.datagen.data.AMEtheriumTypeProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMGlobalLootModifierProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMLootTableProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMMagicProvider;
+import at.minecraftschurli.arsmagicalegacy.datagen.data.AMPlantProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMRecipeProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMSpellPartDataProvider;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMTagsProvider;
@@ -79,6 +80,7 @@ final class AMDataGenerator {
         generator.addProvider(event.includeServer(), new AMDataMapProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), new AMGlobalLootModifierProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), new AMLootTableProvider(output, lookupProvider));
+        generator.addProvider(event.includeServer(), new AMPlantProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), new AMRecipeProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), new AMSpellPartDataProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), new AMToolTierProvider(output, lookupProvider));

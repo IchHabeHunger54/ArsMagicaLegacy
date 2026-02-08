@@ -24,11 +24,13 @@
 
 - Added a Forget All button
 - Improved the display of the affinities in the Affinity tab
+- Updated the tab icons
 
 ## Inscription Table
 
 - Added a Clear button
 - Spell Recipes can now be changed afterwards by placing them back into the table
+- Applied upgrades now show visually on the item if the block is broken, or middle-clicked in creative
 
 # Items
 

@@ -315,7 +315,7 @@ final class MagicHelperImpl implements MagicHelper {
             if (affinity.is(Affinity.NONE)) continue;
             double value = entry.getValue();
             data = operator.apply(data, affinity, value);
-            double originalValue = originalData.affinityShifts().get(affinity);
+            double originalValue = originalData.affinityShifts().getOrDefault(affinity, 0.);
             if (originalValue != value && player instanceof ServerPlayer serverPlayer) {
                 AMCriterionTriggers.AFFINITY_CHANGE.get().trigger(serverPlayer, affinity, originalValue, value);
             }

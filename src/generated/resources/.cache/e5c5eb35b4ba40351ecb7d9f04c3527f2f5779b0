@@ -1,4 +1,4 @@
-// 1.21.1	2026-01-26T04:08:42.3537077	Advancements
+// 1.21.1	2026-02-08T23:01:14.3529965	Advancements
 c1845788897abd7dcb5a53c9c8fe4968adfadca4 data/arsmagicalegacy/advancement/affinity_fifty_percent.json
 d2a3a8803d92731ee6719b86702bf02b62a6bed5 data/arsmagicalegacy/advancement/affinity_full.json
 18a87544310aba469d3746a812f79368a17ed416 data/arsmagicalegacy/advancement/affinity_one_percent.json
@@ -81,7 +81,6 @@ f4909cec949488b6adb3a93af7c6910a13a0befb data/arsmagicalegacy/advancement/book/n
 b3534fa2a8edd39c9ee6cd9b2767ed5df271c18a data/arsmagicalegacy/advancement/book/physical_damage.json
 d7308ba2f4527318a5a086437c681661ba731fd4 data/arsmagicalegacy/advancement/book/piercing.json
 6c5e08a2559c4dd35e678da1c78143306809066d data/arsmagicalegacy/advancement/book/place_block.json
-acf995ae0800dd3300f8a3497709a6570d6db62a data/arsmagicalegacy/advancement/book/plant.json
 f8182be61deb853e71c4e78597b1f384992e33a8 data/arsmagicalegacy/advancement/book/plow.json
 8f5de56004cf50b1cb00a206b45aec0801c8b665 data/arsmagicalegacy/advancement/book/projectile.json
 1c5c9de8d338334a75b1ff9ae8f3c9fb2717b825 data/arsmagicalegacy/advancement/book/prosperity.json
@@ -91,6 +90,7 @@ bba8cbed0787432aa7e83a317f4a7576130a600a data/arsmagicalegacy/advancement/book/r
 cc374444d6c3f71a98c52701a38f4616396295ac data/arsmagicalegacy/advancement/book/reflect.json
 5c1e03959eb3e77f8b09244d8fe0368c5a089b8d data/arsmagicalegacy/advancement/book/regeneration.json
 991e145c8c16b26fddf824d7e58bc5f18c7cdfb0 data/arsmagicalegacy/advancement/book/repel.json
+b87672fc66c5d2639aac28960e9fd72728bf2461 data/arsmagicalegacy/advancement/book/replant.json
 c7410d652027ab2365d068ecec6b544049dfc1bc data/arsmagicalegacy/advancement/book/resistance.json
 1893e5c4502ec82f33a2f94006acf90342ea0d06 data/arsmagicalegacy/advancement/book/rift.json
 3c71782688284decc272e6e1ef98529ec4c192f9 data/arsmagicalegacy/advancement/book/root.json

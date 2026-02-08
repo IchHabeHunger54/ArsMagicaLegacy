@@ -418,7 +418,7 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
             .affinity(affinities.getOrThrow(AMMagic.EARTH), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.LIGHT_GRAY_RUNE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(Tags.Items.CHESTS_WOODEN), 1));
-        builder(AMSpells.PLANT, 5f)
+        builder(AMSpells.REPLANT, 5f)
             .affinity(affinities.getOrThrow(AMMagic.NATURE), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.GREEN_RUNE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(Items.WHEAT_SEEDS), 1))

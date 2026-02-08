@@ -8,6 +8,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Function;
@@ -17,11 +18,15 @@ public interface GrowthType {
 
     MapCodec<? extends GrowthType> codec();
 
-    boolean canGrow(Plant plant, Level level, BlockPos pos);
+    boolean canGrow(GrowthContext context);
 
-    void grow(Plant plant, Level level, BlockPos pos);
+    void grow(GrowthContext context);
 
-    boolean canHarvest(Plant plant, Level level, BlockPos pos);
+    boolean canHarvest(GrowthContext context);
 
-    List<ItemStack> harvest(Plant plant, ServerPlayer player, ServerLevel level, BlockPos pos);
+    List<ItemStack> harvest(GrowthContext context);
+
+    boolean canReplant(GrowthContext context);
+
+    void replant(GrowthContext context);
 }

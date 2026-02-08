@@ -13,6 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.neoforged.neoforge.common.conditions.ICondition;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,19 +35,7 @@ public record Plant(List<ICondition> conditions, GrowthType growthType, ItemStac
         ).fieldOf("harvest_states").forGetter(Plant::harvestStates)
     ).apply(inst, Plant::new));
 
-    public boolean canGrow(Level level, BlockPos pos) {
-        return growthType.canGrow(this, level, pos);
-    }
-
-    public void grow(Level level, BlockPos pos) {
-        growthType.grow(this, level, pos);
-    }
-
-    public boolean canHarvest(Level level, BlockPos pos) {
-        return growthType.canHarvest(this, level, pos);
-    }
-
-    public List<ItemStack> harvest(ServerPlayer player, ServerLevel level, BlockPos pos) {
-        return growthType.harvest(this, player, level, pos);
+    public GrowthContext createContext(ServerPlayer player, ServerLevel level, BlockPos pos, BlockState state) {
+        return new GrowthContext(this, player, level, pos, state);
     }
 }

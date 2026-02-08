@@ -1,15 +1,13 @@
 package at.minecraftschurli.arsmagicalegacy.plant;
 
+import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthContext;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
-import at.minecraftschurli.arsmagicalegacy.api.plant.Plant;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.stats.Stats;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -25,27 +23,41 @@ public record CropGrowthType() implements GrowthType {
     }
 
     @Override
-    public boolean canGrow(Plant plant, Level level, BlockPos pos) {
-        BlockState state = level.getBlockState(pos);
-        return !canHarvest(plant, level, pos) && state.getBlock() instanceof BonemealableBlock block && block.isValidBonemealTarget(level, pos, state);
+    public boolean canGrow(GrowthContext context) {
+        BlockState state = context.state();
+        return !canHarvest(context) && state.getBlock() instanceof BonemealableBlock block && block.isValidBonemealTarget(context.level(), context.pos(), state);
     }
 
     @Override
-    public void grow(Plant plant, Level level, BlockPos pos) {
-        BlockState state = level.getBlockState(pos);
-        if (state.getBlock() instanceof BonemealableBlock block && level instanceof ServerLevel serverLevel) {
-            block.performBonemeal(serverLevel, serverLevel.getRandom(), pos, state);
+    public void grow(GrowthContext context) {
+        ServerLevel level = context.level();
+        BlockState state = context.state();
+        if (state.getBlock() instanceof BonemealableBlock block) {
+            block.performBonemeal(level, level.getRandom(), context.pos(), state);
         }
     }
 
     @Override
-    public boolean canHarvest(Plant plant, Level level, BlockPos pos) {
-        return plant.harvestStates().containsKey(level.getBlockState(pos));
+    public boolean canHarvest(GrowthContext context) {
+        return context.plant().harvestStates().containsKey(context.state());
     }
 
     @Override
-    public List<ItemStack> harvest(Plant plant, ServerPlayer player, ServerLevel level, BlockPos pos) {
-        BlockState state = level.getBlockState(pos);
+    public List<ItemStack> harvest(GrowthContext context) {
+        ServerPlayer player = context.player();
+        ServerLevel level = context.level();
+        BlockPos pos = context.pos();
+        BlockState state = context.state();
         return AMUtil.cancelDestroyBlock(level, pos, state, player) ? List.of() : Block.getDrops(state, level, pos, level.getBlockEntity(pos), player, ItemStack.EMPTY);
+    }
+
+    @Override
+    public boolean canReplant(GrowthContext context) {
+        return true;
+    }
+
+    @Override
+    public void replant(GrowthContext context) {
+        context.level().setBlockAndUpdate(context.pos(), context.plant().harvestStates().get(context.state()));
     }
 }

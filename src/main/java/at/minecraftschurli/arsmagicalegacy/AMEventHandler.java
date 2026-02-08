@@ -128,31 +128,31 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void commonSetup(FMLCommonSetupEvent event) {
-        // TODO 26.1 replace strippables with data map
-        AxeItem.STRIPPABLES = new HashMap<>(AxeItem.STRIPPABLES);
-        AxeItem.STRIPPABLES.put(AMBlocks.WITCHWOOD_LOG.get(), AMBlocks.STRIPPED_WITCHWOOD_LOG.get());
-        AxeItem.STRIPPABLES.put(AMBlocks.WITCHWOOD.get(), AMBlocks.STRIPPED_WITCHWOOD.get());
-        FireBlock fire = (FireBlock) Blocks.FIRE;
-        fire.setFlammable(AMBlocks.WITCHWOOD_LOG.get(), 5, 5);
-        fire.setFlammable(AMBlocks.WITCHWOOD.get(), 5, 5);
-        fire.setFlammable(AMBlocks.STRIPPED_WITCHWOOD_LOG.get(), 5, 5);
-        fire.setFlammable(AMBlocks.STRIPPED_WITCHWOOD.get(), 5, 5);
-        fire.setFlammable(AMBlocks.WITCHWOOD_PLANKS.get(), 5, 20);
-        fire.setFlammable(AMBlocks.WITCHWOOD_SLAB.get(), 5, 20);
-        fire.setFlammable(AMBlocks.WITCHWOOD_STAIRS.get(), 5, 20);
-        fire.setFlammable(AMBlocks.WITCHWOOD_FENCE.get(), 5, 20);
-        fire.setFlammable(AMBlocks.WITCHWOOD_FENCE_GATE.get(), 5, 20);
-        fire.setFlammable(AMBlocks.WITCHWOOD_LEAVES.get(), 30, 60);
-        fire.setFlammable(AMBlocks.AUM.get(), 60, 100);
-        fire.setFlammable(AMBlocks.CERUBLOSSOM.get(), 60, 100);
-        fire.setFlammable(AMBlocks.DESERT_NOVA.get(), 60, 100);
-        fire.setFlammable(AMBlocks.TARMA_ROOT.get(), 60, 100);
-        fire.setFlammable(AMBlocks.WAKEBLOOM.get(), 60, 100);
         event.enqueueWork(() -> {
+            // TODO 26.1 replace strippables with data map
+            AxeItem.STRIPPABLES = new HashMap<>(AxeItem.STRIPPABLES);
+            AxeItem.STRIPPABLES.put(AMBlocks.WITCHWOOD_LOG.get(), AMBlocks.STRIPPED_WITCHWOOD_LOG.get());
+            AxeItem.STRIPPABLES.put(AMBlocks.WITCHWOOD.get(), AMBlocks.STRIPPED_WITCHWOOD.get());
+            FireBlock fire = (FireBlock) Blocks.FIRE;
+            fire.setFlammable(AMBlocks.WITCHWOOD_LOG.get(), 5, 5);
+            fire.setFlammable(AMBlocks.WITCHWOOD.get(), 5, 5);
+            fire.setFlammable(AMBlocks.STRIPPED_WITCHWOOD_LOG.get(), 5, 5);
+            fire.setFlammable(AMBlocks.STRIPPED_WITCHWOOD.get(), 5, 5);
+            fire.setFlammable(AMBlocks.WITCHWOOD_PLANKS.get(), 5, 20);
+            fire.setFlammable(AMBlocks.WITCHWOOD_SLAB.get(), 5, 20);
+            fire.setFlammable(AMBlocks.WITCHWOOD_STAIRS.get(), 5, 20);
+            fire.setFlammable(AMBlocks.WITCHWOOD_FENCE.get(), 5, 20);
+            fire.setFlammable(AMBlocks.WITCHWOOD_FENCE_GATE.get(), 5, 20);
+            fire.setFlammable(AMBlocks.WITCHWOOD_LEAVES.get(), 30, 60);
+            fire.setFlammable(AMBlocks.AUM.get(), 60, 100);
+            fire.setFlammable(AMBlocks.CERUBLOSSOM.get(), 60, 100);
+            fire.setFlammable(AMBlocks.DESERT_NOVA.get(), 60, 100);
+            fire.setFlammable(AMBlocks.TARMA_ROOT.get(), 60, 100);
+            fire.setFlammable(AMBlocks.WAKEBLOOM.get(), 60, 100);
             CauldronInteraction.INTERACTIONS.forEach((k, v) -> v.map().put(AMItems.LIQUID_ETHERIUM_BUCKET.get(), LiquidEtheriumCauldronBlock::emptyBucket));
             DispenserBlock.registerBehavior(AMItems.LIQUID_ETHERIUM_BUCKET, DispenseBucketBehavior.INSTANCE);
+            AMMultiblocks.init();
         });
-        AMMultiblocks.init();
     }
 
     @SubscribeEvent

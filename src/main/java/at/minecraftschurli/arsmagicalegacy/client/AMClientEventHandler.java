@@ -124,11 +124,13 @@ final class AMClientEventHandler {
     @SuppressWarnings("DataFlowIssue")
     @SubscribeEvent
     private static void clientSetup(FMLClientSetupEvent event) {
-        ArsMagicaClientApiImpl.postEvents();
-        event.enqueueWork(() -> ItemProperties.register(AMItems.CRYSTAL_WRENCH.get(), CrystalWrenchItem.ACTIVE, (stack, level, player, seed) -> stack.has(AMDataComponents.STORED_POSITIONS) && !stack.get(AMDataComponents.STORED_POSITIONS).isEmpty() ? 1 : 0));
+        event.enqueueWork(() -> {
+            ArsMagicaClientApiImpl.postEvents();
+            ItemProperties.register(AMItems.CRYSTAL_WRENCH.get(), CrystalWrenchItem.ACTIVE, (stack, level, player, seed) -> stack.has(AMDataComponents.STORED_POSITIONS) && !stack.get(AMDataComponents.STORED_POSITIONS).isEmpty() ? 1 : 0);
+            PatchouliAPI.get().registerTemplateAsBuiltin(SpellPartPage.ID, () -> new ByteArrayInputStream(SpellPartPage.TEMPLATE.getBytes(StandardCharsets.UTF_8)));
+        });
         ItemBlockRenderTypes.setRenderLayer(AMFluids.LIQUID_ETHERIUM.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(AMFluids.FLOWING_LIQUID_ETHERIUM.get(), RenderType.translucent());
-        PatchouliAPI.get().registerTemplateAsBuiltin(SpellPartPage.ID, () -> new ByteArrayInputStream(SpellPartPage.TEMPLATE.getBytes(StandardCharsets.UTF_8)));
     }
 
     @SubscribeEvent

@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.datagen.assets;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.data.ParticleSpawnerBuilder;
 import at.minecraftschurli.arsmagicalegacy.api.data.ParticleSpawnerProvider;
+import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleUtil;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.ApproachEntityController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.ArcToEntityController;
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.ChangeSizeController;
@@ -31,6 +32,12 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
 
     @Override
     public void generate(HolderLookup.Provider provider) {
+        builder(ParticleUtil.ARCANE_COMPENDIUM_CONVERSION, ParticleTypes.ENCHANT, 1, 10, 20)
+            .offset(-0.5, 0.5, 0.375, 0.5, -0.5, 0.5)
+            .scale(0.5f);
+        builder(ParticleUtil.ARCANE_COMPENDIUM_CONVERSION_FINISH, ParticleTypes.ENCHANT, 24, 20)
+            .speed(-0.1, 0.1, -0.1, 0.1, -0.1, 0.1)
+            .scale(0.5f);
         builder(ManaVortex.PARTICLES, AMParticles.EMBER.get(), 1, 10, 20)
             .offset(-0.2, 0.2, -0.2, 0.2, -0.2, 0.2)
             .color(0x3d3dcc);

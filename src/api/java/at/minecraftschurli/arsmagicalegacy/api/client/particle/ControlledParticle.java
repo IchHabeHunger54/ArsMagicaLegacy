@@ -92,6 +92,11 @@ public interface ControlledParticle {
     RandomSource random();
 
     /**
+     * @return The particle's lifetime.
+     */
+    int getLifetime();
+
+    /**
      * @param lifetime The lifetime to set.
      */
     void setLifetime(int lifetime);

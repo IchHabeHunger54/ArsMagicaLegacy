@@ -13,8 +13,7 @@
       "text": "item.arsmagicalegacy.arcane_compendium.mechanics.liquid_etherium.page1.text"
     },
     {
-      "type": "patchouli:crafting",
-      "recipe": "arsmagicalegacy:arcane_compendium",
+      "type": "patchouli:text",
       "text": "item.arsmagicalegacy.arcane_compendium.mechanics.liquid_etherium.page2.text"
     }
   ]

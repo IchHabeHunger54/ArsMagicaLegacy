@@ -52,7 +52,7 @@
       "images": [
         "arsmagicalegacy:patchouli_books/arcane_compendium/en_us/images/inscription_table_1.png"
       ],
-      "text": "The search bar can be used to quickly find a spell part. The name bar can be used to name your spell, this is not required though."
+      "text": "The name bar can be used to name your spell recipe, this is not required though."
     },
     {
       "type": "patchouli:image",

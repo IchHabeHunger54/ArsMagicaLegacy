@@ -6,9 +6,6 @@
     - All Bosses
     - Their Projectiles
 - Rituals
-- Arcane Compendium
-    - Images
-    - Commented-out Parts in the Provider
 - Compat Recipes
 - Test With Sodium/Embeddium/Iris
     - Altar Model & BER

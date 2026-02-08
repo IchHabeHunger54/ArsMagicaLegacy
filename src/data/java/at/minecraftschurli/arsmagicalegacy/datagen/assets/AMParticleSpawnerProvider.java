@@ -300,7 +300,7 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
             .scale(1.5f)
             .color(0xb26633)
             .alpha(0.1f);
-        builder(AMSpells.PLANT.getId(), AMParticles.PLANT.get(), 15, 20)
+        builder(AMSpells.REPLANT.getId(), AMParticles.PLANT.get(), 15, 20)
             .offset(-0.5, 0.5, -0.5, 0.5, -0.5, 0.5)
             .speed(-0.1, 0.1, 0.2, -0.1, 0.1)
             .gravity(1)

@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.GameMasterBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,8 +24,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-public class Harvest extends SpellComponent.CastBlock {
-    private static final GameProfile GAME_PROFILE = new GameProfile(UUID.randomUUID(), ArsMagicaApi.MOD_ID + "_harvest");
+public class Replant extends SpellComponent.CastBlock {
+    private static final GameProfile GAME_PROFILE = new GameProfile(UUID.randomUUID(), ArsMagicaApi.MOD_ID + "_replant");
 
     @Override
     public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
@@ -36,7 +37,18 @@ public class Harvest extends SpellComponent.CastBlock {
         for (Plant plant : AMUtil.getPlants(state)) {
             GrowthContext context = plant.createContext(player, serverLevel, pos, state);
             if (!plant.growthType().canHarvest(context)) continue;
-            plant.growthType().harvest(context).forEach(stack -> {
+            List<ItemStack> drops = plant.growthType().harvest(context);
+            if (plant.growthType().canReplant(context)) {
+                plant.growthType().replant(context);
+                ItemStack seed = plant.seed();
+                for (ItemStack stack : drops) {
+                    if (ItemStack.isSameItemSameComponents(stack, seed)) {
+                        stack.shrink(1);
+                        break;
+                    }
+                }
+            }
+            drops.forEach(stack -> {
                 if (player.isFakePlayer() || !player.getInventory().add(stack)) {
                     player.drop(stack, false);
                 }

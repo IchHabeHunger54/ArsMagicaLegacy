@@ -1,7 +1,7 @@
 {
   "cost": "arsmagicalegacy:blue",
   "parents": [
-    "arsmagicalegacy:plant"
+    "arsmagicalegacy:light"
   ],
   "tab": "arsmagicalegacy:utility",
   "x": 168,

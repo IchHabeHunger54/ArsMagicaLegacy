@@ -1,4 +1,4 @@
-// 1.21.1	2025-10-12T22:54:17.1828787	Spell Part Data: arsmagicalegacy
+// 1.21.1	2026-02-08T23:01:14.3469718	Spell Part Data: arsmagicalegacy
 dc1e511770f301bac8ca9c970334e26256caa087 data/arsmagicalegacy/arsmagicalegacy/spell_part/absorption.json
 d5fc28e68a5895fe2b80ceafa6ebcbd08ef46271 data/arsmagicalegacy/arsmagicalegacy/spell_part/area_of_effect.json
 1d751430bf4a224fcd684ca3e661aa20b39aa28d data/arsmagicalegacy/arsmagicalegacy/spell_part/astral_distortion.json
@@ -71,7 +71,6 @@ c414f0e2ad8f9834b8949d0151c397d27e976324 data/arsmagicalegacy/arsmagicalegacy/sp
 4a76632cac4cbece679a6adcdf6a5124260ab00d data/arsmagicalegacy/arsmagicalegacy/spell_part/physical_damage.json
 0975a3a507b609f7ec62085f0ecb952bfea72c5c data/arsmagicalegacy/arsmagicalegacy/spell_part/piercing.json
 d820bc13ed60c8b87f5496f6d226b8a3207b68d6 data/arsmagicalegacy/arsmagicalegacy/spell_part/place_block.json
-4d380822ea943ae9dcbf9af6b7dfb8680c8cb688 data/arsmagicalegacy/arsmagicalegacy/spell_part/plant.json
 ad716dd1755964afa448da71554b1a9f6fd61b85 data/arsmagicalegacy/arsmagicalegacy/spell_part/plow.json
 541b9aac0e4c6778549484df3faebbc63fc04b37 data/arsmagicalegacy/arsmagicalegacy/spell_part/projectile.json
 e907466c1192f5284350bb17d777614daaffa66b data/arsmagicalegacy/arsmagicalegacy/spell_part/prosperity.json
@@ -81,6 +80,7 @@ fe0dbabdb8f32c367f7dee22586fbd43e8a29f1b data/arsmagicalegacy/arsmagicalegacy/sp
 6334f5ca817de2e22697e74d34dc04998966df79 data/arsmagicalegacy/arsmagicalegacy/spell_part/reflect.json
 1b8672e0f72f802e2a7094f347055f11ad160ba0 data/arsmagicalegacy/arsmagicalegacy/spell_part/regeneration.json
 6800861ed1ac6012bc9d1abf239145897fd1fb0b data/arsmagicalegacy/arsmagicalegacy/spell_part/repel.json
+4d380822ea943ae9dcbf9af6b7dfb8680c8cb688 data/arsmagicalegacy/arsmagicalegacy/spell_part/replant.json
 7654b278dcaf0b455659c7b7efeaddae6ec96c4b data/arsmagicalegacy/arsmagicalegacy/spell_part/resistance.json
 6d81b723efc590a6d6d3e7b8c426bdaa3813ff9e data/arsmagicalegacy/arsmagicalegacy/spell_part/rift.json
 013cfc416edd481bcc30df2e2ad77ac5eec2945e data/arsmagicalegacy/arsmagicalegacy/spell_part/rune.json

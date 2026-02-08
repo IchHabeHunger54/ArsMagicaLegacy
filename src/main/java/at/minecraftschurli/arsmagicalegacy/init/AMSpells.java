@@ -46,7 +46,7 @@ import at.minecraftschurli.arsmagicalegacy.spell.component.ManaDrain;
 import at.minecraftschurli.arsmagicalegacy.spell.component.MeltArmor;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Moonrise;
 import at.minecraftschurli.arsmagicalegacy.spell.component.PlaceBlock;
-import at.minecraftschurli.arsmagicalegacy.spell.component.Plant;
+import at.minecraftschurli.arsmagicalegacy.spell.component.Replant;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Plow;
 import at.minecraftschurli.arsmagicalegacy.spell.component.RandomTeleport;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Recall;
@@ -195,7 +195,7 @@ public interface AMSpells {
     DeferredHolder<SpellPart, MeltArmor>          MELT_ARMOR          = register("melt_armor",          MeltArmor::new);
     DeferredHolder<SpellPart, Moonrise>           MOONRISE            = register("moonrise",            Moonrise::new);
     DeferredHolder<SpellPart, PlaceBlock>         PLACE_BLOCK         = register("place_block",         PlaceBlock::new);
-    DeferredHolder<SpellPart, Plant>              PLANT               = register("plant",               Plant::new);
+    DeferredHolder<SpellPart, Replant>            REPLANT             = register("replant",             Replant::new);
     DeferredHolder<SpellPart, Plow>               PLOW                = register("plow",                Plow::new);
     DeferredHolder<SpellPart, RandomTeleport>     RANDOM_TELEPORT     = register("random_teleport",     RandomTeleport::new);
     DeferredHolder<SpellPart, Recall>             RECALL              = register("recall",              Recall::new);

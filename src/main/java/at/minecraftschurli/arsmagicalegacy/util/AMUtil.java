@@ -4,11 +4,13 @@ import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
+import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.arsmagicalegacy.item.SpellRecipeItem;
 import at.minecraftschurli.arsmagicalegacy.packet.OpenBookInLecternPacket;
 import com.mojang.brigadier.context.CommandContext;
@@ -29,6 +31,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -131,6 +134,18 @@ public final class AMUtil {
         if (state.onDestroyedByPlayer(level, pos, player, true, level.getFluidState(pos))) {
             player.awardStat(Stats.BLOCK_MINED.get(state.getBlock()));
             return false;
+        }
+        return true;
+    }
+
+    public static boolean cancelTeleport(Entity entity, @Nullable LivingEntity caster) {
+        if (caster != null && caster.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
+            caster.sendSystemMessage(AMTranslations.NO_TELEPORT);
+            return true;
+        }
+        if (!(entity instanceof LivingEntity living) || !living.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) return false;
+        if (caster != null) {
+            caster.sendSystemMessage(AMTranslations.NO_TELEPORT_OTHER);
         }
         return true;
     }

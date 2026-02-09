@@ -7,9 +7,6 @@
     "count": 1,
     "id": "minecraft:wheat"
   },
-  "directions": [
-    "down"
-  ],
   "growth_type": {
     "type": "arsmagicalegacy:crop"
   },
@@ -32,9 +29,5 @@
   "seed": {
     "count": 1,
     "id": "minecraft:wheat_seeds"
-  },
-  "soil": {
-    "block": "minecraft:farmland",
-    "predicate_type": "minecraft:block_match"
   }
 }

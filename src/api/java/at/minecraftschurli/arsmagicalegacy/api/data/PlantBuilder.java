@@ -9,9 +9,9 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.neoforged.neoforge.common.conditions.ICondition;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.SequencedMap;
 
 /**
  * Builder class for {@link Plant}s, for use in {@link PlantProvider}. Get an instance via {@link PlantProvider#builder(String, GrowthType, ItemStack, ItemStack, RuleTest)}.
@@ -22,7 +22,7 @@ public class PlantBuilder extends AbstractDataProvider.Builder<Plant> {
     private final ItemStack seed;
     private final ItemStack crop;
     private final RuleTest allStates;
-    private final Map<BlockState, BlockState> harvestStates = new HashMap<>();
+    private final SequencedMap<BlockState, BlockState> harvestStates = new LinkedHashMap<>();
 
     /**
      * @param id         The id of the plant.

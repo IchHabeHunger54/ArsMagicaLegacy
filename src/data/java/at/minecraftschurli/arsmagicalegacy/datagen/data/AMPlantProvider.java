@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.datagen.data;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.data.PlantProvider;
 import at.minecraftschurli.arsmagicalegacy.plant.CropGrowthType;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.ItemStack;
@@ -27,7 +28,11 @@ public final class AMPlantProvider extends PlantProvider {
         builder("carrots", new CropGrowthType(), new ItemStack(Items.CARROT), new ItemStack(Items.CARROT), new BlockMatchTest(Blocks.CARROTS))
             .harvest(Blocks.CARROTS.defaultBlockState().setValue(BlockStateProperties.AGE_7, 7), Blocks.CARROTS.defaultBlockState());
         //TODO chorus
-        //TODO cocoa beans
+        builder("cocoa", new CropGrowthType(), new ItemStack(Items.COCOA_BEANS), new ItemStack(Items.COCOA_BEANS), new BlockMatchTest(Blocks.COCOA))
+            .harvest(Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH).setValue(BlockStateProperties.AGE_2, 2), Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH).setValue(BlockStateProperties.AGE_2, 0))
+            .harvest(Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST).setValue(BlockStateProperties.AGE_2, 2), Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST).setValue(BlockStateProperties.AGE_2, 0))
+            .harvest(Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH).setValue(BlockStateProperties.AGE_2, 2), Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH).setValue(BlockStateProperties.AGE_2, 0))
+            .harvest(Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST).setValue(BlockStateProperties.AGE_2, 2), Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST).setValue(BlockStateProperties.AGE_2, 0));
         //TODO glow berries
         //TODO kelp
         //TODO melon

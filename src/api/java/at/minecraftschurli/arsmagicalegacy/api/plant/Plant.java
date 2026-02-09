@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.neoforged.neoforge.common.conditions.ICondition;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +33,7 @@ public record Plant(List<ICondition> conditions, GrowthType growthType, ItemStac
         ItemStack.OPTIONAL_CODEC.optionalFieldOf("crop", ItemStack.EMPTY).forGetter(Plant::crop),
         RuleTest.CODEC.fieldOf("all_states").forGetter(Plant::allStates),
         HarvestState.CODEC.listOf().<Map<BlockState, BlockState>>xmap(
-            list -> Util.make(new HashMap<>(), map -> list.forEach(pair -> map.put(pair.from(), pair.to()))),
+            list -> Util.make(new LinkedHashMap<>(), map -> list.forEach(pair -> map.put(pair.from(), pair.to()))),
             map -> map.entrySet().stream().map(entry -> new HarvestState(entry.getKey(), entry.getValue())).toList()
         ).fieldOf("harvest_states").forGetter(Plant::harvestStates)
     ).apply(inst, Plant::new));

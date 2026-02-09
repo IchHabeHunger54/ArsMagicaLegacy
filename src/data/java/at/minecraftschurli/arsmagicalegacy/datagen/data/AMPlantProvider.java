@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.data.PlantProvider;
+import at.minecraftschurli.arsmagicalegacy.plant.BushGrowthType;
 import at.minecraftschurli.arsmagicalegacy.plant.CropGrowthType;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -40,7 +41,9 @@ public final class AMPlantProvider extends PlantProvider {
         builder("potatoes", new CropGrowthType(), new ItemStack(Items.POTATO), new ItemStack(Items.POTATO), new BlockMatchTest(Blocks.POTATOES))
             .harvest(Blocks.POTATOES.defaultBlockState().setValue(BlockStateProperties.AGE_7, 7), Blocks.POTATOES.defaultBlockState());
         //TODO pumpkin
-        //TODO sweet berries
+        builder("sweet_berry_bush", new BushGrowthType(), new ItemStack(Items.SWEET_BERRIES), new ItemStack(Items.SWEET_BERRIES), new BlockMatchTest(Blocks.SWEET_BERRY_BUSH))
+            .harvest(Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_3, 2), Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_3, 1))
+            .harvest(Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_3, 1));
         builder("torchflower", new CropGrowthType(), new ItemStack(Items.TORCHFLOWER_SEEDS), new ItemStack(Items.TORCHFLOWER), new BlockMatchTest(Blocks.TORCHFLOWER_CROP))
             .harvest(Blocks.TORCHFLOWER.defaultBlockState(), Blocks.AIR.defaultBlockState());
         //TODO vines

@@ -1,0 +1,32 @@
+{
+  "all_states": {
+    "block": "minecraft:torchflower_crop",
+    "predicate_type": "minecraft:block_match"
+  },
+  "crop": {
+    "count": 1,
+    "id": "minecraft:torchflower"
+  },
+  "directions": [],
+  "growth_type": {
+    "type": "arsmagicalegacy:crop"
+  },
+  "harvest_states": [
+    {
+      "from": {
+        "Name": "minecraft:torchflower"
+      },
+      "to": {
+        "Name": "minecraft:air"
+      }
+    }
+  ],
+  "seed": {
+    "count": 1,
+    "id": "minecraft:torchflower_seeds"
+  },
+  "soil": {
+    "block": "minecraft:farmland",
+    "predicate_type": "minecraft:block_match"
+  }
+}

@@ -8,6 +8,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
@@ -23,7 +24,7 @@ public abstract class PlantProvider extends AbstractDataProvider<Plant, PlantBui
         super(PackOutput.Target.DATA_PACK, ArsMagicaApi.MOD_ID + "/plant", "Plant", Plant.CODEC, output, lookupProvider, modId);
     }
 
-    public PlantBuilder builder(String name, GrowthType growthType, Item seed, Item crop, RuleTest soil, RuleTest allStates, Direction... directions) {
+    public PlantBuilder builder(String name, GrowthType growthType, ItemStack seed, ItemStack crop, RuleTest soil, RuleTest allStates, Direction... directions) {
         PlantBuilder builder = new PlantBuilder(ResourceLocation.fromNamespaceAndPath(modId, name), growthType, seed, crop, soil, allStates, directions);
         add(builder);
         return builder;

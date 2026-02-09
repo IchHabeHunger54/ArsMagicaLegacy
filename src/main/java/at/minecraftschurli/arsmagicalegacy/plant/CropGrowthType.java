@@ -53,7 +53,7 @@ public record CropGrowthType() implements GrowthType {
 
     @Override
     public boolean canReplant(GrowthContext context) {
-        return true;
+        return !context.plant().seed().isEmpty();
     }
 
     @Override

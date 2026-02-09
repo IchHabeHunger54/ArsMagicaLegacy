@@ -26,11 +26,11 @@ public class PlantBuilder extends AbstractDataProvider.Builder<Plant> {
     private final RuleTest allStates;
     private final Map<BlockState, BlockState> harvestStates = new HashMap<>();
 
-    public PlantBuilder(ResourceLocation id, GrowthType growthType, Item seed, Item crop, RuleTest soil, RuleTest allStates, Direction... directions) {
+    public PlantBuilder(ResourceLocation id, GrowthType growthType, ItemStack seed, ItemStack crop, RuleTest soil, RuleTest allStates, Direction... directions) {
         super(id);
         this.growthType = growthType;
-        this.seed = new ItemStack(seed);
-        this.crop = new ItemStack(crop);
+        this.seed = seed;
+        this.crop = crop;
         this.soil = soil;
         this.directions = Set.of(directions);
         this.allStates = allStates;

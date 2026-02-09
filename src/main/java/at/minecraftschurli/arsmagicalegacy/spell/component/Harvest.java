@@ -33,7 +33,7 @@ public class Harvest extends SpellComponent.CastBlock {
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
         if (state.getBlock() instanceof GameMasterBlock && !player.canUseGameMasterBlocks() || player.blockActionRestricted(level, pos, player.gameMode.getGameModeForPlayer())) return spell;
-        for (Plant plant : AMUtil.getPlants(state)) {
+        for (Plant plant : AMUtil.getPlants(serverLevel, state)) {
             GrowthContext context = plant.createContext(player, serverLevel, pos, state);
             if (!plant.growthType().canHarvest(context)) continue;
             plant.growthType().harvest(context).forEach(stack -> {

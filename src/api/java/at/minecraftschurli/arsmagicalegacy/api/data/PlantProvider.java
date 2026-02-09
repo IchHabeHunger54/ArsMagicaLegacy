@@ -3,17 +3,18 @@ package at.minecraftschurli.arsmagicalegacy.api.data;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
 import at.minecraftschurli.arsmagicalegacy.api.plant.Plant;
-import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Data provider for {@link Plant}s.
+ */
 public abstract class PlantProvider extends AbstractDataProvider<Plant, PlantBuilder> {
     /**
      * @param output         The {@link PackOutput} to use. Get this from {@link GatherDataEvent}.
@@ -24,8 +25,18 @@ public abstract class PlantProvider extends AbstractDataProvider<Plant, PlantBui
         super(PackOutput.Target.DATA_PACK, ArsMagicaApi.MOD_ID + "/plant", "Plant", Plant.CODEC, output, lookupProvider, modId);
     }
 
-    public PlantBuilder builder(String name, GrowthType growthType, ItemStack seed, ItemStack crop, RuleTest soil, RuleTest allStates, Direction... directions) {
-        PlantBuilder builder = new PlantBuilder(ResourceLocation.fromNamespaceAndPath(modId, name), growthType, seed, crop, soil, allStates, directions);
+    /**
+     * Creates and adds a new {@link PlantBuilder}.
+     *
+     * @param name       The name of the plant.
+     * @param growthType The {@link GrowthType} of the plant.
+     * @param seed       The seed {@link ItemStack} of the plant.
+     * @param crop       The crop {@link ItemStack} of the plant.
+     * @param allStates  A {@link RuleTest} for all states of the plant.
+     * @return The new {@link PlantBuilder}.
+     */
+    public PlantBuilder builder(String name, GrowthType growthType, ItemStack seed, ItemStack crop, RuleTest allStates) {
+        PlantBuilder builder = new PlantBuilder(ResourceLocation.fromNamespaceAndPath(modId, name), growthType, seed, crop, allStates);
         add(builder);
         return builder;
     }

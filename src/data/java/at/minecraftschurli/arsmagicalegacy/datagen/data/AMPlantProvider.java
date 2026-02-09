@@ -37,6 +37,8 @@ public final class AMPlantProvider extends PlantProvider {
         //TODO glow berries
         //TODO kelp
         //TODO melon
+        builder("nether_wart", new CropGrowthType(), new ItemStack(Items.NETHER_WART), new ItemStack(Items.NETHER_WART), new BlockMatchTest(Blocks.NETHER_WART))
+            .harvest(Blocks.NETHER_WART.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), Blocks.NETHER_WART.defaultBlockState().setValue(BlockStateProperties.AGE_3, 0));
         //TODO pitcher plant
         builder("potatoes", new CropGrowthType(), new ItemStack(Items.POTATO), new ItemStack(Items.POTATO), new BlockMatchTest(Blocks.POTATOES))
             .harvest(Blocks.POTATOES.defaultBlockState().setValue(BlockStateProperties.AGE_7, 7), Blocks.POTATOES.defaultBlockState());

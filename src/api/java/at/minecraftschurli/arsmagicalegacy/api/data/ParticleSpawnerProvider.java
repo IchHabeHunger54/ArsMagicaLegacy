@@ -10,6 +10,10 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Data provider for {@link ParticleSpawner}s. Override {@link ParticleSpawnerProvider#generate(HolderLookup.Provider)} to generate your entries,
+ * and use {@link ParticleSpawnerProvider#builder(ResourceLocation, ParticleOptions, int, int)} or {@link ParticleSpawnerProvider#builder(ResourceLocation, ParticleOptions, int, int, int)} to create a new {@link ParticleSpawnerBuilder}.
+ */
 public abstract class ParticleSpawnerProvider extends AbstractDataProvider<ParticleSpawner, ParticleSpawnerBuilder> {
     /**
      * @param output         The {@link PackOutput} to use. Get this from {@link GatherDataEvent}.
@@ -21,12 +25,14 @@ public abstract class ParticleSpawnerProvider extends AbstractDataProvider<Parti
     }
 
     /**
+     * Creates and adds a new {@link ParticleSpawnerBuilder}.
+     *
      * @param id          The id of the {@link ParticleSpawner}.
      * @param particle    The spawned particles' {@link ParticleOptions}.
      * @param count       The spawned particle count.
      * @param minLifetime The min lifetime of the spawned particles.
      * @param maxLifetime The max lifetime of the spawned particles.
-     * @return A new {@link ParticleSpawnerBuilder}.
+     * @return The new {@link ParticleSpawnerBuilder}.
      */
     public ParticleSpawnerBuilder builder(ResourceLocation id, ParticleOptions particle, int count, int minLifetime, int maxLifetime) {
         ParticleSpawnerBuilder builder = new ParticleSpawnerBuilder(id, particle, count, minLifetime, maxLifetime);
@@ -35,11 +41,13 @@ public abstract class ParticleSpawnerProvider extends AbstractDataProvider<Parti
     }
 
     /**
+     * Creates and adds a new {@link ParticleSpawnerBuilder}.
+     *
      * @param id       The id of the {@link ParticleSpawner}.
      * @param particle The spawned particles' {@link ParticleOptions}.
      * @param count    The spawned particle count.
      * @param lifetime The lifetime of the spawned particles.
-     * @return A new {@link ParticleSpawnerBuilder}.
+     * @return The new {@link ParticleSpawnerBuilder}.
      */
     public ParticleSpawnerBuilder builder(ResourceLocation id, ParticleOptions particle, int count, int lifetime) {
         ParticleSpawnerBuilder builder = new ParticleSpawnerBuilder(id, particle, count, lifetime);

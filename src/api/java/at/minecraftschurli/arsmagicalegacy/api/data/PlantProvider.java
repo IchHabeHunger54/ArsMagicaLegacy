@@ -13,7 +13,8 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Data provider for {@link Plant}s.
+ * Data provider for {@link Plant}s. Override {@link PlantProvider#generate(HolderLookup.Provider)} to generate your entries,
+ * and use {@link PlantProvider#builder(String, GrowthType, ItemStack, ItemStack, RuleTest)} to create a new {@link PlantBuilder}.
  */
 public abstract class PlantProvider extends AbstractDataProvider<Plant, PlantBuilder> {
     /**

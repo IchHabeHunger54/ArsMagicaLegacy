@@ -11,7 +11,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Datagen helper to generate {@link SpellPartData}. Override {@link SpellPartDataProvider#generate(HolderLookup.Provider)} to generate your entries,
+ * Data provider for {@link SpellPartData}. Override {@link SpellPartDataProvider#generate(HolderLookup.Provider)} to generate your entries,
  * and use {@link SpellPartDataProvider#builder(DeferredHolder, double)} to create a new {@link SpellPartDataBuilder}.
  */
 public abstract class SpellPartDataProvider extends AbstractDataProvider<SpellPartData, SpellPartDataBuilder> {
@@ -25,9 +25,11 @@ public abstract class SpellPartDataProvider extends AbstractDataProvider<SpellPa
     }
 
     /**
+     * Creates and adds a new {@link SpellPartDataBuilder}.
+     *
      * @param part The {@link SpellPart} to generate data for.
      * @param mana The mana cost of the {@link SpellPart}.
-     * @return A new {@link SpellPartDataBuilder}.
+     * @return The new {@link SpellPartDataBuilder}.
      */
     public SpellPartDataBuilder builder(DeferredHolder<SpellPart, ?> part, double mana) {
         SpellPartDataBuilder builder = new SpellPartDataBuilder(part.getId(), mana);

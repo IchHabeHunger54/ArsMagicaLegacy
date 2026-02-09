@@ -16,7 +16,8 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Data provider for tool tiers. In Ars Magica: Legacy, all a tool tier entails is an int -> incorrect blocks tag mapping.
+ * Data provider for tool tiers. In Ars Magica: Legacy, all a tool tier entails is an int -> incorrect block tag mapping. Override {@link ToolTierProvider#generate()} to generate your entries,
+ * and use {@link ToolTierProvider#add(int, TagKey)} or {@link ToolTierProvider#add(int, ResourceLocation)} to add a new tool tier.
  */
 public abstract class ToolTierProvider implements DataProvider {
     private static final String PATH = "tool_tiers.json";

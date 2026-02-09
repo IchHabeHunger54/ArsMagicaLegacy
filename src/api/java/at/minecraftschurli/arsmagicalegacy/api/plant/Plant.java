@@ -24,8 +24,8 @@ public record Plant(List<ICondition> conditions, GrowthType growthType, ItemStac
     public static final Codec<Plant> CODEC = RecordCodecBuilder.create(inst -> inst.group(
         ICondition.LIST_CODEC.optionalFieldOf("conditions", List.of()).forGetter(Plant::conditions),
         GrowthType.CODEC.fieldOf("growth_type").forGetter(Plant::growthType),
-        ItemStack.CODEC.fieldOf("seed").forGetter(Plant::seed),
-        ItemStack.CODEC.fieldOf("crop").forGetter(Plant::crop),
+        ItemStack.OPTIONAL_CODEC.optionalFieldOf("seed", ItemStack.EMPTY).forGetter(Plant::seed),
+        ItemStack.OPTIONAL_CODEC.optionalFieldOf("crop", ItemStack.EMPTY).forGetter(Plant::crop),
         RuleTest.CODEC.fieldOf("soil").forGetter(Plant::soil),
         Direction.CODEC.listOf().xmap(Set::copyOf, List::copyOf).fieldOf("directions").forGetter(Plant::directions),
         RuleTest.CODEC.fieldOf("all_states").forGetter(Plant::allStates),

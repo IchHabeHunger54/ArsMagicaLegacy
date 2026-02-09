@@ -26,12 +26,12 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -72,6 +72,7 @@ import java.util.stream.Collector;
 
 public final class AMUtil {
     public static final ResourceLocation MISSINGNO = ResourceLocation.withDefaultNamespace("missingno");
+    private static final RandomSource RANDOM = RandomSource.create();
 
     private AMUtil() {
     }
@@ -215,11 +216,14 @@ public final class AMUtil {
         return hitResult;
     }
 
-    public static List<Plant> getPlants(ServerLevel level, BlockState state) {
+    public static List<Plant> getPlants(BlockState state) {
         return PlantManager.INSTANCE.getAll()
             .values()
             .stream()
-            .filter(plant -> plant.allStates().test(state, level.getRandom()))
+            .filter(plant -> {
+                RANDOM.setSeed(42);
+                return plant.allStates().test(state, RANDOM);
+            })
             .toList();
     }
 

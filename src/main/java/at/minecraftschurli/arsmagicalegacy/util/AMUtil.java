@@ -26,6 +26,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -214,11 +215,11 @@ public final class AMUtil {
         return hitResult;
     }
 
-    public static List<Plant> getPlants(BlockState state) {
+    public static List<Plant> getPlants(ServerLevel level, BlockState state) {
         return PlantManager.INSTANCE.getAll()
             .values()
             .stream()
-            .filter(plant -> plant.harvestStates().containsKey(state))
+            .filter(plant -> plant.allStates().test(state, level.getRandom()))
             .toList();
     }
 

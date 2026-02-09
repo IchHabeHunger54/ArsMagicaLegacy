@@ -1,0 +1,33 @@
+{
+  "all_states": {
+    "block": "minecraft:nether_wart",
+    "predicate_type": "minecraft:block_match"
+  },
+  "crop": {
+    "count": 1,
+    "id": "minecraft:nether_wart"
+  },
+  "growth_type": {
+    "type": "arsmagicalegacy:crop"
+  },
+  "harvest_states": [
+    {
+      "from": {
+        "Name": "minecraft:nether_wart",
+        "Properties": {
+          "age": "3"
+        }
+      },
+      "to": {
+        "Name": "minecraft:nether_wart",
+        "Properties": {
+          "age": "0"
+        }
+      }
+    }
+  ],
+  "seed": {
+    "count": 1,
+    "id": "minecraft:nether_wart"
+  }
+}

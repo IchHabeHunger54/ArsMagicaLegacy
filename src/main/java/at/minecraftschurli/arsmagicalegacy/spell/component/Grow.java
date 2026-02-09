@@ -32,7 +32,7 @@ public class Grow extends SpellComponent.CastBlock {
         ServerPlayer player = caster instanceof ServerPlayer p ? p : FakePlayerFactory.get(serverLevel, GAME_PROFILE);
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
-        for (Plant plant : AMUtil.getPlants(serverLevel, state)) {
+        for (Plant plant : AMUtil.getPlants(state)) {
             GrowthContext context = plant.createContext(player, serverLevel, pos, state);
             if (plant.growthType().canGrow(context)) {
                 plant.growthType().grow(context);

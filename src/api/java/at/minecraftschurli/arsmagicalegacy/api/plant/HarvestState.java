@@ -4,6 +4,12 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.world.level.block.state.BlockState;
 
+/**
+ * Represents a harvesting transition, mainly used for serialization.
+ *
+ * @param from The old {@link BlockState}.
+ * @param to   The new {@link BlockState}.
+ */
 public record HarvestState(BlockState from, BlockState to) {
     public static final Codec<HarvestState> CODEC = RecordCodecBuilder.create(inst -> inst.group(
         BlockState.CODEC.fieldOf("from").forGetter(HarvestState::from),

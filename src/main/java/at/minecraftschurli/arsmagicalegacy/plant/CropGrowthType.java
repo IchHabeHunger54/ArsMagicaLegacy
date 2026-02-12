@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import java.util.List;
 
@@ -34,6 +35,8 @@ public record CropGrowthType() implements GrowthType {
         BlockState state = context.state();
         if (state.getBlock() instanceof BonemealableBlock block) {
             block.performBonemeal(level, level.getRandom(), context.pos(), state);
+        } else {
+            increaseAge(context);
         }
     }
 

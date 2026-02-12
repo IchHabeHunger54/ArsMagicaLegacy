@@ -36,6 +36,8 @@ public record BushGrowthType() implements GrowthType {
         BlockState state = context.state();
         if (state.getBlock() instanceof BonemealableBlock block) {
             block.performBonemeal(level, level.getRandom(), context.pos(), state);
+        } else {
+            increaseAge(context);
         }
     }
 

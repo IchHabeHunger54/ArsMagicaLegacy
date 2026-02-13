@@ -14,7 +14,7 @@ public interface BonemealableGrowthType extends GrowthType {
     @Override
     default boolean canGrow(GrowthContext context) {
         if (canHarvest(context)) return false;
-        if (hasAge(context)) return true;
+        if (hasNonFullAge(context)) return true;
         BlockState state = context.state();
         return state.getBlock() instanceof BonemealableBlock block && block.isValidBonemealTarget(context.level(), context.pos(), state);
     }
@@ -32,18 +32,18 @@ public interface BonemealableGrowthType extends GrowthType {
 
     /**
      * @param context The {@link GrowthContext} to use.
-     * @return Whether the plant has an age property.
+     * @return Whether the plant has an age property that is not full, i.e., can still grow.
      */
-    default boolean hasAge(GrowthContext context) {
+    default boolean hasNonFullAge(GrowthContext context) {
         BlockState state = context.state();
-        return state.hasProperty(BlockStateProperties.AGE_1)
-            || state.hasProperty(BlockStateProperties.AGE_2)
-            || state.hasProperty(BlockStateProperties.AGE_3)
-            || state.hasProperty(BlockStateProperties.AGE_4)
-            || state.hasProperty(BlockStateProperties.AGE_5)
-            || state.hasProperty(BlockStateProperties.AGE_7)
-            || state.hasProperty(BlockStateProperties.AGE_15)
-            || state.hasProperty(BlockStateProperties.AGE_25);
+        return state.hasProperty(BlockStateProperties.AGE_1) && state.getValue(BlockStateProperties.AGE_1) < 1
+            || state.hasProperty(BlockStateProperties.AGE_2) && state.getValue(BlockStateProperties.AGE_2) < 2
+            || state.hasProperty(BlockStateProperties.AGE_3) && state.getValue(BlockStateProperties.AGE_3) < 3
+            || state.hasProperty(BlockStateProperties.AGE_4) && state.getValue(BlockStateProperties.AGE_4) < 4
+            || state.hasProperty(BlockStateProperties.AGE_5) && state.getValue(BlockStateProperties.AGE_5) < 5
+            || state.hasProperty(BlockStateProperties.AGE_7) && state.getValue(BlockStateProperties.AGE_7) < 7
+            || state.hasProperty(BlockStateProperties.AGE_15) && state.getValue(BlockStateProperties.AGE_15) < 15
+            || state.hasProperty(BlockStateProperties.AGE_25) && state.getValue(BlockStateProperties.AGE_25) < 25;
     }
 
     /**

@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.worldgen.BlockStatePropertyMatchTest;
 import at.minecraftschurli.arsmagicalegacy.worldgen.MeteoriteFeature;
 import at.minecraftschurli.arsmagicalegacy.worldgen.SunstoneOreFeature;
 import net.minecraft.core.registries.Registries;
@@ -9,6 +10,7 @@ import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTestType;
 import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -66,6 +68,9 @@ public interface AMWorldgen {
     DeferredHolder<Feature<?>, MeteoriteFeature>   METEORITE    = FEATURES.register("meteorite",    MeteoriteFeature::new);
     DeferredHolder<Feature<?>, SunstoneOreFeature> SUNSTONE_ORE = FEATURES.register("sunstone_ore", SunstoneOreFeature::new);
     // @formatter:on
+
+    DeferredRegister<RuleTestType<?>> RULE_TESTS = DeferredRegister.create(Registries.RULE_TEST, ArsMagicaApi.MOD_ID);
+    DeferredHolder<RuleTestType<?>, RuleTestType<BlockStatePropertyMatchTest>> BLOCK_STATE_PROPERTY = RULE_TESTS.register("block_state_property", () -> () -> BlockStatePropertyMatchTest.CODEC);
 
     /**
      * @param name The name of the {@link ResourceKey}.

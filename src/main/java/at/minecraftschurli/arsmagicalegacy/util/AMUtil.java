@@ -47,6 +47,7 @@ import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -233,6 +234,10 @@ public final class AMUtil {
             .stream()
             .filter(plant -> doRuleTest(plant.allStates(), state))
             .toList();
+    }
+
+    public static <T extends Comparable<T>> String getPropertyValueName(Property<T> property, BlockState state) {
+        return property.getName(property.value(state.getValue(property)).value());
     }
 
     public static boolean handleLecternUse(Level level, BlockPos pos, BlockState state, LecternBlockEntity lectern, Player player, InteractionHand hand) {

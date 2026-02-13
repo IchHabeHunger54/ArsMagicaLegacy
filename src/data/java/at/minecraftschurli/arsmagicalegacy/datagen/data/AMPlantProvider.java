@@ -6,8 +6,10 @@ import at.minecraftschurli.arsmagicalegacy.api.plant.HarvestState;
 import at.minecraftschurli.arsmagicalegacy.api.plant.TallHarvestState;
 import at.minecraftschurli.arsmagicalegacy.plant.BushGrowthType;
 import at.minecraftschurli.arsmagicalegacy.plant.CropGrowthType;
+import at.minecraftschurli.arsmagicalegacy.plant.StemGrowthType;
 import at.minecraftschurli.arsmagicalegacy.plant.TallCropGrowthType;
 import at.minecraftschurli.arsmagicalegacy.worldgen.BlockStatePropertyMatchTest;
+import at.minecraftschurli.arsmagicalegacy.worldgen.CompositeMatchTest;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -55,7 +57,16 @@ public final class AMPlantProvider extends PlantProvider {
         )), new ItemStack(Items.COCOA_BEANS), new ItemStack(Items.COCOA_BEANS), new BlockMatchTest(Blocks.COCOA));
         //TODO glow berries
         //TODO kelp
-        //TODO melon
+        builder("melon", new StemGrowthType(
+            new BlockMatchTest(Blocks.MELON_STEM),
+            Blocks.ATTACHED_MELON_STEM,
+            Blocks.MELON.defaultBlockState(),
+            "age",
+            7), new ItemStack(Items.MELON_SEEDS), new ItemStack(Items.MELON), new CompositeMatchTest(List.of(
+            new BlockMatchTest(Blocks.MELON_STEM),
+            new BlockMatchTest(Blocks.ATTACHED_MELON_STEM),
+            new BlockMatchTest(Blocks.MELON)
+        )));
         builder("nether_wart", new CropGrowthType(List.of(new HarvestState(
             Blocks.NETHER_WART.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3),
             Blocks.NETHER_WART.defaultBlockState()
@@ -73,7 +84,17 @@ public final class AMPlantProvider extends PlantProvider {
             Blocks.POTATOES.defaultBlockState().setValue(BlockStateProperties.AGE_7, 7),
             Blocks.POTATOES.defaultBlockState()
         ))), new ItemStack(Items.POTATO), new ItemStack(Items.POTATO), new BlockMatchTest(Blocks.POTATOES));
-        //TODO pumpkin
+        builder("pumpkin", new StemGrowthType(
+            new BlockMatchTest(Blocks.PUMPKIN_STEM),
+            Blocks.ATTACHED_PUMPKIN_STEM,
+            Blocks.PUMPKIN.defaultBlockState(),
+            "age",
+            7), new ItemStack(Items.PUMPKIN_SEEDS), new ItemStack(Items.PUMPKIN), new CompositeMatchTest(List.of(
+            new BlockMatchTest(Blocks.PUMPKIN_STEM),
+            new BlockMatchTest(Blocks.ATTACHED_PUMPKIN_STEM),
+            new BlockMatchTest(Blocks.PUMPKIN)
+        )));
+        //TODO sugar cane
         builder("sweet_berry_bush", new BushGrowthType(List.of(
             Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_3, 2),
             Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3)

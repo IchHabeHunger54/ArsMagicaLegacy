@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.worldgen.BlockStatePropertyMatchTest;
+import at.minecraftschurli.arsmagicalegacy.worldgen.CompositeMatchTest;
 import at.minecraftschurli.arsmagicalegacy.worldgen.MeteoriteFeature;
 import at.minecraftschurli.arsmagicalegacy.worldgen.SunstoneOreFeature;
 import net.minecraft.core.registries.Registries;
@@ -70,7 +71,10 @@ public interface AMWorldgen {
     // @formatter:on
 
     DeferredRegister<RuleTestType<?>> RULE_TESTS = DeferredRegister.create(Registries.RULE_TEST, ArsMagicaApi.MOD_ID);
+    // @formatter:off
     DeferredHolder<RuleTestType<?>, RuleTestType<BlockStatePropertyMatchTest>> BLOCK_STATE_PROPERTY = RULE_TESTS.register("block_state_property", () -> () -> BlockStatePropertyMatchTest.CODEC);
+    DeferredHolder<RuleTestType<?>, RuleTestType<CompositeMatchTest>>          COMPOSITE            = RULE_TESTS.register("composite",            () -> () -> CompositeMatchTest.CODEC);
+    // @formatter:on
 
     /**
      * @param name The name of the {@link ResourceKey}.

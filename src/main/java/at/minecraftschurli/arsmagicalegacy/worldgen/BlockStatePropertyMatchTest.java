@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.worldgen;
 
 import at.minecraftschurli.arsmagicalegacy.init.AMWorldgen;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
@@ -33,7 +34,7 @@ public class BlockStatePropertyMatchTest extends RuleTest {
         this.properties = state.getProperties()
             .stream()
             .filter(p -> isBlacklist != whitelist.contains(p))
-            .map(p -> Pair.of(p.getName(), valueName(p, state)))
+            .map(p -> Pair.of(p.getName(), AMUtil.getPropertyValueName(p, state)))
             .toList();
     }
 
@@ -58,7 +59,7 @@ public class BlockStatePropertyMatchTest extends RuleTest {
             return stateProperties.stream()
                 .filter(e -> e.getName().equals(name))
                 .findFirst()
-                .filter(property -> valueName(property, state).equals(value))
+                .filter(property -> AMUtil.getPropertyValueName(property, state).equals(value))
                 .isPresent();
         });
     }
@@ -66,9 +67,5 @@ public class BlockStatePropertyMatchTest extends RuleTest {
     @Override
     protected RuleTestType<?> getType() {
         return AMWorldgen.BLOCK_STATE_PROPERTY.get();
-    }
-
-    private static <T extends Comparable<T>> String valueName(Property<T> property, BlockState state) {
-        return property.getName(property.value(state.getValue(property)).value());
     }
 }

@@ -26,6 +26,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -153,6 +154,10 @@ public final class AMUtil {
             caster.sendSystemMessage(AMTranslations.NO_TELEPORT_OTHER);
         }
         return true;
+    }
+
+    public static List<ItemStack> destroyBlockAndGetDrops(ServerLevel level, BlockPos pos, BlockState state, Player player) {
+        return cancelDestroyBlock(level, pos, state, player) ? List.of() : Block.getDrops(state, level, pos, level.getBlockEntity(pos), player, ItemStack.EMPTY);
     }
 
     public static void doCompendiumConversion(ItemFrame itemFrame) {

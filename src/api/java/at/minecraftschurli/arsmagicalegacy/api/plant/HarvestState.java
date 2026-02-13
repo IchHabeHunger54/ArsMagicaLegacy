@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.world.level.block.state.BlockState;
 
 /**
- * Represents a harvesting transition, used by some {@link GrowthType}s.
+ * Represents the harvesting transition of a plant, used by some {@link GrowthType}s.
  *
  * @param from The old {@link BlockState}.
  * @param to   The new {@link BlockState}.

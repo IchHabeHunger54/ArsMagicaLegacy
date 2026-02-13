@@ -7,11 +7,7 @@ import at.minecraftschurli.arsmagicalegacy.api.plant.HarvestState;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
@@ -34,11 +30,7 @@ public record CropGrowthType(List<HarvestState> harvestStates) implements Boneme
 
     @Override
     public List<ItemStack> harvest(GrowthContext context) {
-        ServerPlayer player = context.player();
-        ServerLevel level = context.level();
-        BlockPos pos = context.pos();
-        BlockState state = context.state();
-        return AMUtil.cancelDestroyBlock(level, pos, state, player) ? List.of() : Block.getDrops(state, level, pos, level.getBlockEntity(pos), player, ItemStack.EMPTY);
+        return AMUtil.destroyBlockAndGetDrops(context.level(), context.pos(), context.state(), context.player());
     }
 
     @Override

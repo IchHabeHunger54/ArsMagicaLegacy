@@ -58,6 +58,7 @@ public final class ArsMagicaLegacy {
         AMMobEffects.POTIONS.register(bus);
         AMSounds.SOUND_EVENTS.register(bus);
         AMWorldgen.FEATURES.register(bus);
+        AMWorldgen.RULE_TESTS.register(bus);
         AMLoot.LOOT_CONDITIONS.register(bus);
         AMLoot.NUMBER_PROVIDERS.register(bus);
         AMRecipes.RECIPE_SERIALIZERS.register(bus);

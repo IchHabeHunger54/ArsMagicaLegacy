@@ -8,24 +8,24 @@
     "id": "minecraft:beetroot"
   },
   "growth_type": {
-    "type": "arsmagicalegacy:crop"
-  },
-  "harvest_states": [
-    {
-      "from": {
-        "Name": "minecraft:beetroots",
-        "Properties": {
-          "age": "3"
-        }
-      },
-      "to": {
-        "Name": "minecraft:beetroots",
-        "Properties": {
-          "age": "0"
+    "type": "arsmagicalegacy:crop",
+    "harvest_states": [
+      {
+        "from": {
+          "Name": "minecraft:beetroots",
+          "Properties": {
+            "age": "3"
+          }
+        },
+        "to": {
+          "Name": "minecraft:beetroots",
+          "Properties": {
+            "age": "0"
+          }
         }
       }
-    }
-  ],
+    ]
+  },
   "seed": {
     "count": 1,
     "id": "minecraft:beetroot_seeds"

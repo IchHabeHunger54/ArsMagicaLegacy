@@ -8,18 +8,18 @@
     "id": "minecraft:torchflower"
   },
   "growth_type": {
-    "type": "arsmagicalegacy:crop"
-  },
-  "harvest_states": [
-    {
-      "from": {
-        "Name": "minecraft:torchflower"
-      },
-      "to": {
-        "Name": "minecraft:air"
+    "type": "arsmagicalegacy:crop",
+    "harvest_states": [
+      {
+        "from": {
+          "Name": "minecraft:torchflower"
+        },
+        "to": {
+          "Name": "minecraft:air"
+        }
       }
-    }
-  ],
+    ]
+  },
   "seed": {
     "count": 1,
     "id": "minecraft:torchflower_seeds"

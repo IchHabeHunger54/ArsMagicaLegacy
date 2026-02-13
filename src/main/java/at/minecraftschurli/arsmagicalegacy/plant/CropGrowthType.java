@@ -3,8 +3,10 @@ package at.minecraftschurli.arsmagicalegacy.plant;
 import at.minecraftschurli.arsmagicalegacy.api.plant.BonemealableGrowthType;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthContext;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
+import at.minecraftschurli.arsmagicalegacy.api.plant.HarvestState;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -14,8 +16,10 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 
-public record CropGrowthType() implements BonemealableGrowthType {
-    public static final MapCodec<CropGrowthType> CODEC = MapCodec.unit(CropGrowthType::new);
+public record CropGrowthType(List<HarvestState> harvestStates) implements BonemealableGrowthType {
+    public static final MapCodec<CropGrowthType> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
+        HarvestState.CODEC.listOf().fieldOf("harvest_states").forGetter(CropGrowthType::harvestStates)
+    ).apply(inst, CropGrowthType::new));
 
     @Override
     public MapCodec<? extends GrowthType> codec() {
@@ -24,7 +28,8 @@ public record CropGrowthType() implements BonemealableGrowthType {
 
     @Override
     public boolean canHarvest(GrowthContext context) {
-        return context.plant().harvestStates().containsKey(context.state());
+        BlockState state = context.state();
+        return harvestStates.stream().map(HarvestState::from).anyMatch(e -> e == state);
     }
 
     @Override
@@ -43,6 +48,10 @@ public record CropGrowthType() implements BonemealableGrowthType {
 
     @Override
     public void replant(GrowthContext context) {
-        context.level().setBlockAndUpdate(context.pos(), context.plant().harvestStates().get(context.state()));
+        BlockState state = context.state();
+        harvestStates.stream()
+            .filter(e -> e.from() == state)
+            .findFirst()
+            .ifPresent(e -> context.level().setBlockAndUpdate(context.pos(), e.to()));
     }
 }

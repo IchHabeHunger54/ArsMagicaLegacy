@@ -8,24 +8,24 @@
     "id": "minecraft:wheat"
   },
   "growth_type": {
-    "type": "arsmagicalegacy:crop"
-  },
-  "harvest_states": [
-    {
-      "from": {
-        "Name": "minecraft:wheat",
-        "Properties": {
-          "age": "7"
-        }
-      },
-      "to": {
-        "Name": "minecraft:wheat",
-        "Properties": {
-          "age": "0"
+    "type": "arsmagicalegacy:crop",
+    "harvest_states": [
+      {
+        "from": {
+          "Name": "minecraft:wheat",
+          "Properties": {
+            "age": "7"
+          }
+        },
+        "to": {
+          "Name": "minecraft:wheat",
+          "Properties": {
+            "age": "0"
+          }
         }
       }
-    }
-  ],
+    ]
+  },
   "seed": {
     "count": 1,
     "id": "minecraft:wheat_seeds"

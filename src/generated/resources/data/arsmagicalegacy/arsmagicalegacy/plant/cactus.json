@@ -1,0 +1,18 @@
+{
+  "all_states": {
+    "block": "minecraft:cactus",
+    "predicate_type": "minecraft:block_match"
+  },
+  "crop": {
+    "count": 1,
+    "id": "minecraft:cactus"
+  },
+  "growth_type": {
+    "type": "arsmagicalegacy:upwards",
+    "max_height": 3
+  },
+  "seed": {
+    "count": 1,
+    "id": "minecraft:cactus"
+  }
+}

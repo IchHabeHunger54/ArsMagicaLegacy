@@ -3,19 +3,24 @@ package at.minecraftschurli.arsmagicalegacy.plant;
 import at.minecraftschurli.arsmagicalegacy.api.plant.BonemealableGrowthType;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthContext;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
+import at.minecraftschurli.arsmagicalegacy.api.plant.HarvestState;
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
-public record BushGrowthType() implements BonemealableGrowthType {
-    public static final MapCodec<BushGrowthType> CODEC = MapCodec.unit(BushGrowthType::new);
+public record BushGrowthType(List<BlockState> harvestStates) implements BonemealableGrowthType {
+    public static final MapCodec<BushGrowthType> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
+        BlockState.CODEC.listOf().fieldOf("harvest_states").forGetter(BushGrowthType::harvestStates)
+    ).apply(inst, BushGrowthType::new));
 
     @Override
     public MapCodec<? extends GrowthType> codec() {
@@ -24,7 +29,8 @@ public record BushGrowthType() implements BonemealableGrowthType {
 
     @Override
     public boolean canHarvest(GrowthContext context) {
-        return context.plant().harvestStates().containsKey(context.state());
+        BlockState state = context.state();
+        return harvestStates.stream().anyMatch(e -> e == state);
     }
 
     @Override

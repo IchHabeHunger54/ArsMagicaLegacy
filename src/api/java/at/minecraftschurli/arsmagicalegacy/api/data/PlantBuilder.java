@@ -22,7 +22,6 @@ public class PlantBuilder extends AbstractDataProvider.Builder<Plant> {
     private final ItemStack seed;
     private final ItemStack crop;
     private final RuleTest allStates;
-    private final SequencedMap<BlockState, BlockState> harvestStates = new LinkedHashMap<>();
 
     /**
      * @param id         The id of the plant.
@@ -50,20 +49,8 @@ public class PlantBuilder extends AbstractDataProvider.Builder<Plant> {
         return this;
     }
 
-    /**
-     * Adds a harvesting transition to the builder.
-     *
-     * @param from The old {@link BlockState}.
-     * @param to   The new {@link BlockState}.
-     * @return This builder, for chaining.
-     */
-    public PlantBuilder harvest(BlockState from, BlockState to) {
-        harvestStates.put(from, to);
-        return this;
-    }
-
     @Override
     public Plant build() {
-        return new Plant(conditions, growthType, seed, crop, allStates, harvestStates);
+        return new Plant(conditions, growthType, seed, crop, allStates);
     }
 }

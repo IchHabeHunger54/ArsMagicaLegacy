@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.data.PlantProvider;
+import at.minecraftschurli.arsmagicalegacy.api.plant.HarvestState;
 import at.minecraftschurli.arsmagicalegacy.plant.BushGrowthType;
 import at.minecraftschurli.arsmagicalegacy.plant.CropGrowthType;
 import net.minecraft.core.Direction;
@@ -13,6 +14,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public final class AMPlantProvider extends PlantProvider {
@@ -23,33 +25,41 @@ public final class AMPlantProvider extends PlantProvider {
     @Override
     public void generate(HolderLookup.Provider provider) {
         //TODO bamboo
-        builder("beetroots", new CropGrowthType(), new ItemStack(Items.BEETROOT_SEEDS), new ItemStack(Items.BEETROOT), new BlockMatchTest(Blocks.BEETROOTS))
-            .harvest(Blocks.BEETROOTS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), Blocks.BEETROOTS.defaultBlockState());
+        builder("beetroots", new CropGrowthType(List.of(
+            new HarvestState(Blocks.BEETROOTS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), Blocks.BEETROOTS.defaultBlockState())
+        )), new ItemStack(Items.BEETROOT_SEEDS), new ItemStack(Items.BEETROOT), new BlockMatchTest(Blocks.BEETROOTS));
         //TODO cactus (26.1 cactus flower)
-        builder("carrots", new CropGrowthType(), new ItemStack(Items.CARROT), new ItemStack(Items.CARROT), new BlockMatchTest(Blocks.CARROTS))
-            .harvest(Blocks.CARROTS.defaultBlockState().setValue(BlockStateProperties.AGE_7, 7), Blocks.CARROTS.defaultBlockState());
+        builder("carrots", new CropGrowthType(List.of(
+            new HarvestState(Blocks.CARROTS.defaultBlockState().setValue(BlockStateProperties.AGE_7, 7), Blocks.CARROTS.defaultBlockState())
+        )), new ItemStack(Items.CARROT), new ItemStack(Items.CARROT), new BlockMatchTest(Blocks.CARROTS));
         //TODO chorus
-        builder("cocoa", new CropGrowthType(), new ItemStack(Items.COCOA_BEANS), new ItemStack(Items.COCOA_BEANS), new BlockMatchTest(Blocks.COCOA))
-            .harvest(Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH).setValue(BlockStateProperties.AGE_2, 2), Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH).setValue(BlockStateProperties.AGE_2, 0))
-            .harvest(Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST).setValue(BlockStateProperties.AGE_2, 2), Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST).setValue(BlockStateProperties.AGE_2, 0))
-            .harvest(Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH).setValue(BlockStateProperties.AGE_2, 2), Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH).setValue(BlockStateProperties.AGE_2, 0))
-            .harvest(Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST).setValue(BlockStateProperties.AGE_2, 2), Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST).setValue(BlockStateProperties.AGE_2, 0));
+        builder("cocoa", new CropGrowthType(List.of(
+            new HarvestState(Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH).setValue(BlockStateProperties.AGE_2, 2), Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH).setValue(BlockStateProperties.AGE_2, 0)),
+            new HarvestState(Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST).setValue(BlockStateProperties.AGE_2, 2), Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST).setValue(BlockStateProperties.AGE_2, 0)),
+            new HarvestState(Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH).setValue(BlockStateProperties.AGE_2, 2), Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH).setValue(BlockStateProperties.AGE_2, 0)),
+            new HarvestState(Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST).setValue(BlockStateProperties.AGE_2, 2), Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST).setValue(BlockStateProperties.AGE_2, 0))
+        )), new ItemStack(Items.COCOA_BEANS), new ItemStack(Items.COCOA_BEANS), new BlockMatchTest(Blocks.COCOA));
         //TODO glow berries
         //TODO kelp
         //TODO melon
-        builder("nether_wart", new CropGrowthType(), new ItemStack(Items.NETHER_WART), new ItemStack(Items.NETHER_WART), new BlockMatchTest(Blocks.NETHER_WART))
-            .harvest(Blocks.NETHER_WART.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), Blocks.NETHER_WART.defaultBlockState().setValue(BlockStateProperties.AGE_3, 0));
+        builder("nether_wart", new CropGrowthType(List.of(
+            new HarvestState(Blocks.NETHER_WART.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), Blocks.NETHER_WART.defaultBlockState().setValue(BlockStateProperties.AGE_3, 0))
+        )), new ItemStack(Items.NETHER_WART), new ItemStack(Items.NETHER_WART), new BlockMatchTest(Blocks.NETHER_WART));
         //TODO pitcher plant
-        builder("potatoes", new CropGrowthType(), new ItemStack(Items.POTATO), new ItemStack(Items.POTATO), new BlockMatchTest(Blocks.POTATOES))
-            .harvest(Blocks.POTATOES.defaultBlockState().setValue(BlockStateProperties.AGE_7, 7), Blocks.POTATOES.defaultBlockState());
+        builder("potatoes", new CropGrowthType(List.of(
+            new HarvestState(Blocks.POTATOES.defaultBlockState().setValue(BlockStateProperties.AGE_7, 7), Blocks.POTATOES.defaultBlockState())
+        )), new ItemStack(Items.POTATO), new ItemStack(Items.POTATO), new BlockMatchTest(Blocks.POTATOES));
         //TODO pumpkin
-        builder("sweet_berry_bush", new BushGrowthType(), new ItemStack(Items.SWEET_BERRIES), new ItemStack(Items.SWEET_BERRIES), new BlockMatchTest(Blocks.SWEET_BERRY_BUSH))
-            .harvest(Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_3, 2), Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_3, 1))
-            .harvest(Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_3, 1));
-        builder("torchflower", new CropGrowthType(), new ItemStack(Items.TORCHFLOWER_SEEDS), new ItemStack(Items.TORCHFLOWER), new BlockMatchTest(Blocks.TORCHFLOWER_CROP))
-            .harvest(Blocks.TORCHFLOWER.defaultBlockState(), Blocks.AIR.defaultBlockState());
+        builder("sweet_berry_bush", new BushGrowthType(List.of(
+            Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_3, 2),
+            Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3)
+        )), new ItemStack(Items.SWEET_BERRIES), new ItemStack(Items.SWEET_BERRIES), new BlockMatchTest(Blocks.SWEET_BERRY_BUSH));
+        builder("torchflower", new CropGrowthType(List.of(
+            new HarvestState(Blocks.TORCHFLOWER.defaultBlockState(), Blocks.AIR.defaultBlockState())
+        )), new ItemStack(Items.TORCHFLOWER_SEEDS), new ItemStack(Items.TORCHFLOWER), new BlockMatchTest(Blocks.TORCHFLOWER_CROP));
         //TODO vines
-        builder("wheat", new CropGrowthType(), new ItemStack(Items.WHEAT_SEEDS), new ItemStack(Items.WHEAT), new BlockMatchTest(Blocks.WHEAT))
-            .harvest(Blocks.WHEAT.defaultBlockState().setValue(BlockStateProperties.AGE_7, 7), Blocks.WHEAT.defaultBlockState());
+        builder("wheat", new CropGrowthType(List.of(
+            new HarvestState(Blocks.WHEAT.defaultBlockState().setValue(BlockStateProperties.AGE_7, 7), Blocks.WHEAT.defaultBlockState())
+        )), new ItemStack(Items.WHEAT_SEEDS), new ItemStack(Items.WHEAT), new BlockMatchTest(Blocks.WHEAT));
     }
 }

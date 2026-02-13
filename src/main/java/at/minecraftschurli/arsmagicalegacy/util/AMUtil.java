@@ -46,6 +46,7 @@ import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
@@ -192,6 +193,11 @@ public final class AMUtil {
         }
     }
 
+    public static boolean doRuleTest(RuleTest test, BlockState state) {
+        RANDOM.setSeed(42);
+        return test.test(state, RANDOM);
+    }
+
     public static <A, B> BiConsumer<A, B> dropResult(BiFunction<A, B, ?> function) {
         return function::apply;
     }
@@ -220,10 +226,7 @@ public final class AMUtil {
         return PlantManager.INSTANCE.getAll()
             .values()
             .stream()
-            .filter(plant -> {
-                RANDOM.setSeed(42);
-                return plant.allStates().test(state, RANDOM);
-            })
+            .filter(plant -> doRuleTest(plant.allStates(), state))
             .toList();
     }
 

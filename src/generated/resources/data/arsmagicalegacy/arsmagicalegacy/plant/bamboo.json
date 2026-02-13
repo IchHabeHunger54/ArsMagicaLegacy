@@ -1,0 +1,27 @@
+{
+  "all_states": {
+    "predicate_type": "arsmagicalegacy:composite",
+    "rule_tests": [
+      {
+        "block": "minecraft:bamboo",
+        "predicate_type": "minecraft:block_match"
+      },
+      {
+        "block": "minecraft:bamboo_sapling",
+        "predicate_type": "minecraft:block_match"
+      }
+    ]
+  },
+  "crop": {
+    "count": 1,
+    "id": "minecraft:bamboo"
+  },
+  "growth_type": {
+    "type": "arsmagicalegacy:upwards",
+    "max_height": 16
+  },
+  "seed": {
+    "count": 1,
+    "id": "minecraft:bamboo"
+  }
+}

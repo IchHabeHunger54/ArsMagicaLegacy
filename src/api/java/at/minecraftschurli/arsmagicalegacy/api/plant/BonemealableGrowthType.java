@@ -21,9 +21,9 @@ public interface BonemealableGrowthType extends GrowthType {
 
     @Override
     default void grow(GrowthContext context) {
-        ServerLevel level = context.level();
         BlockState state = context.state();
         if (state.getBlock() instanceof BonemealableBlock block) {
+            ServerLevel level = context.level();
             block.performBonemeal(level, level.getRandom(), context.pos(), state);
         } else {
             increaseAge(context);

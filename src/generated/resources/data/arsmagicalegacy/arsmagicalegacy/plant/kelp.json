@@ -1,0 +1,33 @@
+{
+  "all_states": {
+    "predicate_type": "arsmagicalegacy:composite",
+    "rule_tests": [
+      {
+        "block": "minecraft:kelp",
+        "predicate_type": "minecraft:block_match"
+      },
+      {
+        "block": "minecraft:kelp_plant",
+        "predicate_type": "minecraft:block_match"
+      }
+    ]
+  },
+  "crop": {
+    "count": 1,
+    "id": "minecraft:kelp"
+  },
+  "growth_type": {
+    "type": "arsmagicalegacy:upwards",
+    "max_height": 26,
+    "top_state": {
+      "Name": "minecraft:kelp",
+      "Properties": {
+        "age": "25"
+      }
+    }
+  },
+  "seed": {
+    "count": 1,
+    "id": "minecraft:kelp"
+  }
+}

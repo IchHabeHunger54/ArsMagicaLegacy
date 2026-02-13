@@ -8,6 +8,7 @@ import at.minecraftschurli.arsmagicalegacy.plant.BushGrowthType;
 import at.minecraftschurli.arsmagicalegacy.plant.CropGrowthType;
 import at.minecraftschurli.arsmagicalegacy.plant.StemGrowthType;
 import at.minecraftschurli.arsmagicalegacy.plant.TallCropGrowthType;
+import at.minecraftschurli.arsmagicalegacy.plant.UpwardsGrowthType;
 import at.minecraftschurli.arsmagicalegacy.worldgen.BlockStatePropertyMatchTest;
 import at.minecraftschurli.arsmagicalegacy.worldgen.CompositeMatchTest;
 import net.minecraft.core.Direction;
@@ -30,12 +31,15 @@ public final class AMPlantProvider extends PlantProvider {
 
     @Override
     public void generate(HolderLookup.Provider provider) {
-        //TODO bamboo
+        builder("bamboo", new UpwardsGrowthType(1, 16), new ItemStack(Items.BAMBOO), new ItemStack(Items.BAMBOO), new CompositeMatchTest(List.of(
+            new BlockMatchTest(Blocks.BAMBOO),
+            new BlockMatchTest(Blocks.BAMBOO_SAPLING))));
         builder("beetroots", new CropGrowthType(List.of(new HarvestState(
             Blocks.BEETROOTS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3),
             Blocks.BEETROOTS.defaultBlockState()
         ))), new ItemStack(Items.BEETROOT_SEEDS), new ItemStack(Items.BEETROOT), new BlockMatchTest(Blocks.BEETROOTS));
-        //TODO cactus (26.1 cactus flower)
+        // TODO 26.1 cactus flower
+        builder("cactus", new UpwardsGrowthType(1, 3), new ItemStack(Items.CACTUS), new ItemStack(Items.CACTUS), new BlockMatchTest(Blocks.CACTUS));
         builder("carrots", new CropGrowthType(List.of(new HarvestState(
             Blocks.CARROTS.defaultBlockState().setValue(BlockStateProperties.AGE_7, 7),
             Blocks.CARROTS.defaultBlockState()
@@ -56,7 +60,9 @@ public final class AMPlantProvider extends PlantProvider {
                 Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST))
         )), new ItemStack(Items.COCOA_BEANS), new ItemStack(Items.COCOA_BEANS), new BlockMatchTest(Blocks.COCOA));
         //TODO glow berries
-        //TODO kelp
+        builder("kelp", new UpwardsGrowthType(1, 26, Blocks.KELP.defaultBlockState().setValue(BlockStateProperties.AGE_25, 25)), new ItemStack(Items.KELP), new ItemStack(Items.KELP), new CompositeMatchTest(List.of(
+            new BlockMatchTest(Blocks.KELP),
+            new BlockMatchTest(Blocks.KELP_PLANT))));
         builder("melon", new StemGrowthType(
             new BlockMatchTest(Blocks.MELON_STEM),
             Blocks.ATTACHED_MELON_STEM,
@@ -65,8 +71,7 @@ public final class AMPlantProvider extends PlantProvider {
             7), new ItemStack(Items.MELON_SEEDS), new ItemStack(Items.MELON), new CompositeMatchTest(List.of(
             new BlockMatchTest(Blocks.MELON_STEM),
             new BlockMatchTest(Blocks.ATTACHED_MELON_STEM),
-            new BlockMatchTest(Blocks.MELON)
-        )));
+            new BlockMatchTest(Blocks.MELON))));
         builder("nether_wart", new CropGrowthType(List.of(new HarvestState(
             Blocks.NETHER_WART.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3),
             Blocks.NETHER_WART.defaultBlockState()
@@ -92,9 +97,8 @@ public final class AMPlantProvider extends PlantProvider {
             7), new ItemStack(Items.PUMPKIN_SEEDS), new ItemStack(Items.PUMPKIN), new CompositeMatchTest(List.of(
             new BlockMatchTest(Blocks.PUMPKIN_STEM),
             new BlockMatchTest(Blocks.ATTACHED_PUMPKIN_STEM),
-            new BlockMatchTest(Blocks.PUMPKIN)
-        )));
-        //TODO sugar cane
+            new BlockMatchTest(Blocks.PUMPKIN))));
+        builder("sugar_cane", new UpwardsGrowthType(1, 3), new ItemStack(Items.SUGAR_CANE), new ItemStack(Items.SUGAR_CANE), new BlockMatchTest(Blocks.SUGAR_CANE));
         builder("sweet_berry_bush", new BushGrowthType(List.of(
             Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_3, 2),
             Blocks.SWEET_BERRY_BUSH.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3)

@@ -13,7 +13,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -23,7 +22,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 
 public record SpellTransformationRecipe(RuleTest ruleTest, Holder<SpellPart> spellPart, BlockState result) implements Recipe<SpellTransformationInput> {
-    private static final RandomSource RANDOM = RandomSource.create(42);
     public static final MapCodec<SpellTransformationRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
         RuleTest.CODEC.fieldOf("predicate").forGetter(SpellTransformationRecipe::ruleTest),
         ArsMagicaApi.spellPartRegistry().holderByNameCodec().fieldOf("spell_part").forGetter(SpellTransformationRecipe::spellPart),
@@ -38,8 +36,7 @@ public record SpellTransformationRecipe(RuleTest ruleTest, Holder<SpellPart> spe
     @SuppressWarnings("DataFlowIssue")
     @Override
     public boolean matches(SpellTransformationInput input, Level level) {
-        RANDOM.setSeed(42);
-        return ruleTest.test(input.state(), RANDOM) && input.spellPart().is(spellPart.getKey());
+        return AMUtil.doRuleTest(ruleTest, input.state()) && input.spellPart().is(spellPart.getKey());
     }
 
     @Override

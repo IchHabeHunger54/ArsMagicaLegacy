@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.api.spell;
 
-import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -16,7 +16,7 @@ import java.util.function.Function;
  * Represents a spell ingredient.
  */
 public interface SpellIngredient {
-    Codec<SpellIngredient> CODEC = Codec.lazyInitialized(() -> ArsMagicaApi.spellIngredientRegistry().byNameCodec().dispatch(SpellIngredient::codec, Function.identity()));
+    Codec<SpellIngredient> CODEC = Codec.lazyInitialized(() -> AMRegistries.SPELL_INGREDIENTS.byNameCodec().dispatch(SpellIngredient::codec, Function.identity()));
 
     /**
      * @return The registered {@link MapCodec} of the spell ingredient.

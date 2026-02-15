@@ -158,7 +158,7 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
         @SuppressWarnings("DataFlowIssue")
         public static Recipe of(Skill skill) {
             Registry<Skill> skills = AMRegistries.skills(true);
-            Registry<SpellPart> spellParts = ArsMagicaApi.spellPartRegistry();
+            Registry<SpellPart> spellParts = AMRegistries.SPELL_PARTS;
             SpellPart part = spellParts.get(skills.getKey(skill));
             SpellPartData data = part.getData();
             return new Recipe(skill, data.recipe(), data.affinityShifts(), ArsMagicaApi.spellHelper()

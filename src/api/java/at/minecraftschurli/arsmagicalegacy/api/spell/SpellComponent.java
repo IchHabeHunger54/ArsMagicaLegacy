@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.api.spell;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import com.google.common.collect.Sets;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -80,7 +81,7 @@ public abstract non-sealed class SpellComponent extends SpellPart {
     @SuppressWarnings("DataFlowIssue")
     public void spawnParticles(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         if (hitResult != null && hitResult.getType() != HitResult.Type.MISS) {
-            ArsMagicaApi.spellHelper().spawnParticles(ArsMagicaApi.spellPartRegistry().wrapAsHolder(this).getKey().location(), spell, modifiers, level, caster, directEntity, hitResult);
+            ArsMagicaApi.spellHelper().spawnParticles(AMRegistries.SPELL_PARTS.wrapAsHolder(this).getKey().location(), spell, modifiers, level, caster, directEntity, hitResult);
         }
     }
 

@@ -58,7 +58,7 @@ public final class AMJeiPlugin implements IModPlugin {
     public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
         List<Skill> list = AMRegistries.skills(true)
             .holders()
-            .filter(e -> ArsMagicaApi.spellPartRegistry().containsKey(e.getKey().location()))
+            .filter(e -> AMRegistries.SPELL_PARTS.containsKey(e.getKey().location()))
             .sorted(Comparator.comparing(e -> Skill.getName(e).getString()))
             .map(Holder::value)
             .toList();

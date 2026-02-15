@@ -3,11 +3,13 @@ package at.minecraftschurli.arsmagicalegacy.plant;
 import at.minecraftschurli.arsmagicalegacy.api.plant.BonemealableGrowthType;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthContext;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
-import at.minecraftschurli.arsmagicalegacy.api.plant.HarvestState;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -36,8 +38,17 @@ public record BushGrowthType(List<BlockState> harvestStates) implements Bonemeal
     @Override
     public List<ItemStack> harvest(GrowthContext context) {
         BlockPos pos = context.pos();
+        BlockState state = context.state();
+        ServerLevel level = context.level();
+        ServerPlayer player = context.player();
+        ItemStack tool = context.plant().tool();
+        BlockHitResult hitResult = new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, true);
         Block.beginCapturingDrops();
-        context.state().useWithoutItem(context.level(), context.player(), new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, true));
+        if (tool.isEmpty()) {
+            state.useWithoutItem(level, player, hitResult);
+        } else {
+            state.useItemOn(tool.copy(), level, player, InteractionHand.MAIN_HAND, hitResult);
+        }
         return Block.stopCapturingDrops()
             .stream()
             .map(ItemEntity::getItem)

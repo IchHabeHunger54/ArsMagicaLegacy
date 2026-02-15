@@ -1,6 +1,5 @@
 package at.minecraftschurli.arsmagicalegacy.client.gui.spellrecipe;
 
-import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
@@ -16,7 +15,7 @@ class PartsPage extends Page<Holder<SpellPart>> {
 
     public PartsPage(List<SpellPart> spellParts, Component title) {
         super(3, 11, 32, 4, 3, spellParts.stream()
-            .map(ArsMagicaApi.spellPartRegistry()::wrapAsHolder)
+            .map(AMRegistries.SPELL_PARTS::wrapAsHolder)
             .toList());
         this.title = title;
     }

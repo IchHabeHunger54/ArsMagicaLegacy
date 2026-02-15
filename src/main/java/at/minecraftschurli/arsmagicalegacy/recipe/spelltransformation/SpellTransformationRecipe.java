@@ -1,11 +1,9 @@
 package at.minecraftschurli.arsmagicalegacy.recipe.spelltransformation;
 
-import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.init.AMRecipes;
 import at.minecraftschurli.arsmagicalegacy.util.AMExtraCodecs;
-import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
@@ -24,12 +22,12 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 public record SpellTransformationRecipe(RuleTest ruleTest, Holder<SpellPart> spellPart, BlockState result) implements Recipe<SpellTransformationInput> {
     public static final MapCodec<SpellTransformationRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
         RuleTest.CODEC.fieldOf("predicate").forGetter(SpellTransformationRecipe::ruleTest),
-        ArsMagicaApi.spellPartRegistry().holderByNameCodec().fieldOf("spell_part").forGetter(SpellTransformationRecipe::spellPart),
+        AMRegistries.SPELL_PARTS.holderByNameCodec().fieldOf("spell_part").forGetter(SpellTransformationRecipe::spellPart),
         BlockState.CODEC.fieldOf("result").forGetter(SpellTransformationRecipe::result)
     ).apply(inst, SpellTransformationRecipe::new));
     public static final StreamCodec<RegistryFriendlyByteBuf, SpellTransformationRecipe> STREAM_CODEC = StreamCodec.composite(
         AMExtraCodecs.toStreamCodec(RuleTest.CODEC), SpellTransformationRecipe::ruleTest,
-        ByteBufCodecs.holderRegistry(AMRegistries.SPELL_PART), SpellTransformationRecipe::spellPart,
+        ByteBufCodecs.holderRegistry(AMRegistries.Keys.SPELL_PART), SpellTransformationRecipe::spellPart,
         AMExtraCodecs.toStreamCodec(BlockState.CODEC), SpellTransformationRecipe::result,
         SpellTransformationRecipe::new);
 

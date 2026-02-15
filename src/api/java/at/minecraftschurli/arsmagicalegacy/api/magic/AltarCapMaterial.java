@@ -19,5 +19,5 @@ public record AltarCapMaterial(Block block, int power) {
         BuiltInRegistries.BLOCK.byNameCodec().fieldOf("block").forGetter(AltarCapMaterial::block),
         Codec.INT.fieldOf("power").forGetter(AltarCapMaterial::power)
     ).apply(inst, AltarCapMaterial::new));
-    public static final Codec<Holder<AltarCapMaterial>> CODEC = RegistryFileCodec.create(AMRegistries.ALTAR_CAP_MATERIAL, DIRECT_CODEC);
+    public static final Codec<Holder<AltarCapMaterial>> CODEC = RegistryFileCodec.create(AMRegistries.Keys.ALTAR_CAP_MATERIAL, DIRECT_CODEC);
 }

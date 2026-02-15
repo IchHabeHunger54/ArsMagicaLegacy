@@ -3,10 +3,6 @@
     "block": "minecraft:torchflower_crop",
     "predicate_type": "minecraft:block_match"
   },
-  "crop": {
-    "count": 1,
-    "id": "minecraft:torchflower"
-  },
   "growth_type": {
     "type": "arsmagicalegacy:crop",
     "harvest_states": [
@@ -19,9 +15,5 @@
         }
       }
     ]
-  },
-  "seed": {
-    "count": 1,
-    "id": "minecraft:torchflower_seeds"
   }
 }

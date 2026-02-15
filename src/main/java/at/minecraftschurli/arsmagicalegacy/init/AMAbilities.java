@@ -28,7 +28,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public interface AMAbilities {
-    DeferredRegister<MapCodec<? extends AbilityEffect>> ABILITY_EFFECTS = DeferredRegister.create(AMRegistries.ABILITY_EFFECT, ArsMagicaApi.MOD_ID);
+    DeferredRegister<MapCodec<? extends AbilityEffect>> ABILITY_EFFECTS = DeferredRegister.create(AMRegistries.Keys.ABILITY_EFFECT, ArsMagicaApi.MOD_ID);
     // @formatter:off
     DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<AttributeAbilityEffect>>           ATTRIBUTE_EFFECT             = ABILITY_EFFECTS.register("attribute",             () -> AttributeAbilityEffect.CODEC);
     DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<DamageModifierAbilityEffect>>      DAMAGE_MODIFIER_EFFECT       = ABILITY_EFFECTS.register("damage_modifier",       () -> DamageModifierAbilityEffect.CODEC);
@@ -84,6 +84,6 @@ public interface AMAbilities {
     // @formatter:on
 
     private static ResourceKey<Ability> key(String name) {
-        return ResourceKey.create(AMRegistries.ABILITY, ArsMagicaApi.id(name));
+        return ResourceKey.create(AMRegistries.Keys.ABILITY, ArsMagicaApi.id(name));
     }
 }

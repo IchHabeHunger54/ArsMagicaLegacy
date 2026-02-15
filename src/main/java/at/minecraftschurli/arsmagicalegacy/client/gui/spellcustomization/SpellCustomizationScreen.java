@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellShapeGroup;
@@ -49,11 +50,11 @@ public class SpellCustomizationScreen extends Screen {
         for (int i = 0; i < spell.shapeGroups().size(); i++) {
             SpellShapeGroup shapeGroup = spell.shapeGroups().get(i);
             for (int j = 0; j < shapeGroup.parts().size(); j++) {
-                addRenderableWidget(SpellPartButton.create(leftPos + i * ShapeGroupArea.WIDTH + j % 2 * SpellPartButton.SIZE + 2, topPos + 100 + j / 2 * SpellPartButton.SIZE + 1, ArsMagicaApi.spellPartRegistry().wrapAsHolder(shapeGroup.parts().get(j)), this, j));
+                addRenderableWidget(SpellPartButton.create(leftPos + i * ShapeGroupArea.WIDTH + j % 2 * SpellPartButton.SIZE + 2, topPos + 100 + j / 2 * SpellPartButton.SIZE + 1, AMRegistries.SPELL_PARTS.wrapAsHolder(shapeGroup.parts().get(j)), this, j));
             }
         }
         for (int i = 0; i < spell.grammar().parts().size(); i++) {
-            addRenderableWidget(SpellPartButton.create(leftPos + i * SpellPartButton.SIZE + 22, topPos + 138, ArsMagicaApi.spellPartRegistry().wrapAsHolder(spell.grammar().parts().get(i)), this, -1));
+            addRenderableWidget(SpellPartButton.create(leftPos + i * SpellPartButton.SIZE + 22, topPos + 138, AMRegistries.SPELL_PARTS.wrapAsHolder(spell.grammar().parts().get(i)), this, -1));
         }
         addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, $ -> onClose()).bounds(leftPos, topPos + 158, 180, 20).build());
     }

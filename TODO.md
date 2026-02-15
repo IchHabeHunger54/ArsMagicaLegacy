@@ -2,6 +2,7 @@
 - Test All Spell Parts and Particles
 - Inlays
 - Plant System Support
+    - Loading Conditions
 - Add Liquid Etherium Sounds
 - Entities, including:
     - Dryads

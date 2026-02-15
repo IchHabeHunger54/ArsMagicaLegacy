@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.api.ability;
 
-import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Holder;
@@ -12,7 +12,7 @@ import java.util.function.Function;
  * Represents an ability effect. One {@link Ability} may have multiple ability effects.
  */
 public interface AbilityEffect {
-    Codec<AbilityEffect> CODEC = Codec.lazyInitialized(() -> ArsMagicaApi.abilityEffectRegistry().byNameCodec().dispatch(AbilityEffect::codec, Function.identity()));
+    Codec<AbilityEffect> CODEC = Codec.lazyInitialized(() -> AMRegistries.ABILITY_EFFECTS.byNameCodec().dispatch(AbilityEffect::codec, Function.identity()));
 
     /**
      * @return The registered {@link MapCodec} of the ability effect.

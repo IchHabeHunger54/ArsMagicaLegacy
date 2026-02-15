@@ -6,8 +6,8 @@ import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
-import at.minecraftschurli.arsmagicalegacy.util.GlobalVec3;
 import at.minecraftschurli.arsmagicalegacy.spell.SpellDamage;
+import at.minecraftschurli.arsmagicalegacy.util.GlobalVec3;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.Holder;
@@ -26,11 +26,11 @@ import java.util.List;
 public interface AMDataComponents {
     DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ArsMagicaApi.MOD_ID);
     // @formatter:off
-    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Affinity>>>     AFFINITY         = register("affinity",         Affinity.CODEC,           ByteBufCodecs.holderRegistry(AMRegistries.AFFINITY));
-    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<EtheriumType>>> ETHERIUM_TYPE    = register("etherium_type",    EtheriumType.CODEC,       ByteBufCodecs.holderRegistry(AMRegistries.ETHERIUM_TYPE));
+    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Affinity>>>     AFFINITY         = register("affinity",         Affinity.CODEC,           ByteBufCodecs.holderRegistry(AMRegistries.Keys.AFFINITY));
+    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<EtheriumType>>> ETHERIUM_TYPE    = register("etherium_type",    EtheriumType.CODEC,       ByteBufCodecs.holderRegistry(AMRegistries.Keys.ETHERIUM_TYPE));
     DeferredHolder<DataComponentType<?>, DataComponentType<Double>>               MANA_REPAIR_COST = register("mana_repair_cost", Codec.DOUBLE,             ByteBufCodecs.DOUBLE);
     DeferredHolder<DataComponentType<?>, DataComponentType<Integer>>              SELECTED_INDEX   = register("selected_index",   Codec.INT,                ByteBufCodecs.INT);
-    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<SkillPoint>>>   SKILL_POINT      = register("skill_point",      SkillPoint.CODEC,         ByteBufCodecs.holderRegistry(AMRegistries.SKILL_POINT));
+    DeferredHolder<DataComponentType<?>, DataComponentType<Holder<SkillPoint>>>   SKILL_POINT      = register("skill_point",      SkillPoint.CODEC,         ByteBufCodecs.holderRegistry(AMRegistries.Keys.SKILL_POINT));
     DeferredHolder<DataComponentType<?>, DataComponentType<Spell>>                SPELL            = register("spell",            Spell.CODEC,              Spell.STREAM_CODEC);
     DeferredHolder<DataComponentType<?>, DataComponentType<List<GlobalPos>>>      STORED_POSITIONS = register("stored_positions", GlobalPos.CODEC.listOf(), GlobalPos.STREAM_CODEC.apply(ByteBufCodecs.list()));
     DeferredHolder<DataComponentType<?>, DataComponentType<Integer>>              TIER             = register("tier",             Codec.INT,                ByteBufCodecs.INT);

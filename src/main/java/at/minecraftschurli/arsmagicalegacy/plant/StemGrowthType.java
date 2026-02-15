@@ -87,7 +87,7 @@ public record StemGrowthType(RuleTest stem, Block attachedStem, BlockState fruit
         if (state.is(attachedStem) && state.hasProperty(BlockStateProperties.HORIZONTAL_FACING)) {
             pos = pos.offset(state.getValue(BlockStateProperties.HORIZONTAL_FACING).getNormal());
         }
-        return AMUtil.destroyBlockAndGetDrops(context.level(), pos, state, context.player());
+        return AMUtil.destroyBlockAndGetDrops(context.level(), pos, state, context.player(), context.plant().tool().copy());
     }
 
     @Override

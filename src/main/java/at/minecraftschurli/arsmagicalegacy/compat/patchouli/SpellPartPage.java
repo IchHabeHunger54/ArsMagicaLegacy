@@ -105,16 +105,16 @@ public class SpellPartPage implements ICustomComponent {
 
     @Override
     public void onVariablesAvailable(UnaryOperator<IVariable> unaryOperator, HolderLookup.Provider registries) {
-        HolderLookup.RegistryLookup<SpellPart> spellParts = registries.lookupOrThrow(AMRegistries.SPELL_PART);
-        HolderLookup.RegistryLookup<Skill> skills = registries.lookupOrThrow(AMRegistries.SKILL);
-        SpellPart spellPart = spellParts.getOrThrow(ResourceKey.create(AMRegistries.SPELL_PART, ResourceLocation.parse(unaryOperator.apply(IVariable.wrap(part, registries)).asString()))).value();
+        HolderLookup.RegistryLookup<SpellPart> spellParts = registries.lookupOrThrow(AMRegistries.Keys.SPELL_PART);
+        HolderLookup.RegistryLookup<Skill> skills = registries.lookupOrThrow(AMRegistries.Keys.SKILL);
+        SpellPart spellPart = spellParts.getOrThrow(ResourceKey.create(AMRegistries.Keys.SPELL_PART, ResourceLocation.parse(unaryOperator.apply(IVariable.wrap(part, registries)).asString()))).value();
         SpellPartData data = spellPart.getData();
         recipe = data.recipe();
         affinityShifts = data.affinityShifts();
         modifiers = ArsMagicaApi.spellHelper()
             .getModifiers(spellPart)
             .stream()
-            .map(e -> skills.getOrThrow(ResourceKey.create(AMRegistries.SKILL, ArsMagicaApi.spellPartRegistry().getKey(e))).value())
+            .map(e -> skills.getOrThrow(ResourceKey.create(AMRegistries.Keys.SKILL, AMRegistries.SPELL_PARTS.getKey(e))).value())
             .toList();
     }
 

@@ -57,7 +57,7 @@ public final class AMRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildRecipes(RecipeOutput output, HolderLookup.Provider registries) {
-        HolderLookup.RegistryLookup<Affinity> affinities = registries.lookupOrThrow(AMRegistries.AFFINITY);
+        HolderLookup.RegistryLookup<Affinity> affinities = registries.lookupOrThrow(AMRegistries.Keys.AFFINITY);
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.OCCULUS.get())
             .pattern("SGS")
             .pattern(" S ")

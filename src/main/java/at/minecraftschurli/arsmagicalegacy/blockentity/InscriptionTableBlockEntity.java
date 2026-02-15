@@ -1,6 +1,5 @@
 package at.minecraftschurli.arsmagicalegacy.blockentity;
 
-import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
@@ -153,8 +152,8 @@ public class InscriptionTableBlockEntity extends AMBlockEntity<InscriptionTableB
         ).apply(inst, MenuData::new));
         public static final StreamCodec<RegistryFriendlyByteBuf, MenuData> STREAM_CODEC = StreamCodec.composite(
             ComponentSerialization.STREAM_CODEC.apply(ByteBufCodecs::optional), MenuData::name,
-            ByteBufCodecs.holderRegistry(AMRegistries.SKILL).apply(ByteBufCodecs.list()), MenuData::grammar,
-            ByteBufCodecs.holderRegistry(AMRegistries.SKILL).apply(ByteBufCodecs.list()).apply(ByteBufCodecs.list()), MenuData::shapeGroups,
+            ByteBufCodecs.holderRegistry(AMRegistries.Keys.SKILL).apply(ByteBufCodecs.list()), MenuData::grammar,
+            ByteBufCodecs.holderRegistry(AMRegistries.Keys.SKILL).apply(ByteBufCodecs.list()).apply(ByteBufCodecs.list()), MenuData::shapeGroups,
             MenuData::new);
         public static final MenuData EMPTY = new MenuData(Optional.empty(), List.of(), List.of());
 
@@ -179,13 +178,13 @@ public class InscriptionTableBlockEntity extends AMBlockEntity<InscriptionTableB
                 .map(Holder::getKey)
                 .filter(Objects::nonNull)
                 .map(ResourceKey::location)
-                .map(ArsMagicaApi.spellPartRegistry()::get)
+                .map(AMRegistries.SPELL_PARTS::get)
                 .toList();
         }
 
         private static List<Holder<Skill>> skills(List<SpellPart> parts, RegistryAccess registryAccess) {
             return parts.stream()
-                .map(ArsMagicaApi.spellPartRegistry()::getKey)
+                .map(AMRegistries.SPELL_PARTS::getKey)
                 .filter(Objects::nonNull)
                 .map(AMRegistries.skills(registryAccess)::getHolder)
                 .filter(Optional::isPresent)

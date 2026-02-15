@@ -40,7 +40,7 @@ public final class AMAdvancementProvider extends AdvancementProvider {
         @SuppressWarnings({"DataFlowIssue", "unchecked", "unused"})
         @Override
         public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> saver, ExistingFileHelper existingFileHelper) {
-            HolderLookup.RegistryLookup<Affinity> affinities = registries.lookupOrThrow(AMRegistries.AFFINITY);
+            HolderLookup.RegistryLookup<Affinity> affinities = registries.lookupOrThrow(AMRegistries.Keys.AFFINITY);
             ItemStack book = ArsMagicaApi.book();
             DataComponentType<?> bookComponent = BuiltInRegistries.DATA_COMPONENT_TYPE.get(ResourceLocation.fromNamespaceAndPath("patchouli", "book"));
             Criterion<InventoryChangeTrigger.TriggerInstance> bookCriterion = InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(book.getItem()).hasComponents(DataComponentPredicate.builder().<Object>expect((DataComponentType<? super Object>) bookComponent, book.get(bookComponent)).build()));
@@ -48,7 +48,7 @@ public final class AMAdvancementProvider extends AdvancementProvider {
             AdvancementHolder bookRoot = Advancement.Builder.advancement()
                 .addCriterion("arcane_compendium", bookCriterion)
                 .save(saver, ArsMagicaApi.id("book/root").toString());
-            registries.lookupOrThrow(AMRegistries.SKILL).listElements().forEach(skill -> Advancement.Builder.advancement()
+            registries.lookupOrThrow(AMRegistries.Keys.SKILL).listElements().forEach(skill -> Advancement.Builder.advancement()
                 .parent(bookRoot)
                 .addCriterion("knows", SkillChangeTrigger.create(List.of(skill)))
                 .save(saver, ArsMagicaApi.id("book/" + skill.getKey().location().getPath()).toString()));

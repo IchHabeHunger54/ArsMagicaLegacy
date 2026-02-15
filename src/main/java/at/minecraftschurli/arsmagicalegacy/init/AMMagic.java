@@ -49,19 +49,19 @@ public interface AMMagic {
     List<ResourceKey<Skill>> TALENTS = List.of(AFFINITY_GAINS_BOOST, AUGMENTED_CASTING, EXTRA_SUMMONS, MANA_REGENERATION_BOOST_1, MANA_REGENERATION_BOOST_2, MANA_REGENERATION_BOOST_3, SHIELD_OVERLOAD, SPELL_MOTION);
 
     private static ResourceKey<Affinity> affinity(String name) {
-        return key(AMRegistries.AFFINITY, name);
+        return key(AMRegistries.Keys.AFFINITY, name);
     }
 
     private static ResourceKey<OcculusTab> occulusTab(String name) {
-        return key(AMRegistries.OCCULUS_TAB, name);
+        return key(AMRegistries.Keys.OCCULUS_TAB, name);
     }
 
     private static ResourceKey<SkillPoint> skillPoint(String name) {
-        return key(AMRegistries.SKILL_POINT, name);
+        return key(AMRegistries.Keys.SKILL_POINT, name);
     }
 
     private static ResourceKey<Skill> skill(String name) {
-        return key(AMRegistries.SKILL, name);
+        return key(AMRegistries.Keys.SKILL, name);
     }
 
     private static <T> ResourceKey<T> key(ResourceKey<Registry<T>> registryKey, String name) {

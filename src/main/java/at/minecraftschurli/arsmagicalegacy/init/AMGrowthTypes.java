@@ -13,7 +13,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public interface AMGrowthTypes {
-    DeferredRegister<MapCodec<? extends GrowthType>> GROWTH_TYPES = DeferredRegister.create(AMRegistries.GROWTH_TYPE, ArsMagicaApi.MOD_ID);
+    DeferredRegister<MapCodec<? extends GrowthType>> GROWTH_TYPES = DeferredRegister.create(AMRegistries.Keys.GROWTH_TYPE, ArsMagicaApi.MOD_ID);
 
     DeferredHolder<MapCodec<? extends GrowthType>, MapCodec<BushGrowthType>>     BUSH      = GROWTH_TYPES.register("bush",      () -> BushGrowthType.CODEC);
     DeferredHolder<MapCodec<? extends GrowthType>, MapCodec<CropGrowthType>>     CROP      = GROWTH_TYPES.register("crop",      () -> CropGrowthType.CODEC);

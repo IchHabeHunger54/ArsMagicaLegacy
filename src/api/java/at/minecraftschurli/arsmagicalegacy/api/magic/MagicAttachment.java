@@ -38,9 +38,9 @@ public record MagicAttachment(int level, double xp, Set<Holder<Skill>> skills, M
     public static final StreamCodec<RegistryFriendlyByteBuf, MagicAttachment> STREAM_CODEC = StreamCodec.composite(
         ByteBufCodecs.INT, MagicAttachment::level,
         ByteBufCodecs.DOUBLE, MagicAttachment::xp,
-        ByteBufCodecs.holderRegistry(AMRegistries.SKILL).apply(ByteBufCodecs.collection(HashSet::new)), MagicAttachment::skills,
-        ByteBufCodecs.map(HashMap::new, ByteBufCodecs.holderRegistry(AMRegistries.SKILL_POINT), ByteBufCodecs.INT), MagicAttachment::skillPoints,
-        ByteBufCodecs.map(HashMap::new, ByteBufCodecs.holderRegistry(AMRegistries.AFFINITY), ByteBufCodecs.DOUBLE), MagicAttachment::affinityShifts,
+        ByteBufCodecs.holderRegistry(AMRegistries.Keys.SKILL).apply(ByteBufCodecs.collection(HashSet::new)), MagicAttachment::skills,
+        ByteBufCodecs.map(HashMap::new, ByteBufCodecs.holderRegistry(AMRegistries.Keys.SKILL_POINT), ByteBufCodecs.INT), MagicAttachment::skillPoints,
+        ByteBufCodecs.map(HashMap::new, ByteBufCodecs.holderRegistry(AMRegistries.Keys.AFFINITY), ByteBufCodecs.DOUBLE), MagicAttachment::affinityShifts,
         ByteBufCodecs.BOOL, MagicAttachment::affinityLocked,
         MagicAttachment::new);
     public static final MagicAttachment DEFAULT = new MagicAttachment(0, 0, Set.of(), Map.of(), Map.of(), false);

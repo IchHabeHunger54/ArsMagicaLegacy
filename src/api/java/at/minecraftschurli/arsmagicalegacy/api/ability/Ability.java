@@ -32,7 +32,7 @@ public record Ability(Holder<Affinity> affinity, MinMaxBounds.Doubles bounds, bo
         Codec.BOOL.optionalFieldOf("negative", false).forGetter(Ability::negative),
         AbilityEffect.CODEC.listOf().optionalFieldOf("effects", List.of()).forGetter(Ability::effects)
     ).apply(inst, Ability::new));
-    public static final Codec<Holder<Ability>> CODEC = RegistryFileCodec.create(AMRegistries.ABILITY, Ability.DIRECT_CODEC);
+    public static final Codec<Holder<Ability>> CODEC = RegistryFileCodec.create(AMRegistries.Keys.ABILITY, Ability.DIRECT_CODEC);
 
     /**
      * @param affinity The {@link Affinity} to associate the ability with.

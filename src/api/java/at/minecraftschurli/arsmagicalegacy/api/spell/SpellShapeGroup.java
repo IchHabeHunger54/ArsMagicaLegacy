@@ -24,7 +24,7 @@ public record SpellShapeGroup(List<SpellPart> parts, @Nullable PrimarySpellShape
     public static final int MAX_PARTS = 4;
     public static final SpellShapeGroup EMPTY = new SpellShapeGroup(List.of(), null, List.of(), null, List.of());
     public static final Codec<SpellShapeGroup> CODEC = ArsMagicaApi.spellPartRegistry().byNameCodec().listOf(0, MAX_PARTS).fieldOf("parts").xmap(SpellShapeGroup::of, SpellShapeGroup::parts).codec();
-    public static final StreamCodec<RegistryFriendlyByteBuf, SpellShapeGroup> STREAM_CODEC = ByteBufCodecs.registry(AMRegistries.SPELL_PART).apply(ByteBufCodecs.list()).map(SpellShapeGroup::of, SpellShapeGroup::parts);
+    public static final StreamCodec<RegistryFriendlyByteBuf, SpellShapeGroup> STREAM_CODEC = ByteBufCodecs.registry(AMRegistries.Keys.SPELL_PART).apply(ByteBufCodecs.list()).map(SpellShapeGroup::of, SpellShapeGroup::parts);
 
     /**
      * @deprecated Use {@link SpellShapeGroup#of(List)} instead.

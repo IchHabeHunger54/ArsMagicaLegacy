@@ -47,8 +47,8 @@ public record Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> m
             ParticleTypes.CODEC.fieldOf("particle").forGetter(Affinity::particle)
         ).apply(inst, Affinity::new));
     });
-    public static final Codec<Holder<Affinity>> CODEC = RegistryFileCodec.create(AMRegistries.AFFINITY, DIRECT_CODEC);
-    public static final ResourceKey<Affinity> NONE = ResourceKey.create(AMRegistries.AFFINITY, ArsMagicaApi.id("none"));
+    public static final Codec<Holder<Affinity>> CODEC = RegistryFileCodec.create(AMRegistries.Keys.AFFINITY, DIRECT_CODEC);
+    public static final ResourceKey<Affinity> NONE = ResourceKey.create(AMRegistries.Keys.AFFINITY, ArsMagicaApi.id("none"));
 
     /**
      * @param directOpposite The direct opposite affinity.

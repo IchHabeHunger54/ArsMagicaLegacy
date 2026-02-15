@@ -50,7 +50,7 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
     @SuppressWarnings({"ResultOfMethodCallIgnored", "DataFlowIssue"})
     @Override
     protected void addBooks(HolderLookup.Provider lookupProvider, Consumer<BookBuilder<?, ?, ?>> consumer) {
-        HolderLookup.RegistryLookup<Affinity> affinityRegistry = lookupProvider.lookupOrThrow(AMRegistries.AFFINITY);
+        HolderLookup.RegistryLookup<Affinity> affinityRegistry = lookupProvider.lookupOrThrow(AMRegistries.Keys.AFFINITY);
         TranslatedBookBuilder builder = createBookBuilder("arcane_compendium", "Arcane Compendium", "A renewed look into Minecraft with a splash of magic...", translationConsumer, lookupProvider)
             .setBookTexture(ResourceLocation.fromNamespaceAndPath("patchouli", "textures/gui/book_purple.png"))
             .setCreativeTab(AMCreativeTabs.MAIN.getId())
@@ -388,7 +388,7 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
             .addSimpleTextPage("There is also an affinity essence for each affinity, which is used in intermediate crafting for spell parts associated with that affinity. Affinity essences must be obtained from bosses, but can be duplicated through crafting later.")
             .build();
         Map<ResourceKey<Affinity>, List<Holder.Reference<Ability>>> abilitiesByAffinity = lookupProvider
-            .lookupOrThrow(AMRegistries.ABILITY)
+            .lookupOrThrow(AMRegistries.Keys.ABILITY)
             .listElements()
             .sorted(Comparator.comparing(e -> e.key().location(), ResourceLocation::compareNamespaced))
             .sorted(Comparator.comparing(e -> AMAbilityProvider.PATCHOULI_ABILITY_DATA.get(e.getKey()).bounds().min().orElse(0.)))

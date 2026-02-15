@@ -65,14 +65,14 @@ final class AMDataGenerator {
             .add(Registries.CONFIGURED_FEATURE, AMWorldgenProvider::addConfiguredFeatures)
             .add(Registries.PLACED_FEATURE, AMWorldgenProvider::addPlacedFeatures)
             .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, AMWorldgenProvider::addBiomeModifiers)
-            .add(AMRegistries.AFFINITY, AMMagicProvider::addAffinities)
-            .add(AMRegistries.ALTAR_CAP_MATERIAL, AMMagicProvider::addAltarCapMaterials)
-            .add(AMRegistries.ALTAR_MATERIAL, AMMagicProvider::addAltarMaterials)
-            .add(AMRegistries.OCCULUS_TAB, AMMagicProvider::addOcculusTabs)
-            .add(AMRegistries.SKILL_POINT, AMMagicProvider::addSkillPoints)
-            .add(AMRegistries.SKILL, AMMagicProvider::addSkills)
-            .add(AMRegistries.ABILITY, AMAbilityProvider::addAbilities)
-            .add(AMRegistries.ETHERIUM_TYPE, AMEtheriumTypeProvider::addEtheriumTypes),
+            .add(AMRegistries.Keys.AFFINITY, AMMagicProvider::addAffinities)
+            .add(AMRegistries.Keys.ALTAR_CAP_MATERIAL, AMMagicProvider::addAltarCapMaterials)
+            .add(AMRegistries.Keys.ALTAR_MATERIAL, AMMagicProvider::addAltarMaterials)
+            .add(AMRegistries.Keys.OCCULUS_TAB, AMMagicProvider::addOcculusTabs)
+            .add(AMRegistries.Keys.SKILL_POINT, AMMagicProvider::addSkillPoints)
+            .add(AMRegistries.Keys.SKILL, AMMagicProvider::addSkills)
+            .add(AMRegistries.Keys.ABILITY, AMAbilityProvider::addAbilities)
+            .add(AMRegistries.Keys.ETHERIUM_TYPE, AMEtheriumTypeProvider::addEtheriumTypes),
             Set.of(ArsMagicaApi.MOD_ID))).getRegistryProvider();
         AMTagsProvider.addProviders(generator, event.includeServer(), output, lookupProvider, existingFileHelper);
         generator.addProvider(event.includeServer(), new AMAdvancementProvider(output, lookupProvider, existingFileHelper));

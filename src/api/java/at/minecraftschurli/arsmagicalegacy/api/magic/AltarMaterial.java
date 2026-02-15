@@ -25,5 +25,5 @@ public record AltarMaterial(Block block, StairBlock stair, int power) {
         BuiltInRegistries.BLOCK.byNameCodec().comapFlatMap(b -> b instanceof StairBlock s ? DataResult.success(s) : DataResult.error(() -> "Non-stair block " + BuiltInRegistries.BLOCK.getKey(b) + " used as altar material stairs"), Function.identity()).fieldOf("stair").forGetter(AltarMaterial::stair),
         Codec.INT.fieldOf("power").forGetter(AltarMaterial::power)
     ).apply(inst, AltarMaterial::new));
-    public static final Codec<Holder<AltarMaterial>> CODEC = RegistryFileCodec.create(AMRegistries.ALTAR_MATERIAL, DIRECT_CODEC);
+    public static final Codec<Holder<AltarMaterial>> CODEC = RegistryFileCodec.create(AMRegistries.Keys.ALTAR_MATERIAL, DIRECT_CODEC);
 }

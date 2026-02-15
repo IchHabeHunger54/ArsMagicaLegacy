@@ -32,7 +32,7 @@ public record Skill(List<Holder<Skill>> parents, Optional<Holder<SkillPoint>> co
         Codec.INT.fieldOf("y").forGetter(Skill::y),
         Codec.BOOL.optionalFieldOf("hidden", false).forGetter(Skill::hidden)
     ).apply(inst, Skill::new));
-    public static final Codec<Holder<Skill>> CODEC = RegistryFileCodec.create(AMRegistries.SKILL, DIRECT_CODEC);
+    public static final Codec<Holder<Skill>> CODEC = RegistryFileCodec.create(AMRegistries.Keys.SKILL, DIRECT_CODEC);
 
     /**
      * @param holder The skill {@link Holder} to query.

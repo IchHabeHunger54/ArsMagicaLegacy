@@ -5,7 +5,6 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.init.AMRecipes;
 import at.minecraftschurli.arsmagicalegacy.util.AMExtraCodecs;
-import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
@@ -31,7 +30,7 @@ public record SpellTransformationRecipe(RuleTest ruleTest, Holder<SpellPart> spe
     ).apply(inst, SpellTransformationRecipe::new));
     public static final StreamCodec<RegistryFriendlyByteBuf, SpellTransformationRecipe> STREAM_CODEC = StreamCodec.composite(
         AMExtraCodecs.toStreamCodec(RuleTest.CODEC), SpellTransformationRecipe::ruleTest,
-        ByteBufCodecs.holderRegistry(AMRegistries.SPELL_PART), SpellTransformationRecipe::spellPart,
+        ByteBufCodecs.holderRegistry(AMRegistries.Keys.SPELL_PART), SpellTransformationRecipe::spellPart,
         AMExtraCodecs.toStreamCodec(BlockState.CODEC), SpellTransformationRecipe::result,
         SpellTransformationRecipe::new);
 

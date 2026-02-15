@@ -31,7 +31,7 @@ public record OcculusTab(int width, int height, int startX, int startY, int inde
         Codec.INT.fieldOf("index").forGetter(OcculusTab::index),
         ResourceLocation.CODEC.fieldOf("renderer").forGetter(OcculusTab::renderer)
     ).apply(inst, OcculusTab::new));
-    public static final Codec<Holder<OcculusTab>> CODEC = RegistryFileCodec.create(AMRegistries.OCCULUS_TAB, DIRECT_CODEC);
+    public static final Codec<Holder<OcculusTab>> CODEC = RegistryFileCodec.create(AMRegistries.Keys.OCCULUS_TAB, DIRECT_CODEC);
 
     /**
      * @param holder The occulus tab {@link Holder} to query.

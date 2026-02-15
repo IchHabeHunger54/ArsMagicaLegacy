@@ -24,29 +24,12 @@ import net.minecraft.world.level.Level;
  * Also includes getters for the datapack registries. For static registries, see the methods in {@link ArsMagicaApi}.
  */
 public interface AMRegistries {
-    // @formatter:off
-    // Static registries
-    ResourceKey<Registry<MapCodec<? extends AbilityEffect>>>   ABILITY_EFFECT   = ResourceKey.createRegistryKey(ArsMagicaApi.id("ability_effect"));
-    ResourceKey<Registry<MapCodec<? extends GrowthType>>>      GROWTH_TYPE      = ResourceKey.createRegistryKey(ArsMagicaApi.id("growth_type"));
-    ResourceKey<Registry<MapCodec<? extends SpellIngredient>>> SPELL_INGREDIENT = ResourceKey.createRegistryKey(ArsMagicaApi.id("spell_ingredient"));
-    ResourceKey<Registry<SpellPart>>                           SPELL_PART       = ResourceKey.createRegistryKey(ArsMagicaApi.id("spell_part"));
-    // Datapack registries
-    ResourceKey<Registry<Ability>>          ABILITY            = ResourceKey.createRegistryKey(ArsMagicaApi.id("ability"));
-    ResourceKey<Registry<Affinity>>         AFFINITY           = ResourceKey.createRegistryKey(ArsMagicaApi.id("affinity"));
-    ResourceKey<Registry<AltarCapMaterial>> ALTAR_CAP_MATERIAL = ResourceKey.createRegistryKey(ArsMagicaApi.id("altar_cap_material"));
-    ResourceKey<Registry<AltarMaterial>>    ALTAR_MATERIAL     = ResourceKey.createRegistryKey(ArsMagicaApi.id("altar_material"));
-    ResourceKey<Registry<EtheriumType>>     ETHERIUM_TYPE      = ResourceKey.createRegistryKey(ArsMagicaApi.id("etherium_type"));
-    ResourceKey<Registry<OcculusTab>>       OCCULUS_TAB        = ResourceKey.createRegistryKey(ArsMagicaApi.id("occulus_tab"));
-    ResourceKey<Registry<Skill>>            SKILL              = ResourceKey.createRegistryKey(ArsMagicaApi.id("skill"));
-    ResourceKey<Registry<SkillPoint>>       SKILL_POINT        = ResourceKey.createRegistryKey(ArsMagicaApi.id("skill_point"));
-    // @formatter:on
-
     /**
      * @param registryAccess The {@link RegistryAccess} to use.
      * @return The registry for {@link Ability}s.
      */
     static Registry<Ability> abilities(RegistryAccess registryAccess) {
-        return registryAccess.registryOrThrow(ABILITY);
+        return registryAccess.registryOrThrow(Keys.ABILITY);
     }
 
     /**
@@ -62,7 +45,7 @@ public interface AMRegistries {
      * @return The registry for {@link Affinity}s.
      */
     static Registry<Affinity> affinities(RegistryAccess registryAccess) {
-        return registryAccess.registryOrThrow(AFFINITY);
+        return registryAccess.registryOrThrow(Keys.AFFINITY);
     }
 
     /**
@@ -78,7 +61,7 @@ public interface AMRegistries {
      * @return The registry for {@link AltarCapMaterial}s.
      */
     static Registry<AltarCapMaterial> altarCapMaterials(RegistryAccess registryAccess) {
-        return registryAccess.registryOrThrow(ALTAR_CAP_MATERIAL);
+        return registryAccess.registryOrThrow(Keys.ALTAR_CAP_MATERIAL);
     }
 
     /**
@@ -94,7 +77,7 @@ public interface AMRegistries {
      * @return The registry for {@link AltarMaterial}s.
      */
     static Registry<AltarMaterial> altarMaterials(RegistryAccess registryAccess) {
-        return registryAccess.registryOrThrow(ALTAR_MATERIAL);
+        return registryAccess.registryOrThrow(Keys.ALTAR_MATERIAL);
     }
 
     /**
@@ -110,7 +93,7 @@ public interface AMRegistries {
      * @return The registry for {@link EtheriumType}s.
      */
     static Registry<EtheriumType> etheriumTypes(RegistryAccess registryAccess) {
-        return registryAccess.registryOrThrow(ETHERIUM_TYPE);
+        return registryAccess.registryOrThrow(Keys.ETHERIUM_TYPE);
     }
 
     /**
@@ -126,7 +109,7 @@ public interface AMRegistries {
      * @return The registry for {@link OcculusTab}s.
      */
     static Registry<OcculusTab> occulusTabs(RegistryAccess registryAccess) {
-        return registryAccess.registryOrThrow(OCCULUS_TAB);
+        return registryAccess.registryOrThrow(Keys.OCCULUS_TAB);
     }
 
     /**
@@ -142,7 +125,7 @@ public interface AMRegistries {
      * @return The registry for {@link Skill}s.
      */
     static Registry<Skill> skills(RegistryAccess registryAccess) {
-        return registryAccess.registryOrThrow(SKILL);
+        return registryAccess.registryOrThrow(Keys.SKILL);
     }
 
     /**
@@ -158,7 +141,7 @@ public interface AMRegistries {
      * @return The registry for {@link SkillPoint}s.
      */
     static Registry<SkillPoint> skillPoints(RegistryAccess registryAccess) {
-        return registryAccess.registryOrThrow(SKILL_POINT);
+        return registryAccess.registryOrThrow(Keys.SKILL_POINT);
     }
 
     /**
@@ -178,5 +161,24 @@ public interface AMRegistries {
      */
     static RegistryAccess registryAccess(boolean client) {
         return client ? ClientRegistryAccess.get() : ServerRegistryAccess.get();
+    }
+
+    interface Keys {
+        // @formatter:off
+        // Static registries
+        ResourceKey<Registry<MapCodec<? extends AbilityEffect>>>   ABILITY_EFFECT   = ResourceKey.createRegistryKey(ArsMagicaApi.id("ability_effect"));
+        ResourceKey<Registry<MapCodec<? extends GrowthType>>>      GROWTH_TYPE      = ResourceKey.createRegistryKey(ArsMagicaApi.id("growth_type"));
+        ResourceKey<Registry<MapCodec<? extends SpellIngredient>>> SPELL_INGREDIENT = ResourceKey.createRegistryKey(ArsMagicaApi.id("spell_ingredient"));
+        ResourceKey<Registry<SpellPart>>                           SPELL_PART       = ResourceKey.createRegistryKey(ArsMagicaApi.id("spell_part"));
+        // Datapack registries
+        ResourceKey<Registry<Ability>>          ABILITY            = ResourceKey.createRegistryKey(ArsMagicaApi.id("ability"));
+        ResourceKey<Registry<Affinity>>         AFFINITY           = ResourceKey.createRegistryKey(ArsMagicaApi.id("affinity"));
+        ResourceKey<Registry<AltarCapMaterial>> ALTAR_CAP_MATERIAL = ResourceKey.createRegistryKey(ArsMagicaApi.id("altar_cap_material"));
+        ResourceKey<Registry<AltarMaterial>>    ALTAR_MATERIAL     = ResourceKey.createRegistryKey(ArsMagicaApi.id("altar_material"));
+        ResourceKey<Registry<EtheriumType>>     ETHERIUM_TYPE      = ResourceKey.createRegistryKey(ArsMagicaApi.id("etherium_type"));
+        ResourceKey<Registry<OcculusTab>>       OCCULUS_TAB        = ResourceKey.createRegistryKey(ArsMagicaApi.id("occulus_tab"));
+        ResourceKey<Registry<Skill>>            SKILL              = ResourceKey.createRegistryKey(ArsMagicaApi.id("skill"));
+        ResourceKey<Registry<SkillPoint>>       SKILL_POINT        = ResourceKey.createRegistryKey(ArsMagicaApi.id("skill_point"));
+        // @formatter:on
     }
 }

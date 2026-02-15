@@ -153,8 +153,8 @@ public class InscriptionTableBlockEntity extends AMBlockEntity<InscriptionTableB
         ).apply(inst, MenuData::new));
         public static final StreamCodec<RegistryFriendlyByteBuf, MenuData> STREAM_CODEC = StreamCodec.composite(
             ComponentSerialization.STREAM_CODEC.apply(ByteBufCodecs::optional), MenuData::name,
-            ByteBufCodecs.holderRegistry(AMRegistries.SKILL).apply(ByteBufCodecs.list()), MenuData::grammar,
-            ByteBufCodecs.holderRegistry(AMRegistries.SKILL).apply(ByteBufCodecs.list()).apply(ByteBufCodecs.list()), MenuData::shapeGroups,
+            ByteBufCodecs.holderRegistry(AMRegistries.Keys.SKILL).apply(ByteBufCodecs.list()), MenuData::grammar,
+            ByteBufCodecs.holderRegistry(AMRegistries.Keys.SKILL).apply(ByteBufCodecs.list()).apply(ByteBufCodecs.list()), MenuData::shapeGroups,
             MenuData::new);
         public static final MenuData EMPTY = new MenuData(Optional.empty(), List.of(), List.of());
 

@@ -18,7 +18,7 @@ public record EtheriumType(int color) {
     public static final Codec<EtheriumType> DIRECT_CODEC = RecordCodecBuilder.create(inst -> inst.group(
         Codec.INT.fieldOf("color").forGetter(EtheriumType::color)
     ).apply(inst, EtheriumType::new));
-    public static final Codec<Holder<EtheriumType>> CODEC = RegistryFileCodec.create(AMRegistries.ETHERIUM_TYPE, DIRECT_CODEC);
+    public static final Codec<Holder<EtheriumType>> CODEC = RegistryFileCodec.create(AMRegistries.Keys.ETHERIUM_TYPE, DIRECT_CODEC);
 
     /**
      * @param holder The etherium type {@link Holder} to query.

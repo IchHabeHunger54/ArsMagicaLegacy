@@ -106,7 +106,7 @@ public final class AMAbilityProvider {
     }
 
     private static void register(BootstrapContext<Ability> bootstrap, ResourceKey<Ability> ability, ResourceKey<Affinity> affinity, MinMaxBounds.Doubles bounds, boolean negative, AbilityEffect effect) {
-        bootstrap.register(ability, new Ability(bootstrap.lookup(AMRegistries.AFFINITY).getOrThrow(affinity), bounds, negative, effect));
+        bootstrap.register(ability, new Ability(bootstrap.lookup(AMRegistries.Keys.AFFINITY).getOrThrow(affinity), bounds, negative, effect));
         PATCHOULI_ABILITY_DATA.put(ability, new PatchouliAbilityData(affinity, bounds));
     }
 

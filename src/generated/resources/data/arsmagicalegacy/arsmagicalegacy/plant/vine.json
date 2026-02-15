@@ -1,0 +1,21 @@
+{
+  "all_states": {
+    "block": "minecraft:vine",
+    "predicate_type": "minecraft:block_match"
+  },
+  "crop": {
+    "count": 1,
+    "id": "minecraft:vine"
+  },
+  "growth_type": {
+    "type": "arsmagicalegacy:hanging"
+  },
+  "seed": {
+    "count": 1,
+    "id": "minecraft:vine"
+  },
+  "tool": {
+    "count": 1,
+    "id": "minecraft:shears"
+  }
+}

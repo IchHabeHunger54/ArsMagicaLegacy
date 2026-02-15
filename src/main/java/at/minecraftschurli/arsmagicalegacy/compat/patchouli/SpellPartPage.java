@@ -114,7 +114,7 @@ public class SpellPartPage implements ICustomComponent {
         modifiers = ArsMagicaApi.spellHelper()
             .getModifiers(spellPart)
             .stream()
-            .map(e -> skills.getOrThrow(ResourceKey.create(AMRegistries.Keys.SKILL, ArsMagicaApi.spellPartRegistry().getKey(e))).value())
+            .map(e -> skills.getOrThrow(ResourceKey.create(AMRegistries.Keys.SKILL, AMRegistries.SPELL_PARTS.getKey(e))).value())
             .toList();
     }
 

@@ -347,12 +347,12 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
         TranslatedCategoryBuilder modifiers = builder
             .addCategory("modifiers", "Modifiers", "", ArsMagicaApi.MOD_ID + ":textures/skill/target_non_solid.png")
             .setSortnum(6);
-        for (SpellPart spellPart : ArsMagicaApi.spellPartRegistry()) {
+        for (SpellPart spellPart : AMRegistries.SPELL_PARTS) {
             if (spellPart == AMSpells.MELT_ARMOR.get()) continue;
             if (spellPart == AMSpells.NAUSEA.get()) continue;
             if (spellPart == AMSpells.SCRAMBLE_SYNAPSES.get()) continue;
             TranslatedCategoryBuilder b = spellPart.isShape() ? shapes : spellPart.isComponent() ? components : modifiers;
-            ResourceLocation id = ArsMagicaApi.spellPartRegistry().getKey(spellPart);
+            ResourceLocation id = AMRegistries.SPELL_PARTS.getKey(spellPart);
             TranslatedEntryBuilder entry = b.addEntry(id.getPath(), Util.makeDescriptionId("skill", id) + ".name", id.getNamespace() + ":textures/skill/" + id.getPath() + ".png")
                 .setAdvancement(ArsMagicaApi.id("book/" + id.getPath()));
             entry.addSimpleTextPage(entry.getLangKey(0) + ".text");

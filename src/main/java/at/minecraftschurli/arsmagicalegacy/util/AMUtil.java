@@ -115,7 +115,7 @@ public final class AMUtil {
     @SuppressWarnings("DataFlowIssue")
     @Nullable
     public static Holder<SpellPart> spellPart(Holder<Skill> skill) {
-        return ArsMagicaApi.spellPartRegistry().getHolder(skill.getKey().location()).orElse(null);
+        return AMRegistries.SPELL_PARTS.getHolder(skill.getKey().location()).orElse(null);
     }
 
     @SuppressWarnings("DataFlowIssue")

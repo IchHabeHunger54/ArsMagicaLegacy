@@ -1,16 +1,10 @@
 package at.minecraftschurli.arsmagicalegacy.api;
 
-import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
-import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
-import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
-import com.mojang.serialization.MapCodec;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.fml.loading.FMLLoader;
@@ -52,34 +46,6 @@ public abstract class ArsMagicaApi {
     }
 
     /**
-     * @return The {@link AbilityEffect} registry.
-     */
-    public static Registry<MapCodec<? extends AbilityEffect>> abilityEffectRegistry() {
-        return INSTANCE.get().getAbilityEffectRegistry();
-    }
-
-    /**
-     * @return The {@link GrowthType} registry.
-     */
-    public static Registry<MapCodec<? extends GrowthType>> growthTypeRegistry() {
-        return INSTANCE.get().getGrowthTypeRegistry();
-    }
-
-    /**
-     * @return The {@link SpellIngredient} registry.
-     */
-    public static Registry<MapCodec<? extends SpellIngredient>> spellIngredientRegistry() {
-        return INSTANCE.get().getSpellIngredientRegistry();
-    }
-
-    /**
-     * @return The {@link SpellPart} registry.
-     */
-    public static Registry<SpellPart> spellPartRegistry() {
-        return INSTANCE.get().getSpellPartRegistry();
-    }
-
-    /**
      * @return The {@link ManaHelper} instance.
      */
     public static AbilityHelper abilityHelper() {
@@ -116,18 +82,6 @@ public abstract class ArsMagicaApi {
 
     @ApiStatus.Internal
     protected abstract ItemStack getBook();
-
-    @ApiStatus.Internal
-    protected abstract Registry<MapCodec<? extends AbilityEffect>> getAbilityEffectRegistry();
-
-    @ApiStatus.Internal
-    protected abstract Registry<MapCodec<? extends GrowthType>> getGrowthTypeRegistry();
-
-    @ApiStatus.Internal
-    protected abstract Registry<MapCodec<? extends SpellIngredient>> getSpellIngredientRegistry();
-
-    @ApiStatus.Internal
-    protected abstract Registry<SpellPart> getSpellPartRegistry();
 
     @ApiStatus.Internal
     protected abstract AbilityHelper getAbilityHelper();

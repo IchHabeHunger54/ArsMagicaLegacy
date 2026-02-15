@@ -163,10 +163,10 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void newRegistry(NewRegistryEvent event) {
-        event.register(ArsMagicaApi.abilityEffectRegistry());
-        event.register(ArsMagicaApi.growthTypeRegistry());
-        event.register(ArsMagicaApi.spellIngredientRegistry());
-        event.register(ArsMagicaApi.spellPartRegistry());
+        event.register(AMRegistries.ABILITY_EFFECTS);
+        event.register(AMRegistries.GROWTH_TYPES);
+        event.register(AMRegistries.SPELL_INGREDIENTS);
+        event.register(AMRegistries.SPELL_PARTS);
     }
 
     @SubscribeEvent

@@ -1,6 +1,5 @@
 package at.minecraftschurli.arsmagicalegacy.recipe.spelltransformation;
 
-import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.init.AMRecipes;
@@ -25,7 +24,7 @@ public record SpellTransformationRecipe(RuleTest ruleTest, Holder<SpellPart> spe
     private static final RandomSource RANDOM = RandomSource.create(42);
     public static final MapCodec<SpellTransformationRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
         RuleTest.CODEC.fieldOf("predicate").forGetter(SpellTransformationRecipe::ruleTest),
-        ArsMagicaApi.spellPartRegistry().holderByNameCodec().fieldOf("spell_part").forGetter(SpellTransformationRecipe::spellPart),
+        AMRegistries.SPELL_PARTS.holderByNameCodec().fieldOf("spell_part").forGetter(SpellTransformationRecipe::spellPart),
         BlockState.CODEC.fieldOf("result").forGetter(SpellTransformationRecipe::result)
     ).apply(inst, SpellTransformationRecipe::new));
     public static final StreamCodec<RegistryFriendlyByteBuf, SpellTransformationRecipe> STREAM_CODEC = StreamCodec.composite(

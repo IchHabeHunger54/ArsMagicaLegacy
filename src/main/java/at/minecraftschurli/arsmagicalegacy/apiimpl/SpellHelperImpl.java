@@ -25,15 +25,15 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellShapeGroup;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
+import at.minecraftschurli.arsmagicalegacy.attachment.ContingencyAttachment;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.arsmagicalegacy.spell.ItemSpellIngredient;
+import at.minecraftschurli.arsmagicalegacy.spell.SpellDamage;
 import at.minecraftschurli.arsmagicalegacy.spell.SpellPartDataManager;
 import at.minecraftschurli.arsmagicalegacy.spell.ToolTiers;
-import at.minecraftschurli.arsmagicalegacy.attachment.ContingencyAttachment;
-import at.minecraftschurli.arsmagicalegacy.spell.SpellDamage;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.google.common.collect.Sets;
 import com.mojang.datafixers.util.Either;
@@ -158,7 +158,7 @@ final class SpellHelperImpl implements SpellHelper {
 
     @Override
     public SpellPartData getData(SpellPart part) {
-        return SpellPartDataManager.INSTANCE.getOrDefault(ArsMagicaApi.spellPartRegistry().getKey(part), SpellPartData.DEFAULT);
+        return SpellPartDataManager.INSTANCE.getOrDefault(AMRegistries.SPELL_PARTS.getKey(part), SpellPartData.DEFAULT);
     }
 
     @Override
@@ -181,7 +181,7 @@ final class SpellHelperImpl implements SpellHelper {
     public List<SpellModifier> getModifiers(SpellPart part) {
         if (part.isModifier()) return List.of();
         Set<SpellStat> stats = part.getStats();
-        return ArsMagicaApi.spellPartRegistry()
+        return AMRegistries.SPELL_PARTS
             .stream()
             .filter(SpellPart::isModifier)
             .filter(p -> !Sets.intersection(stats, p.getStats()).isEmpty())

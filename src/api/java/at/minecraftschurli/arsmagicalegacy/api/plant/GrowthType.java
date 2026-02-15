@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.api.plant;
 
-import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.world.item.ItemStack;
@@ -12,7 +12,7 @@ import java.util.function.Function;
  * Holds a {@link Plant}'s growth logic.
  */
 public interface GrowthType {
-    Codec<GrowthType> CODEC = Codec.lazyInitialized(() -> ArsMagicaApi.growthTypeRegistry().byNameCodec().dispatch(GrowthType::codec, Function.identity()));
+    Codec<GrowthType> CODEC = Codec.lazyInitialized(() -> AMRegistries.GROWTH_TYPES.byNameCodec().dispatch(GrowthType::codec, Function.identity()));
 
     /**
      * @return The registered {@link MapCodec}.

@@ -18,12 +18,29 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.registries.RegistryBuilder;
 
 /**
- * Holds the registry keys of all registries added by Ars Magica: Legacy.
- * Also includes getters for the datapack registries. For static registries, see the methods in {@link ArsMagicaApi}.
+ * Holds all registries added by the mod, including getters for the datapack registries.
  */
 public interface AMRegistries {
+    /**
+     * The registry for {@link AbilityEffect}s.
+     */
+    Registry<MapCodec<? extends AbilityEffect>> ABILITY_EFFECTS = new RegistryBuilder<>(Keys.ABILITY_EFFECT).sync(true).create();
+    /**
+     * The registry for {@link GrowthType}s.
+     */
+    Registry<MapCodec<? extends GrowthType>> GROWTH_TYPES = new RegistryBuilder<>(Keys.GROWTH_TYPE).sync(true).create();
+    /**
+     * The registry for {@link SpellIngredient}s.
+     */
+    Registry<MapCodec<? extends SpellIngredient>> SPELL_INGREDIENTS = new RegistryBuilder<>(Keys.SPELL_INGREDIENT).sync(true).create();
+    /**
+     * The registry for {@link SpellPart}s.
+     */
+    Registry<SpellPart> SPELL_PARTS = new RegistryBuilder<>(Keys.SPELL_PART).sync(true).create();
+
     /**
      * @param registryAccess The {@link RegistryAccess} to use.
      * @return The registry for {@link Ability}s.
@@ -163,6 +180,9 @@ public interface AMRegistries {
         return client ? ClientRegistryAccess.get() : ServerRegistryAccess.get();
     }
 
+    /**
+     * Holds all registry keys used by the mod.
+     */
     interface Keys {
         // @formatter:off
         // Static registries

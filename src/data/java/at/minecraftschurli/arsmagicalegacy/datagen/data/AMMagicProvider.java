@@ -312,7 +312,7 @@ public final class AMMagicProvider {
 
     @SuppressWarnings("DataFlowIssue")
     private static ResourceKey<Skill> fromPart(DeferredHolder<SpellPart, ?> part) {
-        return ResourceKey.create(AMRegistries.Keys.SKILL, ArsMagicaApi.spellPartRegistry().getKey(part.get()));
+        return ResourceKey.create(AMRegistries.Keys.SKILL, AMRegistries.SPELL_PARTS.getKey(part.get()));
     }
 
     private static void addAltarCapMaterial(BootstrapContext<AltarCapMaterial> bootstrap, String name, Block block, int power) {

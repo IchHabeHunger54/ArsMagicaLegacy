@@ -3,7 +3,6 @@ package at.minecraftschurli.arsmagicalegacy.plant;
 import at.minecraftschurli.arsmagicalegacy.api.plant.BonemealableGrowthType;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthContext;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
-import at.minecraftschurli.arsmagicalegacy.api.plant.HarvestState;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;

@@ -17,19 +17,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public record UpwardsGrowthType(int minHeight, int maxHeight, Optional<BlockState> topState) implements GrowthType {
-    public static final MapCodec<UpwardsGrowthType> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-        ExtraCodecs.POSITIVE_INT.optionalFieldOf("min_height", 1).forGetter(UpwardsGrowthType::minHeight),
-        ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("max_height", 0).forGetter(UpwardsGrowthType::maxHeight),
-        BlockState.CODEC.optionalFieldOf("top_state").forGetter(UpwardsGrowthType::topState)
-    ).apply(inst, UpwardsGrowthType::new));
+public record HangingGrowthType(int minHeight, int maxHeight, Optional<BlockState> bottomState) implements GrowthType {
+    public static final MapCodec<HangingGrowthType> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
+        ExtraCodecs.POSITIVE_INT.optionalFieldOf("min_height", 1).forGetter(HangingGrowthType::minHeight),
+        ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("max_height", 0).forGetter(HangingGrowthType::maxHeight),
+        BlockState.CODEC.optionalFieldOf("bottom_state").forGetter(HangingGrowthType::bottomState)
+    ).apply(inst, HangingGrowthType::new));
 
-    public UpwardsGrowthType(int minHeight, int maxHeight) {
+    public HangingGrowthType(int minHeight, int maxHeight) {
         this(minHeight, maxHeight, Optional.empty());
     }
 
-    public UpwardsGrowthType(int minHeight, int maxHeight, BlockState topState) {
-        this(minHeight, maxHeight, Optional.of(topState));
+    public HangingGrowthType(int minHeight, int maxHeight, BlockState bottomState) {
+        this(minHeight, maxHeight, Optional.of(bottomState));
     }
 
     @Override
@@ -41,7 +41,7 @@ public record UpwardsGrowthType(int minHeight, int maxHeight, Optional<BlockStat
     public boolean canGrow(GrowthContext context) {
         List<BlockPos> column = getColumn(context);
         if (maxHeight > 0 && column.size() >= maxHeight) return false;
-        return topState.isEmpty() || context.level().getBlockState(column.getLast()) != topState.get();
+        return bottomState.isEmpty() || context.level().getBlockState(column.getLast()) != bottomState.get();
     }
 
     @Override
@@ -51,7 +51,7 @@ public record UpwardsGrowthType(int minHeight, int maxHeight, Optional<BlockStat
         if (state.getBlock() instanceof BonemealableBlock block) {
             block.performBonemeal(level, level.getRandom(), context.pos(), state);
         } else {
-            level.setBlockAndUpdate(getColumn(context).getLast().above(), state);
+            level.setBlockAndUpdate(getColumn(context).getLast().below(), state);
         }
     }
 
@@ -88,15 +88,15 @@ public record UpwardsGrowthType(int minHeight, int maxHeight, Optional<BlockStat
         Block block = context.state().getBlock();
         List<BlockPos> list = new ArrayList<>();
         list.add(originalPos);
-        BlockPos pos = originalPos.below();
+        BlockPos pos = originalPos.above();
         while (level.getBlockState(pos).is(block)) {
             list.addFirst(pos);
-            pos = pos.below();
+            pos = pos.above();
         }
-        pos = originalPos.above();
+        pos = originalPos.below();
         while (level.getBlockState(pos).is(block)) {
             list.add(pos);
-            pos = pos.above();
+            pos = pos.below();
         }
         return list;
     }

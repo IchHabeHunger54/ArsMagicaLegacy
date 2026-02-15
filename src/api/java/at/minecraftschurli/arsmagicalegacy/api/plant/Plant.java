@@ -19,15 +19,17 @@ import java.util.List;
  * @param growthType    The {@link GrowthType} to use. This dictates most of the plant's logic.
  * @param seed          The seed {@link ItemStack} to use. This is used e.g. for replanting.
  * @param crop          The crop {@link ItemStack} to use. This is used e.g. for harvest bonuses.
+ * @param tool          The tool {@link ItemStack} to use when harvesting.
  * @param allStates     A {@link RuleTest} for all states of the plant.
  */
-public record Plant(List<ICondition> conditions, GrowthType growthType, ItemStack seed, ItemStack crop, RuleTest allStates) {
+public record Plant(List<ICondition> conditions, GrowthType growthType, RuleTest allStates, ItemStack seed, ItemStack crop, ItemStack tool) {
     public static final Codec<Plant> CODEC = RecordCodecBuilder.create(inst -> inst.group(
         ICondition.LIST_CODEC.optionalFieldOf("conditions", List.of()).forGetter(Plant::conditions),
         GrowthType.CODEC.fieldOf("growth_type").forGetter(Plant::growthType),
+        RuleTest.CODEC.fieldOf("all_states").forGetter(Plant::allStates),
         ItemStack.OPTIONAL_CODEC.optionalFieldOf("seed", ItemStack.EMPTY).forGetter(Plant::seed),
         ItemStack.OPTIONAL_CODEC.optionalFieldOf("crop", ItemStack.EMPTY).forGetter(Plant::crop),
-        RuleTest.CODEC.fieldOf("all_states").forGetter(Plant::allStates)
+        ItemStack.OPTIONAL_CODEC.optionalFieldOf("tool", ItemStack.EMPTY).forGetter(Plant::tool)
     ).apply(inst, Plant::new));
 
     /**

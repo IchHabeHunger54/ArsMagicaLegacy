@@ -18,7 +18,7 @@
   },
   "crop": {
     "count": 1,
-    "id": "minecraft:melon"
+    "id": "minecraft:melon_slice"
   },
   "growth_type": {
     "type": "arsmagicalegacy:stem",

@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.client.layer;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
@@ -54,7 +55,7 @@ public class ShapeGroupsLayer implements LayeredDraw.Layer {
                 for (int k = 0; k < COLUMNS; k++) {
                     int index = j * COLUMNS + k;
                     if (index >= shapeGroup.size()) continue;
-                    guiGraphics.blit(x + i * WIDTH + k * SIZE + X_PADDING, y + j * SIZE + Y_PADDING, 0, SIZE, SIZE, SkillAtlasHolder.INSTANCE.get().getSprite(ArsMagicaApi.spellPartRegistry().getKey(shapeGroup.get(index))));
+                    guiGraphics.blit(x + i * WIDTH + k * SIZE + X_PADDING, y + j * SIZE + Y_PADDING, 0, SIZE, SIZE, SkillAtlasHolder.INSTANCE.get().getSprite(AMRegistries.SPELL_PARTS.getKey(shapeGroup.get(index))));
                 }
             }
             if (i == spell.activeShapeGroup()) continue;

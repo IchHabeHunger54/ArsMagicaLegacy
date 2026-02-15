@@ -115,7 +115,7 @@ public final class AMUtil {
     @SuppressWarnings("DataFlowIssue")
     @Nullable
     public static Holder<SpellPart> spellPart(Holder<Skill> skill) {
-        return ArsMagicaApi.spellPartRegistry().getHolder(skill.getKey().location()).orElse(null);
+        return AMRegistries.SPELL_PARTS.getHolder(skill.getKey().location()).orElse(null);
     }
 
     @SuppressWarnings("DataFlowIssue")
@@ -157,8 +157,8 @@ public final class AMUtil {
         return true;
     }
 
-    public static List<ItemStack> destroyBlockAndGetDrops(ServerLevel level, BlockPos pos, BlockState state, Player player) {
-        return cancelDestroyBlock(level, pos, state, player) ? List.of() : Block.getDrops(state, level, pos, level.getBlockEntity(pos), player, ItemStack.EMPTY);
+    public static List<ItemStack> destroyBlockAndGetDrops(ServerLevel level, BlockPos pos, BlockState state, Player player, ItemStack stack) {
+        return cancelDestroyBlock(level, pos, state, player) ? List.of() : Block.getDrops(state, level, pos, level.getBlockEntity(pos), player, stack);
     }
 
     public static void doCompendiumConversion(ItemFrame itemFrame) {

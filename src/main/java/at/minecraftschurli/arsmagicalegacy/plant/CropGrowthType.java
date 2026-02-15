@@ -30,7 +30,7 @@ public record CropGrowthType(List<HarvestState> harvestStates) implements Boneme
 
     @Override
     public List<ItemStack> harvest(GrowthContext context) {
-        return AMUtil.destroyBlockAndGetDrops(context.level(), context.pos(), context.state(), context.player());
+        return AMUtil.destroyBlockAndGetDrops(context.level(), context.pos(), context.state(), context.player(), context.plant().tool().copy());
     }
 
     @Override

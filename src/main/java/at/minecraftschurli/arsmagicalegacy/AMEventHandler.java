@@ -163,22 +163,22 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void newRegistry(NewRegistryEvent event) {
-        event.register(ArsMagicaApi.abilityEffectRegistry());
-        event.register(ArsMagicaApi.growthTypeRegistry());
-        event.register(ArsMagicaApi.spellIngredientRegistry());
-        event.register(ArsMagicaApi.spellPartRegistry());
+        event.register(AMRegistries.ABILITY_EFFECTS);
+        event.register(AMRegistries.GROWTH_TYPES);
+        event.register(AMRegistries.SPELL_INGREDIENTS);
+        event.register(AMRegistries.SPELL_PARTS);
     }
 
     @SubscribeEvent
     private static void newDataPackRegistry(DataPackRegistryEvent.NewRegistry event) {
-        event.dataPackRegistry(AMRegistries.ABILITY, Ability.DIRECT_CODEC, Ability.DIRECT_CODEC);
-        event.dataPackRegistry(AMRegistries.AFFINITY, Affinity.DIRECT_CODEC, Affinity.DIRECT_CODEC);
-        event.dataPackRegistry(AMRegistries.ALTAR_CAP_MATERIAL, AltarCapMaterial.DIRECT_CODEC, AltarCapMaterial.DIRECT_CODEC);
-        event.dataPackRegistry(AMRegistries.ALTAR_MATERIAL, AltarMaterial.DIRECT_CODEC, AltarMaterial.DIRECT_CODEC);
-        event.dataPackRegistry(AMRegistries.ETHERIUM_TYPE, EtheriumType.DIRECT_CODEC, EtheriumType.DIRECT_CODEC);
-        event.dataPackRegistry(AMRegistries.OCCULUS_TAB, OcculusTab.DIRECT_CODEC, OcculusTab.DIRECT_CODEC);
-        event.dataPackRegistry(AMRegistries.SKILL, Skill.DIRECT_CODEC, Skill.DIRECT_CODEC);
-        event.dataPackRegistry(AMRegistries.SKILL_POINT, SkillPoint.DIRECT_CODEC, SkillPoint.DIRECT_CODEC);
+        event.dataPackRegistry(AMRegistries.Keys.ABILITY, Ability.DIRECT_CODEC, Ability.DIRECT_CODEC);
+        event.dataPackRegistry(AMRegistries.Keys.AFFINITY, Affinity.DIRECT_CODEC, Affinity.DIRECT_CODEC);
+        event.dataPackRegistry(AMRegistries.Keys.ALTAR_CAP_MATERIAL, AltarCapMaterial.DIRECT_CODEC, AltarCapMaterial.DIRECT_CODEC);
+        event.dataPackRegistry(AMRegistries.Keys.ALTAR_MATERIAL, AltarMaterial.DIRECT_CODEC, AltarMaterial.DIRECT_CODEC);
+        event.dataPackRegistry(AMRegistries.Keys.ETHERIUM_TYPE, EtheriumType.DIRECT_CODEC, EtheriumType.DIRECT_CODEC);
+        event.dataPackRegistry(AMRegistries.Keys.OCCULUS_TAB, OcculusTab.DIRECT_CODEC, OcculusTab.DIRECT_CODEC);
+        event.dataPackRegistry(AMRegistries.Keys.SKILL, Skill.DIRECT_CODEC, Skill.DIRECT_CODEC);
+        event.dataPackRegistry(AMRegistries.Keys.SKILL_POINT, SkillPoint.DIRECT_CODEC, SkillPoint.DIRECT_CODEC);
     }
 
     @SubscribeEvent

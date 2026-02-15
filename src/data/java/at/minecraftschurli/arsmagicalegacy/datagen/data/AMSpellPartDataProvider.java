@@ -34,8 +34,8 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
 
     @Override
     public void generate(HolderLookup.Provider provider) {
-        HolderLookup.RegistryLookup<Affinity> affinities = provider.lookupOrThrow(AMRegistries.AFFINITY);
-        HolderLookup.RegistryLookup<EtheriumType> etheriumTypes = provider.lookupOrThrow(AMRegistries.ETHERIUM_TYPE);
+        HolderLookup.RegistryLookup<Affinity> affinities = provider.lookupOrThrow(AMRegistries.Keys.AFFINITY);
+        HolderLookup.RegistryLookup<EtheriumType> etheriumTypes = provider.lookupOrThrow(AMRegistries.Keys.ETHERIUM_TYPE);
         builder(AMSpells.AREA_OF_EFFECT, 2f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(Items.TNT), 1))
             .ingredient(new EtheriumSpellIngredient(1));

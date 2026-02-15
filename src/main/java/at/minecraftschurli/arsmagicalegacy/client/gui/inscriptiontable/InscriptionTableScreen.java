@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
@@ -231,7 +232,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         sourceArea.setTypeFilter(
             shapeGroupAreas.stream().anyMatch(ShapeGroupArea::isEmpty),
             shapeGroupAreas.stream().anyMatch(e -> !e.isEmpty() && e.isNotFull() && e.getAll().stream().noneMatch(p -> {
-                Optional<? extends Holder<SpellPart>> holder = ArsMagicaApi.spellPartRegistry().getHolder(p.getSkill().getKey().location());
+                Optional<? extends Holder<SpellPart>> holder = AMRegistries.SPELL_PARTS.getHolder(p.getSkill().getKey().location());
                 return holder.isPresent() && holder.get().value().isSecondaryShape();
             })),
             grammarArea.isNotFull(),

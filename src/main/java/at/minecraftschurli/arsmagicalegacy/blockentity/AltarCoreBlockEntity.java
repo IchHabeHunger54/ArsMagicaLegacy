@@ -351,7 +351,7 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
             Codec.INT.fieldOf("current").forGetter(Data::current),
             Spell.CODEC.optionalFieldOf("spell", Spell.EMPTY).forGetter(Data::spell),
             BlockPos.CODEC.listOf().optionalFieldOf("providers", List.of()).forGetter(Data::providers),
-            Codec.unboundedMap(ResourceKey.codec(AMRegistries.ETHERIUM_TYPE), Codec.INT).optionalFieldOf("etherium", Map.of()).forGetter(Data::etherium)
+            Codec.unboundedMap(ResourceKey.codec(AMRegistries.Keys.ETHERIUM_TYPE), Codec.INT).optionalFieldOf("etherium", Map.of()).forGetter(Data::etherium)
         ).apply(inst, Data::new));
     }
 }

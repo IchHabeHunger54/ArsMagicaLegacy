@@ -50,7 +50,7 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
     @SuppressWarnings({"ResultOfMethodCallIgnored", "DataFlowIssue"})
     @Override
     protected void addBooks(HolderLookup.Provider lookupProvider, Consumer<BookBuilder<?, ?, ?>> consumer) {
-        HolderLookup.RegistryLookup<Affinity> affinityRegistry = lookupProvider.lookupOrThrow(AMRegistries.AFFINITY);
+        HolderLookup.RegistryLookup<Affinity> affinityRegistry = lookupProvider.lookupOrThrow(AMRegistries.Keys.AFFINITY);
         TranslatedBookBuilder builder = createBookBuilder("arcane_compendium", "Arcane Compendium", "A renewed look into Minecraft with a splash of magic...", translationConsumer, lookupProvider)
             .setBookTexture(ResourceLocation.fromNamespaceAndPath("patchouli", "textures/gui/book_purple.png"))
             .setCreativeTab(AMCreativeTabs.MAIN.getId())
@@ -347,12 +347,12 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
         TranslatedCategoryBuilder modifiers = builder
             .addCategory("modifiers", "Modifiers", "", ArsMagicaApi.MOD_ID + ":textures/skill/target_non_solid.png")
             .setSortnum(6);
-        for (SpellPart spellPart : ArsMagicaApi.spellPartRegistry()) {
+        for (SpellPart spellPart : AMRegistries.SPELL_PARTS) {
             if (spellPart == AMSpells.MELT_ARMOR.get()) continue;
             if (spellPart == AMSpells.NAUSEA.get()) continue;
             if (spellPart == AMSpells.SCRAMBLE_SYNAPSES.get()) continue;
             TranslatedCategoryBuilder b = spellPart.isShape() ? shapes : spellPart.isComponent() ? components : modifiers;
-            ResourceLocation id = ArsMagicaApi.spellPartRegistry().getKey(spellPart);
+            ResourceLocation id = AMRegistries.SPELL_PARTS.getKey(spellPart);
             TranslatedEntryBuilder entry = b.addEntry(id.getPath(), Util.makeDescriptionId("skill", id) + ".name", id.getNamespace() + ":textures/skill/" + id.getPath() + ".png")
                 .setAdvancement(ArsMagicaApi.id("book/" + id.getPath()));
             entry.addSimpleTextPage(entry.getLangKey(0) + ".text");
@@ -388,7 +388,7 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
             .addSimpleTextPage("There is also an affinity essence for each affinity, which is used in intermediate crafting for spell parts associated with that affinity. Affinity essences must be obtained from bosses, but can be duplicated through crafting later.")
             .build();
         Map<ResourceKey<Affinity>, List<Holder.Reference<Ability>>> abilitiesByAffinity = lookupProvider
-            .lookupOrThrow(AMRegistries.ABILITY)
+            .lookupOrThrow(AMRegistries.Keys.ABILITY)
             .listElements()
             .sorted(Comparator.comparing(e -> e.key().location(), ResourceLocation::compareNamespaced))
             .sorted(Comparator.comparing(e -> AMAbilityProvider.PATCHOULI_ABILITY_DATA.get(e.getKey()).bounds().min().orElse(0.)))

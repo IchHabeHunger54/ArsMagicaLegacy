@@ -2,7 +2,6 @@ package at.minecraftschurli.arsmagicalegacy.menu;
 
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
 import at.minecraftschurli.arsmagicalegacy.menu.container.RiftContainer;
-import at.minecraftschurli.arsmagicalegacy.menu.slot.ViewSlot;
 import at.minecraftschurli.arsmagicalegacy.util.QuickMoveStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.LivingEntity;

@@ -2,9 +2,9 @@ package at.minecraftschurli.arsmagicalegacy.init;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicAttachment;
+import at.minecraftschurli.arsmagicalegacy.attachment.ContingencyAttachment;
 import at.minecraftschurli.arsmagicalegacy.attachment.RiftAttachment;
 import at.minecraftschurli.arsmagicalegacy.attachment.TemporalAnchorAttachment;
-import at.minecraftschurli.arsmagicalegacy.attachment.ContingencyAttachment;
 import com.mojang.serialization.Codec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;

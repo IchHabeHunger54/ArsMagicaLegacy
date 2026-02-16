@@ -32,7 +32,7 @@ public final class AMPlantProvider extends PlantProvider {
 
     @Override
     public void generate(HolderLookup.Provider provider) {
-        builder("bamboo", new UpwardsGrowthType(1, 16), new CompositeMatchTest(List.of(
+        builder("bamboo", new UpwardsGrowthType(1, 16, Blocks.BAMBOO, Blocks.BAMBOO), new CompositeMatchTest(List.of(
             new BlockMatchTest(Blocks.BAMBOO),
             new BlockMatchTest(Blocks.BAMBOO_SAPLING))))
             .seed(Items.BAMBOO)
@@ -44,7 +44,7 @@ public final class AMPlantProvider extends PlantProvider {
             .seed(Items.BEETROOT_SEEDS)
             .crop(Items.BEETROOT);
         // TODO 26.1 cactus flower
-        builder("cactus", new UpwardsGrowthType(1, 3), new BlockMatchTest(Blocks.CACTUS))
+        builder("cactus", new UpwardsGrowthType(1, 3, Blocks.CACTUS, Blocks.CACTUS), new BlockMatchTest(Blocks.CACTUS))
             .seed(Items.CACTUS)
             .crop(Items.CACTUS);
         builder("carrots", new CropGrowthType(List.of(new HarvestState(
@@ -70,12 +70,15 @@ public final class AMPlantProvider extends PlantProvider {
         )), new BlockMatchTest(Blocks.COCOA))
             .seed(Items.COCOA_BEANS)
             .crop(Items.COCOA_BEANS);
-        builder("cave_vines", new HangingBushGrowthType(List.of(Blocks.CAVE_VINES_PLANT.defaultBlockState().setValue(BlockStateProperties.BERRIES, true)), 1, 0, Blocks.CAVE_VINES.defaultBlockState()), new CompositeMatchTest(List.of(
+        builder("cave_vines", new HangingBushGrowthType(List.of(
+            Blocks.CAVE_VINES_PLANT.defaultBlockState().setValue(BlockStateProperties.BERRIES, true),
+            Blocks.CAVE_VINES.defaultBlockState().setValue(BlockStateProperties.BERRIES, true)
+        ), 1, 0, Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT), new CompositeMatchTest(List.of(
             new BlockMatchTest(Blocks.CAVE_VINES),
             new BlockMatchTest(Blocks.CAVE_VINES_PLANT))))
             .seed(Items.GLOW_BERRIES)
             .crop(Items.GLOW_BERRIES);
-        builder("kelp", new UpwardsGrowthType(1, 26, Blocks.KELP.defaultBlockState().setValue(BlockStateProperties.AGE_25, 25)), new CompositeMatchTest(List.of(
+        builder("kelp", new UpwardsGrowthType(1, 26, Blocks.KELP, Blocks.KELP_PLANT), new CompositeMatchTest(List.of(
             new BlockMatchTest(Blocks.KELP),
             new BlockMatchTest(Blocks.KELP_PLANT))))
             .seed(Items.KELP)
@@ -109,7 +112,7 @@ public final class AMPlantProvider extends PlantProvider {
             new BlockMatchTest(Blocks.PUMPKIN))))
             .seed(Items.PUMPKIN_SEEDS)
             .crop(Items.PUMPKIN);
-        builder("sugar_cane", new UpwardsGrowthType(1, 3), new BlockMatchTest(Blocks.SUGAR_CANE))
+        builder("sugar_cane", new UpwardsGrowthType(1, 3, Blocks.SUGAR_CANE, Blocks.SUGAR_CANE), new BlockMatchTest(Blocks.SUGAR_CANE))
             .seed(Items.SUGAR_CANE)
             .crop(Items.SUGAR_CANE);
         builder("sweet_berry_bush", new BushGrowthType(List.of(
@@ -122,7 +125,7 @@ public final class AMPlantProvider extends PlantProvider {
             Blocks.TORCHFLOWER.defaultBlockState(),
             Blocks.AIR.defaultBlockState()
         ))), new BlockMatchTest(Blocks.TORCHFLOWER_CROP));
-        builder("vine", new HangingGrowthType(1, 0), new BlockMatchTest(Blocks.VINE))
+        builder("vine", new HangingGrowthType(1, 0, Blocks.VINE, Blocks.VINE), new BlockMatchTest(Blocks.VINE))
             .seed(Items.VINE)
             .crop(Items.VINE)
             .tool(Items.SHEARS);

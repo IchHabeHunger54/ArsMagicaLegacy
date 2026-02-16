@@ -18,6 +18,8 @@
   },
   "growth_type": {
     "type": "arsmagicalegacy:upwards",
+    "body": "minecraft:bamboo",
+    "head": "minecraft:bamboo",
     "max_height": 16
   },
   "seed": {

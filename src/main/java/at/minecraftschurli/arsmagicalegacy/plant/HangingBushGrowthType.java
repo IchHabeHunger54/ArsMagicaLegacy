@@ -8,6 +8,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.ExtraCodecs;
@@ -22,22 +23,18 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-public record HangingBushGrowthType(List<BlockState> harvestStates, int minHeight, int maxHeight, Optional<BlockState> bottomState) implements BonemealableGrowthType {
+public record HangingBushGrowthType(List<BlockState> harvestStates, int minHeight, int maxHeight, Block head, Block body) implements BonemealableGrowthType {
     public static final MapCodec<HangingBushGrowthType> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
         BlockState.CODEC.listOf().fieldOf("harvest_states").forGetter(HangingBushGrowthType::harvestStates),
         ExtraCodecs.POSITIVE_INT.optionalFieldOf("min_height", 1).forGetter(HangingBushGrowthType::minHeight),
         ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("max_height", 0).forGetter(HangingBushGrowthType::maxHeight),
-        BlockState.CODEC.optionalFieldOf("bottom_state").forGetter(HangingBushGrowthType::bottomState)
+        BuiltInRegistries.BLOCK.byNameCodec().fieldOf("head").forGetter(HangingBushGrowthType::head),
+        BuiltInRegistries.BLOCK.byNameCodec().fieldOf("body").forGetter(HangingBushGrowthType::body)
     ).apply(inst, HangingBushGrowthType::new));
 
-    public HangingBushGrowthType(List<BlockState> harvestStates, int minHeight, int maxHeight) {
-        this(harvestStates, minHeight, maxHeight, Optional.empty());
-    }
-
-    public HangingBushGrowthType(List<BlockState> harvestStates, int minHeight, int maxHeight, BlockState bottomState) {
-        this(harvestStates, minHeight, maxHeight, Optional.of(bottomState));
+    public HangingBushGrowthType(List<BlockState> harvestStates, int minHeight, int maxHeight, Block block) {
+        this(harvestStates, minHeight, maxHeight, block, block);
     }
 
     @Override
@@ -56,13 +53,11 @@ public record HangingBushGrowthType(List<BlockState> harvestStates, int minHeigh
         }
         if (maxHeight > 0 && column.size() >= maxHeight) return false;
         BlockPos last = column.getLast();
-        if (!level.getBlockState(last.below()).canBeReplaced()) return false;
-        return bottomState.isEmpty() || level.getBlockState(column.getLast()) != bottomState.get();
+        return level.getBlockState(last.below()).canBeReplaced() && level.getBlockState(last).is(head);
     }
 
     @Override
     public void grow(GrowthContext context) {
-        BlockState state = context.state();
         Plant plant = context.plant();
         ServerPlayer player = context.player();
         ServerLevel level = context.level();
@@ -76,9 +71,9 @@ public record HangingBushGrowthType(List<BlockState> harvestStates, int minHeigh
             }
         }
         if (bonemealed) return;
-        if (bottomState.isEmpty() || level.getBlockState(column.getLast()) != bottomState.get()) {
-            level.setBlockAndUpdate(getColumn(context).getLast().below(), state);
-        }
+        BlockPos last = getColumn(context).getLast();
+        level.setBlockAndUpdate(last, body.defaultBlockState());
+        level.setBlockAndUpdate(last.below(), head.defaultBlockState());
     }
 
     @Override
@@ -97,8 +92,7 @@ public record HangingBushGrowthType(List<BlockState> harvestStates, int minHeigh
         ServerPlayer player = context.player();
         ItemStack tool = context.plant().tool();
         Block.beginCapturingDrops();
-        while (column.size() > minHeight) {
-            BlockPos lastPos = column.getLast();
+        for (BlockPos lastPos : column) {
             BlockState lastState = level.getBlockState(lastPos);
             BlockHitResult hitResult = new BlockHitResult(Vec3.atCenterOf(lastPos), Direction.UP, lastPos, true);
             if (tool.isEmpty()) {
@@ -106,7 +100,6 @@ public record HangingBushGrowthType(List<BlockState> harvestStates, int minHeigh
             } else {
                 lastState.useItemOn(tool.copy(), level, player, InteractionHand.MAIN_HAND, hitResult);
             }
-            column.removeLast();
         }
         return Block.stopCapturingDrops()
             .stream()
@@ -126,19 +119,22 @@ public record HangingBushGrowthType(List<BlockState> harvestStates, int minHeigh
     private List<BlockPos> getColumn(GrowthContext context) {
         ServerLevel level = context.level();
         BlockPos originalPos = context.pos();
-        Block block = context.state().getBlock();
         List<BlockPos> list = new ArrayList<>();
         list.add(originalPos);
         BlockPos pos = originalPos.above();
-        while (level.getBlockState(pos).is(block)) {
+        while (isHeadOrBody(level.getBlockState(pos))) {
             list.addFirst(pos);
             pos = pos.above();
         }
         pos = originalPos.below();
-        while (level.getBlockState(pos).is(block)) {
+        while (isHeadOrBody(level.getBlockState(pos))) {
             list.add(pos);
             pos = pos.below();
         }
         return list;
+    }
+
+    private boolean isHeadOrBody(BlockState state) {
+        return state.is(head) || state.is(body);
     }
 }

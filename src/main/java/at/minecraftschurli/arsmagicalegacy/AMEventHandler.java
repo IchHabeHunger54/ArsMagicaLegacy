@@ -60,9 +60,6 @@ import at.minecraftschurli.arsmagicalegacy.packet.SetLecternPagePacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SpellBookScrollPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SpellCustomizationPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.TakeSpellRecipeFromLecternPacket;
-import at.minecraftschurli.arsmagicalegacy.plant.PlantManager;
-import at.minecraftschurli.arsmagicalegacy.ritual.RitualManager;
-import at.minecraftschurli.arsmagicalegacy.spell.SpellPartDataManager;
 import at.minecraftschurli.arsmagicalegacy.spell.ToolTiers;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import at.minecraftschurli.arsmagicalegacy.util.DispenseBucketBehavior;
@@ -187,9 +184,9 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void addReloadListener(AddReloadListenerEvent event) {
-        event.addListener(PlantManager.INSTANCE);
-        event.addListener(RitualManager.INSTANCE);
-        event.addListener(SpellPartDataManager.INSTANCE);
+        event.addListener(ArsMagicaApi.plantManager());
+        event.addListener(ArsMagicaApi.ritualManager());
+        event.addListener(ArsMagicaApi.spellPartDataManager());
         event.addListener(ToolTiers.INSTANCE);
     }
 

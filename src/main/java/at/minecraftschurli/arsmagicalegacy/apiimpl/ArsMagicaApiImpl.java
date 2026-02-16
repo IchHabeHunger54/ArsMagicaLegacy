@@ -2,10 +2,15 @@ package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityHelper;
+import at.minecraftschurli.arsmagicalegacy.api.data.JsonDataManager;
 import at.minecraftschurli.arsmagicalegacy.api.magic.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
+import at.minecraftschurli.arsmagicalegacy.api.plant.Plant;
+import at.minecraftschurli.arsmagicalegacy.api.ritual.Ritual;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
+import at.minecraftschurli.arsmagicalegacy.util.AMDataManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -17,6 +22,9 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     private static final MagicHelper MAGIC_HELPER = new MagicHelperImpl();
     private static final ManaHelper MANA_HELPER = new ManaHelperImpl();
     private static final SpellHelper SPELL_HELPER = new SpellHelperImpl();
+    private static final AMDataManager<Plant> PLANT_MANAGER = new AMDataManager<>("plant", Plant.CODEC);
+    private static final AMDataManager<Ritual> RITUAL_MANAGER = new AMDataManager<>("ritual", Ritual.CODEC);
+    private static final AMDataManager<SpellPartData> SPELL_PART_DATA_MANAGER = new AMDataManager<>("spell_part", SpellPartData.CODEC);
 
     @Override
     protected ItemStack getBook() {
@@ -46,5 +54,20 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     @Override
     protected SpellHelper getSpellHelper() {
         return SPELL_HELPER;
+    }
+
+    @Override
+    protected JsonDataManager<Plant> getPlantManager() {
+        return PLANT_MANAGER;
+    }
+
+    @Override
+    protected JsonDataManager<Ritual> getRitualManager() {
+        return RITUAL_MANAGER;
+    }
+
+    @Override
+    protected JsonDataManager<SpellPartData> getSpellPartDataManager() {
+        return SPELL_PART_DATA_MANAGER;
     }
 }

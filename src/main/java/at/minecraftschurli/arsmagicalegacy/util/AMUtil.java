@@ -14,7 +14,6 @@ import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.arsmagicalegacy.item.SpellRecipeItem;
 import at.minecraftschurli.arsmagicalegacy.packet.OpenBookInLecternPacket;
-import at.minecraftschurli.arsmagicalegacy.plant.PlantManager;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.CommandSourceStack;
@@ -229,7 +228,8 @@ public final class AMUtil {
     }
 
     public static List<Plant> getPlants(BlockState state) {
-        return PlantManager.INSTANCE.getAll()
+        return ArsMagicaApi.plantManager()
+            .getAll()
             .values()
             .stream()
             .filter(plant -> doRuleTest(plant.allStates(), state))

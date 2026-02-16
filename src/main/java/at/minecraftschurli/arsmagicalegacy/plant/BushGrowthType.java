@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.plant;
 import at.minecraftschurli.arsmagicalegacy.api.plant.BonemealableGrowthType;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthContext;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
+import at.minecraftschurli.arsmagicalegacy.api.plant.ReplantableGrowthType;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
@@ -19,7 +20,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
-public record BushGrowthType(List<BlockState> harvestStates) implements BonemealableGrowthType {
+public record BushGrowthType(List<BlockState> harvestStates) implements BonemealableGrowthType, ReplantableGrowthType {
     public static final MapCodec<BushGrowthType> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
         BlockState.CODEC.listOf().fieldOf("harvest_states").forGetter(BushGrowthType::harvestStates)
     ).apply(inst, BushGrowthType::new));

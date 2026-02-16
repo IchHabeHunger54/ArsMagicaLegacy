@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.plant.BonemealableGrowthType;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthContext;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
 import at.minecraftschurli.arsmagicalegacy.api.plant.HarvestState;
+import at.minecraftschurli.arsmagicalegacy.api.plant.ReplantableGrowthType;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -12,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 
-public record CropGrowthType(List<HarvestState> harvestStates) implements BonemealableGrowthType {
+public record CropGrowthType(List<HarvestState> harvestStates) implements BonemealableGrowthType, ReplantableGrowthType {
     public static final MapCodec<CropGrowthType> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
         HarvestState.CODEC.listOf().fieldOf("harvest_states").forGetter(CropGrowthType::harvestStates)
     ).apply(inst, CropGrowthType::new));

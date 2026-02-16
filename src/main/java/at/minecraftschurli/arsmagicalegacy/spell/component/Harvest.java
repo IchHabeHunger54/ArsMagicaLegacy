@@ -36,7 +36,7 @@ public class Harvest extends SpellComponent.CastBlock {
         for (Plant plant : AMUtil.getPlants(state)) {
             GrowthContext context = plant.createContext(player, serverLevel, pos, state);
             if (!plant.growthType().canHarvest(context)) continue;
-            plant.growthType().harvest(context).forEach(stack -> {
+            plant.growthType().harvest(context, false).forEach(stack -> {
                 if (player.isFakePlayer() || !player.getInventory().add(stack)) {
                     player.drop(stack, false);
                 }

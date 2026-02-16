@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.plant;
 import at.minecraftschurli.arsmagicalegacy.api.plant.BonemealableGrowthType;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthContext;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
+import at.minecraftschurli.arsmagicalegacy.api.plant.ReplantableGrowthType;
 import at.minecraftschurli.arsmagicalegacy.api.plant.TallHarvestState;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.MapCodec;
@@ -17,7 +18,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import java.util.ArrayList;
 import java.util.List;
 
-public record TallCropGrowthType(List<TallHarvestState> harvestStates, RuleTest lower, RuleTest upper) implements BonemealableGrowthType {
+public record TallCropGrowthType(List<TallHarvestState> harvestStates, RuleTest lower, RuleTest upper) implements BonemealableGrowthType, ReplantableGrowthType {
     public static final MapCodec<TallCropGrowthType> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
         TallHarvestState.CODEC.listOf().fieldOf("harvest_states").forGetter(TallCropGrowthType::harvestStates),
         RuleTest.CODEC.fieldOf("lower").forGetter(TallCropGrowthType::lower),

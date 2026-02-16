@@ -46,7 +46,7 @@ public record ChorusGrowthType() implements GrowthType {
     }
 
     @Override
-    public List<ItemStack> harvest(GrowthContext context) {
+    public List<ItemStack> harvest(GrowthContext context, boolean replant) {
         Set<BlockPos> set = new HashSet<>();
         ServerLevel level = context.level();
         ServerPlayer player = context.player();
@@ -65,23 +65,20 @@ public record ChorusGrowthType() implements GrowthType {
         List<BlockPos> list = set.stream()
             .sorted(Comparator.comparing(BlockPos::getY))
             .toList();
+        BlockPos ground = null;
         for (BlockPos pos : list) {
             BlockState state = level.getBlockState(pos);
             if (state.is(Blocks.CHORUS_PLANT)) {
                 drops.addAll(AMUtil.destroyBlockAndGetDrops(level, pos, state, player, tool.copy()));
             }
+            if (level.getBlockState(pos.below()).is(Blocks.END_STONE)) {
+                ground = pos;
+            }
+        }
+        if (replant && ground != null) {
+            level.setBlockAndUpdate(ground, Blocks.CHORUS_FLOWER.defaultBlockState());
         }
         return drops;
-    }
-
-    @Override
-    public boolean canReplant(GrowthContext context) {
-        return context.level().getBlockState(context.pos().below()).is(Blocks.END_STONE);
-    }
-
-    @Override
-    public void replant(GrowthContext context) {
-        context.level().setBlockAndUpdate(context.pos(), Blocks.CHORUS_FLOWER.defaultBlockState());
     }
 
     private void getTree(ServerLevel level, BlockPos pos, Set<BlockPos> set) {

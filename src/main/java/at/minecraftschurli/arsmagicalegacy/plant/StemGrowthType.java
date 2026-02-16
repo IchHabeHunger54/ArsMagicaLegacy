@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.plant;
 import at.minecraftschurli.arsmagicalegacy.api.plant.BonemealableGrowthType;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthContext;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
+import at.minecraftschurli.arsmagicalegacy.api.plant.ReplantableGrowthType;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -24,7 +25,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import java.util.List;
 import java.util.Optional;
 
-public record StemGrowthType(RuleTest stem, Block attachedStem, BlockState fruit, String ageProperty, int maxAge) implements BonemealableGrowthType {
+public record StemGrowthType(RuleTest stem, Block attachedStem, BlockState fruit, String ageProperty, int maxAge) implements BonemealableGrowthType, ReplantableGrowthType {
     public static final MapCodec<StemGrowthType> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
         RuleTest.CODEC.fieldOf("stem").forGetter(StemGrowthType::stem),
         BuiltInRegistries.BLOCK.byNameCodec().fieldOf("attached_stem").forGetter(StemGrowthType::attachedStem),

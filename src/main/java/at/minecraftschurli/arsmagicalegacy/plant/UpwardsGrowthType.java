@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.plant;
 
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthContext;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
+import at.minecraftschurli.arsmagicalegacy.api.plant.ReplantableGrowthType;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -17,7 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.ArrayList;
 import java.util.List;
 
-public record UpwardsGrowthType(int minHeight, int maxHeight, Block head, Block body) implements GrowthType {
+public record UpwardsGrowthType(int minHeight, int maxHeight, Block head, Block body) implements ReplantableGrowthType {
     public static final MapCodec<UpwardsGrowthType> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
         ExtraCodecs.POSITIVE_INT.optionalFieldOf("min_height", 1).forGetter(UpwardsGrowthType::minHeight),
         ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("max_height", 0).forGetter(UpwardsGrowthType::maxHeight),

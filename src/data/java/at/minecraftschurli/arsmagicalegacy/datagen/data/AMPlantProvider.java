@@ -5,6 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.data.PlantProvider;
 import at.minecraftschurli.arsmagicalegacy.api.plant.HarvestState;
 import at.minecraftschurli.arsmagicalegacy.api.plant.TallHarvestState;
 import at.minecraftschurli.arsmagicalegacy.plant.BushGrowthType;
+import at.minecraftschurli.arsmagicalegacy.plant.ChorusGrowthType;
 import at.minecraftschurli.arsmagicalegacy.plant.CropGrowthType;
 import at.minecraftschurli.arsmagicalegacy.plant.HangingBushGrowthType;
 import at.minecraftschurli.arsmagicalegacy.plant.HangingGrowthType;
@@ -54,6 +55,11 @@ public final class AMPlantProvider extends PlantProvider {
             .seed(Items.CARROT)
             .crop(Items.CARROT);
         //TODO chorus
+        builder("chorus", new ChorusGrowthType(), new CompositeMatchTest(List.of(
+            new BlockMatchTest(Blocks.CHORUS_FLOWER),
+            new BlockMatchTest(Blocks.CHORUS_PLANT))))
+            .seed(Items.CHORUS_FLOWER)
+            .crop(Items.CHORUS_FRUIT);
         builder("cocoa", new CropGrowthType(List.of(
             new HarvestState(
                 Blocks.COCOA.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH).setValue(BlockStateProperties.AGE_2, 2),

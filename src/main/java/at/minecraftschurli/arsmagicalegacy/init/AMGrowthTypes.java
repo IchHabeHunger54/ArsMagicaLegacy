@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
 import at.minecraftschurli.arsmagicalegacy.plant.BushGrowthType;
+import at.minecraftschurli.arsmagicalegacy.plant.ChorusGrowthType;
 import at.minecraftschurli.arsmagicalegacy.plant.CropGrowthType;
 import at.minecraftschurli.arsmagicalegacy.plant.HangingBushGrowthType;
 import at.minecraftschurli.arsmagicalegacy.plant.HangingGrowthType;
@@ -18,6 +19,7 @@ public interface AMGrowthTypes {
     DeferredRegister<MapCodec<? extends GrowthType>> GROWTH_TYPES = DeferredRegister.create(AMRegistries.Keys.GROWTH_TYPE, ArsMagicaApi.MOD_ID);
 
     DeferredHolder<MapCodec<? extends GrowthType>, MapCodec<BushGrowthType>>        BUSH         = GROWTH_TYPES.register("bush",         () -> BushGrowthType.CODEC);
+    DeferredHolder<MapCodec<? extends GrowthType>, MapCodec<ChorusGrowthType>>      CHORUS       = GROWTH_TYPES.register("chorus",       () -> ChorusGrowthType.CODEC);
     DeferredHolder<MapCodec<? extends GrowthType>, MapCodec<CropGrowthType>>        CROP         = GROWTH_TYPES.register("crop",         () -> CropGrowthType.CODEC);
     DeferredHolder<MapCodec<? extends GrowthType>, MapCodec<HangingGrowthType>>     HANGING      = GROWTH_TYPES.register("hanging",      () -> HangingGrowthType.CODEC);
     DeferredHolder<MapCodec<? extends GrowthType>, MapCodec<HangingBushGrowthType>> HANGING_BUSH = GROWTH_TYPES.register("hanging_bush", () -> HangingBushGrowthType.CODEC);

@@ -1,0 +1,26 @@
+{
+  "all_states": {
+    "predicate_type": "arsmagicalegacy:composite",
+    "rule_tests": [
+      {
+        "block": "minecraft:chorus_flower",
+        "predicate_type": "minecraft:block_match"
+      },
+      {
+        "block": "minecraft:chorus_plant",
+        "predicate_type": "minecraft:block_match"
+      }
+    ]
+  },
+  "crop": {
+    "count": 1,
+    "id": "minecraft:chorus_fruit"
+  },
+  "growth_type": {
+    "type": "arsmagicalegacy:chorus"
+  },
+  "seed": {
+    "count": 1,
+    "id": "minecraft:chorus_flower"
+  }
+}

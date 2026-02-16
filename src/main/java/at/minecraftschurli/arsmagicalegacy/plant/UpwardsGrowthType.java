@@ -41,7 +41,10 @@ public record UpwardsGrowthType(int minHeight, int maxHeight, Optional<BlockStat
     public boolean canGrow(GrowthContext context) {
         List<BlockPos> column = getColumn(context);
         if (maxHeight > 0 && column.size() >= maxHeight) return false;
-        return topState.isEmpty() || context.level().getBlockState(column.getLast()) != topState.get();
+        ServerLevel level = context.level();
+        BlockPos last = column.getLast();
+        if (!level.getBlockState(last.above()).canBeReplaced()) return false;
+        return topState.isEmpty() || level.getBlockState(last) != topState.get();
     }
 
     @Override

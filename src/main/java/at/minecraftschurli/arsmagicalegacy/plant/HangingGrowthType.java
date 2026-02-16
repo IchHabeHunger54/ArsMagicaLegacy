@@ -41,7 +41,10 @@ public record HangingGrowthType(int minHeight, int maxHeight, Optional<BlockStat
     public boolean canGrow(GrowthContext context) {
         List<BlockPos> column = getColumn(context);
         if (maxHeight > 0 && column.size() >= maxHeight) return false;
-        return bottomState.isEmpty() || context.level().getBlockState(column.getLast()) != bottomState.get();
+        ServerLevel level = context.level();
+        BlockPos last = column.getLast();
+        if (!level.getBlockState(last.below()).canBeReplaced()) return false;
+        return bottomState.isEmpty() || level.getBlockState(last) != bottomState.get();
     }
 
     @Override

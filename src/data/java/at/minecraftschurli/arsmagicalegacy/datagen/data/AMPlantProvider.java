@@ -6,6 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.api.plant.HarvestState;
 import at.minecraftschurli.arsmagicalegacy.api.plant.TallHarvestState;
 import at.minecraftschurli.arsmagicalegacy.plant.BushGrowthType;
 import at.minecraftschurli.arsmagicalegacy.plant.CropGrowthType;
+import at.minecraftschurli.arsmagicalegacy.plant.HangingBushGrowthType;
 import at.minecraftschurli.arsmagicalegacy.plant.HangingGrowthType;
 import at.minecraftschurli.arsmagicalegacy.plant.StemGrowthType;
 import at.minecraftschurli.arsmagicalegacy.plant.TallCropGrowthType;
@@ -69,7 +70,11 @@ public final class AMPlantProvider extends PlantProvider {
         )), new BlockMatchTest(Blocks.COCOA))
             .seed(Items.COCOA_BEANS)
             .crop(Items.COCOA_BEANS);
-        //TODO glow berries
+        builder("cave_vines", new HangingBushGrowthType(List.of(Blocks.CAVE_VINES_PLANT.defaultBlockState().setValue(BlockStateProperties.BERRIES, true)), 1, 0, Blocks.CAVE_VINES.defaultBlockState()), new CompositeMatchTest(List.of(
+            new BlockMatchTest(Blocks.CAVE_VINES),
+            new BlockMatchTest(Blocks.CAVE_VINES_PLANT))))
+            .seed(Items.GLOW_BERRIES)
+            .crop(Items.GLOW_BERRIES);
         builder("kelp", new UpwardsGrowthType(1, 26, Blocks.KELP.defaultBlockState().setValue(BlockStateProperties.AGE_25, 25)), new CompositeMatchTest(List.of(
             new BlockMatchTest(Blocks.KELP),
             new BlockMatchTest(Blocks.KELP_PLANT))))

@@ -6,6 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
@@ -15,21 +16,17 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-public record HangingGrowthType(int minHeight, int maxHeight, Optional<BlockState> bottomState) implements GrowthType {
+public record HangingGrowthType(int minHeight, int maxHeight, Block head, Block body) implements GrowthType {
     public static final MapCodec<HangingGrowthType> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
         ExtraCodecs.POSITIVE_INT.optionalFieldOf("min_height", 1).forGetter(HangingGrowthType::minHeight),
         ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("max_height", 0).forGetter(HangingGrowthType::maxHeight),
-        BlockState.CODEC.optionalFieldOf("bottom_state").forGetter(HangingGrowthType::bottomState)
+        BuiltInRegistries.BLOCK.byNameCodec().fieldOf("head").forGetter(HangingGrowthType::head),
+        BuiltInRegistries.BLOCK.byNameCodec().fieldOf("body").forGetter(HangingGrowthType::body)
     ).apply(inst, HangingGrowthType::new));
 
-    public HangingGrowthType(int minHeight, int maxHeight) {
-        this(minHeight, maxHeight, Optional.empty());
-    }
-
-    public HangingGrowthType(int minHeight, int maxHeight, BlockState bottomState) {
-        this(minHeight, maxHeight, Optional.of(bottomState));
+    public HangingGrowthType(int minHeight, int maxHeight, Block block) {
+        this(minHeight, maxHeight, block, block);
     }
 
     @Override
@@ -43,8 +40,7 @@ public record HangingGrowthType(int minHeight, int maxHeight, Optional<BlockStat
         if (maxHeight > 0 && column.size() >= maxHeight) return false;
         ServerLevel level = context.level();
         BlockPos last = column.getLast();
-        if (!level.getBlockState(last.below()).canBeReplaced()) return false;
-        return bottomState.isEmpty() || level.getBlockState(last) != bottomState.get();
+        return level.getBlockState(last.below()).canBeReplaced() && level.getBlockState(last).is(head);
     }
 
     @Override
@@ -54,7 +50,9 @@ public record HangingGrowthType(int minHeight, int maxHeight, Optional<BlockStat
         if (state.getBlock() instanceof BonemealableBlock block) {
             block.performBonemeal(level, level.getRandom(), context.pos(), state);
         } else {
-            level.setBlockAndUpdate(getColumn(context).getLast().below(), state);
+            BlockPos last = getColumn(context).getLast();
+            level.setBlockAndUpdate(last, body.defaultBlockState());
+            level.setBlockAndUpdate(last.below(), head.defaultBlockState());
         }
     }
 
@@ -88,19 +86,22 @@ public record HangingGrowthType(int minHeight, int maxHeight, Optional<BlockStat
     private List<BlockPos> getColumn(GrowthContext context) {
         ServerLevel level = context.level();
         BlockPos originalPos = context.pos();
-        Block block = context.state().getBlock();
         List<BlockPos> list = new ArrayList<>();
         list.add(originalPos);
         BlockPos pos = originalPos.above();
-        while (level.getBlockState(pos).is(block)) {
+        while (isHeadOrBody(level.getBlockState(pos))) {
             list.addFirst(pos);
             pos = pos.above();
         }
         pos = originalPos.below();
-        while (level.getBlockState(pos).is(block)) {
+        while (isHeadOrBody(level.getBlockState(pos))) {
             list.add(pos);
             pos = pos.below();
         }
         return list;
+    }
+
+    private boolean isHeadOrBody(BlockState state) {
+        return state.is(head) || state.is(body);
     }
 }

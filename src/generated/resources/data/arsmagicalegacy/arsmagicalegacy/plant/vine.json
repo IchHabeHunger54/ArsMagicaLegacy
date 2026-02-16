@@ -8,7 +8,9 @@
     "id": "minecraft:vine"
   },
   "growth_type": {
-    "type": "arsmagicalegacy:hanging"
+    "type": "arsmagicalegacy:hanging",
+    "body": "minecraft:vine",
+    "head": "minecraft:vine"
   },
   "seed": {
     "count": 1,

@@ -18,21 +18,23 @@
   },
   "growth_type": {
     "type": "arsmagicalegacy:hanging_bush",
-    "bottom_state": {
-      "Name": "minecraft:cave_vines",
-      "Properties": {
-        "age": "0",
-        "berries": "false"
-      }
-    },
+    "body": "minecraft:cave_vines_plant",
     "harvest_states": [
       {
         "Name": "minecraft:cave_vines_plant",
         "Properties": {
           "berries": "true"
         }
+      },
+      {
+        "Name": "minecraft:cave_vines",
+        "Properties": {
+          "age": "0",
+          "berries": "true"
+        }
       }
-    ]
+    ],
+    "head": "minecraft:cave_vines"
   },
   "seed": {
     "count": 1,

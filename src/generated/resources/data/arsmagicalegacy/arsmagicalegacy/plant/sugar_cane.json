@@ -9,6 +9,8 @@
   },
   "growth_type": {
     "type": "arsmagicalegacy:upwards",
+    "body": "minecraft:sugar_cane",
+    "head": "minecraft:sugar_cane",
     "max_height": 3
   },
   "seed": {

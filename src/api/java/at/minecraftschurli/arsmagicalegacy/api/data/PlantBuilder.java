@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Builder class for {@link Plant}s, for use in {@link PlantProvider}. Get an instance via {@link PlantProvider#builder(String, GrowthType, ItemStack, ItemStack, RuleTest)}.
+ * Builder class for {@link Plant}s, for use in {@link PlantProvider}. Get an instance via {@link PlantProvider#builder(String, GrowthType, RuleTest)}.
  */
 public class PlantBuilder extends AbstractDataProvider.Builder<Plant> {
     private final List<ICondition> conditions = new ArrayList<>();

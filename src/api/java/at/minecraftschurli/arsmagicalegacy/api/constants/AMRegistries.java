@@ -11,6 +11,10 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
+import at.minecraftschurli.arsmagicalegacy.api.ritual.Ritual;
+import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualEffect;
+import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualRequirement;
+import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualTrigger;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import com.mojang.serialization.MapCodec;
@@ -32,6 +36,18 @@ public interface AMRegistries {
      * The registry for {@link GrowthType}s.
      */
     Registry<MapCodec<? extends GrowthType>> GROWTH_TYPES = new RegistryBuilder<>(Keys.GROWTH_TYPE).sync(true).create();
+    /**
+     * The registry for {@link SpellIngredient}s.
+     */
+    Registry<MapCodec<? extends RitualEffect>> RITUAL_EFFECTS = new RegistryBuilder<>(Keys.RITUAL_EFFECT).sync(true).create();
+    /**
+     * The registry for {@link SpellIngredient}s.
+     */
+    Registry<MapCodec<? extends RitualRequirement>> RITUAL_REQUIREMENTS = new RegistryBuilder<>(Keys.RITUAL_REQUIREMENT).sync(true).create();
+    /**
+     * The registry for {@link SpellIngredient}s.
+     */
+    Registry<MapCodec<? extends RitualTrigger>> RITUAL_TRIGGERS = new RegistryBuilder<>(Keys.RITUAL_TRIGGER).sync(true).create();
     /**
      * The registry for {@link SpellIngredient}s.
      */
@@ -186,19 +202,26 @@ public interface AMRegistries {
     interface Keys {
         // @formatter:off
         // Static registries
-        ResourceKey<Registry<MapCodec<? extends AbilityEffect>>>   ABILITY_EFFECT   = ResourceKey.createRegistryKey(ArsMagicaApi.id("ability_effect"));
-        ResourceKey<Registry<MapCodec<? extends GrowthType>>>      GROWTH_TYPE      = ResourceKey.createRegistryKey(ArsMagicaApi.id("growth_type"));
-        ResourceKey<Registry<MapCodec<? extends SpellIngredient>>> SPELL_INGREDIENT = ResourceKey.createRegistryKey(ArsMagicaApi.id("spell_ingredient"));
-        ResourceKey<Registry<SpellPart>>                           SPELL_PART       = ResourceKey.createRegistryKey(ArsMagicaApi.id("spell_part"));
+        ResourceKey<Registry<MapCodec<? extends AbilityEffect>>>     ABILITY_EFFECT     = createKey("ability_effect");
+        ResourceKey<Registry<MapCodec<? extends GrowthType>>>        GROWTH_TYPE        = createKey("growth_type");
+        ResourceKey<Registry<MapCodec<? extends RitualEffect>>>      RITUAL_EFFECT      = createKey("ritual_effect");
+        ResourceKey<Registry<MapCodec<? extends RitualRequirement>>> RITUAL_REQUIREMENT = createKey("ritual_requirement");
+        ResourceKey<Registry<MapCodec<? extends RitualTrigger>>>     RITUAL_TRIGGER     = createKey("ritual_trigger");
+        ResourceKey<Registry<MapCodec<? extends SpellIngredient>>>   SPELL_INGREDIENT   = createKey("spell_ingredient");
+        ResourceKey<Registry<SpellPart>>                             SPELL_PART         = createKey("spell_part");
         // Datapack registries
-        ResourceKey<Registry<Ability>>          ABILITY            = ResourceKey.createRegistryKey(ArsMagicaApi.id("ability"));
-        ResourceKey<Registry<Affinity>>         AFFINITY           = ResourceKey.createRegistryKey(ArsMagicaApi.id("affinity"));
-        ResourceKey<Registry<AltarCapMaterial>> ALTAR_CAP_MATERIAL = ResourceKey.createRegistryKey(ArsMagicaApi.id("altar_cap_material"));
-        ResourceKey<Registry<AltarMaterial>>    ALTAR_MATERIAL     = ResourceKey.createRegistryKey(ArsMagicaApi.id("altar_material"));
-        ResourceKey<Registry<EtheriumType>>     ETHERIUM_TYPE      = ResourceKey.createRegistryKey(ArsMagicaApi.id("etherium_type"));
-        ResourceKey<Registry<OcculusTab>>       OCCULUS_TAB        = ResourceKey.createRegistryKey(ArsMagicaApi.id("occulus_tab"));
-        ResourceKey<Registry<Skill>>            SKILL              = ResourceKey.createRegistryKey(ArsMagicaApi.id("skill"));
-        ResourceKey<Registry<SkillPoint>>       SKILL_POINT        = ResourceKey.createRegistryKey(ArsMagicaApi.id("skill_point"));
+        ResourceKey<Registry<Ability>>          ABILITY            = createKey("ability");
+        ResourceKey<Registry<Affinity>>         AFFINITY           = createKey("affinity");
+        ResourceKey<Registry<AltarCapMaterial>> ALTAR_CAP_MATERIAL = createKey("altar_cap_material");
+        ResourceKey<Registry<AltarMaterial>>    ALTAR_MATERIAL     = createKey("altar_material");
+        ResourceKey<Registry<EtheriumType>>     ETHERIUM_TYPE      = createKey("etherium_type");
+        ResourceKey<Registry<OcculusTab>>       OCCULUS_TAB        = createKey("occulus_tab");
+        ResourceKey<Registry<Skill>>            SKILL              = createKey("skill");
+        ResourceKey<Registry<SkillPoint>>       SKILL_POINT        = createKey("skill_point");
         // @formatter:on
+
+        private static <T> ResourceKey<Registry<T>> createKey(String path) {
+            return ResourceKey.createRegistryKey(ArsMagicaApi.id(path));
+        }
     }
 }

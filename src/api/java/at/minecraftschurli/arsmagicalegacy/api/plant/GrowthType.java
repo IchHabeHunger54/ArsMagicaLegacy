@@ -42,20 +42,8 @@ public interface GrowthType {
      * Harvests the plant, if possible.
      *
      * @param context The {@link GrowthContext} to use.
+     * @param replant Whether the plant should be replanted or not, if possible.
      * @return A list of {@link ItemStack}, representing the drops of the plant.
      */
-    List<ItemStack> harvest(GrowthContext context);
-
-    /**
-     * @param context The {@link GrowthContext} to use.
-     * @return Whether the plant can currently be replanted or not.
-     */
-    boolean canReplant(GrowthContext context);
-
-    /**
-     * Replants the plant, if possible.
-     *
-     * @param context The {@link GrowthContext} to use.
-     */
-    void replant(GrowthContext context);
+    List<ItemStack> harvest(GrowthContext context, boolean replant);
 }

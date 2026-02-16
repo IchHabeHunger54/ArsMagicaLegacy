@@ -37,18 +37,7 @@ public class Replant extends SpellComponent.CastBlock {
         for (Plant plant : AMUtil.getPlants(state)) {
             GrowthContext context = plant.createContext(player, serverLevel, pos, state);
             if (!plant.growthType().canHarvest(context)) continue;
-            List<ItemStack> drops = plant.growthType().harvest(context);
-            if (plant.growthType().canReplant(context)) {
-                plant.growthType().replant(context);
-                ItemStack seed = plant.seed();
-                for (ItemStack stack : drops) {
-                    if (ItemStack.isSameItemSameComponents(stack, seed)) {
-                        stack.shrink(1);
-                        break;
-                    }
-                }
-            }
-            drops.forEach(stack -> {
+            plant.growthType().harvest(context, true).forEach(stack -> {
                 if (player.isFakePlayer() || !player.getInventory().add(stack)) {
                     player.drop(stack, false);
                 }

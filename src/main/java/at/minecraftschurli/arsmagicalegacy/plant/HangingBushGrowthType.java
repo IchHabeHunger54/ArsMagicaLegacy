@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.plant.BonemealableGrowthType;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthContext;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
 import at.minecraftschurli.arsmagicalegacy.api.plant.Plant;
+import at.minecraftschurli.arsmagicalegacy.api.plant.ReplantableGrowthType;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
@@ -24,7 +25,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 
-public record HangingBushGrowthType(List<BlockState> harvestStates, int minHeight, int maxHeight, Block head, Block body) implements BonemealableGrowthType {
+public record HangingBushGrowthType(List<BlockState> harvestStates, int minHeight, int maxHeight, Block head, Block body) implements BonemealableGrowthType, ReplantableGrowthType {
     public static final MapCodec<HangingBushGrowthType> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
         BlockState.CODEC.listOf().fieldOf("harvest_states").forGetter(HangingBushGrowthType::harvestStates),
         ExtraCodecs.POSITIVE_INT.optionalFieldOf("min_height", 1).forGetter(HangingBushGrowthType::minHeight),

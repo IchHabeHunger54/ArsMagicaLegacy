@@ -1,10 +1,14 @@
 package at.minecraftschurli.arsmagicalegacy.api;
 
 import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityHelper;
+import at.minecraftschurli.arsmagicalegacy.api.data.JsonDataManager;
 import at.minecraftschurli.arsmagicalegacy.api.magic.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
+import at.minecraftschurli.arsmagicalegacy.api.plant.Plant;
+import at.minecraftschurli.arsmagicalegacy.api.ritual.Ritual;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.fml.loading.FMLLoader;
@@ -80,6 +84,27 @@ public abstract class ArsMagicaApi {
         return INSTANCE.get().getSpellHelper();
     }
 
+    /**
+     * @return The {@link JsonDataManager} for {@link Plant}s.
+     */
+    public static JsonDataManager<Plant> plantManager() {
+        return INSTANCE.get().getPlantManager();
+    }
+
+    /**
+     * @return The {@link JsonDataManager} for {@link Ritual}s.
+     */
+    public static JsonDataManager<Ritual> ritualManager() {
+        return INSTANCE.get().getRitualManager();
+    }
+
+    /**
+     * @return The {@link JsonDataManager} for {@link SpellPartData}.
+     */
+    public static JsonDataManager<SpellPartData> spellPartDataManager() {
+        return INSTANCE.get().getSpellPartDataManager();
+    }
+
     @ApiStatus.Internal
     protected abstract ItemStack getBook();
 
@@ -97,4 +122,13 @@ public abstract class ArsMagicaApi {
 
     @ApiStatus.Internal
     protected abstract SpellHelper getSpellHelper();
+
+    @ApiStatus.Internal
+    protected abstract JsonDataManager<Plant> getPlantManager();
+
+    @ApiStatus.Internal
+    protected abstract JsonDataManager<Ritual> getRitualManager();
+
+    @ApiStatus.Internal
+    protected abstract JsonDataManager<SpellPartData> getSpellPartDataManager();
 }

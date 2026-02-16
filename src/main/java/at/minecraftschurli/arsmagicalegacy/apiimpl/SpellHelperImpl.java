@@ -32,7 +32,6 @@ import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.arsmagicalegacy.spell.ItemSpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.spell.SpellDamage;
-import at.minecraftschurli.arsmagicalegacy.spell.SpellPartDataManager;
 import at.minecraftschurli.arsmagicalegacy.spell.ToolTiers;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.google.common.collect.Sets;
@@ -158,7 +157,7 @@ final class SpellHelperImpl implements SpellHelper {
 
     @Override
     public SpellPartData getData(SpellPart part) {
-        return SpellPartDataManager.INSTANCE.getOrDefault(AMRegistries.SPELL_PARTS.getKey(part), SpellPartData.DEFAULT);
+        return ArsMagicaApi.spellPartDataManager().getOrDefault(AMRegistries.SPELL_PARTS.getKey(part), SpellPartData.DEFAULT);
     }
 
     @Override

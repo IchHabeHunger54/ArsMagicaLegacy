@@ -11,7 +11,6 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
-import at.minecraftschurli.arsmagicalegacy.api.ritual.Ritual;
 import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualEffect;
 import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualRequirement;
 import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualTrigger;

@@ -26,6 +26,9 @@ public final class AMRitualProvider extends RitualProvider {
 
     @Override
     public void generate(HolderLookup.Provider provider) {
+        //TODO boss spawn rituals
+        //TODO purification ritual
+        //TODO corruption ritual
         HolderLookup.RegistryLookup<Skill> skills = provider.lookupOrThrow(AMRegistries.Keys.SKILL);
         unlock(skills, AMSpells.BLIZZARD, AMSpells.FROST_DAMAGE, AMSpells.FROST, AMSpells.STORM);
         unlock(skills, AMSpells.DAYLIGHT, AMSpells.DIVINE_INTERVENTION, AMSpells.TRUE_SIGHT, AMSpells.SOLAR);

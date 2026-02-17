@@ -7,6 +7,8 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.plant.Plant;
+import at.minecraftschurli.arsmagicalegacy.api.ritual.Ritual;
+import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualTrigger;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
@@ -16,6 +18,7 @@ import at.minecraftschurli.arsmagicalegacy.item.SpellRecipeItem;
 import at.minecraftschurli.arsmagicalegacy.packet.OpenBookInLecternPacket;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.core.BlockPos;
@@ -71,6 +74,7 @@ import java.util.function.IntFunction;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collector;
+import java.util.stream.Stream;
 
 public final class AMUtil {
     public static final ResourceLocation MISSINGNO = ResourceLocation.withDefaultNamespace("missingno");
@@ -238,6 +242,16 @@ public final class AMUtil {
 
     public static <T extends Comparable<T>> String getPropertyValueName(Property<T> property, BlockState state) {
         return property.getName(property.value(state.getValue(property)).value());
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> Stream<Ritual<T>> getRituals(MapCodec<? extends RitualTrigger<T>> codec) {
+        return ArsMagicaApi.ritualManager()
+            .getAll()
+            .values()
+            .stream()
+            .filter(e -> e.trigger().codec() == codec)
+            .map(e -> (Ritual<T>) e);
     }
 
     public static boolean handleLecternUse(Level level, BlockPos pos, BlockState state, LecternBlockEntity lectern, Player player, InteractionHand hand) {

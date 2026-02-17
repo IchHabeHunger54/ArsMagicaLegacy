@@ -23,7 +23,7 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     private static final ManaHelper MANA_HELPER = new ManaHelperImpl();
     private static final SpellHelper SPELL_HELPER = new SpellHelperImpl();
     private static final AMDataManager<Plant> PLANT_MANAGER = new AMDataManager<>("plant", Plant.CODEC);
-    private static final AMDataManager<Ritual> RITUAL_MANAGER = new AMDataManager<>("ritual", Ritual.CODEC);
+    private static final AMDataManager<Ritual<?>> RITUAL_MANAGER = new AMDataManager<>("ritual", Ritual.CODEC);
     private static final AMDataManager<SpellPartData> SPELL_PART_DATA_MANAGER = new AMDataManager<>("spell_part", SpellPartData.CODEC);
 
     @Override
@@ -62,7 +62,7 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     }
 
     @Override
-    protected JsonDataManager<Ritual> getRitualManager() {
+    protected JsonDataManager<Ritual<?>> getRitualManager() {
         return RITUAL_MANAGER;
     }
 

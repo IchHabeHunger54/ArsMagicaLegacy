@@ -7,6 +7,7 @@
     - Dryads
     - All Bosses
     - Their Projectiles
+- Hide Hidden Skills/Spell Parts in JEI
 - Rituals
 - Compat Recipes
 - Test With Sodium/Embeddium/Iris

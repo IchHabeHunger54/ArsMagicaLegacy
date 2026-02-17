@@ -1,8 +1,7 @@
 - Add TODO Spell Shapes and Components
 - Test All Spell Parts and Particles
 - Inlays
-- Plant System Support
-    - Loading Conditions
+- Data Loading Conditions
 - Add Liquid Etherium Sounds
 - Entities, including:
     - Dryads

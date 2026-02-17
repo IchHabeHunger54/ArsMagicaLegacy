@@ -94,7 +94,7 @@ public abstract class ArsMagicaApi {
     /**
      * @return The {@link JsonDataManager} for {@link Ritual}s.
      */
-    public static JsonDataManager<Ritual> ritualManager() {
+    public static JsonDataManager<Ritual<?>> ritualManager() {
         return INSTANCE.get().getRitualManager();
     }
 
@@ -127,7 +127,7 @@ public abstract class ArsMagicaApi {
     protected abstract JsonDataManager<Plant> getPlantManager();
 
     @ApiStatus.Internal
-    protected abstract JsonDataManager<Ritual> getRitualManager();
+    protected abstract JsonDataManager<Ritual<?>> getRitualManager();
 
     @ApiStatus.Internal
     protected abstract JsonDataManager<SpellPartData> getSpellPartDataManager();

@@ -45,6 +45,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMFluids;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
+import at.minecraftschurli.arsmagicalegacy.init.AMRituals;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.item.RuneBagItem;
 import at.minecraftschurli.arsmagicalegacy.item.SpellBookItem;
@@ -462,5 +463,6 @@ final class AMEventHandler {
     private static void spellCastPost(SpellCastEvent.Post event) {
         if (!(event.getEntity() instanceof Player player)) return;
         ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, SpellCastEffectAbilityEffect.CODEC);
+        AMUtil.getRituals(AMRituals.SPELL_GRAMMAR_CAST_TRIGGER.get()).forEach(ritual -> ritual.perform(player, player.level(), player.position(), event.getSpell().grammar()));
     }
 }

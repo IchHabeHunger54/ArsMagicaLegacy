@@ -46,7 +46,7 @@ public interface AMRegistries {
     /**
      * The registry for {@link SpellIngredient}s.
      */
-    Registry<MapCodec<? extends RitualTrigger>> RITUAL_TRIGGERS = new RegistryBuilder<>(Keys.RITUAL_TRIGGER).sync(true).create();
+    Registry<MapCodec<? extends RitualTrigger<?>>> RITUAL_TRIGGERS = new RegistryBuilder<>(Keys.RITUAL_TRIGGER).sync(true).create();
     /**
      * The registry for {@link SpellIngredient}s.
      */
@@ -205,7 +205,7 @@ public interface AMRegistries {
         ResourceKey<Registry<MapCodec<? extends GrowthType>>>        GROWTH_TYPE        = createKey("growth_type");
         ResourceKey<Registry<MapCodec<? extends RitualEffect>>>      RITUAL_EFFECT      = createKey("ritual_effect");
         ResourceKey<Registry<MapCodec<? extends RitualRequirement>>> RITUAL_REQUIREMENT = createKey("ritual_requirement");
-        ResourceKey<Registry<MapCodec<? extends RitualTrigger>>>     RITUAL_TRIGGER     = createKey("ritual_trigger");
+        ResourceKey<Registry<MapCodec<? extends RitualTrigger<?>>>>  RITUAL_TRIGGER     = createKey("ritual_trigger");
         ResourceKey<Registry<MapCodec<? extends SpellIngredient>>>   SPELL_INGREDIENT   = createKey("spell_ingredient");
         ResourceKey<Registry<SpellPart>>                             SPELL_PART         = createKey("spell_part");
         // Datapack registries

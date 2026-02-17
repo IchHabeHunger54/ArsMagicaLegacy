@@ -12,16 +12,16 @@ import java.util.List;
 /**
  * Builder class for {@link Ritual}s, for use in {@link RitualProvider}. Get an instance via {@link RitualProvider#builder(String, RitualTrigger)}.
  */
-public class RitualBuilder extends AbstractDataProvider.Builder<Ritual> {
+public class RitualBuilder extends AbstractDataProvider.Builder<Ritual<?>> {
     private final List<RitualRequirement> requirements = new ArrayList<>();
     private final List<RitualEffect> effects = new ArrayList<>();
-    private final RitualTrigger trigger;
+    private final RitualTrigger<?> trigger;
 
     /**
      * @param id      The id of the {@link Ritual} to generate data for.
      * @param trigger The {@link RitualTrigger} to use.
      */
-    public RitualBuilder(ResourceLocation id, RitualTrigger trigger) {
+    public RitualBuilder(ResourceLocation id, RitualTrigger<?> trigger) {
         super(id);
         this.trigger = trigger;
     }
@@ -49,7 +49,7 @@ public class RitualBuilder extends AbstractDataProvider.Builder<Ritual> {
     }
 
     @Override
-    public Ritual build() {
-        return new Ritual(requirements, trigger, effects);
+    public Ritual<?> build() {
+        return new Ritual<>(requirements, trigger, effects);
     }
 }

@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
  * Data provider for {@link Ritual}s. Override {@link RitualProvider#generate(HolderLookup.Provider)} to generate your entries,
  * and use {@link RitualProvider#builder(String, RitualTrigger)} to create a new {@link RitualBuilder}.
  */
-public abstract class RitualProvider extends AbstractDataProvider<Ritual, RitualBuilder> {
+public abstract class RitualProvider extends AbstractDataProvider<Ritual<?>, RitualBuilder> {
     /**
      * @param output         The {@link PackOutput} to use. Get this from {@link GatherDataEvent}.
      * @param lookupProvider The lookup {@link CompletableFuture} to use. Get this from {@link GatherDataEvent}.
@@ -31,7 +31,7 @@ public abstract class RitualProvider extends AbstractDataProvider<Ritual, Ritual
      * @param trigger The {@link RitualTrigger} to use.
      * @return The new {@link RitualBuilder}.
      */
-    public RitualBuilder builder(String name, RitualTrigger trigger) {
+    public RitualBuilder builder(String name, RitualTrigger<?> trigger) {
         RitualBuilder builder = new RitualBuilder(ResourceLocation.fromNamespaceAndPath(modId, name), trigger);
         add(builder);
         return builder;

@@ -6,7 +6,6 @@ import com.google.gson.JsonElement;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
-import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
@@ -14,7 +13,7 @@ public final class ParticleSpawnerManager extends AMDataManager<ParticleSpawner>
     public static final ParticleSpawnerManager INSTANCE = new ParticleSpawnerManager();
 
     private ParticleSpawnerManager() {
-        super("particle_spawners", ParticleSpawner.CODEC, LoggerFactory.getLogger(ParticleSpawnerManager.class));
+        super("particle_spawners", ParticleSpawner.CODEC);
     }
 
     @Override

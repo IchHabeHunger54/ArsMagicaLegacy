@@ -251,7 +251,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         cachedData = data;
         cachedData.name().ifPresent(name -> nameBar.setValue(name.getString()));
         grammarArea.setFromData(cachedData);
-        for (int i = 0; i < cachedData.shapeGroups().size(); i++) {
+        for (int i = 0; i < Math.min(cachedData.shapeGroups().size(), shapeGroupAreas.size()); i++) {
             shapeGroupAreas.get(i).setFromData(cachedData.shapeGroups().get(i));
         }
         onDrop();

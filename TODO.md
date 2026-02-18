@@ -7,8 +7,8 @@
     - Dryads
     - All Bosses
     - Their Projectiles
+    - Summoning Rituals
 - Hide Hidden Skills/Spell Parts in JEI
-- Rituals
 - Compat Recipes
 - Test With Sodium/Embeddium/Iris
     - Altar Model & BER

@@ -112,11 +112,9 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
         builder.addCategory("blocks", "Blocks", "", new ItemStack(AMItems.OCCULUS.get()))
             .setSortnum(1)
             .addEntry("black_aurem", "Black Aurem", new ItemStack(AMItems.BLACK_AUREM.get()))
-            .addSimpleTextPage("The Black Aurem is the $(l:blocks/obelisk)Obelisk's$() dark counterpart, used to generate dark $(l:mechanics/etherium)Etherium$(). Instead of $(l:blocks/ores#vinteum)Vinteum Dust$(), it consumes the lifes of animals.$(br2)Similar to the Obelisk, it can be supported by a multiblock structure, which builds up in levels. The structure's different levels are shown on the later pages.")
-/*
-            .addSimpleSpotlightPage(new ItemStack(AMItems.BLACK_AUREM.get()), "The Black Aurem cannot be obtained through crafting. Instead, it must be created through a special corruption ritual. This ritual requires a multiblock structure, seen on the next page. Once built, throw a piece of $(l:blocks/ores#sunstone)Sunstone$() somewhere into the structure.")
-            .addSimpleMultiblockPage("Corruption Ritual", "Finally, to initiate the ritual, you must $(l:components/fire_damage)severely burn$() the bottom of the Obelisk.", AMMultiblocks.CORRUPTION_RITUAL)
-*/
+            .addSimpleTextPage("The Black Aurem is the $(l:blocks/obelisk)Obelisk's$() dark counterpart, used to generate dark $(l:mechanics/etherium)Etherium$(). Instead of $(l:blocks/ores#vinteum)Vinteum Dust$(), it consumes the lives of animals.$(br2)The Black Aurem cannot be obtained through crafting. Instead, it must be created through a special corruption ritual described in the following.")
+            .addSimpleMultiblockPage("Corruption Ritual", "First, the ritual requires a multiblock structure, as seen above.", AMMultiblocks.CORRUPTION)
+            .addSimpleTextPage("Once built, throw a piece of $(l:blocks/ores#sunstone)Sunstone$() somewhere into the structure, to act as a catalyst. Finally, to initiate the ritual, you must stand on top of the Obelisk and $(l:components/fire_damage)severely burn$() $(l:shapes/self)yourself$().$(br2)Similar to the Obelisk, the Black Aurem can be supported by a multiblock structure, which builds up in levels. The structure's different levels are shown on the next pages.")
             .addSimpleMultiblockPage("Black Aurem Chalk", AMMultiblocks.BLACK_AUREM_CHALK)
             .addSimpleMultiblockPage("Black Aurem Level 1", AMMultiblocks.BLACK_AUREM_PILLARS_1)
             .addSimpleMultiblockPage("Black Aurem Level 2", AMMultiblocks.BLACK_AUREM_PILLARS_2)
@@ -124,11 +122,9 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
             .addSimpleMultiblockPage("Black Aurem Level 4", AMMultiblocks.BLACK_AUREM_PILLARS_4)
             .build()
             .addEntry("celestial_prism", "Celestial Prism", new ItemStack(AMItems.CELESTIAL_PRISM.get()))
-            .addSimpleTextPage("The Celestial Prism is the $(l:blocks/obelisk)Obelisk's$() light counterpart, used to generate light $(l:mechanics/etherium)Etherium$(). Instead of $(l:blocks/ores#vinteum)Vinteum Dust$(), it utilizes the sun's power.$(br2)Similar to the Obelisk, it can be supported by a multiblock structure, which builds up in levels. The structure's different levels are shown on the later pages.")
-/*
-            .addSimpleSpotlightPage(new ItemStack(AMItems.CELESTIAL_PRISM.get()), "The Celestial Prism cannot be obtained through crafting. Instead, it must be created through a special purification ritual. This ritual requires a multiblock structure, seen on the next page. Once built, throw a piece of $(l:blocks/ores#moonstone)Moonstone$() somewhere into the structure.")
-            .addSimpleMultiblockPage("Purification Ritual", "Finally, to initiate the ritual, simply place some $(l:components/light)light$() on the bottom of the Obelisk.", AMMultiblocks.PURIFICATION_RITUAL)
-*/
+            .addSimpleTextPage("The Celestial Prism is the $(l:blocks/obelisk)Obelisk's$() light counterpart, used to generate light $(l:mechanics/etherium)Etherium$(). Instead of $(l:blocks/ores#vinteum)Vinteum Dust$(), it utilizes the sun's power.$(br2)The Celestial Prism cannot be obtained through crafting. Instead, it must be created through a special purification ritual described in the following.")
+            .addSimpleMultiblockPage("Purification Ritual", "First, the ritual requires a multiblock structure, as seen above.", AMMultiblocks.PURIFICATION)
+            .addSimpleTextPage("Once built, throw a piece of $(l:blocks/ores#moonstone)Moonstone$() somewhere into the structure, to act as a catalyst. Finally, to initiate the ritual, you must stand on top of the Obelisk and apply $(l:components/light)light$() to $(l:shapes/self)yourself$().$(br2)Similar to the Obelisk, the Celestial Prism can be supported by a multiblock structure, which builds up in levels. The structure's different levels are shown on the next pages.")
             .addSimpleMultiblockPage("Celestial Prism Chalk", AMMultiblocks.CELESTIAL_PRISM_CHALK)
             .addSimpleMultiblockPage("Celestial Prism Level 1", AMMultiblocks.CELESTIAL_PRISM_PILLARS_1)
             .addSimpleMultiblockPage("Celestial Prism Level 2", AMMultiblocks.CELESTIAL_PRISM_PILLARS_2)

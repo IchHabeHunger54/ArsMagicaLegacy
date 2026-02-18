@@ -7,7 +7,7 @@
   ],
   "requirements": [],
   "trigger": {
-    "type": "arsmagicalegacy:spell_grammar_cast",
+    "type": "arsmagicalegacy:spell_cast",
     "parts": [
       "arsmagicalegacy:ender_intervention",
       "arsmagicalegacy:night_vision",

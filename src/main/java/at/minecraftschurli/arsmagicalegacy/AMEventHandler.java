@@ -28,6 +28,8 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
+import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.block.LiquidEtheriumCauldronBlock;
 import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
 import at.minecraftschurli.arsmagicalegacy.command.AffinityCommand;
@@ -119,6 +121,8 @@ import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID)
 final class AMEventHandler {
@@ -463,6 +467,9 @@ final class AMEventHandler {
     private static void spellCastPost(SpellCastEvent.Post event) {
         if (!(event.getEntity() instanceof Player player)) return;
         ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, SpellCastEffectAbilityEffect.CODEC);
-        AMUtil.getRituals(AMRituals.SPELL_GRAMMAR_CAST_TRIGGER.get()).forEach(ritual -> ritual.perform(player, player.level(), player.position(), event.getSpell().grammar()));
+        Spell spell = event.getSpell();
+        Set<SpellPart> spellParts = new HashSet<>(spell.currentShapeGroup().parts());
+        spellParts.addAll(spell.grammar().parts());
+        AMUtil.getRituals(AMRituals.SPELL_CAST_TRIGGER.get()).forEach(ritual -> ritual.perform(player, player.level(), player.position(), spellParts));
     }
 }

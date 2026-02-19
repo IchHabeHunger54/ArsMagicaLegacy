@@ -1,15 +1,5 @@
 package at.minecraftschurli.arsmagicalegacy;
 
-import at.minecraftschurli.arsmagicalegacy.ability.DamageModifierAbilityEffect;
-import at.minecraftschurli.arsmagicalegacy.ability.EndermanPumpkinAbilityEffect;
-import at.minecraftschurli.arsmagicalegacy.ability.ExtraDamageAbilityEffect;
-import at.minecraftschurli.arsmagicalegacy.ability.FirePunchAbilityEffect;
-import at.minecraftschurli.arsmagicalegacy.ability.FrostPunchAbilityEffect;
-import at.minecraftschurli.arsmagicalegacy.ability.JumpBoostAbilityEffect;
-import at.minecraftschurli.arsmagicalegacy.ability.KillEffectAbilityEffect;
-import at.minecraftschurli.arsmagicalegacy.ability.ManaCostModifierAbilityEffect;
-import at.minecraftschurli.arsmagicalegacy.ability.SpellCastEffectAbilityEffect;
-import at.minecraftschurli.arsmagicalegacy.ability.ThornsAbilityEffect;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.ability.Ability;
 import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityHelper;
@@ -39,6 +29,7 @@ import at.minecraftschurli.arsmagicalegacy.command.SkillPointCommand;
 import at.minecraftschurli.arsmagicalegacy.compat.patchouli.AMMultiblocks;
 import at.minecraftschurli.arsmagicalegacy.effect.AMMobEffect;
 import at.minecraftschurli.arsmagicalegacy.entity.ManaCreeper;
+import at.minecraftschurli.arsmagicalegacy.init.AMAbilities;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
@@ -342,13 +333,13 @@ final class AMEventHandler {
         LivingEntity target = event.getEntity();
         AbilityHelper abilityHelper = ArsMagicaApi.abilityHelper();
         if (!target.fireImmune()) {
-            abilityHelper.getActiveAbilitiesWithEffect(player, FirePunchAbilityEffect.CODEC).forEach(pair -> target.setRemainingFireTicks(Math.max(target.getRemainingFireTicks(), (int) pair.getSecond()
+            abilityHelper.getActiveAbilitiesWithEffect(player, AMAbilities.FIRE_PUNCH_EFFECT.get()).forEach(pair -> target.setRemainingFireTicks(Math.max(target.getRemainingFireTicks(), (int) pair.getSecond()
                 .stream()
                 .mapToDouble(e -> abilityHelper.scaleToDepth(player, pair.getFirst().value(), e.min(), e.max()))
                 .sum())));
         }
         if (target.canFreeze()) {
-            abilityHelper.getActiveAbilitiesWithEffect(player, FrostPunchAbilityEffect.CODEC).forEach(pair -> target.setData(AMAttachments.FROST, Math.max(target.getData(AMAttachments.FROST), (int) pair.getSecond()
+            abilityHelper.getActiveAbilitiesWithEffect(player, AMAbilities.FROST_PUNCH_EFFECT.get()).forEach(pair -> target.setData(AMAttachments.FROST, Math.max(target.getData(AMAttachments.FROST), (int) pair.getSecond()
                 .stream()
                 .mapToDouble(e -> abilityHelper.scaleToDepth(player, pair.getFirst().value(), e.min(), e.max()))
                 .sum())));
@@ -359,10 +350,10 @@ final class AMEventHandler {
     private static void livingDamagePre(LivingDamageEvent.Pre event) {
         AbilityHelper abilityHelper = ArsMagicaApi.abilityHelper();
         if (event.getSource().getEntity() instanceof Player player) {
-            abilityHelper.triggerEventEffect(event, player, ExtraDamageAbilityEffect.CODEC);
+            abilityHelper.triggerEventEffect(event, player, AMAbilities.EXTRA_DAMAGE_EFFECT.get());
         }
         if (event.getEntity() instanceof Player player) {
-            abilityHelper.triggerEventEffect(event, player, DamageModifierAbilityEffect.CODEC);
+            abilityHelper.triggerEventEffect(event, player, AMAbilities.DAMAGE_MODIFIER_EFFECT.get());
         }
     }
 
@@ -371,7 +362,7 @@ final class AMEventHandler {
         LivingEntity entity = event.getEntity();
         ArsMagicaApi.spellHelper().triggerContingency(entity, AMSpells.CONTINGENCY_DAMAGE_ID);
         if (entity instanceof Player player) {
-            ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, ThornsAbilityEffect.CODEC);
+            ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, AMAbilities.THORNS_EFFECT.get());
         }
     }
 
@@ -385,13 +376,13 @@ final class AMEventHandler {
         }
         ArsMagicaApi.spellHelper().triggerContingency(entity, AMSpells.CONTINGENCY_DEATH_ID);
         if (!(event.getSource().getEntity() instanceof Player player)) return;
-        ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, KillEffectAbilityEffect.CODEC);
+        ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, AMAbilities.KILL_EFFECT_EFFECT.get());
     }
 
     @SubscribeEvent
     private static void livingJump(LivingEvent.LivingJumpEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
-        ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, JumpBoostAbilityEffect.CODEC);
+        ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, AMAbilities.JUMP_BOOST_EFFECT.get());
     }
 
     @SubscribeEvent
@@ -456,19 +447,19 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void enderManAnger(EnderManAngerEvent event) {
-        ArsMagicaApi.abilityHelper().triggerEventEffect(event, event.getPlayer(), EndermanPumpkinAbilityEffect.CODEC);
+        ArsMagicaApi.abilityHelper().triggerEventEffect(event, event.getPlayer(), AMAbilities.ENDERMAN_PUMPKIN_EFFECT.get());
     }
 
     @SubscribeEvent
     private static void manaCostCalculation(ManaCostCalculationEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
-        ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, ManaCostModifierAbilityEffect.CODEC);
+        ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, AMAbilities.MANA_COST_MODIFIER_EFFECT.get());
     }
 
     @SubscribeEvent
     private static void spellCastPost(SpellCastEvent.Post event) {
         if (!(event.getEntity() instanceof Player player)) return;
-        ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, SpellCastEffectAbilityEffect.CODEC);
+        ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, AMAbilities.SPELL_CAST_EFFECT_EFFECT.get());
         Spell spell = event.getSpell();
         Set<SpellPart> spellParts = new HashSet<>(spell.currentShapeGroup().parts());
         spellParts.addAll(spell.grammar().parts());

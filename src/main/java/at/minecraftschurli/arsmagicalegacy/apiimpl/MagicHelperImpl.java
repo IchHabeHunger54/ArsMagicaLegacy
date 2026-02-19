@@ -16,13 +16,11 @@ import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.init.AMCriterionTriggers;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
-import at.minecraftschurli.arsmagicalegacy.packet.UpdateSkillsPacket;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.network.PacketDistributor;
 import org.apache.commons.lang3.function.TriFunction;
 
 import java.util.List;
@@ -161,7 +159,6 @@ final class MagicHelperImpl implements MagicHelper {
         player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkills(set -> set.add(skill)));
         if (player instanceof ServerPlayer serverPlayer) {
             AMCriterionTriggers.SKILL_CHANGE.get().trigger(serverPlayer);
-            PacketDistributor.sendToPlayer(serverPlayer, new UpdateSkillsPacket());
         }
     }
 
@@ -170,7 +167,6 @@ final class MagicHelperImpl implements MagicHelper {
         player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkills(set -> set.remove(skill)));
         if (player instanceof ServerPlayer serverPlayer) {
             AMCriterionTriggers.SKILL_CHANGE.get().trigger(serverPlayer);
-            PacketDistributor.sendToPlayer(serverPlayer, new UpdateSkillsPacket());
         }
     }
 
@@ -179,7 +175,6 @@ final class MagicHelperImpl implements MagicHelper {
         player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkills(set -> set.addAll(AMRegistries.skills(false).holders().toList())));
         if (player instanceof ServerPlayer serverPlayer) {
             AMCriterionTriggers.SKILL_CHANGE.get().trigger(serverPlayer);
-            PacketDistributor.sendToPlayer(serverPlayer, new UpdateSkillsPacket());
         }
     }
 
@@ -188,7 +183,6 @@ final class MagicHelperImpl implements MagicHelper {
         player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkills(Set::clear));
         if (player instanceof ServerPlayer serverPlayer) {
             AMCriterionTriggers.SKILL_CHANGE.get().trigger(serverPlayer);
-            PacketDistributor.sendToPlayer(serverPlayer, new UpdateSkillsPacket());
         }
     }
 

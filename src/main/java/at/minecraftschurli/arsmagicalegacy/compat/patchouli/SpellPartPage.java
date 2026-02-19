@@ -45,7 +45,7 @@ public class SpellPartPage implements ICustomComponent {
     private transient int y;
     private transient List<SpellIngredient> recipe;
     private transient Map<Holder<Affinity>, Double> affinityShifts;
-    private transient List<Skill> modifiers;
+    private transient List<? extends Holder<Skill>> modifierHolders;
 
     @Override
     public void build(int x, int y, int page) {
@@ -84,6 +84,10 @@ public class SpellPartPage implements ICustomComponent {
             }
             y += TEXT_BOTTOM_PADDING;
         }
+        List<Skill> modifiers = modifierHolders.stream()
+            .filter(e -> !e.value().hidden() || ArsMagicaApi.magicHelper().knows(AMClientUtil.player(), e))
+            .map(Holder::value)
+            .toList();
         if (!modifiers.isEmpty()) {
             drawCentered(guiGraphics, font, AMTranslations.JEI_SKILL_MODIFIED_BY, y);
             y += font.lineHeight + TEXT_BOTTOM_PADDING - SLOT_SIZE;
@@ -111,10 +115,10 @@ public class SpellPartPage implements ICustomComponent {
         SpellPartData data = spellPart.getData();
         recipe = data.recipe();
         affinityShifts = data.affinityShifts();
-        modifiers = ArsMagicaApi.spellHelper()
+        modifierHolders = ArsMagicaApi.spellHelper()
             .getModifiers(spellPart)
             .stream()
-            .map(e -> skills.getOrThrow(ResourceKey.create(AMRegistries.Keys.SKILL, AMRegistries.SPELL_PARTS.getKey(e))).value())
+            .map(e -> skills.getOrThrow(ResourceKey.create(AMRegistries.Keys.SKILL, AMRegistries.SPELL_PARTS.getKey(e))))
             .toList();
     }
 

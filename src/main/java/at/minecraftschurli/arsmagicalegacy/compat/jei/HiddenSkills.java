@@ -41,12 +41,6 @@ public final class HiddenSkills {
         IIngredientManager ingredientManager = runtime.getIngredientManager();
         IRecipeManager recipeManager = runtime.getRecipeManager();
         Registry<Skill> skills = AMRegistries.skills(true);
-        if (!VISIBLE_SKILLS.isEmpty()) {
-            ingredientManager.removeIngredientsAtRuntime(AMJeiPlugin.SKILL_TYPE, VISIBLE_SKILLS.stream()
-                .map(skills::get)
-                .toList());
-            VISIBLE_SKILLS.clear();
-        }
         if (!VISIBLE_RECIPES.isEmpty()) {
             recipeManager.hideRecipes(SkillCategory.RECIPE_TYPE, VISIBLE_RECIPES);
             VISIBLE_RECIPES.clear();
@@ -55,7 +49,9 @@ public final class HiddenSkills {
             registerRecipes(runtime);
         }
         addVisibleSkillsAndRecipes();
-        ingredientManager.removeIngredientsAtRuntime(AMJeiPlugin.SKILL_TYPE, getSkills().map(Holder::value).toList());
+        ingredientManager.removeIngredientsAtRuntime(AMJeiPlugin.SKILL_TYPE, getSkills()
+            .map(Holder::value)
+            .toList());
         ingredientManager.addIngredientsAtRuntime(AMJeiPlugin.SKILL_TYPE, VISIBLE_SKILLS.stream()
             .map(skills::get)
             .toList());
@@ -69,11 +65,7 @@ public final class HiddenSkills {
     }
 
     private static void registerRecipes(IJeiRuntime runtime) {
-        AMRegistries.skills(true)
-            .holders()
-            .filter(e -> AMRegistries.SPELL_PARTS.containsKey(e.getKey().location()))
-            .sorted(Comparator.comparing(e -> Skill.getName(e).toString()))
-            .forEach(holder -> {
+        getSkills().forEach(holder -> {
                 List<ResourceKey<Skill>> keys = getHiddenModifiers(holder.getKey())
                 .map(Holder::getKey)
                 .filter(Objects::nonNull)

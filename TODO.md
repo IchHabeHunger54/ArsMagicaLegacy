@@ -8,7 +8,7 @@
     - All Bosses
     - Their Projectiles
     - Summoning Rituals
-- Hide Hidden Skills/Spell Parts in JEI
+- Spawn Placements for Mana Creeper
 - Compat Recipes
 - Test With Sodium/Embeddium/Iris
     - Altar Model & BER

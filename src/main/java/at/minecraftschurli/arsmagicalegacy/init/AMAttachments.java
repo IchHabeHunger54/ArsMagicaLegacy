@@ -5,6 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.MagicAttachment;
 import at.minecraftschurli.arsmagicalegacy.attachment.ContingencyAttachment;
 import at.minecraftschurli.arsmagicalegacy.attachment.RiftAttachment;
 import at.minecraftschurli.arsmagicalegacy.attachment.TemporalAnchorAttachment;
+import at.minecraftschurli.arsmagicalegacy.util.MagicAttachmentSyncHandler;
 import com.mojang.serialization.Codec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -23,9 +24,9 @@ public interface AMAttachments {
     DeferredHolder<AttachmentType<?>, AttachmentType<Integer>>               COMPENDIUM_TIMER = register("compendium_timer", () -> 0,                             Codec.INT,                   ByteBufCodecs.INT);
     DeferredHolder<AttachmentType<?>, AttachmentType<ContingencyAttachment>> CONTINGENCY      = register("contingency",      () -> ContingencyAttachment.DEFAULT, ContingencyAttachment.CODEC, ContingencyAttachment.STREAM_CODEC);
     DeferredHolder<AttachmentType<?>, AttachmentType<Integer>>               FROST            = register("frost",            () -> 0,                             Codec.INT,                   ByteBufCodecs.INT);
-    DeferredHolder<AttachmentType<?>, AttachmentType<MagicAttachment>>       MAGIC            = register("magic",            () -> MagicAttachment.DEFAULT,       MagicAttachment.CODEC,       MagicAttachment.STREAM_CODEC);
     DeferredHolder<AttachmentType<?>, AttachmentType<Double>>                MANA             = register("mana",             () -> 0.,                            Codec.DOUBLE,                ByteBufCodecs.DOUBLE);
     DeferredHolder<AttachmentType<?>, AttachmentType<RiftAttachment>>        RIFT             = register("rift",             () -> RiftAttachment.DEFAULT,        RiftAttachment.CODEC,        RiftAttachment.STREAM_CODEC);
+    DeferredHolder<AttachmentType<?>, AttachmentType<MagicAttachment>> MAGIC = ATTACHMENTS.register("magic", () -> AttachmentType.builder(() -> MagicAttachment.DEFAULT).serialize(MagicAttachment.CODEC).sync(new MagicAttachmentSyncHandler()).build());
     DeferredHolder<AttachmentType<?>, AttachmentType<TemporalAnchorAttachment>> TEMPORAL_ANCHOR_SNAPSHOT = ATTACHMENTS.register("temporal_anchor_snapshot", () -> AttachmentType.<TemporalAnchorAttachment>builder(() -> null).serialize(TemporalAnchorAttachment.CODEC).build());
     // @formatter:on
 

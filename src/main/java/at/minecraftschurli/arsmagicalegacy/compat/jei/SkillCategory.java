@@ -30,6 +30,7 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @SuppressWarnings("DataFlowIssue")
 public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
@@ -69,7 +70,7 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
         List<Skill> modifiers = recipe.modifiers;
         int x = 0;
         int y = AMClientUtil.font().lineHeight + TEXT_BOTTOM_PADDING;
-        builder.addSlot(RecipeIngredientRole.OUTPUT, (WIDTH - SLOT_SIZE) / 2, y).addIngredient(AMJeiPlugin.SKILL_TYPE, recipe.skill);
+        builder.addSlot(RecipeIngredientRole.OUTPUT, (WIDTH - SLOT_SIZE) / 2, y).addIngredient(AMJeiPlugin.SKILL_TYPE, recipe.skill.value());
         y += SLOT_SIZE + TEXT_BOTTOM_PADDING;
         if (!ingredients.isEmpty()) {
             for (int i = 0; i < ingredients.size(); i++) {
@@ -125,7 +126,7 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
     public void draw(Recipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         guiGraphics.blit(BACKGROUND, 0, 0, 0, 0, WIDTH, HEIGHT);
         Font font = AMClientUtil.font();
-        drawCentered(guiGraphics, font, Skill.getName(AMRegistries.skills(true).wrapAsHolder(recipe.skill)), 0);
+        drawCentered(guiGraphics, font, Skill.getName(recipe.skill), 0);
         int y = SLOT_SIZE * 2 + TEXT_BOTTOM_PADDING;
         drawCentered(guiGraphics, font, AMTranslations.JEI_SKILL_INGREDIENTS, y);
         y += (recipe.recipe.size() / INGREDIENT_COLUMNS + 1) * SLOT_SIZE + font.lineHeight + TEXT_BOTTOM_PADDING;
@@ -154,18 +155,23 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
         return (int) (WIDTH - AMClientUtil.font().getSplitter().stringWidth(String.valueOf(Math.round(affinityShifts.values().stream().min(Double::compareTo).orElse(0.) * 1000) / 1000.))) / 2;
     }
 
-    public record Recipe(Skill skill, List<SpellIngredient> recipe, Map<Holder<Affinity>, Double> affinityShifts, List<Skill> modifiers) {
+    public record Recipe(Holder<Skill> skill, List<SpellIngredient> recipe, Map<Holder<Affinity>, Double> affinityShifts, List<Skill> modifiers) {
         @SuppressWarnings("DataFlowIssue")
-        public static Recipe of(Skill skill) {
+        public static Recipe of(Holder<Skill> skill, Set<Holder<Skill>> hiddenModifiers) {
             Registry<Skill> skills = AMRegistries.skills(true);
             Registry<SpellPart> spellParts = AMRegistries.SPELL_PARTS;
-            SpellPart part = spellParts.get(skills.getKey(skill));
+            SpellPart part = spellParts.get(skills.getKey(skill.value()));
             SpellPartData data = part.getData();
             return new Recipe(skill, data.recipe(), data.affinityShifts(), ArsMagicaApi.spellHelper()
                 .getModifiers(part)
                 .stream()
                 .map(e -> skills.get(spellParts.getKey(e)))
+                .filter(e -> !hiddenModifiers.contains(skills.wrapAsHolder(e)))
                 .toList());
+        }
+
+        public static Recipe of(Holder<Skill> skill) {
+            return of(skill, Set.of());
         }
     }
 }

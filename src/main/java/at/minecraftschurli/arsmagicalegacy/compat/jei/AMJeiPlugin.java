@@ -11,7 +11,6 @@ import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.registration.IModIngredientRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
-import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.core.Holder;
@@ -19,13 +18,11 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Comparator;
-import java.util.List;
 
 @SuppressWarnings("DataFlowIssue")
 @JeiPlugin
 public final class AMJeiPlugin implements IModPlugin {
     public static final IIngredientType<Skill> SKILL_TYPE = () -> Skill.class;
-    static final Comparator<Holder.Reference<Skill>> SKILL_COMPARATOR = Comparator.comparing(e -> Skill.getName(e).getString());
     private static final ResourceLocation ID = ArsMagicaApi.id(ArsMagicaApi.MOD_ID);
     private static IJeiRuntime runtime = null;
 
@@ -46,7 +43,7 @@ public final class AMJeiPlugin implements IModPlugin {
         registration.register(SKILL_TYPE, AMRegistries.skills(true)
             .holders()
             .filter(e -> AMRegistries.SPELL_PARTS.containsKey(e.getKey().location()))
-            .sorted(SKILL_COMPARATOR)
+            .sorted(Comparator.comparing(e -> Skill.getName(e).getString()))
             .map(Holder::value)
             .toList(), new SkillIngredientHelper(), new SkillIngredientRenderer(), Skill.CODEC.xmap(Holder::value, AMRegistries.skills(true)::wrapAsHolder));
     }
@@ -54,17 +51,6 @@ public final class AMJeiPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new SkillCategory(registration.getJeiHelpers().getGuiHelper()));
-    }
-
-    @Override
-    public void registerRecipes(IRecipeRegistration registration) {
-        registration.addRecipes(SkillCategory.RECIPE_TYPE, AMRegistries.skills(true)
-            .holders()
-            .filter(e -> AMRegistries.SPELL_PARTS.containsKey(e.getKey().location()))
-            .sorted(SKILL_COMPARATOR)
-            .map(Holder::value)
-            .map(SkillCategory.Recipe::of)
-            .toList());
     }
 
     @Override

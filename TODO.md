@@ -8,7 +8,6 @@
     - All Bosses
     - Their Projectiles
     - Summoning Rituals
-- Spawn Placements for Mana Creeper
 - Compat Recipes
 - Test With Sodium/Embeddium/Iris
     - Altar Model & BER

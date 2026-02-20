@@ -54,7 +54,6 @@ public final class AMPlantProvider extends PlantProvider {
         ))), new BlockMatchTest(Blocks.CARROTS))
             .seed(Items.CARROT)
             .crop(Items.CARROT);
-        //TODO chorus
         builder("chorus", new ChorusGrowthType(), new CompositeMatchTest(List.of(
             new BlockMatchTest(Blocks.CHORUS_FLOWER),
             new BlockMatchTest(Blocks.CHORUS_PLANT))))

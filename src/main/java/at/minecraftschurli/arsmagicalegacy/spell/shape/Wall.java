@@ -28,6 +28,7 @@ public class Wall extends SecondarySpellShape {
         if (level.isClientSide()) return spell;
         var wall = AMEntities.WALL.get().create(level);
         wall.setPos(directEntity.getEyePosition());
+        wall.setXRot(directEntity.getXRot());
         wall.setYRot(directEntity.getYRot());
         wall.setOwner(caster);
         wall.setSpell(spell);

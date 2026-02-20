@@ -28,6 +28,7 @@ public class Zone extends SecondarySpellShape {
         if (level.isClientSide()) return spell;
         var zone = AMEntities.ZONE.get().create(level);
         zone.setPos(directEntity.getEyePosition());
+        zone.setXRot(directEntity.getXRot());
         zone.setYRot(directEntity.getYRot());
         zone.setOwner(caster);
         zone.setSpell(spell);

@@ -21,6 +21,7 @@ public interface AMTranslations {
     String BARS_VALUE_BURNOUT_KEY                    = ArsMagicaApi.MOD_ID + ".bars_value.burnout";
     String BARS_VALUE_MANA_KEY                       = ArsMagicaApi.MOD_ID + ".bars_value.mana";
     String BARS_VALUE_XP_KEY                         = ArsMagicaApi.MOD_ID + ".bars_value.xp";
+    String CRYSTAL_PHYLACTERY_KEY                    = ArsMagicaApi.MOD_ID + ".crystal_phylactery";
     String ETHERIUM_KEY                              = ArsMagicaApi.MOD_ID + ".etherium";
     String SPELL_BOOK_SELECTED_SPELL_KEY             = ArsMagicaApi.MOD_ID + ".spell_book.selected_spell";
     String SPELL_INGREDIENT_COUNT_KEY                = ArsMagicaApi.MOD_ID + ".spell.ingredient_count";
@@ -70,6 +71,7 @@ public interface AMTranslations {
     String ABILITY_SEPARATOR_KEY                          = ArsMagicaApi.MOD_ID + ".ability.separator";
     String ALTAR_CORE_LOW_POWER_KEY                       = ArsMagicaApi.MOD_ID + ".altar_core.low_power";
     String ANY_ETHERIUM_KEY                               = ArsMagicaApi.MOD_ID + ".any_etherium";
+    String CRYSTAL_PHYLACTERY_EMPTY_KEY                   = ArsMagicaApi.MOD_ID + ".crystal_phylactery.empty";
     String NO_TELEPORT_KEY                                = ArsMagicaApi.MOD_ID + ".no_teleport";
     String NO_TELEPORT_NETHER_KEY                         = ArsMagicaApi.MOD_ID + ".no_teleport_nether";
     String NO_TELEPORT_OTHER_KEY                          = ArsMagicaApi.MOD_ID + ".no_teleport_other";
@@ -116,6 +118,7 @@ public interface AMTranslations {
     Component ABILITY_SEPARATOR                          = Component.translatable(ABILITY_SEPARATOR_KEY);
     Component ALTAR_CORE_LOW_POWER                       = Component.translatable(ALTAR_CORE_LOW_POWER_KEY);
     Component ANY_ETHERIUM                               = Component.translatable(ANY_ETHERIUM_KEY);
+    Component CRYSTAL_PHYLACTERY_EMPTY                   = Component.translatable(CRYSTAL_PHYLACTERY_EMPTY_KEY);
     Component NO_TELEPORT                                = Component.translatable(NO_TELEPORT_KEY);
     Component NO_TELEPORT_NETHER                         = Component.translatable(NO_TELEPORT_NETHER_KEY);
     Component NO_TELEPORT_OTHER                          = Component.translatable(NO_TELEPORT_OTHER_KEY);

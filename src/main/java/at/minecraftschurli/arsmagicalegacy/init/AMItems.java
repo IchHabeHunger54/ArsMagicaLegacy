@@ -5,6 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.item.AffinityTomeItem;
+import at.minecraftschurli.arsmagicalegacy.item.CrystalPhylacteryItem;
 import at.minecraftschurli.arsmagicalegacy.item.CrystalWrenchItem;
 import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
 import at.minecraftschurli.arsmagicalegacy.item.DrinkItem;
@@ -137,5 +138,6 @@ public interface AMItems {
     DeferredItem<BlockItem>                                    TARMA_ROOT                       = ITEMS.registerSimpleBlockItem(AMBlocks.TARMA_ROOT);
     DeferredItem<BlockItem>                                    WAKEBLOOM                        = ITEMS.registerItem("wakebloom", p -> new PlaceOnWaterBlockItem(AMBlocks.WAKEBLOOM.get(), p));
     DeferredItem<DeferredSpawnEggItem>                         MANA_CREEPER_SPAWN_EGG           = ITEMS.registerItem("mana_creeper_spawn_egg", p -> new DeferredSpawnEggItem(AMEntities.MANA_CREEPER, 0x1abfb5, 0x368580, p));
+    DeferredItem<CrystalPhylacteryItem>                        CRYSTAL_PHYLACTERY               = ITEMS.registerItem("crystal_phylactery", p -> new CrystalPhylacteryItem(p.stacksTo(1)));
     // @formatter:on
 }

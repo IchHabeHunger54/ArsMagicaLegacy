@@ -40,6 +40,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.arsmagicalegacy.init.AMRituals;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import at.minecraftschurli.arsmagicalegacy.item.CrystalPhylacteryItem;
 import at.minecraftschurli.arsmagicalegacy.item.RuneBagItem;
 import at.minecraftschurli.arsmagicalegacy.item.SpellBookItem;
 import at.minecraftschurli.arsmagicalegacy.packet.ForgetSkillsPacket;
@@ -56,6 +57,7 @@ import at.minecraftschurli.arsmagicalegacy.packet.SpellCustomizationPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.TakeSpellRecipeFromLecternPacket;
 import at.minecraftschurli.arsmagicalegacy.spell.ToolTiers;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
+import at.minecraftschurli.arsmagicalegacy.util.CrystalPhylacteryContentsSize;
 import at.minecraftschurli.arsmagicalegacy.util.DispenseBucketBehavior;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.commands.CommandBuildContext;
@@ -192,6 +194,7 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void registerDataMapTypes(RegisterDataMapTypesEvent event) {
+        event.register(CrystalPhylacteryContentsSize.DATA_MAP);
         event.register(ObeliskFuel.DATA_MAP);
     }
 
@@ -384,6 +387,7 @@ final class AMEventHandler {
         ArsMagicaApi.spellHelper().triggerContingency(entity, AMSpells.CONTINGENCY_DEATH_ID);
         if (!(event.getSource().getEntity() instanceof Player player)) return;
         ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, AMAbilities.KILL_EFFECT_EFFECT.get());
+        CrystalPhylacteryItem.addFill(player, entity);
     }
 
     @SubscribeEvent

@@ -60,6 +60,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
 import at.minecraftschurli.arsmagicalegacy.init.AMParticles;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import at.minecraftschurli.arsmagicalegacy.item.CrystalPhylacteryItem;
 import at.minecraftschurli.arsmagicalegacy.item.CrystalWrenchItem;
 import at.minecraftschurli.arsmagicalegacy.packet.SetActiveShapeGroupPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SpellBookScrollPacket;
@@ -127,6 +128,7 @@ final class AMClientEventHandler {
         event.enqueueWork(() -> {
             ArsMagicaClientApiImpl.postEvents();
             ItemProperties.register(AMItems.CRYSTAL_WRENCH.get(), CrystalWrenchItem.ACTIVE, (stack, level, player, seed) -> stack.has(AMDataComponents.STORED_POSITIONS) && !stack.get(AMDataComponents.STORED_POSITIONS).isEmpty() ? 1 : 0);
+            ItemProperties.register(AMItems.CRYSTAL_PHYLACTERY.get(), CrystalPhylacteryItem.FILL, (stack, level, player, seed) -> CrystalPhylacteryItem.getFill(stack));
             PatchouliAPI.get().registerTemplateAsBuiltin(SpellPartPage.ID, () -> new ByteArrayInputStream(SpellPartPage.TEMPLATE.getBytes(StandardCharsets.UTF_8)));
         });
         ItemBlockRenderTypes.setRenderLayer(AMFluids.LIQUID_ETHERIUM.get(), RenderType.translucent());
@@ -200,6 +202,7 @@ final class AMClientEventHandler {
     private static void registerColorHandlersItem(RegisterColorHandlersEvent.Item event) {
         event.register((stack, tintIndex) -> tintIndex == 0 && stack.has(AMDataComponents.ETHERIUM_TYPE) ? 0xff000000 | stack.get(AMDataComponents.ETHERIUM_TYPE).value().color() : -1, AMItems.ETHERIUM_PLACEHOLDER);
         event.register((stack, tintIndex) -> tintIndex == 1 ? 0xff000000 | DyedItemColor.getOrDefault(stack, 0) : -1, AMItems.SPELL_BOOK.get());
+        event.register((stack, tintIndex) -> tintIndex == 1 ? 0xff000000 | CrystalPhylacteryItem.getColor(stack) : -1, AMItems.CRYSTAL_PHYLACTERY.get());
     }
 
     @SubscribeEvent

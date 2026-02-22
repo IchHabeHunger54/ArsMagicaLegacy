@@ -3,8 +3,11 @@ package at.minecraftschurli.arsmagicalegacy.datagen.data;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.ObeliskFuel;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
+import at.minecraftschurli.arsmagicalegacy.util.CrystalPhylacteryContentsSize;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.entity.EntityType;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.DataMapProvider;
 import net.neoforged.neoforge.registries.datamaps.builtin.Compostable;
 import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
@@ -16,6 +19,7 @@ public final class AMDataMapProvider extends DataMapProvider {
         super(packOutput, lookupProvider);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     protected void gather(HolderLookup.Provider provider) {
         builder(NeoForgeDataMaps.COMPOSTABLES)
@@ -30,5 +34,16 @@ public final class AMDataMapProvider extends DataMapProvider {
             .add(AMTags.Items.DUSTS_VINTEUM, new ObeliskFuel(200, 1), false)
             .add(AMTags.Items.STORAGE_BLOCKS_VINTEUM, new ObeliskFuel(900, 2), false)
             .add(AMItems.LIQUID_ETHERIUM_BUCKET, new ObeliskFuel(1000, 2), false);
+        builder(CrystalPhylacteryContentsSize.DATA_MAP)
+            .add(AMTags.EntityTypes.SUMMONING_NOT_SUPPORTED, new CrystalPhylacteryContentsSize(0), false)
+            .add(EntityType.DONKEY.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(20), false)
+            .add(EntityType.GIANT.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(0), false)
+            .add(EntityType.HORSE.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(20), false)
+            .add(EntityType.LLAMA.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(20), false)
+            .add(EntityType.MAGMA_CUBE.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(16), false)
+            .add(EntityType.MULE.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(20), false)
+            .add(EntityType.PLAYER.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(16), false)
+            .add(EntityType.SLIME.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(16), false)
+            .add(EntityType.TRADER_LLAMA.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(20), false);
     }
 }

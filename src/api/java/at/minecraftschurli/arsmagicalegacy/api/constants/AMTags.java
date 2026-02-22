@@ -86,6 +86,7 @@ public interface AMTags {
         TagKey<EntityType<?>> AFFECTED_BY_ENDER_THORNS_ABILITY = tag("affected_by_ender_thorns_ability");
         TagKey<EntityType<?>> AFFECTED_BY_SMITE_ABILITY = tag("affected_by_smite_ability");
         TagKey<EntityType<?>> AFFECTED_BY_NAUSEA_ABILITY = tag("affected_by_nausea_ability");
+        TagKey<EntityType<?>> SUMMONING_NOT_SUPPORTED = tag("summoning_not_supported");
 
         private static TagKey<EntityType<?>> tag(String name) {
             return TagKey.create(Registries.ENTITY_TYPE, ArsMagicaApi.id(name));

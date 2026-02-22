@@ -5,7 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.MagicAttachment;
 import at.minecraftschurli.arsmagicalegacy.attachment.ContingencyAttachment;
 import at.minecraftschurli.arsmagicalegacy.attachment.RiftAttachment;
 import at.minecraftschurli.arsmagicalegacy.attachment.TemporalAnchorAttachment;
-import at.minecraftschurli.arsmagicalegacy.util.MagicAttachmentSyncHandler;
+import at.minecraftschurli.arsmagicalegacy.attachment.MagicAttachmentSyncHandler;
 import com.mojang.serialization.Codec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;

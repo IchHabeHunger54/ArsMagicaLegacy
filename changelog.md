@@ -37,6 +37,16 @@
 - Moved some Affinity Tomes to other biomes or structures
 - Rune Bags can no longer be inserted into Shulker Boxes or similar containers
 
+## Crystal Phylactery
+
+- New item
+- When killing a mob with an empty Crystal Phylactery in your inventory, a mob "soul" is added to the Crystal Phylactery
+- Full Crystal Phylacteries can be used in a Summon spell to set the summoned mob type
+- Stronger mobs require more kills before they can be used
+- Certain mobs, such as bosses or disabled mobs, cannot be added to a Crystal Phylactery (this can be modified via datapacks)
+- If not empty, a Crystal Phylactery can be shift-right clicked to empty it
+- Filled variants for all supported mobs show up in the creative inventory and in JEI
+
 ## Magitech Goggles
 
 - Are no longer unbreakable

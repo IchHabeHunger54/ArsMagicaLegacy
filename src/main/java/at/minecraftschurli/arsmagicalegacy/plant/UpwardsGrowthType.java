@@ -9,6 +9,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -67,9 +68,11 @@ public record UpwardsGrowthType(int minHeight, int maxHeight, Block head, Block 
         List<BlockPos> column = getColumn(context);
         List<ItemStack> drops = new ArrayList<>();
         ServerLevel level = context.level();
+        ServerPlayer player = context.player();
+        ItemStack tool = context.tool();
         while (column.size() > minHeight) {
             BlockPos last = column.getLast();
-            drops.addAll(AMUtil.destroyBlockAndGetDrops(level, last, level.getBlockState(last), context.player(), context.plant().tool().copy()));
+            drops.addAll(AMUtil.destroyBlockAndGetDrops(level, last, level.getBlockState(last), player, tool));
             column.removeLast();
         }
         return drops;

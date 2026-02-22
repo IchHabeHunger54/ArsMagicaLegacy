@@ -37,9 +37,10 @@ public record Plant(List<ICondition> conditions, GrowthType growthType, RuleTest
      * @param level  The {@link ServerLevel} to use.
      * @param pos    The {@link BlockPos} to use.
      * @param state  The {@link BlockState} to use.
+     * @param tool   The {@link ItemStack} to use.
      * @return A new {@link GrowthContext}.
      */
-    public GrowthContext createContext(ServerPlayer player, ServerLevel level, BlockPos pos, BlockState state) {
-        return new GrowthContext(this, player, level, pos, state);
+    public GrowthContext createContext(ServerPlayer player, ServerLevel level, BlockPos pos, BlockState state, ItemStack tool) {
+        return new GrowthContext(this, player, level, pos, state, tool);
     }
 }

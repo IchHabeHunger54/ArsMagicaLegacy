@@ -39,17 +39,8 @@ public record BushGrowthType(List<BlockState> harvestStates) implements Bonemeal
     @Override
     public List<ItemStack> harvest(GrowthContext context) {
         BlockPos pos = context.pos();
-        BlockState state = context.state();
-        ServerLevel level = context.level();
-        ServerPlayer player = context.player();
-        ItemStack tool = context.plant().tool();
-        BlockHitResult hitResult = new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, true);
         Block.beginCapturingDrops();
-        if (tool.isEmpty()) {
-            state.useWithoutItem(level, player, hitResult);
-        } else {
-            state.useItemOn(tool.copy(), level, player, InteractionHand.MAIN_HAND, hitResult);
-        }
+        context.state().useItemOn(context.tool(), context.level(), context.player(), InteractionHand.MAIN_HAND, new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, true));
         return Block.stopCapturingDrops()
             .stream()
             .map(ItemEntity::getItem)

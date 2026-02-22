@@ -50,14 +50,14 @@ public record ChorusGrowthType() implements GrowthType {
         Set<BlockPos> set = new HashSet<>();
         ServerLevel level = context.level();
         ServerPlayer player = context.player();
-        ItemStack tool = context.plant().tool();
+        ItemStack tool = context.tool();
         getTree(level, context.pos(), set);
         List<ItemStack> drops = new ArrayList<>();
         Set<BlockPos> toRemove = new HashSet<>();
         for (BlockPos pos : set) {
             BlockState state = level.getBlockState(pos);
             if (state.is(Blocks.CHORUS_FLOWER)) {
-                drops.addAll(AMUtil.destroyBlockAndGetDrops(level, pos, state, player, tool.copy()));
+                drops.addAll(AMUtil.destroyBlockAndGetDrops(level, pos, state, player, tool));
                 toRemove.add(pos);
             }
         }
@@ -69,7 +69,7 @@ public record ChorusGrowthType() implements GrowthType {
         for (BlockPos pos : list) {
             BlockState state = level.getBlockState(pos);
             if (state.is(Blocks.CHORUS_PLANT)) {
-                drops.addAll(AMUtil.destroyBlockAndGetDrops(level, pos, state, player, tool.copy()));
+                drops.addAll(AMUtil.destroyBlockAndGetDrops(level, pos, state, player, tool));
             }
             if (level.getBlockState(pos.below()).is(Blocks.END_STONE)) {
                 ground = pos;

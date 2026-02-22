@@ -50,7 +50,6 @@ import at.minecraftschurli.arsmagicalegacy.spell.component.Plow;
 import at.minecraftschurli.arsmagicalegacy.spell.component.RandomTeleport;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Recall;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Repel;
-import at.minecraftschurli.arsmagicalegacy.spell.component.Replant;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Rift;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Storm;
 import at.minecraftschurli.arsmagicalegacy.spell.component.Summon;
@@ -163,6 +162,8 @@ public interface AMSpells {
     DeferredHolder<SpellPart, Effect>             TEMPORAL_ANCHOR     = register("temporal_anchor",     () -> new Effect(AMMobEffects.TEMPORAL_ANCHOR));
     DeferredHolder<SpellPart, Effect>             TRUE_SIGHT          = register("true_sight",          () -> new Effect(AMMobEffects.TRUE_SIGHT));
     DeferredHolder<SpellPart, Effect>             WATERY_GRAVE        = register("watery_grave",        () -> new Effect(AMMobEffects.WATERY_GRAVE));
+    DeferredHolder<SpellPart, Harvest>            HARVEST             = register("harvest",             () -> new Harvest(false));
+    DeferredHolder<SpellPart, Harvest>            REPLANT             = register("replant",             () -> new Harvest(true));
     DeferredHolder<SpellPart, Attract>            ATTRACT             = register("attract",             Attract::new);
     DeferredHolder<SpellPart, BanishRain>         BANISH_RAIN         = register("banish_rain",         BanishRain::new);
     DeferredHolder<SpellPart, Blink>              BLINK               = register("blink",               Blink::new);
@@ -183,7 +184,6 @@ public interface AMSpells {
     DeferredHolder<SpellPart, Forge>              FORGE               = register("forge",               Forge::new);
     DeferredHolder<SpellPart, Frost>              FROST               = register("frost",               Frost::new);
     DeferredHolder<SpellPart, Grow>               GROW                = register("grow",                Grow::new);
-    DeferredHolder<SpellPart, Harvest>            HARVEST             = register("harvest",             Harvest::new);
     DeferredHolder<SpellPart, Heal>               HEAL                = register("heal",                Heal::new);
     DeferredHolder<SpellPart, Ignition>           IGNITION            = register("ignition",            Ignition::new);
     DeferredHolder<SpellPart, Knockback>          KNOCKBACK           = register("knockback",           Knockback::new);
@@ -195,7 +195,6 @@ public interface AMSpells {
     DeferredHolder<SpellPart, MeltArmor>          MELT_ARMOR          = register("melt_armor",          MeltArmor::new);
     DeferredHolder<SpellPart, Moonrise>           MOONRISE            = register("moonrise",            Moonrise::new);
     DeferredHolder<SpellPart, PlaceBlock>         PLACE_BLOCK         = register("place_block",         PlaceBlock::new);
-    DeferredHolder<SpellPart, Replant>            REPLANT             = register("replant",             Replant::new);
     DeferredHolder<SpellPart, Plow>               PLOW                = register("plow",                Plow::new);
     DeferredHolder<SpellPart, RandomTeleport>     RANDOM_TELEPORT     = register("random_teleport",     RandomTeleport::new);
     DeferredHolder<SpellPart, Recall>             RECALL              = register("recall",              Recall::new);

@@ -1,7 +1,8 @@
-package at.minecraftschurli.arsmagicalegacy.util;
+package at.minecraftschurli.arsmagicalegacy.attachment;
 
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicAttachment;
 import at.minecraftschurli.arsmagicalegacy.compat.jei.HiddenSkills;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLEnvironment;

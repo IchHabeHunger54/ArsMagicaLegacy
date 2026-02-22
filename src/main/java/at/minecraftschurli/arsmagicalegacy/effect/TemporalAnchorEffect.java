@@ -13,12 +13,12 @@ public class TemporalAnchorEffect extends AMMobEffect {
 
     @Override
     public void startEffect(LivingEntity entity, MobEffectInstance effect) {
-        entity.setData(AMAttachments.TEMPORAL_ANCHOR_SNAPSHOT, TemporalAnchorAttachment.from(entity));
+        entity.setData(AMAttachments.TEMPORAL_ANCHOR, TemporalAnchorAttachment.from(entity));
     }
 
     @Override
     public void stopEffect(LivingEntity entity, MobEffectInstance effect) {
-        TemporalAnchorAttachment attachment = entity.removeData(AMAttachments.TEMPORAL_ANCHOR_SNAPSHOT);
+        TemporalAnchorAttachment attachment = entity.removeData(AMAttachments.TEMPORAL_ANCHOR);
         if (attachment != null) {
             attachment.apply(entity);
         }

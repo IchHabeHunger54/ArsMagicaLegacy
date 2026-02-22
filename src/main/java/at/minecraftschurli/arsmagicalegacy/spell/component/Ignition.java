@@ -21,6 +21,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class Ignition extends SpellComponent.CastBoth {
+    public Ignition() {
+        super(AMSpells.DURATION_STAT);
+    }
+
     @Override
     public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
         ItemStack stack = new ItemStack(Items.FLINT_AND_STEEL);

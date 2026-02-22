@@ -48,9 +48,10 @@ public record HangingBushGrowthType(List<BlockState> harvestStates, int minHeigh
         Plant plant = context.plant();
         ServerPlayer player = context.player();
         ServerLevel level = context.level();
+        ItemStack tool = context.tool();
         List<BlockPos> column = getColumn(context);
         for (BlockPos pos : column) {
-            if (BonemealableGrowthType.super.canGrow(new GrowthContext(plant, player, level, pos, level.getBlockState(pos)))) return true;
+            if (BonemealableGrowthType.super.canGrow(new GrowthContext(plant, player, level, pos, level.getBlockState(pos), tool))) return true;
         }
         if (maxHeight > 0 && column.size() >= maxHeight) return false;
         BlockPos last = column.getLast();
@@ -62,11 +63,12 @@ public record HangingBushGrowthType(List<BlockState> harvestStates, int minHeigh
         Plant plant = context.plant();
         ServerPlayer player = context.player();
         ServerLevel level = context.level();
+        ItemStack tool = context.tool();
         boolean bonemealed = false;
         List<BlockPos> column = getColumn(context);
         for (BlockPos pos : column) {
             BlockState current = level.getBlockState(pos);
-            if (BonemealableGrowthType.super.canGrow(new GrowthContext(plant, player, level, pos, current)) && current.getBlock() instanceof BonemealableBlock block) {
+            if (BonemealableGrowthType.super.canGrow(new GrowthContext(plant, player, level, pos, current, tool)) && current.getBlock() instanceof BonemealableBlock block) {
                 block.performBonemeal(level, level.getRandom(), pos, current);
                 bonemealed = true;
             }
@@ -91,16 +93,12 @@ public record HangingBushGrowthType(List<BlockState> harvestStates, int minHeigh
         List<BlockPos> column = getColumn(context);
         ServerLevel level = context.level();
         ServerPlayer player = context.player();
-        ItemStack tool = context.plant().tool();
+        ItemStack tool = context.tool();
         Block.beginCapturingDrops();
         for (BlockPos lastPos : column) {
             BlockState lastState = level.getBlockState(lastPos);
             BlockHitResult hitResult = new BlockHitResult(Vec3.atCenterOf(lastPos), Direction.UP, lastPos, true);
-            if (tool.isEmpty()) {
-                lastState.useWithoutItem(level, player, hitResult);
-            } else {
-                lastState.useItemOn(tool.copy(), level, player, InteractionHand.MAIN_HAND, hitResult);
-            }
+            lastState.useItemOn(tool, level, player, InteractionHand.MAIN_HAND, hitResult);
         }
         return Block.stopCapturingDrops()
             .stream()

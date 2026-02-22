@@ -69,7 +69,7 @@ public record HangingGrowthType(int minHeight, int maxHeight, Block head, Block 
         ServerLevel level = context.level();
         while (column.size() > minHeight) {
             BlockPos last = column.getLast();
-            drops.addAll(AMUtil.destroyBlockAndGetDrops(level, last, level.getBlockState(last), context.player(), context.plant().tool().copy()));
+            drops.addAll(AMUtil.destroyBlockAndGetDrops(level, last, level.getBlockState(last), context.player(), context.tool()));
             column.removeLast();
         }
         return drops;

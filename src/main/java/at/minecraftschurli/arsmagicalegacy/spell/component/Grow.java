@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,7 +34,7 @@ public class Grow extends SpellComponent.CastBlock {
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
         for (Plant plant : AMUtil.getPlants(state)) {
-            GrowthContext context = plant.createContext(player, serverLevel, pos, state);
+            GrowthContext context = plant.createContext(player, serverLevel, pos, state, ItemStack.EMPTY);
             if (plant.growthType().canGrow(context)) {
                 plant.growthType().grow(context);
                 return spell;

@@ -55,7 +55,7 @@ public record TallCropGrowthType(List<TallHarvestState> harvestStates, RuleTest 
     public List<ItemStack> harvest(GrowthContext context) {
         ServerPlayer player = context.player();
         ServerLevel level = context.level();
-        ItemStack tool = context.plant().tool().copy();
+        ItemStack tool = context.tool();
         GrowthContext lower = lower(context);
         GrowthContext upper = upper(context);
         List<ItemStack> result = new ArrayList<>();
@@ -95,13 +95,13 @@ public record TallCropGrowthType(List<TallHarvestState> harvestStates, RuleTest 
         if (AMUtil.doRuleTest(lower, context.state())) return context;
         ServerLevel level = context.level();
         BlockPos below = context.pos().below();
-        return new GrowthContext(context.plant(), context.player(), level, below, level.getBlockState(below));
+        return new GrowthContext(context.plant(), context.player(), level, below, level.getBlockState(below), context.tool());
     }
 
     private GrowthContext upper(GrowthContext context) {
         if (AMUtil.doRuleTest(upper, context.state())) return context;
         ServerLevel level = context.level();
         BlockPos above = context.pos().above();
-        return new GrowthContext(context.plant(), context.player(), level, above, level.getBlockState(above));
+        return new GrowthContext(context.plant(), context.player(), level, above, level.getBlockState(above), context.tool());
     }
 }

@@ -229,8 +229,7 @@ public final class AMUtil {
         return list.get(tick % list.size());
     }
 
-    public static ItemStack getEnchantedSpell(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult, Map<ResourceKey<Enchantment>, SpellStat> enchantments) {
-        ItemStack stack = AMItems.SPELL.toStack();
+    public static ItemStack getEnchanted(ItemStack stack, Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult, Map<ResourceKey<Enchantment>, SpellStat> enchantments) {
         stack.set(AMDataComponents.SPELL, spell);
         Registry<Enchantment> registry = level.registryAccess().registryOrThrow(Registries.ENCHANTMENT);
         SpellHelper helper = ArsMagicaApi.spellHelper();
@@ -238,6 +237,10 @@ public final class AMUtil {
             stack.enchant(registry.getHolderOrThrow(entry.getKey()), (int) helper.getModifiedStat(0, entry.getValue(), modifiers, spell, level, caster, directEntity, hitResult));
         }
         return stack;
+    }
+
+    public static ItemStack getEnchantedSpell(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult, Map<ResourceKey<Enchantment>, SpellStat> enchantments) {
+        return getEnchanted(AMItems.SPELL.toStack(), spell, modifiers, level, caster, directEntity, hitResult, enchantments);
     }
 
     public static HitResult getHitResult(Vec3 from, Vec3 to, Entity entity, ClipContext.Block blockContext, ClipContext.Fluid fluidContext) {

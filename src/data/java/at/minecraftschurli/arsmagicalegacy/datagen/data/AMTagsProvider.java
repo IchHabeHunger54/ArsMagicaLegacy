@@ -188,6 +188,8 @@ public final class AMTagsProvider {
             tag(AMTags.EntityTypes.AFFECTED_BY_ENDER_THORNS_ABILITY).add(net.minecraft.world.entity.EntityType.ENDER_DRAGON, net.minecraft.world.entity.EntityType.ENDERMAN, net.minecraft.world.entity.EntityType.ENDERMITE, net.minecraft.world.entity.EntityType.SHULKER);
             tag(AMTags.EntityTypes.AFFECTED_BY_SMITE_ABILITY).addTag(EntityTypeTags.UNDEAD);
             tag(AMTags.EntityTypes.AFFECTED_BY_NAUSEA_ABILITY).addTag(EntityTypeTags.UNDEAD);
+            // TODO 26.1 add creaking
+            tag(AMTags.EntityTypes.SUMMONING_NOT_SUPPORTED).addTags(Tags.EntityTypes.BOSSES, Tags.EntityTypes.CAPTURING_NOT_SUPPORTED).add(net.minecraft.world.entity.EntityType.ARMOR_STAND, net.minecraft.world.entity.EntityType.GIANT, net.minecraft.world.entity.EntityType.ILLUSIONER, net.minecraft.world.entity.EntityType.PLAYER, net.minecraft.world.entity.EntityType.WARDEN);
         }
     }
 

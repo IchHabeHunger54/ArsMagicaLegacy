@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "c:dusts/purified_vinteum"
+    },
+    "G": {
+      "tag": "c:glass_blocks"
+    },
+    "M": {
+      "tag": "c:gems/moonstone"
+    },
+    "W": {
+      "item": "arsmagicalegacy:magic_wall"
+    }
+  },
+  "pattern": [
+    " M ",
+    "GAG",
+    " W "
+  ],
+  "result": {
+    "count": 1,
+    "id": "arsmagicalegacy:crystal_phylactery"
+  }
+}

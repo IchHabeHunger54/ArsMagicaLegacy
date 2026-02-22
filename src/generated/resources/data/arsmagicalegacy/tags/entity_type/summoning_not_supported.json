@@ -1,0 +1,11 @@
+{
+  "values": [
+    "#c:bosses",
+    "#c:capturing_not_supported",
+    "minecraft:armor_stand",
+    "minecraft:giant",
+    "minecraft:illusioner",
+    "minecraft:player",
+    "minecraft:warden"
+  ]
+}

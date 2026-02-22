@@ -1,0 +1,14 @@
+{
+  "values": {
+    "#arsmagicalegacy:summoning_not_supported": 0,
+    "minecraft:donkey": 20,
+    "minecraft:giant": 0,
+    "minecraft:horse": 20,
+    "minecraft:llama": 20,
+    "minecraft:magma_cube": 16,
+    "minecraft:mule": 20,
+    "minecraft:player": 16,
+    "minecraft:slime": 16,
+    "minecraft:trader_llama": 20
+  }
+}

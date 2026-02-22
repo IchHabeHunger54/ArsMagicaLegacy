@@ -4,6 +4,7 @@
 - Data Loading Conditions
 - Add Liquid Etherium Sounds
 - Entities, including:
+    - Witchwood Boat
     - Dryads
     - All Bosses
     - Their Projectiles

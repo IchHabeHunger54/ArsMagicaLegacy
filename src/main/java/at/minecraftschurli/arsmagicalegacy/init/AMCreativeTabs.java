@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.init;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
+import at.minecraftschurli.arsmagicalegacy.item.CrystalPhylacteryItem;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
@@ -117,6 +118,8 @@ public interface AMCreativeTabs {
             output.accept(AMItems.TARMA_ROOT);
             output.accept(AMItems.WAKEBLOOM);
             output.accept(AMItems.MANA_CREEPER_SPAWN_EGG);
+            output.accept(AMItems.CRYSTAL_PHYLACTERY);
+            CrystalPhylacteryItem.addToCreativeTab(output::accept);
         })
         .build());
 

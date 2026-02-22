@@ -510,6 +510,16 @@ public final class AMRecipeProvider extends RecipeProvider {
             .requires(AMTags.Items.DUSTS_VINTEUM)
             .unlockedBy(getHasName(AMItems.VINTEUM_DUST), has(AMTags.Items.DUSTS_VINTEUM))
             .save(output);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.CRYSTAL_PHYLACTERY.get())
+            .pattern(" M ")
+            .pattern("GAG")
+            .pattern(" W ")
+            .define('M', AMTags.Items.GEMS_MOONSTONE)
+            .define('G', Tags.Items.GLASS_BLOCKS)
+            .define('A', AMTags.Items.DUSTS_PURIFIED_VINTEUM)
+            .define('W', AMItems.MAGIC_WALL)
+            .unlockedBy(getHasName(AMItems.MOONSTONE), has(AMTags.Items.GEMS_MOONSTONE))
+            .save(output);
         generateRecipes(output, AMBlocks.WITCHWOOD_BLOCK_FAMILY.get(), FeatureFlagSet.of(FeatureFlags.VANILLA));
         hangingSign(output, AMItems.WITCHWOOD_HANGING_SIGN.get(), AMItems.STRIPPED_WITCHWOOD_LOG.get());
         planksFromLogs(output, AMItems.WITCHWOOD_PLANKS.get(), AMTags.Items.WITCHWOOD_LOGS, 4);

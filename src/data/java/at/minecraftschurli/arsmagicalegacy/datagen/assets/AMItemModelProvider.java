@@ -4,11 +4,13 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.init.AMFluids;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
+import at.minecraftschurli.arsmagicalegacy.item.CrystalPhylacteryItem;
 import at.minecraftschurli.arsmagicalegacy.item.CrystalWrenchItem;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
+import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.client.model.generators.loaders.DynamicFluidContainerModelBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -128,6 +130,16 @@ public final class AMItemModelProvider extends ItemModelProvider {
         basicBlockItem(AMItems.TARMA_ROOT);
         basicBlockItem(AMItems.WAKEBLOOM);
         spawnEggItem(AMItems.MANA_CREEPER_SPAWN_EGG.get());
+        ItemModelBuilder crystalPhylactery = getBuilder("crystal_phylactery").texture("layer0", modLoc("item/crystal_phylactery"));
+        for (int i = 0; i < 8; i++) {
+            crystalPhylactery.override()
+                .predicate(CrystalPhylacteryItem.FILL, (i + 1) / 8f)
+                .model(withExistingParent("crystal_phylactery_fill_" + i, mcLoc("item/generated"))
+                    .texture("layer0", modLoc("item/crystal_phylactery"))
+                    .texture("layer1", modLoc("item/crystal_phylactery_fill_" + i)))
+                .end();
+        }
+        basicItem(AMItems.CRYSTAL_PHYLACTERY);
     }
 
     /**

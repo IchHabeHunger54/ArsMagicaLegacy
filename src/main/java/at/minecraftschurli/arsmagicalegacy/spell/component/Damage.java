@@ -8,24 +8,22 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMEnchantments;
-import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.spell.SpellDamage;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.Registries;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 public class Damage extends SpellComponent.CastEntity {
@@ -49,11 +47,7 @@ public class Damage extends SpellComponent.CastEntity {
             living.heal((float) helper.getModifiedStat(-damage, AMSpells.HEALING_STAT, modifiers, spell, level, caster, directEntity, hitResult));
         } else if (damage >= 0 || !(level instanceof ServerLevel serverLevel) || !serverLevel.getServer().isPvpAllowed()) {
             float finalDamage = (float) helper.getModifiedStat(damage, AMSpells.DAMAGE_STAT, modifiers, spell, level, caster, directEntity, hitResult);
-            ItemStack stack = AMItems.SPELL.toStack();
-            stack.set(AMDataComponents.SPELL, spell);
-            Registry<Enchantment> enchantments = level.registryAccess().registryOrThrow(Registries.ENCHANTMENT);
-            stack.enchant(enchantments.getHolderOrThrow(Enchantments.LOOTING), (int) helper.getModifiedStat(0, AMSpells.FORTUNE_STAT, modifiers, spell, level, caster, directEntity, hitResult));
-            stack.enchant(enchantments.getHolderOrThrow(AMEnchantments.DISMEMBERING), (int) helper.getModifiedStat(0, AMSpells.DISMEMBERING_STAT, modifiers, spell, level, caster, directEntity, hitResult));
+            ItemStack stack = AMUtil.getEnchantedSpell(spell, modifiers, level, caster, directEntity, hitResult, Map.of(Enchantments.LOOTING, AMSpells.FORTUNE_STAT, AMEnchantments.DISMEMBERING, AMSpells.DISMEMBERING_STAT));
             spell = spell.updateDataComponents(map -> map.updateGrammar(grammar -> grammar.set(AMDataComponents.SPELL_DAMAGE.get(), grammar.getOrDefault(AMDataComponents.SPELL_DAMAGE.get(), SpellDamage.EMPTY).setDamage(target, damageType.apply(caster), finalDamage, stack))));
         }
         return spell;

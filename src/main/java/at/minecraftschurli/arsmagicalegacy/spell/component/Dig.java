@@ -8,14 +8,11 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
-import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
@@ -23,7 +20,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.Tool;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -34,6 +30,7 @@ import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class Dig extends SpellComponent.CastBlock {
@@ -63,11 +60,8 @@ public class Dig extends SpellComponent.CastBlock {
         manaHelper.decreaseMana(caster, manaCost);
         burnoutHelper.increaseBurnout(caster, manaCost);
         if (AMUtil.cancelDestroyBlock(level, pos, state, player)) return spell;
-        ItemStack stack = AMItems.SPELL.toStack();
+        ItemStack stack = AMUtil.getEnchantedSpell(spell, modifiers, level, caster, directEntity, hitResult, Map.of(Enchantments.FORTUNE, AMSpells.FORTUNE_STAT, Enchantments.SILK_TOUCH, AMSpells.SILK_TOUCH_STAT));
         stack.set(DataComponents.TOOL, new Tool(List.of(Tool.Rule.deniesDrops(incorrectTag)), Float.MAX_VALUE, 0));
-        Registry<Enchantment> enchantments = level.registryAccess().registryOrThrow(Registries.ENCHANTMENT);
-        stack.enchant(enchantments.getHolderOrThrow(Enchantments.FORTUNE), (int) helper.getModifiedStat(0, AMSpells.FORTUNE_STAT, modifiers, spell, level, caster, directEntity, hitResult));
-        stack.enchant(enchantments.getHolderOrThrow(Enchantments.SILK_TOUCH), (int) helper.getModifiedStat(0, AMSpells.SILK_TOUCH_STAT, modifiers, spell, level, caster, directEntity, hitResult));
         Block.dropResources(state, level, pos, level.getBlockEntity(pos), player, stack);
         return spell;
     }

@@ -9,9 +9,14 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.plant.Plant;
 import at.minecraftschurli.arsmagicalegacy.api.ritual.Ritual;
 import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualTrigger;
+import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
+import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.arsmagicalegacy.item.SpellRecipeItem;
@@ -25,8 +30,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -42,6 +50,7 @@ import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -65,6 +74,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
@@ -217,6 +227,17 @@ public final class AMUtil {
 
     public static <T> T getByTick(List<T> list, int tick) {
         return list.get(tick % list.size());
+    }
+
+    public static ItemStack getEnchantedSpell(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult, Map<ResourceKey<Enchantment>, SpellStat> enchantments) {
+        ItemStack stack = AMItems.SPELL.toStack();
+        stack.set(AMDataComponents.SPELL, spell);
+        Registry<Enchantment> registry = level.registryAccess().registryOrThrow(Registries.ENCHANTMENT);
+        SpellHelper helper = ArsMagicaApi.spellHelper();
+        for (Map.Entry<ResourceKey<Enchantment>, SpellStat> entry : enchantments.entrySet()) {
+            stack.enchant(registry.getHolderOrThrow(entry.getKey()), (int) helper.getModifiedStat(0, entry.getValue(), modifiers, spell, level, caster, directEntity, hitResult));
+        }
+        return stack;
     }
 
     public static HitResult getHitResult(Vec3 from, Vec3 to, Entity entity, ClipContext.Block blockContext, ClipContext.Fluid fluidContext) {

@@ -1,4 +1,3 @@
-- Add TODO Spell Shapes and Components
 - Test All Spell Parts and Particles
 - Inlays
 - Data Loading Conditions

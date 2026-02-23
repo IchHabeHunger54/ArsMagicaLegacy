@@ -50,6 +50,7 @@ import at.minecraftschurli.arsmagicalegacy.client.renderer.block.EtheriumGenerat
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.SpellRuneRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.EmptyRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.ManaCreeperRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.WitchwoodBoatRenderer;
 import at.minecraftschurli.arsmagicalegacy.compat.patchouli.SpellPartPage;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
@@ -72,6 +73,8 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.model.BoatModel;
+import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -137,6 +140,12 @@ final class AMClientEventHandler {
     }
 
     @SubscribeEvent
+    private static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(WitchwoodBoatRenderer.BOAT, BoatModel::createBodyModel);
+        event.registerLayerDefinition(WitchwoodBoatRenderer.CHEST_BOAT, ChestBoatModel::createBodyModel);
+    }
+
+    @SubscribeEvent
     private static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(AMEntities.BLIZZARD.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.FALLING_STAR.get(), EmptyRenderer::new);
@@ -146,6 +155,8 @@ final class AMClientEventHandler {
         event.registerEntityRenderer(AMEntities.PROJECTILE.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.WALL.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.WAVE.get(), EmptyRenderer::new);
+        event.registerEntityRenderer(AMEntities.WITCHWOOD_BOAT.get(), context -> new WitchwoodBoatRenderer(context, false));
+        event.registerEntityRenderer(AMEntities.WITCHWOOD_CHEST_BOAT.get(), context -> new WitchwoodBoatRenderer(context, true));
         event.registerEntityRenderer(AMEntities.ZONE.get(), EmptyRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.ALTAR_CORE.get(), AltarCoreRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.BLACK_AUREM.get(), BlackAuremRenderer::new);

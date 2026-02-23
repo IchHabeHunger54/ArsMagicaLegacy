@@ -16,6 +16,7 @@ import at.minecraftschurli.arsmagicalegacy.item.RuneBagItem;
 import at.minecraftschurli.arsmagicalegacy.item.SpellBookItem;
 import at.minecraftschurli.arsmagicalegacy.item.SpellItem;
 import at.minecraftschurli.arsmagicalegacy.item.SpellRecipeItem;
+import at.minecraftschurli.arsmagicalegacy.item.WitchwoodBoatItem;
 import at.minecraftschurli.arsmagicalegacy.item.WizardsChalkItem;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
@@ -132,6 +133,8 @@ public interface AMItems {
     DeferredItem<BlockItem>                                    WITCHWOOD_PRESSURE_PLATE         = ITEMS.registerSimpleBlockItem(AMBlocks.WITCHWOOD_PRESSURE_PLATE);
     DeferredItem<BlockItem>                                    WITCHWOOD_SIGN                   = ITEMS.registerItem("witchwood_sign", p -> new SignItem(p.stacksTo(16), AMBlocks.WITCHWOOD_SIGN.get(), AMBlocks.WITCHWOOD_WALL_SIGN.get()));
     DeferredItem<BlockItem>                                    WITCHWOOD_HANGING_SIGN           = ITEMS.registerItem("witchwood_hanging_sign", p -> new HangingSignItem(AMBlocks.WITCHWOOD_HANGING_SIGN.get(), AMBlocks.WITCHWOOD_WALL_HANGING_SIGN.get(), p.stacksTo(16)));
+    DeferredItem<WitchwoodBoatItem>                            WITCHWOOD_BOAT                   = ITEMS.registerItem("witchwood_boat", p -> new WitchwoodBoatItem(false, p));
+    DeferredItem<WitchwoodBoatItem>                            WITCHWOOD_CHEST_BOAT             = ITEMS.registerItem("witchwood_chest_boat", p -> new WitchwoodBoatItem(true, p));
     DeferredItem<BlockItem>                                    AUM                              = ITEMS.registerSimpleBlockItem(AMBlocks.AUM);
     DeferredItem<BlockItem>                                    CERUBLOSSOM                      = ITEMS.registerSimpleBlockItem(AMBlocks.CERUBLOSSOM);
     DeferredItem<BlockItem>                                    DESERT_NOVA                      = ITEMS.registerSimpleBlockItem(AMBlocks.DESERT_NOVA);

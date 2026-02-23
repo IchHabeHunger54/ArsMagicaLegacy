@@ -1,4 +1,4 @@
-// 1.21.1	2026-02-08T02:56:13.3015406	Tags for minecraft:item mod id arsmagicalegacy
+// 1.21.1	2026-02-23T21:54:41.6987372	Tags for minecraft:item mod id arsmagicalegacy
 2e0ada6a835e8b0f902f82a72452d5602a6064e5 data/arsmagicalegacy/tags/item/arcane_compendium_books.json
 c4dd173177d64629d95c113ecc569a6ff6a78016 data/arsmagicalegacy/tags/item/inscription_table_books.json
 23e87de731409e520ca6ab442c9e3172dd91c0a5 data/arsmagicalegacy/tags/item/occulus_forget_all.json
@@ -35,8 +35,10 @@ a5efaf624ecc4e7aa79239bfda857f660c06c552 data/c/tags/item/storage_blocks/chimeri
 44a23cc79dc5ba635c2c0cab92dcdf6d05104734 data/c/tags/item/storage_blocks/sunstone.json
 76df3f25234406bbe4c797c04449e8b9683eefcd data/c/tags/item/storage_blocks/topaz.json
 1b98676a20688653887cd8966162861777356e7e data/c/tags/item/storage_blocks/vinteum.json
+86bc66d8aaea025789c3353a18f546524f385111 data/minecraft/tags/item/boats.json
 ce7e623a6f12d8b17d7997ce4107e1c3bc75e458 data/minecraft/tags/item/bookshelf_books.json
 b1b8bbe5b3546c8258b996bed5cdc41dd06ca991 data/minecraft/tags/item/chest_armor.json
+2eb4009f3bc010aa7dd9772aefc04def9bc1d95e data/minecraft/tags/item/chest_boats.json
 ce7e623a6f12d8b17d7997ce4107e1c3bc75e458 data/minecraft/tags/item/dyeable.json
 4509a6dbe8b8c6353fbe06cefd812efe1dca2727 data/minecraft/tags/item/fence_gates.json
 8bf6253c0bb7e7984676a1c6776335efa0003571 data/minecraft/tags/item/foot_armor.json

@@ -1,4 +1,4 @@
-// 1.21.1	2026-02-22T04:06:02.2519934	Item Models: arsmagicalegacy
+// 1.21.1	2026-02-23T21:54:41.6987372	Item Models: arsmagicalegacy
 6e0b262bb6740bdbe7b3564e182497239ff375ac assets/arsmagicalegacy/models/item/affinity_essence_air.json
 84174d0bc6eb1016c4946a0937eb7ec35e19f1d8 assets/arsmagicalegacy/models/item/affinity_essence_arcane.json
 30a8164938d38c30eeb732879d3cd38955490293 assets/arsmagicalegacy/models/item/affinity_essence_earth.json
@@ -120,7 +120,9 @@ b8bfbbec0501d1cb57247ead9a025848e5d96658 assets/arsmagicalegacy/models/item/vint
 f2c8838af0eaefe17fe25f241608ea5e986931c7 assets/arsmagicalegacy/models/item/wakebloom.json
 e933e0452dd5bd442b7dd886503bb0cd0051efcd assets/arsmagicalegacy/models/item/white_rune.json
 9bb6569ea537aa9699038bd8dddc4f5dcc8a3751 assets/arsmagicalegacy/models/item/witchwood.json
+2518e0bf4279c596880d04ef588ec3fbb494bd77 assets/arsmagicalegacy/models/item/witchwood_boat.json
 0d18accbe51907f2fe0eba427cfc36726b6ccc31 assets/arsmagicalegacy/models/item/witchwood_button.json
+17d5019f57bf45812e0a6b2fb246e88c4d965e40 assets/arsmagicalegacy/models/item/witchwood_chest_boat.json
 967ce7b11486341e692012dc605f5868fb8bcaac assets/arsmagicalegacy/models/item/witchwood_door.json
 dc18e0d0b85bb0d49eccb002331a70d862ed511c assets/arsmagicalegacy/models/item/witchwood_fence.json
 b0137c7f4424a804e977b86a0b90afc807adb52d assets/arsmagicalegacy/models/item/witchwood_fence_gate.json

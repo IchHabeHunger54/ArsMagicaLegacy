@@ -145,6 +145,8 @@ public final class AMTagsProvider {
             tag(ItemTags.WOODEN_PRESSURE_PLATES).add(AMItems.WITCHWOOD_PRESSURE_PLATE.get());
             tag(ItemTags.SIGNS).add(AMItems.WITCHWOOD_SIGN.get());
             tag(ItemTags.HANGING_SIGNS).add(AMItems.WITCHWOOD_HANGING_SIGN.get());
+            tag(ItemTags.BOATS).add(AMItems.WITCHWOOD_BOAT.get());
+            tag(ItemTags.CHEST_BOATS).add(AMItems.WITCHWOOD_CHEST_BOAT.get());
             tag(ItemTags.SMALL_FLOWERS).add(AMItems.AUM.get(), AMItems.CERUBLOSSOM.get(), AMItems.DESERT_NOVA.get(), AMItems.TARMA_ROOT.get(), AMItems.WAKEBLOOM.get());
             tag(AMTags.Items.MAGITECH_GOGGLES_REPAIR_ITEMS).addTag(AMTags.Items.GEMS_TOPAZ);
             tag(AMTags.Items.MAGE_ARMOR_REPAIR_ITEMS).add(AMItems.BLANK_RUNE.get());

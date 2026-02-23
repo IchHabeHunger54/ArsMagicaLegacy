@@ -516,7 +516,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .pattern(" W ")
             .define('M', AMTags.Items.GEMS_MOONSTONE)
             .define('G', Tags.Items.GLASS_BLOCKS)
-            .define('A', AMTags.Items.DUSTS_PURIFIED_VINTEUM)
+            .define('A', AMTags.Items.DUSTS_ARCANE_ASH)
             .define('W', AMItems.MAGIC_WALL)
             .unlockedBy(getHasName(AMItems.MOONSTONE), has(AMTags.Items.GEMS_MOONSTONE))
             .save(output);

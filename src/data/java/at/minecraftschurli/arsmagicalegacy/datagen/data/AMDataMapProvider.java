@@ -7,7 +7,6 @@ import at.minecraftschurli.arsmagicalegacy.util.CrystalPhylacteryContentsSize;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.EntityType;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.DataMapProvider;
 import net.neoforged.neoforge.registries.datamaps.builtin.Compostable;
 import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
@@ -42,7 +41,6 @@ public final class AMDataMapProvider extends DataMapProvider {
             .add(EntityType.LLAMA.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(20), false)
             .add(EntityType.MAGMA_CUBE.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(16), false)
             .add(EntityType.MULE.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(20), false)
-            .add(EntityType.PLAYER.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(16), false)
             .add(EntityType.SLIME.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(16), false)
             .add(EntityType.TRADER_LLAMA.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(20), false);
     }

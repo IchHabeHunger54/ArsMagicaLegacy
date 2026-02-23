@@ -591,6 +591,9 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("storm_range", "Storm Range", "The range used by the Storm component. May be amplified by spell modifiers.");
         configTranslation("storm_lightning_bolt_chance", "Storm Lightning Bolt Chance", "The chance for the Storm component to summon a lightning bolt somewhere in range.");
         configTranslation("storm_lightning_bolt_target_chance", "Storm Lightning Bolt Target Chance", "The chance for the Storm component to summon a target-seeking lightning bolt somewhere in range.");
+        configTranslation("summon_count", "Summon Count", "The amount of summons a player can have at the same time.");
+        configTranslation("summon_extra_count", "Summon Extra Count", "The amount of additional summons a player can have at the same time when they have the Extra Summons talent.");
+        configTranslation("summon_mana_cost", "Summon Mana Cost", "The amount of mana, multiplied by the summons's health, that is consumed when using the Summon component.");
         configTranslation("wizards_autumn_range", "Wizard's Autumn Range", "The range used by the Wizard's Autumn component. May be amplified by spell modifiers.");
         configTranslation("shapes", "Shapes", "Configuration of various shape-specific values.");
         configTranslation("projectile_duration", "Projectile Duration", "The duration used by the Projectile shape. May be amplified by spell modifiers.");

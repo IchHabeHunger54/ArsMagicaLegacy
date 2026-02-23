@@ -20,6 +20,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.attachment.SummonMinionsAttachment;
 import at.minecraftschurli.arsmagicalegacy.block.LiquidEtheriumCauldronBlock;
 import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
 import at.minecraftschurli.arsmagicalegacy.command.AffinityCommand;
@@ -60,16 +61,19 @@ import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import at.minecraftschurli.arsmagicalegacy.util.CrystalPhylacteryContentsSize;
 import at.minecraftschurli.arsmagicalegacy.util.DispenseBucketBehavior;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import net.minecraft.Util;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.decoration.ItemFrame;
@@ -101,9 +105,11 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.entity.living.EnderManAngerEvent;
+import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
+import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
@@ -120,6 +126,7 @@ import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID)
 final class AMEventHandler {
@@ -297,6 +304,15 @@ final class AMEventHandler {
                 effect.startEffect(entity, instance);
             }
         }
+        if (!(event.getLevel() instanceof ServerLevel level) || !entity.hasData(AMAttachments.SUMMON_MINIONS)) return;
+        SummonMinionsAttachment attachment = entity.getData(AMAttachments.SUMMON_MINIONS);
+        for (UUID uuid : attachment.uuids()) {
+            Entity e = level.getEntity(uuid);
+            if (!(e instanceof Mob) || !e.isAlive()) {
+                attachment = attachment.remove(uuid);
+            }
+        }
+        entity.setData(AMAttachments.SUMMON_MINIONS, attachment);
     }
 
     @SubscribeEvent
@@ -339,17 +355,21 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void livingIncomingDamage(LivingIncomingDamageEvent event) {
-        if (!(event.getSource().getEntity() instanceof Player player)) return;
-        LivingEntity target = event.getEntity();
+        if (!(event.getSource().getEntity() instanceof LivingEntity source)) return;
+        LivingEntity entity = event.getEntity();
+        if (entity.level() instanceof ServerLevel serverLevel) {
+            AMUtil.setMinionTargets(serverLevel, source, entity);
+        }
+        if (!(source instanceof Player player)) return;
         AbilityHelper abilityHelper = ArsMagicaApi.abilityHelper();
-        if (!target.fireImmune()) {
-            abilityHelper.getActiveAbilitiesWithEffect(player, AMAbilities.FIRE_PUNCH_EFFECT.get()).forEach(pair -> target.setRemainingFireTicks(Math.max(target.getRemainingFireTicks(), (int) pair.getSecond()
+        if (!entity.fireImmune()) {
+            abilityHelper.getActiveAbilitiesWithEffect(player, AMAbilities.FIRE_PUNCH_EFFECT.get()).forEach(pair -> entity.setRemainingFireTicks(Math.max(entity.getRemainingFireTicks(), (int) pair.getSecond()
                 .stream()
                 .mapToDouble(e -> abilityHelper.scaleToDepth(player, pair.getFirst().value(), e.min(), e.max()))
                 .sum())));
         }
-        if (target.canFreeze()) {
-            abilityHelper.getActiveAbilitiesWithEffect(player, AMAbilities.FROST_PUNCH_EFFECT.get()).forEach(pair -> target.setData(AMAttachments.FROST, Math.max(target.getData(AMAttachments.FROST), (int) pair.getSecond()
+        if (entity.canFreeze()) {
+            abilityHelper.getActiveAbilitiesWithEffect(player, AMAbilities.FROST_PUNCH_EFFECT.get()).forEach(pair -> entity.setData(AMAttachments.FROST, Math.max(entity.getData(AMAttachments.FROST), (int) pair.getSecond()
                 .stream()
                 .mapToDouble(e -> abilityHelper.scaleToDepth(player, pair.getFirst().value(), e.min(), e.max()))
                 .sum())));
@@ -374,6 +394,9 @@ final class AMEventHandler {
         if (entity instanceof Player player) {
             ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, AMAbilities.THORNS_EFFECT.get());
         }
+        if (!(event.getSource().getEntity() instanceof LivingEntity source)) return;
+        if (!(entity.level() instanceof ServerLevel serverLevel)) return;
+        AMUtil.setMinionTargets(serverLevel, entity, source);
     }
 
     @SubscribeEvent
@@ -385,9 +408,23 @@ final class AMEventHandler {
             return;
         }
         ArsMagicaApi.spellHelper().triggerContingency(entity, AMSpells.CONTINGENCY_DEATH_ID);
-        if (!(event.getSource().getEntity() instanceof Player player)) return;
-        ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, AMAbilities.KILL_EFFECT_EFFECT.get());
-        CrystalPhylacteryItem.addFill(player, entity);
+        if (event.getSource().getEntity() instanceof Player player) {
+            ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, AMAbilities.KILL_EFFECT_EFFECT.get());
+            CrystalPhylacteryItem.addFill(player, entity);
+        }
+        if (!(entity.level() instanceof ServerLevel level)) return;
+        UUID uuid = entity.getData(AMAttachments.SUMMON_OWNER);
+        if (uuid.equals(Util.NIL_UUID)) return;
+        Entity owner = level.getEntity(uuid);
+        if (owner == null) return;
+        owner.setData(AMAttachments.SUMMON_MINIONS, owner.getData(AMAttachments.SUMMON_MINIONS).remove(entity.getUUID()));
+    }
+
+    @SubscribeEvent
+    private static void livingExperienceDrop(LivingExperienceDropEvent event) {
+        if (event.getEntity().hasData(AMAttachments.SUMMON_OWNER)) {
+            event.setCanceled(true);
+        }
     }
 
     @SubscribeEvent
@@ -399,6 +436,20 @@ final class AMEventHandler {
     @SubscribeEvent
     private static void livingFall(LivingFallEvent event) {
         ArsMagicaApi.spellHelper().triggerContingency(event.getEntity(), AMSpells.CONTINGENCY_FALL_ID);
+    }
+
+    @SubscribeEvent
+    private static void livingChangeTarget(LivingChangeTargetEvent event) {
+        LivingEntity entity = event.getEntity();
+        if (!(entity.level() instanceof ServerLevel level)) return;
+        UUID uuid = entity.getData(AMAttachments.SUMMON_OWNER);
+        LivingEntity target = event.getNewAboutToBeSetTarget();
+        if (target == null) return;
+        if (uuid.equals(target.getUUID())) {
+            event.setCanceled(true);
+        } else {
+            AMUtil.setMinionTargets(level, entity, target);
+        }
     }
 
     @SuppressWarnings("ConstantValue")

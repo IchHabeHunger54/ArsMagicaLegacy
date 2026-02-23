@@ -46,6 +46,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -324,6 +325,18 @@ public final class AMUtil {
             list.set(i, entries[i]);
         }
         return list;
+    }
+
+    public static void setMinionTargets(ServerLevel level, LivingEntity owner, LivingEntity target) {
+        owner.getData(AMAttachments.SUMMON_MINIONS)
+            .uuids()
+            .stream()
+            .map(level::getEntity)
+            .filter(Mob.class::isInstance)
+            .map(Mob.class::cast)
+            .filter(mob -> !mob.getUUID().equals(target.getUUID()))
+            .filter(mob -> mob.canAttack(target))
+            .forEach(mob -> mob.setTarget(target));
     }
 
     public static void takeLecternBook(Player player, Level level, BlockPos pos) {

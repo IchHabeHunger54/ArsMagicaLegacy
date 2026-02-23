@@ -67,6 +67,9 @@ public final class AMLanguageProvider extends LanguageProvider {
         blockIdTranslation(AMBlocks.BLACK_AUREM);
         itemIdTranslation(AMItems.CRYSTAL_WRENCH);
         blockIdTranslation(AMBlocks.WIZARDS_CHALK);
+        blockIdTranslation(AMBlocks.REDSTONE_INLAY);
+        blockIdTranslation(AMBlocks.IRON_INLAY);
+        blockIdTranslation(AMBlocks.GOLD_INLAY);
         addBlock(AMBlocks.VINTEUM_WALL_TORCH, idTranslation(AMBlocks.VINTEUM_TORCH.getId().getPath()));
         itemIdTranslation(AMItems.SPELL_PARCHMENT);
         itemIdTranslation(AMItems.SPELL_BOOK);

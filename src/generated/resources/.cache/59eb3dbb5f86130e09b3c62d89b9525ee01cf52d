@@ -1,4 +1,4 @@
-// 1.21.1	2026-02-07T01:20:11.4611923	Loot Tables
+// 1.21.1	2026-02-23T23:47:15.1781187	Loot Tables
 f0e4c8134bf2f68e1425a328c83498f858e1e26c data/arsmagicalegacy/loot_table/blocks/altar_core.json
 32900dde32312718365d978d0183dc6f16140e5e data/arsmagicalegacy/loot_table/blocks/aum.json
 eb1a581730e7ef2fb1b34eee0ad85fd9cbf9024f data/arsmagicalegacy/loot_table/blocks/black_aurem.json
@@ -11,7 +11,9 @@ c595e60a916b3236e6ac58575f87005b036cae46 data/arsmagicalegacy/loot_table/blocks/
 f63b3229b79e28c305b528693e7c2e35c16b2e5b data/arsmagicalegacy/loot_table/blocks/deepslate_topaz_ore.json
 799b93e7704acab7fb15415986f9984b9703ccc0 data/arsmagicalegacy/loot_table/blocks/deepslate_vinteum_ore.json
 ff10144fa503dd08a6ace88216f77f6494577cde data/arsmagicalegacy/loot_table/blocks/desert_nova.json
+2d280d46227ba45f526b5ae850d1992e0a41da5c data/arsmagicalegacy/loot_table/blocks/gold_inlay.json
 d42f8f30f5126326214483c5d266fe631b476326 data/arsmagicalegacy/loot_table/blocks/inscription_table.json
+490a390a5a7395da48df8c2634bd6fdc37460a81 data/arsmagicalegacy/loot_table/blocks/iron_inlay.json
 8f5962b9e89153a782cf09c83eeff0a3332b02bb data/arsmagicalegacy/loot_table/blocks/liquid_etherium_cauldron.json
 2c73e12110810d1dd11b5012c8fe6677cb7c28cc data/arsmagicalegacy/loot_table/blocks/magic_wall.json
 5483c7845bc130ea789bc2ce99a170b494e54b18 data/arsmagicalegacy/loot_table/blocks/moonstone_block.json
@@ -24,6 +26,7 @@ c1cc32ef2c9b84105342a65ccc74b0a4ce2eeef5 data/arsmagicalegacy/loot_table/blocks/
 62aba4fa5883aaf8592638bff2793908498a0f62 data/arsmagicalegacy/loot_table/blocks/potted_tarma_root.json
 52f6f4977f56abeafcb01d98cf9219938dd5e848 data/arsmagicalegacy/loot_table/blocks/potted_wakebloom.json
 3a3940e44a1efb2aa8295aff88cf2cf43f5c02c2 data/arsmagicalegacy/loot_table/blocks/potted_witchwood_sapling.json
+4e8dc66a6e98fa0bbf0342b7201fbf204d2b29b8 data/arsmagicalegacy/loot_table/blocks/redstone_inlay.json
 d1a3c000a4748e20191c9d8c87af3eb833cc71ba data/arsmagicalegacy/loot_table/blocks/stripped_witchwood.json
 6c21f465117448404ab310f5547ab605b7fea132 data/arsmagicalegacy/loot_table/blocks/stripped_witchwood_log.json
 ce3a80de49e788f7fa35f9b04f5cb5f9b7f681eb data/arsmagicalegacy/loot_table/blocks/sunstone_block.json

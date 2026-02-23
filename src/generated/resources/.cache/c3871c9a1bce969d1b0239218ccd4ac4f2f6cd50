@@ -1,4 +1,4 @@
-// 1.21.1	2026-02-23T21:54:41.6987372	Tags for minecraft:item mod id arsmagicalegacy
+// 1.21.1	2026-02-23T23:47:15.1944063	Tags for minecraft:item mod id arsmagicalegacy
 2e0ada6a835e8b0f902f82a72452d5602a6064e5 data/arsmagicalegacy/tags/item/arcane_compendium_books.json
 c4dd173177d64629d95c113ecc569a6ff6a78016 data/arsmagicalegacy/tags/item/inscription_table_books.json
 23e87de731409e520ca6ab442c9e3172dd91c0a5 data/arsmagicalegacy/tags/item/occulus_forget_all.json
@@ -49,6 +49,7 @@ dd339a82f6a267df22cce143dbc4859a4ea30176 data/minecraft/tags/item/lectern_books.
 a37fd41d75620571fe3ac382272f79d918b44bde data/minecraft/tags/item/leg_armor.json
 cc20d8d43b66ef761c1f2d6f55740085c58a35f3 data/minecraft/tags/item/logs.json
 638b279febd41d749f4abb6380caa1aeb19c0d00 data/minecraft/tags/item/planks.json
+4242f5f38b4aee529af292876318046e24ae09c3 data/minecraft/tags/item/rails.json
 a5cc6f3a50fcd1f61d2ba94c42b27f82e25e2c8e data/minecraft/tags/item/saplings.json
 c03fe02c08be18b1f15dcfbd3e923baed847268a data/minecraft/tags/item/signs.json
 4646c92ac03ea27d3a443cb64e53ee5b9a6de33c data/minecraft/tags/item/small_flowers.json

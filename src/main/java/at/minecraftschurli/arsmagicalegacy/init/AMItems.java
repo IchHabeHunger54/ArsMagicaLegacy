@@ -59,6 +59,9 @@ public interface AMItems {
     DeferredItem<BlockItem>                                    BLACK_AUREM                      = ITEMS.registerSimpleBlockItem(AMBlocks.BLACK_AUREM);
     DeferredItem<CrystalWrenchItem>                            CRYSTAL_WRENCH                   = ITEMS.registerItem("crystal_wrench", p -> new CrystalWrenchItem(p.stacksTo(1)));
     DeferredItem<WizardsChalkItem>                             WIZARDS_CHALK                    = ITEMS.registerItem("wizards_chalk", p -> new WizardsChalkItem(AMBlocks.WIZARDS_CHALK.get(), p.stacksTo(1).durability(100)));
+    DeferredItem<BlockItem>                                    REDSTONE_INLAY                   = ITEMS.registerSimpleBlockItem(AMBlocks.REDSTONE_INLAY);
+    DeferredItem<BlockItem>                                    IRON_INLAY                       = ITEMS.registerSimpleBlockItem(AMBlocks.IRON_INLAY);
+    DeferredItem<BlockItem>                                    GOLD_INLAY                       = ITEMS.registerSimpleBlockItem(AMBlocks.GOLD_INLAY);
     DeferredItem<BlockItem>                                    VINTEUM_TORCH                    = ITEMS.registerItem("vinteum_torch", p -> new StandingAndWallBlockItem(AMBlocks.VINTEUM_TORCH.get(), AMBlocks.VINTEUM_WALL_TORCH.get(), p, Direction.DOWN));
     DeferredItem<Item>                                         SPELL_PARCHMENT                  = ITEMS.registerSimpleItem("spell_parchment");
     DeferredItem<SpellBookItem>                                SPELL_BOOK                       = ITEMS.registerItem("spell_book", p -> new SpellBookItem(p.stacksTo(1).component(DataComponents.CONTAINER, ItemContainerContents.EMPTY).component(AMDataComponents.SELECTED_INDEX, 0)));

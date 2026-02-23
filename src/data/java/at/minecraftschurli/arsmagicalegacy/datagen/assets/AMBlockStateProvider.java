@@ -11,6 +11,7 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.BaseRailBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
@@ -95,6 +96,9 @@ public final class AMBlockStateProvider extends BlockStateProvider {
                 modelBuilder(models().withExistingParent("wizards_chalk_" + i, "block/rail_flat").texture("rail", modLoc("block/wizards_chalk_" + i)).renderType("translucent")))
             )
             .toList(), ROTATE_180);
+        railBlock(AMBlocks.REDSTONE_INLAY);
+        railBlock(AMBlocks.IRON_INLAY);
+        railBlock(AMBlocks.GOLD_INLAY);
         getVariantBuilder(AMBlocks.VINTEUM_TORCH.get()).partialState().setModels(modelBuilder(models().withExistingParent("vinteum_torch", "block/template_torch").texture("torch", modLoc("block/vinteum_torch")).renderType("cutout")).build());
         rotatedBlock(AMBlocks.VINTEUM_WALL_TORCH, List.of(Pair.of(UnaryOperator.identity(), modelBuilder(models().withExistingParent("vinteum_wall_torch", "block/template_torch_wall").texture("torch", modLoc("block/vinteum_torch")).renderType("cutout")))), ROTATE_90);
         simpleBlock(AMBlocks.CHIMERITE_ORE);
@@ -182,6 +186,31 @@ public final class AMBlockStateProvider extends BlockStateProvider {
      */
     private void flowerPotBlock(DeferredBlock<?> pot, DeferredBlock<?> plant) {
         simpleBlock(pot.get(), models().withExistingParent(pot.getId().getPath(), "block/flower_pot_cross").texture("plant", blockTexture(plant.get())).renderType("cutout"));
+    }
+
+    @SuppressWarnings("deprecation")
+    private void railBlock(DeferredBlock<? extends BaseRailBlock> block) {
+        ResourceLocation texture = blockTexture(block.get());
+        ModelFile straight = models().withExistingParent(block.getId().getPath(), mcLoc("block/rail")).texture("rail", texture).renderType("cutout");
+        ModelFile curved = models().withExistingParent(block.getId().getPath() + "_corner", mcLoc("block/rail_curved")).texture("rail", texture.withSuffix("_corner")).renderType("cutout");
+        ModelFile raisedNE = models().withExistingParent(block.getId().getPath() + "_raised_ne", mcLoc("block/template_rail_raised_ne")).texture("rail", texture).renderType("cutout");
+        ModelFile raisedSW = models().withExistingParent(block.getId().getPath() + "_raised_sw", mcLoc("block/template_rail_raised_sw")).texture("rail", texture).renderType("cutout");
+        getVariantBuilder(block.get()).forAllStates(state -> {
+            ConfiguredModel.Builder<?> builder = ConfiguredModel.builder();
+            switch (state.getValue(block.get().getShapeProperty())) {
+                case NORTH_SOUTH -> builder.modelFile(straight);
+                case EAST_WEST -> builder.modelFile(straight).rotationY(90);
+                case SOUTH_EAST -> builder.modelFile(curved);
+                case SOUTH_WEST -> builder.modelFile(curved).rotationY(90);
+                case NORTH_WEST -> builder.modelFile(curved).rotationY(180);
+                case NORTH_EAST -> builder.modelFile(curved).rotationY(270);
+                case ASCENDING_NORTH -> builder.modelFile(raisedNE);
+                case ASCENDING_EAST -> builder.modelFile(raisedNE).rotationY(90);
+                case ASCENDING_SOUTH -> builder.modelFile(raisedSW);
+                case ASCENDING_WEST -> builder.modelFile(raisedSW).rotationY(90);
+            }
+            return builder.build();
+        });
     }
 
     private BlockModelBuilder particleModel(String name, ResourceLocation particle) {

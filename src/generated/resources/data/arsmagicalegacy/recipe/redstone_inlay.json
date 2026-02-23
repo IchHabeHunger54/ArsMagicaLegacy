@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "V": {
+      "tag": "c:dusts/vinteum"
+    }
+  },
+  "pattern": [
+    "RRR",
+    "RVR",
+    "RRR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "arsmagicalegacy:redstone_inlay"
+  }
+}

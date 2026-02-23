@@ -89,6 +89,9 @@ public final class AMLootTableProvider extends LootTableProvider {
             add(AMBlocks.CELESTIAL_PRISM.get(), block -> createSinglePropConditionTable(block, CelestialPrismBlock.PART, CelestialPrismBlock.Part.LOWER));
             dropSelf(AMBlocks.BLACK_AUREM.get());
             add(AMBlocks.WIZARDS_CHALK.get(), noDrop());
+            dropSelf(AMBlocks.REDSTONE_INLAY.get());
+            dropSelf(AMBlocks.IRON_INLAY.get());
+            dropSelf(AMBlocks.GOLD_INLAY.get());
             dropSelf(AMBlocks.VINTEUM_TORCH.get());
             dropOther(AMBlocks.VINTEUM_WALL_TORCH.get(), AMBlocks.VINTEUM_TORCH.get());
             add(AMBlocks.CHIMERITE_ORE.get(), block -> createOreDrop(block, AMItems.CHIMERITE.get()));

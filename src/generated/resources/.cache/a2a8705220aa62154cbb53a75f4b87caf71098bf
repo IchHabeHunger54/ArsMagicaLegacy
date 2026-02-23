@@ -1,4 +1,4 @@
-// 1.21.1	2026-01-26T00:11:57.9874114	Tags for minecraft:block mod id arsmagicalegacy
+// 1.21.1	2026-02-23T23:47:15.1981072	Tags for minecraft:block mod id arsmagicalegacy
 69c396cb051bbe9a130e6979b67065e5041b179d data/arsmagicalegacy/tags/block/aum_plantable_on.json
 69c396cb051bbe9a130e6979b67065e5041b179d data/arsmagicalegacy/tags/block/cerublossom_plantable_on.json
 c1b2a217bb3fcb7e1d67f5bc45409796720bd171 data/arsmagicalegacy/tags/block/desert_nova_plantable_on.json
@@ -33,6 +33,7 @@ cc20d8d43b66ef761c1f2d6f55740085c58a35f3 data/minecraft/tags/block/logs.json
 e60ce640b03c19e40fc4fd591174c0bb5f6849d1 data/minecraft/tags/block/needs_iron_tool.json
 f6c680cbfc60669a0327e55fe8ab003710752a68 data/minecraft/tags/block/needs_stone_tool.json
 638b279febd41d749f4abb6380caa1aeb19c0d00 data/minecraft/tags/block/planks.json
+4242f5f38b4aee529af292876318046e24ae09c3 data/minecraft/tags/block/rails.json
 a5cc6f3a50fcd1f61d2ba94c42b27f82e25e2c8e data/minecraft/tags/block/saplings.json
 4646c92ac03ea27d3a443cb64e53ee5b9a6de33c data/minecraft/tags/block/small_flowers.json
 c03fe02c08be18b1f15dcfbd3e923baed847268a data/minecraft/tags/block/standing_signs.json

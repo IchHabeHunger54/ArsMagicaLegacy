@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "c:ingots/gold"
+    },
+    "V": {
+      "tag": "c:dusts/purified_vinteum"
+    }
+  },
+  "pattern": [
+    "III",
+    "IVI",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "arsmagicalegacy:gold_inlay"
+  }
+}

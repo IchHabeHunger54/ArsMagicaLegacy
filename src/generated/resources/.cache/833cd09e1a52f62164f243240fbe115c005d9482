@@ -1,4 +1,4 @@
-// 1.21.1	2026-02-23T21:54:41.6987372	Item Models: arsmagicalegacy
+// 1.21.1	2026-02-23T23:47:15.1884428	Item Models: arsmagicalegacy
 6e0b262bb6740bdbe7b3564e182497239ff375ac assets/arsmagicalegacy/models/item/affinity_essence_air.json
 84174d0bc6eb1016c4946a0937eb7ec35e19f1d8 assets/arsmagicalegacy/models/item/affinity_essence_arcane.json
 30a8164938d38c30eeb732879d3cd38955490293 assets/arsmagicalegacy/models/item/affinity_essence_earth.json
@@ -56,6 +56,7 @@ ceb5816f7bffe087aa2d7d3ab4507a55e32a6728 assets/arsmagicalegacy/models/item/deep
 9e475bb40fa9e38c089c3a22ad0a5e8a10b2fa9b assets/arsmagicalegacy/models/item/deepslate_vinteum_ore.json
 0d0ca386538be770abcd2f8b8d94c6148e5b3ca9 assets/arsmagicalegacy/models/item/desert_nova.json
 3c357128f66121146e6c67dff38e370592823f14 assets/arsmagicalegacy/models/item/etherium_placeholder.json
+18d4246fda3363738c85b64260317fe6cb19374a assets/arsmagicalegacy/models/item/gold_inlay.json
 1ee0b234c539257428ef980254c2dea028ed3a94 assets/arsmagicalegacy/models/item/gray_rune.json
 0cce297b364fda90b75c6098721b5eedf0bec3ce assets/arsmagicalegacy/models/item/green_rune.json
 832cfe74bcfb8e9b032906128864fc50d39995db assets/arsmagicalegacy/models/item/infinity_orb.json
@@ -65,6 +66,7 @@ b8d7707941aa5120979431bb89c54c0f18600ec0 assets/arsmagicalegacy/models/item/infi
 7dcd628c4c52ef98feed77db425cf9dc806ec945 assets/arsmagicalegacy/models/item/inscription_table_upgrade_tier_1.json
 a97d8f349dbb1f1c3acd894d9e618214c93a77c6 assets/arsmagicalegacy/models/item/inscription_table_upgrade_tier_2.json
 e5ab563b4ffb87d5a0bc7e67d4f7bb089f5c93ec assets/arsmagicalegacy/models/item/inscription_table_upgrade_tier_3.json
+10524e7f6ce8b24b1aeeb89d8069e40f8e9da0cd assets/arsmagicalegacy/models/item/iron_inlay.json
 3e3d968958428483ce14a4b63ebfef6f55f9a27f assets/arsmagicalegacy/models/item/light_blue_rune.json
 f23802e331e186775bfb9211aab6c426820e1f6a assets/arsmagicalegacy/models/item/light_gray_rune.json
 7de8caeb86db5ef926a02117b3d614ec253cf4e8 assets/arsmagicalegacy/models/item/lime_rune.json
@@ -87,6 +89,7 @@ c4bad8cba42a6ad57f3f07aa9114169c4262a2ef assets/arsmagicalegacy/models/item/oran
 84a1c846975221a6ec8da6e5c746fb3b2fb4c1e2 assets/arsmagicalegacy/models/item/pink_rune.json
 fa2a7dbb22b29acdc4051e3568755d8f4546d69f assets/arsmagicalegacy/models/item/purified_vinteum_dust.json
 e0b4ee8d0a2e88a657cc7e240419e7f063c35710 assets/arsmagicalegacy/models/item/purple_rune.json
+86efefefa9999944a2e52bedd0c2bebc10c705cd assets/arsmagicalegacy/models/item/redstone_inlay.json
 f16cb1a0064c41af929f3c88c399c767177ec5bb assets/arsmagicalegacy/models/item/red_rune.json
 f6b1c90afbf36e7694251a0ada03f924a53f0760 assets/arsmagicalegacy/models/item/rune_bag.json
 0d8c388ee73765f5a8be954148b98356391da687 assets/arsmagicalegacy/models/item/spell.json

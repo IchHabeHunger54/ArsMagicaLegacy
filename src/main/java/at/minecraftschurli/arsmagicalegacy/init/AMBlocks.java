@@ -6,6 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.block.AMFlowerBlock;
 import at.minecraftschurli.arsmagicalegacy.block.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.block.BlackAuremBlock;
 import at.minecraftschurli.arsmagicalegacy.block.CelestialPrismBlock;
+import at.minecraftschurli.arsmagicalegacy.block.InlayBlock;
 import at.minecraftschurli.arsmagicalegacy.block.InscriptionTableBlock;
 import at.minecraftschurli.arsmagicalegacy.block.LiquidEtheriumCauldronBlock;
 import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
@@ -84,6 +85,9 @@ public interface AMBlocks {
     DeferredBlock<CelestialPrismBlock>         CELESTIAL_PRISM             = register("celestial_prism",             CelestialPrismBlock::new, properties().requiresCorrectToolForDrops().strength(1.5f, 6).noOcclusion().lightLevel($ -> 1).emissiveRendering((state, level, pos) -> true));
     DeferredBlock<BlackAuremBlock>             BLACK_AUREM                 = register("black_aurem",                 BlackAuremBlock::new, properties().mapColor(MapColor.COLOR_RED).noOcclusion().noCollission().lightLevel($ -> 2));
     DeferredBlock<WizardsChalkBlock>           WIZARDS_CHALK               = register("wizards_chalk",               WizardsChalkBlock::new, properties().instabreak().noCollission().sound(SoundType.GRAVEL));
+    DeferredBlock<InlayBlock>                  REDSTONE_INLAY              = register("redstone_inlay",              InlayBlock::new, copyProperties(Blocks.RAIL));
+    DeferredBlock<InlayBlock>                  IRON_INLAY                  = register("iron_inlay",                  InlayBlock::new, copyProperties(Blocks.RAIL));
+    DeferredBlock<InlayBlock>                  GOLD_INLAY                  = register("gold_inlay",                  InlayBlock::new, copyProperties(Blocks.RAIL));
     DeferredBlock<TorchBlock>                  VINTEUM_TORCH               = register("vinteum_torch",               p -> new TorchBlock(ParticleTypes.SMOKE, p), copyProperties(Blocks.TORCH));
     DeferredBlock<WallTorchBlock>              VINTEUM_WALL_TORCH          = register("vinteum_wall_torch",          p -> new WallTorchBlock(ParticleTypes.SMOKE, p), copyProperties(Blocks.WALL_TORCH).lootFrom(VINTEUM_TORCH));
     DeferredBlock<DropExperienceBlock>         CHIMERITE_ORE               = register("chimerite_ore",               p -> new DropExperienceBlock(UniformInt.of(0, 2), p), properties().requiresCorrectToolForDrops().strength(3f, 3f));

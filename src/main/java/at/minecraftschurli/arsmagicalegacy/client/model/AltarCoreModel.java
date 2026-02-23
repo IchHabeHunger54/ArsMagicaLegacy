@@ -28,7 +28,6 @@ public class AltarCoreModel extends BakedModelWrapper<BakedModel> {
         if (state == null || !state.hasProperty(AltarCoreBlock.FORMED) || !state.getValue(AltarCoreBlock.FORMED) || !data.has(AltarCoreBlockEntity.CAMO)) return super.getQuads(state, side, rand, data, renderType);
         BlockState camo = data.get(AltarCoreBlockEntity.CAMO);
         BakedModel model = AMClientUtil.mc().getBlockRenderer().getBlockModel(camo);
-        //TODO test with sodium/embeddium
         List<BakedQuad> quads = new ArrayList<>(model.getQuads(camo, side, rand, ModelData.EMPTY, renderType));
         quads.addAll(super.getQuads(state, side, rand, data, renderType));
         return quads;

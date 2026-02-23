@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-//TODO
+// TODO 26.1 rendering has changed completely
 public class Beam extends PrimarySpellShape {
     @Override
     public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster) {

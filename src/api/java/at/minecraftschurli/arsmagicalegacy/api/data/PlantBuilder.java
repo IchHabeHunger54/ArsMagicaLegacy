@@ -6,16 +6,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
-import net.neoforged.neoforge.common.conditions.ICondition;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Builder class for {@link Plant}s, for use in {@link PlantProvider}. Get an instance via {@link PlantProvider#builder(String, GrowthType, RuleTest)}.
  */
 public class PlantBuilder extends AbstractDataProvider.Builder<Plant> {
-    private final List<ICondition> conditions = new ArrayList<>();
     private final GrowthType growthType;
     private final RuleTest allStates;
     private ItemStack seed = ItemStack.EMPTY;
@@ -31,17 +26,6 @@ public class PlantBuilder extends AbstractDataProvider.Builder<Plant> {
         super(id);
         this.growthType = growthType;
         this.allStates = allStates;
-    }
-
-    /**
-     * Adds a {@link ICondition} to the builder.
-     *
-     * @param condition The {@link ICondition} to add.
-     * @return This builder, for chaining.
-     */
-    public PlantBuilder addCondition(ICondition condition) {
-        conditions.add(condition);
-        return this;
     }
 
     /**
@@ -97,6 +81,6 @@ public class PlantBuilder extends AbstractDataProvider.Builder<Plant> {
 
     @Override
     public Plant build() {
-        return new Plant(conditions, growthType, allStates, seed, crop, tool);
+        return new Plant(growthType, allStates, seed, crop, tool);
     }
 }

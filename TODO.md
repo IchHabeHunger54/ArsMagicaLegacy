@@ -1,6 +1,5 @@
 - Test All Spell Parts and Particles
 - Inlays
-- Data Loading Conditions
 - Add Liquid Etherium Sounds
 - Entities, including:
     - Dryads

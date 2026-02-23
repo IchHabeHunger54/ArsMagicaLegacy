@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.api.data;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.JsonOps;
@@ -9,6 +10,8 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.common.conditions.ConditionalOps;
+import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.nio.file.Path;
@@ -26,6 +29,7 @@ import java.util.concurrent.CompletableFuture;
  * @param <B> The builder type to use.
  */
 public abstract class AbstractDataProvider<T, B extends AbstractDataProvider.Builder<T>> implements DataProvider {
+    private static final String EXCEPTION_MESSAGE = "Failed to encode %s: %s";
     private final PackOutput.PathProvider pathProvider;
     private final CompletableFuture<HolderLookup.Provider> lookupProvider;
     protected final String modId;
@@ -54,13 +58,20 @@ public abstract class AbstractDataProvider<T, B extends AbstractDataProvider.Bui
     public CompletableFuture<?> run(CachedOutput output) {
         return lookupProvider.thenCompose(provider -> {
             generate(provider);
-            DynamicOps<JsonElement> ops = provider.createSerializationContext(JsonOps.INSTANCE);
+            DynamicOps<JsonElement> ops = provider.createSerializationContext(ConditionalOps.create(JsonOps.INSTANCE, provider));
             Set<ResourceLocation> ids = Collections.synchronizedSet(new HashSet<>());
             return CompletableFuture.allOf(builders.stream().map(builder -> {
                 if (!ids.add(builder.id)) throw new IllegalStateException("Duplicate datagenned object " + builder.id);
                 Path path = pathProvider.json(builder.id);
                 return CompletableFuture
-                    .supplyAsync(() -> codec.encodeStart(ops, builder.build()).getOrThrow(msg -> new RuntimeException("Failed to encode %s: %s".formatted(path, msg))))
+                    .supplyAsync(() -> {
+                        JsonObject json = codec.encodeStart(ops, builder.build()).getOrThrow(message -> new RuntimeException(EXCEPTION_MESSAGE.formatted(path, message))).getAsJsonObject();
+                        List<ICondition> conditions = builder.getConditions();
+                        if (!conditions.isEmpty()) {
+                            json.add(ConditionalOps.DEFAULT_CONDITIONS_KEY, ICondition.LIST_CODEC.encodeStart(ops, conditions).getOrThrow(message -> new RuntimeException(EXCEPTION_MESSAGE.formatted(path, message))));
+                        }
+                        return json;
+                    })
                     .thenComposeAsync(json -> DataProvider.saveStable(output, json, path));
             }).toArray(CompletableFuture[]::new));
         });
@@ -92,12 +103,31 @@ public abstract class AbstractDataProvider<T, B extends AbstractDataProvider.Bui
      */
     public static abstract class Builder<T> {
         public final ResourceLocation id;
+        private final List<ICondition> conditions = new ArrayList<>();
 
         /**
          * @param id The id of the object being built.
          */
         public Builder(ResourceLocation id) {
             this.id = id;
+        }
+
+        /**
+         * Adds a {@link ICondition} to the builder.
+         *
+         * @param condition The {@link ICondition} to add.
+         * @return This builder, for chaining.
+         */
+        public Builder<T> addCondition(ICondition condition) {
+            conditions.add(condition);
+            return this;
+        }
+
+        /**
+         * @return All {@link ICondition} in the builder.
+         */
+        public List<ICondition> getConditions() {
+            return Collections.unmodifiableList(conditions);
         }
 
         /**

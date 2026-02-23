@@ -86,12 +86,13 @@ public final class AMTagsProvider {
             tag(AMTags.Blocks.CERUBLOSSOM_PLANTABLE_ON).addTag(BlockTags.DIRT);
             tag(AMTags.Blocks.DESERT_NOVA_PLANTABLE_ON).addTag(BlockTags.SAND);
             tag(AMTags.Blocks.TARMA_ROOT_PLANTABLE_ON).add(Blocks.CLAY, Blocks.GRAVEL).addTags(BlockTags.DIRT, BlockTags.SAND, BlockTags.STONE_ORE_REPLACEABLES, BlockTags.DEEPSLATE_ORE_REPLACEABLES);
-            tag(AMTags.Blocks.WIZARDS_AUTUMN_LEAVES).addTag(BlockTags.LEAVES);
-            tag(BlockTags.CAULDRONS).add(AMBlocks.LIQUID_ETHERIUM_CAULDRON.get());
+            tag(BlockTags.RAILS).add(AMBlocks.REDSTONE_INLAY.get(), AMBlocks.IRON_INLAY.get(), AMBlocks.GOLD_INLAY.get());
             tag(BlockTags.SMALL_FLOWERS).add(AMBlocks.AUM.get(), AMBlocks.CERUBLOSSOM.get(), AMBlocks.DESERT_NOVA.get(), AMBlocks.TARMA_ROOT.get(), AMBlocks.WAKEBLOOM.get());
             tag(BlockTags.FLOWER_POTS).add(AMBlocks.POTTED_WITCHWOOD_SAPLING.get(), AMBlocks.POTTED_AUM.get(), AMBlocks.POTTED_CERUBLOSSOM.get(), AMBlocks.POTTED_DESERT_NOVA.get(), AMBlocks.POTTED_TARMA_ROOT.get(), AMBlocks.POTTED_WAKEBLOOM.get());
+            tag(BlockTags.CAULDRONS).add(AMBlocks.LIQUID_ETHERIUM_CAULDRON.get());
             tag(AMTags.Blocks.ETHERIUM_PROVIDERS).add(AMBlocks.OBELISK.get(), AMBlocks.CELESTIAL_PRISM.get(), AMBlocks.BLACK_AUREM.get());
             tag(AMTags.Blocks.ETHERIUM_CONSUMERS).add(AMBlocks.ALTAR_CORE.get());
+            tag(AMTags.Blocks.WIZARDS_AUTUMN_LEAVES).addTag(BlockTags.LEAVES);
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(AMBlocks.OCCULUS.get(), AMBlocks.ALTAR_CORE.get(), AMBlocks.MAGIC_WALL.get(), AMBlocks.OBELISK.get(), AMBlocks.CELESTIAL_PRISM.get(), AMBlocks.BLACK_AUREM.get(), AMBlocks.CHIMERITE_ORE.get(), AMBlocks.DEEPSLATE_CHIMERITE_ORE.get(), AMBlocks.CHIMERITE_BLOCK.get(), AMBlocks.TOPAZ_ORE.get(), AMBlocks.DEEPSLATE_TOPAZ_ORE.get(), AMBlocks.TOPAZ_BLOCK.get(), AMBlocks.VINTEUM_ORE.get(), AMBlocks.DEEPSLATE_VINTEUM_ORE.get(), AMBlocks.VINTEUM_BLOCK.get(), AMBlocks.MOONSTONE_ORE.get(), AMBlocks.DEEPSLATE_MOONSTONE_ORE.get(), AMBlocks.MOONSTONE_BLOCK.get(), AMBlocks.SUNSTONE_ORE.get(), AMBlocks.SUNSTONE_BLOCK.get());
             tag(BlockTags.MINEABLE_WITH_AXE).add(AMBlocks.INSCRIPTION_TABLE.get());
             tag(BlockTags.NEEDS_STONE_TOOL).add(AMBlocks.CHIMERITE_BLOCK.get(), AMBlocks.CHIMERITE_ORE.get(), AMBlocks.DEEPSLATE_CHIMERITE_ORE.get(), AMBlocks.TOPAZ_BLOCK.get(), AMBlocks.TOPAZ_ORE.get(), AMBlocks.DEEPSLATE_TOPAZ_ORE.get(), AMBlocks.VINTEUM_BLOCK.get(), AMBlocks.VINTEUM_ORE.get(), AMBlocks.DEEPSLATE_VINTEUM_ORE.get(), AMBlocks.MOONSTONE_BLOCK.get(), AMBlocks.SUNSTONE_BLOCK.get());
@@ -149,6 +150,7 @@ public final class AMTagsProvider {
             tag(ItemTags.BOATS).add(AMItems.WITCHWOOD_BOAT.get());
             tag(ItemTags.CHEST_BOATS).add(AMItems.WITCHWOOD_CHEST_BOAT.get());
             tag(ItemTags.SMALL_FLOWERS).add(AMItems.AUM.get(), AMItems.CERUBLOSSOM.get(), AMItems.DESERT_NOVA.get(), AMItems.TARMA_ROOT.get(), AMItems.WAKEBLOOM.get());
+            tag(ItemTags.RAILS).add(AMItems.REDSTONE_INLAY.get(), AMItems.IRON_INLAY.get(), AMItems.GOLD_INLAY.get());
             tag(AMTags.Items.MAGITECH_GOGGLES_REPAIR_ITEMS).addTag(AMTags.Items.GEMS_TOPAZ);
             tag(AMTags.Items.MAGE_ARMOR_REPAIR_ITEMS).add(AMItems.BLANK_RUNE.get());
             tag(AMTags.Items.BATTLEMAGE_ARMOR_REPAIR_ITEMS).add(AMItems.BLANK_RUNE.get());

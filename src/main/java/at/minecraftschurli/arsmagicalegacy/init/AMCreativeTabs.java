@@ -38,6 +38,9 @@ public interface AMCreativeTabs {
             output.accept(AMItems.BLACK_AUREM);
             output.accept(AMItems.CRYSTAL_WRENCH);
             output.accept(AMItems.WIZARDS_CHALK);
+            output.accept(AMItems.REDSTONE_INLAY);
+            output.accept(AMItems.IRON_INLAY);
+            output.accept(AMItems.GOLD_INLAY);
             output.accept(AMItems.VINTEUM_TORCH);
             output.accept(AMItems.SPELL_PARCHMENT);
             output.accept(AMItems.SPELL_BOOK);

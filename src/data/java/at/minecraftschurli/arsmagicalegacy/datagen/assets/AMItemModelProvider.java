@@ -47,6 +47,9 @@ public final class AMItemModelProvider extends ItemModelProvider {
             .texture("layer0", modLoc("item/crystal_wrench"));
         basicItem(AMItems.CRYSTAL_WRENCH);
         basicItem(AMItems.WIZARDS_CHALK);
+        basicBlockItem(AMItems.REDSTONE_INLAY);
+        basicBlockItem(AMItems.IRON_INLAY);
+        basicBlockItem(AMItems.GOLD_INLAY);
         basicBlockItem(AMItems.VINTEUM_TORCH);
         basicItem(AMItems.SPELL_PARCHMENT);
         withExistingParent(AMItems.SPELL_BOOK.getId().getPath(), mcLoc("item/generated"))

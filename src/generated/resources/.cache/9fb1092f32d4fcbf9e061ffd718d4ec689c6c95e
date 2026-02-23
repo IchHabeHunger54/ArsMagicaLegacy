@@ -1,4 +1,4 @@
-// 1.21.1	2026-02-23T22:00:33.4084588	Recipes
+// 1.21.1	2026-02-23T22:49:39.9241265	Recipes
 6279e01386699f0af119f0b2b7107be085919ace data/arsmagicalegacy/advancement/recipes/building_blocks/stripped_witchwood.json
 b67df2b3b244672dbee9fc20c9f2b0e3a6d792ea data/arsmagicalegacy/advancement/recipes/building_blocks/witchwood.json
 93c9f5aa62f30aff1df72e966cd213d6efd1a3ab data/arsmagicalegacy/advancement/recipes/building_blocks/witchwood_planks.json
@@ -134,7 +134,7 @@ fb5a029df836eff2cf8936a7b180e14fccf11530 data/arsmagicalegacy/recipe/chimerite_f
 dc3cc582f64aa78d9b6d4bcdea4829b5dfe6665d data/arsmagicalegacy/recipe/chimerite_from_blasting_deepslate_chimerite_ore.json
 174030771e4456479da84e1582063ddb62954e5e data/arsmagicalegacy/recipe/chimerite_from_smelting_chimerite_ore.json
 171ec6cf352716c3f56fe42094921b5df9be4bed data/arsmagicalegacy/recipe/chimerite_from_smelting_deepslate_chimerite_ore.json
-cb3072319342852862f2a7ddc50041ff03de43d5 data/arsmagicalegacy/recipe/crystal_phylactery.json
+0637a2660148d62b591547975b6d9eef08f5952e data/arsmagicalegacy/recipe/crystal_phylactery.json
 5668fad35ff2862b741d55fa50ad5a4644ec8da1 data/arsmagicalegacy/recipe/crystal_wrench.json
 65a6b9f2e781b79e68004e1e5c6848490b7e29df data/arsmagicalegacy/recipe/cyan_rune.json
 bba93ef4bbfc6ba29f646676835abb312729a0b5 data/arsmagicalegacy/recipe/drought/clay.json

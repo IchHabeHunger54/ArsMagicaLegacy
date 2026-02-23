@@ -158,6 +158,7 @@ final class AMEventHandler {
             fire.setFlammable(AMBlocks.TARMA_ROOT.get(), 60, 100);
             fire.setFlammable(AMBlocks.WAKEBLOOM.get(), 60, 100);
             CauldronInteraction.INTERACTIONS.forEach((k, v) -> v.map().put(AMItems.LIQUID_ETHERIUM_BUCKET.get(), LiquidEtheriumCauldronBlock::emptyBucket));
+            CauldronInteraction.WATER.map().put(AMItems.SPELL_BOOK.get(), CauldronInteraction.DYED_ITEM);
             DispenserBlock.registerBehavior(AMItems.LIQUID_ETHERIUM_BUCKET, DispenseBucketBehavior.INSTANCE);
             DispenserBlock.registerBehavior(AMItems.WITCHWOOD_BOAT, new DispenseWitchwoodBoatBehavior(false));
             DispenserBlock.registerBehavior(AMItems.WITCHWOOD_CHEST_BOAT, new DispenseWitchwoodBoatBehavior(true));

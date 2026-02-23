@@ -104,12 +104,19 @@ public class CrystalPhylacteryItem extends Item {
 
     public static void addToCreativeTab(Consumer<ItemStack> consumer) {
         for (EntityType<?> type : BuiltInRegistries.ENTITY_TYPE) {
-            int size = CrystalPhylacteryContentsSize.get(type);
-            if (size <= 0) continue;
-            ItemStack stack = AMItems.CRYSTAL_PHYLACTERY.toStack();
-            stack.set(AMDataComponents.CRYSTAL_PHYLACTERY_CONTENTS, new Contents(type, size));
-            consumer.accept(stack);
+            ItemStack stack = getFilled(type);
+            if (!stack.isEmpty()) {
+                consumer.accept(stack);
+            }
         }
+    }
+
+    public static ItemStack getFilled(EntityType<?> type) {
+        int size = CrystalPhylacteryContentsSize.get(type);
+        if (size <= 0) return ItemStack.EMPTY;
+        ItemStack stack = AMItems.CRYSTAL_PHYLACTERY.toStack();
+        stack.set(AMDataComponents.CRYSTAL_PHYLACTERY_CONTENTS, new Contents(type, size));
+        return stack;
     }
 
     public record Contents(EntityType<?> type, int amount) {

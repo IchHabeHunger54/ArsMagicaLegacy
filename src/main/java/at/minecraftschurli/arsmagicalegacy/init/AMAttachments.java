@@ -3,11 +3,13 @@ package at.minecraftschurli.arsmagicalegacy.init;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicAttachment;
 import at.minecraftschurli.arsmagicalegacy.attachment.ContingencyAttachment;
+import at.minecraftschurli.arsmagicalegacy.attachment.MagicAttachmentSyncHandler;
 import at.minecraftschurli.arsmagicalegacy.attachment.RiftAttachment;
 import at.minecraftschurli.arsmagicalegacy.attachment.SummonMinionsAttachment;
 import at.minecraftschurli.arsmagicalegacy.attachment.TemporalAnchorAttachment;
-import at.minecraftschurli.arsmagicalegacy.attachment.MagicAttachmentSyncHandler;
 import com.mojang.serialization.Codec;
+import net.minecraft.Util;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -16,7 +18,6 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
-import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Supplier;
 
@@ -30,6 +31,8 @@ public interface AMAttachments {
     DeferredHolder<AttachmentType<?>, AttachmentType<Integer>>                  FROST            = register("frost",            () -> 0,                             Codec.INT,                   ByteBufCodecs.INT);
     DeferredHolder<AttachmentType<?>, AttachmentType<Double>>                   MANA             = register("mana",             () -> 0.,                            Codec.DOUBLE,                ByteBufCodecs.DOUBLE);
     DeferredHolder<AttachmentType<?>, AttachmentType<RiftAttachment>>           RIFT             = register("rift",             () -> RiftAttachment.DEFAULT,        RiftAttachment.CODEC,        RiftAttachment.STREAM_CODEC);
+    DeferredHolder<AttachmentType<?>, AttachmentType<SummonMinionsAttachment>>  SUMMON_MINIONS   = register("summon_minions",   () -> SummonMinionsAttachment.EMPTY, SummonMinionsAttachment.CODEC);
+    DeferredHolder<AttachmentType<?>, AttachmentType<UUID>>                     SUMMON_OWNER     = register("summon_owner",     () -> Util.NIL_UUID,                 UUIDUtil.CODEC);
     DeferredHolder<AttachmentType<?>, AttachmentType<TemporalAnchorAttachment>> TEMPORAL_ANCHOR  = register("temporal_anchor",  () -> null,                          TemporalAnchorAttachment.CODEC);
     // @formatter:on
 

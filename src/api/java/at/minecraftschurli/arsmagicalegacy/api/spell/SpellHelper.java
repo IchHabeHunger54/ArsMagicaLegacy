@@ -136,6 +136,12 @@ public interface SpellHelper {
     TagKey<Block> getIncorrectTagForToolTier(int toolTier);
 
     /**
+     * @param entity The {@link LivingEntity} to get the max summons for.
+     * @return The maximum amount of summoned minions for the given {@link LivingEntity}.
+     */
+    int getMaxSummons(LivingEntity entity);
+
+    /**
      * @return The mana to burnout conversion ratio, used in spell cost calculation.
      */
     double getManaToBurnoutRatio();

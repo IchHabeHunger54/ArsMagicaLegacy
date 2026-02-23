@@ -83,6 +83,9 @@ public final class AMServerConfig {
     public static final ModConfigSpec.DoubleValue STORM_RANGE;
     public static final ModConfigSpec.DoubleValue STORM_LIGHTNING_BOLT_CHANCE;
     public static final ModConfigSpec.DoubleValue STORM_LIGHTNING_BOLT_TARGET_CHANCE;
+    public static final ModConfigSpec.IntValue SUMMON_COUNT;
+    public static final ModConfigSpec.IntValue SUMMON_EXTRA_COUNT;
+    public static final ModConfigSpec.DoubleValue SUMMON_MANA_COST;
     public static final ModConfigSpec.DoubleValue WIZARDS_AUTUMN_RANGE;
     public static final ModConfigSpec.DoubleValue PROJECTILE_DURATION;
     public static final ModConfigSpec.DoubleValue PROJECTILE_GRAVITY;
@@ -436,6 +439,18 @@ public final class AMServerConfig {
             .comment("The chance for the Storm component to summon a target-seeking lightning bolt somewhere in range.")
             .translation(AMTranslations.CONFIG_KEY + "storm_lightning_bolt_target_chance")
             .defineInRange("storm_lightning_bolt_target_chance", 0.2, 0, 1);
+        SUMMON_COUNT = builder
+            .comment("The amount of summons a player can have at the same time.")
+            .translation(AMTranslations.CONFIG_KEY + "summon_count")
+            .defineInRange("summon_count", 1, 1, 1000000);
+        SUMMON_EXTRA_COUNT = builder
+            .comment("The amount of additional summons a player can have at the same time when they have the Extra Summons talent.")
+            .translation(AMTranslations.CONFIG_KEY + "summon_extra_count")
+            .defineInRange("summon_extra_count", 1, 1, 1000000);
+        SUMMON_MANA_COST = builder
+            .comment("The amount of mana, multiplied by the summons's health, that is consumed when using the Summon component.")
+            .translation(AMTranslations.CONFIG_KEY + "summon_mana_cost")
+            .defineInRange("summon_mana_cost", 20., 0, 1000000);
         WIZARDS_AUTUMN_RANGE = builder
             .comment("The range used by the Wizard's Autumn component. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "wizards_autumn_range")

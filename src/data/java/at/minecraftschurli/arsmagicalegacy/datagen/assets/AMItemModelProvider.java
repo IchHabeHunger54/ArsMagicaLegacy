@@ -124,6 +124,8 @@ public final class AMItemModelProvider extends ItemModelProvider {
         blockItem(AMItems.WITCHWOOD_PRESSURE_PLATE);
         basicItem(AMItems.WITCHWOOD_SIGN);
         basicItem(AMItems.WITCHWOOD_HANGING_SIGN);
+        basicItem(AMItems.WITCHWOOD_BOAT);
+        basicItem(AMItems.WITCHWOOD_CHEST_BOAT);
         basicBlockItem(AMItems.AUM);
         basicBlockItem(AMItems.CERUBLOSSOM);
         basicBlockItem(AMItems.DESERT_NOVA);

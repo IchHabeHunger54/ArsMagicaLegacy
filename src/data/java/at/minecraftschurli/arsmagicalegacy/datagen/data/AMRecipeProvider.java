@@ -525,6 +525,8 @@ public final class AMRecipeProvider extends RecipeProvider {
         planksFromLogs(output, AMItems.WITCHWOOD_PLANKS.get(), AMTags.Items.WITCHWOOD_LOGS, 4);
         woodFromLogs(output, AMBlocks.WITCHWOOD.get(), AMBlocks.WITCHWOOD_LOG.get());
         woodFromLogs(output, AMBlocks.STRIPPED_WITCHWOOD.get(), AMBlocks.STRIPPED_WITCHWOOD_LOG.get());
+        woodenBoat(output, AMItems.WITCHWOOD_BOAT, AMItems.WITCHWOOD_PLANKS);
+        chestBoat(output, AMItems.WITCHWOOD_CHEST_BOAT, AMItems.WITCHWOOD_BOAT);
         oneToOneConversion(output, Items.PINK_DYE, AMItems.AUM.get(), "pink_dye");
         oneToOneConversion(output, Items.BLUE_DYE, AMItems.CERUBLOSSOM.get(), "blue_dye");
         oneToOneConversion(output, Items.RED_DYE, AMItems.DESERT_NOVA.get(), "red_dye");

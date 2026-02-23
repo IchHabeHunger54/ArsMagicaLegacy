@@ -60,6 +60,7 @@ import at.minecraftschurli.arsmagicalegacy.spell.ToolTiers;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import at.minecraftschurli.arsmagicalegacy.util.CrystalPhylacteryContentsSize;
 import at.minecraftschurli.arsmagicalegacy.util.DispenseBucketBehavior;
+import at.minecraftschurli.arsmagicalegacy.util.DispenseWitchwoodBoatBehavior;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.Util;
 import net.minecraft.commands.CommandBuildContext;
@@ -158,6 +159,8 @@ final class AMEventHandler {
             fire.setFlammable(AMBlocks.WAKEBLOOM.get(), 60, 100);
             CauldronInteraction.INTERACTIONS.forEach((k, v) -> v.map().put(AMItems.LIQUID_ETHERIUM_BUCKET.get(), LiquidEtheriumCauldronBlock::emptyBucket));
             DispenserBlock.registerBehavior(AMItems.LIQUID_ETHERIUM_BUCKET, DispenseBucketBehavior.INSTANCE);
+            DispenserBlock.registerBehavior(AMItems.WITCHWOOD_BOAT, new DispenseWitchwoodBoatBehavior(false));
+            DispenserBlock.registerBehavior(AMItems.WITCHWOOD_CHEST_BOAT, new DispenseWitchwoodBoatBehavior(true));
             AMMultiblocks.init();
         });
     }

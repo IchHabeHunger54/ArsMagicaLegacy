@@ -167,6 +167,8 @@ public final class AMLanguageProvider extends LanguageProvider {
         blockIdTranslation(AMBlocks.WITCHWOOD_PRESSURE_PLATE);
         addBlock(AMBlocks.WITCHWOOD_WALL_SIGN, idTranslation(AMBlocks.WITCHWOOD_SIGN.getId().getPath()));
         addBlock(AMBlocks.WITCHWOOD_WALL_HANGING_SIGN, idTranslation(AMBlocks.WITCHWOOD_HANGING_SIGN.getId().getPath()));
+        itemIdTranslation(AMItems.WITCHWOOD_BOAT);
+        itemIdTranslation(AMItems.WITCHWOOD_CHEST_BOAT);
         blockIdTranslation(AMBlocks.AUM);
         blockIdTranslation(AMBlocks.POTTED_AUM);
         blockIdTranslation(AMBlocks.CERUBLOSSOM);
@@ -187,6 +189,8 @@ public final class AMLanguageProvider extends LanguageProvider {
         entityIdTranslation(AMEntities.PROJECTILE);
         entityIdTranslation(AMEntities.WALL);
         entityIdTranslation(AMEntities.WAVE);
+        addEntityType(AMEntities.WITCHWOOD_BOAT, "Boat");
+        addEntityType(AMEntities.WITCHWOOD_CHEST_BOAT, "Chest Boat");
         entityIdTranslation(AMEntities.ZONE);
         effectIdTranslation(AMMobEffects.ASTRAL_DISTORTION);
         effectIdTranslation(AMMobEffects.BURNOUT_REDUCTION);

@@ -3,7 +3,6 @@
 - Data Loading Conditions
 - Add Liquid Etherium Sounds
 - Entities, including:
-    - Witchwood Boat
     - Dryads
     - All Bosses
     - Their Projectiles
@@ -17,5 +16,6 @@
     - CI/CD
     - License
 - Textures
+    - Witchwood Boat
     - Fix Old Rune Outline in Rune Bag GUI
     - Contact MoonlitLamps

@@ -1,7 +1,6 @@
 - Test All Spell Parts and Particles
 - Add Liquid Etherium Sounds
 - Entities, including:
-    - Dryads
     - All Bosses
     - Their Projectiles
     - Summoning Rituals

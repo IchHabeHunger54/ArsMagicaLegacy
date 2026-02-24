@@ -143,6 +143,7 @@ public interface AMItems {
     DeferredItem<BlockItem>                                    DESERT_NOVA                      = ITEMS.registerSimpleBlockItem(AMBlocks.DESERT_NOVA);
     DeferredItem<BlockItem>                                    TARMA_ROOT                       = ITEMS.registerSimpleBlockItem(AMBlocks.TARMA_ROOT);
     DeferredItem<BlockItem>                                    WAKEBLOOM                        = ITEMS.registerItem("wakebloom", p -> new PlaceOnWaterBlockItem(AMBlocks.WAKEBLOOM.get(), p));
+    DeferredItem<DeferredSpawnEggItem>                         DRYAD_SPAWN_EGG                  = ITEMS.registerItem("dryad_spawn_egg", p -> new DeferredSpawnEggItem(AMEntities.DRYAD, 0x166822, 0x683d16, p));
     DeferredItem<DeferredSpawnEggItem>                         MANA_CREEPER_SPAWN_EGG           = ITEMS.registerItem("mana_creeper_spawn_egg", p -> new DeferredSpawnEggItem(AMEntities.MANA_CREEPER, 0x1abfb5, 0x368580, p));
     DeferredItem<CrystalPhylacteryItem>                        CRYSTAL_PHYLACTERY               = ITEMS.registerItem("crystal_phylactery", p -> new CrystalPhylacteryItem(p.stacksTo(1)));
     // @formatter:on

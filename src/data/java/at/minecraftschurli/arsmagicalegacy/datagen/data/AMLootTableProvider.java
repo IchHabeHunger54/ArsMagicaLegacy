@@ -195,6 +195,7 @@ public final class AMLootTableProvider extends LootTableProvider {
 
         @Override
         public void generate() {
+            add(AMEntities.DRYAD.get(), LootTable.lootTable());
             add(AMEntities.MANA_CREEPER.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                 .add(LootItem.lootTableItem(AMItems.VINTEUM_DUST.get())
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(0, 2)))

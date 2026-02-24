@@ -29,6 +29,7 @@ public interface AMTags {
         TagKey<Block> CERUBLOSSOM_PLANTABLE_ON = tag("cerublossom_plantable_on");
         TagKey<Block> DESERT_NOVA_PLANTABLE_ON = tag("desert_nova_plantable_on");
         TagKey<Block> TARMA_ROOT_PLANTABLE_ON = tag("tarma_root_plantable_on");
+        TagKey<Block> DRYADS_SPAWNABLE_ON = tag("dryads_spawnable_on");
         TagKey<Block> WIZARDS_AUTUMN_LEAVES = tag("wizards_autumn_leaves");
         TagKey<Block> ETHERIUM_PROVIDERS = tag("etherium_providers");
         TagKey<Block> ETHERIUM_CONSUMERS = tag("etherium_consumers");

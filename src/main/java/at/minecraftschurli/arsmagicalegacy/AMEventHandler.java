@@ -20,6 +20,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.attachment.DryadKillsAttachment;
 import at.minecraftschurli.arsmagicalegacy.attachment.SummonMinionsAttachment;
 import at.minecraftschurli.arsmagicalegacy.block.LiquidEtheriumCauldronBlock;
 import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
@@ -357,7 +358,9 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void playerTickPost(PlayerTickEvent.Post event) {
-        ArsMagicaApi.abilityHelper().getActiveAbilities(event.getEntity()).forEach(holder -> holder.value().effects().forEach(effect -> effect.tick(event.getEntity(), holder)));
+        Player player = event.getEntity();
+        ArsMagicaApi.abilityHelper().getActiveAbilities(player).forEach(holder -> holder.value().effects().forEach(effect -> effect.tick(player, holder)));
+        DryadKillsAttachment.tick(player);
     }
 
     @SubscribeEvent
@@ -418,6 +421,9 @@ final class AMEventHandler {
         if (event.getSource().getEntity() instanceof Player player) {
             ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, AMAbilities.KILL_EFFECT_EFFECT.get());
             CrystalPhylacteryItem.addFill(player, entity);
+            if (entity.getType() == AMEntities.DRYAD.get()) {
+                DryadKillsAttachment.kill(player, entity);
+            }
         }
         if (!(entity.level() instanceof ServerLevel level)) return;
         UUID uuid = entity.getData(AMAttachments.SUMMON_OWNER);

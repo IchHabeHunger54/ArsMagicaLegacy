@@ -8,6 +8,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualTrigger;
 import at.minecraftschurli.arsmagicalegacy.ritual.IngredientRitualRequirement;
 import at.minecraftschurli.arsmagicalegacy.ritual.LearnSkillRitualEffect;
 import at.minecraftschurli.arsmagicalegacy.ritual.SetBlockRitualEffect;
+import at.minecraftschurli.arsmagicalegacy.ritual.SpawnEntityRitualEffect;
 import at.minecraftschurli.arsmagicalegacy.ritual.SpellCastRitualTrigger;
 import at.minecraftschurli.arsmagicalegacy.ritual.StructureRitualRequirement;
 import com.mojang.serialization.MapCodec;
@@ -20,11 +21,12 @@ public interface AMRituals {
     DeferredRegister<MapCodec<? extends RitualRequirement>> RITUAL_REQUIREMENTS = DeferredRegister.create(AMRegistries.Keys.RITUAL_REQUIREMENT, ArsMagicaApi.MOD_ID);
     DeferredRegister<MapCodec<? extends RitualTrigger<?>>>  RITUAL_TRIGGERS     = DeferredRegister.create(AMRegistries.Keys.RITUAL_TRIGGER,     ArsMagicaApi.MOD_ID);
 
-    DeferredHolder<MapCodec<? extends RitualEffect>, MapCodec<LearnSkillRitualEffect>> LEARN_SKILL_EFFECT = RITUAL_EFFECTS.register("learn_skill", () -> LearnSkillRitualEffect.CODEC);
-    DeferredHolder<MapCodec<? extends RitualEffect>, MapCodec<SetBlockRitualEffect>> SET_BLOCK_EFFECT = RITUAL_EFFECTS.register("set_block", () -> SetBlockRitualEffect.CODEC);
+    DeferredHolder<MapCodec<? extends RitualEffect>, MapCodec<LearnSkillRitualEffect>>  LEARN_SKILL_EFFECT  = RITUAL_EFFECTS.register("learn_skill",  () -> LearnSkillRitualEffect.CODEC);
+    DeferredHolder<MapCodec<? extends RitualEffect>, MapCodec<SetBlockRitualEffect>>    SET_BLOCK_EFFECT    = RITUAL_EFFECTS.register("set_block",    () -> SetBlockRitualEffect.CODEC);
+    DeferredHolder<MapCodec<? extends RitualEffect>, MapCodec<SpawnEntityRitualEffect>> SPAWN_ENTITY_EFFECT = RITUAL_EFFECTS.register("spawn_entity", () -> SpawnEntityRitualEffect.CODEC);
 
     DeferredHolder<MapCodec<? extends RitualRequirement>, MapCodec<IngredientRitualRequirement>> INGREDIENT_REQUIREMENT = RITUAL_REQUIREMENTS.register("ingredient", () -> IngredientRitualRequirement.CODEC);
-    DeferredHolder<MapCodec<? extends RitualRequirement>, MapCodec<StructureRitualRequirement>> STRUCTURE_REQUIREMENT = RITUAL_REQUIREMENTS.register("structure", () -> StructureRitualRequirement.CODEC);
+    DeferredHolder<MapCodec<? extends RitualRequirement>, MapCodec<StructureRitualRequirement>>  STRUCTURE_REQUIREMENT  = RITUAL_REQUIREMENTS.register("structure",  () -> StructureRitualRequirement.CODEC);
 
     DeferredHolder<MapCodec<? extends RitualTrigger<?>>, MapCodec<SpellCastRitualTrigger>> SPELL_CAST_TRIGGER = RITUAL_TRIGGERS.register("spell_cast", () -> SpellCastRitualTrigger.CODEC);
     // @formatter:on

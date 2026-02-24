@@ -2,18 +2,23 @@ package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
+import at.minecraftschurli.arsmagicalegacy.api.data.RitualBuilder;
 import at.minecraftschurli.arsmagicalegacy.api.data.RitualProvider;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
+import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualRequirement;
+import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualTrigger;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.block.CelestialPrismBlock;
 import at.minecraftschurli.arsmagicalegacy.compat.patchouli.AMMultiblocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
+import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.ritual.IngredientRitualRequirement;
 import at.minecraftschurli.arsmagicalegacy.ritual.LearnSkillRitualEffect;
 import at.minecraftschurli.arsmagicalegacy.ritual.SetBlockRitualEffect;
+import at.minecraftschurli.arsmagicalegacy.ritual.SpawnEntityRitualEffect;
 import at.minecraftschurli.arsmagicalegacy.ritual.SpellCastRitualTrigger;
 import at.minecraftschurli.arsmagicalegacy.ritual.StructureRitualRequirement;
 import net.minecraft.core.BlockPos;
@@ -21,6 +26,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -61,6 +67,12 @@ public final class AMRitualProvider extends RitualProvider {
         unlock(skills, AMSpells.PROSPERITY, AMSpells.DIG, AMSpells.PHYSICAL_DAMAGE, AMSpells.MINING_POWER, AMSpells.SILK_TOUCH);
         builder("unlock_shield_overload", new SpellCastRitualTrigger(List.of(AMSpells.RESISTANCE.get(), AMSpells.MANA_DRAIN.get())))
             .addEffect(new LearnSkillRitualEffect(skills.getOrThrow(AMMagic.SHIELD_OVERLOAD)));
+    }
+
+    private RitualBuilder spawn(DeferredHolder<EntityType<?>, EntityType<?>> boss, RitualTrigger<?> trigger, ResourceLocation structure, BlockPos offset) {
+        return builder("spawn_" + boss.getId().getPath(), trigger)
+            .addRequirement(new StructureRitualRequirement(structure, offset))
+            .addEffect(new SpawnEntityRitualEffect(boss.get()));
     }
 
     @SafeVarargs

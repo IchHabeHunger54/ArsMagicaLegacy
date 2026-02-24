@@ -182,9 +182,11 @@ public final class AMLanguageProvider extends LanguageProvider {
         blockIdTranslation(AMBlocks.POTTED_TARMA_ROOT);
         blockIdTranslation(AMBlocks.WAKEBLOOM);
         blockIdTranslation(AMBlocks.POTTED_WAKEBLOOM);
+        itemIdTranslation(AMItems.DRYAD_SPAWN_EGG);
         itemIdTranslation(AMItems.MANA_CREEPER_SPAWN_EGG);
         itemIdTranslation(AMItems.CRYSTAL_PHYLACTERY);
         entityIdTranslation(AMEntities.BLIZZARD);
+        entityIdTranslation(AMEntities.DRYAD);
         entityIdTranslation(AMEntities.FALLING_STAR);
         entityIdTranslation(AMEntities.FIRE_RAIN);
         entityIdTranslation(AMEntities.MANA_CREEPER);
@@ -239,6 +241,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTags.Blocks.CERUBLOSSOM_PLANTABLE_ON, "Soil for Cerublossom");
         add(AMTags.Blocks.DESERT_NOVA_PLANTABLE_ON, "Soil for Desert Nova");
         add(AMTags.Blocks.TARMA_ROOT_PLANTABLE_ON, "Soil for Tarma Root");
+        add(AMTags.Blocks.DRYADS_SPAWNABLE_ON, "Ground for Dryads");
         add(AMTags.Blocks.WIZARDS_AUTUMN_LEAVES, "Wizard's Autumn Leaves");
         add(AMTags.Blocks.ETHERIUM_PROVIDERS, "Etherium Providers");
         add(AMTags.Blocks.ETHERIUM_CONSUMERS, "Etherium Consumers");
@@ -529,6 +532,11 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("arcane_compendium_conversion_horizontal_range", "Arcane Compendium Conversion Horizontal Range", "The horizontal range of the Arcane Compendium conversion.");
         configTranslation("arcane_compendium_conversion_vertical_range", "Arcane Compendium Conversion Vertical Range", "The vertical range of the Arcane Compendium conversion.");
         configTranslation("entities", "Entities", "Configuration for the various entities.");
+        configTranslation("dryad_grow_interval", "Dryad Grow Interval", "The time in ticks between a Dryad growing nearby plants.");
+        configTranslation("dryad_grow_chance", "Dryad Grow Chance", "The chance of a Dryad growing nearby plants successfully.");
+        configTranslation("dryad_grow_radius", "Dryad Grow Radius", "The radius of a Dryad's growing effect.");
+        configTranslation("dryad_kill_cooldown", "Dryad Kill Cooldown", "If enough dryads are killed during this amount of time in ticks, the Nature Guardian will spawn. Set to 0 to disable this way of summoning the Nature Guardian.");
+        configTranslation("dryad_kills_for_nature_guardian_spawn", "Dryad Kills for Nature Guardian Spawn", "The amount of dryads to be killed within the cooldown in order for the Nature Guardian to spawn.");
         configTranslation("mana_vortex_damage", "Mana Vortex Damage", "The amount of damage the Mana Vortex deals per stolen mana point.");
         configTranslation("mana_vortex_max_damage", "Mana Vortex Max Damage", "The maximum damage the Mana Vortex can deal.");
         configTranslation("mana_vortex_range", "Mana Vortex Range", "The range of the Mana Vortex.");

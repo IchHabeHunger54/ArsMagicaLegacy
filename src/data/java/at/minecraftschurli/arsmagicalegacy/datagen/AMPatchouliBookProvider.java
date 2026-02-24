@@ -11,6 +11,7 @@ import at.minecraftschurli.arsmagicalegacy.compat.patchouli.SpellPartPage;
 import at.minecraftschurli.arsmagicalegacy.datagen.data.AMAbilityProvider;
 import at.minecraftschurli.arsmagicalegacy.init.AMCreativeTabs;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
+import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
@@ -263,13 +264,13 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
             .addSimpleRecipePage("crafting", AMItems.SPELL_PARCHMENT.getId())
             .build()
             .build();
-/*
         builder.addCategory("entities", "Entities", "", new ItemStack(AMItems.MANA_CREEPER_SPAWN_EGG.get()))
             .setSortnum(3)
             .addEntry("mana_creeper", "Mana Creeper", new ItemStack(AMItems.MANA_CREEPER_SPAWN_EGG.get()))
             .addSimpleTextPage("Occasionally, you will find special creepers in the world that are blue instead of green. These creepers are called Mana Creepers. They are just as dangerous as normal creepers, but in addition, after they explode, they create a Mana Vortex that saps your mana for a while.")
-            .addEntityPage(AMEntities.MANA_CREEPER.getId()).setText("Mana creepers drop $(l:blocks/ores#vinteum)Vinteum Dust$() when killed.").build()
+            .addEntityPage(AMEntities.MANA_CREEPER.getId()).setText("Mana creepers drop $(l:blocks/ores#vinteum)Vinteum Dust$() instead of gunpowder when killed.").build()
             .build()
+/*
             .addSubCategory("bosses", "Bosses", "", new ItemStack(AMItems.WATER_GUARDIAN_SPAWN_EGG.get()))
             .addEntry("water_guardian", "Water Guardian", new ItemStack(AMItems.WATER_GUARDIAN_SPAWN_EGG.get()))
             .addSimpleTextPage("The Water Guardian is a unique being. This trickster will create copies of itself, attacking from ambush if you are fooled by the decoy. If you come too close, it will begin to spin and use its tentacles to damage you. If you keep your distance, it will attack you with water projectiles.")
@@ -311,7 +312,7 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
             .addSimpleTextPage("The Nature Guardian is a fearsome opponent. Boasting a deadly scythe and the skill to use it, only the most powerful or foolish would seek it out. It is just as dangerous at range as in melee, if not more.")
             .addEntityPage(AMEntities.NATURE_GUARDIAN.getId()).setText("Recommended magic level: 70").build()
             .addEntityPage(AMEntities.DRYAD.getId()).setText("Dryads spawn in forests. They can be lured with saplings and boost nearby plants' growth.").build()
-            .addSimpleTextPage("Unlike all other bosses, the Nature Guardian appears to guard dryads when enough are slain in quick succession. Nature can be harsh, but it will not tolerate a massacre.$(br2)The Nature Guardian takes double damage from $(l:components/fire_damage)fire$() and $(l:components/frost_damage)frost$(), and will be healed instead of $(l:components/drowning_damage)drowned$().")
+            .addSimpleTextPage("Unlike all other bosses, the Nature Guardian appears to avenge dryads when enough are slain in quick succession. Nature can be harsh, but it will not tolerate a massacre.$(br2)The Nature Guardian takes double damage from $(l:components/fire_damage)fire$() and $(l:components/frost_damage)frost$(), and will be healed instead of $(l:components/drowning_damage)drowned$().")
             .build()
             .addEntry("life_guardian", "Life Guardian", new ItemStack(AMItems.LIFE_GUARDIAN_SPAWN_EGG.get()))
             .addSimpleTextPage("The Life Guardian does not attack much on its own, though it may decide to nauseate you. It generally prefers to let others do the fighting for it, infusing them with its tremendous power. In return, the others will often lay down their lives for the guardian's protection. The Life Guardian is a different kind of fight than the other bosses.")
@@ -331,8 +332,8 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
             .addSimpleMultiblockPage("Ender Guardian Ritual", AMMultiblocks.ENDER_GUARDIAN_SPAWN_RITUAL)
             .addSimpleTextPage("To summon the Ender Guardian, build the structure seen on the previous page anywhere in the end. Then, drop an ender eye into the Black Aurem.$(br2)A being of dark Ender magic, $(l:components/magic_damage)light Arcane magic$() will hurt it double. As an inhabitant of the End, the same is true for $(l:components/drowning_damage)water$().")
             .build()
-            .build();
 */
+            .build();
         TranslatedCategoryBuilder shapes = builder
             .addCategory("shapes", "Shapes", "", ArsMagicaApi.MOD_ID + ":textures/skill/touch.png")
             .setSortnum(4);

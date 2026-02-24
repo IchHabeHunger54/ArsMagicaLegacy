@@ -1,7 +1,8 @@
-// 1.21.1	2026-02-23T23:47:15.1981072	Tags for minecraft:block mod id arsmagicalegacy
+// 1.21.1	2026-02-24T02:54:35.2108892	Tags for minecraft:block mod id arsmagicalegacy
 69c396cb051bbe9a130e6979b67065e5041b179d data/arsmagicalegacy/tags/block/aum_plantable_on.json
 69c396cb051bbe9a130e6979b67065e5041b179d data/arsmagicalegacy/tags/block/cerublossom_plantable_on.json
 c1b2a217bb3fcb7e1d67f5bc45409796720bd171 data/arsmagicalegacy/tags/block/desert_nova_plantable_on.json
+ff9b281b9a16648420ec54ace1183217c76bfa6c data/arsmagicalegacy/tags/block/dryads_spawnable_on.json
 256460814363c9975eca6b616c02e4b91d39345d data/arsmagicalegacy/tags/block/etherium_consumers.json
 0f6009192f4771e3bf6414390f72bd2f4a361061 data/arsmagicalegacy/tags/block/etherium_providers.json
 4c1bbc9a9b255ebcb379692a068dd9bbc9863000 data/arsmagicalegacy/tags/block/tarma_root_plantable_on.json

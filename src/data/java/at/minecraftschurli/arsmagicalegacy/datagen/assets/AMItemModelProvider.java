@@ -134,6 +134,7 @@ public final class AMItemModelProvider extends ItemModelProvider {
         basicBlockItem(AMItems.DESERT_NOVA);
         basicBlockItem(AMItems.TARMA_ROOT);
         basicBlockItem(AMItems.WAKEBLOOM);
+        spawnEggItem(AMItems.DRYAD_SPAWN_EGG.get());
         spawnEggItem(AMItems.MANA_CREEPER_SPAWN_EGG.get());
         ItemModelBuilder crystalPhylactery = getBuilder("crystal_phylactery").texture("layer0", modLoc("item/crystal_phylactery"));
         for (int i = 0; i < 8; i++) {

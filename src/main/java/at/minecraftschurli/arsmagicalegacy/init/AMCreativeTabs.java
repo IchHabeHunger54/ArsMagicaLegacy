@@ -123,6 +123,7 @@ public interface AMCreativeTabs {
             output.accept(AMItems.TARMA_ROOT);
             output.accept(AMItems.WAKEBLOOM);
             output.accept(AMItems.MANA_CREEPER_SPAWN_EGG);
+            output.accept(AMItems.DRYAD_SPAWN_EGG);
             output.accept(AMItems.CRYSTAL_PHYLACTERY);
             CrystalPhylacteryItem.addToCreativeTab(output::accept);
         })

@@ -29,6 +29,7 @@ import at.minecraftschurli.arsmagicalegacy.command.SkillCommand;
 import at.minecraftschurli.arsmagicalegacy.command.SkillPointCommand;
 import at.minecraftschurli.arsmagicalegacy.compat.patchouli.AMMultiblocks;
 import at.minecraftschurli.arsmagicalegacy.effect.AMMobEffect;
+import at.minecraftschurli.arsmagicalegacy.entity.Dryad;
 import at.minecraftschurli.arsmagicalegacy.entity.ManaCreeper;
 import at.minecraftschurli.arsmagicalegacy.init.AMAbilities;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
@@ -211,6 +212,7 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void entityAttributeCreation(EntityAttributeCreationEvent event) {
+        event.put(AMEntities.DRYAD.get(), Dryad.createAttributes().build());
         event.put(AMEntities.MANA_CREEPER.get(), ManaCreeper.createAttributes().build());
     }
 
@@ -224,6 +226,7 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void registerSpawnPlacements(RegisterSpawnPlacementsEvent event) {
+        event.register(AMEntities.DRYAD.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.WORLD_SURFACE, Dryad::checkSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         event.register(AMEntities.MANA_CREEPER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.WORLD_SURFACE, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
     }
 

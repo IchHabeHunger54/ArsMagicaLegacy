@@ -59,6 +59,7 @@ public interface AMWorldgen {
     ResourceKey<BiomeModifier> SPOOKY_BIOME_MODIFIER                       = biomeModifier("spooky");
     ResourceKey<BiomeModifier> JUNGLE_OR_SWAMP_BIOME_MODIFIER              = biomeModifier("jungle_or_swamp");
     ResourceKey<BiomeModifier> MOUNTAIN_HILL_OR_UNDERGROUND_BIOME_MODIFIER = biomeModifier("mountain_hill_or_underground");
+    ResourceKey<BiomeModifier> SPAWN_DRYADS_BIOME_MODIFIER                 = biomeModifier("spawn_dryads");
     ResourceKey<BiomeModifier> SPAWN_MANA_CREEPERS_BIOME_MODIFIER          = biomeModifier("spawn_mana_creepers");
     // @formatter:on
 

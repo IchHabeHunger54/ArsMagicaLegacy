@@ -29,6 +29,7 @@ import at.minecraftschurli.arsmagicalegacy.client.layer.BarsLayer;
 import at.minecraftschurli.arsmagicalegacy.client.layer.ShapeGroupsLayer;
 import at.minecraftschurli.arsmagicalegacy.client.layer.SpellBookLayer;
 import at.minecraftschurli.arsmagicalegacy.client.model.AltarCoreModel;
+import at.minecraftschurli.arsmagicalegacy.client.model.DryadModel;
 import at.minecraftschurli.arsmagicalegacy.client.model.item.DataComponentOverrides;
 import at.minecraftschurli.arsmagicalegacy.client.model.item.ItemOverridesModel;
 import at.minecraftschurli.arsmagicalegacy.client.model.item.SpellItemModel;
@@ -48,6 +49,7 @@ import at.minecraftschurli.arsmagicalegacy.client.renderer.block.AltarCoreRender
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.BlackAuremRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.EtheriumGeneratorRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.SpellRuneRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.DryadRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.EmptyRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.ManaCreeperRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.WitchwoodBoatRenderer;
@@ -141,6 +143,7 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(DryadModel.LAYER_LOCATION, DryadModel::createBodyLayer);
         event.registerLayerDefinition(WitchwoodBoatRenderer.BOAT, BoatModel::createBodyModel);
         event.registerLayerDefinition(WitchwoodBoatRenderer.CHEST_BOAT, ChestBoatModel::createBodyModel);
     }
@@ -148,6 +151,7 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(AMEntities.BLIZZARD.get(), EmptyRenderer::new);
+        event.registerEntityRenderer(AMEntities.DRYAD.get(), DryadRenderer::new);
         event.registerEntityRenderer(AMEntities.FALLING_STAR.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.FIRE_RAIN.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.MANA_CREEPER.get(), ManaCreeperRenderer::new);

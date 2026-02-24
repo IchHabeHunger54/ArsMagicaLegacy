@@ -19,6 +19,11 @@ public final class AMServerConfig {
     public static final ModConfigSpec.IntValue ARCANE_COMPENDIUM_CONVERSION_DURATION;
     public static final ModConfigSpec.IntValue ARCANE_COMPENDIUM_CONVERSION_HORIZONTAL_RANGE;
     public static final ModConfigSpec.IntValue ARCANE_COMPENDIUM_CONVERSION_VERTICAL_RANGE;
+    public static final ModConfigSpec.IntValue DRYAD_GROW_INTERVAL;
+    public static final ModConfigSpec.DoubleValue DRYAD_GROW_CHANCE;
+    public static final ModConfigSpec.IntValue DRYAD_GROW_RADIUS;
+    public static final ModConfigSpec.IntValue DRYAD_KILL_COOLDOWN;
+    public static final ModConfigSpec.IntValue DRYAD_KILLS_FOR_NATURE_GUARDIAN_SPAWN;
     public static final ModConfigSpec.DoubleValue MANA_VORTEX_DAMAGE;
     public static final ModConfigSpec.DoubleValue MANA_VORTEX_MAX_DAMAGE;
     public static final ModConfigSpec.DoubleValue MANA_VORTEX_RANGE;
@@ -167,6 +172,26 @@ public final class AMServerConfig {
             .defineInRange("arcane_compendium_conversion_vertical_range", 2, 1, 16);
         builder.pop();
         builder.comment("Configuration for the various entities.").push("entities");
+        DRYAD_GROW_INTERVAL = builder
+            .comment("The time in ticks between a Dryad growing nearby plants.")
+            .translation(AMTranslations.CONFIG_KEY + "dryad_grow_interval")
+            .defineInRange("dryad_grow_interval", 200, 1, 72000);
+        DRYAD_GROW_CHANCE = builder
+            .comment("The chance of a Dryad growing nearby plants successfully.")
+            .translation(AMTranslations.CONFIG_KEY + "dryad_grow_chance")
+            .defineInRange("dryad_grow_chance", 0.01, 0, 1);
+        DRYAD_GROW_RADIUS = builder
+            .comment("The radius of a Dryad's growing effect.")
+            .translation(AMTranslations.CONFIG_KEY + "dryad_grow_radius")
+            .defineInRange("dryad_grow_radius", 2, 1, Short.MAX_VALUE);
+        DRYAD_KILL_COOLDOWN = builder
+            .comment("If enough dryads are killed during this amount of time in ticks, the Nature Guardian will spawn. Set to 0 to disable this way of summoning the Nature Guardian.")
+            .translation(AMTranslations.CONFIG_KEY + "dryad_kill_cooldown")
+            .defineInRange("dryad_kill_cooldown", 1200, 0, 1000000);
+        DRYAD_KILLS_FOR_NATURE_GUARDIAN_SPAWN = builder
+            .comment("The amount of dryads to be killed within the cooldown in order for the Nature Guardian to spawn.")
+            .translation(AMTranslations.CONFIG_KEY + "dryad_kills_for_nature_guardian_spawn")
+            .defineInRange("dryad_kills_for_nature_guardian_spawn", 20, 1, Short.MAX_VALUE);
         MANA_VORTEX_DAMAGE = builder
             .comment("The amount of damage the Mana Vortex deals per stolen mana point.")
             .translation(AMTranslations.CONFIG_KEY + "mana_vortex_damage")

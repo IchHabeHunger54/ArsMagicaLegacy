@@ -1,4 +1,4 @@
-// 1.21.1	2026-02-18T19:02:03.377225	Patchouli Book Provider
+// 1.21.1	2026-02-24T01:05:59.2595716	Patchouli Book Provider
 d14963c006403569ef2a52c30f2a7bf9e630adf5 assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/categories/affinities.json
 d1bc5251356b8f54fbeb5edfea4ea2cb78cea9ed assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/categories/blocks.json
 f0586636e347b6fe5688df02870bb757efd715d5 assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/categories/components.json
@@ -21,6 +21,7 @@ f5b8c98ff30574b574ae7eb7c2eb3e9f7b6447ee assets/arsmagicalegacy/patchouli_books/
 3efc79bdb015fca1b76207b5333bdc1828c8e7fc assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/blocks/black_aurem.json
 98e283e44509b4e58ccf21f702991b09e24eb671 assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/blocks/celestial_prism.json
 ffad0dcb2bd5b15354e812908cafaa8c084c568a assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/blocks/flowers.json
+0fe799af821e0e60b6fbee7622c7d78064b94243 assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/blocks/inlays.json
 95b73a5a4aa9070780640fd863fca87db71ee861 assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/blocks/inscription_table.json
 a54942f908c0fd72cb2b66c1d2615568e91e9e9b assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/blocks/obelisk.json
 56f5120de6d820513d3ea992a0e1fabd059883df assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/blocks/occulus.json

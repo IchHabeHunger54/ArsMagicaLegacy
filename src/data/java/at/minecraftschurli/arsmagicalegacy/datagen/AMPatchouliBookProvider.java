@@ -142,13 +142,12 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
             .addSimpleDoubleRecipePage("crafting", ArsMagicaApi.id("red_dye_from_desert_nova"), ArsMagicaApi.id("brown_dye_from_tarma_root"))
             .addSimpleRecipePage("crafting", ArsMagicaApi.id("magenta_dye_from_wakebloom"))
             .build()
-/*
             .addEntry("inlays", "Inlays", new ItemStack(AMItems.IRON_INLAY.get()))
-            .addSimpleTextPage("Inlays are special, magically-enhanced rail variants. While their true purpose is currently unknown, they have already made themselves very useful for summoning bosses.")
-            .addSimpleDoubleRecipePage("crafting", AMItems.IRON_INLAY.getId(), AMItems.REDSTONE_INLAY.getId())
-            .addSimpleRecipePage("crafting", AMItems.GOLD_INLAY.getId())
+            .addSimpleTextPage("Inlays are special, magically-enhanced rail variants. They each come with unique behavior, but are unable to be used in slopes. All three variants have also made themselves very useful for summoning bosses.")
+            .addSimpleRecipePage("crafting", AMItems.REDSTONE_INLAY.getId(), "Redstone Inlays will speed up a minecart as it passes over them, faster than regular powered rails ever could. Be wary when cornering too fast, as the cart can leave the tracks entirely.")
+            .addSimpleRecipePage("crafting", AMItems.IRON_INLAY.getId(), "When a minecart touches an iron inlay, it will reverse direction. Some of the momentum is preserved, but not all.")
+            .addSimpleRecipePage("crafting", AMItems.GOLD_INLAY.getId(), "When a minecart touches a gold inlay, it will attempt to warp to the next gold inlay in the direction it is currently traveling within 8 blocks. This can transport the minecart (and any passengers) through solid obstacles.")
             .build()
-*/
             .addEntry("inscription_table", "Inscription Table", new ItemStack(AMItems.INSCRIPTION_TABLE.get()))
             .addSimpleTextPage("Using this table with a Book and Quill, you can compose spells of incredible power.$(br2)You will see what skills you know at the top in the Source Region. You can then drag shapes and modifiers to the brown $(l:mechanics/shape_groups)Shape Group$() squares, and drag components to the gray Spell Grammar section at the bottom to lay out a spell.")
             .addSimpleTextPage("Once satisfied with the spell, you can write the spells onto that Book & Quill. This book can then be placed on a $(l:mechanics/crafting_altar)Crafting Altar's$() lectern, and will guide you through the process needed to make the spell.$(br2)The book is worth reading too, as it contains a recap of the spell you will be creating, a materials list, and an $(l:affinities/affinities)affinity$() breakdown.")

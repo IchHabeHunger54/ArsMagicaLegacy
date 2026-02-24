@@ -13,6 +13,8 @@ public final class AMServerConfig {
     public static final ModConfigSpec.IntValue OBELISK_MAX_ETHERIUM;
     public static final ModConfigSpec.IntValue CELESTIAL_PRISM_MAX_ETHERIUM;
     public static final ModConfigSpec.IntValue BLACK_AUREM_MAX_ETHERIUM;
+    public static final ModConfigSpec.DoubleValue REDSTONE_INLAY_SPEED_MULTIPLIER;
+    public static final ModConfigSpec.IntValue GOLD_INLAY_RANGE;
     public static final ModConfigSpec.IntValue ARCANE_COMPENDIUM_CONVERSION_CHECK_INTERVAL;
     public static final ModConfigSpec.IntValue ARCANE_COMPENDIUM_CONVERSION_DURATION;
     public static final ModConfigSpec.IntValue ARCANE_COMPENDIUM_CONVERSION_HORIZONTAL_RANGE;
@@ -137,6 +139,14 @@ public final class AMServerConfig {
             .comment("The maximum etherium a Black Aurem can store.")
             .translation(AMTranslations.CONFIG_KEY + "black_aurem_max_etherium")
             .defineInRange("black_aurem_max_etherium", 5000, 1, Integer.MAX_VALUE);
+        REDSTONE_INLAY_SPEED_MULTIPLIER = builder
+            .comment("The speed multiplier used by the Redstone Inlay, multiplied by the regular rail's speed.")
+            .translation(AMTranslations.CONFIG_KEY + "redstone_inlay_speed_multiplier")
+            .defineInRange("redstone_inlay_speed_multiplier", 2.5, 1, 16);
+        GOLD_INLAY_RANGE = builder
+            .comment("The teleportation range of the Gold Inlay, in blocks.")
+            .translation(AMTranslations.CONFIG_KEY + "gold_inlay_range")
+            .defineInRange("gold_inlay_range", 8, 2, 32);
         builder.pop();
         builder.comment("Configuration for the various items.").push("items");
         ARCANE_COMPENDIUM_CONVERSION_CHECK_INTERVAL = builder

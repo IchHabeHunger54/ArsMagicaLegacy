@@ -521,6 +521,8 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("obelisk_max_etherium", "Obelisk Max Etherium", "The maximum etherium an Obelisk can store.");
         configTranslation("celestial_prism_max_etherium", "Celestial Prism Max Etherium", "The maximum etherium a Celestial Prism can store.");
         configTranslation("black_aurem_max_etherium", "Black Aurem Max Etherium", "The maximum etherium a Black Aurem can store.");
+        configTranslation("redstone_inlay_speed_multiplier", "Redstone Inlay Speed Multiplier", "The speed multiplier used by the Redstone Inlay, multiplied by the regular rail's speed.");
+        configTranslation("gold_inlay_range", "Gold Inlay Range", "The teleportation range of the Gold Inlay, in blocks.");
         configTranslation("items", "Items", "Configuration for the various items.");
         configTranslation("arcane_compendium_conversion_check_interval", "Arcane Compendium Conversion Check Interval", "The time in ticks between checks for the Arcane Compendium conversion. Set to 0 to disable the conversion entirely.");
         configTranslation("arcane_compendium_conversion_duration", "Arcane Compendium Conversion Duration", "The time in ticks that the Arcane Compendium conversion takes.");

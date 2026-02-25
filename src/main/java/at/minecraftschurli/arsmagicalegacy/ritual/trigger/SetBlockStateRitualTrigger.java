@@ -30,6 +30,6 @@ public record SetBlockStateRitualTrigger(RuleTest test, BlockPos offset) impleme
 
     @Override
     public Vec3 adjustPosition(@Nullable Player player, Level level, Vec3 vec, BlockState context) {
-        return RitualTrigger.super.adjustPosition(player, level, vec, context).add(Vec3.atLowerCornerOf(offset));
+        return RitualTrigger.super.adjustPosition(player, level, vec, context).add(Vec3.atLowerCornerOf(offset.multiply(-1)));
     }
 }

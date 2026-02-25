@@ -1,10 +1,8 @@
 - Test All Spell Parts and Particles
+- Reconsider Spell Cast Results
 - Add Liquid Etherium Sounds
-- Entities, including:
-    - All Bosses
-    - Their Projectiles
-    - Summoning Rituals
-- Compat Recipes
+- Add Bosses and their Projectiles
+- Add Compat Recipes
 - Test With Sodium/Embeddium/Iris
     - Altar Model & BER
     - Magitech Goggles Overlay

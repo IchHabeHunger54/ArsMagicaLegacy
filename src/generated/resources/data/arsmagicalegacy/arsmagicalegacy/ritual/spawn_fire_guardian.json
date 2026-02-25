@@ -1,0 +1,26 @@
+{
+  "effects": [
+    {
+      "type": "arsmagicalegacy:spawn_entity",
+      "entity_type": "arsmagicalegacy:mana_creeper"
+    }
+  ],
+  "requirements": [
+    {
+      "type": "arsmagicalegacy:structure",
+      "structure": "arsmagicalegacy:fire_guardian_spawn_ritual"
+    }
+  ],
+  "trigger": {
+    "type": "arsmagicalegacy:dropped_item",
+    "ingredients": [
+      {
+        "type": "neoforge:components",
+        "components": {
+          "arsmagicalegacy:affinity": "arsmagicalegacy:water"
+        },
+        "items": "arsmagicalegacy:affinity_essence"
+      }
+    ]
+  }
+}

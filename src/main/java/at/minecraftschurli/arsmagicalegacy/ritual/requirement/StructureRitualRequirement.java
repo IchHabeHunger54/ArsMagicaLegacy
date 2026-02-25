@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.ritual;
+package at.minecraftschurli.arsmagicalegacy.ritual.requirement;
 
 import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualRequirement;
 import com.mojang.serialization.MapCodec;

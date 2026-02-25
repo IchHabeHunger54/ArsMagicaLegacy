@@ -1,0 +1,28 @@
+{
+  "effects": [
+    {
+      "type": "arsmagicalegacy:spawn_entity",
+      "entity_type": "arsmagicalegacy:mana_creeper"
+    }
+  ],
+  "requirements": [
+    {
+      "type": "arsmagicalegacy:structure",
+      "structure": "arsmagicalegacy:earth_guardian_spawn_ritual"
+    }
+  ],
+  "trigger": {
+    "type": "arsmagicalegacy:dropped_item",
+    "ingredients": [
+      {
+        "tag": "c:gems/emerald"
+      },
+      {
+        "tag": "c:gems/chimerite"
+      },
+      {
+        "tag": "c:gems/topaz"
+      }
+    ]
+  }
+}

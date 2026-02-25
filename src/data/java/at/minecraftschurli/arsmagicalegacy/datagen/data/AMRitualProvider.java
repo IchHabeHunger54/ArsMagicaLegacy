@@ -2,33 +2,47 @@ package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.data.RitualBuilder;
 import at.minecraftschurli.arsmagicalegacy.api.data.RitualProvider;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
-import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualRequirement;
 import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualTrigger;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.block.CelestialPrismBlock;
 import at.minecraftschurli.arsmagicalegacy.compat.patchouli.AMMultiblocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
+import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
-import at.minecraftschurli.arsmagicalegacy.ritual.IngredientRitualRequirement;
-import at.minecraftschurli.arsmagicalegacy.ritual.LearnSkillRitualEffect;
-import at.minecraftschurli.arsmagicalegacy.ritual.SetBlockRitualEffect;
-import at.minecraftschurli.arsmagicalegacy.ritual.SpawnEntityRitualEffect;
-import at.minecraftschurli.arsmagicalegacy.ritual.SpellCastRitualTrigger;
-import at.minecraftschurli.arsmagicalegacy.ritual.StructureRitualRequirement;
+import at.minecraftschurli.arsmagicalegacy.ritual.requirement.IngredientRitualRequirement;
+import at.minecraftschurli.arsmagicalegacy.ritual.effect.LearnSkillRitualEffect;
+import at.minecraftschurli.arsmagicalegacy.ritual.effect.SetBlockRitualEffect;
+import at.minecraftschurli.arsmagicalegacy.ritual.effect.SpawnEntityRitualEffect;
+import at.minecraftschurli.arsmagicalegacy.ritual.trigger.DroppedItemRitualTrigger;
+import at.minecraftschurli.arsmagicalegacy.ritual.trigger.GameEventRitualTrigger;
+import at.minecraftschurli.arsmagicalegacy.ritual.trigger.KillEntityRitualTrigger;
+import at.minecraftschurli.arsmagicalegacy.ritual.trigger.SetBlockStateRitualTrigger;
+import at.minecraftschurli.arsmagicalegacy.ritual.trigger.SpellCastRitualTrigger;
+import at.minecraftschurli.arsmagicalegacy.ritual.requirement.StructureRitualRequirement;
+import net.minecraft.advancements.critereon.EntityFlagsPredicate;
+import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.Arrays;
@@ -67,10 +81,43 @@ public final class AMRitualProvider extends RitualProvider {
         unlock(skills, AMSpells.PROSPERITY, AMSpells.DIG, AMSpells.PHYSICAL_DAMAGE, AMSpells.MINING_POWER, AMSpells.SILK_TOUCH);
         builder("unlock_shield_overload", new SpellCastRitualTrigger(List.of(AMSpells.RESISTANCE.get(), AMSpells.MANA_DRAIN.get())))
             .addEffect(new LearnSkillRitualEffect(skills.getOrThrow(AMMagic.SHIELD_OVERLOAD)));
+        // TODO ritual requirements
+        HolderLookup.RegistryLookup<Affinity> affinities = provider.lookupOrThrow(AMRegistries.Keys.AFFINITY);
+        // TODO water guardian, biome requirement
+        spawn("water_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.WATER_GUARDIAN_SPAWN_RITUAL,
+            new DroppedItemRitualTrigger(Ingredient.of(ItemTags.BOATS), Ingredient.of(Items.WATER_BUCKET)));
+        // TODO fire guardian, ultrawarm dimension requirement
+        spawn("fire_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.FIRE_GUARDIAN_SPAWN_RITUAL,
+            new DroppedItemRitualTrigger(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.WATER), AMItems.AFFINITY_ESSENCE)));
+        // TODO earth guardian
+        spawn("earth_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.EARTH_GUARDIAN_SPAWN_RITUAL,
+            new DroppedItemRitualTrigger(Ingredient.of(Tags.Items.GEMS_EMERALD), Ingredient.of(AMTags.Items.GEMS_CHIMERITE), Ingredient.of(AMTags.Items.GEMS_TOPAZ)));
+        // TODO air guardian, height requirement
+        spawn("air_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.AIR_GUARDIAN_SPAWN_RITUAL,
+            new DroppedItemRitualTrigger(Ingredient.of(AMItems.TARMA_ROOT)));
+        // TODO ice guardian, biome requirement
+        spawn("ice_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.ICE_GUARDIAN_SPAWN_RITUAL,
+            new SetBlockStateRitualTrigger(new BlockMatchTest(Blocks.CARVED_PUMPKIN), new BlockPos(0, -2, 0)));
+        // TODO lightning guardian
+        spawn("lightning_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.LIGHTNING_GUARDIAN_SPAWN_RITUAL, BlockPos.ZERO.below(),
+            new GameEventRitualTrigger(GameEvent.LIGHTNING_STRIKE));
+        // TODO life guardian, moon phase requirement
+        spawn("life_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.LIFE_GUARDIAN_SPAWN_RITUAL,
+            new KillEntityRitualTrigger(EntityPredicate.Builder.entity().of(EntityType.VILLAGER).flags(EntityFlagsPredicate.Builder.flags().setIsBaby(true)).build()));
+        // TODO arcane guardian
+        spawn("arcane_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.ARCANE_GUARDIAN_SPAWN_RITUAL,
+            new DroppedItemRitualTrigger(DataComponentIngredient.of(true, ArsMagicaApi.book())));
+        // TODO ender guardian, dimension type requirement
+        spawn("ender_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.ENDER_GUARDIAN_SPAWN_RITUAL,
+            new DroppedItemRitualTrigger(Ingredient.of(Items.ENDER_EYE)));
     }
 
-    private RitualBuilder spawn(DeferredHolder<EntityType<?>, EntityType<?>> boss, RitualTrigger<?> trigger, ResourceLocation structure, BlockPos offset) {
-        return builder("spawn_" + boss.getId().getPath(), trigger)
+    private RitualBuilder spawn(String name, DeferredHolder<EntityType<?>, ? extends EntityType<?>> boss, ResourceLocation structure, RitualTrigger<?> trigger) {
+        return spawn(name, boss, structure, BlockPos.ZERO, trigger);
+    }
+
+    private RitualBuilder spawn(String name, DeferredHolder<EntityType<?>, ? extends EntityType<?>> boss, ResourceLocation structure, BlockPos offset, RitualTrigger<?> trigger) {
+        return builder("spawn_" + name/*boss.getId().getPath()*/, trigger)
             .addRequirement(new StructureRitualRequirement(structure, offset))
             .addEffect(new SpawnEntityRitualEffect(boss.get()));
     }

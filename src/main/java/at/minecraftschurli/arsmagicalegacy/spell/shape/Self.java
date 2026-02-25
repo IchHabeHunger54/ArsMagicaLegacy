@@ -18,6 +18,6 @@ public class Self extends PrimarySpellShape {
     public SpellCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster) {
         return caster != null
             ? ArsMagicaApi.spellHelper().castSecondaryOrGrammar(spell, level, caster, caster, new EntityHitResult(caster))
-            : new SpellCastResult(spell).setMessage(AMTranslations.SPELL_CAST_NO_CASTER);
+            : new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_NO_CASTER);
     }
 }

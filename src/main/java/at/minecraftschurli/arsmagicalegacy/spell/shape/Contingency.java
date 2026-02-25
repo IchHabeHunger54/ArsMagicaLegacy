@@ -29,6 +29,6 @@ public class Contingency extends SecondarySpellShape {
             ArsMagicaApi.spellHelper().setContingency(living, contingency, spell);
             return new SpellCastResult(spell).setSuccess();
         }
-        return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_CAST_NO_ENTITY);
+        return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_NO_ENTITY);
     }
 }

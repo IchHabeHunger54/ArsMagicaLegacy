@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -26,7 +27,7 @@ public class Repel extends SpellComponent {
 
     @Override
     public SpellComponentCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        if (hitResult == null || hitResult.getType() == HitResult.Type.MISS) return SpellComponentCastResult.success(spell);
+        if (hitResult == null || hitResult.getType() == HitResult.Type.MISS) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_HIT);
         SpellHelper helper = ArsMagicaApi.spellHelper();
         double range = helper.getModifiedStat(AMServerConfig.REPEL_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult);
         double speed = helper.getModifiedStat(AMServerConfig.REPEL_SPEED.get(), AMSpells.SPEED_STAT, modifiers, spell, level, caster, directEntity, hitResult);

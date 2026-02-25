@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -24,10 +25,9 @@ public class Explosion extends SpellComponent {
 
     @Override
     public SpellComponentCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        if (hitResult != null && hitResult.getType() != HitResult.Type.MISS) {
-            Vec3 location = hitResult.getLocation();
-            level.explode(directEntity, location.x(), location.y(), location.z(), (float) ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.EXPLOSION_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult), caster instanceof Player ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.MOB);
-        }
+        if (hitResult == null || hitResult.getType() == HitResult.Type.MISS) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_HIT);
+        Vec3 location = hitResult.getLocation();
+        level.explode(directEntity, location.x(), location.y(), location.z(), (float) ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.EXPLOSION_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult), caster instanceof Player ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.MOB);
         return SpellComponentCastResult.success(spell);
     }
 }

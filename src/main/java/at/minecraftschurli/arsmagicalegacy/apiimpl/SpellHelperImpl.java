@@ -63,8 +63,8 @@ import java.util.Set;
 final class SpellHelperImpl implements SpellHelper {
     @Override
     public SpellCastResult cast(Spell spell, Level level, @Nullable LivingEntity caster, boolean consume, boolean awardXp) {
-        if (spell.isMalformed()) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_CAST_MALFORMED);
-        if (caster != null && caster.hasEffect(AMMobEffects.SILENCE)) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_CAST_SILENCED);
+        if (spell.isMalformed()) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_MALFORMED);
+        if (caster != null && caster.hasEffect(AMMobEffects.SILENCE)) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_SILENCED);
         ManaHelper manaHelper = ArsMagicaApi.manaHelper();
         BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
         double manaCost = caster != null && caster.hasEffect(AMMobEffects.CLARITY) ? 0 : NeoForge.EVENT_BUS.post(new ManaCostCalculationEvent(caster, spell, spell.getManaCost(), burnoutHelper.getBurnout(caster))).getResult();
@@ -77,8 +77,8 @@ final class SpellHelperImpl implements SpellHelper {
         boolean isConsume = event.isConsume();
         boolean isAwardXp = event.isAwardXp();
         if (isConsume && !(caster instanceof Player player && player.isCreative())) {
-            if (manaHelper.getMana(caster) < manaCost) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA);
-            if (burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) < burnoutCost) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_CAST_BURNED_OUT);
+            if (manaHelper.getMana(caster) < manaCost) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_NOT_ENOUGH_MANA);
+            if (burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) < burnoutCost) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_BURNED_OUT);
         }
         SpellCastResult result = castPrimary(spell, level, caster);
         if (result.isSuccess()) {
@@ -122,7 +122,7 @@ final class SpellHelperImpl implements SpellHelper {
             result = primary.cast(spell, modifiers, level, caster);
             NeoForge.EVENT_BUS.post(new SpellPartCastEvent.PrimaryShape(caster, spell, primary, modifiers));
         } else {
-            result = new SpellCastResult(spell).setMessage(AMTranslations.SPELL_CAST_MALFORMED);
+            result = new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_MALFORMED);
         }
         return result;
     }
@@ -136,7 +136,7 @@ final class SpellHelperImpl implements SpellHelper {
             result = secondary.cast(spell, modifiers, level, caster, directEntity, hitResult);
             NeoForge.EVENT_BUS.post(new SpellPartCastEvent.SecondaryShape(caster, spell, secondary, modifiers, directEntity));
         } else {
-            result = new SpellCastResult(spell).setMessage(AMTranslations.SPELL_CAST_MALFORMED);
+            result = new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_MALFORMED);
         }
         return result;
     }

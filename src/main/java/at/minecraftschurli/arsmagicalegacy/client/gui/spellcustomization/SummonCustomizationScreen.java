@@ -27,7 +27,7 @@ public class SummonCustomizationScreen extends AbstractContainerSpellPartCustomi
     private final Container container;
 
     public SummonCustomizationScreen(Function<DataComponentType<EntityType<?>>, @Nullable EntityType<?>> valueGetter, BiConsumer<DataComponentType<EntityType<?>>, @Nullable EntityType<?>> valueSetter) {
-        super(AMTranslations.SPELL_CUSTOMIZATION_PLACE_BLOCK, AMDataComponents.SPELL_SUMMON.get(), valueGetter, valueSetter);
+        super(AMTranslations.SPELL_CUSTOMIZATION_SUMMON, AMDataComponents.SPELL_SUMMON.get(), valueGetter, valueSetter);
         imageHeight = 132;
         container = new SingleItemContainer(value == null ? ItemStack.EMPTY : CrystalPhylacteryItem.getFilled(value)) {
             @Override

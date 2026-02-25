@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
@@ -43,21 +44,21 @@ public class Dig extends SpellComponent.CastBlock {
 
     @Override
     public SpellComponentCastResult castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
-        if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.success(spell);
+        if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.pass(spell);
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
         float hardness = state.getDestroySpeed(level, pos);
-        if (hardness < 0) return SpellComponentCastResult.success(spell);
+        if (hardness < 0) return SpellComponentCastResult.pass(spell);
         SpellHelper helper = ArsMagicaApi.spellHelper();
         ManaHelper manaHelper = ArsMagicaApi.manaHelper();
         BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
         TagKey<Block> incorrectTag = helper.getIncorrectTagForToolTier((int) helper.getModifiedStat(AMServerConfig.DIG_TOOL_TIER.get(), AMSpells.MINING_POWER_STAT, modifiers, spell, level, caster, directEntity, hitResult));
-        if (state.requiresCorrectToolForDrops() && state.is(incorrectTag)) return SpellComponentCastResult.success(spell);
+        if (state.requiresCorrectToolForDrops() && state.is(incorrectTag)) return SpellComponentCastResult.pass(spell);
         double manaCost = hardness * AMServerConfig.DIG_MANA_FACTOR.get();
-        if (manaHelper.getMana(caster) <= manaCost || burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) <= manaCost) return SpellComponentCastResult.success(spell);
+        if (manaHelper.getMana(caster) <= manaCost || burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) <= manaCost) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NOT_ENOUGH_MANA);
         ServerPlayer player = caster instanceof ServerPlayer p ? p : FakePlayerFactory.get(serverLevel, GAME_PROFILE);
         Block block = state.getBlock();
-        if (block instanceof GameMasterBlock && !player.canUseGameMasterBlocks() || player.blockActionRestricted(level, pos, player.gameMode.getGameModeForPlayer())) return SpellComponentCastResult.success(spell);
+        if (block instanceof GameMasterBlock && !player.canUseGameMasterBlocks() || player.blockActionRestricted(level, pos, player.gameMode.getGameModeForPlayer())) return SpellComponentCastResult.pass(spell);
         manaHelper.decreaseMana(caster, manaCost);
         burnoutHelper.increaseBurnout(caster, manaCost);
         if (AMUtil.cancelDestroyBlock(level, pos, state, player)) return SpellComponentCastResult.success(spell);

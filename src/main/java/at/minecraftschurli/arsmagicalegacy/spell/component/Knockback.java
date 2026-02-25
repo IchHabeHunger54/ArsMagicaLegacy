@@ -22,7 +22,7 @@ public class Knockback extends SpellComponent.CastEntity {
     @Override
     public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
         Entity entity = hitResult.getEntity();
-        if (entity == caster || directEntity == null) return SpellComponentCastResult.success(spell);
+        if (entity == caster || directEntity == null) return SpellComponentCastResult.pass(spell);
         double velocity = ArsMagicaApi.spellHelper().getModifiedStat(1, AMSpells.SPEED_STAT, modifiers, spell, level, caster, directEntity, hitResult);
         entity.setDeltaMovement(entity.getDeltaMovement().add(velocity * Math.cos(Math.atan2(entity.getZ() - directEntity.getZ(), entity.getX() - directEntity.getX())), velocity * 0.325f, velocity * Math.sin(Math.atan2(entity.getZ() - directEntity.getZ(), entity.getX() - directEntity.getX()))));
         return SpellComponentCastResult.success(spell);

@@ -7,6 +7,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,7 +25,9 @@ public class Transplace extends SpellComponent.CastEntity {
     @Override
     public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
         Entity entity = hitResult.getEntity();
-        if (AMUtil.cancelTeleport(entity, caster) || level.isClientSide() || caster == null) return SpellComponentCastResult.success(spell);
+        Component cancel = AMUtil.cancelTeleport(entity, caster);
+        if (cancel != null) return SpellComponentCastResult.failure(spell, cancel);
+        if (level.isClientSide() || caster == null) return SpellComponentCastResult.pass(spell);
         Vec3 targetPos = entity.position();
         Vec3 casterPos = caster.position();
         entity.teleportTo(casterPos.x(), casterPos.y(), casterPos.z());

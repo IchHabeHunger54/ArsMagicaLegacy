@@ -20,7 +20,7 @@ import java.util.List;
 public class Disarm extends SpellComponent.CastEntity {
     @Override
     public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
-        if (!(hitResult.getEntity() instanceof LivingEntity entity)) return SpellComponentCastResult.success(spell);
+        if (!(hitResult.getEntity() instanceof LivingEntity entity)) return SpellComponentCastResult.pass(spell);
         if (entity instanceof EnderMan enderMan) {
             BlockState state = enderMan.getCarriedBlock();
             if (state != null) {
@@ -30,14 +30,17 @@ public class Disarm extends SpellComponent.CastEntity {
             if (caster != null) {
                 enderMan.setTarget(caster);
             }
+            return SpellComponentCastResult.success(spell);
         } else if (!entity.getMainHandItem().isEmpty()) {
             addItemEntity(level, entity, entity.getMainHandItem().copy());
             entity.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+            return SpellComponentCastResult.success(spell);
         } else if (!entity.getOffhandItem().isEmpty()) {
             addItemEntity(level, entity, entity.getOffhandItem().copy());
             entity.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+            return SpellComponentCastResult.success(spell);
         }
-        return SpellComponentCastResult.success(spell);
+        return SpellComponentCastResult.pass(spell);
     }
 
     private static void addItemEntity(Level level, Entity entity, ItemStack stack) {

@@ -17,7 +17,7 @@ import java.util.List;
 public class MeltArmor extends SpellComponent.CastEntity {
     @Override
     public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
-        if (!(hitResult.getEntity() instanceof LivingEntity entity)) return SpellComponentCastResult.success(spell);
+        if (!(hitResult.getEntity() instanceof LivingEntity entity)) return SpellComponentCastResult.pass(spell);
         for (ItemStack stack : entity.getArmorSlots()) {
             if (stack.isDamageableItem()) {
                 int damage = stack.getMaxDamage() - stack.getDamageValue();

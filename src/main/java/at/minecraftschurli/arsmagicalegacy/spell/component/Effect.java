@@ -29,7 +29,7 @@ public class Effect extends SpellComponent.CastEntity {
 
     @Override
     public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
-        if (!(hitResult.getEntity() instanceof LivingEntity living)) return SpellComponentCastResult.success(spell);
+        if (!(hitResult.getEntity() instanceof LivingEntity living)) return SpellComponentCastResult.pass(spell);
         SpellHelper helper = ArsMagicaApi.spellHelper();
         int amplifier = (int) helper.getModifiedStat(0, AMSpells.EFFECT_POWER_STAT, modifiers, spell, level, caster, directEntity, hitResult);
         if (effect.value().isInstantenous()) {

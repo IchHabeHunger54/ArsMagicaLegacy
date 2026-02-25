@@ -155,16 +155,11 @@ public final class AMUtil {
         return true;
     }
 
-    public static boolean cancelTeleport(Entity entity, @Nullable LivingEntity caster) {
-        if (caster != null && caster.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
-            caster.sendSystemMessage(AMTranslations.NO_TELEPORT);
-            return true;
-        }
-        if (!(entity instanceof LivingEntity living) || !living.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) return false;
-        if (caster != null) {
-            caster.sendSystemMessage(AMTranslations.NO_TELEPORT_OTHER);
-        }
-        return true;
+    @Nullable
+    public static Component cancelTeleport(Entity entity, @Nullable LivingEntity caster) {
+        if (caster != null && caster.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) return AMTranslations.NO_TELEPORT;
+        if (entity instanceof LivingEntity living && living.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) return AMTranslations.NO_TELEPORT_OTHER;
+        return null;
     }
 
     public static List<ItemStack> destroyBlockAndGetDrops(ServerLevel level, BlockPos pos, BlockState state, Player player, ItemStack stack) {

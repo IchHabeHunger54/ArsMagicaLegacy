@@ -56,7 +56,7 @@ public final class SpellComponentCastResult {
     }
 
     /**
-     * @return A new {@link SpellCastResult} marked as neither successful nor failing.
+     * @return A new {@link SpellCastResult} marked as neither successful nor failing. This should be used e.g. when only running code on one side.
      */
     public static SpellComponentCastResult pass(Spell spell) {
         return new SpellComponentCastResult(Type.PASS, spell, null);

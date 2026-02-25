@@ -39,7 +39,7 @@ public class Rune extends SecondarySpellShape {
     @Override
     public SpellCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return new SpellCastResult(spell);
-        if (!(hitResult instanceof BlockHitResult blockHitResult)) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_CAST_NO_BLOCK);
+        if (!(hitResult instanceof BlockHitResult blockHitResult)) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_NO_BLOCK);
         ServerPlayer player = caster instanceof ServerPlayer p ? p : FakePlayerFactory.get(serverLevel, GAME_PROFILE);
         Direction direction = blockHitResult.getDirection();
         BlockPos pos = blockHitResult.getBlockPos().offset(direction.getNormal());

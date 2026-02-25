@@ -9,6 +9,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -26,7 +27,8 @@ public class Blink extends SpellComponent.CastEntity {
     @Override
     public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
         Entity entity = hitResult.getEntity();
-        if (AMUtil.cancelTeleport(entity, caster)) return SpellComponentCastResult.success(spell);
+        Component cancel = AMUtil.cancelTeleport(entity, caster);
+        if (cancel != null) return SpellComponentCastResult.failure(spell, cancel);
         for (int i = (int) Math.round(ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.BLINK_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult)); i > 0; i--) {
             Vec3 angle = entity.getLookAngle().normalize();
             double x = entity.getX() + angle.x() * i;

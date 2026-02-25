@@ -17,7 +17,8 @@ public class Dispel extends SpellComponent.CastEntity {
     public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
         if (hitResult.getEntity() instanceof LivingEntity entity) {
             entity.removeAllEffects();
+            return SpellComponentCastResult.success(spell);
         }
-        return SpellComponentCastResult.success(spell);
+        return SpellComponentCastResult.pass(spell);
     }
 }

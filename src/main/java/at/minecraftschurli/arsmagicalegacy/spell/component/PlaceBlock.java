@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -32,13 +33,13 @@ public class PlaceBlock extends SpellComponent.CastBlock {
 
     @Override
     public SpellComponentCastResult castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
-        if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.success(spell);
+        if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.pass(spell);
         Block block = spell.dataComponents().grammar().get(AMDataComponents.SPELL_BLOCK.get());
-        if (block == null || block.defaultBlockState().isAir()) return SpellComponentCastResult.success(spell);
+        if (block == null || block.defaultBlockState().isAir()) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_PLACE_BLOCK_NO_SELECTION);
         ServerPlayer player = caster instanceof ServerPlayer p ? p : FakePlayerFactory.get(serverLevel, GAME_PROFILE);
         ItemStack stack = new ItemStack(block.asItem());
         Inventory inventory = player.getInventory();
-        if (!player.isCreative() && !inventory.contains(stack)) return SpellComponentCastResult.success(spell);
+        if (!player.isCreative() && !inventory.contains(stack)) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_PLACE_BLOCK_NO_BLOCK);
         BlockPos pos = hitResult.getBlockPos();
         BlockPlaceContext context = new BlockPlaceContext(level, player, InteractionHand.MAIN_HAND, stack, hitResult);
         if (!level.getBlockState(pos).canBeReplaced(context)) {

@@ -5,9 +5,9 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
-import com.mojang.datafixers.util.Either;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
@@ -21,6 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,25 +47,26 @@ public class SpellItem extends DataComponentNamedItem<Spell> {
             player.startUsingItem(usedHand);
             return InteractionResultHolder.consume(stack);
         }
-        Either<Spell, Component> either = ArsMagicaApi.spellHelper().cast(spell, level, player, true, true)
-            .ifLeft(result -> stack.set(AMDataComponents.SPELL, result))
-            .ifRight(message -> player.displayClientMessage(message, true));
-        playSound(level, player, spell);
-        return either.left().isPresent() ? InteractionResultHolder.success(stack) : InteractionResultHolder.fail(stack);
+        SpellCastResult result = ArsMagicaApi.spellHelper().cast(spell, level, player, true, true);
+        if (result.isSuccess()) {
+            onSuccess(level, player, stack, result.getSpell());
+            return InteractionResultHolder.success(stack);
+        } else {
+            onFailure(player, result.getMessage());
+            return InteractionResultHolder.fail(stack);
+        }
     }
 
     @Override
     public void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {
         Spell spell = stack.get(AMDataComponents.SPELL);
         if (spell == null || !spell.isContinuous()) return;
-        ArsMagicaApi.spellHelper().cast(spell, level, livingEntity, true, true)
-            .ifLeft(result -> stack.set(AMDataComponents.SPELL, result))
-            .ifRight(message -> {
-                if (livingEntity instanceof Player player) {
-                    player.displayClientMessage(message, true);
-                }
-            });
-        playSound(level, livingEntity, spell);
+        SpellCastResult result = ArsMagicaApi.spellHelper().cast(spell, level, livingEntity, true, true);
+        if (result.isSuccess()) {
+            onSuccess(level, livingEntity, stack, result.getSpell());
+        } else if (livingEntity instanceof Player player) {
+            onFailure(player, result.getMessage());
+        }
     }
 
     @Override
@@ -88,10 +90,17 @@ public class SpellItem extends DataComponentNamedItem<Spell> {
         return false;
     }
 
-    private void playSound(Level level, LivingEntity entity, Spell spell) {
+    private void onSuccess(Level level, LivingEntity entity, ItemStack stack, Spell spell) {
+        stack.set(AMDataComponents.SPELL, spell);
         Affinity affinity = AMRegistries.affinities(level.registryAccess()).get(spell.grammar().primaryAffinity());
         if (affinity == null) return;
         Optional<Holder<SoundEvent>> optional = spell.isContinuous() ? affinity.loopSound() : affinity.castSound();
         optional.ifPresent(sound -> level.playSeededSound(null, entity, sound, SoundSource.PLAYERS, 1f, 1f, level.getRandom().nextLong()));
+    }
+
+    private void onFailure(Player player, @Nullable Component message) {
+        if (message != null) {
+            player.displayClientMessage(message, true);
+        }
     }
 }

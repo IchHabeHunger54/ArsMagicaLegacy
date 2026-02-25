@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.PrimarySpellShape;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
@@ -22,8 +23,8 @@ public class Wave extends PrimarySpellShape {
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster) {
-        if (level.isClientSide()) return spell;
+    public SpellCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster) {
+        if (level.isClientSide()) return new SpellCastResult(spell).setSuccess();
         var wave = AMEntities.WAVE.get().create(level);
         wave.setPos(caster.getEyePosition());
         wave.setXRot(caster.getXRot());
@@ -38,6 +39,6 @@ public class Wave extends PrimarySpellShape {
         wave.setGravity((float) (helper.getModifiedStat(0, AMSpells.GRAVITY_STAT, modifiers, spell, level, caster, caster, null) * AMServerConfig.WAVE_GRAVITY.get()));
         wave.setRange((float) helper.getModifiedStat(AMServerConfig.WAVE_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, caster, null));
         level.addFreshEntity(wave);
-        return spell;
+        return new SpellCastResult(spell).setSuccess();
     }
 }

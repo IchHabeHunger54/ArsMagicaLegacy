@@ -1,6 +1,5 @@
 package at.minecraftschurli.arsmagicalegacy.api.spell;
 
-import com.mojang.datafixers.util.Either;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -25,9 +24,9 @@ public interface SpellHelper {
      * @param caster  The {@link LivingEntity} casting the {@link Spell}.
      * @param consume Whether to consume mana and burnout or not.
      * @param awardXp Whether to award xp or not.
-     * @return An {@link Either} containing either the potentially modified {@link Spell} that was cast, or an error message.
+     * @return {@code null} if the cast was successful, or an error message if not.
      */
-    Either<Spell, Component> cast(Spell spell, Level level, @Nullable LivingEntity caster, boolean consume, boolean awardXp);
+    SpellCastResult cast(Spell spell, Level level, @Nullable LivingEntity caster, boolean consume, boolean awardXp);
 
     /**
      * Casts the given {@link Spell}'s primary shape.
@@ -35,10 +34,10 @@ public interface SpellHelper {
      * @param spell  The {@link Spell} to cast.
      * @param level  The {@link Level} the {@link Spell} is cast in.
      * @param caster The {@link LivingEntity} casting the {@link Spell}.
-     * @return The {@link Spell} that was cast, potentially modified.
+     * @return A {@link SpellCastResult} representing the result of the cast.
      * @see PrimarySpellShape#cast(Spell, List, Level, LivingEntity)
      */
-    Spell castPrimary(Spell spell, Level level, @Nullable LivingEntity caster);
+    SpellCastResult castPrimary(Spell spell, Level level, @Nullable LivingEntity caster);
 
     /**
      * Casts the given {@link Spell}'s secondary shape.
@@ -48,10 +47,10 @@ public interface SpellHelper {
      * @param caster       The {@link LivingEntity} casting the {@link Spell}.
      * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
      * @param hitResult    The {@link HitResult} of the spell cast.
-     * @return The {@link Spell} that was cast, potentially modified.
+     * @return A {@link SpellCastResult} representing the result of the cast.
      * @see SecondarySpellShape#cast(Spell, List, Level, LivingEntity, Entity, HitResult)
      */
-    Spell castSecondary(Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
+    SpellCastResult castSecondary(Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
 
     /**
      * Casts the given {@link Spell}'s grammar.
@@ -61,9 +60,9 @@ public interface SpellHelper {
      * @param caster       The {@link LivingEntity} casting the {@link Spell}.
      * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
      * @param hitResult    The {@link HitResult} of the spell cast.
-     * @return The {@link Spell} that was cast, potentially modified.
+     * @return A {@link SpellCastResult} representing the result of the cast.
      */
-    Spell castGrammar(Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
+    SpellCastResult castGrammar(Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
 
     /**
      * If present, casts the given {@link Spell}'s secondary shape. Otherwise, casts the given {@link Spell}'s grammar.
@@ -73,9 +72,9 @@ public interface SpellHelper {
      * @param caster       The {@link LivingEntity} casting the {@link Spell}.
      * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
      * @param hitResult    The {@link HitResult} of the spell cast.
-     * @return The {@link Spell} that was cast, potentially modified.
+     * @return A {@link SpellCastResult} representing the result of the cast.
      */
-    Spell castSecondaryOrGrammar(Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
+    SpellCastResult castSecondaryOrGrammar(Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
 
     /**
      * @param part The {@link SpellPart} to get the {@link SpellPartData} for.

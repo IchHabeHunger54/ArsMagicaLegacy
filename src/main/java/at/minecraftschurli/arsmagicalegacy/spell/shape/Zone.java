@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SecondarySpellShape;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
@@ -24,8 +25,8 @@ public class Zone extends SecondarySpellShape {
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        if (level.isClientSide()) return spell;
+    public SpellCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+        if (level.isClientSide()) return new SpellCastResult(spell).setSuccess();
         var zone = AMEntities.ZONE.get().create(level);
         zone.setPos(directEntity.getEyePosition());
         zone.setXRot(directEntity.getXRot());
@@ -39,6 +40,6 @@ public class Zone extends SecondarySpellShape {
         zone.setGravity((float) (helper.getModifiedStat(0, AMSpells.GRAVITY_STAT, modifiers, spell, level, caster, caster, hitResult) * AMServerConfig.ZONE_GRAVITY.get()));
         zone.setRange((float) helper.getModifiedStat(AMServerConfig.ZONE_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, caster, hitResult));
         level.addFreshEntity(zone);
-        return spell;
+        return new SpellCastResult(spell).setSuccess();
     }
 }

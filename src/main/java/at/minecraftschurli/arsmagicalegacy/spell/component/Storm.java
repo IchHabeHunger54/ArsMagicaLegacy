@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
@@ -28,13 +29,13 @@ public class Storm extends SpellComponent {
     }
 
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        if (!(level instanceof ServerLevel serverLevel)) return spell;
+    public SpellComponentCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+        if (!(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.success(spell);
         SpellHelper helper = ArsMagicaApi.spellHelper();
         if (!(serverLevel.getRainLevel(1f) > 0.9)) {
             serverLevel.setWeatherParameters(0, (int) helper.getModifiedStat(AMServerConfig.STORM_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, level, caster, directEntity, hitResult), true, true);
         }
-        if (directEntity == null) return spell;
+        if (directEntity == null) return SpellComponentCastResult.success(spell);
         int range = (int) helper.getModifiedStat(AMServerConfig.STORM_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult);
         RandomSource random = serverLevel.getRandom();
         double randomValue = random.nextDouble();
@@ -56,9 +57,9 @@ public class Storm extends SpellComponent {
             }
         } else if (randomValue < AMServerConfig.STORM_LIGHTNING_BOLT_TARGET_CHANCE.get()) {
             List<Entity> entities = serverLevel.getEntities(caster, directEntity.getBoundingBox().inflate(range / 2., range / 2., range / 2.));
-            if (entities.isEmpty()) return spell;
+            if (entities.isEmpty()) return SpellComponentCastResult.success(spell);
             Entity entity = entities.get(random.nextInt(entities.size()));
-            if (entity == null || !serverLevel.canSeeSky(entity.blockPosition())) return spell;
+            if (entity == null || !serverLevel.canSeeSky(entity.blockPosition())) return SpellComponentCastResult.success(spell);
             if (caster instanceof Player player) {
                 entity.hurt(serverLevel.damageSources().playerAttack(player), 1);
             }
@@ -69,6 +70,6 @@ public class Storm extends SpellComponent {
                 serverLevel.addFreshEntity(bolt);
             }
         }
-        return spell;
+        return SpellComponentCastResult.success(spell);
     }
 }

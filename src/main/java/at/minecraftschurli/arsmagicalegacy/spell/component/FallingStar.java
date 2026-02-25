@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
@@ -24,8 +25,8 @@ public class FallingStar extends SpellComponent {
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        if (level.isClientSide() || level.dimensionType().hasCeiling() || hitResult == null || hitResult.getType() == HitResult.Type.MISS) return spell;
+    public SpellComponentCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+        if (level.isClientSide() || level.dimensionType().hasCeiling() || hitResult == null || hitResult.getType() == HitResult.Type.MISS) return SpellComponentCastResult.success(spell);
         var fallingStar = AMEntities.FALLING_STAR.get().create(level);
         fallingStar.setPos(hitResult.getLocation().add(0, AMServerConfig.FALLING_STAR_SPAWN_HEIGHT.get(), 0));
         if (caster != null) {
@@ -37,6 +38,6 @@ public class FallingStar extends SpellComponent {
         fallingStar.setDamage((float) helper.getModifiedStat(AMServerConfig.FALLING_STAR_DAMAGE.get(), AMSpells.DAMAGE_STAT, modifiers, spell, level, caster, directEntity, hitResult));
         fallingStar.setRange((float) helper.getModifiedStat(AMServerConfig.FALLING_STAR_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult));
         level.addFreshEntity(fallingStar);
-        return spell;
+        return SpellComponentCastResult.success(spell);
     }
 }

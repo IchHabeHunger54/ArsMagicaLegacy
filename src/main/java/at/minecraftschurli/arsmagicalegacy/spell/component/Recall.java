@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.util.GlobalVec3;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class Recall extends SpellComponent.CastEntity {
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
+    public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
         GlobalVec3 position = spell.dataComponents().grammar().get(AMDataComponents.SPELL_RECALL_POSITION.get());
         Entity entity = hitResult.getEntity();
         if (position == null && caster instanceof Player player) {
@@ -28,7 +29,7 @@ public class Recall extends SpellComponent.CastEntity {
             Vec3 vec3 = position.position();
             entity.teleportTo(vec3.x(), vec3.y(), vec3.z());
         }
-        return spell;
+        return SpellComponentCastResult.success(spell);
     }
 
     @Override

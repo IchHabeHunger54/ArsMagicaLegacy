@@ -70,7 +70,7 @@ public class SpellRuneBlock extends Block implements EntityBlock {
     @Override
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (level.getBlockEntity(pos) instanceof SpellRuneBlockEntity spellRune) {
-            spellRune.cast(state, level, pos, entity);
+            spellRune.cast(level, pos, entity);
         }
     }
 }

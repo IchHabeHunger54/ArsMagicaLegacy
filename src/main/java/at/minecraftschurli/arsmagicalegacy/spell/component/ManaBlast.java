@@ -5,6 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import net.minecraft.world.entity.Entity;
@@ -21,12 +22,12 @@ public class ManaBlast extends SpellComponent.CastEntity {
     }
 
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
-        if (caster == null || !(hitResult.getEntity() instanceof LivingEntity entity)) return spell;
+    public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
+        if (caster == null || !(hitResult.getEntity() instanceof LivingEntity entity)) return SpellComponentCastResult.success(spell);
         ManaHelper helper = ArsMagicaApi.manaHelper();
         double mana = helper.getMana(caster);
         entity.hurt(level.damageSources().indirectMagic(caster, directEntity), (float) ArsMagicaApi.spellHelper().getModifiedStat(mana * AMServerConfig.MANA_BLAST_FACTOR.get(), AMSpells.DAMAGE_STAT, modifiers, spell, level, caster, directEntity, hitResult));
         helper.decreaseMana(caster, mana);
-        return spell;
+        return SpellComponentCastResult.success(spell);
     }
 }

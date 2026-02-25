@@ -768,6 +768,9 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.SPELL_BOOK_SELECTED_SPELL_KEY, "Selected spell: %s");
         add(AMTranslations.SPELL_CAST_BURNED_OUT_KEY, "Burned out!");
         add(AMTranslations.SPELL_CAST_MALFORMED_KEY, "Spell is malformed and cannot be cast!");
+        add(AMTranslations.SPELL_CAST_NO_BLOCK_KEY, "This spell must be used on a block for the effect to apply!");
+        add(AMTranslations.SPELL_CAST_NO_CASTER_KEY, "No spell caster found! Are you a real player?");
+        add(AMTranslations.SPELL_CAST_NO_ENTITY_KEY, "This spell must be used on an entity for the effect to apply!");
         add(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA_KEY, "Not enough mana to cast the spell!");
         add(AMTranslations.SPELL_CAST_SILENCED_KEY, "Silenced!");
         add(AMTranslations.SPELL_CUSTOMIZATION_ACTIVE_KEY, "%s (Click to Modify)");

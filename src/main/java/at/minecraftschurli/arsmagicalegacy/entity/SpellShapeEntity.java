@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.entity;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
@@ -88,12 +89,10 @@ public abstract class SpellShapeEntity extends SpellEntity {
             Spell spell = getSpell();
             LivingEntity owner = getOwner();
             EntityHitResult hitResult = new EntityHitResult(entity);
-            if (secondary) {
-                spell = ArsMagicaApi.spellHelper().castSecondaryOrGrammar(spell, level(), owner, this, hitResult);
-            } else {
-                spell = ArsMagicaApi.spellHelper().castGrammar(spell, level(), owner, this, hitResult);
-            }
-            setSpell(spell);
+            SpellCastResult result = secondary
+                ? ArsMagicaApi.spellHelper().castSecondaryOrGrammar(spell, level(), owner, this, hitResult)
+                : ArsMagicaApi.spellHelper().castGrammar(spell, level(), owner, this, hitResult);
+            setSpell(result.getSpell());
         }
     }
 
@@ -107,11 +106,10 @@ public abstract class SpellShapeEntity extends SpellEntity {
         ClipContext.Fluid fluidContext = getTargetNonSolid() ? ClipContext.Fluid.ANY : ClipContext.Fluid.NONE;
         BlockPos.betweenClosedStream(aabb).filter(blockPredicate).forEach(pos -> {
             HitResult hitResult = AMUtil.getHitResult(position(), position().add(getDeltaMovement()), this, blockContext, fluidContext);
-            if (secondary) {
-                ArsMagicaApi.spellHelper().castSecondaryOrGrammar(spell, level(), owner, this, hitResult);
-            } else {
-                ArsMagicaApi.spellHelper().castGrammar(spell, level(), owner, this, hitResult);
-            }
+            SpellCastResult result = secondary
+                ? ArsMagicaApi.spellHelper().castSecondaryOrGrammar(spell, level(), owner, this, hitResult)
+                : ArsMagicaApi.spellHelper().castGrammar(spell, level(), owner, this, hitResult);
+            setSpell(result.getSpell());
             spawnParticles(pos.getBottomCenter());
         });
         setSpell(spell);

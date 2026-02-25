@@ -1,9 +1,10 @@
-package at.minecraftschurli.arsmagicalegacy.ritual;
+package at.minecraftschurli.arsmagicalegacy.ritual.requirement;
 
 import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualRequirement;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -28,5 +29,19 @@ public record IngredientRitualRequirement(Ingredient ingredient, double radius) 
             .stream()
             .map(ItemEntity::getItem)
             .anyMatch(ingredient);
+    }
+
+    @Override
+    public void consume(Player player, Level level, Vec3 vec) {
+        level.getEntitiesOfClass(ItemEntity.class, new AABB(vec.add(-radius, -radius, -radius), vec.add(radius, radius, radius)))
+            .stream()
+            .filter(e -> ingredient.test(e.getItem()))
+            .findAny()
+            .ifPresent(e -> {
+                e.getItem().shrink(1);
+                if (e.getItem().isEmpty()) {
+                    e.remove(Entity.RemovalReason.KILLED);
+                }
+            });
     }
 }

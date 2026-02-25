@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.ritual;
+package at.minecraftschurli.arsmagicalegacy.ritual.effect;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;

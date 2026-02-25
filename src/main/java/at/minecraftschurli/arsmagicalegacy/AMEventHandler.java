@@ -69,6 +69,7 @@ import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
@@ -80,6 +81,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.decoration.ItemFrame;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
@@ -91,7 +93,10 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -101,6 +106,7 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.event.VanillaGameEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
@@ -118,6 +124,7 @@ import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.player.AdvancementEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.fluids.RegisterCauldronFluidContentEvent;
@@ -287,6 +294,16 @@ final class AMEventHandler {
     }
 
     @SubscribeEvent
+    private static void gameEvent(VanillaGameEvent event) {
+        if (event.getCause() instanceof Player player) {
+            Level level = player.level();
+            Vec3 position = event.getEventPosition();
+            Holder<GameEvent> gameEvent = event.getVanillaEvent();
+            AMUtil.getRituals(AMRituals.GAME_EVENT_TRIGGER.get()).forEach(ritual -> ritual.perform(player, level, position, gameEvent));
+        }
+    }
+
+    @SubscribeEvent
     private static void advancementEarn(AdvancementEvent.AdvancementEarnEvent event) {
         String advancement = AMServerConfig.MAGIC_ADVANCEMENT.get();
         if (!advancement.isEmpty() && event.getAdvancement().id().toString().equals(advancement)) {
@@ -295,7 +312,17 @@ final class AMEventHandler {
     }
 
     @SubscribeEvent
-    private static void rightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+    private static void entityPlaceBlock(BlockEvent.EntityPlaceEvent event) {
+        if (!(event.getEntity() instanceof Player player)) return;
+        Level level = player.level();
+        BlockPos pos = event.getPos();
+        Vec3 vec = Vec3.atLowerCornerOf(pos);
+        BlockState state = level.getBlockState(pos);
+        AMUtil.getRituals(AMRituals.SET_BLOCK_STATE_TRIGGER.get()).forEach(ritual -> ritual.perform(player, level, vec, state));
+    }
+
+    @SubscribeEvent
+    private static void playerRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         Level level = event.getLevel();
         BlockPos pos = event.getPos();
         if (level.getBlockEntity(pos) instanceof LecternBlockEntity lectern && AMUtil.handleLecternUse(level, pos, level.getBlockState(pos), lectern, event.getEntity(), event.getHand())) {
@@ -327,6 +354,10 @@ final class AMEventHandler {
     private static void entityTickPost(EntityTickEvent.Post event) {
         Entity entity = event.getEntity();
         Level level = entity.level();
+        if (entity instanceof ItemEntity itemEntity && itemEntity.getOwner() instanceof Player player) {
+            Vec3 position = itemEntity.position();
+            AMUtil.getRituals(AMRituals.DROPPED_ITEM_TRIGGER.get()).forEach(ritual -> ritual.perform(player, level, position, itemEntity));
+        }
         if (entity instanceof ItemFrame itemFrame && (itemFrame.hasData(AMAttachments.COMPENDIUM_TIMER) || level.getGameTime() % AMServerConfig.ARCANE_COMPENDIUM_CONVERSION_DURATION.getAsInt() == 0)) {
             AMUtil.doCompendiumConversion(itemFrame);
         }
@@ -417,6 +448,7 @@ final class AMEventHandler {
             event.setCanceled(true);
             return;
         }
+        Level level = entity.level();
         ArsMagicaApi.spellHelper().triggerContingency(entity, AMSpells.CONTINGENCY_DEATH_ID);
         if (event.getSource().getEntity() instanceof Player player) {
             ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, AMAbilities.KILL_EFFECT_EFFECT.get());
@@ -424,11 +456,13 @@ final class AMEventHandler {
             if (entity.getType() == AMEntities.DRYAD.get()) {
                 DryadKillsAttachment.kill(player, entity);
             }
+            Vec3 position = entity.position();
+            AMUtil.getRituals(AMRituals.KILL_ENTITY_TRIGGER.get()).forEach(ritual -> ritual.perform(player, level, position, entity));
         }
-        if (!(entity.level() instanceof ServerLevel level)) return;
+        if (!(level instanceof ServerLevel serverLevel)) return;
         UUID uuid = entity.getData(AMAttachments.SUMMON_OWNER);
         if (uuid.equals(Util.NIL_UUID)) return;
-        Entity owner = level.getEntity(uuid);
+        Entity owner = serverLevel.getEntity(uuid);
         if (owner == null) return;
         owner.setData(AMAttachments.SUMMON_MINIONS, owner.getData(AMAttachments.SUMMON_MINIONS).remove(entity.getUUID()));
     }
@@ -538,6 +572,8 @@ final class AMEventHandler {
         Spell spell = event.getSpell();
         Set<SpellPart> spellParts = new HashSet<>(spell.currentShapeGroup().parts());
         spellParts.addAll(spell.grammar().parts());
-        AMUtil.getRituals(AMRituals.SPELL_CAST_TRIGGER.get()).forEach(ritual -> ritual.perform(player, player.level(), player.position(), spellParts));
+        Level level = player.level();
+        Vec3 position = player.position();
+        AMUtil.getRituals(AMRituals.SPELL_CAST_TRIGGER.get()).forEach(ritual -> ritual.perform(player, level, position, spellParts));
     }
 }

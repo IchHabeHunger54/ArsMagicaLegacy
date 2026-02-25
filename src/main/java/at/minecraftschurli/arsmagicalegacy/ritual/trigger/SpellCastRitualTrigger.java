@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.ritual;
+package at.minecraftschurli.arsmagicalegacy.ritual.trigger;
 
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualTrigger;

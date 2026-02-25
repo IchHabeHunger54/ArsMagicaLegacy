@@ -5,12 +5,16 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualEffect;
 import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualRequirement;
 import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualTrigger;
-import at.minecraftschurli.arsmagicalegacy.ritual.IngredientRitualRequirement;
-import at.minecraftschurli.arsmagicalegacy.ritual.LearnSkillRitualEffect;
-import at.minecraftschurli.arsmagicalegacy.ritual.SetBlockRitualEffect;
-import at.minecraftschurli.arsmagicalegacy.ritual.SpawnEntityRitualEffect;
-import at.minecraftschurli.arsmagicalegacy.ritual.SpellCastRitualTrigger;
-import at.minecraftschurli.arsmagicalegacy.ritual.StructureRitualRequirement;
+import at.minecraftschurli.arsmagicalegacy.ritual.requirement.IngredientRitualRequirement;
+import at.minecraftschurli.arsmagicalegacy.ritual.effect.LearnSkillRitualEffect;
+import at.minecraftschurli.arsmagicalegacy.ritual.effect.SetBlockRitualEffect;
+import at.minecraftschurli.arsmagicalegacy.ritual.effect.SpawnEntityRitualEffect;
+import at.minecraftschurli.arsmagicalegacy.ritual.trigger.DroppedItemRitualTrigger;
+import at.minecraftschurli.arsmagicalegacy.ritual.trigger.GameEventRitualTrigger;
+import at.minecraftschurli.arsmagicalegacy.ritual.trigger.KillEntityRitualTrigger;
+import at.minecraftschurli.arsmagicalegacy.ritual.trigger.SetBlockStateRitualTrigger;
+import at.minecraftschurli.arsmagicalegacy.ritual.trigger.SpellCastRitualTrigger;
+import at.minecraftschurli.arsmagicalegacy.ritual.requirement.StructureRitualRequirement;
 import com.mojang.serialization.MapCodec;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -28,6 +32,10 @@ public interface AMRituals {
     DeferredHolder<MapCodec<? extends RitualRequirement>, MapCodec<IngredientRitualRequirement>> INGREDIENT_REQUIREMENT = RITUAL_REQUIREMENTS.register("ingredient", () -> IngredientRitualRequirement.CODEC);
     DeferredHolder<MapCodec<? extends RitualRequirement>, MapCodec<StructureRitualRequirement>>  STRUCTURE_REQUIREMENT  = RITUAL_REQUIREMENTS.register("structure",  () -> StructureRitualRequirement.CODEC);
 
-    DeferredHolder<MapCodec<? extends RitualTrigger<?>>, MapCodec<SpellCastRitualTrigger>> SPELL_CAST_TRIGGER = RITUAL_TRIGGERS.register("spell_cast", () -> SpellCastRitualTrigger.CODEC);
+    DeferredHolder<MapCodec<? extends RitualTrigger<?>>, MapCodec<DroppedItemRitualTrigger>>   DROPPED_ITEM_TRIGGER    = RITUAL_TRIGGERS.register("dropped_item",    () -> DroppedItemRitualTrigger.CODEC);
+    DeferredHolder<MapCodec<? extends RitualTrigger<?>>, MapCodec<GameEventRitualTrigger>>     GAME_EVENT_TRIGGER      = RITUAL_TRIGGERS.register("game_event",      () -> GameEventRitualTrigger.CODEC);
+    DeferredHolder<MapCodec<? extends RitualTrigger<?>>, MapCodec<KillEntityRitualTrigger>>    KILL_ENTITY_TRIGGER     = RITUAL_TRIGGERS.register("kill_entity",     () -> KillEntityRitualTrigger.CODEC);
+    DeferredHolder<MapCodec<? extends RitualTrigger<?>>, MapCodec<SetBlockStateRitualTrigger>> SET_BLOCK_STATE_TRIGGER = RITUAL_TRIGGERS.register("set_block_state", () -> SetBlockStateRitualTrigger.CODEC);
+    DeferredHolder<MapCodec<? extends RitualTrigger<?>>, MapCodec<SpellCastRitualTrigger>>     SPELL_CAST_TRIGGER      = RITUAL_TRIGGERS.register("spell_cast",      () -> SpellCastRitualTrigger.CODEC);
     // @formatter:on
 }

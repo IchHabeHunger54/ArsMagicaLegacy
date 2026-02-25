@@ -33,8 +33,11 @@ public record Ritual<T>(List<RitualRequirement> requirements, RitualTrigger<T> t
      */
     public void perform(Player player, Level level, Vec3 vec, T context) {
         if (!trigger.test(player, level, vec, context)) return;
-        if (requirements.stream().allMatch(e -> e.test(player, level, vec))) {
-            effects.forEach(e -> e.perform(player, level, vec));
+        Vec3 adjustedVec = trigger.adjustPosition(player, level, vec, context);
+        if (requirements.stream().allMatch(e -> e.test(player, level, adjustedVec))) {
+            trigger.consume(player, level, adjustedVec, context);
+            requirements.forEach(e -> e.consume(player, level, adjustedVec));
+            effects.forEach(e -> e.perform(player, level, adjustedVec));
         }
     }
 }

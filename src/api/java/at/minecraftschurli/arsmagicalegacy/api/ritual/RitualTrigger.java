@@ -30,4 +30,30 @@ public interface RitualTrigger<T> {
      * @return Whether the requirement should actually be triggered or not.
      */
     boolean test(Player player, Level level, Vec3 vec, T context);
+
+    /**
+     * Consumes the trigger, if applicable and the ritual was successful. For example, the dropped item tick ritual trigger consumes the dropped items here.
+     *
+     * @param player  The {@link Player} triggering the ritual.
+     * @param level   The {@link Level} the ritual is triggered in.
+     * @param vec     The {@link Vec3} the ritual is triggered at.
+     * @param context The context object.
+     */
+    default void consume(Player player, Level level, Vec3 vec, T context) {
+    }
+
+    /**
+     * Adjusts the position of the ritual checks. For example, the set block ritual trigger uses this to apply a position offset.
+     * <p>
+     * This runs after {@link RitualTrigger#test(Player, Level, Vec3, Object)} and before all other ritual methods, including {@link RitualTrigger#consume(Player, Level, Vec3, Object)}.
+     *
+     * @param player  The {@link Player} triggering the ritual.
+     * @param level   The {@link Level} the ritual is triggered in.
+     * @param vec     The {@link Vec3} the ritual is triggered at.
+     * @param context The context object.
+     * @return The adjusted ritual position.
+     */
+    default Vec3 adjustPosition(Player player, Level level, Vec3 vec, T context) {
+        return vec;
+    }
 }

@@ -27,4 +27,14 @@ public interface RitualRequirement {
      * @return Whether the requirement was met or not.
      */
     boolean test(Player player, Level level, Vec3 vec);
+
+    /**
+     * Consumes the requirement, if applicable and the ritual was successful. For example, the ingredient ritual requirement consumes the dropped items here.
+     *
+     * @param player The {@link Player} triggering the ritual.
+     * @param level  The {@link Level} the ritual is triggered in.
+     * @param vec    The {@link Vec3} the ritual is triggered at.
+     */
+    default void consume(Player player, Level level, Vec3 vec) {
+    }
 }

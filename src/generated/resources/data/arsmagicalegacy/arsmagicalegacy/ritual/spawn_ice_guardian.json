@@ -1,0 +1,26 @@
+{
+  "effects": [
+    {
+      "type": "arsmagicalegacy:spawn_entity",
+      "entity_type": "arsmagicalegacy:mana_creeper"
+    }
+  ],
+  "requirements": [
+    {
+      "type": "arsmagicalegacy:structure",
+      "structure": "arsmagicalegacy:ice_guardian_spawn_ritual"
+    }
+  ],
+  "trigger": {
+    "type": "arsmagicalegacy:set_block_state",
+    "offset": [
+      0,
+      -2,
+      0
+    ],
+    "test": {
+      "block": "minecraft:carved_pumpkin",
+      "predicate_type": "minecraft:block_match"
+    }
+  }
+}

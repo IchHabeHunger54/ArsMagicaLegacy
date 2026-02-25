@@ -9,6 +9,16 @@
     {
       "type": "arsmagicalegacy:structure",
       "structure": "arsmagicalegacy:air_guardian_spawn_ritual"
+    },
+    {
+      "type": "arsmagicalegacy:dimension",
+      "dimension": "minecraft:overworld"
+    },
+    {
+      "type": "arsmagicalegacy:height",
+      "bounds": {
+        "min": 128.0
+      }
     }
   ],
   "trigger": {

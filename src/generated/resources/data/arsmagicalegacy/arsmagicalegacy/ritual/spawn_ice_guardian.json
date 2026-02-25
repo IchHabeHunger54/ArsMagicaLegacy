@@ -9,6 +9,14 @@
     {
       "type": "arsmagicalegacy:structure",
       "structure": "arsmagicalegacy:ice_guardian_spawn_ritual"
+    },
+    {
+      "type": "arsmagicalegacy:dimension",
+      "dimension": "minecraft:overworld"
+    },
+    {
+      "type": "arsmagicalegacy:biome_tag",
+      "tag": "c:is_cold"
     }
   ],
   "trigger": {

@@ -1339,5 +1339,6 @@
   "tag.item.c.storage_blocks.moonstone": "Moonstone Storage Blocks",
   "tag.item.c.storage_blocks.sunstone": "Sunstone Storage Blocks",
   "tag.item.c.storage_blocks.topaz": "Topaz Storage Blocks",
-  "tag.item.c.storage_blocks.vinteum": "Vinteum Storage Blocks"
+  "tag.item.c.storage_blocks.vinteum": "Vinteum Storage Blocks",
+  "tag.worldgen.biome.arsmagicalegacy.can_summon_water_guardian": "Can Summon Water Guardian"
 }

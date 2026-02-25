@@ -9,6 +9,14 @@
     {
       "type": "arsmagicalegacy:structure",
       "structure": "arsmagicalegacy:life_guardian_spawn_ritual"
+    },
+    {
+      "type": "arsmagicalegacy:dimension",
+      "dimension": "minecraft:overworld"
+    },
+    {
+      "type": "arsmagicalegacy:moon_phase",
+      "moon_phase": 0
     }
   ],
   "trigger": {

@@ -7,6 +7,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 
 /**
@@ -104,6 +105,14 @@ public interface AMTags {
 
         private static TagKey<DamageType> tag(String name) {
             return TagKey.create(Registries.DAMAGE_TYPE, ArsMagicaApi.id(name));
+        }
+    }
+
+    interface Biomes {
+        TagKey<Biome> CAN_SUMMON_WATER_GUARDIAN = tag("can_summon_water_guardian");
+
+        private static TagKey<Biome> tag(String name) {
+            return TagKey.create(Registries.BIOME, ArsMagicaApi.id(name));
         }
     }
 }

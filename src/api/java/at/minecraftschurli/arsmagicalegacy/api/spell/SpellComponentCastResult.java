@@ -1,0 +1,78 @@
+package at.minecraftschurli.arsmagicalegacy.api.spell;
+
+import net.minecraft.network.chat.Component;
+import org.jetbrains.annotations.Nullable;
+
+/**
+ * Represents the result of an individual {@link SpellPart} being cast. The result is then used to accordingly populate a {@link SpellCastResult}.
+ * Get an instance via {@link SpellComponentCastResult#success(Spell)}, {@link SpellComponentCastResult#pass(Spell)} or {@link SpellComponentCastResult#failure(Spell, Component)}.
+ */
+public final class SpellComponentCastResult {
+    private final Type type;
+    private final Spell spell;
+    @Nullable
+    private final Component message;
+
+    private SpellComponentCastResult(Type type, Spell spell, @Nullable Component message) {
+        this.type = type;
+        this.spell = spell;
+        this.message = message;
+    }
+
+    /**
+     * @return Whether the result is considered successful. A successful result triggers behavior such as mana consumption or affinity awarding.
+     */
+    public boolean isSuccess() {
+        return type == Type.SUCCESS;
+    }
+
+    /**
+     * @return Whether the result is considered failing.
+     */
+    public boolean isFailure() {
+        return type == Type.FAILURE;
+    }
+
+    /**
+     * @return The {@link Spell} contained in the result.
+     */
+    public Spell getSpell() {
+        return spell;
+    }
+
+    /**
+     * @return The error message. This will be a non-null value iff {@link SpellComponentCastResult#isFailure()} returns true.
+     */
+    @Nullable
+    public Component getMessage() {
+        return message;
+    }
+
+    /**
+     * @return A new {@link SpellCastResult} marked as successful. A successful result triggers behavior such as mana consumption or affinity awarding.
+     */
+    public static SpellComponentCastResult success(Spell spell) {
+        return new SpellComponentCastResult(Type.SUCCESS, spell, null);
+    }
+
+    /**
+     * @return A new {@link SpellCastResult} marked as neither successful nor failing.
+     */
+    public static SpellComponentCastResult pass(Spell spell) {
+        return new SpellComponentCastResult(Type.PASS, spell, null);
+    }
+
+    /**
+     * @param message The error message to set.
+     * @return A new {@link SpellCastResult} marked as failing and with the given error message set.
+     */
+    public static SpellComponentCastResult failure(Spell spell, Component message) {
+        return new SpellComponentCastResult(Type.FAILURE, spell, message);
+    }
+
+    private enum Type {
+        SUCCESS,
+        PASS,
+        FAILURE
+    }
+}

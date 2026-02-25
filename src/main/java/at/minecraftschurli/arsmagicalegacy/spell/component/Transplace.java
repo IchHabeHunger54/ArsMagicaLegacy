@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
@@ -21,14 +22,14 @@ public class Transplace extends SpellComponent.CastEntity {
     public static final ResourceLocation CASTER_PARTICLES = ArsMagicaApi.id("transplace_caster");
 
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
+    public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
         Entity entity = hitResult.getEntity();
-        if (AMUtil.cancelTeleport(entity, caster) || level.isClientSide() || caster == null) return spell;
+        if (AMUtil.cancelTeleport(entity, caster) || level.isClientSide() || caster == null) return SpellComponentCastResult.success(spell);
         Vec3 targetPos = entity.position();
         Vec3 casterPos = caster.position();
         entity.teleportTo(casterPos.x(), casterPos.y(), casterPos.z());
         caster.teleportTo(targetPos.x(), targetPos.y(), targetPos.z());
-        return spell;
+        return SpellComponentCastResult.success(spell);
     }
 
     @Override

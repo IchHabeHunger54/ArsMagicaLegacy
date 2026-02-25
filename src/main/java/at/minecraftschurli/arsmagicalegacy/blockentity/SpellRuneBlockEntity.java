@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.blockentity;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.packet.SetBlockEntityOwnerPacket;
 import at.minecraftschurli.arsmagicalegacy.util.OwnerSetter;
@@ -60,8 +61,10 @@ public class SpellRuneBlockEntity extends AMBlockEntity<SpellRuneBlockEntity.Dat
         this.owner = owner;
     }
 
-    public void cast(BlockState state, Level level, BlockPos pos, Entity entity) {
-        spell = ArsMagicaApi.spellHelper().castGrammar(spell, level, owner, owner, new EntityHitResult(entity));
+    public void cast(Level level, BlockPos pos, Entity entity) {
+        SpellCastResult result = ArsMagicaApi.spellHelper().castGrammar(spell, level, owner, owner, new EntityHitResult(entity));
+        if (!result.isSuccess()) return;
+        spell = result.getSpell();
         power--;
         if (power < 1) {
             level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());

@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
@@ -25,9 +26,9 @@ public class RandomTeleport extends SpellComponent.CastEntity {
     }
 
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
+    public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
         Entity entity = hitResult.getEntity();
-        if (AMUtil.cancelTeleport(entity, caster) || !(level instanceof ServerLevel serverLevel)) return spell;
+        if (AMUtil.cancelTeleport(entity, caster) || !(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.success(spell);
         RandomSource random = serverLevel.getRandom();
         double range = ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.RANDOM_TELEPORT_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult);
         for (int i = 0; i < AMServerConfig.RANDOM_TELEPORT_MAX_TRIES.get(); i++) {
@@ -38,6 +39,6 @@ public class RandomTeleport extends SpellComponent.CastEntity {
                 break;
             }
         }
-        return spell;
+        return SpellComponentCastResult.success(spell);
     }
 }

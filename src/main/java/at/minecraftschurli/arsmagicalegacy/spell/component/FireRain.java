@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
@@ -24,8 +25,8 @@ public class FireRain extends SpellComponent {
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        if (level.isClientSide() || hitResult == null || hitResult.getType() == HitResult.Type.MISS) return spell;
+    public SpellComponentCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+        if (level.isClientSide() || hitResult == null || hitResult.getType() == HitResult.Type.MISS) return SpellComponentCastResult.success(spell);
         var fireRain = AMEntities.FIRE_RAIN.get().create(level);
         fireRain.setPos(hitResult.getLocation());
         if (caster != null) {
@@ -38,6 +39,6 @@ public class FireRain extends SpellComponent {
         fireRain.setDamage((float) helper.getModifiedStat(AMServerConfig.FIRE_RAIN_DAMAGE.get(), AMSpells.DAMAGE_STAT, modifiers, spell, level, caster, directEntity, hitResult));
         fireRain.setRange((float) helper.getModifiedStat(AMServerConfig.FIRE_RAIN_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult));
         level.addFreshEntity(fireRain);
-        return spell;
+        return SpellComponentCastResult.success(spell);
     }
 }

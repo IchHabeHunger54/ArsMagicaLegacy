@@ -5,6 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.attachment.SummonMinionsAttachment;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
@@ -28,19 +29,19 @@ import java.util.List;
 
 public class Summon extends SpellComponent {
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        if (caster == null || hitResult == null || !(level instanceof ServerLevel serverLevel)) return spell;
+    public SpellComponentCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+        if (caster == null || hitResult == null || !(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.success(spell);
         EntityType<?> type = spell.dataComponents().grammar().get(AMDataComponents.SPELL_SUMMON.get());
-        if (type == null) return spell;
+        if (type == null) return SpellComponentCastResult.success(spell);
         SummonMinionsAttachment attachment = caster.getData(AMAttachments.SUMMON_MINIONS);
-        if (attachment.size() >= ArsMagicaApi.spellHelper().getMaxSummons(caster)) return spell;
-        if (!(type.create(level) instanceof Mob mob)) return spell;
+        if (attachment.size() >= ArsMagicaApi.spellHelper().getMaxSummons(caster)) return SpellComponentCastResult.success(spell);
+        if (!(type.create(level) instanceof Mob mob)) return SpellComponentCastResult.success(spell);
         mob.setPos(hitResult.getLocation());
         EventHooks.finalizeMobSpawn(mob, serverLevel, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
         if (!(caster instanceof Player player) || !player.isCreative()) {
             double mana = mob.getMaxHealth() * AMServerConfig.SUMMON_MANA_COST.get();
             ManaHelper helper = ArsMagicaApi.manaHelper();
-            if (helper.getMana(caster) < mana) return spell;
+            if (helper.getMana(caster) < mana) return SpellComponentCastResult.success(spell);
             helper.decreaseMana(caster, mana);
         }
         for (EquipmentSlot slot : EquipmentSlot.values()) {
@@ -53,7 +54,7 @@ public class Summon extends SpellComponent {
             animal.setOwnerUUID(caster.getUUID());
         }
         level.addFreshEntity(mob);
-        return spell;
+        return SpellComponentCastResult.success(spell);
     }
 
     @Override

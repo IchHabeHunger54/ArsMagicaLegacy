@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class CreateWater extends SpellComponent.CastBlock {
     @Override
-    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
+    public SpellComponentCastResult castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
         if (state.is(Blocks.CAULDRON) || state.is(Blocks.WATER_CAULDRON) && state.getValue(LayeredCauldronBlock.LEVEL) != LayeredCauldronBlock.MAX_FILL_LEVEL) {
@@ -28,6 +29,6 @@ public class CreateWater extends SpellComponent.CastBlock {
                 level.setBlockAndUpdate(offsetPos, Blocks.WATER.defaultBlockState());
             }
         }
-        return spell;
+        return SpellComponentCastResult.success(spell);
     }
 }

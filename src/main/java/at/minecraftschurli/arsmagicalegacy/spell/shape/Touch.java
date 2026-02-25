@@ -1,8 +1,10 @@
 package at.minecraftschurli.arsmagicalegacy.spell.shape;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.PrimarySpellShape;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
@@ -24,8 +26,8 @@ public class Touch extends PrimarySpellShape {
     }
 
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster) {
-        if (caster == null) return spell;
+    public SpellCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster) {
+        if (caster == null) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_CAST_NO_CASTER);
         Vec3 eyePos = caster.getEyePosition();
         boolean targetNonSolid = ArsMagicaApi.spellHelper().getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, spell, level, caster, caster, null) > 0;
         ClipContext.Block blockContext = targetNonSolid ? ClipContext.Block.OUTLINE : ClipContext.Block.COLLIDER;
@@ -39,7 +41,7 @@ public class Touch extends PrimarySpellShape {
                 ArsMagicaApi.spellHelper().castSecondaryOrGrammar(spell, level, caster, caster, result);
             }
         }
-        return spell;
+        return new SpellCastResult(spell).setSuccess();
     }
 
     private Vec3 getLookAngle(LivingEntity caster, Holder<Attribute> attribute) {

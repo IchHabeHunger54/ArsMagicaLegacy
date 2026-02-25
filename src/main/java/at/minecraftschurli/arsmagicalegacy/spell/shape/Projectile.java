@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.PrimarySpellShape;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
@@ -22,8 +23,8 @@ public class Projectile extends PrimarySpellShape {
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster) {
-        if (level.isClientSide()) return spell;
+    public SpellCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster) {
+        if (level.isClientSide()) return new SpellCastResult(spell).setSuccess();
         var projectile = AMEntities.PROJECTILE.get().create(level);
         projectile.setPos(caster.getEyePosition());
         projectile.setXRot(caster.getXRot());
@@ -39,6 +40,6 @@ public class Projectile extends PrimarySpellShape {
         projectile.setPierces((int) helper.getModifiedStat(0, AMSpells.PIERCING_STAT, modifiers, spell, level, caster, caster, null));
         projectile.setGravity((float) (helper.getModifiedStat(0, AMSpells.GRAVITY_STAT, modifiers, spell, level, caster, caster, null) * AMServerConfig.PROJECTILE_GRAVITY.get()));
         level.addFreshEntity(projectile);
-        return spell;
+        return new SpellCastResult(spell).setSuccess();
     }
 }

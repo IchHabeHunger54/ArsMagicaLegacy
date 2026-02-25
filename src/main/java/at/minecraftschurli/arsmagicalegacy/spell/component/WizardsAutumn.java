@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import net.minecraft.core.BlockPos;
@@ -22,8 +23,8 @@ public class WizardsAutumn extends SpellComponent {
     }
 
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        if (hitResult == null || hitResult.getType() == HitResult.Type.MISS) return spell;
+    public SpellComponentCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+        if (hitResult == null || hitResult.getType() == HitResult.Type.MISS) return SpellComponentCastResult.success(spell);
         BlockPos origin = BlockPos.containing(hitResult.getLocation());
         int range = (int) ArsMagicaApi.spellHelper().getModifiedStat(2, AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult);
         for (int i = -range; i <= range; i++) {
@@ -37,6 +38,6 @@ public class WizardsAutumn extends SpellComponent {
                 }
             }
         }
-        return spell;
+        return SpellComponentCastResult.success(spell);
     }
 }

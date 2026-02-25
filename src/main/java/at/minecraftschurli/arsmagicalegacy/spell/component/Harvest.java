@@ -5,6 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthContext;
 import at.minecraftschurli.arsmagicalegacy.api.plant.Plant;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
@@ -40,12 +41,12 @@ public class Harvest extends SpellComponent.CastBlock {
     }
 
     @Override
-    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
-        if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return spell;
+    public SpellComponentCastResult castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
+        if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.success(spell);
         ServerPlayer player = caster instanceof ServerPlayer p ? p : FakePlayerFactory.get(serverLevel, GAME_PROFILE);
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
-        if (state.getBlock() instanceof GameMasterBlock && !player.canUseGameMasterBlocks() || player.blockActionRestricted(level, pos, player.gameMode.getGameModeForPlayer())) return spell;
+        if (state.getBlock() instanceof GameMasterBlock && !player.canUseGameMasterBlocks() || player.blockActionRestricted(level, pos, player.gameMode.getGameModeForPlayer())) return SpellComponentCastResult.success(spell);
         for (Plant plant : AMUtil.getPlants(state)) {
             Map<ResourceKey<Enchantment>, SpellStat> enchantments = Map.of(Enchantments.FORTUNE, AMSpells.FORTUNE_STAT, Enchantments.SILK_TOUCH, AMSpells.SILK_TOUCH_STAT);
             ItemStack tool = plant.tool();
@@ -60,6 +61,6 @@ public class Harvest extends SpellComponent.CastBlock {
             });
             break;
         }
-        return spell;
+        return SpellComponentCastResult.success(spell);
     }
 }

@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
@@ -24,15 +25,15 @@ public class Heal extends SpellComponent.CastEntity {
     }
 
     @Override
-    public Spell castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
-        if (!(hitResult.getEntity() instanceof LivingEntity living)) return spell;
+    public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
+        if (!(hitResult.getEntity() instanceof LivingEntity living)) return SpellComponentCastResult.success(spell);
         float healing = (float) ArsMagicaApi.spellHelper().getModifiedStat(2, AMSpells.HEALING_STAT, modifiers, spell, level, caster, directEntity, hitResult);
         if (living.isInvertedHealAndHarm()) {
             living.hurt(caster != null ? level.damageSources().indirectMagic(caster, directEntity) : level.damageSources().magic(), healing);
         } else {
             living.heal(healing);
         }
-        return spell;
+        return SpellComponentCastResult.success(spell);
     }
 
     @Override

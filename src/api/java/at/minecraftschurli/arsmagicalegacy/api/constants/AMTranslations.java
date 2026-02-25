@@ -81,6 +81,9 @@ public interface AMTranslations {
     String SPELL_BOOK_NO_SPELL_SELECTED_KEY               = ArsMagicaApi.MOD_ID + ".spell_book.no_spell_selected";
     String SPELL_CAST_BURNED_OUT_KEY                      = ArsMagicaApi.MOD_ID + ".spell.cast.burned_out";
     String SPELL_CAST_MALFORMED_KEY                       = ArsMagicaApi.MOD_ID + ".spell.cast.malformed";
+    String SPELL_CAST_NO_BLOCK_KEY                        = ArsMagicaApi.MOD_ID + ".spell.cast.no_block";
+    String SPELL_CAST_NO_CASTER_KEY                       = ArsMagicaApi.MOD_ID + ".spell.cast.no_caster";
+    String SPELL_CAST_NO_ENTITY_KEY                       = ArsMagicaApi.MOD_ID + ".spell.cast.no_entity";
     String SPELL_CAST_NOT_ENOUGH_MANA_KEY                 = ArsMagicaApi.MOD_ID + ".spell.cast.not_enough_mana";
     String SPELL_CAST_SILENCED_KEY                        = ArsMagicaApi.MOD_ID + ".spell.cast.silenced";
     String SPELL_INVALID_KEY                              = ArsMagicaApi.MOD_ID + ".spell.invalid";
@@ -127,6 +130,9 @@ public interface AMTranslations {
     Component RECALL_POSITION_NOT_SET                    = Component.translatable(RECALL_POSITION_NOT_SET_KEY);
     Component SPELL_CAST_BURNED_OUT                      = Component.translatable(SPELL_CAST_BURNED_OUT_KEY);
     Component SPELL_CAST_MALFORMED                       = Component.translatable(SPELL_CAST_MALFORMED_KEY);
+    Component SPELL_CAST_NO_BLOCK                        = Component.translatable(SPELL_CAST_NO_BLOCK_KEY);
+    Component SPELL_CAST_NO_CASTER                       = Component.translatable(SPELL_CAST_NO_CASTER_KEY);
+    Component SPELL_CAST_NO_ENTITY                       = Component.translatable(SPELL_CAST_NO_ENTITY_KEY);
     Component SPELL_CAST_NOT_ENOUGH_MANA                 = Component.translatable(SPELL_CAST_NOT_ENOUGH_MANA_KEY);
     Component SPELL_CAST_SILENCED                        = Component.translatable(SPELL_CAST_SILENCED_KEY);
     Component SPELL_INVALID                              = Component.translatable(SPELL_INVALID_KEY);

@@ -17,7 +17,9 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.PrimarySpellShape;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SecondarySpellShape;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
@@ -35,11 +37,9 @@ import at.minecraftschurli.arsmagicalegacy.spell.SpellDamage;
 import at.minecraftschurli.arsmagicalegacy.spell.ToolTiers;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.google.common.collect.Sets;
-import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
@@ -62,9 +62,9 @@ import java.util.Set;
 
 final class SpellHelperImpl implements SpellHelper {
     @Override
-    public Either<Spell, Component> cast(Spell spell, Level level, @Nullable LivingEntity caster, boolean consume, boolean awardXp) {
-        if (spell.isMalformed()) return Either.right(AMTranslations.SPELL_CAST_MALFORMED);
-        if (caster != null && caster.hasEffect(AMMobEffects.SILENCE)) return Either.right(AMTranslations.SPELL_CAST_SILENCED);
+    public SpellCastResult cast(Spell spell, Level level, @Nullable LivingEntity caster, boolean consume, boolean awardXp) {
+        if (spell.isMalformed()) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_CAST_MALFORMED);
+        if (caster != null && caster.hasEffect(AMMobEffects.SILENCE)) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_CAST_SILENCED);
         ManaHelper manaHelper = ArsMagicaApi.manaHelper();
         BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
         double manaCost = caster != null && caster.hasEffect(AMMobEffects.CLARITY) ? 0 : NeoForge.EVENT_BUS.post(new ManaCostCalculationEvent(caster, spell, spell.getManaCost(), burnoutHelper.getBurnout(caster))).getResult();
@@ -73,70 +73,87 @@ final class SpellHelperImpl implements SpellHelper {
             caster.removeEffect(AMMobEffects.CLARITY);
         }
         SpellCastEvent.Pre event = new SpellCastEvent.Pre(caster, spell, manaCost, burnoutCost, consume, awardXp);
-        if (event.isCanceled()) return Either.right(event.getCancellationMessage());
-        if (event.isConsume() && !(caster instanceof Player player && player.isCreative())) {
-            if (manaHelper.getMana(caster) < manaCost) return Either.right(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA);
-            if (burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) < burnoutCost) return Either.right(AMTranslations.SPELL_CAST_BURNED_OUT);
+        if (event.isCanceled()) return new SpellCastResult(spell).setMessage(event.getCancellationMessage());
+        boolean isConsume = event.isConsume();
+        boolean isAwardXp = event.isAwardXp();
+        if (isConsume && !(caster instanceof Player player && player.isCreative())) {
+            if (manaHelper.getMana(caster) < manaCost) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_CAST_NOT_ENOUGH_MANA);
+            if (burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) < burnoutCost) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_CAST_BURNED_OUT);
         }
-        spell = castPrimary(spell, level, caster);
-        if (event.isConsume() && !(caster instanceof Player player && player.isCreative())) {
-            manaHelper.decreaseMana(caster, manaCost);
-            burnoutHelper.increaseBurnout(caster, burnoutCost);
+        SpellCastResult result = castPrimary(spell, level, caster);
+        if (result.isSuccess()) {
+            if (isConsume && !(caster instanceof Player player && player.isCreative())) {
+                manaHelper.decreaseMana(caster, manaCost);
+                burnoutHelper.increaseBurnout(caster, burnoutCost);
+            }
+            if (isAwardXp && caster instanceof Player player) {
+                MagicHelper helper = ArsMagicaApi.magicHelper();
+                Registry<Skill> registry = AMRegistries.skills(player.registryAccess());
+                boolean affinityGains = registry.containsKey(AMMagic.AFFINITY_GAINS_BOOST) && helper.knows(player, registry.getHolderOrThrow(AMMagic.AFFINITY_GAINS_BOOST));
+                boolean continuous = spell.isContinuous();
+                Map<Holder<Affinity>, Double> affinityShifts = spell.grammar().affinityShifts();
+                if (continuous) {
+                    affinityShifts.replaceAll((k, v) -> v * AMServerConfig.CONTINUOUS_MODIFIER.get());
+                }
+                if (affinityGains) {
+                    affinityShifts.replaceAll((k, v) -> v * AMServerConfig.AFFINITY_GAINS_MODIFIER.get());
+                }
+                helper.applyAffinityShift(player, affinityShifts);
+                double xp = AMServerConfig.AFFINITY_TO_XP_RATIO.get() * affinityShifts.size();
+                if (continuous) {
+                    xp *= AMServerConfig.CONTINUOUS_MODIFIER.get();
+                }
+                if (affinityGains) {
+                    xp *= AMServerConfig.AFFINITY_GAINS_XP_MODIFIER.get();
+                }
+                helper.addXp(player, xp);
+            }
         }
-        if (event.isAwardXp() && caster instanceof Player player) {
-            MagicHelper helper = ArsMagicaApi.magicHelper();
-            Registry<Skill> registry = AMRegistries.skills(player.registryAccess());
-            boolean affinityGains = registry.containsKey(AMMagic.AFFINITY_GAINS_BOOST) && helper.knows(player, registry.getHolderOrThrow(AMMagic.AFFINITY_GAINS_BOOST));
-            boolean continuous = spell.isContinuous();
-            Map<Holder<Affinity>, Double> affinityShifts = spell.grammar().affinityShifts();
-            if (continuous) {
-                affinityShifts.replaceAll((k, v) -> v * AMServerConfig.CONTINUOUS_MODIFIER.get());
-            }
-            if (affinityGains) {
-                affinityShifts.replaceAll((k, v) -> v * AMServerConfig.AFFINITY_GAINS_MODIFIER.get());
-            }
-            helper.applyAffinityShift(player, affinityShifts);
-            double xp = AMServerConfig.AFFINITY_TO_XP_RATIO.get() * affinityShifts.size();
-            if (continuous) {
-                xp *= AMServerConfig.CONTINUOUS_MODIFIER.get();
-            }
-            if (affinityGains) {
-                xp *= AMServerConfig.AFFINITY_GAINS_XP_MODIFIER.get();
-            }
-            helper.addXp(player, xp);
-        }
-        NeoForge.EVENT_BUS.post(new SpellCastEvent.Post(caster, spell, manaCost, burnoutCost, event.isConsume(), event.isAwardXp()));
-        return Either.left(spell);
+        NeoForge.EVENT_BUS.post(new SpellCastEvent.Post(caster, spell, manaCost, burnoutCost, isConsume, isAwardXp));
+        return result;
     }
 
     @Override
-    public Spell castPrimary(Spell spell, Level level, @Nullable LivingEntity caster) {
+    public SpellCastResult castPrimary(Spell spell, Level level, @Nullable LivingEntity caster) {
         PrimarySpellShape primary = spell.currentShapeGroup().primaryShape();
         List<SpellModifier> modifiers = spell.currentShapeGroup().primaryModifiers();
+        SpellCastResult result;
         if (primary != null) {
-            spell = primary.cast(spell, modifiers, level, caster);
+            result = primary.cast(spell, modifiers, level, caster);
             NeoForge.EVENT_BUS.post(new SpellPartCastEvent.PrimaryShape(caster, spell, primary, modifiers));
+        } else {
+            result = new SpellCastResult(spell).setMessage(AMTranslations.SPELL_CAST_MALFORMED);
         }
-        return spell;
+        return result;
     }
 
     @Override
-    public Spell castSecondary(Spell spell, Level level, @Nullable LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public SpellCastResult castSecondary(Spell spell, Level level, @Nullable LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
         SecondarySpellShape secondary = spell.currentShapeGroup().secondaryShape();
         List<SpellModifier> modifiers = spell.currentShapeGroup().secondaryModifiers();
+        SpellCastResult result;
         if (secondary != null) {
-            spell = secondary.cast(spell, modifiers, level, caster, directEntity, hitResult);
+            result = secondary.cast(spell, modifiers, level, caster, directEntity, hitResult);
             NeoForge.EVENT_BUS.post(new SpellPartCastEvent.SecondaryShape(caster, spell, secondary, modifiers, directEntity));
+        } else {
+            result = new SpellCastResult(spell).setMessage(AMTranslations.SPELL_CAST_MALFORMED);
         }
-        return spell;
+        return result;
     }
 
     @Override
-    public Spell castGrammar(Spell spell, Level level, @Nullable LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public SpellCastResult castGrammar(Spell spell, Level level, @Nullable LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+        SpellCastResult result = new SpellCastResult(spell);
         for (Pair<SpellComponent, List<SpellModifier>> pair : spell.grammar().components()) {
             SpellComponent component = pair.getFirst();
             List<SpellModifier> modifiers = pair.getSecond();
-            spell = component.cast(spell, modifiers, level, caster, directEntity, hitResult);
+            SpellComponentCastResult componentResult = component.cast(spell, modifiers, level, caster, directEntity, hitResult);
+            if (componentResult.isSuccess()) {
+                result.setSuccess();
+            } else if (componentResult.isFailure()) {
+                result.setMessage(componentResult.getMessage());
+            }
+            spell = componentResult.getSpell();
             if (level.isClientSide()) {
                 component.spawnParticles(spell, modifiers, level, caster, directEntity, hitResult);
             }
@@ -147,11 +164,12 @@ final class SpellHelperImpl implements SpellHelper {
             damage.apply(level, caster, directEntity);
             spell = spell.updateDataComponents(components -> components.updateGrammar(grammar -> grammar.remove(AMDataComponents.SPELL_DAMAGE.get())));
         }
-        return spell;
+        result.setSpell(spell);
+        return result;
     }
 
     @Override
-    public Spell castSecondaryOrGrammar(Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+    public SpellCastResult castSecondaryOrGrammar(Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         return spell.currentShapeGroup().secondaryShape() != null ? castSecondary(spell, level, caster, directEntity, hitResult) : castGrammar(spell, level, caster, directEntity, hitResult);
     }
 

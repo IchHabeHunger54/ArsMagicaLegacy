@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMRecipes;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
@@ -23,13 +24,13 @@ import java.util.Optional;
 
 public class Drought extends SpellComponent.CastBlock {
     @Override
-    public Spell castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
+    public SpellComponentCastResult castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
         BlockPos normalPos = pos.offset(hitResult.getDirection().getNormal());
         if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
             level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.WATERLOGGED, false));
-            return spell;
+            return SpellComponentCastResult.success(spell);
         }
         Optional<RecipeHolder<SpellTransformationRecipe>> optional = level.getRecipeManager().getRecipeFor(AMRecipes.SPELL_TRANSFORMATION_TYPE.get(), new SpellTransformationInput(state, AMSpells.DROUGHT), level);
         if (optional.isPresent()) {
@@ -37,6 +38,6 @@ public class Drought extends SpellComponent.CastBlock {
         } else if (level.getBlockState(normalPos).is(Blocks.WATER)) {
             level.setBlockAndUpdate(normalPos, Blocks.AIR.defaultBlockState());
         }
-        return spell;
+        return SpellComponentCastResult.success(spell);
     }
 }

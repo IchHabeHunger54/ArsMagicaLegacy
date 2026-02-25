@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
@@ -24,8 +25,8 @@ public class Attract extends SpellComponent {
     }
 
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        if (hitResult == null || hitResult.getType() == HitResult.Type.MISS) return spell;
+    public SpellComponentCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+        if (hitResult == null || hitResult.getType() == HitResult.Type.MISS) return SpellComponentCastResult.success(spell);
         SpellHelper helper = ArsMagicaApi.spellHelper();
         double range = helper.getModifiedStat(AMServerConfig.ATTRACT_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult);
         double speed = helper.getModifiedStat(AMServerConfig.ATTRACT_SPEED.get(), AMSpells.SPEED_STAT, modifiers, spell, level, caster, directEntity, hitResult);
@@ -36,6 +37,6 @@ public class Attract extends SpellComponent {
             Vec3 vec = entity.position();
             entity.setDeltaMovement(entity.getDeltaMovement().add(targetPos.subtract(vec).scale(speed / (targetPos.distanceTo(vec) * 0.9 + 0.09))));
         }
-        return spell;
+        return SpellComponentCastResult.success(spell);
     }
 }

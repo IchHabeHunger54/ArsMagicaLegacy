@@ -1,8 +1,10 @@
 package at.minecraftschurli.arsmagicalegacy.spell.shape;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SecondarySpellShape;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.blockentity.SpellRuneBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
@@ -35,8 +37,9 @@ public class Rune extends SecondarySpellShape {
     }
 
     @Override
-    public Spell cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        if (level.isClientSide() || !(level instanceof ServerLevel serverLevel) || !(hitResult instanceof BlockHitResult blockHitResult)) return spell;
+    public SpellCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+        if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return new SpellCastResult(spell);
+        if (!(hitResult instanceof BlockHitResult blockHitResult)) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_CAST_NO_BLOCK);
         ServerPlayer player = caster instanceof ServerPlayer p ? p : FakePlayerFactory.get(serverLevel, GAME_PROFILE);
         Direction direction = blockHitResult.getDirection();
         BlockPos pos = blockHitResult.getBlockPos().offset(direction.getNormal());
@@ -47,6 +50,6 @@ public class Rune extends SecondarySpellShape {
                 spellRune.setData(spell, (int) ArsMagicaApi.spellHelper().getModifiedStat(1, AMSpells.RUNE_POWER_STAT, modifiers, spell, level, caster, directEntity, hitResult), caster);
             }
         }
-        return spell;
+        return new SpellCastResult(spell).setSuccess();
     }
 }

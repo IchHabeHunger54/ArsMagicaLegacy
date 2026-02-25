@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.spell.component;
 
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -19,7 +20,8 @@ public class Charm extends SpellComponent.CastEntity {
     public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
         if (hitResult.getEntity() instanceof Animal animal) {
             animal.setInLove(caster instanceof Player player ? player : null);
+            return SpellComponentCastResult.success(spell);
         }
-        return SpellComponentCastResult.success(spell);
+        return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_CHARM);
     }
 }

@@ -42,11 +42,11 @@ public class Harvest extends SpellComponent.CastBlock {
 
     @Override
     public SpellComponentCastResult castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
-        if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.success(spell);
+        if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.pass(spell);
         ServerPlayer player = caster instanceof ServerPlayer p ? p : FakePlayerFactory.get(serverLevel, GAME_PROFILE);
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
-        if (state.getBlock() instanceof GameMasterBlock && !player.canUseGameMasterBlocks() || player.blockActionRestricted(level, pos, player.gameMode.getGameModeForPlayer())) return SpellComponentCastResult.success(spell);
+        if (state.getBlock() instanceof GameMasterBlock && !player.canUseGameMasterBlocks() || player.blockActionRestricted(level, pos, player.gameMode.getGameModeForPlayer())) return SpellComponentCastResult.pass(spell);
         for (Plant plant : AMUtil.getPlants(state)) {
             Map<ResourceKey<Enchantment>, SpellStat> enchantments = Map.of(Enchantments.FORTUNE, AMSpells.FORTUNE_STAT, Enchantments.SILK_TOUCH, AMSpells.SILK_TOUCH_STAT);
             ItemStack tool = plant.tool();

@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -26,7 +27,8 @@ public class FireRain extends SpellComponent {
     @SuppressWarnings("DataFlowIssue")
     @Override
     public SpellComponentCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        if (level.isClientSide() || hitResult == null || hitResult.getType() == HitResult.Type.MISS) return SpellComponentCastResult.success(spell);
+        if (hitResult == null || hitResult.getType() == HitResult.Type.MISS) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_HIT);
+        if (level.isClientSide()) return SpellComponentCastResult.pass(spell);
         var fireRain = AMEntities.FIRE_RAIN.get().create(level);
         fireRain.setPos(hitResult.getLocation());
         if (caster != null) {

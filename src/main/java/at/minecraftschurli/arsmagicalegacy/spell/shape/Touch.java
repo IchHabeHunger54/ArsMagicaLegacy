@@ -27,7 +27,7 @@ public class Touch extends PrimarySpellShape {
 
     @Override
     public SpellCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster) {
-        if (caster == null) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_CAST_NO_CASTER);
+        if (caster == null) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_NO_CASTER);
         Vec3 eyePos = caster.getEyePosition();
         boolean targetNonSolid = ArsMagicaApi.spellHelper().getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, spell, level, caster, caster, null) > 0;
         ClipContext.Block blockContext = targetNonSolid ? ClipContext.Block.OUTLINE : ClipContext.Block.COLLIDER;

@@ -30,7 +30,7 @@ public class Storm extends SpellComponent {
 
     @Override
     public SpellComponentCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        if (!(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.success(spell);
+        if (!(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.pass(spell);
         SpellHelper helper = ArsMagicaApi.spellHelper();
         if (!(serverLevel.getRainLevel(1f) > 0.9)) {
             serverLevel.setWeatherParameters(0, (int) helper.getModifiedStat(AMServerConfig.STORM_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, level, caster, directEntity, hitResult), true, true);

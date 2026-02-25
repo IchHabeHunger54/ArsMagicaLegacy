@@ -26,7 +26,7 @@ public class Heal extends SpellComponent.CastEntity {
 
     @Override
     public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
-        if (!(hitResult.getEntity() instanceof LivingEntity living)) return SpellComponentCastResult.success(spell);
+        if (!(hitResult.getEntity() instanceof LivingEntity living)) return SpellComponentCastResult.pass(spell);
         float healing = (float) ArsMagicaApi.spellHelper().getModifiedStat(2, AMSpells.HEALING_STAT, modifiers, spell, level, caster, directEntity, hitResult);
         if (living.isInvertedHealAndHarm()) {
             living.hurt(caster != null ? level.damageSources().indirectMagic(caster, directEntity) : level.damageSources().magic(), healing);

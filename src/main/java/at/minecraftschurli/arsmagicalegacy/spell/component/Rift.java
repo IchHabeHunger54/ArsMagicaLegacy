@@ -24,16 +24,16 @@ public class Rift extends SpellComponent.CastEntity {
 
     @Override
     public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
-        if (caster instanceof ServerPlayer player && hitResult.getEntity() instanceof LivingEntity entity) {
-            int entityId = entity.getId();
-            int size = (int) modifiers.stream()
-                .filter(e -> e.getStats().contains(AMSpells.RANGE_STAT))
-                .count() * 9 + 9;
-            player.openMenu(new SimpleMenuProvider((id, inventory, $) -> new RiftMenu(id, inventory, entityId, size), AMTranslations.RIFT), buf -> {
-                buf.writeInt(entityId);
-                buf.writeInt(size);
-            });
-        }
+        if (!(hitResult.getEntity() instanceof LivingEntity entity)) return SpellComponentCastResult.pass(spell);
+        if (!(caster instanceof ServerPlayer player)) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_CASTER);
+        int entityId = entity.getId();
+        int size = (int) modifiers.stream()
+            .filter(e -> e.getStats().contains(AMSpells.RANGE_STAT))
+            .count() * 9 + 9;
+        player.openMenu(new SimpleMenuProvider((id, inventory, $) -> new RiftMenu(id, inventory, entityId, size), AMTranslations.RIFT), buf -> {
+            buf.writeInt(entityId);
+            buf.writeInt(size);
+        });
         return SpellComponentCastResult.success(spell);
     }
 }

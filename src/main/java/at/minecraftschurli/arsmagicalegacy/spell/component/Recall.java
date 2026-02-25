@@ -23,13 +23,14 @@ public class Recall extends SpellComponent.CastEntity {
     public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
         GlobalVec3 position = spell.dataComponents().grammar().get(AMDataComponents.SPELL_RECALL_POSITION.get());
         Entity entity = hitResult.getEntity();
-        if (position == null && caster instanceof Player player) {
-            player.displayClientMessage(AMTranslations.RECALL_POSITION_NOT_SET, true);
-        } else if (position != null && position.dimension() == level.dimension()) {
+        if (position == null) {
+            return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_RECALL);
+        } else if (position.dimension() == level.dimension()) {
             Vec3 vec3 = position.position();
             entity.teleportTo(vec3.x(), vec3.y(), vec3.z());
+            return SpellComponentCastResult.success(spell);
         }
-        return SpellComponentCastResult.success(spell);
+        return SpellComponentCastResult.pass(spell);
     }
 
     @Override

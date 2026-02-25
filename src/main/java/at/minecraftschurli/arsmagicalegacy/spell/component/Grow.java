@@ -30,7 +30,7 @@ public class Grow extends SpellComponent.CastBlock {
 
     @Override
     public SpellComponentCastResult castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
-        if (!(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.success(spell);
+        if (!(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.pass(spell);
         ServerPlayer player = caster instanceof ServerPlayer p ? p : FakePlayerFactory.get(serverLevel, GAME_PROFILE);
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);

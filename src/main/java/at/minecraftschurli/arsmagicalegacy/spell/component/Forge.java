@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -35,12 +36,12 @@ import java.util.Optional;
 public class Forge extends SpellComponent.CastBoth {
     @Override
     public SpellComponentCastResult castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
-        if (level.isClientSide()) return SpellComponentCastResult.success(spell);
+        if (level.isClientSide()) return SpellComponentCastResult.pass(spell);
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
-        if (state.isAir()) return SpellComponentCastResult.success(spell);
+        if (state.isAir()) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_HIT);
         Optional<RecipeHolder<SmeltingRecipe>> recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(new ItemStack(state.getBlock())), level);
-        if (recipe.isEmpty()) return SpellComponentCastResult.success(spell);
+        if (recipe.isEmpty()) return SpellComponentCastResult.pass(spell);
         ItemStack stack = recipe.get().value().getResultItem(level.registryAccess());
         level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
         if (stack.getItem() instanceof BlockItem blockItem) {
@@ -57,7 +58,7 @@ public class Forge extends SpellComponent.CastBoth {
 
     @Override
     public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
-        if (!AMServerConfig.FORGE_SMELTS_VILLAGERS.get() || !(hitResult.getEntity() instanceof Villager villager)) return SpellComponentCastResult.success(spell);
+        if (!AMServerConfig.FORGE_SMELTS_VILLAGERS.get() || !(hitResult.getEntity() instanceof Villager villager)) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_HIT);
         if (!level.isClientSide()) {
             ItemEntity item = new ItemEntity(level, villager.getX(), villager.getY(), villager.getZ(), new ItemStack(Items.EMERALD));
             item.setDefaultPickUpDelay();

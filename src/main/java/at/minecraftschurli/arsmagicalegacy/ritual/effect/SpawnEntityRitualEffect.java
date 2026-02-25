@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.EventHooks;
+import org.jetbrains.annotations.Nullable;
 
 public record SpawnEntityRitualEffect(EntityType<?> entityType) implements RitualEffect {
     public static final MapCodec<SpawnEntityRitualEffect> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
@@ -25,7 +26,7 @@ public record SpawnEntityRitualEffect(EntityType<?> entityType) implements Ritua
     }
 
     @Override
-    public void perform(Player player, Level level, Vec3 vec) {
+    public void perform(@Nullable Player player, Level level, Vec3 vec) {
         if (!(level instanceof ServerLevel serverLevel)) return;
         Entity entity = entityType.create(level);
         if (entity == null) return;

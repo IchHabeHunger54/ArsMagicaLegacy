@@ -10,6 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 public record SetBlockStateRitualTrigger(RuleTest test, BlockPos offset) implements RitualTrigger<BlockState> {
     public static final MapCodec<SetBlockStateRitualTrigger> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
@@ -23,12 +24,12 @@ public record SetBlockStateRitualTrigger(RuleTest test, BlockPos offset) impleme
     }
 
     @Override
-    public boolean test(Player player, Level level, Vec3 vec, BlockState context) {
+    public boolean test(@Nullable Player player, Level level, Vec3 vec, BlockState context) {
         return AMUtil.doRuleTest(test, level.getBlockState(BlockPos.containing(vec)));
     }
 
     @Override
-    public Vec3 adjustPosition(Player player, Level level, Vec3 vec, BlockState context) {
+    public Vec3 adjustPosition(@Nullable Player player, Level level, Vec3 vec, BlockState context) {
         return RitualTrigger.super.adjustPosition(player, level, vec, context).add(Vec3.atLowerCornerOf(offset));
     }
 }

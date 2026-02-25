@@ -18,6 +18,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
+import at.minecraftschurli.arsmagicalegacy.api.ritual.Ritual;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.attachment.DryadKillsAttachment;
@@ -69,7 +70,6 @@ import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
@@ -93,8 +93,6 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -295,12 +293,7 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void gameEvent(VanillaGameEvent event) {
-        if (event.getCause() instanceof Player player) {
-            Level level = player.level();
-            Vec3 position = event.getEventPosition();
-            Holder<GameEvent> gameEvent = event.getVanillaEvent();
-            AMUtil.getRituals(AMRituals.GAME_EVENT_TRIGGER.get()).forEach(ritual -> ritual.perform(player, level, position, gameEvent));
-        }
+        Ritual.perform(AMRituals.GAME_EVENT_TRIGGER.get(), event.getCause() instanceof Player player ? player : null, event.getLevel(), event.getEventPosition(), event.getVanillaEvent());
     }
 
     @SubscribeEvent
@@ -313,12 +306,11 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void entityPlaceBlock(BlockEvent.EntityPlaceEvent event) {
-        if (!(event.getEntity() instanceof Player player)) return;
-        Level level = player.level();
+        Entity entity = event.getEntity();
+        if (entity == null) return;
+        Level level = entity.level();
         BlockPos pos = event.getPos();
-        Vec3 vec = Vec3.atLowerCornerOf(pos);
-        BlockState state = level.getBlockState(pos);
-        AMUtil.getRituals(AMRituals.SET_BLOCK_STATE_TRIGGER.get()).forEach(ritual -> ritual.perform(player, level, vec, state));
+        Ritual.perform(AMRituals.SET_BLOCK_STATE_TRIGGER.get(), entity instanceof Player player ? player : null, level, Vec3.atLowerCornerOf(pos), level.getBlockState(pos));
     }
 
     @SubscribeEvent
@@ -354,9 +346,8 @@ final class AMEventHandler {
     private static void entityTickPost(EntityTickEvent.Post event) {
         Entity entity = event.getEntity();
         Level level = entity.level();
-        if (entity instanceof ItemEntity itemEntity && itemEntity.getOwner() instanceof Player player) {
-            Vec3 position = itemEntity.position();
-            AMUtil.getRituals(AMRituals.DROPPED_ITEM_TRIGGER.get()).forEach(ritual -> ritual.perform(player, level, position, itemEntity));
+        if (entity instanceof ItemEntity itemEntity) {
+            Ritual.perform(AMRituals.DROPPED_ITEM_TRIGGER.get(), itemEntity.getOwner() instanceof Player player ? player : null, level, itemEntity.position(), itemEntity);
         }
         if (entity instanceof ItemFrame itemFrame && (itemFrame.hasData(AMAttachments.COMPENDIUM_TIMER) || level.getGameTime() % AMServerConfig.ARCANE_COMPENDIUM_CONVERSION_DURATION.getAsInt() == 0)) {
             AMUtil.doCompendiumConversion(itemFrame);
@@ -456,8 +447,7 @@ final class AMEventHandler {
             if (entity.getType() == AMEntities.DRYAD.get()) {
                 DryadKillsAttachment.kill(player, entity);
             }
-            Vec3 position = entity.position();
-            AMUtil.getRituals(AMRituals.KILL_ENTITY_TRIGGER.get()).forEach(ritual -> ritual.perform(player, level, position, entity));
+            Ritual.perform(AMRituals.KILL_ENTITY_TRIGGER.get(), player, level, entity.position(), entity);
         }
         if (!(level instanceof ServerLevel serverLevel)) return;
         UUID uuid = entity.getData(AMAttachments.SUMMON_OWNER);
@@ -572,8 +562,6 @@ final class AMEventHandler {
         Spell spell = event.getSpell();
         Set<SpellPart> spellParts = new HashSet<>(spell.currentShapeGroup().parts());
         spellParts.addAll(spell.grammar().parts());
-        Level level = player.level();
-        Vec3 position = player.position();
-        AMUtil.getRituals(AMRituals.SPELL_CAST_TRIGGER.get()).forEach(ritual -> ritual.perform(player, level, position, spellParts));
+        Ritual.perform(AMRituals.SPELL_CAST_TRIGGER.get(), player, player.level(), player.position(), spellParts);
     }
 }

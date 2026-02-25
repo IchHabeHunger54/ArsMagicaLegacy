@@ -11,6 +11,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 public record IngredientRitualRequirement(Ingredient ingredient, double radius) implements RitualRequirement {
     public static final MapCodec<IngredientRitualRequirement> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
@@ -24,7 +25,7 @@ public record IngredientRitualRequirement(Ingredient ingredient, double radius) 
     }
 
     @Override
-    public boolean test(Player player, Level level, Vec3 vec) {
+    public boolean test(@Nullable Player player, Level level, Vec3 vec) {
         return level.getEntitiesOfClass(ItemEntity.class, new AABB(vec.add(-radius, -radius, -radius), vec.add(radius, radius, radius)))
             .stream()
             .map(ItemEntity::getItem)
@@ -32,7 +33,7 @@ public record IngredientRitualRequirement(Ingredient ingredient, double radius) 
     }
 
     @Override
-    public void consume(Player player, Level level, Vec3 vec) {
+    public void consume(@Nullable Player player, Level level, Vec3 vec) {
         level.getEntitiesOfClass(ItemEntity.class, new AABB(vec.add(-radius, -radius, -radius), vec.add(radius, radius, radius)))
             .stream()
             .filter(e -> ingredient.test(e.getItem()))

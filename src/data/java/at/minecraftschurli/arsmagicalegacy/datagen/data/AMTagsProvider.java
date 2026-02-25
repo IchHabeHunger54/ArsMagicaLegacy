@@ -11,6 +11,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.data.tags.DamageTypeTagsProvider;
 import net.minecraft.data.tags.EnchantmentTagsProvider;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
@@ -42,6 +43,7 @@ public final class AMTagsProvider {
         generator.addProvider(includeServer, new EntityType(output, lookupProvider, existingFileHelper));
         generator.addProvider(includeServer, new DamageType(output, lookupProvider, existingFileHelper));
         generator.addProvider(includeServer, new Enchantment(output, lookupProvider, existingFileHelper));
+        generator.addProvider(includeServer, new Biome(output, lookupProvider, existingFileHelper));
     }
 
     private static final class Block extends BlockTagsProvider {
@@ -238,6 +240,17 @@ public final class AMTagsProvider {
         @Override
         protected void addTags(HolderLookup.Provider provider) {
             tag(Tags.Enchantments.INCREASE_ENTITY_DROPS).add(AMEnchantments.DISMEMBERING);
+        }
+    }
+
+    private static final class Biome extends BiomeTagsProvider {
+        public Biome(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, ExistingFileHelper existingFileHelper) {
+            super(output, provider, ArsMagicaApi.MOD_ID, existingFileHelper);
+        }
+
+        @Override
+        protected void addTags(HolderLookup.Provider provider) {
+            tag(AMTags.Biomes.CAN_SUMMON_WATER_GUARDIAN).addTags(Tags.Biomes.IS_AQUATIC, Tags.Biomes.IS_BEACH, Tags.Biomes.IS_STONY_SHORES, Tags.Biomes.IS_SWAMP);
         }
     }
 }

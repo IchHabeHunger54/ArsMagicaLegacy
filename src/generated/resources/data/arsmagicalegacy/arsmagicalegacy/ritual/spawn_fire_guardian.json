@@ -9,6 +9,9 @@
     {
       "type": "arsmagicalegacy:structure",
       "structure": "arsmagicalegacy:fire_guardian_spawn_ritual"
+    },
+    {
+      "type": "arsmagicalegacy:ultrawarm"
     }
   ],
   "trigger": {

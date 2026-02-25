@@ -284,6 +284,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTags.DamageTypes.AFFECTED_BY_FEATHER_FALLING_ABILITY, "Affected by the Feather Falling Ability");
         add(AMTags.DamageTypes.AFFECTED_BY_MAGIC_DAMAGE_ABILITY, "Affected by the Magic Damage Ability");
         add(AMTags.DamageTypes.IS_SPELL, "Spell Damage");
+        add(AMTags.Biomes.CAN_SUMMON_WATER_GUARDIAN, "Can Summon Water Guardian");
         subtitleTranslation(AMSounds.ARCANE_GUARDIAN_AMBIENT, "Arcane Guardian hisses");
         subtitleTranslation(AMSounds.ARCANE_GUARDIAN_ATTACK, "Arcane Guardian attacks");
         subtitleTranslation(AMSounds.ARCANE_GUARDIAN_DEATH, "Arcane Guardian dies");

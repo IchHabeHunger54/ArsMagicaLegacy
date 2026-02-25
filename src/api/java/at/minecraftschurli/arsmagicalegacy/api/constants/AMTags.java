@@ -85,6 +85,7 @@ public interface AMTags {
     }
 
     interface EntityTypes {
+        TagKey<EntityType<?>> BLACK_AUREM_IMMUNE = tag("black_aurem_immune");
         TagKey<EntityType<?>> AFFECTED_BY_ENDER_THORNS_ABILITY = tag("affected_by_ender_thorns_ability");
         TagKey<EntityType<?>> AFFECTED_BY_SMITE_ABILITY = tag("affected_by_smite_ability");
         TagKey<EntityType<?>> AFFECTED_BY_NAUSEA_ABILITY = tag("affected_by_nausea_ability");

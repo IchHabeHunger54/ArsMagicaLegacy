@@ -14,6 +14,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +36,7 @@ public record DroppedItemRitualTrigger(List<Ingredient> ingredients, double radi
     }
 
     @Override
-    public boolean test(Player player, Level level, Vec3 vec, ItemEntity context) {
+    public boolean test(@Nullable Player player, Level level, Vec3 vec, ItemEntity context) {
         if (ingredients.isEmpty() || level.getGameTime() % checkInterval != 0) return false;
         List<ItemStack> stacks = level.getEntities(EntityTypeTest.forClass(ItemEntity.class), AABB.ofSize(vec, radius, radius, radius), EntitySelector.NO_SPECTATORS)
             .stream()
@@ -57,7 +58,7 @@ public record DroppedItemRitualTrigger(List<Ingredient> ingredients, double radi
     }
 
     @Override
-    public void consume(Player player, Level level, Vec3 vec, ItemEntity context) {
+    public void consume(@Nullable Player player, Level level, Vec3 vec, ItemEntity context) {
         List<ItemEntity> entities = level.getEntities(EntityTypeTest.forClass(ItemEntity.class), AABB.ofSize(vec, radius, radius, radius), EntitySelector.NO_SPECTATORS);
         for (Ingredient ingredient : ingredients) {
             for (ItemEntity entity : entities) {

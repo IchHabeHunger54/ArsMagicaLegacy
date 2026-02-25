@@ -6,6 +6,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Function;
 
@@ -29,7 +30,7 @@ public interface RitualTrigger<T> {
      * @param context The context object.
      * @return Whether the requirement should actually be triggered or not.
      */
-    boolean test(Player player, Level level, Vec3 vec, T context);
+    boolean test(@Nullable Player player, Level level, Vec3 vec, T context);
 
     /**
      * Consumes the trigger, if applicable and the ritual was successful. For example, the dropped item tick ritual trigger consumes the dropped items here.
@@ -39,7 +40,7 @@ public interface RitualTrigger<T> {
      * @param vec     The {@link Vec3} the ritual is triggered at.
      * @param context The context object.
      */
-    default void consume(Player player, Level level, Vec3 vec, T context) {
+    default void consume(@Nullable Player player, Level level, Vec3 vec, T context) {
     }
 
     /**
@@ -53,7 +54,7 @@ public interface RitualTrigger<T> {
      * @param context The context object.
      * @return The adjusted ritual position.
      */
-    default Vec3 adjustPosition(Player player, Level level, Vec3 vec, T context) {
+    default Vec3 adjustPosition(@Nullable Player player, Level level, Vec3 vec, T context) {
         return vec;
     }
 }

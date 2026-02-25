@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -23,7 +24,7 @@ public record StructureRitualRequirement(ResourceLocation structure, BlockPos of
     }
 
     @Override
-    public boolean test(Player player, Level level, Vec3 vec) {
+    public boolean test(@Nullable Player player, Level level, Vec3 vec) {
         IMultiblock multiblock = PatchouliAPI.get().getMultiblock(structure);
         return multiblock != null && multiblock.validate(level, BlockPos.containing(vec).offset(offset)) != null;
     }

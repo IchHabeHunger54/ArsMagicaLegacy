@@ -9,6 +9,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 public record KillEntityRitualTrigger(EntityPredicate predicate) implements RitualTrigger<Entity> {
     public static final MapCodec<KillEntityRitualTrigger> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
@@ -21,7 +22,7 @@ public record KillEntityRitualTrigger(EntityPredicate predicate) implements Ritu
     }
 
     @Override
-    public boolean test(Player player, Level level, Vec3 vec, Entity context) {
+    public boolean test(@Nullable Player player, Level level, Vec3 vec, Entity context) {
         return level instanceof ServerLevel serverLevel && predicate.matches(serverLevel, vec, context);
     }
 }

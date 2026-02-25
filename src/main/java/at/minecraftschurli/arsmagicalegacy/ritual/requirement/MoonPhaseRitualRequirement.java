@@ -21,6 +21,6 @@ public record MoonPhaseRitualRequirement(int moonPhase) implements RitualRequire
 
     @Override
     public boolean test(@Nullable Player player, Level level, Vec3 vec) {
-        return level.getMoonPhase() == moonPhase;
+        return level.isNight() && level.getMoonPhase() == moonPhase;
     }
 }

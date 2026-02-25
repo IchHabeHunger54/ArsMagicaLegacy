@@ -71,7 +71,7 @@ public final class AMMultiblocks {
         {" W W ", "WCWCW", "W   W", " W0W ", "W   W", "WCWCW", " W W "}};
     private static final String[][] BLACK_AUREM_CHALK_STRUCTURE = new String[][]{
         {"WWW", "W0W", "WWW"}};
-    private static final String[][] INLAY_RING_STRUCTURE = new String[][]{
+    private static final String[][] WATER_GUARDIAN_SPAWN_RITUAL_STRUCTURE = new String[][]{
         {"1N2", "E0E", "3N4"}};
     private static final String[][] FIRE_GUARDIAN_SPAWN_RITUAL_STRUCTURE = new String[][]{
         {"1N2", "E0E", "3N4"},
@@ -79,6 +79,12 @@ public final class AMMultiblocks {
     private static final String[][] EARTH_GUARDIAN_SPAWN_RITUAL_STRUCTURE = new String[][]{
         {"  T  ", " 1N2 ", "TE0ET", " 3N4 ", "  T  "},
         {"AAAAA", "AOOOA", "AOCOA", "AOOOA", "AAAAA"}};
+    private static final String[][] AIR_GUARDIAN_SPAWN_RITUAL_STRUCTURE = new String[][]{
+        {"1N2", "E0E", "3N4"}};
+    private static final String[][] ICE_GUARDIAN_SPAWN_RITUAL_STRUCTURE = new String[][]{
+        {"   ", " P ", "   "},
+        {"   ", " S ", "   "},
+        {"1N2", "E0E", "3N4"}};
     private static final String[][] LIGHTNING_GUARDIAN_SPAWN_RITUAL_STRUCTURE = new String[][]{
         {"   ", " R ", "   "},
         {"   ", " I ", "   "},
@@ -179,7 +185,7 @@ public final class AMMultiblocks {
         api.registerMultiblock(BLACK_AUREM_PILLARS_3, makePillarsMultiblock(api, blackAurem, air, air, chalk, netherBricks, api.strictBlockMatcher(Blocks.DIAMOND_BLOCK)));
         api.registerMultiblock(BLACK_AUREM_PILLARS_4, makePillarsMultiblock(api, blackAurem, air, air, chalk, netherBricks, api.strictBlockMatcher(AMBlocks.SUNSTONE_BLOCK.get())));
         api.registerMultiblock(WATER_GUARDIAN_SPAWN_RITUAL, api.makeMultiblock(
-            INLAY_RING_STRUCTURE,
+            WATER_GUARDIAN_SPAWN_RITUAL_STRUCTURE,
             'E', redstoneInlayEastWest,
             'N', redstoneInlayNorthSouth,
             '1', redstoneInlaySouthEast,
@@ -211,7 +217,7 @@ public final class AMMultiblocks {
             'C', api.strictBlockMatcher(Blocks.CHISELED_STONE_BRICKS)
         ).setSymmetrical(true));
         api.registerMultiblock(AIR_GUARDIAN_SPAWN_RITUAL, api.makeMultiblock(
-            INLAY_RING_STRUCTURE,
+            AIR_GUARDIAN_SPAWN_RITUAL_STRUCTURE,
             'E', goldInlayEastWest,
             'N', goldInlayNorthSouth,
             '1', goldInlaySouthEast,
@@ -220,13 +226,16 @@ public final class AMMultiblocks {
             '4', goldInlayNorthWest
         ).setSymmetrical(true));
         api.registerMultiblock(ICE_GUARDIAN_SPAWN_RITUAL, api.makeMultiblock(
-            INLAY_RING_STRUCTURE,
+            ICE_GUARDIAN_SPAWN_RITUAL_STRUCTURE,
             'E', ironInlayEastWest,
             'N', ironInlayNorthSouth,
             '1', ironInlaySouthEast,
             '2', ironInlayNorthEast,
             '3', ironInlaySouthWest,
-            '4', ironInlayNorthWest
+            '4', ironInlayNorthWest,
+            '0', api.strictBlockMatcher(Blocks.SNOW_BLOCK),
+            'S', api.strictBlockMatcher(Blocks.SNOW_BLOCK),
+            'P', api.looseBlockMatcher(Blocks.CARVED_PUMPKIN)
         ).setSymmetrical(true));
         api.registerMultiblock(LIGHTNING_GUARDIAN_SPAWN_RITUAL, api.makeMultiblock(
             LIGHTNING_GUARDIAN_SPAWN_RITUAL_STRUCTURE,
@@ -236,6 +245,7 @@ public final class AMMultiblocks {
             '2', goldInlayNorthEast,
             '3', goldInlaySouthWest,
             '4', goldInlayNorthWest,
+            // TODO 26.1 copper bars
             '0', api.strictBlockMatcher(Blocks.IRON_BARS),
             'I', api.strictBlockMatcher(Blocks.IRON_BARS),
             'R', api.propertyMatcher(Blocks.LIGHTNING_ROD.defaultBlockState(), LightningRodBlock.FACING, LightningRodBlock.WATERLOGGED)

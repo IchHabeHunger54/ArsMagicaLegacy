@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.blockentity;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumGeneratorBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.compat.patchouli.AMMultiblocks;
 import at.minecraftschurli.arsmagicalegacy.compat.patchouli.MultiblockMatcher;
@@ -40,7 +41,7 @@ public class BlackAuremBlockEntity extends EtheriumGeneratorBlockEntity {
         if (time <= 0) {
             time = 6 - getTier(level, pos);
             Vec3 vec3 = Vec3.atBottomCenterOf(pos);
-            List<Mob> mobs = level.getEntities(EntityTypeTest.forClass(Mob.class), new AABB(vec3.add(-2, 0, -2), vec3.add(2, 4, 2)), e -> true);
+            List<Mob> mobs = level.getEntities(EntityTypeTest.forClass(Mob.class), new AABB(vec3.add(-2, 0, -2), vec3.add(2, 4, 2)), e -> !e.getType().is(AMTags.EntityTypes.BLACK_AUREM_IMMUNE));
             mobs.sort(Comparator.comparingDouble(e -> e.distanceToSqr(vec3)));
             for (Mob mob : mobs) {
                 if (mob.isAlive() && !mob.isInvertedHealAndHarm() && mob.hurt(level.damageSources().magic(), 1)) {

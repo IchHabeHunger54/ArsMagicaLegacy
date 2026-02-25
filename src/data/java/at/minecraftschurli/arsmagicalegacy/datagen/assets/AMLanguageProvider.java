@@ -274,6 +274,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTags.Items.SHOWS_SPELL_VISUALS, "Shows Spell Visuals");
         add(AMTags.Items.SPELLCRAFTING_START, "Spellcrafting Start Items");
         add(AMTags.Items.SPELLCRAFTING_END, "Spellcrafting End Items");
+        add(AMTags.EntityTypes.BLACK_AUREM_IMMUNE, "Immune to Black Aurem");
         add(AMTags.EntityTypes.AFFECTED_BY_ENDER_THORNS_ABILITY, "Affected by the Ender Thorns Ability");
         add(AMTags.EntityTypes.AFFECTED_BY_SMITE_ABILITY, "Affected by the Smite Ability");
         add(AMTags.EntityTypes.AFFECTED_BY_NAUSEA_ABILITY, "Affected by the Nausea Ability");

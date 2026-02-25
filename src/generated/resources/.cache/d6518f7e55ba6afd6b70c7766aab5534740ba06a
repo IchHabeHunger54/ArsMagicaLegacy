@@ -1,6 +1,7 @@
-// 1.21.1	2026-02-23T22:49:39.9241265	Tags for minecraft:entity_type mod id arsmagicalegacy
+// 1.21.1	2026-02-25T13:36:02.3403107	Tags for minecraft:entity_type mod id arsmagicalegacy
 7e8ccf4dfd95cc8e89542aac3c307a35640013fa data/arsmagicalegacy/tags/entity_type/affected_by_ender_thorns_ability.json
 e2f26c4696552a05feacf8eaadfb3b41a8907161 data/arsmagicalegacy/tags/entity_type/affected_by_nausea_ability.json
 e2f26c4696552a05feacf8eaadfb3b41a8907161 data/arsmagicalegacy/tags/entity_type/affected_by_smite_ability.json
+64958992f921bb38b4b2be1ea5af860e6bfd3751 data/arsmagicalegacy/tags/entity_type/black_aurem_immune.json
 c7ee20f958bce504a47e6be33f114f6ed443253a data/arsmagicalegacy/tags/entity_type/summoning_not_supported.json
 b9f9fc25effddd19f33792c757c6194b5288af6d data/c/tags/entity_type/boats.json

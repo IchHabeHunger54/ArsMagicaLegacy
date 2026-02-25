@@ -194,6 +194,7 @@ public final class AMTagsProvider {
         @Override
         protected void addTags(HolderLookup.Provider provider) {
             tag(Tags.EntityTypes.BOATS).add(AMEntities.WITCHWOOD_BOAT.get(), AMEntities.WITCHWOOD_CHEST_BOAT.get());
+            tag(AMTags.EntityTypes.BLACK_AUREM_IMMUNE).addTags(EntityTypeTags.UNDEAD, Tags.EntityTypes.BOSSES);
             tag(AMTags.EntityTypes.AFFECTED_BY_ENDER_THORNS_ABILITY).add(net.minecraft.world.entity.EntityType.ENDER_DRAGON, net.minecraft.world.entity.EntityType.ENDERMAN, net.minecraft.world.entity.EntityType.ENDERMITE, net.minecraft.world.entity.EntityType.SHULKER);
             tag(AMTags.EntityTypes.AFFECTED_BY_SMITE_ABILITY).addTag(EntityTypeTags.UNDEAD);
             tag(AMTags.EntityTypes.AFFECTED_BY_NAUSEA_ABILITY).addTag(EntityTypeTags.UNDEAD);

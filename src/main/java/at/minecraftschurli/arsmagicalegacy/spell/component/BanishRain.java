@@ -26,9 +26,9 @@ public class BanishRain extends SpellComponent {
     @Override
     public SpellComponentCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
         Spell spell = context.spell();
-        if (context.level() instanceof ServerLevel serverLevel) {
-            if (serverLevel.isRaining()) {
-                serverLevel.setWeatherParameters((int) ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.BANISH_RAIN_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context), 0, false, false);
+        if (context.level() instanceof ServerLevel level) {
+            if (level.isRaining()) {
+                level.setWeatherParameters((int) ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.BANISH_RAIN_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context), 0, false, false);
                 return SpellComponentCastResult.success(spell);
             }
             return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_BANISH_RAIN);

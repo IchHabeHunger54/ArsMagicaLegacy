@@ -32,46 +32,46 @@ public class Storm extends SpellComponent {
     @Override
     public SpellComponentCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
         Spell spell = context.spell();
-        if (!(context.level() instanceof ServerLevel serverLevel)) return SpellComponentCastResult.pass(spell);
+        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.pass(spell);
         SpellHelper helper = ArsMagicaApi.spellHelper();
         LivingEntity caster = context.caster();
         Entity directEntity = context.directEntity();
-        if (!(serverLevel.getRainLevel(1f) > 0.9)) {
-            serverLevel.setWeatherParameters(0, (int) helper.getModifiedStat(AMServerConfig.STORM_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context), true, true);
+        if (!(level.getRainLevel(1f) > 0.9)) {
+            level.setWeatherParameters(0, (int) helper.getModifiedStat(AMServerConfig.STORM_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context), true, true);
         }
         if (directEntity == null) return SpellComponentCastResult.success(spell);
         int range = (int) helper.getModifiedStat(AMServerConfig.STORM_RANGE.get(), AMSpells.RANGE_STAT, modifiers, context);
-        RandomSource random = serverLevel.getRandom();
+        RandomSource random = level.getRandom();
         double randomValue = random.nextDouble();
         if (randomValue < AMServerConfig.STORM_LIGHTNING_BOLT_CHANCE.get()) {
             double x = directEntity.getX() + random.nextDouble() * range - range / 2.;
             double z = directEntity.getZ() + random.nextDouble() * range - range / 2.;
             double y = directEntity.getY();
-            while (!serverLevel.canSeeSky(BlockPos.containing(x, y, z))) {
+            while (!level.canSeeSky(BlockPos.containing(x, y, z))) {
                 y++;
             }
-            while (serverLevel.getBlockState(BlockPos.containing(x, y - 1, z)).getBlock().equals(Blocks.AIR)) {
+            while (level.getBlockState(BlockPos.containing(x, y - 1, z)).getBlock().equals(Blocks.AIR)) {
                 y--;
             }
-            LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(serverLevel);
+            LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(level);
             if (bolt != null) {
                 bolt.setPos(x, y, z);
                 bolt.setVisualOnly(false);
-                serverLevel.addFreshEntity(bolt);
+                level.addFreshEntity(bolt);
             }
         } else if (randomValue < AMServerConfig.STORM_LIGHTNING_BOLT_TARGET_CHANCE.get()) {
-            List<Entity> entities = serverLevel.getEntities(caster, directEntity.getBoundingBox().inflate(range / 2., range / 2., range / 2.));
+            List<Entity> entities = level.getEntities(caster, directEntity.getBoundingBox().inflate(range / 2., range / 2., range / 2.));
             if (entities.isEmpty()) return SpellComponentCastResult.success(spell);
             Entity entity = entities.get(random.nextInt(entities.size()));
-            if (entity == null || !serverLevel.canSeeSky(entity.blockPosition())) return SpellComponentCastResult.success(spell);
+            if (entity == null || !level.canSeeSky(entity.blockPosition())) return SpellComponentCastResult.success(spell);
             if (caster instanceof Player player) {
-                entity.hurt(serverLevel.damageSources().playerAttack(player), 1);
+                entity.hurt(level.damageSources().playerAttack(player), 1);
             }
-            LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(serverLevel);
+            LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(level);
             if (bolt != null) {
                 bolt.setPos(entity.position());
                 bolt.setVisualOnly(false);
-                serverLevel.addFreshEntity(bolt);
+                level.addFreshEntity(bolt);
             }
         }
         return SpellComponentCastResult.success(spell);

@@ -46,8 +46,7 @@ public class Dig extends SpellComponent.CastBlock {
     @Override
     public SpellComponentCastResult castBlock(List<SpellModifier> modifiers, SpellCastContext context, BlockHitResult hitResult) {
         Spell spell = context.spell();
-        Level level = context.level();
-        if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.pass(spell);
+        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.pass(spell);
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
         float hardness = state.getDestroySpeed(level, pos);
@@ -60,7 +59,7 @@ public class Dig extends SpellComponent.CastBlock {
         LivingEntity caster = context.caster();
         double manaCost = hardness * AMServerConfig.DIG_MANA_FACTOR.get();
         if (manaHelper.getMana(caster) <= manaCost || burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) <= manaCost) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NOT_ENOUGH_MANA);
-        ServerPlayer player = caster instanceof ServerPlayer p ? p : FakePlayerFactory.get(serverLevel, GAME_PROFILE);
+        ServerPlayer player = caster instanceof ServerPlayer p ? p : FakePlayerFactory.get(level, GAME_PROFILE);
         Block block = state.getBlock();
         if (block instanceof GameMasterBlock && !player.canUseGameMasterBlocks() || player.blockActionRestricted(level, pos, player.gameMode.getGameModeForPlayer())) return SpellComponentCastResult.pass(spell);
         manaHelper.decreaseMana(caster, manaCost);

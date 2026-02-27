@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
+import at.minecraftschurli.arsmagicalegacy.api.magic.BurnoutHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
@@ -45,11 +46,14 @@ public class Summon extends SpellComponent {
         if (!(type.create(level) instanceof Mob mob)) return SpellComponentCastResult.pass(spell);
         mob.setPos(hitResult.getLocation());
         EventHooks.finalizeMobSpawn(mob, level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
-        if (!(caster instanceof Player player) || !player.isCreative()) {
-            double mana = mob.getMaxHealth() * AMServerConfig.SUMMON_MANA_COST.get();
-            ManaHelper helper = ArsMagicaApi.manaHelper();
-            if (helper.getMana(caster) < mana) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NOT_ENOUGH_MANA);
-            helper.decreaseMana(caster, mana);
+        if (context.consume() && !(caster instanceof Player player && player.isCreative())) {
+            double manaCost = mob.getMaxHealth() * AMServerConfig.SUMMON_MANA_COST.get();
+            ManaHelper manaHelper = ArsMagicaApi.manaHelper();
+            BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
+            if (manaHelper.getMana(caster) <= manaCost) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NOT_ENOUGH_MANA);
+            if (burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) <= manaCost) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_BURNED_OUT);
+            manaHelper.decreaseMana(caster, manaCost);
+            burnoutHelper.increaseBurnout(caster, manaCost);
         }
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             mob.setDropChance(slot, 0);

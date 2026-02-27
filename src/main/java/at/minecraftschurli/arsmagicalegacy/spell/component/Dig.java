@@ -52,18 +52,21 @@ public class Dig extends SpellComponent.CastBlock {
         float hardness = state.getDestroySpeed(level, pos);
         if (hardness < 0) return SpellComponentCastResult.pass(spell);
         SpellHelper helper = ArsMagicaApi.spellHelper();
-        ManaHelper manaHelper = ArsMagicaApi.manaHelper();
-        BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
         TagKey<Block> incorrectTag = helper.getIncorrectTagForToolTier((int) helper.getModifiedStat(AMServerConfig.DIG_TOOL_TIER.get(), AMSpells.MINING_POWER_STAT, modifiers, context));
         if (state.requiresCorrectToolForDrops() && state.is(incorrectTag)) return SpellComponentCastResult.pass(spell);
         LivingEntity caster = context.caster();
-        double manaCost = hardness * AMServerConfig.DIG_MANA_FACTOR.get();
-        if (manaHelper.getMana(caster) <= manaCost || burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) <= manaCost) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NOT_ENOUGH_MANA);
         ServerPlayer player = caster instanceof ServerPlayer p ? p : FakePlayerFactory.get(level, GAME_PROFILE);
         Block block = state.getBlock();
         if (block instanceof GameMasterBlock && !player.canUseGameMasterBlocks() || player.blockActionRestricted(level, pos, player.gameMode.getGameModeForPlayer())) return SpellComponentCastResult.pass(spell);
-        manaHelper.decreaseMana(caster, manaCost);
-        burnoutHelper.increaseBurnout(caster, manaCost);
+        if (context.consume() && !player.isCreative()) {
+            double manaCost = hardness * AMServerConfig.DIG_MANA_FACTOR.get();
+            ManaHelper manaHelper = ArsMagicaApi.manaHelper();
+            BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
+            if (manaHelper.getMana(caster) <= manaCost) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NOT_ENOUGH_MANA);
+            if (burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) <= manaCost) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_BURNED_OUT);
+            manaHelper.decreaseMana(caster, manaCost);
+            burnoutHelper.increaseBurnout(caster, manaCost);
+        }
         if (AMUtil.cancelDestroyBlock(level, pos, state, player)) return SpellComponentCastResult.success(spell);
         ItemStack stack = AMUtil.getEnchantedSpell(modifiers, context, Map.of(Enchantments.FORTUNE, AMSpells.FORTUNE_STAT, Enchantments.SILK_TOUCH, AMSpells.SILK_TOUCH_STAT));
         stack.set(DataComponents.TOOL, new Tool(List.of(Tool.Rule.deniesDrops(incorrectTag)), Float.MAX_VALUE, 0));

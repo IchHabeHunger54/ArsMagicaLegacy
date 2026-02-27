@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SecondarySpellShape;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.blockentity.SpellRuneBlockEntity;
@@ -15,16 +16,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.UUID;
@@ -37,17 +35,20 @@ public class Rune extends SecondarySpellShape {
     }
 
     @Override
-    public SpellCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+    public SpellCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
+        Spell spell = context.spell();
+        Level level = context.level();
         if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return new SpellCastResult(spell);
-        if (!(hitResult instanceof BlockHitResult blockHitResult)) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_NO_BLOCK);
+        if (!(context.hitResult() instanceof BlockHitResult blockHitResult)) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_NO_BLOCK);
+        LivingEntity caster = context.caster();
         ServerPlayer player = caster instanceof ServerPlayer p ? p : FakePlayerFactory.get(serverLevel, GAME_PROFILE);
         Direction direction = blockHitResult.getDirection();
         BlockPos pos = blockHitResult.getBlockPos().offset(direction.getNormal());
-        BlockState state = AMBlocks.SPELL_RUNE.get().getStateForPlacement(new BlockPlaceContext(level, player, InteractionHand.MAIN_HAND, ItemStack.EMPTY, new BlockHitResult(hitResult.getLocation(), direction, pos, false)));
+        BlockState state = AMBlocks.SPELL_RUNE.get().getStateForPlacement(new BlockPlaceContext(level, player, InteractionHand.MAIN_HAND, ItemStack.EMPTY, new BlockHitResult(blockHitResult.getLocation(), direction, pos, false)));
         if (state != null) {
             level.setBlockAndUpdate(pos, state);
             if (level.getBlockEntity(pos) instanceof SpellRuneBlockEntity spellRune) {
-                spellRune.setData(spell, (int) ArsMagicaApi.spellHelper().getModifiedStat(1, AMSpells.RUNE_POWER_STAT, modifiers, spell, level, caster, directEntity, hitResult), caster);
+                spellRune.setData(context, (int) ArsMagicaApi.spellHelper().getModifiedStat(1, AMSpells.RUNE_POWER_STAT, modifiers, context));
             }
         }
         return new SpellCastResult(spell).setSuccess();

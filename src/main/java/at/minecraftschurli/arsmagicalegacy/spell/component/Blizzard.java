@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
@@ -26,20 +27,23 @@ public class Blizzard extends SpellComponent {
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public SpellComponentCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        if (hitResult == null || hitResult.getType() == HitResult.Type.MISS) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_HIT);
+    public SpellComponentCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
+        Spell spell = context.spell();
+        if (context.isHitResultNullOrMiss()) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_HIT);
+        Level level = context.level();
         if (level.isClientSide()) return SpellComponentCastResult.pass(spell);
+        LivingEntity caster = context.caster();
         var blizzard = AMEntities.BLIZZARD.get().create(level);
-        blizzard.setPos(hitResult.getLocation());
+        blizzard.setPos(context.hitResult().getLocation());
         if (caster != null) {
             blizzard.setOwner(caster);
         }
         SpellHelper helper = ArsMagicaApi.spellHelper();
         blizzard.setColor(helper.getColor(modifiers, spell, -1));
-        blizzard.setDuration((int) helper.getModifiedStat(AMServerConfig.BLIZZARD_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, level, caster, directEntity, hitResult));
-        blizzard.setFrostDuration((int) helper.getModifiedStat(AMServerConfig.BLIZZARD_FROST_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, level, caster, directEntity, hitResult));
-        blizzard.setDamage((float) helper.getModifiedStat(AMServerConfig.BLIZZARD_DAMAGE.get(), AMSpells.DAMAGE_STAT, modifiers, spell, level, caster, directEntity, hitResult));
-        blizzard.setRange((float) helper.getModifiedStat(AMServerConfig.BLIZZARD_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult));
+        blizzard.setDuration((int) helper.getModifiedStat(AMServerConfig.BLIZZARD_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context));
+        blizzard.setFrostDuration((int) helper.getModifiedStat(AMServerConfig.BLIZZARD_FROST_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context));
+        blizzard.setDamage((float) helper.getModifiedStat(AMServerConfig.BLIZZARD_DAMAGE.get(), AMSpells.DAMAGE_STAT, modifiers, context));
+        blizzard.setRange((float) helper.getModifiedStat(AMServerConfig.BLIZZARD_RANGE.get(), AMSpells.RANGE_STAT, modifiers, context));
         level.addFreshEntity(blizzard);
         return SpellComponentCastResult.success(spell);
     }

@@ -5,6 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
@@ -30,9 +31,12 @@ import java.util.List;
 
 public class Summon extends SpellComponent {
     @Override
-    public SpellComponentCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        if (!(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.pass(spell);
+    public SpellComponentCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
+        Spell spell = context.spell();
+        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.pass(spell);
+        LivingEntity caster = context.caster();
         if (caster == null) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_CASTER);
+        HitResult hitResult = context.hitResult();
         if (hitResult == null) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_HIT);
         EntityType<?> type = spell.dataComponents().grammar().get(AMDataComponents.SPELL_SUMMON.get());
         if (type == null) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_SUMMON_NO_SELECTION);
@@ -40,7 +44,7 @@ public class Summon extends SpellComponent {
         if (attachment.size() >= ArsMagicaApi.spellHelper().getMaxSummons(caster)) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_SUMMON_TOO_MANY);
         if (!(type.create(level) instanceof Mob mob)) return SpellComponentCastResult.pass(spell);
         mob.setPos(hitResult.getLocation());
-        EventHooks.finalizeMobSpawn(mob, serverLevel, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
+        EventHooks.finalizeMobSpawn(mob, level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
         if (!(caster instanceof Player player) || !player.isCreative()) {
             double mana = mob.getMaxHealth() * AMServerConfig.SUMMON_MANA_COST.get();
             ManaHelper helper = ArsMagicaApi.manaHelper();

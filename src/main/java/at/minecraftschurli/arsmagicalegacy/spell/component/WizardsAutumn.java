@@ -4,10 +4,12 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,10 +26,13 @@ public class WizardsAutumn extends SpellComponent {
     }
 
     @Override
-    public SpellComponentCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        if (hitResult == null || hitResult.getType() == HitResult.Type.MISS) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_HIT);
-        BlockPos origin = BlockPos.containing(hitResult.getLocation());
-        int range = (int) ArsMagicaApi.spellHelper().getModifiedStat(2, AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult);
+    public SpellComponentCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
+        Spell spell = context.spell();
+        if (context.isHitResultNullOrMiss()) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_HIT);
+        Level level = context.level();
+        LivingEntity caster = context.caster();
+        BlockPos origin = BlockPos.containing(context.hitResult().getLocation());
+        int range = (int) ArsMagicaApi.spellHelper().getModifiedStat(2, AMSpells.RANGE_STAT, modifiers, context);
         for (int i = -range; i <= range; i++) {
             for (int j = -range; j <= range; j++) {
                 for (int k = -range; k <= range; k++) {

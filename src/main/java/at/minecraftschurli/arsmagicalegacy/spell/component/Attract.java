@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
@@ -26,14 +27,18 @@ public class Attract extends SpellComponent {
     }
 
     @Override
-    public SpellComponentCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        if (hitResult == null || hitResult.getType() == HitResult.Type.MISS) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_HIT);
+    public SpellComponentCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
+        Spell spell = context.spell();
+        if (context.isHitResultNullOrMiss()) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_HIT);
         SpellHelper helper = ArsMagicaApi.spellHelper();
-        double range = helper.getModifiedStat(AMServerConfig.ATTRACT_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult);
-        double speed = helper.getModifiedStat(AMServerConfig.ATTRACT_SPEED.get(), AMSpells.SPEED_STAT, modifiers, spell, level, caster, directEntity, hitResult);
+        double range = helper.getModifiedStat(AMServerConfig.ATTRACT_RANGE.get(), AMSpells.RANGE_STAT, modifiers, context);
+        double speed = helper.getModifiedStat(AMServerConfig.ATTRACT_SPEED.get(), AMSpells.SPEED_STAT, modifiers, context);
+        LivingEntity caster = context.caster();
+        Entity directEntity = context.directEntity();
+        HitResult hitResult = context.hitResult();
         Entity target = hitResult instanceof EntityHitResult result ? result.getEntity() : null;
         Vec3 targetPos = hitResult.getLocation();
-        for (Entity entity : level.getEntities(target, target == null ? AABB.ofSize(targetPos, range, range, range) : target.getBoundingBox().inflate(range))) {
+        for (Entity entity : context.level().getEntities(target, target == null ? AABB.ofSize(targetPos, range, range, range) : target.getBoundingBox().inflate(range))) {
             if (entity == caster || entity == directEntity) continue;
             Vec3 vec = entity.position();
             entity.setDeltaMovement(entity.getDeltaMovement().add(targetPos.subtract(vec).scale(speed / (targetPos.distanceTo(vec) * 0.9 + 0.09))));

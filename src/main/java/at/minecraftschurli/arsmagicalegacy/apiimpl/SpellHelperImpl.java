@@ -17,6 +17,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.PrimarySpellShape;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SecondarySpellShape;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -42,7 +43,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -80,7 +80,7 @@ final class SpellHelperImpl implements SpellHelper {
             if (manaHelper.getMana(caster) < manaCost) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_NOT_ENOUGH_MANA);
             if (burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) < burnoutCost) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_BURNED_OUT);
         }
-        SpellCastResult result = castPrimary(spell, level, caster);
+        SpellCastResult result = castPrimary(new SpellCastContext(spell, level, caster, isConsume, isAwardXp));
         if (result.isSuccess()) {
             if (isConsume && !(caster instanceof Player player && player.isCreative())) {
                 manaHelper.decreaseMana(caster, manaCost);
@@ -114,13 +114,15 @@ final class SpellHelperImpl implements SpellHelper {
     }
 
     @Override
-    public SpellCastResult castPrimary(Spell spell, Level level, @Nullable LivingEntity caster) {
-        PrimarySpellShape primary = spell.currentShapeGroup().primaryShape();
-        List<SpellModifier> modifiers = spell.currentShapeGroup().primaryModifiers();
+    public SpellCastResult castPrimary(SpellCastContext context) {
+        Spell spell = context.spell();
+        SpellShapeGroup shapeGroup = spell.currentShapeGroup();
+        PrimarySpellShape primary = shapeGroup.primaryShape();
+        List<SpellModifier> modifiers = shapeGroup.primaryModifiers();
         SpellCastResult result;
         if (primary != null) {
-            result = primary.cast(spell, modifiers, level, caster);
-            NeoForge.EVENT_BUS.post(new SpellPartCastEvent.PrimaryShape(caster, spell, primary, modifiers));
+            result = primary.cast(modifiers, context);
+            NeoForge.EVENT_BUS.post(new SpellPartCastEvent.PrimaryShape(primary, modifiers, context));
         } else {
             result = new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_MALFORMED);
         }
@@ -128,13 +130,15 @@ final class SpellHelperImpl implements SpellHelper {
     }
 
     @Override
-    public SpellCastResult castSecondary(Spell spell, Level level, @Nullable LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
-        SecondarySpellShape secondary = spell.currentShapeGroup().secondaryShape();
-        List<SpellModifier> modifiers = spell.currentShapeGroup().secondaryModifiers();
+    public SpellCastResult castSecondary(SpellCastContext context) {
+        Spell spell = context.spell();
+        SpellShapeGroup shapeGroup = spell.currentShapeGroup();
+        SecondarySpellShape secondary = shapeGroup.secondaryShape();
+        List<SpellModifier> modifiers = shapeGroup.secondaryModifiers();
         SpellCastResult result;
         if (secondary != null) {
-            result = secondary.cast(spell, modifiers, level, caster, directEntity, hitResult);
-            NeoForge.EVENT_BUS.post(new SpellPartCastEvent.SecondaryShape(caster, spell, secondary, modifiers, directEntity));
+            result = secondary.cast(modifiers, context);
+            NeoForge.EVENT_BUS.post(new SpellPartCastEvent.SecondaryShape(secondary, modifiers, context));
         } else {
             result = new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_MALFORMED);
         }
@@ -142,12 +146,14 @@ final class SpellHelperImpl implements SpellHelper {
     }
 
     @Override
-    public SpellCastResult castGrammar(Spell spell, Level level, @Nullable LivingEntity caster, Entity directEntity, @Nullable HitResult hitResult) {
+    public SpellCastResult castGrammar(SpellCastContext context) {
+        Spell spell = context.spell();
+        Level level = context.level();
         SpellCastResult result = new SpellCastResult(spell);
         for (Pair<SpellComponent, List<SpellModifier>> pair : spell.grammar().components()) {
             SpellComponent component = pair.getFirst();
             List<SpellModifier> modifiers = pair.getSecond();
-            SpellComponentCastResult componentResult = component.cast(spell, modifiers, level, caster, directEntity, hitResult);
+            SpellComponentCastResult componentResult = component.cast(modifiers, context);
             if (componentResult.isSuccess()) {
                 result.setSuccess();
             } else if (componentResult.isFailure()) {
@@ -155,13 +161,13 @@ final class SpellHelperImpl implements SpellHelper {
             }
             spell = componentResult.getSpell();
             if (level.isClientSide()) {
-                component.spawnParticles(spell, modifiers, level, caster, directEntity, hitResult);
+                component.spawnParticles(modifiers, context);
             }
-            NeoForge.EVENT_BUS.post(new SpellPartCastEvent.Component(caster, spell, component, modifiers, directEntity, hitResult));
+            NeoForge.EVENT_BUS.post(new SpellPartCastEvent.Component(component, modifiers, context));
         }
         SpellDamage damage = spell.dataComponents().grammar().get(AMDataComponents.SPELL_DAMAGE.get());
         if (damage != null) {
-            damage.apply(level, caster, directEntity);
+            damage.apply(level, context.caster(), context.directEntity());
             spell = spell.updateDataComponents(components -> components.updateGrammar(grammar -> grammar.remove(AMDataComponents.SPELL_DAMAGE.get())));
         }
         result.setSpell(spell);
@@ -169,8 +175,8 @@ final class SpellHelperImpl implements SpellHelper {
     }
 
     @Override
-    public SpellCastResult castSecondaryOrGrammar(Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        return spell.currentShapeGroup().secondaryShape() != null ? castSecondary(spell, level, caster, directEntity, hitResult) : castGrammar(spell, level, caster, directEntity, hitResult);
+    public SpellCastResult castSecondaryOrGrammar(SpellCastContext context) {
+        return context.spell().currentShapeGroup().secondaryShape() != null ? castSecondary(context) : castGrammar(context);
     }
 
     @Override
@@ -179,11 +185,11 @@ final class SpellHelperImpl implements SpellHelper {
     }
 
     @Override
-    public double getModifiedStat(double base, SpellStat stat, List<SpellModifier> modifiers, Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+    public double getModifiedStat(double base, SpellStat stat, List<SpellModifier> modifiers, SpellCastContext context) {
         double modified = base;
         for (SpellModifier modifier : modifiers) {
             if (modifier.getStats().contains(stat)) {
-                modified = modifier.getModifier(stat).modify(base, modified, spell, level, caster, directEntity, hitResult);
+                modified = modifier.getModifier(stat).modify(base, modified, context);
             }
         }
         return modified;
@@ -215,7 +221,7 @@ final class SpellHelperImpl implements SpellHelper {
     public void triggerContingency(LivingEntity entity, ResourceLocation contingency) {
         ContingencyAttachment attachment = entity.getData(AMAttachments.CONTINGENCY);
         if (attachment.contingency().equals(contingency)) {
-            castGrammar(attachment.spell(), entity.level(), entity, entity, new EntityHitResult(entity));
+            castGrammar(new SpellCastContext(attachment.spell(), entity.level(), entity, entity, new EntityHitResult(entity), true, true));
         }
     }
 
@@ -273,12 +279,14 @@ final class SpellHelperImpl implements SpellHelper {
     }
 
     @Override
-    public void spawnParticles(ResourceLocation part, Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, HitResult hitResult) {
-        if (!level.isClientSide()) return;
+    public void spawnParticles(ResourceLocation part, List<SpellModifier> modifiers, SpellCastContext context) {
+        if (!context.level().isClientSide()) return;
+        HitResult hitResult = context.hitResult();
+        if (hitResult == null) return;
         AMClientUtil.spawnParticles(part, switch (hitResult) {
             case BlockHitResult blockHitResult -> blockHitResult.getBlockPos().getBottomCenter();
             case EntityHitResult entityHitResult -> hitResult.getLocation().add(0, entityHitResult.getEntity().getEyeHeight(), 0);
             default -> hitResult.getLocation();
-        }, getColor(modifiers, spell, -1), caster, directEntity, hitResult);
+        }, getColor(modifiers, context.spell(), -1), context.caster(), context.directEntity(), hitResult);
     }
 }

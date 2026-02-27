@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
@@ -29,14 +30,17 @@ public class Storm extends SpellComponent {
     }
 
     @Override
-    public SpellComponentCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        if (!(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.pass(spell);
+    public SpellComponentCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
+        Spell spell = context.spell();
+        if (!(context.level() instanceof ServerLevel serverLevel)) return SpellComponentCastResult.pass(spell);
         SpellHelper helper = ArsMagicaApi.spellHelper();
+        LivingEntity caster = context.caster();
+        Entity directEntity = context.directEntity();
         if (!(serverLevel.getRainLevel(1f) > 0.9)) {
-            serverLevel.setWeatherParameters(0, (int) helper.getModifiedStat(AMServerConfig.STORM_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, level, caster, directEntity, hitResult), true, true);
+            serverLevel.setWeatherParameters(0, (int) helper.getModifiedStat(AMServerConfig.STORM_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context), true, true);
         }
         if (directEntity == null) return SpellComponentCastResult.success(spell);
-        int range = (int) helper.getModifiedStat(AMServerConfig.STORM_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult);
+        int range = (int) helper.getModifiedStat(AMServerConfig.STORM_RANGE.get(), AMSpells.RANGE_STAT, modifiers, context);
         RandomSource random = serverLevel.getRandom();
         double randomValue = random.nextDouble();
         if (randomValue < AMServerConfig.STORM_LIGHTNING_BOLT_CHANCE.get()) {

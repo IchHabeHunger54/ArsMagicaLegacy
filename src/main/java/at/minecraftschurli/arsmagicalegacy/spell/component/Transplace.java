@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
@@ -13,7 +14,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,11 +23,13 @@ public class Transplace extends SpellComponent.CastEntity {
     public static final ResourceLocation CASTER_PARTICLES = ArsMagicaApi.id("transplace_caster");
 
     @Override
-    public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
+    public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
+        Spell spell = context.spell();
+        LivingEntity caster = context.caster();
         Entity entity = hitResult.getEntity();
         Component cancel = AMUtil.cancelTeleport(entity, caster);
         if (cancel != null) return SpellComponentCastResult.failure(spell, cancel);
-        if (level.isClientSide() || caster == null) return SpellComponentCastResult.pass(spell);
+        if (context.level().isClientSide() || caster == null) return SpellComponentCastResult.pass(spell);
         Vec3 targetPos = entity.position();
         Vec3 casterPos = caster.position();
         entity.teleportTo(casterPos.x(), casterPos.y(), casterPos.z());
@@ -36,11 +38,12 @@ public class Transplace extends SpellComponent.CastEntity {
     }
 
     @Override
-    public void spawnParticles(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        if (caster == null || !(hitResult instanceof EntityHitResult entityHitResult)) return;
-        super.spawnParticles(spell, modifiers, level, caster, directEntity, hitResult);
+    public void spawnParticles(List<SpellModifier> modifiers, SpellCastContext context) {
+        LivingEntity caster = context.caster();
+        if (caster == null || !(context.hitResult() instanceof EntityHitResult entityHitResult)) return;
+        super.spawnParticles(modifiers, context);
         if (entityHitResult.getEntity() instanceof LivingEntity living) {
-            AMClientUtil.spawnParticles(CASTER_PARTICLES, living.position(), ArsMagicaApi.spellHelper().getColor(modifiers, spell, -1), living, living, new EntityHitResult(caster));
+            AMClientUtil.spawnParticles(CASTER_PARTICLES, living.position(), ArsMagicaApi.spellHelper().getColor(modifiers, context.spell(), -1), living, living, new EntityHitResult(caster));
         }
     }
 }

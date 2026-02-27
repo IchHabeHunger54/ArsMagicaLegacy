@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
@@ -24,7 +25,9 @@ import java.util.Optional;
 
 public class Drought extends SpellComponent.CastBlock {
     @Override
-    public SpellComponentCastResult castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
+    public SpellComponentCastResult castBlock(List<SpellModifier> modifiers, SpellCastContext context, BlockHitResult hitResult) {
+        Spell spell = context.spell();
+        Level level = context.level();
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
         BlockPos normalPos = pos.offset(hitResult.getDirection().getNormal());

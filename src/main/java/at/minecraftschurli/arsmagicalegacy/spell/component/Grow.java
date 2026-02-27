@@ -4,6 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthContext;
 import at.minecraftschurli.arsmagicalegacy.api.plant.Plant;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
@@ -29,20 +30,21 @@ public class Grow extends SpellComponent.CastBlock {
     private static final GameProfile GAME_PROFILE = new GameProfile(UUID.randomUUID(), ArsMagicaApi.MOD_ID + "_grow");
 
     @Override
-    public SpellComponentCastResult castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
-        if (!(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.pass(spell);
-        ServerPlayer player = caster instanceof ServerPlayer p ? p : FakePlayerFactory.get(serverLevel, GAME_PROFILE);
+    public SpellComponentCastResult castBlock(List<SpellModifier> modifiers, SpellCastContext context, BlockHitResult hitResult) {
+        Spell spell = context.spell();
+        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.pass(spell);
+        ServerPlayer player = context.caster() instanceof ServerPlayer p ? p : FakePlayerFactory.get(level, GAME_PROFILE);
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
         for (Plant plant : AMUtil.getPlants(state)) {
-            GrowthContext context = plant.createContext(player, serverLevel, pos, state, ItemStack.EMPTY);
-            if (plant.growthType().canGrow(context)) {
-                plant.growthType().grow(context);
+            GrowthContext growthContext = plant.createContext(player, level, pos, state, ItemStack.EMPTY);
+            if (plant.growthType().canGrow(growthContext)) {
+                plant.growthType().grow(growthContext);
                 return SpellComponentCastResult.success(spell);
             }
         }
-        if (state.getBlock() instanceof BonemealableBlock block && block.isValidBonemealTarget(serverLevel, pos, state) && block.isBonemealSuccess(serverLevel, serverLevel.getRandom(), pos, state)) {
-            block.performBonemeal(serverLevel, serverLevel.getRandom(), pos, state);
+        if (state.getBlock() instanceof BonemealableBlock block && block.isValidBonemealTarget(level, pos, state) && block.isBonemealSuccess(level, level.getRandom(), pos, state)) {
+            block.performBonemeal(level, level.getRandom(), pos, state);
         }
         return SpellComponentCastResult.success(spell);
     }

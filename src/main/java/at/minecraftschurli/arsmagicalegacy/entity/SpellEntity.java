@@ -96,7 +96,8 @@ public abstract class SpellEntity extends Entity implements OwnableEntity, Owner
         return owner != null ? owner.getUUID() : null;
     }
 
-    public void setOwner(LivingEntity owner) {
+    public void setOwner(@Nullable LivingEntity owner) {
+        if (owner == null) return;
         int ownerId = owner.getId();
         setOwner(ownerId);
         if (!level().isClientSide()) {

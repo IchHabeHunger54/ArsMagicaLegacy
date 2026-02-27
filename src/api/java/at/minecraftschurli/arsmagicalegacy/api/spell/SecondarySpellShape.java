@@ -50,14 +50,10 @@ public abstract non-sealed class SecondarySpellShape extends SpellPart {
     /**
      * Casts this part.
      *
-     * @param spell        The {@link Spell} being cast.
-     * @param modifiers    The {@link SpellModifier}s to consider.
-     * @param level        The {@link Level} the {@link Spell} is cast in.
-     * @param caster       The {@link LivingEntity} casting the {@link Spell}.
-     * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
-     * @param hitResult    The {@link HitResult} of the spell cast.
+     * @param modifiers The {@link SpellModifier}s to consider.
+     * @param context   The {@link SpellCastContext}s to use.
      * @return A {@link SpellCastResult} representing the result of the cast.
-     * @see SpellHelper#castSecondary(Spell, Level, LivingEntity, Entity, HitResult)
+     * @see SpellHelper#castSecondary(SpellCastContext)
      */
-    public abstract SpellCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
+    public abstract SpellCastResult cast(List<SpellModifier> modifiers, SpellCastContext context);
 }

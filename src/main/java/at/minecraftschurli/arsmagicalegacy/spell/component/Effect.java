@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
@@ -28,14 +29,15 @@ public class Effect extends SpellComponent.CastEntity {
     }
 
     @Override
-    public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
+    public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
+        Spell spell = context.spell();
         if (!(hitResult.getEntity() instanceof LivingEntity living)) return SpellComponentCastResult.pass(spell);
         SpellHelper helper = ArsMagicaApi.spellHelper();
-        int amplifier = (int) helper.getModifiedStat(0, AMSpells.EFFECT_POWER_STAT, modifiers, spell, level, caster, directEntity, hitResult);
+        int amplifier = (int) helper.getModifiedStat(0, AMSpells.EFFECT_POWER_STAT, modifiers, context);
         if (effect.value().isInstantenous()) {
-            effect.value().applyInstantenousEffect(directEntity, caster, living, amplifier, living.getHealth());
+            effect.value().applyInstantenousEffect(context.directEntity(), context.caster(), living, amplifier, living.getHealth());
         } else {
-            living.addEffect(new MobEffectInstance(effect, (int) helper.getModifiedStat(AMServerConfig.EFFECT_DURATION.get(), AMSpells.DURATION_STAT, modifiers, spell, level, caster, directEntity, hitResult), amplifier));
+            living.addEffect(new MobEffectInstance(effect, (int) helper.getModifiedStat(AMServerConfig.EFFECT_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context), amplifier));
         }
         return SpellComponentCastResult.success(spell);
     }

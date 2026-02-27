@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.api.spell;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import net.minecraft.core.component.DataComponentType;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,7 +14,7 @@ public abstract sealed class SpellPart permits PrimarySpellShape, SecondarySpell
     /**
      * @return Whether the spell part is a shape (primary or secondary).
      */
-    public boolean isShape() {
+    public final boolean isShape() {
         return isPrimaryShape() || isSecondaryShape();
     }
 
@@ -48,7 +49,7 @@ public abstract sealed class SpellPart permits PrimarySpellShape, SecondarySpell
      * @return The spell part's datapack-defined data.
      */
     public SpellPartData getData() {
-        return ArsMagicaApi.spellHelper().getData(this);
+        return ArsMagicaApi.spellPartDataManager().getOrDefault(AMRegistries.SPELL_PARTS.getKey(this), SpellPartData.DEFAULT);
     }
 
     /**

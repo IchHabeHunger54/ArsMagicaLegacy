@@ -8,9 +8,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
-import net.neoforged.neoforge.common.conditions.ICondition;
-
-import java.util.List;
 
 /**
  * Represents a plant. Plants are used by certain mod mechanics, such as the Harvest component or Dryads growing certain crops.

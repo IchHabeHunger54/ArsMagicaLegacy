@@ -19,8 +19,8 @@ public class Daylight extends SpellComponent {
     @Override
     public SpellComponentCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
         Spell spell = context.spell();
-        if (context.level() instanceof ServerLevel serverLevel && serverLevel.getDayTime() % 24000 >= 12000) {
-            serverLevel.setDayTime(serverLevel.getDayTime() + 12000);
+        if (context.level() instanceof ServerLevel level && level.getDayTime() % 24000 >= 12000) {
+            level.setDayTime(level.getDayTime() + 12000);
             return SpellComponentCastResult.success(spell);
         }
         return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_DAYLIGHT);

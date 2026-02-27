@@ -1,5 +1,4 @@
 - Test All Spell Parts and Particles
-- Reconsider Spell Cast Results
 - Add Liquid Etherium Sounds
 - Add Bosses and their Projectiles
 - Add Compat Recipes

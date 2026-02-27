@@ -180,11 +180,6 @@ final class SpellHelperImpl implements SpellHelper {
     }
 
     @Override
-    public SpellPartData getData(SpellPart part) {
-        return ArsMagicaApi.spellPartDataManager().getOrDefault(AMRegistries.SPELL_PARTS.getKey(part), SpellPartData.DEFAULT);
-    }
-
-    @Override
     public double getModifiedStat(double base, SpellStat stat, List<SpellModifier> modifiers, SpellCastContext context) {
         double modified = base;
         for (SpellModifier modifier : modifiers) {

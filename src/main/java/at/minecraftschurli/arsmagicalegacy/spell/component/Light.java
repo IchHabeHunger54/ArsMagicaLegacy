@@ -14,12 +14,10 @@ import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 

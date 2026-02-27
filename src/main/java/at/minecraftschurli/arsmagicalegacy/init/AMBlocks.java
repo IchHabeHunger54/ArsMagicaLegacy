@@ -7,7 +7,6 @@ import at.minecraftschurli.arsmagicalegacy.block.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.block.BlackAuremBlock;
 import at.minecraftschurli.arsmagicalegacy.block.CelestialPrismBlock;
 import at.minecraftschurli.arsmagicalegacy.block.GoldInlayBlock;
-import at.minecraftschurli.arsmagicalegacy.block.InlayBlock;
 import at.minecraftschurli.arsmagicalegacy.block.InscriptionTableBlock;
 import at.minecraftschurli.arsmagicalegacy.block.IronInlayBlock;
 import at.minecraftschurli.arsmagicalegacy.block.LiquidEtheriumCauldronBlock;

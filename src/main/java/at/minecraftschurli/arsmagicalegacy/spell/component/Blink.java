@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
@@ -25,11 +26,13 @@ public class Blink extends SpellComponent.CastEntity {
     }
 
     @Override
-    public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
+    public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
+        Spell spell = context.spell();
         Entity entity = hitResult.getEntity();
-        Component cancel = AMUtil.cancelTeleport(entity, caster);
+        Component cancel = AMUtil.cancelTeleport(entity, context.caster());
         if (cancel != null) return SpellComponentCastResult.failure(spell, cancel);
-        for (int i = (int) Math.round(ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.BLINK_RANGE.get(), AMSpells.RANGE_STAT, modifiers, spell, level, caster, directEntity, hitResult)); i > 0; i--) {
+        Level level = context.level();
+        for (int i = (int) Math.round(ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.BLINK_RANGE.get(), AMSpells.RANGE_STAT, modifiers, context)); i > 0; i--) {
             Vec3 angle = entity.getLookAngle().normalize();
             double x = entity.getX() + angle.x() * i;
             double y = entity.getY() + angle.y() * i;

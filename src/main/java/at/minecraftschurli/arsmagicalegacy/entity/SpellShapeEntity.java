@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.entity;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
@@ -29,8 +30,12 @@ import java.util.function.Predicate;
 public abstract class SpellShapeEntity extends SpellEntity {
     private static final EntityDataAccessor<Boolean> TARGET_NON_SOLID = SynchedEntityData.defineId(SpellShapeEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Spell> SPELL = SynchedEntityData.defineId(SpellShapeEntity.class, AMSpells.DATA_SERIALIZER.get());
+    private static final EntityDataAccessor<Boolean> CONSUME = SynchedEntityData.defineId(SpellShapeEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> AWARD_XP = SynchedEntityData.defineId(SpellShapeEntity.class, EntityDataSerializers.BOOLEAN);
     private static final String TARGET_NON_SOLID_KEY = "target_non_solid";
     private static final String SPELL_KEY = "spell";
+    private static final String CONSUME_KEY = "consume";
+    private static final String AWARD_XP_KEY = "award_xp";
 
     public SpellShapeEntity(EntityType<?> entityType, Level level) {
         super(entityType, level);
@@ -40,19 +45,25 @@ public abstract class SpellShapeEntity extends SpellEntity {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(TARGET_NON_SOLID, false)
-            .define(SPELL, Spell.EMPTY);
+            .define(SPELL, Spell.EMPTY)
+            .define(CONSUME, true)
+            .define(AWARD_XP, true);
     }
 
     @Override
     protected void readNbt(CompoundTag tag) {
         entityData.set(TARGET_NON_SOLID, tag.getBoolean(TARGET_NON_SOLID_KEY));
         entityData.set(SPELL, Spell.CODEC.decode(NbtOps.INSTANCE, tag.getCompound(SPELL_KEY)).getOrThrow().getFirst());
+        entityData.set(CONSUME, tag.getBoolean(CONSUME_KEY));
+        entityData.set(AWARD_XP, tag.getBoolean(AWARD_XP_KEY));
     }
 
     @Override
     protected void writeNbt(CompoundTag tag) {
         tag.putBoolean(TARGET_NON_SOLID_KEY, entityData.get(TARGET_NON_SOLID));
         tag.put(SPELL_KEY, Spell.CODEC.encodeStart(NbtOps.INSTANCE, getSpell()).getOrThrow());
+        tag.putBoolean(CONSUME_KEY, entityData.get(CONSUME));
+        tag.putBoolean(AWARD_XP_KEY, entityData.get(AWARD_XP));
     }
 
     public boolean getTargetNonSolid() {
@@ -75,6 +86,22 @@ public abstract class SpellShapeEntity extends SpellEntity {
         }
     }
 
+    public boolean getConsume() {
+        return entityData.get(CONSUME);
+    }
+
+    public void setConsume(boolean consume) {
+        entityData.set(CONSUME, consume);
+    }
+
+    public boolean getAwardXp() {
+        return entityData.get(AWARD_XP);
+    }
+
+    public void setAwardXp(boolean awardXp) {
+        entityData.set(AWARD_XP, awardXp);
+    }
+
     protected void spawnParticles(Vec3 position) {
         if (level().isClientSide()) {
             AMClientUtil.spawnSpellEntityParticles(this, getSpell(), position, getColor(), getOwner());
@@ -90,8 +117,8 @@ public abstract class SpellShapeEntity extends SpellEntity {
             LivingEntity owner = getOwner();
             EntityHitResult hitResult = new EntityHitResult(entity);
             SpellCastResult result = secondary
-                ? ArsMagicaApi.spellHelper().castSecondaryOrGrammar(spell, level(), owner, this, hitResult)
-                : ArsMagicaApi.spellHelper().castGrammar(spell, level(), owner, this, hitResult);
+                ? ArsMagicaApi.spellHelper().castSecondaryOrGrammar(new SpellCastContext(spell, level(), owner, this, hitResult, getConsume(), getAwardXp()))
+                : ArsMagicaApi.spellHelper().castGrammar(new SpellCastContext(spell, level(), owner, this, hitResult, getConsume(), getAwardXp()));
             setSpell(result.getSpell());
         }
     }
@@ -107,8 +134,8 @@ public abstract class SpellShapeEntity extends SpellEntity {
         BlockPos.betweenClosedStream(aabb).filter(blockPredicate).forEach(pos -> {
             HitResult hitResult = AMUtil.getHitResult(position(), position().add(getDeltaMovement()), this, blockContext, fluidContext);
             SpellCastResult result = secondary
-                ? ArsMagicaApi.spellHelper().castSecondaryOrGrammar(spell, level(), owner, this, hitResult)
-                : ArsMagicaApi.spellHelper().castGrammar(spell, level(), owner, this, hitResult);
+                ? ArsMagicaApi.spellHelper().castSecondaryOrGrammar(new SpellCastContext(spell, level(), owner, this, hitResult, getConsume(), getAwardXp()))
+                : ArsMagicaApi.spellHelper().castGrammar(new SpellCastContext(spell, level(), owner, this, hitResult, getConsume(), getAwardXp()));
             setSpell(result.getSpell());
             spawnParticles(pos.getBottomCenter());
         });

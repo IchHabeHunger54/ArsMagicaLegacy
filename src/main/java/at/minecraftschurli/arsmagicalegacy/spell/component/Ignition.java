@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
@@ -27,20 +28,20 @@ public class Ignition extends SpellComponent.CastBoth {
     }
 
     @Override
-    public SpellComponentCastResult castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
+    public SpellComponentCastResult castBlock(List<SpellModifier> modifiers, SpellCastContext context, BlockHitResult hitResult) {
         ItemStack stack = new ItemStack(Items.FLINT_AND_STEEL);
-        stack.useOn(new UseOnContext(level, caster instanceof Player player ? player : null, InteractionHand.MAIN_HAND, stack, hitResult));
-        return SpellComponentCastResult.success(spell);
+        stack.useOn(new UseOnContext(context.level(), context.caster() instanceof Player player ? player : null, InteractionHand.MAIN_HAND, stack, hitResult));
+        return SpellComponentCastResult.success(context.spell());
     }
 
     @Override
-    public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
+    public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
         Entity target = hitResult.getEntity();
         if (target instanceof Creeper creeper && !creeper.isIgnited()) {
             creeper.ignite();
         } else if (!target.isOnFire() && !target.isInWaterRainOrBubble()) {
-            target.setRemainingFireTicks((int) ArsMagicaApi.spellHelper().getModifiedStat(60, AMSpells.DURATION_STAT, modifiers, spell, level, caster, directEntity, hitResult));
+            target.setRemainingFireTicks((int) ArsMagicaApi.spellHelper().getModifiedStat(60, AMSpells.DURATION_STAT, modifiers, context));
         }
-        return SpellComponentCastResult.success(spell);
+        return SpellComponentCastResult.success(context.spell());
     }
 }

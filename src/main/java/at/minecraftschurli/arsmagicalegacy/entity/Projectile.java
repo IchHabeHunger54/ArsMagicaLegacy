@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.entity;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -79,7 +80,7 @@ public class Projectile extends SpellShapeEntity {
                 setDeltaMovement(newX, newY, newZ);
                 setBounces(getBounces() - 1);
             } else {
-                ArsMagicaApi.spellHelper().castSecondaryOrGrammar(getSpell(), level, owner, this, result);
+                ArsMagicaApi.spellHelper().castSecondaryOrGrammar(new SpellCastContext(getSpell(), level, owner, this, result, getConsume(), getAwardXp()));
                 decreasePierces();
             }
         } else if (result instanceof EntityHitResult hitResult) {

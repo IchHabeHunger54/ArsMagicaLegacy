@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.blockentity;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.packet.SetBlockEntityOwnerPacket;
@@ -19,15 +20,16 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.EntityHitResult;
 import net.neoforged.neoforge.network.PacketDistributor;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.UUID;
 
 public class SpellRuneBlockEntity extends AMBlockEntity<SpellRuneBlockEntity.Data> implements OwnerSetter {
     private Spell spell;
-    private int power;
     private LivingEntity owner;
+    private boolean consume;
+    private boolean awardXp;
+    private int power;
 
     public SpellRuneBlockEntity(BlockPos pos, BlockState state) {
         super(AMBlockEntities.SPELL_RUNE.get(), pos, state, Data.CODEC);
@@ -36,16 +38,18 @@ public class SpellRuneBlockEntity extends AMBlockEntity<SpellRuneBlockEntity.Dat
     @Override
     public void fromData(Data data) {
         spell = data.spell;
-        power = data.power;
         if (data.owner.isPresent() && level instanceof ServerLevel serverLevel && serverLevel.getEntity(data.owner.get()) instanceof LivingEntity living) {
             owner = living;
             PacketDistributor.sendToPlayersTrackingChunk(serverLevel, new ChunkPos(getBlockPos()), new SetBlockEntityOwnerPacket(getBlockPos(), owner.getId()));
         }
+        consume = data.consume;
+        awardXp = data.awardXp;
+        power = data.power;
     }
 
     @Override
     public Data toData() {
-        return new Data(spell, power, owner == null ? Optional.empty() : Optional.of(owner.getUUID()));
+        return new Data(spell, owner == null ? Optional.empty() : Optional.of(owner.getUUID()), consume, awardXp, power);
     }
 
     @Override
@@ -55,14 +59,16 @@ public class SpellRuneBlockEntity extends AMBlockEntity<SpellRuneBlockEntity.Dat
         }
     }
 
-    public void setData(Spell spell, int power, @Nullable LivingEntity owner) {
-        this.spell = spell;
+    public void setData(SpellCastContext context, int power) {
+        this.spell = context.spell();
+        this.owner = context.caster();
+        this.consume = context.consume();
+        this.awardXp = context.awardXp();
         this.power = power;
-        this.owner = owner;
     }
 
     public void cast(Level level, BlockPos pos, Entity entity) {
-        SpellCastResult result = ArsMagicaApi.spellHelper().castGrammar(spell, level, owner, owner, new EntityHitResult(entity));
+        SpellCastResult result = ArsMagicaApi.spellHelper().castGrammar(new SpellCastContext(spell, level, owner, null, new EntityHitResult(entity), consume, awardXp));
         if (!result.isSuccess()) return;
         spell = result.getSpell();
         power--;
@@ -73,11 +79,13 @@ public class SpellRuneBlockEntity extends AMBlockEntity<SpellRuneBlockEntity.Dat
         }
     }
 
-    public record Data(Spell spell, int power, Optional<UUID> owner) {
+    public record Data(Spell spell, Optional<UUID> owner, boolean consume, boolean awardXp, int power) {
         public static final Codec<Data> CODEC = RecordCodecBuilder.create(inst -> inst.group(
             Spell.CODEC.fieldOf("spell").forGetter(Data::spell),
-            Codec.INT.fieldOf("power").forGetter(Data::power),
-            UUIDUtil.CODEC.optionalFieldOf("owner").forGetter(Data::owner)
+            UUIDUtil.CODEC.optionalFieldOf("owner").forGetter(Data::owner),
+            Codec.BOOL.fieldOf("consume").forGetter(Data::consume),
+            Codec.BOOL.fieldOf("award_xp").forGetter(Data::awardXp),
+            Codec.INT.fieldOf("power").forGetter(Data::power)
         ).apply(inst, Data::new));
     }
 }

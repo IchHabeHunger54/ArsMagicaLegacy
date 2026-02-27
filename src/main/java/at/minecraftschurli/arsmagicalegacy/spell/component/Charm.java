@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
@@ -17,9 +18,10 @@ import java.util.List;
 
 public class Charm extends SpellComponent.CastEntity {
     @Override
-    public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
+    public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
+        Spell spell = context.spell();
         if (hitResult.getEntity() instanceof Animal animal) {
-            animal.setInLove(caster instanceof Player player ? player : null);
+            animal.setInLove(context.caster() instanceof Player player ? player : null);
             return SpellComponentCastResult.success(spell);
         }
         return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_CHARM);

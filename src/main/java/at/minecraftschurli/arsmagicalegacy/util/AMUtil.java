@@ -8,6 +8,7 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.plant.Plant;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
@@ -221,18 +222,18 @@ public final class AMUtil {
         return list.get(tick % list.size());
     }
 
-    public static ItemStack getEnchanted(ItemStack stack, Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult, Map<ResourceKey<Enchantment>, SpellStat> enchantments) {
-        stack.set(AMDataComponents.SPELL, spell);
-        Registry<Enchantment> registry = level.registryAccess().registryOrThrow(Registries.ENCHANTMENT);
+    public static ItemStack getEnchanted(ItemStack stack, List<SpellModifier> modifiers, SpellCastContext context, Map<ResourceKey<Enchantment>, SpellStat> enchantments) {
+        stack.set(AMDataComponents.SPELL, context.spell());
+        Registry<Enchantment> registry = context.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT);
         SpellHelper helper = ArsMagicaApi.spellHelper();
         for (Map.Entry<ResourceKey<Enchantment>, SpellStat> entry : enchantments.entrySet()) {
-            stack.enchant(registry.getHolderOrThrow(entry.getKey()), (int) helper.getModifiedStat(0, entry.getValue(), modifiers, spell, level, caster, directEntity, hitResult));
+            stack.enchant(registry.getHolderOrThrow(entry.getKey()), (int) helper.getModifiedStat(0, entry.getValue(), modifiers, context));
         }
         return stack;
     }
 
-    public static ItemStack getEnchantedSpell(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult, Map<ResourceKey<Enchantment>, SpellStat> enchantments) {
-        return getEnchanted(AMItems.SPELL.toStack(), spell, modifiers, level, caster, directEntity, hitResult, enchantments);
+    public static ItemStack getEnchantedSpell(List<SpellModifier> modifiers, SpellCastContext context, Map<ResourceKey<Enchantment>, SpellStat> enchantments) {
+        return getEnchanted(AMItems.SPELL.toStack(), modifiers, context, enchantments);
     }
 
     public static HitResult getHitResult(Vec3 from, Vec3 to, Entity entity, ClipContext.Block blockContext, ClipContext.Fluid fluidContext) {

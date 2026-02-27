@@ -53,14 +53,12 @@ public abstract non-sealed class PrimarySpellShape extends SpellPart {
     }
 
     /**
-     * Casts this part.
+     * Casts this part. Note that {@link SpellCastContext#directEntity()} and {@link SpellCastContext#hitResult()} are guaranteed to return null here.
      *
-     * @param spell     The {@link Spell} being cast.
      * @param modifiers The {@link SpellModifier}s to consider.
-     * @param level     The {@link Level} the {@link Spell} is cast in.
-     * @param caster    The {@link LivingEntity} casting the {@link Spell}.
+     * @param context   The {@link SpellCastContext} to use.
      * @return A {@link SpellCastResult} representing the result of the cast.
-     * @see SpellHelper#castPrimary(Spell, Level, LivingEntity)
+     * @see SpellHelper#castPrimary(SpellCastContext)
      */
-    public abstract SpellCastResult cast(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster);
+    public abstract SpellCastResult cast(List<SpellModifier> modifiers, SpellCastContext context);
 }

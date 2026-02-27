@@ -2,13 +2,10 @@ package at.minecraftschurli.arsmagicalegacy.api.event;
 
 import at.minecraftschurli.arsmagicalegacy.api.spell.PrimarySpellShape;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SecondarySpellShape;
-import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.phys.HitResult;
-import org.jetbrains.annotations.Nullable;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 
 import java.util.List;
 
@@ -20,104 +17,83 @@ import java.util.List;
  * This event is not cancelable. This event is fired on the main event bus.
  */
 @SuppressWarnings("unused")
-public abstract class SpellPartCastEvent extends SpellEvent {
+public abstract class SpellPartCastEvent<T extends SpellPart> extends SpellEvent {
+    private final T spellPart;
     private final List<SpellModifier> modifiers;
+    private final SpellCastContext context;
 
-    public SpellPartCastEvent(LivingEntity entity, Spell spell, List<SpellModifier> modifiers) {
-        super(entity, spell);
+    /**
+     * @param spellPart The {@link SpellPart} being cast.
+     * @param modifiers The list of {@link SpellModifier}s used by the spell part.
+     * @param context   The {@link SpellCastContext} used by the spell cast.
+     */
+    public SpellPartCastEvent(T spellPart, List<SpellModifier> modifiers, SpellCastContext context) {
+        super(context.caster(), context.spell());
+        this.spellPart = spellPart;
         this.modifiers = modifiers;
+        this.context = context;
     }
 
     /**
-     * @return The list of {@link SpellModifier}s used by this spell part.
+     * @return The {@link SpellPart} being cast.
+     */
+    public T getSpellPart() {
+        return spellPart;
+    }
+
+    /**
+     * @return The list of {@link SpellModifier}s used by the spell part.
      */
     public List<SpellModifier> getModifiers() {
         return modifiers;
     }
 
     /**
+     * @return The {@link SpellCastContext} used by the spell cast.
+     */
+    public SpellCastContext getContext() {
+        return context;
+    }
+
+    /**
      * Event that is fired when a {@link PrimarySpellShape} is cast.
      */
-    public static class PrimaryShape extends SpellPartCastEvent {
-        private final PrimarySpellShape shape;
-
-        public PrimaryShape(LivingEntity entity, Spell spell, PrimarySpellShape shape, List<SpellModifier> modifiers) {
-            super(entity, spell, modifiers);
-            this.shape = shape;
-        }
-
+    public static class PrimaryShape extends SpellPartCastEvent<PrimarySpellShape> {
         /**
-         * @return The {@link PrimarySpellShape} being cast.
+         * @param shape     The {@link PrimarySpellShape} being cast.
+         * @param modifiers The list of {@link SpellModifier}s used by the spell part.
+         * @param context   The {@link SpellCastContext} used by the spell cast.
          */
-        public PrimarySpellShape getShape() {
-            return shape;
+        public PrimaryShape(PrimarySpellShape shape, List<SpellModifier> modifiers, SpellCastContext context) {
+            super(shape, modifiers, context);
         }
     }
 
     /**
      * Event that is fired when a {@link SecondarySpellShape} is cast.
      */
-    public static class SecondaryShape extends SpellPartCastEvent {
-        private final SecondarySpellShape shape;
-        private final Entity directEntity;
-
-        public SecondaryShape(LivingEntity entity, Spell spell, SecondarySpellShape shape, List<SpellModifier> modifiers, Entity directEntity) {
-            super(entity, spell, modifiers);
-            this.shape = shape;
-            this.directEntity = directEntity;
-        }
-
+    public static class SecondaryShape extends SpellPartCastEvent<SecondarySpellShape> {
         /**
-         * @return The {@link SecondarySpellShape} being cast.
+         * @param shape     The {@link SecondarySpellShape} being cast.
+         * @param modifiers The list of {@link SpellModifier}s used by the spell part.
+         * @param context   The {@link SpellCastContext} used by the spell cast.
          */
-        public SecondarySpellShape getShape() {
-            return shape;
-        }
-
-        /**
-         * @return The direct entity casting the spell, e.g. a projectile.
-         */
-        public Entity getDirectEntity() {
-            return directEntity;
+        public SecondaryShape(SecondarySpellShape shape, List<SpellModifier> modifiers, SpellCastContext context) {
+            super(shape, modifiers, context);
         }
     }
 
     /**
      * Event that is fired when a {@link SpellComponent} is cast.
      */
-    public static class Component extends SpellPartCastEvent {
-        private final SpellComponent component;
-        private final Entity directEntity;
-        @Nullable
-        private final HitResult hitResult;
-
-        public Component(LivingEntity entity, Spell spell, SpellComponent component, List<SpellModifier> modifiers, Entity directEntity, @Nullable HitResult hitResult) {
-            super(entity, spell, modifiers);
-            this.component = component;
-            this.directEntity = directEntity;
-            this.hitResult = hitResult;
-        }
-
+    public static class Component extends SpellPartCastEvent<SpellComponent> {
         /**
-         * @return The {@link SpellComponent} being cast.
+         * @param component The {@link SpellComponent} being cast.
+         * @param modifiers The list of {@link SpellModifier}s used by the spell part.
+         * @param context   The {@link SpellCastContext} used by the spell cast.
          */
-        public SpellComponent getComponent() {
-            return component;
-        }
-
-        /**
-         * @return The direct entity casting the spell, e.g. a projectile.
-         */
-        public Entity getDirectEntity() {
-            return directEntity;
-        }
-
-        /**
-         * @return The hit result of the cast component.
-         */
-        @Nullable
-        public HitResult getHitResult() {
-            return hitResult;
+        public Component(SpellComponent component, List<SpellModifier> modifiers, SpellCastContext context) {
+            super(component, modifiers, context);
         }
     }
 }

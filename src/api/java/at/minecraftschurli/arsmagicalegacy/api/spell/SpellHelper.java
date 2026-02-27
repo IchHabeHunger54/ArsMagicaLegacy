@@ -1,13 +1,10 @@
 package at.minecraftschurli.arsmagicalegacy.api.spell;
 
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -29,52 +26,38 @@ public interface SpellHelper {
     SpellCastResult cast(Spell spell, Level level, @Nullable LivingEntity caster, boolean consume, boolean awardXp);
 
     /**
-     * Casts the given {@link Spell}'s primary shape.
+     * Casts the given {@link Spell}'s primary shape. Note that {@link SpellCastContext#directEntity()} and {@link SpellCastContext#hitResult()} are guaranteed to return null here.
      *
-     * @param spell  The {@link Spell} to cast.
-     * @param level  The {@link Level} the {@link Spell} is cast in.
-     * @param caster The {@link LivingEntity} casting the {@link Spell}.
+     * @param context The {@link SpellCastContext} to use.
      * @return A {@link SpellCastResult} representing the result of the cast.
-     * @see PrimarySpellShape#cast(Spell, List, Level, LivingEntity)
+     * @see PrimarySpellShape#cast(List, SpellCastContext)
      */
-    SpellCastResult castPrimary(Spell spell, Level level, @Nullable LivingEntity caster);
+    SpellCastResult castPrimary(SpellCastContext context);
 
     /**
      * Casts the given {@link Spell}'s secondary shape.
      *
-     * @param spell        The {@link Spell} to cast.
-     * @param level        The {@link Level} the {@link Spell} is cast in.
-     * @param caster       The {@link LivingEntity} casting the {@link Spell}.
-     * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
-     * @param hitResult    The {@link HitResult} of the spell cast.
+     * @param context The {@link SpellCastContext} to use.
      * @return A {@link SpellCastResult} representing the result of the cast.
-     * @see SecondarySpellShape#cast(Spell, List, Level, LivingEntity, Entity, HitResult)
+     * @see SecondarySpellShape#cast(List, SpellCastContext)
      */
-    SpellCastResult castSecondary(Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
+    SpellCastResult castSecondary(SpellCastContext context);
 
     /**
      * Casts the given {@link Spell}'s grammar.
      *
-     * @param spell        The {@link Spell} to cast.
-     * @param level        The {@link Level} the {@link Spell} is cast in.
-     * @param caster       The {@link LivingEntity} casting the {@link Spell}.
-     * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
-     * @param hitResult    The {@link HitResult} of the spell cast.
+     * @param context The {@link SpellCastContext} to use.
      * @return A {@link SpellCastResult} representing the result of the cast.
      */
-    SpellCastResult castGrammar(Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
+    SpellCastResult castGrammar(SpellCastContext context);
 
     /**
      * If present, casts the given {@link Spell}'s secondary shape. Otherwise, casts the given {@link Spell}'s grammar.
      *
-     * @param spell        The {@link Spell} to cast.
-     * @param level        The {@link Level} the {@link Spell} is cast in.
-     * @param caster       The {@link LivingEntity} casting the {@link Spell}.
-     * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
-     * @param hitResult    The {@link HitResult} of the spell cast.
+     * @param context The {@link SpellCastContext} to use.
      * @return A {@link SpellCastResult} representing the result of the cast.
      */
-    SpellCastResult castSecondaryOrGrammar(Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
+    SpellCastResult castSecondaryOrGrammar(SpellCastContext context);
 
     /**
      * @param part The {@link SpellPart} to get the {@link SpellPartData} for.
@@ -85,17 +68,13 @@ public interface SpellHelper {
     /**
      * Calculates the modifier-changed value from the base value.
      *
-     * @param base         The base value to use.
-     * @param stat         The {@link SpellStat} that is modified.
-     * @param modifiers    The {@link SpellModifier}s to check.
-     * @param spell        The {@link Spell} to cast.
-     * @param level        The {@link Level} the {@link Spell} is cast in.
-     * @param caster       The {@link LivingEntity} casting the {@link Spell}.
-     * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
-     * @param hitResult    The {@link HitResult} of the spell cast.
+     * @param base      The base value to use.
+     * @param stat      The {@link SpellStat} that is modified.
+     * @param modifiers The {@link SpellModifier}s to check.
+     * @param context   The {@link SpellCastContext} to use.
      * @return A modifier-changed value.
      */
-    double getModifiedStat(double base, SpellStat stat, List<SpellModifier> modifiers, Spell spell, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
+    double getModifiedStat(double base, SpellStat stat, List<SpellModifier> modifiers, SpellCastContext context);
 
     /**
      * @param modifiers       The {@link SpellModifier}s to check.
@@ -164,13 +143,9 @@ public interface SpellHelper {
     /**
      * On the client, spawns particles for the given {@link SpellPart}. On the server, does nothing.
      *
-     * @param part         The id of the spell part to spawn the particles for.
-     * @param spell        The {@link Spell} being cast.
-     * @param modifiers    The {@link SpellModifier}s to consider.
-     * @param level        The {@link Level} the {@link Spell} is cast in.
-     * @param caster       The {@link LivingEntity} casting the {@link Spell}.
-     * @param directEntity The entity applying the {@link Spell}, e.g. a projectile. May or may not be identical to the caster.
-     * @param hitResult    The {@link HitResult} of the spell cast.
+     * @param part      The id of the spell part to spawn the particles for.
+     * @param modifiers The {@link SpellModifier}s to consider.
+     * @param context   The {@link SpellCastContext} to use.
      */
-    void spawnParticles(ResourceLocation part, Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, HitResult hitResult);
+    void spawnParticles(ResourceLocation part, List<SpellModifier> modifiers, SpellCastContext context);
 }

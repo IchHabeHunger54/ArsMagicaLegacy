@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
@@ -35,7 +36,9 @@ import java.util.Optional;
 
 public class Forge extends SpellComponent.CastBoth {
     @Override
-    public SpellComponentCastResult castBlock(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, BlockHitResult hitResult) {
+    public SpellComponentCastResult castBlock(List<SpellModifier> modifiers, SpellCastContext context, BlockHitResult hitResult) {
+        Spell spell = context.spell();
+        Level level = context.level();
         if (level.isClientSide()) return SpellComponentCastResult.pass(spell);
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
@@ -47,7 +50,7 @@ public class Forge extends SpellComponent.CastBoth {
         if (stack.getItem() instanceof BlockItem blockItem) {
             Direction direction = hitResult.getDirection();
             Vec3i normal = direction.getNormal();
-            blockItem.place(new BlockPlaceContext(level, caster instanceof Player player ? player : null, InteractionHand.MAIN_HAND, stack, new BlockHitResult(hitResult.getLocation().add(normal.getX(), normal.getY(), normal.getZ()), direction, pos.offset(normal), hitResult.isInside())));
+            blockItem.place(new BlockPlaceContext(level, context.caster() instanceof Player player ? player : null, InteractionHand.MAIN_HAND, stack, new BlockHitResult(hitResult.getLocation().add(normal.getX(), normal.getY(), normal.getZ()), direction, pos.offset(normal), hitResult.isInside())));
         } else {
             ItemEntity item = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack);
             item.setDefaultPickUpDelay();
@@ -57,8 +60,11 @@ public class Forge extends SpellComponent.CastBoth {
     }
 
     @Override
-    public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
+    public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
+        Spell spell = context.spell();
         if (!AMServerConfig.FORGE_SMELTS_VILLAGERS.get() || !(hitResult.getEntity() instanceof Villager villager)) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_HIT);
+        Level level = context.level();
+        LivingEntity caster = context.caster();
         if (!level.isClientSide()) {
             ItemEntity item = new ItemEntity(level, villager.getX(), villager.getY(), villager.getZ(), new ItemStack(Items.EMERALD));
             item.setDefaultPickUpDelay();

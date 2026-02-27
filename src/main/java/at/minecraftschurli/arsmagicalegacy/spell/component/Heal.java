@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
@@ -25,11 +26,14 @@ public class Heal extends SpellComponent.CastEntity {
     }
 
     @Override
-    public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
+    public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
+        Spell spell = context.spell();
         if (!(hitResult.getEntity() instanceof LivingEntity living)) return SpellComponentCastResult.pass(spell);
-        float healing = (float) ArsMagicaApi.spellHelper().getModifiedStat(2, AMSpells.HEALING_STAT, modifiers, spell, level, caster, directEntity, hitResult);
+        float healing = (float) ArsMagicaApi.spellHelper().getModifiedStat(2, AMSpells.HEALING_STAT, modifiers, context);
         if (living.isInvertedHealAndHarm()) {
-            living.hurt(caster != null ? level.damageSources().indirectMagic(caster, directEntity) : level.damageSources().magic(), healing);
+            Level level = context.level();
+            LivingEntity caster = context.caster();
+            living.hurt(caster != null ? level.damageSources().indirectMagic(caster, context.directEntity()) : level.damageSources().magic(), healing);
         } else {
             living.heal(healing);
         }
@@ -37,12 +41,14 @@ public class Heal extends SpellComponent.CastEntity {
     }
 
     @Override
-    public void spawnParticles(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+    public void spawnParticles(List<SpellModifier> modifiers, SpellCastContext context) {
+        Entity directEntity = context.directEntity();
+        HitResult hitResult = context.hitResult();
         if (directEntity == null || !(hitResult instanceof EntityHitResult entityHitResult) || !(entityHitResult.getEntity() instanceof LivingEntity living)) return;
         if (living.isInvertedHealAndHarm()) {
-            AMClientUtil.spawnParticles(UNDEAD_PARTICLES, directEntity.position(), ArsMagicaApi.spellHelper().getColor(modifiers, spell, -1), caster, directEntity, hitResult);
+            AMClientUtil.spawnParticles(UNDEAD_PARTICLES, directEntity.position(), ArsMagicaApi.spellHelper().getColor(modifiers, context.spell(), -1), context.caster(), directEntity, hitResult);
         } else {
-            super.spawnParticles(spell, modifiers, level, caster, directEntity, hitResult);
+            super.spawnParticles(modifiers, context);
         }
     }
 }

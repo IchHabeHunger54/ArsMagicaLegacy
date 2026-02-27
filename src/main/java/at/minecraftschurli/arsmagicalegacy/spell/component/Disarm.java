@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
@@ -19,14 +20,17 @@ import java.util.List;
 
 public class Disarm extends SpellComponent.CastEntity {
     @Override
-    public SpellComponentCastResult castEntity(Spell spell, List<SpellModifier> modifiers, Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity, EntityHitResult hitResult) {
+    public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
+        Spell spell = context.spell();
         if (!(hitResult.getEntity() instanceof LivingEntity entity)) return SpellComponentCastResult.pass(spell);
+        Level level = context.level();
         if (entity instanceof EnderMan enderMan) {
             BlockState state = enderMan.getCarriedBlock();
             if (state != null) {
                 addItemEntity(level, entity, new ItemStack(state.getBlock()));
                 enderMan.setCarriedBlock(null);
             }
+            LivingEntity caster = context.caster();
             if (caster != null) {
                 enderMan.setTarget(caster);
             }

@@ -5,7 +5,6 @@
 - Test With Sodium/Embeddium/Iris
     - Altar Model & BER
     - Magitech Goggles Overlay
-- Setup CI/CD
 - Textures
     - Witchwood Boat
     - Fix Old Rune Outline in Rune Bag GUI

@@ -27,7 +27,7 @@ import java.util.Optional;
  * @param minorOpposites The minor opposite affinities. When shifting into an affinity, one will also shift away by a small amount from the minor opposites.
  * @param adjacents      The adjacent affinities. When shifting into an affinity, one will also shift towards the adjacents by a small amount.
  * @param color          The color of the affinity.
- * @param index          The index of the affinity when displaying in the occulus. The built-in affinities use int values 1-10, use floating point values to insert your affinities between them. Use values < 0 to not display the affinity in the occulus.
+ * @param index          The index of the affinity when displaying in the occulus. The built-in affinities use int values 1-10, use floating point values to insert your affinities between them. Use values &lt; 0 to not display the affinity in the occulus.
  * @param castSound      The {@link SoundEvent} to use for casting {@link Spell}s with the affinity.
  * @param loopSound      The {@link SoundEvent} to use for casting continuous {@link Spell}s with the affinity.
  * @param particle       The {@link ParticleOptions} to associate with the affinity.

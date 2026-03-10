@@ -36,15 +36,15 @@ public interface AMRegistries {
      */
     Registry<MapCodec<? extends GrowthType>> GROWTH_TYPES = new RegistryBuilder<>(Keys.GROWTH_TYPE).sync(true).create();
     /**
-     * The registry for {@link SpellIngredient}s.
+     * The registry for {@link RitualEffect}s.
      */
     Registry<MapCodec<? extends RitualEffect>> RITUAL_EFFECTS = new RegistryBuilder<>(Keys.RITUAL_EFFECT).sync(true).create();
     /**
-     * The registry for {@link SpellIngredient}s.
+     * The registry for {@link RitualRequirement}s.
      */
     Registry<MapCodec<? extends RitualRequirement>> RITUAL_REQUIREMENTS = new RegistryBuilder<>(Keys.RITUAL_REQUIREMENT).sync(true).create();
     /**
-     * The registry for {@link SpellIngredient}s.
+     * The registry for {@link RitualTrigger}s.
      */
     Registry<MapCodec<? extends RitualTrigger<?>>> RITUAL_TRIGGERS = new RegistryBuilder<>(Keys.RITUAL_TRIGGER).sync(true).create();
     /**

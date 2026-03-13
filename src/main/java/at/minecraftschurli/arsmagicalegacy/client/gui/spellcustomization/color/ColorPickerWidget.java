@@ -4,9 +4,10 @@ import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 import org.apache.commons.lang3.function.TriConsumer;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 abstract class ColorPickerWidget extends AbstractWidget {
     private final TriConsumer<Float, Float, Float> onChange;
@@ -24,14 +25,14 @@ abstract class ColorPickerWidget extends AbstractWidget {
     }
 
     @Override
-    public void onClick(double mouseX, double mouseY, int button) {
-        setHovered(mouseX, mouseY);
+    public void onClick(MouseButtonEvent event, boolean doubleClick) {
+        setHovered(event);
     }
 
     @Override
-    protected void onDrag(double mouseX, double mouseY, double dragX, double dragY) {
+    protected void onDrag(MouseButtonEvent event, double dx, double dy) {
         if (isHovered) {
-            setHovered(mouseX, mouseY);
+            setHovered(event);
         }
     }
 
@@ -41,8 +42,8 @@ abstract class ColorPickerWidget extends AbstractWidget {
         this.brightness = brightness;
     }
 
-    protected void setHovered(double mouseX, double mouseY) {
-        float[] hovered = getHovered(mouseX, mouseY);
+    protected void setHovered(MouseButtonEvent event) {
+        float[] hovered = getHovered(event);
         if (hovered != null) {
             setValue(hovered[0], hovered[1], hovered[2]);
             onChange();
@@ -59,5 +60,5 @@ abstract class ColorPickerWidget extends AbstractWidget {
         guiGraphics.fill(x - 1, y - 1, x + 1, y + 1, color);
     }
 
-    protected abstract float @Nullable [] getHovered(double mouseX, double mouseY);
+    protected abstract float @Nullable [] getHovered(MouseButtonEvent event);
 }

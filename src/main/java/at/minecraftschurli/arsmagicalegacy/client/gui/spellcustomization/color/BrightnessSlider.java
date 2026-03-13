@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.color;
 
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.input.MouseButtonEvent;
 import org.apache.commons.lang3.function.TriConsumer;
 import org.jetbrains.annotations.Nullable;
 
@@ -11,17 +12,17 @@ class BrightnessSlider extends ColorPickerWidget {
     }
 
     @Override
-    protected float @Nullable [] getHovered(double mouseX, double mouseY) {
-        return new float[]{hue, saturation, Math.clamp((float) (1 - (mouseY - getY()) / height), 0, 1)};
+    protected float @Nullable [] getHovered(MouseButtonEvent event) {
+        return new float[]{hue, saturation, Math.clamp((float) (1 - (event.y() - getY()) / height), 0, 1)};
     }
 
     @Override
-    protected void renderWidget(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+    protected void extractWidgetRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
         if (isFocused()) {
-            guiGraphics.fill(getX() - 1, getY() - 1, getX() + width + 1, getY() + height + 1, 0xffffffff);
+            graphics.fill(getX() - 1, getY() - 1, getX() + width + 1, getY() + height + 1, 0xffffffff);
         }
         int[] rgb = AMClientUtil.hsbToRgb(hue, saturation, 1);
-        guiGraphics.fillGradient(getX(), getY(), getX() + width, getY() + height, 0xff << 24 | rgb[0] << 16 | rgb[1] << 8 | rgb[2], 0xff000000);
-        renderIndicator(guiGraphics, getX() + width / 2, (int) (getY() + Math.clamp(1 - brightness, 0, 1) * height));
+        graphics.fillGradient(getX(), getY(), getX() + width, getY() + height, 0xff << 24 | rgb[0] << 16 | rgb[1] << 8 | rgb[2], 0xff000000);
+        renderIndicator(graphics, getX() + width / 2, (int) (getY() + Math.clamp(1 - brightness, 0, 1) * height));
     }
 }

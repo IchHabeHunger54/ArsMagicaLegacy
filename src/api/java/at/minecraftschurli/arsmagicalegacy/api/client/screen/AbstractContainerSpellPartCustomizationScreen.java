@@ -1,11 +1,11 @@
 package at.minecraftschurli.arsmagicalegacy.api.client.screen;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -51,9 +51,8 @@ public abstract class AbstractContainerSpellPartCustomizationScreen<T> extends A
     @Override
     public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
-        RenderSystem.disableDepthTest();
-        guiGraphics.pose().pushPose();
-        guiGraphics.pose().translate(leftPos, topPos, 0);
+        guiGraphics.pose().pushMatrix();
+        guiGraphics.pose().translate(leftPos, topPos);
         hoveredSlot = null;
         for (Slot slot : slots) {
             if (slot.isActive()) {
@@ -62,31 +61,28 @@ public abstract class AbstractContainerSpellPartCustomizationScreen<T> extends A
             if (isHovering(slot, mouseX, mouseY) && slot.isActive()) {
                 hoveredSlot = slot;
                 if (slot.isHighlightable()) {
-                    AbstractContainerScreen.renderSlotHighlight(guiGraphics, slot.x, slot.y, 0, 0x80ffffff);
+                    // FIXME 26.1
+                    //AbstractContainerScreen.renderSlotHighlight(guiGraphics, slot.x, slot.y, 0, 0x80ffffff);
                 }
             }
         }
         renderLabels(guiGraphics, mouseX, mouseY);
         if (!carried.isEmpty()) {
-            guiGraphics.pose().pushPose();
-            guiGraphics.pose().translate(0, 0, 232);
             guiGraphics.item(carried, mouseX - leftPos - 8, mouseY - topPos - 8);
-            guiGraphics.pose().popPose();
         }
-        guiGraphics.pose().popPose();
-        RenderSystem.enableDepthTest();
+        guiGraphics.pose().popMatrix();
         renderTooltip(guiGraphics, mouseX, mouseY);
     }
 
     @Override
-    public void renderBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        renderTransparentBackground(guiGraphics);
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        extractTransparentBackground(guiGraphics);
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (super.keyPressed(keyCode, scanCode, modifiers)) return true;
-        InputConstants.Key mouseKey = InputConstants.getKey(keyCode, scanCode);
+    public boolean keyPressed(KeyEvent event) {
+        if (super.keyPressed(event)) return true;
+        InputConstants.Key mouseKey = InputConstants.getKey(event);
         if (getMinecraft().options.keyInventory.isActiveAndMatches(mouseKey)) {
             onClose();
             return true;
@@ -95,17 +91,17 @@ public abstract class AbstractContainerSpellPartCustomizationScreen<T> extends A
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (super.mouseClicked(mouseX, mouseY, button)) return true;
+    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+        if (super.mouseClicked(event, doubleClick)) return true;
         if (hoveredSlot != null) {
             if (hoveredSlot.index < slots.size() - inventorySlotCount) {
-                if (hasShiftDown() || carried.isEmpty()) {
+                if (event.hasShiftDown() || carried.isEmpty()) {
                     clearSlot(hoveredSlot);
                 } else {
                     setSlot(hoveredSlot);
                 }
             } else if (!hoveredSlot.getItem().isEmpty()) {
-                if (hasShiftDown()) {
+                if (event.hasShiftDown()) {
                     quickMoveSlot(hoveredSlot);
                 } else {
                     pickSlot(hoveredSlot);
@@ -163,7 +159,7 @@ public abstract class AbstractContainerSpellPartCustomizationScreen<T> extends A
     }
 
     /**
-     * Called from {@link #render(GuiGraphicsExtractor, int, int, float)} to render inventory labels.
+     * Called from {@link #extractRenderState(GuiGraphicsExtractor, int, int, float)} to render inventory labels.
      *
      * @param guiGraphics The {@link GuiGraphicsExtractor} to use.
      * @param mouseX      The mouse x position.
@@ -173,7 +169,7 @@ public abstract class AbstractContainerSpellPartCustomizationScreen<T> extends A
     }
 
     /**
-     * Called from {@link #render(GuiGraphicsExtractor, int, int, float)} to render a {@link Slot}.
+     * Called from {@link #extractRenderState(GuiGraphicsExtractor, int, int, float)} to render a {@link Slot}.
      *
      * @param guiGraphics The {@link GuiGraphicsExtractor} to use.
      * @param slot        The {@link Slot} to render.
@@ -182,27 +178,26 @@ public abstract class AbstractContainerSpellPartCustomizationScreen<T> extends A
         int x = slot.x;
         int y = slot.y;
         ItemStack stack = slot.getItem();
-        guiGraphics.pose().pushPose();
-        guiGraphics.pose().translate(0, 0, 100);
+        guiGraphics.pose().pushMatrix();
         if (stack.isEmpty() && slot.isActive()) {
-            Pair<Identifier, Identifier> pair = slot.getNoItemIcon();
-            if (pair != null) {
-                guiGraphics.blit(x, y, 0, 16, 16, getMinecraft().getTextureAtlas(pair.getFirst()).apply(pair.getSecond()));
+            Identifier icon = slot.getNoItemIcon();
+            if (icon != null) {
+                guiGraphics.blitSprite(RenderPipelines.GUI, icon, x, y, 16, 16);
             }
         } else if (!stack.isEmpty()) {
             int seed = x + y * imageWidth;
             if (slot.isFake()) {
-                guiGraphics.renderFakeItem(stack, x, y, seed);
+                guiGraphics.fakeItem(stack, x, y, seed);
             } else {
-                guiGraphics.renderItem(stack, x, y, seed);
+                guiGraphics.item(stack, x, y, seed);
             }
-            guiGraphics.renderItemDecorations(font, stack, x, y);
+            guiGraphics.itemDecorations(font, stack, x, y);
         }
-        guiGraphics.pose().popPose();
+        guiGraphics.pose().popMatrix();
     }
 
     /**
-     * Called from {@link #render(GuiGraphicsExtractor, int, int, float)} to render inventory labels.
+     * Called from {@link #extractRenderState(GuiGraphicsExtractor, int, int, float)} to render inventory labels.
      *
      * @param guiGraphics The {@link GuiGraphicsExtractor} to use.
      * @param mouseX      The mouse x position.
@@ -210,8 +205,7 @@ public abstract class AbstractContainerSpellPartCustomizationScreen<T> extends A
      */
     protected void renderTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         if (carried.isEmpty() && hoveredSlot != null && hoveredSlot.hasItem()) {
-            ItemStack stack = hoveredSlot.getItem();
-            guiGraphics.renderTooltip(font, getTooltipFromItem(getMinecraft(), stack), stack.getTooltipImage(), stack, mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, hoveredSlot.getItem(), mouseX, mouseY);
         }
     }
 

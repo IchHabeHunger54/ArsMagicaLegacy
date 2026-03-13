@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.BlockModelRotation;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
@@ -25,9 +25,9 @@ public class SpellItemIconModel extends BakedModelWrapper<BakedModel> {
     private static final Vector3f FROM = new Vector3f(0, 0, 8.504f);
     private static final Vector3f TO = new Vector3f(16, 16, 8.504f);
     private static final BlockFaceUV UV = new BlockFaceUV(new float[]{0, 0, 16, 16}, 0);
-    private final ResourceLocation icon;
+    private final Identifier icon;
 
-    public SpellItemIconModel(BakedModel originalModel, ResourceLocation icon) {
+    public SpellItemIconModel(BakedModel originalModel, Identifier icon) {
         super(originalModel);
         this.icon = icon;
     }

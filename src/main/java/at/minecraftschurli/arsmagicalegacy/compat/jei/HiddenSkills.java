@@ -12,7 +12,7 @@ import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -102,7 +102,7 @@ public final class HiddenSkills {
     private static Stream<Holder.Reference<Skill>> getSkills() {
         return AMRegistries.skills(true)
             .holders()
-            .filter(e -> AMRegistries.SPELL_PARTS.containsKey(e.getKey().location()))
+            .filter(e -> AMRegistries.SPELL_PARTS.containsKey(e.getKey().identifier()))
             .sorted(Comparator.comparing(e -> Skill.getName(e).getString()));
     }
 
@@ -124,14 +124,14 @@ public final class HiddenSkills {
     private static String getKey(Collection<ResourceKey<Skill>> set) {
         return String.join(",", set.stream()
             .map(ResourceKey::location)
-            .map(ResourceLocation::toString)
+            .map(Identifier::toString)
             .sorted()
             .toList());
     }
 
     private static SkillCategory.Recipe recipe(Holder<Skill> holder, Collection<ResourceKey<Skill>> hiddenModifiers) {
         return SkillCategory.Recipe.of(holder, hiddenModifiers.stream()
-            .map(AMRegistries.skills(true)::getHolderOrThrow)
+            .map(AMRegistries.skills(true)::getOrThrow)
             .collect(Collectors.toSet()));
     }
 }

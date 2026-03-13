@@ -9,9 +9,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.resources.model.ModelIdentifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -20,7 +20,7 @@ import net.neoforged.neoforge.client.model.BakedModelWrapper;
 import org.jetbrains.annotations.Nullable;
 
 public class SpellItemModel extends BakedModelWrapper<BakedModel> {
-    private ResourceLocation icon;
+    private Identifier icon;
     private ResourceKey<Affinity> affinity;
     private final ItemOverrides overrides = new ItemOverrides() {
         @SuppressWarnings("DataFlowIssue")
@@ -67,7 +67,7 @@ public class SpellItemModel extends BakedModelWrapper<BakedModel> {
         Player player = AMClientUtil.player();
         if (player == null || !ArsMagicaApi.magicHelper().knowsMagic(player)) return super.applyTransform(cameraTransformType, poseStack, applyLeftHandTransform);
         if (affinity != null && isHand(cameraTransformType))
-            return new SpellItemHandModel(AMClientUtil.mc().getModelManager().getModel(ModelResourceLocation.standalone(affinity.location().withPrefix("item/spell_")))).applyTransform(cameraTransformType, poseStack, applyLeftHandTransform);
+            return new SpellItemHandModel(AMClientUtil.mc().getModelManager().getModel(ModelIdentifier.standalone(affinity.location().withPrefix("item/spell_")))).applyTransform(cameraTransformType, poseStack, applyLeftHandTransform);
         if (icon == null || cameraTransformType != ItemDisplayContext.GUI) return super.applyTransform(cameraTransformType, poseStack, applyLeftHandTransform);
         return new SpellItemIconModel(super.applyTransform(cameraTransformType, poseStack, applyLeftHandTransform), icon);
     }

@@ -15,7 +15,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -29,8 +29,8 @@ import java.util.stream.IntStream;
 
 @SuppressWarnings("deprecation")
 public class FallingStar extends SpellEntity {
-    public static final ResourceLocation FALL_PARTICLES = ArsMagicaApi.id("falling_star_fall");
-    public static final ResourceLocation GROUND_PARTICLES = ArsMagicaApi.id("falling_star_ground");
+    public static final Identifier FALL_PARTICLES = ArsMagicaApi.id("falling_star_fall");
+    public static final Identifier GROUND_PARTICLES = ArsMagicaApi.id("falling_star_ground");
     private static final EntityDataAccessor<Float> DAMAGE = SynchedEntityData.defineId(FallingStar.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> RANGE = SynchedEntityData.defineId(FallingStar.class, EntityDataSerializers.FLOAT);
     private static final String DAMAGE_KEY = "damage";

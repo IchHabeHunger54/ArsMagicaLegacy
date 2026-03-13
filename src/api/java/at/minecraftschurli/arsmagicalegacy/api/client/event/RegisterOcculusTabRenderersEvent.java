@@ -2,7 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.api.client.event;
 
 import at.minecraftschurli.arsmagicalegacy.api.client.OcculusTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.Event;
 import net.neoforged.fml.event.IModBusEvent;
 
@@ -16,7 +16,7 @@ import java.util.Map;
  * This event is not cancelable. This event is fired on the mod event bus, only on the physical client.
  */
 public class RegisterOcculusTabRenderersEvent extends Event implements IModBusEvent {
-    private final Map<ResourceLocation, OcculusTabRenderer.Factory> renderers = new HashMap<>();
+    private final Map<Identifier, OcculusTabRenderer.Factory> renderers = new HashMap<>();
 
     /**
      * Registers an {@link OcculusTabRenderer.Factory}.
@@ -24,14 +24,14 @@ public class RegisterOcculusTabRenderersEvent extends Event implements IModBusEv
      * @param key     The id of the {@link OcculusTabRenderer.Factory}. May be referenced in {@link OcculusTab}s.
      * @param factory The {@link OcculusTabRenderer.Factory} to register.
      */
-    public synchronized void register(ResourceLocation key, OcculusTabRenderer.Factory factory) {
+    public synchronized void register(Identifier key, OcculusTabRenderer.Factory factory) {
         renderers.put(key, factory);
     }
 
     /**
      * @return An unmodifiable view of all registered {@link OcculusTabRenderer.Factory}s.
      */
-    public Map<ResourceLocation, OcculusTabRenderer.Factory> getRenderers() {
+    public Map<Identifier, OcculusTabRenderer.Factory> getRenderers() {
         return Collections.unmodifiableMap(renderers);
     }
 }

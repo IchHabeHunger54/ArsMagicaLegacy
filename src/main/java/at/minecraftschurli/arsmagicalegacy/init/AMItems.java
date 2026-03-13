@@ -18,7 +18,7 @@ import at.minecraftschurli.arsmagicalegacy.item.SpellItem;
 import at.minecraftschurli.arsmagicalegacy.item.SpellRecipeItem;
 import at.minecraftschurli.arsmagicalegacy.item.WitchwoodBoatItem;
 import at.minecraftschurli.arsmagicalegacy.item.WizardsChalkItem;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -45,7 +45,7 @@ public interface AMItems {
     // @formatter:off
     DeferredItem<SpellItem>                                    SPELL                            = ITEMS.registerItem("spell", p -> new SpellItem(p.stacksTo(1).component(AMDataComponents.SPELL, Spell.EMPTY)));
     DeferredItem<SpellRecipeItem>                              SPELL_RECIPE                     = ITEMS.registerItem("spell_recipe", p -> new SpellRecipeItem(p.stacksTo(1).component(AMDataComponents.SPELL, Spell.EMPTY)));
-    DeferredItem<DataComponentNamedItem<Holder<EtheriumType>>> ETHERIUM_PLACEHOLDER             = ITEMS.registerItem("etherium_placeholder", p -> new DataComponentNamedItem<>(p, AMDataComponents.ETHERIUM_TYPE.get()).withTranslationKeyGetter((holder, name) -> Util.makeDescriptionId(name, holder.getKey().location())));
+    DeferredItem<DataComponentNamedItem<Holder<EtheriumType>>> ETHERIUM_PLACEHOLDER             = ITEMS.registerItem("etherium_placeholder", p -> new DataComponentNamedItem<>(p, AMDataComponents.ETHERIUM_TYPE.get()).withTranslationKeyGetter((holder, name) -> Util.makeDescriptionId(name, holder.getKey().identifier())));
     DeferredItem<BucketItem>                                   LIQUID_ETHERIUM_BUCKET           = ITEMS.registerItem("liquid_etherium", p -> new BucketItem(AMFluids.LIQUID_ETHERIUM.get(), p.craftRemainder(Items.BUCKET).stacksTo(1)));
     DeferredItem<BlockItem>                                    OCCULUS                          = ITEMS.registerSimpleBlockItem(AMBlocks.OCCULUS);
     DeferredItem<BlockItem>                                    INSCRIPTION_TABLE                = ITEMS.registerSimpleBlockItem(AMBlocks.INSCRIPTION_TABLE);
@@ -77,7 +77,7 @@ public interface AMItems {
     DeferredItem<Item>                                         MANA_CAKE                        = ITEMS.registerSimpleItem("mana_cake", new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6f).alwaysEdible().effect(() -> new MobEffectInstance(AMMobEffects.MANA_REGENERATION, 600), 1).build()));
     DeferredItem<DrinkItem>                                    MANA_MARTINI                     = ITEMS.registerItem("mana_martini", p -> new DrinkItem(p.food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6f).alwaysEdible().effect(() -> new MobEffectInstance(AMMobEffects.BURNOUT_REDUCTION, 300), 1).usingConvertsTo(Items.GLASS_BOTTLE).build())));
     DeferredItem<InfinityOrbItem>                              INFINITY_ORB                     = ITEMS.registerItem("infinity_orb", InfinityOrbItem::new);
-    DeferredItem<DataComponentNamedItem<Holder<Affinity>>>     AFFINITY_ESSENCE                 = ITEMS.registerItem("affinity_essence", p -> new DataComponentNamedItem<>(p, AMDataComponents.AFFINITY.get()).withTranslationKeyGetter((holder, name) -> Util.makeDescriptionId(name, holder.getKey().location())));
+    DeferredItem<DataComponentNamedItem<Holder<Affinity>>>     AFFINITY_ESSENCE                 = ITEMS.registerItem("affinity_essence", p -> new DataComponentNamedItem<>(p, AMDataComponents.AFFINITY.get()).withTranslationKeyGetter((holder, name) -> Util.makeDescriptionId(name, holder.getKey().identifier())));
     DeferredItem<AffinityTomeItem>                             AFFINITY_TOME                    = ITEMS.registerItem("affinity_tome", AffinityTomeItem::new);
     DeferredItem<Item>                                         BLANK_RUNE                       = ITEMS.registerSimpleItem("blank_rune");
     DeferredItem<Item>                                         WHITE_RUNE                       = ITEMS.registerSimpleItem("white_rune");

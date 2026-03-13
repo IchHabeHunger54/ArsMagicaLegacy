@@ -5,7 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.subtypes.UidContext;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 public class SkillIngredientHelper implements IIngredientHelper<Skill> {
@@ -22,12 +22,12 @@ public class SkillIngredientHelper implements IIngredientHelper<Skill> {
     @SuppressWarnings("removal")
     @Override
     public String getUniqueId(Skill skill, UidContext uidContext) {
-        return getResourceLocation(skill).toString();
+        return getIdentifier(skill).toString();
     }
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public ResourceLocation getResourceLocation(Skill skill) {
+    public Identifier getIdentifier(Skill skill) {
         return AMRegistries.skills(true).getKey(skill);
     }
 

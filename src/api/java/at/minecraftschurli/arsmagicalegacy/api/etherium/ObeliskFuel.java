@@ -38,7 +38,7 @@ public record ObeliskFuel(int burnTime, int etheriumPerTick) {
      */
     @Nullable
     public static ObeliskFuel getFuel(ItemStack stack) {
-        return stack.getItemHolder().getData(DATA_MAP);
+        return stack.typeHolder().getData(DATA_MAP);
     }
 
     /**

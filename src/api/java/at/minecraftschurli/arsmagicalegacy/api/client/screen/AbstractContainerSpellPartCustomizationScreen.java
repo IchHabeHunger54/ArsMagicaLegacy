@@ -4,11 +4,11 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -49,8 +49,8 @@ public abstract class AbstractContainerSpellPartCustomizationScreen<T> extends A
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
         RenderSystem.disableDepthTest();
         guiGraphics.pose().pushPose();
         guiGraphics.pose().translate(leftPos, topPos, 0);
@@ -70,7 +70,7 @@ public abstract class AbstractContainerSpellPartCustomizationScreen<T> extends A
         if (!carried.isEmpty()) {
             guiGraphics.pose().pushPose();
             guiGraphics.pose().translate(0, 0, 232);
-            guiGraphics.renderItem(carried, mouseX - leftPos - 8, mouseY - topPos - 8);
+            guiGraphics.item(carried, mouseX - leftPos - 8, mouseY - topPos - 8);
             guiGraphics.pose().popPose();
         }
         guiGraphics.pose().popPose();
@@ -79,7 +79,7 @@ public abstract class AbstractContainerSpellPartCustomizationScreen<T> extends A
     }
 
     @Override
-    public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void renderBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         renderTransparentBackground(guiGraphics);
     }
 
@@ -163,29 +163,29 @@ public abstract class AbstractContainerSpellPartCustomizationScreen<T> extends A
     }
 
     /**
-     * Called from {@link #render(GuiGraphics, int, int, float)} to render inventory labels.
+     * Called from {@link #render(GuiGraphicsExtractor, int, int, float)} to render inventory labels.
      *
-     * @param guiGraphics The {@link GuiGraphics} to use.
+     * @param guiGraphics The {@link GuiGraphicsExtractor} to use.
      * @param mouseX      The mouse x position.
      * @param mouseY      The mouse y position.
      */
-    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    protected void renderLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
     }
 
     /**
-     * Called from {@link #render(GuiGraphics, int, int, float)} to render a {@link Slot}.
+     * Called from {@link #render(GuiGraphicsExtractor, int, int, float)} to render a {@link Slot}.
      *
-     * @param guiGraphics The {@link GuiGraphics} to use.
+     * @param guiGraphics The {@link GuiGraphicsExtractor} to use.
      * @param slot        The {@link Slot} to render.
      */
-    protected void renderSlot(GuiGraphics guiGraphics, Slot slot) {
+    protected void renderSlot(GuiGraphicsExtractor guiGraphics, Slot slot) {
         int x = slot.x;
         int y = slot.y;
         ItemStack stack = slot.getItem();
         guiGraphics.pose().pushPose();
         guiGraphics.pose().translate(0, 0, 100);
         if (stack.isEmpty() && slot.isActive()) {
-            Pair<ResourceLocation, ResourceLocation> pair = slot.getNoItemIcon();
+            Pair<Identifier, Identifier> pair = slot.getNoItemIcon();
             if (pair != null) {
                 guiGraphics.blit(x, y, 0, 16, 16, getMinecraft().getTextureAtlas(pair.getFirst()).apply(pair.getSecond()));
             }
@@ -202,13 +202,13 @@ public abstract class AbstractContainerSpellPartCustomizationScreen<T> extends A
     }
 
     /**
-     * Called from {@link #render(GuiGraphics, int, int, float)} to render inventory labels.
+     * Called from {@link #render(GuiGraphicsExtractor, int, int, float)} to render inventory labels.
      *
-     * @param guiGraphics The {@link GuiGraphics} to use.
+     * @param guiGraphics The {@link GuiGraphicsExtractor} to use.
      * @param mouseX      The mouse x position.
      * @param mouseY      The mouse y position.
      */
-    protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    protected void renderTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         if (carried.isEmpty() && hoveredSlot != null && hoveredSlot.hasItem()) {
             ItemStack stack = hoveredSlot.getItem();
             guiGraphics.renderTooltip(font, getTooltipFromItem(getMinecraft(), stack), stack.getTooltipImage(), stack, mouseX, mouseY);

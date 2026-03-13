@@ -2,7 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.api.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
 import at.minecraftschurli.arsmagicalegacy.api.plant.Plant;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
@@ -22,7 +22,7 @@ public class PlantBuilder extends AbstractDataProvider.Builder<Plant> {
      * @param growthType The {@link GrowthType} of the plant.
      * @param allStates  A {@link RuleTest} for all states of the plant.
      */
-    public PlantBuilder(ResourceLocation id, GrowthType growthType, RuleTest allStates) {
+    public PlantBuilder(Identifier id, GrowthType growthType, RuleTest allStates) {
         super(id);
         this.growthType = growthType;
         this.allStates = allStates;

@@ -8,7 +8,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.Holder;
 import org.jetbrains.annotations.Nullable;
 
@@ -71,7 +71,7 @@ public class SpellPartSourceArea extends DragArea {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         for (Pair<Draggable, Pair<Integer, Integer>> pair : cache) {
             Pair<Integer, Integer> xy = pair.getSecond();
             pair.getFirst().render(guiGraphics, xy.getFirst(), xy.getSecond(), partialTick);

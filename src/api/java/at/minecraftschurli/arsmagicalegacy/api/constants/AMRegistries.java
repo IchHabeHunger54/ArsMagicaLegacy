@@ -61,7 +61,7 @@ public interface AMRegistries {
      * @return The registry for {@link Ability}s.
      */
     static Registry<Ability> abilities(RegistryAccess registryAccess) {
-        return registryAccess.registryOrThrow(Keys.ABILITY);
+        return registryAccess.lookupOrThrow(Keys.ABILITY);
     }
 
     /**
@@ -77,7 +77,7 @@ public interface AMRegistries {
      * @return The registry for {@link Affinity}s.
      */
     static Registry<Affinity> affinities(RegistryAccess registryAccess) {
-        return registryAccess.registryOrThrow(Keys.AFFINITY);
+        return registryAccess.lookupOrThrow(Keys.AFFINITY);
     }
 
     /**
@@ -93,7 +93,7 @@ public interface AMRegistries {
      * @return The registry for {@link AltarCapMaterial}s.
      */
     static Registry<AltarCapMaterial> altarCapMaterials(RegistryAccess registryAccess) {
-        return registryAccess.registryOrThrow(Keys.ALTAR_CAP_MATERIAL);
+        return registryAccess.lookupOrThrow(Keys.ALTAR_CAP_MATERIAL);
     }
 
     /**
@@ -109,7 +109,7 @@ public interface AMRegistries {
      * @return The registry for {@link AltarMaterial}s.
      */
     static Registry<AltarMaterial> altarMaterials(RegistryAccess registryAccess) {
-        return registryAccess.registryOrThrow(Keys.ALTAR_MATERIAL);
+        return registryAccess.lookupOrThrow(Keys.ALTAR_MATERIAL);
     }
 
     /**
@@ -125,7 +125,7 @@ public interface AMRegistries {
      * @return The registry for {@link EtheriumType}s.
      */
     static Registry<EtheriumType> etheriumTypes(RegistryAccess registryAccess) {
-        return registryAccess.registryOrThrow(Keys.ETHERIUM_TYPE);
+        return registryAccess.lookupOrThrow(Keys.ETHERIUM_TYPE);
     }
 
     /**
@@ -141,7 +141,7 @@ public interface AMRegistries {
      * @return The registry for {@link OcculusTab}s.
      */
     static Registry<OcculusTab> occulusTabs(RegistryAccess registryAccess) {
-        return registryAccess.registryOrThrow(Keys.OCCULUS_TAB);
+        return registryAccess.lookupOrThrow(Keys.OCCULUS_TAB);
     }
 
     /**
@@ -157,7 +157,7 @@ public interface AMRegistries {
      * @return The registry for {@link Skill}s.
      */
     static Registry<Skill> skills(RegistryAccess registryAccess) {
-        return registryAccess.registryOrThrow(Keys.SKILL);
+        return registryAccess.lookupOrThrow(Keys.SKILL);
     }
 
     /**
@@ -173,7 +173,7 @@ public interface AMRegistries {
      * @return The registry for {@link SkillPoint}s.
      */
     static Registry<SkillPoint> skillPoints(RegistryAccess registryAccess) {
-        return registryAccess.registryOrThrow(Keys.SKILL_POINT);
+        return registryAccess.lookupOrThrow(Keys.SKILL_POINT);
     }
 
     /**

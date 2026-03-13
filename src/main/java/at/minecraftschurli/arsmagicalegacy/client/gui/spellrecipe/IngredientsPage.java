@@ -4,7 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
@@ -21,7 +21,7 @@ class IngredientsPage extends Page<SpellIngredient> {
     }
 
     @Override
-    public void renderElement(SpellIngredient element, int index, GuiGraphics guiGraphics, int x, int y) {
+    public void renderElement(SpellIngredient element, int index, GuiGraphicsExtractor guiGraphics, int x, int y) {
         ItemStack stack = AMUtil.getByTick(element.asItemStacks(), AMClientUtil.player().tickCount / 20).copyWithCount(element.count());
         x = x + index % maxPerLine * (size + spacing);
         y = y + index / maxPerLine * (size + spacing);

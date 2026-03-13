@@ -4,7 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualRequirement;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -12,9 +12,9 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
-public record StructureRitualRequirement(ResourceLocation structure, BlockPos offset) implements RitualRequirement {
+public record StructureRitualRequirement(Identifier structure, BlockPos offset) implements RitualRequirement {
     public static final MapCodec<StructureRitualRequirement> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-        ResourceLocation.CODEC.fieldOf("structure").forGetter(StructureRitualRequirement::structure),
+        Identifier.CODEC.fieldOf("structure").forGetter(StructureRitualRequirement::structure),
         BlockPos.CODEC.optionalFieldOf("offset", BlockPos.ZERO).forGetter(StructureRitualRequirement::offset)
     ).apply(inst, StructureRitualRequirement::new));
 

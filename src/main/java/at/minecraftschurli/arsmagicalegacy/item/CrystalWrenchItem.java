@@ -7,7 +7,7 @@ import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumHandlerBlock;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CrystalWrenchItem extends Item {
-    public static final ResourceLocation ACTIVE = ArsMagicaApi.id("crystal_wrench_active");
+    public static final Identifier ACTIVE = ArsMagicaApi.id("crystal_wrench_active");
 
     public CrystalWrenchItem(Properties properties) {
         super(properties);

@@ -2,7 +2,7 @@ package at.minecraftschurli.arsmagicalegacy;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 public final class AMServerConfig {
@@ -118,7 +118,7 @@ public final class AMServerConfig {
         MAGIC_ADVANCEMENT = builder
             .comment("Completing this advancement will unlock magic for the player. Leave empty to not require an advancement and have magic unlocked from the start.")
             .translation(AMTranslations.CONFIG_KEY + "magic_advancement")
-            .define("magic_advancement", ArsMagicaApi.id("root").toString(), AMServerConfig::isValidResourceLocationOrEmpty);
+            .define("magic_advancement", ArsMagicaApi.id("root").toString(), AMServerConfig::isValidIdentifierOrEmpty);
         MANA_TO_BURNOUT_RATIO = builder
             .comment("The default mana to burnout ratio, used in calculating spell costs.")
             .translation(AMTranslations.CONFIG_KEY + "mana_to_burnout_ratio")
@@ -564,12 +564,12 @@ public final class AMServerConfig {
         SPEC = builder.build();
     }
 
-    private static boolean isValidResourceLocationOrEmpty(Object o) {
+    private static boolean isValidIdentifierOrEmpty(Object o) {
         if (o == null) return false;
         String s = o.toString();
         if (s.isEmpty()) return true;
-        if (!s.contains(":")) return ResourceLocation.isValidPath(s);
+        if (!s.contains(":")) return Identifier.isValidPath(s);
         String[] split = s.split(":");
-        return split.length == 2 && ResourceLocation.isValidNamespace(split[0]) && ResourceLocation.isValidPath(split[1]);
+        return split.length == 2 && Identifier.isValidNamespace(split[0]) && Identifier.isValidPath(split[1]);
     }
 }

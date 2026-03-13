@@ -2,7 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.client.model.item;
 
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.resources.model.ModelIdentifier;
 import net.neoforged.neoforge.client.model.BakedModelWrapper;
 import net.neoforged.neoforge.registries.DeferredItem;
 
@@ -21,7 +21,7 @@ public class ItemOverridesModel extends BakedModelWrapper<BakedModel> {
         return overrides;
     }
 
-    public static void register(Map<ModelResourceLocation, BakedModel> models, DeferredItem<?> item, ItemOverrides overrides) {
-        models.computeIfPresent(ModelResourceLocation.inventory(item.getId()), (k, v) -> new ItemOverridesModel(v, overrides));
+    public static void register(Map<ModelIdentifier, BakedModel> models, DeferredItem<?> item, ItemOverrides overrides) {
+        models.computeIfPresent(ModelIdentifier.inventory(item.getId()), (k, v) -> new ItemOverridesModel(v, overrides));
     }
 }

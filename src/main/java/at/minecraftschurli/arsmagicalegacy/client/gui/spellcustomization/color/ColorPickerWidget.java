@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.color;
 
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
@@ -53,7 +53,7 @@ abstract class ColorPickerWidget extends AbstractWidget {
         onChange.accept(hue, saturation, brightness);
     }
 
-    protected void renderIndicator(GuiGraphics guiGraphics, int x, int y) {
+    protected void renderIndicator(GuiGraphicsExtractor guiGraphics, int x, int y) {
         int[] rgb = AMClientUtil.hsbToRgb(hue, saturation, brightness);
         int color = rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114 > 186 ? 0xff000000 : 0xffffffff;
         guiGraphics.fill(x - 1, y - 1, x + 1, y + 1, color);

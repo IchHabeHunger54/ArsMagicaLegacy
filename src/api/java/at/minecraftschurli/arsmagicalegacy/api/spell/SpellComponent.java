@@ -68,7 +68,7 @@ public abstract non-sealed class SpellComponent extends SpellPart {
     @SuppressWarnings("DataFlowIssue")
     public void spawnParticles(List<SpellModifier> modifiers, SpellCastContext context) {
         if (!context.isHitResultNullOrMiss()) {
-            ArsMagicaApi.spellHelper().spawnParticles(AMRegistries.SPELL_PARTS.wrapAsHolder(this).getKey().location(), modifiers, context);
+            ArsMagicaApi.spellHelper().spawnParticles(AMRegistries.SPELL_PARTS.wrapAsHolder(this).getKey().identifier(), modifiers, context);
         }
     }
 

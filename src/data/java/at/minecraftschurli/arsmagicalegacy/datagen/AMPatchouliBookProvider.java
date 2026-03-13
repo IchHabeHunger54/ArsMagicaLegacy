@@ -24,12 +24,12 @@ import com.github.minecraftschurlimods.easydatagenlib.mods.patchouli.translated.
 import com.github.minecraftschurlimods.easydatagenlib.mods.patchouli.translated.TranslatedCategoryBuilder;
 import com.github.minecraftschurlimods.easydatagenlib.mods.patchouli.translated.TranslatedEntryBuilder;
 import com.google.gson.JsonObject;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Comparator;
@@ -53,7 +53,7 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
     protected void addBooks(HolderLookup.Provider lookupProvider, Consumer<BookBuilder<?, ?, ?>> consumer) {
         HolderLookup.RegistryLookup<Affinity> affinityRegistry = lookupProvider.lookupOrThrow(AMRegistries.Keys.AFFINITY);
         TranslatedBookBuilder builder = createBookBuilder("arcane_compendium", "Arcane Compendium", "A renewed look into Minecraft with a splash of magic...", translationConsumer, lookupProvider)
-            .setBookTexture(ResourceLocation.fromNamespaceAndPath("patchouli", "textures/gui/book_purple.png"))
+            .setBookTexture(Identifier.fromNamespaceAndPath("patchouli", "textures/gui/book_purple.png"))
             .setCreativeTab(AMCreativeTabs.MAIN.getId())
             .setModel(ArsMagicaApi.id("arcane_compendium"))
             .setVersion("1");
@@ -347,7 +347,7 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
             if (spellPart == AMSpells.NAUSEA.get()) continue;
             if (spellPart == AMSpells.SCRAMBLE_SYNAPSES.get()) continue;
             TranslatedCategoryBuilder b = spellPart.isShape() ? shapes : spellPart.isComponent() ? components : modifiers;
-            ResourceLocation id = AMRegistries.SPELL_PARTS.getKey(spellPart);
+            Identifier id = AMRegistries.SPELL_PARTS.getKey(spellPart);
             TranslatedEntryBuilder entry = b.addEntry(id.getPath(), Util.makeDescriptionId("skill", id) + ".name", id.getNamespace() + ":textures/skill/" + id.getPath() + ".png")
                 .setAdvancement(ArsMagicaApi.id("book/" + id.getPath()));
             entry.addSimpleTextPage(entry.getLangKey(0) + ".text");
@@ -367,7 +367,7 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
         TranslatedCategoryBuilder talents = builder.addCategory("talents", "Talents", "", ArsMagicaApi.MOD_ID + ":textures/skill/mana_regeneration_boost_1.png")
             .setSortnum(7);
         for (ResourceKey<Skill> talent : AMMagic.TALENTS) {
-            ResourceLocation id = talent.location();
+            Identifier id = talent.location();
             TranslatedEntryBuilder entry = talents.addEntry(id.getPath(), Util.makeDescriptionId("skill", id) + ".name", id.getNamespace() + ":textures/skill/" + id.getPath() + ".png")
                 .setAdvancement(ArsMagicaApi.id("book/" + id.getPath()));
             entry.addSimpleTextPage(entry.getLangKey(0) + ".text").build();
@@ -385,12 +385,12 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
         Map<ResourceKey<Affinity>, List<Holder.Reference<Ability>>> abilitiesByAffinity = lookupProvider
             .lookupOrThrow(AMRegistries.Keys.ABILITY)
             .listElements()
-            .sorted(Comparator.comparing(e -> e.key().location(), ResourceLocation::compareNamespaced))
+            .sorted(Comparator.comparing(e -> e.key().location(), Identifier::compareNamespaced))
             .sorted(Comparator.comparing(e -> AMAbilityProvider.PATCHOULI_ABILITY_DATA.get(e.getKey()).bounds().min().orElse(0.)))
             .collect(Collectors.groupingBy(e -> AMAbilityProvider.PATCHOULI_ABILITY_DATA.get(e.getKey()).affinity()));
         for (Holder<Affinity> affinity : affinityRegistry.listElements().toList()) {
             ResourceKey<Affinity> key = affinity.getKey();
-            ResourceLocation id = key.location();
+            Identifier id = key.location();
             if (!id.getNamespace().equals(builder.getId().getNamespace()) || id.equals(Affinity.NONE.location())) continue;
             TranslatedEntryBuilder entry = affinities.addEntry(id.getPath(), Util.makeDescriptionId("affinity", id), affinityEssence(affinityRegistry, key));
             entry.addSimpleTextPage(entry.getLangKey(0) + ".text");
@@ -414,9 +414,9 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
     }
 
     private static class SpellPartPageBuilder extends AbstractPageBuilder<SpellPartPageBuilder> {
-        private final ResourceLocation part;
+        private final Identifier part;
 
-        private SpellPartPageBuilder(EntryBuilder<?, ?, ?> builder, ResourceLocation part) {
+        private SpellPartPageBuilder(EntryBuilder<?, ?, ?> builder, Identifier part) {
             super(SpellPartPage.ID, builder);
             this.part = part;
         }

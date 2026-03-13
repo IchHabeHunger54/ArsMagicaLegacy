@@ -11,11 +11,11 @@ import at.minecraftschurli.arsmagicalegacy.entity.SpellEntity;
 import at.minecraftschurli.arsmagicalegacy.entity.SpellShapeEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -133,16 +133,16 @@ public final class AMClientUtil {
         mc().setScreen(new SpellRecipeScreen(stack, playTurnSound, startPage, lecternPos));
     }
 
-    public static void renderItem(GuiGraphics guiGraphics, ItemStack stack, int x, int y) {
+    public static void renderItem(GuiGraphicsExtractor guiGraphics, ItemStack stack, int x, int y) {
         renderItem(guiGraphics, font(), stack, x, y);
     }
 
-    public static void renderItem(GuiGraphics guiGraphics, Font font, ItemStack stack, int x, int y) {
+    public static void renderItem(GuiGraphicsExtractor guiGraphics, Font font, ItemStack stack, int x, int y) {
         guiGraphics.renderItem(stack, x, y);
         guiGraphics.renderItemDecorations(font, stack, x, y);
     }
 
-    public static void spawnParticles(ResourceLocation id, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+    public static void spawnParticles(Identifier id, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         ParticleUtil.spawnParticles(id, position, color, caster, directEntity, hitResult);
     }
 

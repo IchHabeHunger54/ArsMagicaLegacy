@@ -5,7 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class SpellPartDataBuilder extends AbstractDataProvider.Builder<SpellPart
      * @param id   The id of the {@link SpellPart} to generate data for.
      * @param mana The mana cost of the {@link SpellPart}.
      */
-    public SpellPartDataBuilder(ResourceLocation id, double mana) {
+    public SpellPartDataBuilder(Identifier id, double mana) {
         super(id);
         this.mana = mana;
     }

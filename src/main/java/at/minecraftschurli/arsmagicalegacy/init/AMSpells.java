@@ -69,7 +69,7 @@ import at.minecraftschurli.arsmagicalegacy.spell.shape.Wave;
 import at.minecraftschurli.arsmagicalegacy.spell.shape.Zone;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.network.syncher.EntityDataSerializer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -105,11 +105,11 @@ public interface AMSpells {
     SpellStat SPEED_STAT            = new SpellStat(ArsMagicaApi.id("speed"));
     SpellStat TARGET_NON_SOLID_STAT = new SpellStat(ArsMagicaApi.id("target_non_solid"));
 
-    ResourceLocation CONTINGENCY_DAMAGE_ID = ArsMagicaApi.id("damage");
-    ResourceLocation CONTINGENCY_DEATH_ID  = ArsMagicaApi.id("death");
-    ResourceLocation CONTINGENCY_FALL_ID   = ArsMagicaApi.id("fall");
-    ResourceLocation CONTINGENCY_FIRE_ID   = ArsMagicaApi.id("fire");
-    ResourceLocation CONTINGENCY_HEALTH_ID = ArsMagicaApi.id("health");
+    Identifier CONTINGENCY_DAMAGE_ID = ArsMagicaApi.id("damage");
+    Identifier CONTINGENCY_DEATH_ID  = ArsMagicaApi.id("death");
+    Identifier CONTINGENCY_FALL_ID   = ArsMagicaApi.id("fall");
+    Identifier CONTINGENCY_FIRE_ID   = ArsMagicaApi.id("fire");
+    Identifier CONTINGENCY_HEALTH_ID = ArsMagicaApi.id("health");
 
     DeferredHolder<SpellPart, AreaOfEffect> AREA_OF_EFFECT     = register("area_of_effect",     AreaOfEffect::new);
     DeferredHolder<SpellPart, Beam>         BEAM               = register("beam",               Beam::new);

@@ -7,7 +7,7 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class AffinityTomeItem extends DataComponentNamedItem<Holder<Affinity>> {
     public AffinityTomeItem(Properties properties) {
         super(properties, AMDataComponents.AFFINITY.get());
-        withTranslationKeyGetter((holder, name) -> Util.makeDescriptionId(name, holder.getKey().location()));
+        withTranslationKeyGetter((holder, name) -> Util.makeDescriptionId(name, holder.getKey().identifier()));
     }
 
     @Override

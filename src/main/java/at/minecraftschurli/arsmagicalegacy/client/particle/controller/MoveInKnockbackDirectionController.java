@@ -6,12 +6,12 @@ import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleControlle
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 
 public record MoveInKnockbackDirectionController(boolean stopOtherControllers, boolean killOnFinish, double minSpeed, double maxSpeed) implements ParticleController {
-    public static final ResourceLocation ID = ArsMagicaApi.id("move_in_knockback_direction");
+    public static final Identifier ID = ArsMagicaApi.id("move_in_knockback_direction");
     public static final MapCodec<MoveInKnockbackDirectionController> CODEC = RecordCodecBuilder.mapCodec(inst -> ParticleController.baseFields(inst)
         .and(Codec.DOUBLE.fieldOf("min_speed").forGetter(MoveInKnockbackDirectionController::minSpeed))
         .and(Codec.DOUBLE.fieldOf("max_speed").forGetter(MoveInKnockbackDirectionController::maxSpeed))
@@ -38,7 +38,7 @@ public record MoveInKnockbackDirectionController(boolean stopOtherControllers, b
     }
 
     @Override
-    public ResourceLocation id() {
+    public Identifier id() {
         return ID;
     }
 }

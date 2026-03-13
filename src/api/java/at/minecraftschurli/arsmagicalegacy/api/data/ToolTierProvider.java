@@ -8,7 +8,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -17,14 +17,14 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * Data provider for tool tiers. In Ars Magica: Legacy, all a tool tier entails is an int -> incorrect block tag mapping. Override {@link ToolTierProvider#generate()} to generate your entries,
- * and use {@link ToolTierProvider#add(int, TagKey)} or {@link ToolTierProvider#add(int, ResourceLocation)} to add a new tool tier.
+ * and use {@link ToolTierProvider#add(int, TagKey)} or {@link ToolTierProvider#add(int, Identifier)} to add a new tool tier.
  */
 public abstract class ToolTierProvider implements DataProvider {
     private static final String PATH = "tool_tiers.json";
     private final PackOutput output;
     private final CompletableFuture<HolderLookup.Provider> lookupProvider;
     private final String modId;
-    private final Int2ObjectMap<ResourceLocation> contents = new Int2ObjectOpenHashMap<>();
+    private final Int2ObjectMap<Identifier> contents = new Int2ObjectOpenHashMap<>();
 
     /**
      * @param output         The {@link PackOutput} to use. Get this from {@link GatherDataEvent}.
@@ -42,7 +42,7 @@ public abstract class ToolTierProvider implements DataProvider {
         return lookupProvider.thenCompose(provider -> {
             generate();
             JsonObject json = new JsonObject();
-            for (Int2ObjectMap.Entry<ResourceLocation> entry : contents.int2ObjectEntrySet()) {
+            for (Int2ObjectMap.Entry<Identifier> entry : contents.int2ObjectEntrySet()) {
                 json.addProperty(String.valueOf(entry.getIntKey()), entry.getValue().toString());
             }
             return DataProvider.saveStable(output, json, this.output.getOutputFolder(PackOutput.Target.DATA_PACK).resolve(ArsMagicaApi.MOD_ID).resolve(PATH));
@@ -70,7 +70,7 @@ public abstract class ToolTierProvider implements DataProvider {
      * @param toolTier           The tool tier to add.
      * @param incorrectBlocksTag The id of a {@link TagKey} of incorrect {@link Block}s for this tool tier.
      */
-    public void add(int toolTier, ResourceLocation incorrectBlocksTag) {
+    public void add(int toolTier, Identifier incorrectBlocksTag) {
         contents.put(toolTier, incorrectBlocksTag);
     }
 

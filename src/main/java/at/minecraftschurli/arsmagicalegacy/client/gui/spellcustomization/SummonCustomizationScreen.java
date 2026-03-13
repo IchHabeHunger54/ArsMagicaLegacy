@@ -9,9 +9,9 @@ import at.minecraftschurli.arsmagicalegacy.item.CrystalPhylacteryItem;
 import at.minecraftschurli.arsmagicalegacy.menu.container.SingleItemContainer;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.arsmagicalegacy.util.CrystalPhylacteryContentsSize;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.Slot;
@@ -22,8 +22,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 public class SummonCustomizationScreen extends AbstractContainerSpellPartCustomizationScreen<EntityType<?>> {
-    private static final ResourceLocation INVENTORY = ArsMagicaApi.id("textures/gui/spell_customization/inventory.png");
-    private static final ResourceLocation SLOT = ArsMagicaApi.id("textures/gui/spell_customization/summon.png");
+    private static final Identifier INVENTORY = ArsMagicaApi.id("textures/gui/spell_customization/inventory.png");
+    private static final Identifier SLOT = ArsMagicaApi.id("textures/gui/spell_customization/summon.png");
     private final Container container;
 
     public SummonCustomizationScreen(Function<DataComponentType<EntityType<?>>, @Nullable EntityType<?>> valueGetter, BiConsumer<DataComponentType<EntityType<?>>, @Nullable EntityType<?>> valueSetter) {
@@ -60,14 +60,14 @@ public class SummonCustomizationScreen extends AbstractContainerSpellPartCustomi
     }
 
     @Override
-    public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void renderBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
         guiGraphics.blit(SLOT, leftPos + 72, topPos, 0, 0, 32, 32, 32, 32);
         guiGraphics.blit(INVENTORY, leftPos, topPos + 32, 0, 0, 176, 100);
     }
 
     @Override
-    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    protected void renderLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         super.renderLabels(guiGraphics, mouseX, mouseY);
         guiGraphics.drawString(font, AMClientUtil.player().getInventory().getDisplayName(), 8, 38, 0x404040, false);
     }

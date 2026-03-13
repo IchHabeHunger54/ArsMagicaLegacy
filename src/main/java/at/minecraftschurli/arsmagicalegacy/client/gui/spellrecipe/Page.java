@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.client.gui.spellrecipe;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 
 import java.util.List;
@@ -22,7 +22,7 @@ abstract class Page<T> {
         this.elements = elements;
     }
 
-    public void render(GuiGraphics guiGraphics, int x, int y) {
+    public void render(GuiGraphicsExtractor guiGraphics, int x, int y) {
         for (int i = 0; i < elements.size(); i++) {
             renderElement(elements.get(i), i, guiGraphics, x + xOffset, y + yOffset);
         }
@@ -54,7 +54,7 @@ abstract class Page<T> {
 
     public abstract Component getTitle();
 
-    public abstract void renderElement(T element, int index, GuiGraphics guiGraphics, int x, int y);
+    public abstract void renderElement(T element, int index, GuiGraphicsExtractor guiGraphics, int x, int y);
 
     public abstract List<Component> getElementTooltip(T element);
 }

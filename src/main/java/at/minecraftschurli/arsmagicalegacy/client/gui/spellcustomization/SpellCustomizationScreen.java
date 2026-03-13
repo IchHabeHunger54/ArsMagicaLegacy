@@ -11,21 +11,21 @@ import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.packet.SpellCustomizationPacket;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 public class SpellCustomizationScreen extends Screen {
-    private static final ResourceLocation GRAMMAR = ArsMagicaApi.id("textures/gui/spell_customization/grammar.png");
-    private static final ResourceLocation ICONS = ArsMagicaApi.id("textures/gui/spell_customization/icons.png");
-    private static final ResourceLocation SHAPE_GROUP = ArsMagicaApi.id("textures/gui/spell_customization/shape_group.png");
+    private static final Identifier GRAMMAR = ArsMagicaApi.id("textures/gui/spell_customization/grammar.png");
+    private static final Identifier ICONS = ArsMagicaApi.id("textures/gui/spell_customization/icons.png");
+    private static final Identifier SHAPE_GROUP = ArsMagicaApi.id("textures/gui/spell_customization/shape_group.png");
     private static final int WIDTH = 180;
     private static final int HEIGHT = 178;
     private final InteractionHand hand;
@@ -60,7 +60,7 @@ public class SpellCustomizationScreen extends Screen {
     }
 
     @Override
-    public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void renderBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
         guiGraphics.blit(ICONS, leftPos + 5, topPos + 21, 0, 0, 168, 77);
         for (int i = 0; i < Spell.MAX_SHAPE_GROUPS; i++) {

@@ -12,7 +12,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.packet.ForgetSkillsPacket;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
@@ -22,7 +22,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -31,9 +31,9 @@ import java.util.Comparator;
 import java.util.List;
 
 public class OcculusScreen extends Screen {
-    private static final ResourceLocation BUTTON_INDICATOR = ArsMagicaApi.id("textures/gui/occulus/tab_button_indicator.png");
-    private static final ResourceLocation FRAME = ArsMagicaApi.id("textures/gui/occulus/frame.png");
-    private static final ResourceLocation SKILL_POINTS = ArsMagicaApi.id("textures/gui/occulus/skill_points.png");
+    private static final Identifier BUTTON_INDICATOR = ArsMagicaApi.id("textures/gui/occulus/tab_button_indicator.png");
+    private static final Identifier FRAME = ArsMagicaApi.id("textures/gui/occulus/frame.png");
+    private static final Identifier SKILL_POINTS = ArsMagicaApi.id("textures/gui/occulus/skill_points.png");
     private static final int SIZE = 210;
     private static final int FRAME_SIZE = 7;
     private final List<Holder<OcculusTab>> tabs = new ArrayList<>();
@@ -99,7 +99,7 @@ public class OcculusScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         guiGraphics.blit(FRAME, leftPos, topPos + OcculusTabButton.SIZE, 0, 0, SIZE, SIZE);
         guiGraphics.blit(BUTTON_INDICATOR, maxPage == 0 ? leftPos + 6 + tab * OcculusTabButton.SIZE : leftPos + 28 + tab % 7 * OcculusTabButton.SIZE, topPos + OcculusTabButton.SIZE, 0, 0, OcculusTabButton.SIZE, FRAME_SIZE, OcculusTabButton.SIZE, FRAME_SIZE);

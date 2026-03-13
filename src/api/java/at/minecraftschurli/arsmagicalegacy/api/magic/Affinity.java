@@ -5,7 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -71,6 +71,6 @@ public record Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> m
      */
     @SuppressWarnings("DataFlowIssue")
     public static MutableComponent getName(Holder<Affinity> holder) {
-        return Component.translatable(Util.makeDescriptionId("affinity", holder.getKey().location()));
+        return Component.translatable(Util.makeDescriptionId("affinity", holder.getKey().identifier()));
     }
 }

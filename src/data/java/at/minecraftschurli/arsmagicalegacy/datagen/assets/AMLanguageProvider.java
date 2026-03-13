@@ -16,11 +16,11 @@ import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
@@ -857,7 +857,7 @@ public final class AMLanguageProvider extends LanguageProvider {
      * @param translation The translation to add.
      */
     @SuppressWarnings("SameParameterValue")
-    private void itemWithVariantTranslation(DeferredItem<?> item, ResourceLocation variant, String translation) {
+    private void itemWithVariantTranslation(DeferredItem<?> item, Identifier variant, String translation) {
         add(Util.makeDescriptionId(item.toStack().getDescriptionId(), variant), translation);
     }
 
@@ -867,7 +867,7 @@ public final class AMLanguageProvider extends LanguageProvider {
      * @param entity The entity to generate the translation for.
      */
     private void entityIdTranslation(DeferredHolder<EntityType<?>, ?> entity) {
-        addEntityType(entity, idTranslation(entity.getKey().location().getPath()));
+        addEntityType(entity, idTranslation(entity.getKey().identifier().getPath()));
     }
 
     /**
@@ -877,7 +877,7 @@ public final class AMLanguageProvider extends LanguageProvider {
      */
     @SuppressWarnings("DataFlowIssue")
     private void attributeIdTranslation(Holder<Attribute> attribute) {
-        add(Util.makeDescriptionId("attribute", attribute.getKey().location()), idTranslation(attribute.getKey().location().getPath()));
+        add(Util.makeDescriptionId("attribute", attribute.getKey().identifier()), idTranslation(attribute.getKey().identifier().getPath()));
     }
 
     /**
@@ -887,7 +887,7 @@ public final class AMLanguageProvider extends LanguageProvider {
      */
     @SuppressWarnings("DataFlowIssue")
     private void effectIdTranslation(Holder<MobEffect> effect) {
-        add(effect.value(), idTranslation(effect.getKey().location().getPath()));
+        add(effect.value(), idTranslation(effect.getKey().identifier().getPath()));
     }
 
     /**
@@ -897,7 +897,7 @@ public final class AMLanguageProvider extends LanguageProvider {
      */
     @SuppressWarnings("DataFlowIssue")
     private void potionIdTranslation(Holder<Potion> potion) {
-        String path = potion.getKey().location().getPath();
+        String path = potion.getKey().identifier().getPath();
         add("item.minecraft.potion.effect." + path, "Potion of " + idTranslation(path));
         add("item.minecraft.splash_potion.effect." + path, "Splash Potion of " + idTranslation(path));
         add("item.minecraft.lingering_potion.effect." + path, "Lingering Potion of " + idTranslation(path));
@@ -935,7 +935,7 @@ public final class AMLanguageProvider extends LanguageProvider {
      * @param translation The translation to use.
      */
     private void subtitleTranslation(DeferredHolder<SoundEvent, SoundEvent> sound, String translation) {
-        add(Util.makeDescriptionId("subtitle", sound.getKey().location()), translation);
+        add(Util.makeDescriptionId("subtitle", sound.getKey().identifier()), translation);
     }
 
     /**
@@ -947,7 +947,7 @@ public final class AMLanguageProvider extends LanguageProvider {
      * @param compendiumType The compendium category ("shapes", "components" or "modifiers") this skill is in
      * @param compendiumText The description in the compendium.
      */
-    private void skillTranslation(ResourceLocation skill, String name, String description, String compendiumType, String compendiumText) {
+    private void skillTranslation(Identifier skill, String name, String description, String compendiumType, String compendiumText) {
         add(Util.makeDescriptionId("skill", skill) + ".name", name);
         add(Util.makeDescriptionId("skill", skill) + ".description", description);
         arcaneCompendiumTranslation(compendiumType + "." + skill.getPath() + ".page0.text", compendiumText);

@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.Codec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -24,7 +24,7 @@ public class AMDataManager<T> extends SimpleJsonResourceReloadListener implement
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().setLenient().create();
     private static final Logger LOGGER = LoggerFactory.getLogger(AMDataManager.class);
     private final Codec<Optional<WithConditions<T>>> codec;
-    private final Map<ResourceLocation, T> values = new HashMap<>();
+    private final Map<Identifier, T> values = new HashMap<>();
 
     public AMDataManager(String directory, Codec<T> codec) {
         super(GSON, ArsMagicaApi.MOD_ID + "/" + directory);
@@ -32,25 +32,25 @@ public class AMDataManager<T> extends SimpleJsonResourceReloadListener implement
     }
 
     @Override
-    public T get(ResourceLocation id) {
+    public T get(Identifier id) {
         return values.get(id);
     }
 
     @Override
-    public T getOrDefault(ResourceLocation id, T defaultValue) {
+    public T getOrDefault(Identifier id, T defaultValue) {
         return values.getOrDefault(id, defaultValue);
     }
 
     @Override
-    public Map<ResourceLocation, T> getAll() {
+    public Map<Identifier, T> getAll() {
         return Collections.unmodifiableMap(values);
     }
 
     @Override
-    protected void apply(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager, ProfilerFiller profiler) {
+    protected void apply(Map<Identifier, JsonElement> map, ResourceManager resourceManager, ProfilerFiller profiler) {
         values.clear();
-        for (Map.Entry<ResourceLocation, JsonElement> entry : map.entrySet()) {
-            ResourceLocation key = entry.getKey();
+        for (Map.Entry<Identifier, JsonElement> entry : map.entrySet()) {
+            Identifier key = entry.getKey();
             codec.parse(makeConditionalOps(), entry.getValue())
                 .ifSuccess(e -> e.map(WithConditions::carrier).ifPresentOrElse(o -> values.put(key, o), () -> LOGGER.debug("Skipping loading data file {} as its conditions were not met", key)))
                 .ifError(e -> LOGGER.error("Parsing error loading data file {}: {}", key, e.message()));

@@ -4,7 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -62,7 +62,7 @@ public final class AMGlobalLootModifierProvider extends GlobalLootModifierProvid
         addModifier(table, path, ArsMagicaApi.id(path.replace("chests/", "chests/modify/")).withSuffix("_affinity_tome"));
     }
 
-    private void addModifier(ResourceKey<LootTable> table, String modifier, ResourceLocation location) {
+    private void addModifier(ResourceKey<LootTable> table, String modifier, Identifier location) {
         add(modifier, new AddTableLootModifier(new LootItemCondition[]{LootTableIdCondition.builder(table.location()).build()}, ResourceKey.create(table.registryKey(), location)));
     }
 }

@@ -9,7 +9,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.common.conditions.ConditionalOps;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -59,7 +59,7 @@ public abstract class AbstractDataProvider<T, B extends AbstractDataProvider.Bui
         return lookupProvider.thenCompose(provider -> {
             generate(provider);
             DynamicOps<JsonElement> ops = provider.createSerializationContext(ConditionalOps.create(JsonOps.INSTANCE, provider));
-            Set<ResourceLocation> ids = Collections.synchronizedSet(new HashSet<>());
+            Set<Identifier> ids = Collections.synchronizedSet(new HashSet<>());
             return CompletableFuture.allOf(builders.stream().map(builder -> {
                 if (!ids.add(builder.id)) throw new IllegalStateException("Duplicate datagenned object " + builder.id);
                 Path path = pathProvider.json(builder.id);
@@ -102,13 +102,13 @@ public abstract class AbstractDataProvider<T, B extends AbstractDataProvider.Bui
      * @param <T> The type of the objects being built.
      */
     public static abstract class Builder<T> {
-        public final ResourceLocation id;
+        public final Identifier id;
         private final List<ICondition> conditions = new ArrayList<>();
 
         /**
          * @param id The id of the object being built.
          */
-        public Builder(ResourceLocation id) {
+        public Builder(Identifier id) {
             this.id = id;
         }
 

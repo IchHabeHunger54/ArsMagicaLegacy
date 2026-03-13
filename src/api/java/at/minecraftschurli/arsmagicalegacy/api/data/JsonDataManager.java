@@ -1,7 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.api.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 
 import java.util.Map;
@@ -16,17 +16,17 @@ public interface JsonDataManager<T> extends PreparableReloadListener {
      * @param id The id to query.
      * @return The object associated with the id.
      */
-    T get(ResourceLocation id);
+    T get(Identifier id);
 
     /**
      * @param id           The id to query.
      * @param defaultValue The default value to use if the id was not present.
      * @return The object associated with the id, or the default value if the id was not present.
      */
-    T getOrDefault(ResourceLocation id, T defaultValue);
+    T getOrDefault(Identifier id, T defaultValue);
 
     /**
      * @return An unmodifiable view of all entries in this data manager.
      */
-    Map<ResourceLocation, T> getAll();
+    Map<Identifier, T> getAll();
 }

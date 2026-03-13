@@ -9,7 +9,7 @@ import at.minecraftschurli.arsmagicalegacy.attachment.RiftAttachment;
 import at.minecraftschurli.arsmagicalegacy.attachment.SummonMinionsAttachment;
 import at.minecraftschurli.arsmagicalegacy.attachment.TemporalAnchorAttachment;
 import com.mojang.serialization.Codec;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;

@@ -9,7 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -18,8 +18,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 
 public class ManaVortex extends Entity {
-    public static final ResourceLocation PARTICLES = ArsMagicaApi.id("mana_vortex");
-    public static final ResourceLocation PARTICLES_DEATH = ArsMagicaApi.id("mana_vortex_death");
+    public static final Identifier PARTICLES = ArsMagicaApi.id("mana_vortex");
+    public static final Identifier PARTICLES_DEATH = ArsMagicaApi.id("mana_vortex_death");
     private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(ManaVortex.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> MANA = SynchedEntityData.defineId(ManaVortex.class, EntityDataSerializers.FLOAT);
 

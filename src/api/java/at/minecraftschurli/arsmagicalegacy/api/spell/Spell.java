@@ -7,7 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ExtraCodecs;
 
 import java.util.List;
@@ -24,12 +24,12 @@ import java.util.function.UnaryOperator;
  * @param grammar          The {@link SpellGrammar} of the spell. Immutable by contract.
  * @param dataComponents   The data components of the spell. To modify, call {@link Spell#updateDataComponents(UnaryOperator)}.
  */
-public record Spell(Optional<Component> name, Optional<ResourceLocation> icon, List<SpellShapeGroup> shapeGroups, int activeShapeGroup, SpellGrammar grammar, SpellDataComponentMap dataComponents) {
+public record Spell(Optional<Component> name, Optional<Identifier> icon, List<SpellShapeGroup> shapeGroups, int activeShapeGroup, SpellGrammar grammar, SpellDataComponentMap dataComponents) {
     public static final int MAX_SHAPE_GROUPS = 5;
     public static final Spell EMPTY = new Spell(Optional.empty(), Optional.empty(), List.of(SpellShapeGroup.EMPTY), 0, SpellGrammar.EMPTY, SpellDataComponentMap.EMPTY);
     public static final Codec<Spell> CODEC = RecordCodecBuilder.create(inst -> inst.group(
         ComponentSerialization.CODEC.optionalFieldOf("name").forGetter(Spell::name),
-        ResourceLocation.CODEC.optionalFieldOf("icon").forGetter(Spell::icon),
+        Identifier.CODEC.optionalFieldOf("icon").forGetter(Spell::icon),
         SpellShapeGroup.CODEC.listOf(0, MAX_SHAPE_GROUPS).fieldOf("shape_groups").forGetter(Spell::shapeGroups),
         ExtraCodecs.intRange(0, MAX_SHAPE_GROUPS - 1).fieldOf("active_shape_group").forGetter(Spell::activeShapeGroup),
         SpellGrammar.CODEC.fieldOf("grammar").forGetter(Spell::grammar),
@@ -37,7 +37,7 @@ public record Spell(Optional<Component> name, Optional<ResourceLocation> icon, L
     ).apply(inst, Spell::new));
     public static final StreamCodec<RegistryFriendlyByteBuf, Spell> STREAM_CODEC = StreamCodec.composite(
         ComponentSerialization.STREAM_CODEC.apply(ByteBufCodecs::optional), Spell::name,
-        ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs::optional), Spell::icon,
+        Identifier.STREAM_CODEC.apply(ByteBufCodecs::optional), Spell::icon,
         SpellShapeGroup.STREAM_CODEC.apply(ByteBufCodecs.list()), Spell::shapeGroups,
         ByteBufCodecs.INT, Spell::activeShapeGroup,
         SpellGrammar.STREAM_CODEC, Spell::grammar,
@@ -63,7 +63,7 @@ public record Spell(Optional<Component> name, Optional<ResourceLocation> icon, L
      * @param icon The new icon to set.
      * @return A new spell with the new icon set.
      */
-    public Spell setIcon(ResourceLocation icon) {
+    public Spell setIcon(Identifier icon) {
         return new Spell(name, Optional.of(icon), shapeGroups, activeShapeGroup, grammar, dataComponents);
     }
 

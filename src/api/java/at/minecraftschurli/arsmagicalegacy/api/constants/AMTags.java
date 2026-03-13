@@ -2,7 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.api.constants;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
@@ -36,7 +36,7 @@ public interface AMTags {
         TagKey<Block> ETHERIUM_CONSUMERS = tag("etherium_consumers");
 
         private static TagKey<Block> cTag(String name) {
-            return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", name));
+            return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("c", name));
         }
 
         private static TagKey<Block> tag(String name) {
@@ -76,7 +76,7 @@ public interface AMTags {
         TagKey<Item> SPELLCRAFTING_END = tag("spellcrafting_end");
 
         private static TagKey<Item> cTag(String name) {
-            return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", name));
+            return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", name));
         }
 
         private static TagKey<Item> tag(String name) {

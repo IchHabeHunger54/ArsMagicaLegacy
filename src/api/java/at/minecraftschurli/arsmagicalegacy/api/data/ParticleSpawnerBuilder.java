@@ -3,14 +3,14 @@ package at.minecraftschurli.arsmagicalegacy.api.data;
 import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleController;
 import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleSpawner;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Builder class for {@link ParticleSpawner}, for use in {@link ParticleSpawnerProvider}. Get an instance via {@link ParticleSpawnerProvider#builder(ResourceLocation, ParticleOptions, int, int)}.
+ * Builder class for {@link ParticleSpawner}, for use in {@link ParticleSpawnerProvider}. Get an instance via {@link ParticleSpawnerProvider#builder(Identifier, ParticleOptions, int, int)}.
  */
 public class ParticleSpawnerBuilder extends AbstractDataProvider.Builder<ParticleSpawner> {
     private final ParticleOptions particle;
@@ -34,7 +34,7 @@ public class ParticleSpawnerBuilder extends AbstractDataProvider.Builder<Particl
      * @param minLifetime The min lifetime of the particles.
      * @param maxLifetime The max lifetime of the particles.
      */
-    public ParticleSpawnerBuilder(ResourceLocation id, ParticleOptions particle, int count, int minLifetime, int maxLifetime) {
+    public ParticleSpawnerBuilder(Identifier id, ParticleOptions particle, int count, int minLifetime, int maxLifetime) {
         super(id);
         this.particle = particle;
         this.count = count;
@@ -48,7 +48,7 @@ public class ParticleSpawnerBuilder extends AbstractDataProvider.Builder<Particl
      * @param count    The amount of particles to spawn.
      * @param lifetime The lifetime of the particles.
      */
-    public ParticleSpawnerBuilder(ResourceLocation id, ParticleOptions particle, int count, int lifetime) {
+    public ParticleSpawnerBuilder(Identifier id, ParticleOptions particle, int count, int lifetime) {
         this(id, particle, count, lifetime, lifetime);
     }
 

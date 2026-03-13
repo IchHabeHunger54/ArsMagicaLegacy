@@ -11,8 +11,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -24,7 +24,6 @@ import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.BonemealableBlock;
@@ -49,7 +48,7 @@ public class Dryad extends PathfinderMob {
         return createMobAttributes().add(Attributes.MAX_HEALTH, 20D).add(Attributes.MOVEMENT_SPEED, 0.2F);
     }
 
-    public static boolean checkSpawnRules(EntityType<Dryad> entityType, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+    public static boolean checkSpawnRules(EntityType<Dryad> entityType, ServerLevelAccessor level, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {
         return level.getBlockState(pos.below()).is(AMTags.Blocks.DRYADS_SPAWNABLE_ON) || checkMobSpawnRules(entityType, level, spawnType, pos, random);
     }
 
@@ -57,7 +56,7 @@ public class Dryad extends PathfinderMob {
     protected void registerGoals() {
         goalSelector.addGoal(0, new FloatGoal(this));
         goalSelector.addGoal(1, new PanicGoal(this, 1.5));
-        goalSelector.addGoal(3, new TemptGoal(this, 1.25, Ingredient.of(ItemTags.SAPLINGS), false));
+        goalSelector.addGoal(3, new TemptGoal(this, 1.25, is -> is.is(ItemTags.SAPLINGS), false));
         goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1));
         goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6));
         goalSelector.addGoal(7, new RandomLookAroundGoal(this));
@@ -70,7 +69,8 @@ public class Dryad extends PathfinderMob {
         timer--;
         if (timer > 0) return;
         timer = AMServerConfig.DRYAD_GROW_INTERVAL.get();
-        if (level().random.nextDouble() >= AMServerConfig.DRYAD_GROW_CHANCE.get()) return;
+        RandomSource random = level.getRandom();
+        if (random.nextDouble() >= AMServerConfig.DRYAD_GROW_CHANCE.get()) return;
         int radius = AMServerConfig.DRYAD_GROW_RADIUS.get();
         FakePlayer player = FakePlayerFactory.get(level, GAME_PROFILE);
         List<BlockPos> list = new ArrayList<>();
@@ -88,8 +88,8 @@ public class Dryad extends PathfinderMob {
                 }
             }
             if (!grown && state.getBlock() instanceof BonemealableBlock block && block.isValidBonemealTarget(level(), pos, state)) {
-                if (block.isBonemealSuccess(level, level.random, pos, state)) {
-                    block.performBonemeal(level, level.random, pos, state);
+                if (block.isBonemealSuccess(level, random, pos, state)) {
+                    block.performBonemeal(level, random, pos, state);
                 }
                 break;
             }

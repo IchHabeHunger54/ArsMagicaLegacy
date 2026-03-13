@@ -22,9 +22,9 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     private static final MagicHelper MAGIC_HELPER = new MagicHelperImpl();
     private static final ManaHelper MANA_HELPER = new ManaHelperImpl();
     private static final SpellHelper SPELL_HELPER = new SpellHelperImpl();
-    private static final AMDataManager<Plant> PLANT_MANAGER = new AMDataManager<>("plant", Plant.CODEC);
-    private static final AMDataManager<Ritual<?>> RITUAL_MANAGER = new AMDataManager<>("ritual", Ritual.CODEC);
-    private static final AMDataManager<SpellPartData> SPELL_PART_DATA_MANAGER = new AMDataManager<>("spell_part", SpellPartData.CODEC);
+    private static final AMDataManager<Plant> PLANT_MANAGER = new AMDataManager<>(id("plant"), Plant.CODEC);
+    private static final AMDataManager<Ritual<?>> RITUAL_MANAGER = new AMDataManager<>(id("ritual"), Ritual.CODEC);
+    private static final AMDataManager<SpellPartData> SPELL_PART_DATA_MANAGER = new AMDataManager<>(id("spell_part"), SpellPartData.CODEC);
 
     @Override
     protected ItemStack getBook() {

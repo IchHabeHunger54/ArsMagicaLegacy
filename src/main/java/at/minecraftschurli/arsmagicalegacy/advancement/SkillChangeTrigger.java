@@ -15,8 +15,8 @@ import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.util.TriState;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.common.util.TriState;
 
 import java.util.List;
 import java.util.Optional;
@@ -74,7 +74,7 @@ public class SkillChangeTrigger extends SimpleCriterionTrigger<SkillChangeTrigge
             }, right -> right::contains);
             Predicate<Holder<Skill>> knows = skill -> ArsMagicaApi.magicHelper().knows(player, skill);
             Stream<Holder.Reference<Skill>> stream = AMRegistries.skills(player.registryAccess())
-                .holders()
+                .listElements()
                 .filter(predicate);
             return requirements.map(left -> left.all, right -> true) ? stream.allMatch(knows) : stream.anyMatch(knows);
         }

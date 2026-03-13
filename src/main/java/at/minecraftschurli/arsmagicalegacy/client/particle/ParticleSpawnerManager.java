@@ -13,11 +13,11 @@ public final class ParticleSpawnerManager extends AMDataManager<ParticleSpawner>
     public static final ParticleSpawnerManager INSTANCE = new ParticleSpawnerManager();
 
     private ParticleSpawnerManager() {
-        super("particle_spawners", ParticleSpawner.CODEC);
+        super(ParticleSpawner.ROOT_ID, ParticleSpawner.CODEC);
     }
 
     @Override
-    protected void apply(Map<Identifier, JsonElement> map, ResourceManager resourceManager, ProfilerFiller profiler) {
+    protected void apply(Map<Identifier, ParticleSpawner> map, ResourceManager resourceManager, ProfilerFiller profiler) {
         ParticleUtil.clearParticleSpawnerCache();
         super.apply(map, resourceManager, profiler);
     }

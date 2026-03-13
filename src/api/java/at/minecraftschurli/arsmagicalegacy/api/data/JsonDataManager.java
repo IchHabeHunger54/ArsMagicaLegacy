@@ -13,20 +13,27 @@ import java.util.Map;
  */
 public interface JsonDataManager<T> extends PreparableReloadListener {
     /**
+     * {@return The object associated with the id.}
+     * 
      * @param id The id to query.
-     * @return The object associated with the id.
      */
     T get(Identifier id);
 
     /**
+     * {@return The object associated with the id, or the default value if the id was not present.}
+     * 
      * @param id           The id to query.
      * @param defaultValue The default value to use if the id was not present.
-     * @return The object associated with the id, or the default value if the id was not present.
      */
     T getOrDefault(Identifier id, T defaultValue);
 
     /**
-     * @return An unmodifiable view of all entries in this data manager.
+     * {@return An unmodifiable view of all entries in this data manager.}
      */
     Map<Identifier, T> getAll();
+
+    /**
+     * {@return The id of this data manager.}
+     */
+    Identifier id();
 }

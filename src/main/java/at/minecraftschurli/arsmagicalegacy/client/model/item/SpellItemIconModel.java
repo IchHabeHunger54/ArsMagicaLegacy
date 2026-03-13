@@ -54,7 +54,7 @@ public class SpellItemIconModel extends BakedModelWrapper<BakedModel> {
 
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource rand) {
-        TextureAtlasSprite sprite = SpellIconAtlasHolder.INSTANCE.get().getSprite(icon);
+        TextureAtlasSprite sprite = SpellIconAtlasHolder.getSprite(icon);
         return List.of(new FaceBakery().bakeQuad(FROM, TO, new BlockElementFace(null, 2, sprite.contents().name().toString(), UV), sprite, Direction.SOUTH, BlockModelRotation.X0_Y0, null, true));
     }
 }

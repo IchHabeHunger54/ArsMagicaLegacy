@@ -355,7 +355,7 @@ final class AMEventHandler {
             manaHelper.increaseMana(living, manaHelper.getManaRegeneration(living));
             BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
             burnoutHelper.decreaseBurnout(living, burnoutHelper.getBurnoutRegeneration(living));
-            if (living.hasEffect(AMMobEffects.WATERY_GRAVE) && entity.isInWaterOrBubble()) {
+            if (living.hasEffect(AMMobEffects.WATERY_GRAVE) && entity.isInWater()) {
                 entity.setDeltaMovement(entity.getDeltaMovement().x(), entity.getPose() == Pose.SWIMMING ? 0 : Math.min(0, entity.getDeltaMovement().y()), entity.getDeltaMovement().z());
             }
             if (living.getHealth() * 4 < living.getMaxHealth()) {

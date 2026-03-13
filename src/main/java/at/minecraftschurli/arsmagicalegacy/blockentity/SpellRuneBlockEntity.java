@@ -13,6 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
@@ -20,6 +21,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.EntityHitResult;
 import net.neoforged.neoforge.network.PacketDistributor;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -40,7 +42,7 @@ public class SpellRuneBlockEntity extends AMBlockEntity<SpellRuneBlockEntity.Dat
         spell = data.spell;
         if (data.owner.isPresent() && level instanceof ServerLevel serverLevel && serverLevel.getEntity(data.owner.get()) instanceof LivingEntity living) {
             owner = living;
-            PacketDistributor.sendToPlayersTrackingChunk(serverLevel, new ChunkPos(getBlockPos()), new SetBlockEntityOwnerPacket(getBlockPos(), owner.getId()));
+            PacketDistributor.sendToPlayersTrackingChunk(serverLevel, ChunkPos.containing(getBlockPos()), new SetBlockEntityOwnerPacket(getBlockPos(), owner.getId()));
         }
         consume = data.consume;
         awardXp = data.awardXp;
@@ -53,10 +55,9 @@ public class SpellRuneBlockEntity extends AMBlockEntity<SpellRuneBlockEntity.Dat
     }
 
     @Override
-    public void setOwner(int id) {
-        if (level != null && level.getEntity(id) instanceof LivingEntity living) {
-            owner = living;
-        }
+    public void setOwner(@Nullable EntityReference<LivingEntity> owner) {
+        if (level == null) return;
+        this.owner = owner != null ? owner.getEntity(level, LivingEntity.class) : null;
     }
 
     public void setData(SpellCastContext context, int power) {

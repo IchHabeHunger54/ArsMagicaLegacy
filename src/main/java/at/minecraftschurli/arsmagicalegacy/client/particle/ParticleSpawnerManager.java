@@ -1,5 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.client.particle;
 
+import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleSpawner;
 import at.minecraftschurli.arsmagicalegacy.util.AMDataManager;
 import com.google.gson.JsonElement;
@@ -11,9 +12,10 @@ import java.util.Map;
 
 public final class ParticleSpawnerManager extends AMDataManager<ParticleSpawner> {
     public static final ParticleSpawnerManager INSTANCE = new ParticleSpawnerManager();
+    public static final Identifier ID = ArsMagicaApi.id("particle_spawners");
 
     private ParticleSpawnerManager() {
-        super(ParticleSpawner.ROOT_ID, ParticleSpawner.CODEC);
+        super(ID, ParticleSpawner.CODEC);
     }
 
     @Override

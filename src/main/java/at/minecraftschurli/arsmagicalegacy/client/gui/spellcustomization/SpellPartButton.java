@@ -8,10 +8,11 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.input.InputWithModifiers;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
@@ -36,7 +37,7 @@ public class SpellPartButton<T> extends Button {
     @SuppressWarnings("DataFlowIssue")
     public static <T> SpellPartButton<T> create(int x, int y, Holder<SpellPart> spellPart, SpellCustomizationScreen screen, int index) {
         Holder<Skill> skill = AMUtil.skill(spellPart, true);
-        SpellPartButton<T> button = new SpellPartButton<>(x, y, spellPart, SkillAtlasHolder.INSTANCE.get().getSprite(skill.value()));
+        SpellPartButton<T> button = new SpellPartButton<>(x, y, spellPart, SkillAtlasHolder.getSprite(skill.value()));
         if (spellPart.value().getDataComponentType() != null) {
             button.valueGetter = type -> (index == -1 ? screen.getSpell().dataComponents().grammar() : screen.getSpell().dataComponents().shapeGroups().get(index)).get(type);
             button.valueSetter = (type, value) -> screen.setSpell(screen.getSpell().updateDataComponents(components -> components.update(index, map -> {
@@ -54,21 +55,17 @@ public class SpellPartButton<T> extends Button {
     }
 
     @Override
-    protected void renderWidget(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+    protected void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
         if (active) {
-            guiGraphics.blit(getX(), getY(), 16, SIZE, SIZE, sprite);
+            graphics.blitSprite(RenderPipelines.GUI, sprite, getX(), getY(), SIZE, SIZE);
             return;
         }
-        guiGraphics.setColor(0.5f, 0.5f, 0.5f, 1);
-        RenderSystem.enableBlend();
-        guiGraphics.blit(getX(), getY(), 16, SIZE, SIZE, sprite);
-        RenderSystem.disableBlend();
-        guiGraphics.setColor(1, 1, 1, 1);
+        graphics.blitSprite(RenderPipelines.GUI, sprite, getX(), getY(), SIZE, SIZE, 0xff7f7f7f);
     }
 
     @SuppressWarnings({"unchecked", "DataFlowIssue"})
     @Override
-    public void onPress() {
+    public void onPress(InputWithModifiers input) {
         if (!active) return;
         SpellPartCustomizationScreen.Factory<T, ?> factory = (SpellPartCustomizationScreen.Factory<T, ?>) ArsMagicaClientApi.spellPartCustomizationScreen(spellPart);
         if (valueGetter != null && valueSetter != null) {

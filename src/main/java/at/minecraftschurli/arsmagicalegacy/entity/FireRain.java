@@ -2,15 +2,17 @@ package at.minecraftschurli.arsmagicalegacy.entity;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.entity.PartEntity;
 
@@ -35,14 +37,14 @@ public class FireRain extends SpellEntity {
     }
 
     @Override
-    protected void readNbt(CompoundTag tag) {
-        entityData.set(FIRE_DURATION, tag.getInt(FROST_DURATION_KEY));
-        entityData.set(DAMAGE, tag.getFloat(DAMAGE_KEY));
-        entityData.set(RANGE, tag.getFloat(RANGE_KEY));
+    protected void readData(ValueInput tag) {
+        entityData.set(FIRE_DURATION, tag.getIntOr(FROST_DURATION_KEY, 200));
+        entityData.set(DAMAGE, tag.getFloatOr(DAMAGE_KEY, 0f));
+        entityData.set(RANGE, tag.getFloatOr(RANGE_KEY, 1f));
     }
 
     @Override
-    protected void writeNbt(CompoundTag tag) {
+    protected void writeData(ValueOutput tag) {
         tag.putInt(FROST_DURATION_KEY, entityData.get(FIRE_DURATION));
         tag.putFloat(DAMAGE_KEY, entityData.get(DAMAGE));
         tag.putFloat(RANGE_KEY, entityData.get(RANGE));
@@ -64,7 +66,11 @@ public class FireRain extends SpellEntity {
                 entity = part.getParent();
             }
             if (entity == owner || entity.fireImmune() || entity instanceof Player player && player.isCreative()) continue;
-            entity.hurt(damageSources().freeze(), damage);
+            if (level() instanceof ServerLevel serverLevel) {
+                entity.hurtServer(serverLevel, damageSources().inFire(), damage);
+            } else if (level().isClientSide()) {
+                entity.hurtClient(damageSources().inFire());
+            }
             entity.igniteForTicks(fireDuration);
             entity.setSharedFlagOnFire(true);
         }

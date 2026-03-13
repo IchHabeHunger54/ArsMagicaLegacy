@@ -64,9 +64,9 @@ public class Dig extends SpellComponent.CastBlock {
             manaHelper.decreaseMana(caster, manaCost);
             burnoutHelper.increaseBurnout(caster, manaCost);
         }
-        if (AMUtil.cancelDestroyBlock(level, pos, state, player)) return SpellComponentCastResult.success(spell);
         ItemStack stack = AMUtil.getEnchantedSpell(modifiers, context, Map.of(Enchantments.FORTUNE, AMSpells.FORTUNE_STAT, Enchantments.SILK_TOUCH, AMSpells.SILK_TOUCH_STAT));
-        stack.set(DataComponents.TOOL, new Tool(List.of(Tool.Rule.deniesDrops(incorrectTag)), Float.MAX_VALUE, 0));
+        stack.set(DataComponents.TOOL, new Tool(List.of(Tool.Rule.deniesDrops(level.registryAccess().getOrThrow(incorrectTag))), Float.MAX_VALUE, 0, true));
+        if (AMUtil.cancelDestroyBlock(level, pos, state, player, stack)) return SpellComponentCastResult.success(spell);
         Block.dropResources(state, level, pos, level.getBlockEntity(pos), player, stack);
         return SpellComponentCastResult.success(spell);
     }

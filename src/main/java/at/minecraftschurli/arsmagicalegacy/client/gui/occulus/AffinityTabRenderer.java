@@ -11,30 +11,19 @@ import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.BufferUploader;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
-import org.joml.Matrix4f;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 public class AffinityTabRenderer extends OcculusTabRenderer {
     private static final Component DETAILS = Component.translatable(AMTranslations.OCCULUS_DETAILS_KEY).withStyle(ChatFormatting.GRAY);
@@ -49,8 +38,8 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
     }
 
     @Override
-    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
         tooltip.clear();
         Registry<Affinity> affinities = AMRegistries.affinities(true);
         Registry<Ability> abilities = AMRegistries.abilities(true);
@@ -59,7 +48,7 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
         int center = TAB_SIZE / 2 + RADIUS;
         int count = affinities.size() - 1;
         double angleStep = Math.toRadians(360. / count);
-        List<? extends Holder<Affinity>> list = affinities.holders()
+        List<? extends Holder<Affinity>> list = affinities.listElements()
             .filter(holder -> holder.value().index() >= 0)
             .sorted(Comparator.comparing(holder -> holder.value().index()))
             .toList();
@@ -85,8 +74,8 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
                 renderFractalLine(guiGraphics, startX1, startY1, endX, endY, color, displace, 1 + FRACTAL);
                 renderFractalLine(guiGraphics, startX2, startY2, endX, endY, color, displace, 1 + FRACTAL);
             } else {
-                renderLine(guiGraphics, startX1, startY1, endX, endY, color);
-                renderLine(guiGraphics, startX2, startY2, endX, endY, color);
+                AMClientUtil.renderLine(guiGraphics, startX1, startY1, endX, endY, color, 2);
+                AMClientUtil.renderLine(guiGraphics, startX2, startY2, endX, endY, color, 2);
             }
             String text = percent(depth);
             double width = font.width(text);
@@ -101,14 +90,14 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
                 textX = (int) (anchorX - width / 2);
                 textY = (int) (anchorY < center ? anchorY - height : anchorY + 17);
             }
-            guiGraphics.drawString(font, text, textX, textY, color, false);
+            guiGraphics.text(font, text, textX, textY, color, false);
             int stackX = (int) (textX + width / 2 - 8);
             int stackY = textY - 17;
             AMClientUtil.renderItem(guiGraphics, font, DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinity), stackX, stackY);
             if (mouseX < stackX || mouseX >= stackX + 16 || mouseY < stackY || mouseY >= stackY + 16) continue;
             tooltip.add(Affinity.getName(affinity).copy().withColor(color));
-            if (Screen.hasShiftDown()) {
-                abilities.holders()
+            if (AMClientUtil.mc().hasShiftDown()) {
+                abilities.listElements()
                     .filter(e -> e.value().affinity().getKey() == affinity.getKey())
                     .sorted((a, b) -> (int) (a.value().bounds().max().orElse(0.) * 100 - b.value().bounds().max().orElse(0.) * 100))
                     .sorted((a, b) -> (int) (a.value().bounds().min().orElse(0.) * 100 - b.value().bounds().min().orElse(0.) * 100))
@@ -127,7 +116,7 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
     @Override
     public void renderTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         if (tooltip.isEmpty()) return;
-        guiGraphics.renderTooltip(AMClientUtil.font(), tooltip, Optional.empty(), mouseX, mouseY);
+        guiGraphics.setTooltipForNextFrame(AMClientUtil.font(), tooltip.stream().map(Component::getVisualOrderText).toList(), mouseX, mouseY);
     }
 
     @Override
@@ -135,22 +124,9 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
         return false;
     }
 
-    private void renderLine(GuiGraphicsExtractor guiGraphics, float startX, float startY, float endX, float endY, int color) {
-        PoseStack pose = guiGraphics.pose();
-        Matrix4f matrix = pose.last().pose();
-        pose.pushPose();
-        RenderSystem.setShader(GameRenderer::getRendertypeLinesShader);
-        BufferBuilder buffer = Tesselator.getInstance().begin(VertexFormat.Mode.LINES, DefaultVertexFormat.POSITION_COLOR_NORMAL);
-        RenderSystem.lineWidth(2);
-        buffer.addVertex(matrix, startX, startY, 0).setColor(color).setNormal(1, 1, 0);
-        buffer.addVertex(matrix, endX, endY, 0).setColor(color).setNormal(1, 1, 0);
-        BufferUploader.drawWithShader(buffer.buildOrThrow());
-        pose.popPose();
-    }
-
     private void renderFractalLine(GuiGraphicsExtractor guiGraphics, float startX, float startY, float endX, float endY, int color, float displace, float fractal) {
         if (displace < fractal) {
-            renderLine(guiGraphics, startX, startY, endX, endY, color);
+            AMClientUtil.renderLine(guiGraphics, startX, startY, endX, endY, color, 2);
             return;
         }
         float x = (startX + endX) / 2 + (random.nextFloat() - 0.5f) * displace;

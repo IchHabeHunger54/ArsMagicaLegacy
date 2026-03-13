@@ -6,19 +6,18 @@ import at.minecraftschurli.arsmagicalegacy.client.atlas.SpellIconAtlasHolder;
 import net.minecraft.client.renderer.texture.atlas.sources.DirectoryLister;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.common.data.SpriteSourceProvider;
+import net.neoforged.neoforge.client.data.SpriteSourceProvider;
 
 import java.util.concurrent.CompletableFuture;
 
 public final class AMSpriteSourceProvider extends SpriteSourceProvider {
-    public AMSpriteSourceProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, ArsMagicaApi.MOD_ID, existingFileHelper);
+    public AMSpriteSourceProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(output, lookupProvider, ArsMagicaApi.MOD_ID);
     }
 
     @Override
     protected void gather() {
-        atlas(SkillAtlasHolder.ATLAS_INFO).addSource(new DirectoryLister("skill", ""));
-        atlas(SpellIconAtlasHolder.ATLAS_INFO).addSource(new DirectoryLister("spell_icon", ""));
+        atlas(SkillAtlasHolder.ATLAS_ID).addSource(new DirectoryLister("skill", ""));
+        atlas(SpellIconAtlasHolder.ATLAS_ID).addSource(new DirectoryLister("spell_icon", ""));
     }
 }

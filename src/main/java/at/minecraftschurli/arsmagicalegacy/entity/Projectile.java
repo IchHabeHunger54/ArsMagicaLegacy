@@ -5,15 +5,17 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -39,16 +41,16 @@ public class Projectile extends SpellShapeEntity {
     }
 
     @Override
-    protected void readNbt(CompoundTag tag) {
-        super.readNbt(tag);
-        entityData.set(BOUNCES, tag.getInt(BOUNCES_KEY));
-        entityData.set(PIERCES, tag.getInt(PIERCES_KEY));
-        entityData.set(GRAVITY, tag.getFloat(GRAVITY_KEY));
+    protected void readData(ValueInput tag) {
+        super.readData(tag);
+        entityData.set(BOUNCES, tag.getIntOr(BOUNCES_KEY, 0));
+        entityData.set(PIERCES, tag.getIntOr(PIERCES_KEY, 0));
+        entityData.set(GRAVITY, tag.getFloatOr(GRAVITY_KEY, 0));
     }
 
     @Override
-    protected void writeNbt(CompoundTag tag) {
-        super.writeNbt(tag);
+    protected void writeData(ValueOutput tag) {
+        super.writeData(tag);
         tag.putInt(BOUNCES_KEY, entityData.get(BOUNCES));
         tag.putInt(PIERCES_KEY, entityData.get(PIERCES));
         tag.putFloat(GRAVITY_KEY, entityData.get(GRAVITY));
@@ -66,7 +68,7 @@ public class Projectile extends SpellShapeEntity {
         if (result instanceof BlockHitResult hitResult) {
             Level level = level();
             BlockPos pos = hitResult.getBlockPos();
-            level.getBlockState(pos).entityInside(level, pos, this);
+            level.getBlockState(pos).entityInside(level, pos, this, InsideBlockEffectApplier.NOOP, true);
             if (getBounces() > 0) {
                 Direction direction = hitResult.getDirection();
                 double newX = getDeltaMovement().x();

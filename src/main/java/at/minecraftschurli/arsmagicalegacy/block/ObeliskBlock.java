@@ -9,7 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
@@ -26,7 +26,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
@@ -35,7 +34,7 @@ import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.Nullable;
 
 public class ObeliskBlock extends EtheriumGeneratorBlock {
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final EnumProperty<Part> PART = EnumProperty.create("part", Part.class);
 
@@ -114,10 +113,10 @@ public class ObeliskBlock extends EtheriumGeneratorBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (!ObeliskFuel.isFuel(stack)) return ItemInteractionResult.CONSUME;
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (!ObeliskFuel.isFuel(stack)) return InteractionResult.CONSUME;
         ObeliskBlockEntity blockEntity = getBlockEntity(level, pos, state);
-        if (blockEntity == null) return ItemInteractionResult.CONSUME;
+        if (blockEntity == null) return InteractionResult.CONSUME;
         ItemStack slotStack = blockEntity.getItem(0).copy();
         if (!slotStack.isEmpty() && !ItemStack.isSameItemSameComponents(slotStack, stack)) return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
         if (slotStack.isEmpty()) {
@@ -127,7 +126,7 @@ public class ObeliskBlock extends EtheriumGeneratorBlock {
             blockEntity.setItem(0, slotStack);
         }
         stack.shrink(1);
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
@@ -136,7 +135,7 @@ public class ObeliskBlock extends EtheriumGeneratorBlock {
     }
 
     @Override
-    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction direction) {
         return AbstractContainerMenu.getRedstoneSignalFromContainer(getBlockEntity(level, pos, state));
     }
 

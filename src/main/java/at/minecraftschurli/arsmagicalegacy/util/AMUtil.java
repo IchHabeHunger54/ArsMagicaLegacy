@@ -125,13 +125,13 @@ public final class AMUtil {
     @SuppressWarnings("DataFlowIssue")
     @Nullable
     public static Holder<SpellPart> spellPart(Holder<Skill> skill) {
-        return AMRegistries.SPELL_PARTS.getHolder(skill.getKey().identifier()).orElse(null);
+        return AMRegistries.SPELL_PARTS.get(skill.getKey().identifier()).orElse(null);
     }
 
     @SuppressWarnings("DataFlowIssue")
     @Nullable
     public static Holder<Skill> skill(Holder<SpellPart> part, boolean client) {
-        return AMRegistries.skills(client).getHolder(part.getKey().identifier()).orElse(null);
+        return AMRegistries.skills(client).get(part.getKey().identifier()).orElse(null);
     }
 
     public static Vec3 bezier(Vec3 start, Vec3 control1, Vec3 control2, Vec3 end, double delta) {
@@ -144,11 +144,11 @@ public final class AMUtil {
             .add(end.scale(delta * delta * delta));
     }
 
-    public static boolean cancelDestroyBlock(Level level, BlockPos pos, BlockState state, Player player) {
+    public static boolean cancelDestroyBlock(Level level, BlockPos pos, BlockState state, Player player, ItemStack stack) {
         if (NeoForge.EVENT_BUS.post(new BlockEvent.BreakEvent(level, pos, state, player)).isCanceled()) return true;
         state = state.getBlock().playerWillDestroy(level, pos, state, player);
         level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
-        if (state.onDestroyedByPlayer(level, pos, player, true, level.getFluidState(pos))) {
+        if (state.onDestroyedByPlayer(level, pos, player, stack, true, level.getFluidState(pos))) {
             player.awardStat(Stats.BLOCK_MINED.get(state.getBlock()));
             return false;
         }
@@ -163,7 +163,7 @@ public final class AMUtil {
     }
 
     public static List<ItemStack> destroyBlockAndGetDrops(ServerLevel level, BlockPos pos, BlockState state, Player player, ItemStack stack) {
-        return cancelDestroyBlock(level, pos, state, player) ? List.of() : Block.getDrops(state, level, pos, level.getBlockEntity(pos), player, stack);
+        return cancelDestroyBlock(level, pos, state, player, stack) ? List.of() : Block.getDrops(state, level, pos, level.getBlockEntity(pos), player, stack);
     }
 
     public static void doCompendiumConversion(ItemFrame itemFrame) {
@@ -177,11 +177,11 @@ public final class AMUtil {
         if (direction.getAxis() == Direction.Axis.Y) return;
         int range = AMServerConfig.ARCANE_COMPENDIUM_CONVERSION_HORIZONTAL_RANGE.getAsInt();
         Level level = itemFrame.level();
-        BlockPos pos = itemFrame.getPos().offset(direction.getNormal().multiply(Math.ceilDiv(range, 2))).below();
+        BlockPos pos = itemFrame.getPos().offset(direction.getUnitVec3i().multiply(Math.ceilDiv(range, 2))).below();
         List<BlockPos> positions = new ArrayList<>();
         for (BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-range / 2, 0, -range / 2), pos.offset(range / 2, 1 - AMServerConfig.ARCANE_COMPENDIUM_CONVERSION_VERTICAL_RANGE.getAsInt(), range / 2))) {
             BlockPos above = blockPos.above();
-            if (level.getBlockState(blockPos).is(AMBlocks.LIQUID_ETHERIUM) && !level.getBlockState(above).isSolidRender(level, above)) {
+            if (level.getBlockState(blockPos).is(AMBlocks.LIQUID_ETHERIUM) && !level.getBlockState(above).isSolidRender()) {
                 positions.add(new BlockPos(blockPos));
             }
         }
@@ -240,7 +240,7 @@ public final class AMUtil {
         if (hitResult.getType() != HitResult.Type.MISS) {
             to = hitResult.getLocation();
         }
-        HitResult entityHitResult = ProjectileUtil.getEntityHitResult(entity.level(), entity, from, to, entity.getBoundingBox().expandTowards(entity.getDeltaMovement()).inflate(1), e -> true);
+        HitResult entityHitResult = ProjectileUtil.getEntityHitResult(entity.level(), entity, from, to, entity.getBoundingBox().expandTowards(entity.getDeltaMovement()).inflate(1), e -> true, 0);
         if (entityHitResult != null) {
             hitResult = entityHitResult;
         }

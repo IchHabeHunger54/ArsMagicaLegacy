@@ -7,16 +7,16 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.client.AMClientConfig;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.LayeredDraw;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
+import net.neoforged.neoforge.client.gui.GuiLayer;
 
-public class BarsLayer implements LayeredDraw.Layer {
+public class BarsLayer implements GuiLayer {
     private static final Identifier TEXTURE = ArsMagicaApi.id("textures/gui/bar.png");
     private static final int WIDTH = 80;
     private static final int HEIGHT = 10;
@@ -47,19 +47,8 @@ public class BarsLayer implements LayeredDraw.Layer {
     }
 
     private static void renderBar(GuiGraphicsExtractor guiGraphics, Font font, int x, int y, double value, double maxValue, String translationKey, int color) {
-        guiGraphics.pose().pushPose();
-        RenderSystem.enableBlend();
-        guiGraphics.blit(TEXTURE, x, y, 0, 0, WIDTH + 1, HEIGHT - 1);
-        float r = AMClientUtil.getRedF(color);
-        float g = AMClientUtil.getGreenF(color);
-        float b = AMClientUtil.getBlueF(color);
-        guiGraphics.setColor(r, g, b, 1);
-        RenderSystem.setShaderFogColor(r, g, b);
-        guiGraphics.blit(TEXTURE, x + 2, y + 2, 2, HEIGHT + 1, maxValue <= 0 ? -1 : (int) Math.max(Math.ceil(WIDTH * value / maxValue), 0) - 1, HEIGHT - 3);
-        RenderSystem.setShaderFogColor(1, 1, 1, 1);
-        guiGraphics.setColor(1, 1, 1, 1);
-        RenderSystem.disableBlend();
-        guiGraphics.pose().popPose();
+        guiGraphics.blit(RenderPipelines.GUI, TEXTURE, x, y, 0, 0, WIDTH + 1, HEIGHT - 1, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI, TEXTURE, x + 2, y + 2, 2, HEIGHT + 1, maxValue <= 0 ? -1 : (int) Math.max(Math.ceil(WIDTH * value / maxValue), 0) - 1, HEIGHT - 3, 256, 256, color);
         if (AMClientConfig.SHOW_VALUES.get()) {
             Component text = Component.translatable(translationKey, String.format("%.2f", value), String.format("%.2f", maxValue));
             renderOutlineText(guiGraphics, font, text, AMClientConfig.BARS_X_ANCHOR.get() == LayerAnchor.X.RIGHT ? x - 3 - font.width(text) : x + 4 + WIDTH, y + 1, color);
@@ -67,10 +56,10 @@ public class BarsLayer implements LayeredDraw.Layer {
     }
 
     private static void renderOutlineText(GuiGraphicsExtractor guiGraphics, Font font, Component text, int x, int y, int color) {
-        guiGraphics.drawString(font, text, x + 1, y, 0, false);
-        guiGraphics.drawString(font, text, x - 1, y, 0, false);
-        guiGraphics.drawString(font, text, x, y + 1, 0, false);
-        guiGraphics.drawString(font, text, x, y - 1, 0, false);
-        guiGraphics.drawString(font, text, x, y, color, false);
+        guiGraphics.text(font, text, x + 1, y, 0, false);
+        guiGraphics.text(font, text, x - 1, y, 0, false);
+        guiGraphics.text(font, text, x, y + 1, 0, false);
+        guiGraphics.text(font, text, x, y - 1, 0, false);
+        guiGraphics.text(font, text, x, y, color, false);
     }
 }

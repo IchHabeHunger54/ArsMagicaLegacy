@@ -75,17 +75,9 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.model.BoatModel;
-import net.minecraft.client.model.ChestBoatModel;
+import net.minecraft.client.model.object.boat.BoatModel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.ShaderInstance;
-import net.minecraft.client.renderer.block.BlockModelShaper;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
-import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelIdentifier;
+import net.minecraft.client.resources.model.sprite.AtlasManager;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -97,22 +89,11 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.InputEvent;
-import net.neoforged.neoforge.client.event.ModelEvent;
-import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
-import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
-import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
-import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
-import net.neoforged.neoforge.client.event.RegisterShadersEvent;
-import net.neoforged.neoforge.client.event.RenderHandEvent;
+import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.client.settings.KeyModifier;
-import net.neoforged.neoforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -124,9 +105,10 @@ import java.util.stream.Stream;
 
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID, value = Dist.CLIENT)
 final class AMClientEventHandler {
-    private static final KeyMapping NEXT_SHAPE_GROUP = new KeyMapping(AMTranslations.KEY_NEXT_SHAPE_GROUP_KEY, KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_PERIOD, AMTranslations.KEY_CATEGORY_KEY);
-    private static final KeyMapping PREV_SHAPE_GROUP = new KeyMapping(AMTranslations.KEY_PREV_SHAPE_GROUP_KEY, KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_COMMA, AMTranslations.KEY_CATEGORY_KEY);
-    private static final KeyMapping SPELL_CUSTOMIZATION = new KeyMapping(AMTranslations.KEY_SPELL_CUSTOMIZATION_KEY, KeyConflictContext.IN_GAME, KeyModifier.SHIFT, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, AMTranslations.KEY_CATEGORY_KEY);
+    private static final KeyMapping.Category KEY_CATEGORY = new KeyMapping.Category(ArsMagicaApi.id("main"));
+    private static final KeyMapping NEXT_SHAPE_GROUP = new KeyMapping(AMTranslations.KEY_NEXT_SHAPE_GROUP_KEY, KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_PERIOD, KEY_CATEGORY);
+    private static final KeyMapping PREV_SHAPE_GROUP = new KeyMapping(AMTranslations.KEY_PREV_SHAPE_GROUP_KEY, KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_COMMA, KEY_CATEGORY);
+    private static final KeyMapping SPELL_CUSTOMIZATION = new KeyMapping(AMTranslations.KEY_SPELL_CUSTOMIZATION_KEY, KeyConflictContext.IN_GAME, KeyModifier.SHIFT, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, KEY_CATEGORY);
 
     @SuppressWarnings("DataFlowIssue")
     @SubscribeEvent
@@ -144,8 +126,8 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(DryadModel.LAYER_LOCATION, DryadModel::createBodyLayer);
-        event.registerLayerDefinition(WitchwoodBoatRenderer.BOAT, BoatModel::createBodyModel);
-        event.registerLayerDefinition(WitchwoodBoatRenderer.CHEST_BOAT, ChestBoatModel::createBodyModel);
+        event.registerLayerDefinition(WitchwoodBoatRenderer.BOAT, BoatModel::createBoatModel);
+        event.registerLayerDefinition(WitchwoodBoatRenderer.CHEST_BOAT, BoatModel::createChestBoatModel);
     }
 
     @SubscribeEvent
@@ -195,16 +177,21 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerKeyMappings(RegisterKeyMappingsEvent event) {
+        event.registerCategory(KEY_CATEGORY);
         event.register(NEXT_SHAPE_GROUP);
         event.register(PREV_SHAPE_GROUP);
         event.register(SPELL_CUSTOMIZATION);
     }
 
     @SubscribeEvent
-    private static void registerClientReloadListeners(RegisterClientReloadListenersEvent event) {
-        event.registerReloadListener(ParticleSpawnerManager.INSTANCE);
-        event.registerReloadListener(SkillAtlasHolder.INSTANCE.get());
-        event.registerReloadListener(SpellIconAtlasHolder.INSTANCE.get());
+    private static void registerTextureAtlases(RegisterTextureAtlasesEvent event) {
+        event.register(new AtlasManager.AtlasConfig(SkillAtlasHolder.ATLAS, SkillAtlasHolder.ATLAS_ID, false));
+        event.register(new AtlasManager.AtlasConfig(SpellIconAtlasHolder.ATLAS, SpellIconAtlasHolder.ATLAS_ID, false));
+    }
+
+    @SubscribeEvent
+    private static void registerClientReloadListeners(AddClientReloadListenersEvent event) {
+        event.addListener(ParticleSpawnerManager.ID, ParticleSpawnerManager.INSTANCE);
     }
 
     @SubscribeEvent
@@ -284,12 +271,12 @@ final class AMClientEventHandler {
     }
 
     @SubscribeEvent
-    private static void modelRegisterAdditional(ModelEvent.RegisterAdditional event) {
-        DataComponentOverrides.getAdditionalModels(AMMagic.AFFINITIES_WITH_NONE.stream().map(ResourceKey::location), AMItems.SPELL).forEach(event::register);
+    private static void modelRegisterAdditional(ModelEvent.RegisterStandalone event) {
+        DataComponentOverrides.getAdditionalModels(AMMagic.AFFINITIES_WITH_NONE.stream().map(ResourceKey::identifier), AMItems.SPELL).forEach(event::register);
         DataComponentOverrides.getAdditionalModels(Stream.of(1, 2, 3).map(i -> ArsMagicaApi.id("tier_" + i)), AMItems.INSCRIPTION_TABLE).forEach(event::register);
-        DataComponentOverrides.getAdditionalModels(AMMagic.SKILL_POINTS.stream().map(ResourceKey::location), AMItems.INFINITY_ORB).forEach(event::register);
-        DataComponentOverrides.getAdditionalModels(AMMagic.AFFINITIES.stream().map(ResourceKey::location), AMItems.AFFINITY_ESSENCE).forEach(event::register);
-        DataComponentOverrides.getAdditionalModels(AMMagic.AFFINITIES_WITH_NONE.stream().map(ResourceKey::location), AMItems.AFFINITY_TOME).forEach(event::register);
+        DataComponentOverrides.getAdditionalModels(AMMagic.SKILL_POINTS.stream().map(ResourceKey::identifier), AMItems.INFINITY_ORB).forEach(event::register);
+        DataComponentOverrides.getAdditionalModels(AMMagic.AFFINITIES.stream().map(ResourceKey::identifier), AMItems.AFFINITY_ESSENCE).forEach(event::register);
+        DataComponentOverrides.getAdditionalModels(AMMagic.AFFINITIES_WITH_NONE.stream().map(ResourceKey::identifier), AMItems.AFFINITY_TOME).forEach(event::register);
     }
 
     @SubscribeEvent
@@ -326,7 +313,7 @@ final class AMClientEventHandler {
             }
             if (spell != originalSpell) {
                 stack.set(AMDataComponents.SPELL, spell);
-                PacketDistributor.sendToServer(new SetActiveShapeGroupPacket(spell.activeShapeGroup()));
+                ClientPacketDistributor.sendToServer(new SetActiveShapeGroupPacket(spell.activeShapeGroup()));
             }
             while (SPELL_CUSTOMIZATION.consumeClick()) {
                 AMClientUtil.mc().setScreen(new SpellCustomizationScreen(spell, hand));
@@ -345,7 +332,7 @@ final class AMClientEventHandler {
             stack = player.getOffhandItem();
             if (!stack.is(AMItems.SPELL_BOOK)) return;
         }
-        PacketDistributor.sendToServer(new SpellBookScrollPacket(scroll > 0));
+        ClientPacketDistributor.sendToServer(new SpellBookScrollPacket(scroll > 0));
         event.setCanceled(true);
     }
 

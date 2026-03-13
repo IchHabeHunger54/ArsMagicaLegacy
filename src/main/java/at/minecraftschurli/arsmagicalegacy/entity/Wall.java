@@ -1,12 +1,13 @@
 package at.minecraftschurli.arsmagicalegacy.entity;
 
 import at.minecraftschurli.arsmagicalegacy.AMServerConfig;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -25,14 +26,14 @@ public class Wall extends SpellShapeEntity {
     }
 
     @Override
-    protected void readNbt(CompoundTag tag) {
-        super.readNbt(tag);
-        entityData.set(RANGE, tag.getFloat(RANGE_KEY));
+    protected void readData(ValueInput tag) {
+        super.readData(tag);
+        entityData.set(RANGE, tag.getFloatOr(RANGE_KEY, 1f));
     }
 
     @Override
-    protected void writeNbt(CompoundTag tag) {
-        super.writeNbt(tag);
+    protected void writeData(ValueOutput tag) {
+        super.writeData(tag);
         tag.putFloat(RANGE_KEY, entityData.get(RANGE));
     }
 

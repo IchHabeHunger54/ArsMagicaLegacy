@@ -47,8 +47,8 @@ import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.StairsShape;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.client.model.data.ModelData;
-import net.neoforged.neoforge.client.model.data.ModelProperty;
+import net.neoforged.neoforge.model.data.ModelData;
+import net.neoforged.neoforge.model.data.ModelProperty;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -249,7 +249,7 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
     @Override
     public List<Holder<EtheriumType>> getEtheriumTypes() {
         return AMRegistries.etheriumTypes(level.registryAccess())
-            .holders()
+            .listElements()
             .map(e -> (Holder<EtheriumType>) e)
             .toList();
     }

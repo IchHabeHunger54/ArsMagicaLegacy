@@ -12,7 +12,6 @@ import at.minecraftschurli.arsmagicalegacy.packet.InscriptionTableCreateSpellPac
 import at.minecraftschurli.arsmagicalegacy.packet.InscriptionTableSyncPacket;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.ComponentPath;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
@@ -20,12 +19,15 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.navigation.FocusNavigationEvent;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -46,24 +48,18 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     private InscriptionTableBlockEntity.MenuData cachedData;
 
     public InscriptionTableScreen(InscriptionTableMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title);
-        imageWidth = 220;
-        imageHeight = 252;
+        super(menu, playerInventory, title, 220, 252);
     }
 
     @Override
-    protected void renderBg(GuiGraphicsExtractor guiGraphics, float partialTick, int mouseX, int mouseY) {
+    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
         updateCachedData();
-        guiGraphics.blit(BACKGROUND, leftPos, topPos, 0, 0, imageWidth, imageHeight);
-        guiGraphics.blit(SLOT, leftPos + 101, topPos + 73, 0, 0, 18, 18, 18, 18);
+        graphics.blit(RenderPipelines.GUI, BACKGROUND, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
+        graphics.blit(SLOT, leftPos + 101, topPos + 73, 0, 0, 18, 18, 18, 18);
         for (int i = 0; i < Spell.MAX_SHAPE_GROUPS; i++) {
-            guiGraphics.blit(SHAPE_GROUP, leftPos + 20 + i * ShapeGroupArea.WIDTH, topPos + 107, 0, 0, ShapeGroupArea.WIDTH, ShapeGroupArea.HEIGHT, ShapeGroupArea.WIDTH, ShapeGroupArea.HEIGHT);
+            graphics.blit(SHAPE_GROUP, leftPos + 20 + i * ShapeGroupArea.WIDTH, topPos + 107, 0, 0, ShapeGroupArea.WIDTH, ShapeGroupArea.HEIGHT, ShapeGroupArea.WIDTH, ShapeGroupArea.HEIGHT);
             if (i < menu.getShapeGroups() && !shapeGroupAreas.get(i).locked) continue;
-            PoseStack stack = guiGraphics.pose();
-            stack.pushPose();
-            stack.translate(0, 0, 1);
-            guiGraphics.fill(leftPos + 20 + i * ShapeGroupArea.WIDTH, topPos + 107, leftPos + 20 + (i + 1) * ShapeGroupArea.WIDTH, topPos + 107 + ShapeGroupArea.HEIGHT, 0x7f000000);
-            stack.popPose();
+            graphics.fill(leftPos + 20 + i * ShapeGroupArea.WIDTH, topPos + 107, leftPos + 20 + (i + 1) * ShapeGroupArea.WIDTH, topPos + 107 + ShapeGroupArea.HEIGHT, 0x7f000000);
         }
     }
 
@@ -82,36 +78,36 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         searchBar = addRenderableWidget(new EditBox(AMClientUtil.font(), leftPos + 40, topPos + 59, 140, 12, searchBar, AMTranslations.INSCRIPTION_TABLE_SEARCH));
         searchBar.setHint(AMTranslations.INSCRIPTION_TABLE_SEARCH);
         searchBar.setResponder(sourceArea::setNameFilter);
-        addRenderableWidget(Button.builder(AMTranslations.INSCRIPTION_TABLE_CLEAR, $ -> clear()).bounds(leftPos + 40, topPos + 72, 60, 20).build());
+        addRenderableWidget(Button.builder(AMTranslations.INSCRIPTION_TABLE_CLEAR, _ -> clear()).bounds(leftPos + 40, topPos + 72, 60, 20).build());
         if (AMClientUtil.player().isCreative()) {
-            addRenderableWidget(Button.builder(AMTranslations.INSCRIPTION_TABLE_GIVE_SPELL, $ -> giveSpellRecipe()).bounds(leftPos + 120, topPos + 72, 60, 20).build());
+            addRenderableWidget(Button.builder(AMTranslations.INSCRIPTION_TABLE_GIVE_SPELL, _ -> giveSpellRecipe()).bounds(leftPos + 120, topPos + 72, 60, 20).build());
         }
         nameBar = addRenderableWidget(new EditBox(AMClientUtil.font(), leftPos + 40, topPos + 93, 140, 12, nameBar, AMTranslations.INSCRIPTION_TABLE_NAME));
         nameBar.setHint(AMTranslations.INSCRIPTION_TABLE_NAME);
-        nameBar.setResponder($ -> sync());
-        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, $ -> onClose()).bounds(leftPos + 10, topPos + imageHeight + 4, 200, 20).build());
+        nameBar.setResponder(_ -> sync());
+        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, _ -> onClose()).bounds(leftPos + 10, topPos + imageHeight + 4, 200, 20).build());
         updateCachedData();
     }
 
     @Override
-    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+        super.extractRenderState(graphics, mouseX, mouseY, a);
         for (DragArea area : dragAreas) {
-            area.render(guiGraphics, mouseX, mouseY, partialTick);
+            area.extractRenderState(graphics, mouseX, mouseY, a);
         }
         if (dragged != null) {
-            dragged.render(guiGraphics, mouseX - Draggable.SIZE / 2, mouseY - Draggable.SIZE / 2, partialTick);
+            dragged.extractRenderState(graphics, mouseX - Draggable.SIZE / 2, mouseY - Draggable.SIZE / 2, a);
         } else {
             Draggable part = getHoveredSkill(mouseX, mouseY);
             if (part != null) {
-                guiGraphics.renderTooltip(AMClientUtil.font(), Skill.getName(part.getSkill()), mouseX, mouseY);
+                graphics.setTooltipForNextFrame(AMClientUtil.font(), Skill.getName(part.getSkill()), mouseX, mouseY);
             }
         }
-        renderTooltip(guiGraphics, mouseX, mouseY);
+        extractTooltip(graphics, mouseX, mouseY);
     }
 
     @Override
-    protected void renderLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+    protected void extractLabels(GuiGraphicsExtractor graphics, int xm, int ym) {
     }
 
     @Nullable
@@ -126,23 +122,23 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     }
 
     @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
-        if (dragged != null) return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
-        int x = (int) mouseX;
-        int y = (int) mouseY;
+    public boolean mouseDragged(MouseButtonEvent event, double dx, double dy) {
+        if (dragged != null) return super.mouseDragged(event, dx, dy);
+        int x = (int) event.x();
+        int y = (int) event.y();
         DragArea area = getHoveredArea(x, y);
         Draggable skill = getHoveredSkill(x, y);
-        if (area == null || skill == null || !area.canPick(skill, x, y)) return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+        if (area == null || skill == null || !area.canPick(skill, x, y)) return super.mouseDragged(event, dx, dy);
         area.pick(skill, x, y);
         dragged = skill;
         return true;
     }
 
     @Override
-    public boolean mouseReleased(double mouseX, double mouseY, int button) {
-        if (dragged == null) return super.mouseReleased(mouseX, mouseY, button);
-        int x = (int) mouseX;
-        int y = (int) mouseY;
+    public boolean mouseReleased(MouseButtonEvent event) {
+        if (dragged == null) return super.mouseReleased(event);
+        int x = (int) event.x();
+        int y = (int) event.y();
         DragArea area = getHoveredArea(x, y);
         if (area != null && area.canDrop(dragged, x, y)) {
             area.drop(dragged, x, y);
@@ -150,29 +146,29 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
             return true;
         }
         dragged = null;
-        return super.mouseReleased(mouseX, mouseY, button);
+        return super.mouseReleased(event);
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == InputConstants.KEY_ESCAPE && shouldCloseOnEsc()) {
+    public boolean keyPressed(KeyEvent event) {
+        if (event.key() == InputConstants.KEY_ESCAPE && shouldCloseOnEsc()) {
             onClose();
             return true;
         }
-        if (keyCode == InputConstants.KEY_TAB) {
-            boolean flag = !hasShiftDown();
-            FocusNavigationEvent event = new FocusNavigationEvent.TabNavigation(flag);
-            ComponentPath componentPath = nextFocusPath(event);
+        if (event.key() == InputConstants.KEY_TAB) {
+            boolean flag = !event.hasShiftDown();
+            FocusNavigationEvent e = new FocusNavigationEvent.TabNavigation(flag);
+            ComponentPath componentPath = nextFocusPath(e);
             if (componentPath != null) {
                 changeFocus(componentPath);
             }
             return false;
         }
         if (getFocused() instanceof EditBox editBox) {
-            editBox.keyPressed(keyCode, scanCode, modifiers);
+            editBox.keyPressed(event);
             return true;
         }
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(event);
     }
 
     @Override
@@ -206,7 +202,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
             grammarArea.getVisible().stream().map(Draggable::getSkill).toList(),
             shapeGroupAreas.stream().map(area -> area.getVisible().stream().map(Draggable::getSkill).toList()).toList());
         menu.getBlockEntity().setMenuData(data);
-        PacketDistributor.sendToServer(new InscriptionTableSyncPacket(menu.getBlockEntity().getBlockPos(), data));
+        ClientPacketDistributor.sendToServer(new InscriptionTableSyncPacket(menu.getBlockEntity().getBlockPos(), data));
     }
 
     private void onDrop() {
@@ -216,7 +212,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
 
     private void giveSpellRecipe() {
         sync();
-        PacketDistributor.sendToServer(new InscriptionTableCreateSpellPacket(menu.getBlockEntity().getBlockPos()));
+        ClientPacketDistributor.sendToServer(new InscriptionTableCreateSpellPacket(menu.getBlockEntity().getBlockPos()));
     }
 
     private void clear() {
@@ -232,7 +228,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         sourceArea.setTypeFilter(
             shapeGroupAreas.stream().anyMatch(ShapeGroupArea::isEmpty),
             shapeGroupAreas.stream().anyMatch(e -> !e.isEmpty() && e.isNotFull() && e.getAll().stream().noneMatch(p -> {
-                Optional<? extends Holder<SpellPart>> holder = AMRegistries.SPELL_PARTS.getHolder(p.getSkill().getKey().identifier());
+                Optional<? extends Holder<SpellPart>> holder = AMRegistries.SPELL_PARTS.get(p.getSkill().getKey().identifier());
                 return holder.isPresent() && holder.get().value().isSecondaryShape();
             })),
             grammarArea.isNotFull(),

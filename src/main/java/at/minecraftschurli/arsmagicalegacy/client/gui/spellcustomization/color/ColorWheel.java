@@ -2,6 +2,8 @@ package at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.color;
 
 import at.minecraftschurli.arsmagicalegacy.client.AMRenderTypes;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.world.phys.Vec2;
 import org.apache.commons.lang3.function.TriConsumer;
 import org.jetbrains.annotations.Nullable;
@@ -16,19 +18,19 @@ class ColorWheel extends ColorPickerWidget {
     }
 
     @Override
-    protected void renderWidget(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+    protected void extractWidgetRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
         if (isFocused()) {
             ColorWheelShader.set(getX() + radius, getY() + radius, radius + 1, -1);
-            guiGraphics.fillGradient(AMRenderTypes.COLOR_WHEEL, getX() - 1, getY() - 1, getX() + width + 1, getY() + height + 1, 0xffffffff, 0xffffffff, 0);
+            graphics.fillGradient(AMRenderTypes.COLOR_WHEEL, getX() - 1, getY() - 1, getX() + width + 1, getY() + height + 1, 0xffffffff, 0xffffffff, 0);
         }
         ColorWheelShader.set(getX() + radius, getY() + radius, radius, brightness);
-        guiGraphics.fillGradient(AMRenderTypes.COLOR_WHEEL, getX(), getY(), getX() + width, getY() + height, 0xffffffff, 0xffffffff, 0);
-        renderIndicator(guiGraphics, (int) (getX() + radius + radius * saturation * Math.cos(hue * Math.TAU)), (int) (getY() + radius + radius * saturation * Math.sin(hue * Math.TAU)));
+        graphics.fillGradient(AMRenderTypes.COLOR_WHEEL, getX(), getY(), getX() + width, getY() + height, 0xffffffff, 0xffffffff, 0);
+        renderIndicator(graphics, (int) (getX() + radius + radius * saturation * Math.cos(hue * Math.TAU)), (int) (getY() + radius + radius * saturation * Math.sin(hue * Math.TAU)));
     }
 
     @Override
-    protected float @Nullable [] getHovered(double mouseX, double mouseY) {
-        Vec2 mouseRelative = getMouseRelative(mouseX, mouseY);
+    protected float @Nullable [] getHovered(MouseButtonEvent event) {
+        Vec2 mouseRelative = getMouseRelative(event.x(), event.y());
         double length = mouseRelative.length();
         double angle = Math.atan2(mouseRelative.y, mouseRelative.x);
         if (angle < 0) {
@@ -38,13 +40,13 @@ class ColorWheel extends ColorPickerWidget {
     }
 
     @Override
-    protected boolean clicked(double mouseX, double mouseY) {
-        return active && visible && getMouseRelative(mouseX, mouseY).length() <= radius;
+    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+        return active && visible && getMouseRelative(event.x(), event.y()).length() <= radius;
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        return switch (keyCode) {
+    public boolean keyPressed(KeyEvent event) {
+        return switch (event.key()) {
             case GLFW.GLFW_KEY_LEFT -> {
                 hue = (hue - 1 / 256f + 1) % 1;
                 onChange();
@@ -65,7 +67,7 @@ class ColorWheel extends ColorPickerWidget {
                 onChange();
                 yield true;
             }
-            default -> super.keyPressed(keyCode, scanCode, modifiers);
+            default -> super.keyPressed(event);
         };
     }
 

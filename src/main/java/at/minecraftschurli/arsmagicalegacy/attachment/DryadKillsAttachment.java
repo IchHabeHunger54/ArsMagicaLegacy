@@ -6,8 +6,8 @@ import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import com.mojang.serialization.Codec;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -37,7 +37,7 @@ public record DryadKillsAttachment(List<Integer> timers) {
         list.add(cooldown);
         if (list.size() >= AMServerConfig.DRYAD_KILLS_FOR_NATURE_GUARDIAN_SPAWN.get()) {
             // TODO nature guardian
-            ManaCreeper natureGuardian = AMEntities.MANA_CREEPER.get().spawn(level, ItemStack.EMPTY, player, dryad.blockPosition(), MobSpawnType.TRIGGERED, false, false);
+            ManaCreeper natureGuardian = AMEntities.MANA_CREEPER.get().spawn(level, ItemStack.EMPTY, player, dryad.blockPosition(), EntitySpawnReason.TRIGGERED, false, false);
             if (natureGuardian != null) {
                 natureGuardian.setTarget(player);
                 player.removeData(AMAttachments.DRYAD_KILLS);

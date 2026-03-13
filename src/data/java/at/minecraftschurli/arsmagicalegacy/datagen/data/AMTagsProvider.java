@@ -16,7 +16,6 @@ import net.minecraft.data.tags.DamageTypeTagsProvider;
 import net.minecraft.data.tags.EnchantmentTagsProvider;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.data.tags.FluidTagsProvider;
-import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.EntityTypeTags;
@@ -26,7 +25,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ItemTagsProvider;
 import top.theillusivec4.curios.api.CuriosTags;
 
 import java.util.concurrent.CompletableFuture;
@@ -36,19 +35,19 @@ public final class AMTagsProvider {
     private AMTagsProvider() {
     }
 
-    public static void addProviders(DataGenerator generator, boolean includeServer, PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
-        Block blockTags = generator.addProvider(includeServer, new Block(output, lookupProvider, existingFileHelper));
-        generator.addProvider(includeServer, new Item(output, lookupProvider, blockTags.contentsGetter(), existingFileHelper));
-        generator.addProvider(includeServer, new Fluid(output, lookupProvider, existingFileHelper));
-        generator.addProvider(includeServer, new EntityType(output, lookupProvider, existingFileHelper));
-        generator.addProvider(includeServer, new DamageType(output, lookupProvider, existingFileHelper));
-        generator.addProvider(includeServer, new Enchantment(output, lookupProvider, existingFileHelper));
-        generator.addProvider(includeServer, new Biome(output, lookupProvider, existingFileHelper));
+    public static void addProviders(DataGenerator generator, boolean includeServer, PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        generator.addProvider(includeServer, new Block(output, lookupProvider));
+        generator.addProvider(includeServer, new Item(output, lookupProvider));
+        generator.addProvider(includeServer, new Fluid(output, lookupProvider));
+        generator.addProvider(includeServer, new EntityType(output, lookupProvider));
+        generator.addProvider(includeServer, new DamageType(output, lookupProvider));
+        generator.addProvider(includeServer, new Enchantment(output, lookupProvider));
+        generator.addProvider(includeServer, new Biome(output, lookupProvider));
     }
 
     private static final class Block extends BlockTagsProvider {
-        public Block(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
-            super(output, lookupProvider, ArsMagicaApi.MOD_ID, existingFileHelper);
+        public Block(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+            super(output, lookupProvider, ArsMagicaApi.MOD_ID);
         }
 
         @Override
@@ -105,8 +104,8 @@ public final class AMTagsProvider {
     }
 
     private static final class Item extends ItemTagsProvider {
-        public Item(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<net.minecraft.world.level.block.Block>> blockTags, ExistingFileHelper existingFileHelper) {
-            super(output, lookupProvider, blockTags, ArsMagicaApi.MOD_ID, existingFileHelper);
+        public Item(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+            super(output, lookupProvider, ArsMagicaApi.MOD_ID);
         }
 
         @Override
@@ -163,7 +162,7 @@ public final class AMTagsProvider {
             tag(ItemTags.FOOT_ARMOR).add(AMItems.MAGE_BOOTS.get(), AMItems.BATTLEMAGE_BOOTS.get());
             tag(ItemTags.BOOKSHELF_BOOKS).add(AMItems.SPELL_BOOK.get());
             tag(ItemTags.LECTERN_BOOKS).add(AMItems.SPELL_RECIPE.get());
-            tag(ItemTags.DYEABLE).add(AMItems.SPELL_BOOK.get());
+            tag(ItemTags.CAULDRON_CAN_REMOVE_DYE).add(AMItems.SPELL_BOOK.get());
             tag(AMTags.Items.ARCANE_COMPENDIUM_BOOKS).add(Items.BOOK);
             tag(AMTags.Items.INSCRIPTION_TABLE_BOOKS).add(Items.WRITABLE_BOOK, AMItems.SPELL_RECIPE.get());
             tag(AMTags.Items.OCCULUS_FORGET_ALL).addTag(AMTags.Items.STORAGE_BLOCKS_VINTEUM);
@@ -176,8 +175,8 @@ public final class AMTagsProvider {
     }
 
     private static final class Fluid extends FluidTagsProvider {
-        public Fluid(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, ExistingFileHelper existingFileHelper) {
-            super(output, provider, ArsMagicaApi.MOD_ID, existingFileHelper);
+        public Fluid(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
+            super(output, provider, ArsMagicaApi.MOD_ID);
         }
 
         @Override
@@ -187,8 +186,8 @@ public final class AMTagsProvider {
     }
 
     private static final class EntityType extends EntityTypeTagsProvider {
-        public EntityType(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, ExistingFileHelper existingFileHelper) {
-            super(output, provider, ArsMagicaApi.MOD_ID, existingFileHelper);
+        public EntityType(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
+            super(output, provider, ArsMagicaApi.MOD_ID);
         }
 
         @Override
@@ -204,8 +203,8 @@ public final class AMTagsProvider {
     }
 
     private static final class DamageType extends DamageTypeTagsProvider {
-        public DamageType(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
-            super(output, lookupProvider, ArsMagicaApi.MOD_ID, existingFileHelper);
+        public DamageType(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+            super(output, lookupProvider, ArsMagicaApi.MOD_ID);
         }
 
         @Override
@@ -234,8 +233,8 @@ public final class AMTagsProvider {
     }
 
     private static final class Enchantment extends EnchantmentTagsProvider {
-        public Enchantment(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
-            super(output, lookupProvider, ArsMagicaApi.MOD_ID, existingFileHelper);
+        public Enchantment(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+            super(output, lookupProvider, ArsMagicaApi.MOD_ID);
         }
 
         @Override
@@ -245,8 +244,8 @@ public final class AMTagsProvider {
     }
 
     private static final class Biome extends BiomeTagsProvider {
-        public Biome(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, ExistingFileHelper existingFileHelper) {
-            super(output, provider, ArsMagicaApi.MOD_ID, existingFileHelper);
+        public Biome(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
+            super(output, provider, ArsMagicaApi.MOD_ID);
         }
 
         @Override

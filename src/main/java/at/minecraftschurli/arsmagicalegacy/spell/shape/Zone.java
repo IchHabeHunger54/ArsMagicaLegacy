@@ -12,6 +12,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
 import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class Zone extends SecondarySpellShape {
         Level level = context.level();
         Entity directEntity = context.directEntity();
         if (level.isClientSide() || directEntity == null) return new SpellCastResult(spell);
-        var zone = AMEntities.ZONE.get().create(level);
+        var zone = AMEntities.ZONE.get().create(level, EntitySpawnReason.MOB_SUMMONED);
         zone.setPos(directEntity.getEyePosition());
         zone.setXRot(directEntity.getXRot());
         zone.setYRot(directEntity.getYRot());

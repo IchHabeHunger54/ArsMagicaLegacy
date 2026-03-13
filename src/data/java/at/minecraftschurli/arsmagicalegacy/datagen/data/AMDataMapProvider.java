@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.ObeliskFuel;
+import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.util.CrystalPhylacteryContentsSize;
 import net.minecraft.core.HolderLookup;
@@ -10,6 +11,7 @@ import net.minecraft.world.entity.EntityType;
 import net.neoforged.neoforge.common.data.DataMapProvider;
 import net.neoforged.neoforge.registries.datamaps.builtin.Compostable;
 import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
+import net.neoforged.neoforge.registries.datamaps.builtin.Strippable;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -43,5 +45,8 @@ public final class AMDataMapProvider extends DataMapProvider {
             .add(EntityType.MULE.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(20), false)
             .add(EntityType.SLIME.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(16), false)
             .add(EntityType.TRADER_LLAMA.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(20), false);
+        builder(NeoForgeDataMaps.STRIPPABLES)
+            .add(AMBlocks.WITCHWOOD_LOG, new Strippable(AMBlocks.STRIPPED_WITCHWOOD_LOG.get()), false)
+            .add(AMBlocks.WITCHWOOD, new Strippable(AMBlocks.STRIPPED_WITCHWOOD.get()), false);
     }
 }

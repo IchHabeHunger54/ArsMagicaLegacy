@@ -1,34 +1,25 @@
 package at.minecraftschurli.arsmagicalegacy.util;
 
-import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.data.JsonDataManager;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.mojang.serialization.Codec;
+import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.neoforged.neoforge.common.conditions.ConditionalOps;
-import net.neoforged.neoforge.common.conditions.WithConditions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
-public class AMDataManager<T> extends SimpleJsonResourceReloadListener implements JsonDataManager<T> {
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().setLenient().create();
-    private static final Logger LOGGER = LoggerFactory.getLogger(AMDataManager.class);
-    private final Codec<Optional<WithConditions<T>>> codec;
+public class AMDataManager<T> extends SimpleJsonResourceReloadListener<T> implements JsonDataManager<T> {
     private final Map<Identifier, T> values = new HashMap<>();
+    private final Identifier id;
 
-    public AMDataManager(String directory, Codec<T> codec) {
-        super(GSON, ArsMagicaApi.MOD_ID + "/" + directory);
-        this.codec = ConditionalOps.createConditionalCodecWithConditions(codec);
+    public AMDataManager(Identifier id, Codec<T> codec) {
+        super(codec, FileToIdConverter.registry(ResourceKey.createRegistryKey(id)));
+        this.id = id;
     }
 
     @Override
@@ -47,13 +38,13 @@ public class AMDataManager<T> extends SimpleJsonResourceReloadListener implement
     }
 
     @Override
-    protected void apply(Map<Identifier, JsonElement> map, ResourceManager resourceManager, ProfilerFiller profiler) {
+    public Identifier id() {
+        return id;
+    }
+
+    @Override
+    protected void apply(Map<Identifier, T> map, ResourceManager resourceManager, ProfilerFiller profiler) {
         values.clear();
-        for (Map.Entry<Identifier, JsonElement> entry : map.entrySet()) {
-            Identifier key = entry.getKey();
-            codec.parse(makeConditionalOps(), entry.getValue())
-                .ifSuccess(e -> e.map(WithConditions::carrier).ifPresentOrElse(o -> values.put(key, o), () -> LOGGER.debug("Skipping loading data file {} as its conditions were not met", key)))
-                .ifError(e -> LOGGER.error("Parsing error loading data file {}: {}", key, e.message()));
-        }
+        values.putAll(map);
     }
 }

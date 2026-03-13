@@ -6,6 +6,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ability.AbilityHelper;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMCapabilities;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
+import at.minecraftschurli.arsmagicalegacy.api.data.JsonDataManager;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.ObeliskFuel;
 import at.minecraftschurli.arsmagicalegacy.api.event.ManaCostCalculationEvent;
@@ -63,8 +64,8 @@ import at.minecraftschurli.arsmagicalegacy.spell.ToolTiers;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import at.minecraftschurli.arsmagicalegacy.util.CrystalPhylacteryContentsSize;
 import at.minecraftschurli.arsmagicalegacy.util.DispenseBucketBehavior;
-import at.minecraftschurli.arsmagicalegacy.util.DispenseWitchwoodBoatBehavior;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.util.Util;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
@@ -84,7 +85,6 @@ import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
@@ -101,7 +101,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.AddServerReloadListenersEvent;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.VanillaGameEvent;
@@ -131,7 +131,6 @@ import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -144,10 +143,6 @@ final class AMEventHandler {
     @SubscribeEvent
     private static void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            // TODO 26.1 replace strippables with data map
-            AxeItem.STRIPPABLES = new HashMap<>(AxeItem.STRIPPABLES);
-            AxeItem.STRIPPABLES.put(AMBlocks.WITCHWOOD_LOG.get(), AMBlocks.STRIPPED_WITCHWOOD_LOG.get());
-            AxeItem.STRIPPABLES.put(AMBlocks.WITCHWOOD.get(), AMBlocks.STRIPPED_WITCHWOOD.get());
             FireBlock fire = (FireBlock) Blocks.FIRE;
             fire.setFlammable(AMBlocks.WITCHWOOD_LOG.get(), 5, 5);
             fire.setFlammable(AMBlocks.WITCHWOOD.get(), 5, 5);
@@ -165,10 +160,9 @@ final class AMEventHandler {
             fire.setFlammable(AMBlocks.TARMA_ROOT.get(), 60, 100);
             fire.setFlammable(AMBlocks.WAKEBLOOM.get(), 60, 100);
             CauldronInteraction.INTERACTIONS.forEach((k, v) -> v.map().put(AMItems.LIQUID_ETHERIUM_BUCKET.get(), LiquidEtheriumCauldronBlock::emptyBucket));
-            CauldronInteraction.WATER.map().put(AMItems.SPELL_BOOK.get(), CauldronInteraction.DYED_ITEM);
             DispenserBlock.registerBehavior(AMItems.LIQUID_ETHERIUM_BUCKET, DispenseBucketBehavior.INSTANCE);
-            DispenserBlock.registerBehavior(AMItems.WITCHWOOD_BOAT, new DispenseWitchwoodBoatBehavior(false));
-            DispenserBlock.registerBehavior(AMItems.WITCHWOOD_CHEST_BOAT, new DispenseWitchwoodBoatBehavior(true));
+            DispenserBlock.registerBehavior(AMItems.WITCHWOOD_BOAT, new BoatDispenseItemBehavior(AMEntities.WITCHWOOD_BOAT.get()));
+            DispenserBlock.registerBehavior(AMItems.WITCHWOOD_CHEST_BOAT, new BoatDispenseItemBehavior(AMEntities.WITCHWOOD_CHEST_BOAT.get()));
             AMMultiblocks.init();
         });
     }
@@ -203,11 +197,15 @@ final class AMEventHandler {
     }
 
     @SubscribeEvent
-    private static void addReloadListener(AddReloadListenerEvent event) {
-        event.addListener(ArsMagicaApi.plantManager());
-        event.addListener(ArsMagicaApi.ritualManager());
-        event.addListener(ArsMagicaApi.spellPartDataManager());
-        event.addListener(ToolTiers.INSTANCE);
+    private static void addReloadListener(AddServerReloadListenersEvent event) {
+        addListener(event, ArsMagicaApi.plantManager());
+        addListener(event, ArsMagicaApi.ritualManager());
+        addListener(event, ArsMagicaApi.spellPartDataManager());
+        event.addListener(ToolTiers.ID, ToolTiers.INSTANCE);
+    }
+
+    private static <T> void addListener(AddServerReloadListenersEvent event, JsonDataManager<T> manager) {
+        event.addListener(manager.id(), manager);
     }
 
     @SubscribeEvent
@@ -267,7 +265,7 @@ final class AMEventHandler {
     @SubscribeEvent
     private static void registerCommands(RegisterCommandsEvent event) {
         CommandBuildContext context = event.getBuildContext();
-        LiteralArgumentBuilder<CommandSourceStack> builder = Commands.literal(ArsMagicaApi.MOD_ID).requires(p -> p.hasPermission(2));
+        LiteralArgumentBuilder<CommandSourceStack> builder = Commands.literal(ArsMagicaApi.MOD_ID).requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS));
         AffinityCommand.register(builder, context);
         MagicXpCommand.register(builder);
         SkillCommand.register(builder, context);
@@ -519,27 +517,25 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void enderEntityTeleport(EntityTeleportEvent.EnderEntity event) {
-        LivingEntity entity = event.getEntityLiving();
-        if (entity.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
-            entity.sendSystemMessage(AMTranslations.NO_TELEPORT);
-            event.setCanceled(true);
-        }
+        onTeleport(event);
     }
 
     @SubscribeEvent
     private static void enderPearlTeleport(EntityTeleportEvent.EnderPearl event) {
-        Player entity = event.getPlayer();
-        if (entity.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
-            entity.sendSystemMessage(AMTranslations.NO_TELEPORT);
-            event.setCanceled(true);
-        }
+        onTeleport(event);
     }
 
     @SubscribeEvent
-    private static void chorusFruitTeleport(EntityTeleportEvent.ChorusFruit event) {
-        LivingEntity entity = event.getEntityLiving();
-        if (entity.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
-            entity.sendSystemMessage(AMTranslations.NO_TELEPORT);
+    private static void itemTeleport(EntityTeleportEvent.ItemConsumption event) {
+        onTeleport(event);
+    }
+    
+    private static void onTeleport(EntityTeleportEvent event) {
+        LivingEntity entity = event.getEntity().asLivingEntity();
+        if (entity != null && entity.hasEffect(AMMobEffects.ASTRAL_DISTORTION)) {
+            if (entity instanceof Player player) {
+                player.sendSystemMessage(AMTranslations.NO_TELEPORT);
+            }
             event.setCanceled(true);
         }
     }

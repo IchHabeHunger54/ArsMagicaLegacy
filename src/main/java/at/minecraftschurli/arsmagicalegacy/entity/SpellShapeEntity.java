@@ -8,8 +8,6 @@ import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -19,6 +17,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -51,17 +51,17 @@ public abstract class SpellShapeEntity extends SpellEntity {
     }
 
     @Override
-    protected void readNbt(CompoundTag tag) {
-        entityData.set(TARGET_NON_SOLID, tag.getBoolean(TARGET_NON_SOLID_KEY));
-        entityData.set(SPELL, Spell.CODEC.decode(NbtOps.INSTANCE, tag.getCompound(SPELL_KEY)).getOrThrow().getFirst());
-        entityData.set(CONSUME, tag.getBoolean(CONSUME_KEY));
-        entityData.set(AWARD_XP, tag.getBoolean(AWARD_XP_KEY));
+    protected void readData(ValueInput tag) {
+        entityData.set(TARGET_NON_SOLID, tag.getBooleanOr(TARGET_NON_SOLID_KEY, false));
+        entityData.set(SPELL, tag.read(SPELL_KEY, Spell.CODEC).orElse(Spell.EMPTY));
+        entityData.set(CONSUME, tag.getBooleanOr(CONSUME_KEY, true));
+        entityData.set(AWARD_XP, tag.getBooleanOr(AWARD_XP_KEY, true));
     }
 
     @Override
-    protected void writeNbt(CompoundTag tag) {
+    protected void writeData(ValueOutput tag) {
         tag.putBoolean(TARGET_NON_SOLID_KEY, entityData.get(TARGET_NON_SOLID));
-        tag.put(SPELL_KEY, Spell.CODEC.encodeStart(NbtOps.INSTANCE, getSpell()).getOrThrow());
+        tag.store(SPELL_KEY, Spell.CODEC, getSpell());
         tag.putBoolean(CONSUME_KEY, entityData.get(CONSUME));
         tag.putBoolean(AWARD_XP_KEY, entityData.get(AWARD_XP));
     }

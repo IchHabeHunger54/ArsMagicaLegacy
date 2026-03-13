@@ -5,6 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.TooltipFlag;
 
@@ -13,7 +14,7 @@ import java.util.List;
 public class SkillIngredientRenderer implements IIngredientRenderer<Skill> {
     @Override
     public void render(GuiGraphicsExtractor guiGraphics, Skill skill) {
-        guiGraphics.blit(0, 0, 0, 16, 16, SkillAtlasHolder.INSTANCE.get().getSprite(skill));
+        guiGraphics.blitSprite(RenderPipelines.GUI, SkillAtlasHolder.getSprite(skill), 0, 0, 16, 16);
     }
 
     @Override

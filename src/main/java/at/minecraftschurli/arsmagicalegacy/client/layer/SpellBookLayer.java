@@ -6,17 +6,18 @@ import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.item.SpellBookItem;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.LayeredDraw;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
+import net.neoforged.neoforge.client.gui.GuiLayer;
+import org.joml.Matrix3x2fStack;
 
-public class SpellBookLayer implements LayeredDraw.Layer {
+public class SpellBookLayer implements GuiLayer {
     private static final Identifier TEXTURE = ArsMagicaApi.id("textures/gui/spell_book/overlay.png");
     private static final Identifier HIGHLIGHT_TEXTURE = ArsMagicaApi.id("textures/gui/spell_book/highlight.png");
 
@@ -35,15 +36,15 @@ public class SpellBookLayer implements LayeredDraw.Layer {
         ItemContainerContents container = item.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY);
         int x = AMClientConfig.SPELL_BOOK_X_ANCHOR.get().getLocation(AMClientConfig.SPELL_BOOK_X);
         int y = AMClientConfig.SPELL_BOOK_Y_ANCHOR.get().getLocation(AMClientConfig.SPELL_BOOK_Y);
-        PoseStack stack = guiGraphics.pose();
-        stack.pushPose();
-        stack.translate(x, y, 0);
-        stack.scale(0.75f, 0.75f, 0.75f);
-        guiGraphics.blit(TEXTURE, 0, 0, 0, 0, 0, 148, 22, 148, 22);
+        Matrix3x2fStack stack = guiGraphics.pose();
+        stack.pushMatrix();
+        stack.translate(x, y);
+        stack.scale(0.75f, 0.75f);
+        guiGraphics.blit(RenderPipelines.GUI, TEXTURE, 0, 0, 0, 0, 148, 22, 148, 22);
         for (int i = 0; i < Math.min(container.getSlots(), SpellBookItem.HOTBAR_SLOTS); i++) {
             AMClientUtil.renderItem(guiGraphics, container.getStackInSlot(i), i * 18 + 3, 3);
         }
-        guiGraphics.blit(HIGHLIGHT_TEXTURE, index * 18 + 1, 1, 0, 0, 0, 20, 20, 20, 20);
-        stack.popPose();
+        guiGraphics.blit(RenderPipelines.GUI, HIGHLIGHT_TEXTURE, index * 18 + 1, 1, 0, 0, 20, 20, 20, 20);
+        stack.popMatrix();
     }
 }

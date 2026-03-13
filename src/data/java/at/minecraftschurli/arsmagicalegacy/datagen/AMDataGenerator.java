@@ -59,7 +59,7 @@ final class AMDataGenerator {
         generator.addProvider(event.includeClient(), new AMParticleDescriptionProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new AMParticleSpawnerProvider(output, lookupProvider));
         generator.addProvider(event.includeClient(), new AMSoundDefinitionProvider(output, existingFileHelper));
-        generator.addProvider(event.includeClient(), new AMSpriteSourceProvider(output, lookupProvider, existingFileHelper));
+        generator.addProvider(event.includeClient(), new AMSpriteSourceProvider(output, lookupProvider));
         lookupProvider = generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(output, lookupProvider, new RegistrySetBuilder()
             .add(Registries.DAMAGE_TYPE, AMDamageTypeProvider::addDamageTypes)
             .add(Registries.ENCHANTMENT, AMEnchantmentProvider::addEnchantments)

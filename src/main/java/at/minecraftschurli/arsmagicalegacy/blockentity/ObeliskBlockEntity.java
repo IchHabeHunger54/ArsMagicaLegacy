@@ -14,6 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -23,13 +24,15 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Container;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.StackedContents;
+import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -67,8 +70,9 @@ public class ObeliskBlockEntity extends EtheriumGeneratorBlockEntity implements 
                 burnTime = fuel.burnTime();
                 maxBurnTime = fuel.burnTime();
                 etheriumPerTick = fuel.etheriumPerTick() * (getTier(level, pos) + 1);
-                if (stack.hasCraftingRemainingItem()) {
-                    stack = stack.getCraftingRemainingItem();
+                ItemStackTemplate craftingRemainder = stack.getCraftingRemainder();
+                if (craftingRemainder != null) {
+                    stack = craftingRemainder.create();
                 } else {
                     stack.shrink(1);
                 }
@@ -92,29 +96,29 @@ public class ObeliskBlockEntity extends EtheriumGeneratorBlockEntity implements 
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        stack = ItemStack.parseOptional(registries, tag.getCompound(ITEMS_KEY));
-        burnTime = tag.getInt(BURN_TIME_KEY);
-        maxBurnTime = tag.getInt(MAX_BURN_TIME_KEY);
-        etheriumPerTick = tag.getInt(ETHERIUM_PER_TICK_KEY);
+    protected void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        stack = input.read(ITEMS_KEY, ItemStack.CODEC).orElse(ItemStack.EMPTY);
+        burnTime = input.getIntOr(BURN_TIME_KEY, 0);
+        maxBurnTime = input.getIntOr(MAX_BURN_TIME_KEY, 0);
+        etheriumPerTick = input.getIntOr(ETHERIUM_PER_TICK_KEY, 0);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
         if (!stack.isEmpty()) {
-            tag.put(ITEMS_KEY, stack.save(registries));
+            output.store(ITEMS_KEY, ItemStack.CODEC, stack);
         }
-        tag.putInt(BURN_TIME_KEY, burnTime);
-        tag.putInt(MAX_BURN_TIME_KEY, maxBurnTime);
-        tag.putInt(ETHERIUM_PER_TICK_KEY, etheriumPerTick);
+        output.putInt(BURN_TIME_KEY, burnTime);
+        output.putInt(MAX_BURN_TIME_KEY, maxBurnTime);
+        output.putInt(ETHERIUM_PER_TICK_KEY, etheriumPerTick);
     }
 
     @Override
-    protected void applyImplicitComponents(BlockEntity.DataComponentInput componentInput) {
-        super.applyImplicitComponents(componentInput);
-        componentInput.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY).copyInto(AMUtil.nonNullList(ItemStack.EMPTY, stack));
+    protected void applyImplicitComponents(DataComponentGetter components) {
+        super.applyImplicitComponents(components);
+        components.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY).copyInto(AMUtil.nonNullList(ItemStack.EMPTY, stack));
     }
 
     @Override
@@ -125,8 +129,8 @@ public class ObeliskBlockEntity extends EtheriumGeneratorBlockEntity implements 
 
     @SuppressWarnings("deprecation")
     @Override
-    public void removeComponentsFromTag(CompoundTag tag) {
-        tag.remove(ITEMS_KEY);
+    public void removeComponentsFromTag(ValueOutput output) {
+        output.discard(ITEMS_KEY);
     }
 
     @Override
@@ -205,7 +209,7 @@ public class ObeliskBlockEntity extends EtheriumGeneratorBlockEntity implements 
     }
 
     @Override
-    public void fillStackedContents(StackedContents contents) {
+    public void fillStackedContents(StackedItemContents contents) {
         contents.accountStack(stack);
         setChanged();
     }
@@ -218,6 +222,6 @@ public class ObeliskBlockEntity extends EtheriumGeneratorBlockEntity implements 
 
     @Override
     public int getOutlineColor(Level level, BlockPos pos, BlockState state) {
-        return AMRegistries.etheriumTypes(level.registryAccess()).getOrThrow(AMEtheriumTypes.NEUTRAL).color();
+        return AMRegistries.etheriumTypes(level.registryAccess()).getValueOrThrow(AMEtheriumTypes.NEUTRAL).color();
     }
 }

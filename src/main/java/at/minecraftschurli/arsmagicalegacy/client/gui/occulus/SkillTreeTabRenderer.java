@@ -11,20 +11,22 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.packet.LearnSkillPacket;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.phys.Vec2;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
+import org.joml.Matrix3x2fStack;
 
 import java.util.List;
-import java.util.Optional;
 
 public class SkillTreeTabRenderer extends OcculusTabRenderer {
     private static final Component MISSING = Component.translatable(AMTranslations.OCCULUS_MISSING_KEY).withStyle(ChatFormatting.DARK_RED);
@@ -45,17 +47,17 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
     }
 
     @Override
-    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
         MagicHelper helper = ArsMagicaApi.magicHelper();
         Registry<Skill> registry = AMRegistries.skills(true);
         LocalPlayer player = AMClientUtil.player();
         mouseX += (int) offsetX;
         mouseY += (int) offsetY;
         hoveredSkill = null;
-        PoseStack stack = guiGraphics.pose();
-        stack.pushPose();
-        stack.translate(-offsetX, -offsetY, 0);
+        Matrix3x2fStack stack = guiGraphics.pose();
+        stack.pushMatrix();
+        stack.translate((float) -offsetX, (float) -offsetY);
         for (Skill skill : skills) {
             float endX = skill.x() + SKILL_SIZE / 2f;
             float endY = skill.y() + SKILL_SIZE / 2f;
@@ -68,40 +70,38 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
                 boolean knowsParent = helper.knows(player, holder);
                 int startColor = knowsParent && knowsSkill ? 0xffffffff : knowsParent ? getColorForSkill(parent) : 0xff000000;
                 int endColor = knowsParent && knowsSkill ? 0xffffffff : knowsParent ? getColorForSkill(skill) : 0xff000000;
-                stack.pushPose();
-                stack.translate(startX, startY, 8);
+                stack.pushMatrix();
+                stack.translate(startX, startY);
                 Vec2 vec = new Vec2(endX - startX, endY - startY);
                 float angle = (float) Math.acos(new Vec2(0, 1).dot(vec.normalized()));
-                stack.mulPose(Axis.ZP.rotation(vec.x > 0 ? -angle : angle));
-                stack.translate(-0.5f, 0, 0);
+                stack.rotate(vec.x > 0 ? -angle : angle);
+                stack.translate(-0.5f, 0);
                 guiGraphics.fillGradient(0, 0, 1, (int) vec.length(), startColor, endColor);
-                stack.popPose();
+                stack.popMatrix();
             }
         }
         float tick = 0.75f + ((player.tickCount % 80) >= 40 ? (player.tickCount % 40) / 80f - 0.25f : 0.25f - (player.tickCount % 40) / 80f);
         for (Skill skill : skills) {
             Holder<Skill> holder = registry.wrapAsHolder(skill);
+            int c = -1;
             if (!helper.knows(player, holder)) {
                 if (skill.hidden()) continue;
                 if (!helper.canLearn(player, holder)) {
-                    guiGraphics.setColor(0.5f, 0.5f, 0.5f, 1);
+                    c = ARGB.colorFromFloat(1, 0.5f, 0.5f, 0.5f);
                 } else {
                     int color = getColorForSkill(skill);
                     float red = Math.max(AMClientUtil.getRedF(color), 0.75f) * tick;
                     float green = Math.max(AMClientUtil.getGreenF(color), 0.75f) * tick;
                     float blue = Math.max(AMClientUtil.getBlueF(color), 0.75f) * tick;
-                    guiGraphics.setColor(red, green, blue, 1);
+                    c = ARGB.colorFromFloat(1, red, green, blue);
                 }
             }
-            RenderSystem.enableBlend();
-            guiGraphics.blit(skill.x(), skill.y(), 16, SKILL_SIZE, SKILL_SIZE, SkillAtlasHolder.INSTANCE.get().getSprite(skill));
-            RenderSystem.disableBlend();
-            guiGraphics.setColor(1, 1, 1, 1);
+            guiGraphics.blitSprite(RenderPipelines.GUI, SkillAtlasHolder.getSprite(skill), skill.x(), skill.y(), SKILL_SIZE, SKILL_SIZE, c);
             if (mouseX >= skill.x() && mouseX <= skill.x() + SKILL_SIZE && mouseY >= skill.y() && mouseY <= skill.y() + SKILL_SIZE) {
                 hoveredSkill = skill;
             }
         }
-        stack.popPose();
+        stack.popMatrix();
     }
 
     @Override
@@ -111,20 +111,21 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
         LocalPlayer player = AMClientUtil.player();
         Registry<Skill> registry = AMRegistries.skills(true);
         Holder<Skill> holder = registry.wrapAsHolder(hoveredSkill);
-        guiGraphics.renderTooltip(AMClientUtil.font(), List.of(
-            Skill.getName(holder).withColor(getColorForSkill(hoveredSkill)),
-            helper.knows(player, holder) || helper.canLearn(player, holder) ? Skill.getDescription(holder).withStyle(ChatFormatting.DARK_GRAY) : MISSING
-        ), Optional.empty(), mouseX, mouseY);
+        guiGraphics.tooltip(AMClientUtil.font(), List.of(
+            ClientTooltipComponent.create(Skill.getName(holder).withColor(getColorForSkill(hoveredSkill)).getVisualOrderText()),
+            ClientTooltipComponent.create((helper.knows(player, holder) || helper.canLearn(player, holder) ? Skill.getDescription(holder).withStyle(ChatFormatting.DARK_GRAY) : MISSING).getVisualOrderText())
+        ), mouseX, mouseY, DefaultTooltipPositioner.INSTANCE, null);
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (button != 0 || !(mouseX > 0) || !(mouseX < TAB_SIZE) || !(mouseY > 0) || !(mouseY < TAB_SIZE)) return super.mouseClicked(mouseX, mouseY, button);
+    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+        if (event.button() != 0 || !(event.x() > 0) || !(event.x() < TAB_SIZE) || !(event.y() > 0) || !(event.y() < TAB_SIZE))
+            return super.mouseClicked(event, doubleClick);
         if (hoveredSkill != null) {
             Holder<Skill> holder = AMRegistries.skills(true).wrapAsHolder(hoveredSkill);
             LocalPlayer player = AMClientUtil.player();
             if (ArsMagicaApi.magicHelper().canLearn(player, holder) || player.isCreative()) {
-                PacketDistributor.sendToServer(new LearnSkillPacket(holder));
+                ClientPacketDistributor.sendToServer(new LearnSkillPacket(holder));
                 return true;
             }
         }
@@ -133,9 +134,9 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
     }
 
     @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
-        offsetX = Math.clamp(offsetX - dragX, 0, occulusTab.value().width() - TAB_SIZE);
-        offsetY = Math.clamp(offsetY - dragY, 0, occulusTab.value().height() - TAB_SIZE);
+    public boolean mouseDragged(MouseButtonEvent event, double dx, double dy) {
+        offsetX = Math.clamp(offsetX - dx, 0, occulusTab.value().width() - TAB_SIZE);
+        offsetY = Math.clamp(offsetY - dy, 0, occulusTab.value().height() - TAB_SIZE);
         return true;
     }
 

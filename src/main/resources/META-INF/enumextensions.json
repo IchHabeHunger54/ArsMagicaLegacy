@@ -1,13 +1,3 @@
 {
-  "entries": [
-    {
-      "enum": "net/minecraft/world/entity/vehicle/Boat$Type",
-      "name": "ARSMAGICALEGACY_WITCHWOOD",
-      "constructor": "(Ljava/util/function/Supplier;Ljava/lang/String;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Z)V",
-      "parameters": {
-        "class": "at/minecraftschurli/arsmagicalegacy/AMEnumExtensions",
-        "method": "witchwoodBoatType"
-      }
-    }
-  ]
+  "entries": []
 }

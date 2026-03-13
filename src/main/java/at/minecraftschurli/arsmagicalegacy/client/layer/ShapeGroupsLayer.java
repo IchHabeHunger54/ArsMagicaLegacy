@@ -12,17 +12,18 @@ import at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable.Draggable
 import at.minecraftschurli.arsmagicalegacy.client.gui.inscriptiontable.ShapeGroupArea;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.LayeredDraw;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.client.gui.GuiLayer;
 
 import java.util.List;
 
-public class ShapeGroupsLayer implements LayeredDraw.Layer {
+public class ShapeGroupsLayer implements GuiLayer {
     private static final Identifier TEXTURE = ArsMagicaApi.id("textures/gui/shape_group.png");
     private static final int ROWS = ShapeGroupArea.ROWS;
     private static final int COLUMNS = ShapeGroupArea.COLUMNS;
@@ -55,15 +56,12 @@ public class ShapeGroupsLayer implements LayeredDraw.Layer {
                 for (int k = 0; k < COLUMNS; k++) {
                     int index = j * COLUMNS + k;
                     if (index >= shapeGroup.size()) continue;
-                    guiGraphics.blit(x + i * WIDTH + k * SIZE + X_PADDING, y + j * SIZE + Y_PADDING, 0, SIZE, SIZE, SkillAtlasHolder.INSTANCE.get().getSprite(AMRegistries.SPELL_PARTS.getKey(shapeGroup.get(index))));
+                    TextureAtlasSprite sprite = SkillAtlasHolder.getSprite(AMRegistries.SPELL_PARTS.getKey(shapeGroup.get(index)));
+                    guiGraphics.blitSprite(RenderPipelines.GUI, sprite, x + i * WIDTH + k * SIZE + X_PADDING, y + j * SIZE + Y_PADDING, SIZE, SIZE);
                 }
             }
             if (i == spell.activeShapeGroup()) continue;
-            PoseStack stack = guiGraphics.pose();
-            stack.pushPose();
-            stack.translate(0, 0, 1);
             guiGraphics.fill(i * WIDTH, 0, (i + 1) * WIDTH, HEIGHT, 0x7f000000);
-            stack.popPose();
         }
     }
 }

@@ -2,28 +2,29 @@ package at.minecraftschurli.arsmagicalegacy.entity;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
-import at.minecraftschurli.arsmagicalegacy.packet.SetEntityOwnerPacket;
 import at.minecraftschurli.arsmagicalegacy.util.OwnerSetter;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.OwnableEntity;
+import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.network.PacketDistributor;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.jspecify.annotations.Nullable;
 
-import java.util.UUID;
+import java.util.Optional;
 
-public abstract class SpellEntity extends Entity implements OwnableEntity, OwnerSetter {
+public abstract class SpellEntity extends Entity implements TraceableEntity, OwnerSetter {
     private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(SpellEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(SpellEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> OWNER = SynchedEntityData.defineId(SpellEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Optional<EntityReference<LivingEntity>>> OWNER = SynchedEntityData.defineId(SpellEntity.class, EntityDataSerializers.OPTIONAL_LIVING_ENTITY_REFERENCE);
     private static final String COLOR_KEY = "color";
     private static final String DURATION_KEY = "duration";
     private static final String OWNER_KEY = "owner";
@@ -36,31 +37,31 @@ public abstract class SpellEntity extends Entity implements OwnableEntity, Owner
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         builder.define(COLOR, -1)
             .define(DURATION, 72000)
-            .define(OWNER, -1);
+            .define(OWNER, Optional.empty());
     }
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag compound) {
-        CompoundTag tag = compound.getCompound(ArsMagicaApi.MOD_ID);
-        entityData.set(COLOR, tag.getInt(COLOR_KEY));
-        entityData.set(DURATION, tag.getInt(DURATION_KEY));
-        entityData.set(OWNER, tag.getInt(OWNER_KEY));
-        readNbt(tag);
+    protected void readAdditionalSaveData(ValueInput input) {
+        input.child(ArsMagicaApi.MOD_ID).ifPresent(tag -> {
+            entityData.set(COLOR, tag.getIntOr(COLOR_KEY, -1));
+            entityData.set(DURATION, tag.getIntOr(DURATION_KEY, 72000));
+            entityData.set(OWNER, Optional.ofNullable(EntityReference.readWithOldOwnerConversion(input, OWNER_KEY, this.level())));
+            readData(tag);
+        });
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag compound) {
-        CompoundTag tag = new CompoundTag();
+    protected void addAdditionalSaveData(ValueOutput output) {
+        ValueOutput tag = output.child(ArsMagicaApi.MOD_ID);
         tag.putInt(COLOR_KEY, entityData.get(COLOR));
         tag.putInt(DURATION_KEY, entityData.get(DURATION));
-        tag.putInt(OWNER_KEY, entityData.get(OWNER));
-        writeNbt(tag);
-        compound.put(ArsMagicaApi.MOD_ID, tag);
+        EntityReference.store(entityData.get(OWNER).orElse(null), tag, OWNER_KEY);
+        writeData(tag);
     }
 
-    protected abstract void readNbt(CompoundTag tag);
+    protected abstract void readData(ValueInput tag);
 
-    protected abstract void writeNbt(CompoundTag tag);
+    protected abstract void writeData(ValueOutput tag);
 
     public int getColor() {
         return entityData.get(COLOR);
@@ -78,36 +79,18 @@ public abstract class SpellEntity extends Entity implements OwnableEntity, Owner
         entityData.set(DURATION, duration);
     }
 
-    public int getOwnerId() {
-        return entityData.get(OWNER);
-    }
-
     @Override
-    @Nullable
-    public LivingEntity getOwner() {
-        Entity entity = level().getEntity(getOwnerId());
-        return entity instanceof LivingEntity living ? living : null;
-    }
-
-    @Override
-    @Nullable
-    public UUID getOwnerUUID() {
-        LivingEntity owner = getOwner();
-        return owner != null ? owner.getUUID() : null;
+    public void setOwner(@Nullable EntityReference<LivingEntity> owner) {
+        entityData.set(OWNER, Optional.ofNullable(owner));
     }
 
     public void setOwner(@Nullable LivingEntity owner) {
-        if (owner == null) return;
-        int ownerId = owner.getId();
-        setOwner(ownerId);
-        if (!level().isClientSide()) {
-            PacketDistributor.sendToPlayersTrackingEntity(this, new SetEntityOwnerPacket(getId(), ownerId));
-        }
+        this.setOwner(EntityReference.of(owner));
     }
 
     @Override
-    public void setOwner(int id) {
-        entityData.set(OWNER, id);
+    public @Nullable LivingEntity getOwner() {
+        return EntityReference.getLivingEntity(entityData.get(OWNER).orElse(null), this.level());
     }
 
     @Override
@@ -116,12 +99,12 @@ public abstract class SpellEntity extends Entity implements OwnableEntity, Owner
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount) {
+    public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
         return false;
     }
 
     protected boolean cancelTick(int tickInterval) {
-        if (tickCount > getDuration() || getOwnerId() < 0) {
+        if (tickCount > getDuration() || getOwner() == null) {
             remove(RemovalReason.KILLED);
             return true;
         }

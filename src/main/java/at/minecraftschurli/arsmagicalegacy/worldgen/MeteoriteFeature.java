@@ -22,14 +22,14 @@ public class MeteoriteFeature extends Feature<MeteoriteFeature.Configuration> {
         BlockPos origin = context.origin();
         RandomSource random = context.random();
         Configuration config = context.config();
-        while (origin.getY() > level.getMinBuildHeight() + config.height()) {
+        while (origin.getY() > level.getMinY() + config.height()) {
             if (!level.isEmptyBlock(origin.below())) {
                 BlockState state = level.getBlockState(origin.below());
                 if (isDirt(state) || isStone(state)) break;
             }
             origin = origin.below();
         }
-        if (origin.getY() <= level.getMinBuildHeight() + config.height()) return false;
+        if (origin.getY() <= level.getMinY() + config.height()) return false;
         for (int i = 0; i < config.height(); i++) {
             int x = random.nextInt(config.width());
             int y = random.nextInt(config.width());

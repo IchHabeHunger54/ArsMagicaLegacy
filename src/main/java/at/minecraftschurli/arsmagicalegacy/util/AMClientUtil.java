@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.util;
 
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.client.gui.LineRenderState;
 import at.minecraftschurli.arsmagicalegacy.client.gui.occulus.OcculusScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.SpellCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellrecipe.SpellRecipeScreen;
@@ -12,8 +13,10 @@ import at.minecraftschurli.arsmagicalegacy.entity.SpellShapeEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.render.TextureSetup;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
@@ -138,8 +141,8 @@ public final class AMClientUtil {
     }
 
     public static void renderItem(GuiGraphicsExtractor guiGraphics, Font font, ItemStack stack, int x, int y) {
-        guiGraphics.renderItem(stack, x, y);
-        guiGraphics.renderItemDecorations(font, stack, x, y);
+        guiGraphics.item(stack, x, y);
+        guiGraphics.itemDecorations(font, stack, x, y);
     }
 
     public static void spawnParticles(Identifier id, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
@@ -168,5 +171,20 @@ public final class AMClientUtil {
 
     public static void spawnSpellEntityParticles(SpellShapeEntity entity, Spell spell, Vec3 position, int color, @Nullable LivingEntity caster) {
         ParticleUtil.spawnSpellEntityParticles(entity, spell, position, color, caster);
+    }
+
+    public static void renderLine(GuiGraphicsExtractor graphics, float startX, float startY, float endX, float endY, int color, int lineWidth) {
+        graphics.submitGuiElementRenderState(new LineRenderState(
+            RenderPipelines.LINES,
+            TextureSetup.noTexture(),
+            graphics.pose(),
+            startX,
+            startY,
+            endX,
+            endY,
+            color,
+            lineWidth,
+            graphics.peekScissorStack()
+        ));
     }
 }

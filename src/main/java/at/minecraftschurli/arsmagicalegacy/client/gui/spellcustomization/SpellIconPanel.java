@@ -2,9 +2,10 @@ package at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization;
 
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SpellIconAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
-import com.mojang.blaze3d.vertex.Tesselator;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.client.gui.widget.ScrollPanel;
@@ -25,9 +26,7 @@ class SpellIconPanel extends ScrollPanel {
         super(AMClientUtil.mc(), width, height, y, x, 0);
         this.screen = screen;
         this.selected = selected;
-        icons = SpellIconAtlasHolder.INSTANCE
-            .get()
-            .getIcons()
+        icons = SpellIconAtlasHolder.getIcons()
             .stream()
             .filter(icon -> icon != null && !icon.equals(MissingTextureAtlasSprite.getLocation()))
             .sorted()
@@ -50,11 +49,7 @@ class SpellIconPanel extends ScrollPanel {
     }
 
     @Override
-    protected void drawBackground(GuiGraphicsExtractor guiGraphics, Tesselator tess, float partialTick) {
-    }
-
-    @Override
-    protected void drawPanel(GuiGraphicsExtractor guiGraphics, int entryRight, int relativeY, Tesselator tess, int mouseX, int mouseY) {
+    protected void drawPanel(GuiGraphicsExtractor guiGraphics, int entryRight, int relativeY, int mouseX, int mouseY) {
         int i = 0;
         Identifier hovered = getHovered(mouseX - left, mouseY - top + scrollDistance);
         for (Identifier icon : icons) {
@@ -66,16 +61,16 @@ class SpellIconPanel extends ScrollPanel {
                 } else if (icon.equals(hovered)) {
                     guiGraphics.fill(x - 1, y - 1, x + ICON_SIZE + 1, y + ICON_SIZE + 1, HOVERED_COLOR);
                 }
-                guiGraphics.blit(x, y, 0, ICON_SIZE, ICON_SIZE, SpellIconAtlasHolder.INSTANCE.get().getSprite(icon));
+                guiGraphics.blitSprite(RenderPipelines.GUI, SpellIconAtlasHolder.getSprite(icon), x, y, 0, ICON_SIZE, ICON_SIZE);
             }
             i++;
         }
     }
 
     @Override
-    protected boolean clickPanel(double mouseX, double mouseY, int button) {
+    protected boolean clickPanel(double mouseX, double mouseY, MouseButtonEvent event) {
         Identifier hovered = getHovered(mouseX, mouseY);
-        if (hovered == null) return super.clickPanel(mouseX, mouseY, button);
+        if (hovered == null) return super.clickPanel(mouseX, mouseY, event);
         selected = hovered;
         screen.setSpell(screen.getSpell().setIcon(selected));
         return true;

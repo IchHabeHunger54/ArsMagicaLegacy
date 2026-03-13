@@ -1,6 +1,12 @@
 package at.minecraftschurli.arsmagicalegacy.util;
 
-// TODO 26.1 remove in favor of using UUIDs everywhere
+import net.minecraft.world.entity.EntityReference;
+import net.minecraft.world.entity.LivingEntity;
+import org.jspecify.annotations.Nullable;
+
 public interface OwnerSetter {
-    void setOwner(int id);
+    void setOwner(@Nullable EntityReference<LivingEntity> owner);
+    default void setOwner(@Nullable LivingEntity owner) {
+        setOwner(owner == null ? null : EntityReference.of(owner));
+    }
 }

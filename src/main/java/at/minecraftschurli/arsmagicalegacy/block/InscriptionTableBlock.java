@@ -23,19 +23,17 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class InscriptionTableBlock extends Block implements EntityBlock {
     public static final IntegerProperty TIER = IntegerProperty.create("tier", 0, 3);
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<Half> HALF = EnumProperty.create("half", Half.class);
     private static final VoxelShape LEFT_X = AMUtil.joinShapes(
         box(0, 14, 0, 16, 16, 16),
@@ -156,7 +154,7 @@ public class InscriptionTableBlock extends Block implements EntityBlock {
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (player.isSecondaryUseActive()) return InteractionResult.PASS;
         if (!ArsMagicaApi.magicHelper().knowsMagic(player)) {
-            player.displayClientMessage(AMTranslations.PREVENT_BLOCK, true);
+            player.sendOverlayMessage(AMTranslations.PREVENT_BLOCK);
             return InteractionResult.SUCCESS;
         }
         if (!isRight(state)) {
@@ -170,8 +168,8 @@ public class InscriptionTableBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
-        ItemStack stack = super.getCloneItemStack(state, target, level, pos, player);
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData, Player player) {
+        ItemStack stack = super.getCloneItemStack(level, pos, state, includeData, player);
         int tier = state.getValue(TIER);
         if (tier > 0) {
             stack.set(AMDataComponents.TIER, tier);

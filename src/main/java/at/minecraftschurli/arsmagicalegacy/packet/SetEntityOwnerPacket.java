@@ -6,13 +6,17 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.world.entity.EntityReference;
+import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-public record SetEntityOwnerPacket(int id, int owner) implements CustomPacketPayload {
+import java.util.Optional;
+
+public record SetEntityOwnerPacket(int id, Optional<EntityReference<LivingEntity>> owner) implements CustomPacketPayload {
     public static final Type<SetEntityOwnerPacket> TYPE = new Type<>(ArsMagicaApi.id("set_entity_owner"));
     public static final StreamCodec<ByteBuf, SetEntityOwnerPacket> STREAM_CODEC = StreamCodec.composite(
         ByteBufCodecs.INT, SetEntityOwnerPacket::id,
-        ByteBufCodecs.INT, SetEntityOwnerPacket::owner,
+        ByteBufCodecs.optional(EntityReference.streamCodec()), SetEntityOwnerPacket::owner,
         SetEntityOwnerPacket::new);
 
     @Override
@@ -22,7 +26,7 @@ public record SetEntityOwnerPacket(int id, int owner) implements CustomPacketPay
 
     public void handle(IPayloadContext context) {
         if (context.player().level().getEntity(id) instanceof OwnerSetter ownerSetter) {
-            ownerSetter.setOwner(owner);
+            ownerSetter.setOwner(owner.orElse(null));
         }
     }
 }

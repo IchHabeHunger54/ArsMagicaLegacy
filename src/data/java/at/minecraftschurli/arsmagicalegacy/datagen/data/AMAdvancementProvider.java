@@ -14,15 +14,15 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPredicate;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -42,7 +42,7 @@ public final class AMAdvancementProvider extends AdvancementProvider {
         public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> saver, ExistingFileHelper existingFileHelper) {
             HolderLookup.RegistryLookup<Affinity> affinities = registries.lookupOrThrow(AMRegistries.Keys.AFFINITY);
             ItemStack book = ArsMagicaApi.book();
-            DataComponentType<?> bookComponent = BuiltInRegistries.DATA_COMPONENT_TYPE.get(ResourceLocation.fromNamespaceAndPath("patchouli", "book"));
+            DataComponentType<?> bookComponent = BuiltInRegistries.DATA_COMPONENT_TYPE.get(Identifier.fromNamespaceAndPath("patchouli", "book"));
             Criterion<InventoryChangeTrigger.TriggerInstance> bookCriterion = InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(book.getItem()).hasComponents(DataComponentPredicate.builder().<Object>expect((DataComponentType<? super Object>) bookComponent, book.get(bookComponent)).build()));
 
             AdvancementHolder bookRoot = Advancement.Builder.advancement()
@@ -51,7 +51,7 @@ public final class AMAdvancementProvider extends AdvancementProvider {
             registries.lookupOrThrow(AMRegistries.Keys.SKILL).listElements().forEach(skill -> Advancement.Builder.advancement()
                 .parent(bookRoot)
                 .addCriterion("knows", SkillChangeTrigger.create(List.of(skill)))
-                .save(saver, ArsMagicaApi.id("book/" + skill.getKey().location().getPath()).toString()));
+                .save(saver, ArsMagicaApi.id("book/" + skill.getKey().identifier().getPath()).toString()));
 
             AdvancementHolder root = Advancement.Builder.advancement()
                 .display(book, title("root"), description("root"), ArsMagicaApi.id("textures/gui/advancements/background.png"), AdvancementType.TASK, false, false, true)

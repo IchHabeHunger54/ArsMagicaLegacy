@@ -8,15 +8,15 @@ import net.minecraft.client.model.ListModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.vehicle.Boat;
 
 public class WitchwoodBoatRenderer extends BoatRenderer {
     public static final ModelLayerLocation BOAT = new ModelLayerLocation(ArsMagicaApi.id("witchwood_boat"), "main");
     public static final ModelLayerLocation CHEST_BOAT = new ModelLayerLocation(ArsMagicaApi.id("witchwood_chest_boat"), "main");
-    private static final ResourceLocation BOAT_TEXTURE = ArsMagicaApi.id("textures/entity/boat/witchwood.png");
-    private static final ResourceLocation CHEST_BOAT_TEXTURE = ArsMagicaApi.id("textures/entity/chest_boat/witchwood.png");
-    private final Pair<ResourceLocation, ListModel<Boat>> modelWithLocation;
+    private static final Identifier BOAT_TEXTURE = ArsMagicaApi.id("textures/entity/boat/witchwood.png");
+    private static final Identifier CHEST_BOAT_TEXTURE = ArsMagicaApi.id("textures/entity/chest_boat/witchwood.png");
+    private final Pair<Identifier, ListModel<Boat>> modelWithLocation;
 
     public WitchwoodBoatRenderer(EntityRendererProvider.Context context, boolean chestBoat) {
         super(context, chestBoat);
@@ -24,7 +24,7 @@ public class WitchwoodBoatRenderer extends BoatRenderer {
     }
 
     @Override
-    public Pair<ResourceLocation, ListModel<Boat>> getModelWithLocation(Boat boat) {
+    public Pair<Identifier, ListModel<Boat>> getModelWithLocation(Boat boat) {
         return modelWithLocation;
     }
 }

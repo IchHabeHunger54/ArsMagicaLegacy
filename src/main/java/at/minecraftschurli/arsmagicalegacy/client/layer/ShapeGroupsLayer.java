@@ -14,16 +14,16 @@ import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.DeltaTracker;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.LayeredDraw;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
 public class ShapeGroupsLayer implements LayeredDraw.Layer {
-    private static final ResourceLocation TEXTURE = ArsMagicaApi.id("textures/gui/shape_group.png");
+    private static final Identifier TEXTURE = ArsMagicaApi.id("textures/gui/shape_group.png");
     private static final int ROWS = ShapeGroupArea.ROWS;
     private static final int COLUMNS = ShapeGroupArea.COLUMNS;
     private static final int X_PADDING = ShapeGroupArea.X_PADDING;
@@ -34,7 +34,7 @@ public class ShapeGroupsLayer implements LayeredDraw.Layer {
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+    public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
         if (AMClientUtil.mc().options.hideGui) return;
         Player player = AMClientUtil.player();
         if (player == null) return;

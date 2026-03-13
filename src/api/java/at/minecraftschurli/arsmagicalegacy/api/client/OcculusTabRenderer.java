@@ -2,7 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.api.client;
 
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterOcculusTabRenderersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.AbstractContainerEventHandler;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -32,22 +32,22 @@ public abstract class OcculusTabRenderer extends AbstractContainerEventHandler i
     /**
      * Note: Coordinates are normalized to the renderer's top left corner, i.e., rendering at 0/0 uses the top left corner of the occulus frame,
      * not the top left corner of the screen. Additionally, a scissor is enabled around the occulus frame.
-     * @see Renderable#render(GuiGraphics, int, int, float) for parameter documentation.
+     * @see Renderable#extractRenderState(GuiGraphicsExtractor, int, int, float) for parameter documentation.
      */
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         guiGraphics.blit(OcculusTab.getBackground(occulusTab), 0, 0, 0, 0, TAB_SIZE, TAB_SIZE, TAB_SIZE, TAB_SIZE);
     }
 
     /**
      * Render tooltips here. This is kept in a separate method to allow drawing outside the scissor space.
      *
-     * @param guiGraphics The {@link GuiGraphics} to use.
+     * @param guiGraphics The {@link GuiGraphicsExtractor} to use.
      * @param mouseX      The mouse X position.
      * @param mouseY      The mouse Y position.
      * @param partialTick The partial tick value.
      */
-    public void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void renderTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
     }
 
     /**

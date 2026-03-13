@@ -4,7 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -17,7 +17,7 @@ public class InfinityOrbItem extends DataComponentNamedItem<Holder<SkillPoint>> 
     @SuppressWarnings("DataFlowIssue")
     public InfinityOrbItem(Properties properties) {
         super(properties, AMDataComponents.SKILL_POINT.get());
-        withTranslationKeyGetter((holder, name) -> Util.makeDescriptionId(name, holder.getKey().location()));
+        withTranslationKeyGetter((holder, name) -> Util.makeDescriptionId(name, holder.getKey().identifier()));
     }
 
     @Override

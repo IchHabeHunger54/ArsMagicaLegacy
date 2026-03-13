@@ -3,7 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.ritual.trigger;
 import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualTrigger;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;

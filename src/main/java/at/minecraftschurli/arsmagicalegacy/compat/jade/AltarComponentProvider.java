@@ -5,7 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.blockentity.AltarCoreBlockEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.IServerDataProvider;
@@ -13,12 +13,12 @@ import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
 
 class AltarComponentProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
-    private static final ResourceLocation ID = ArsMagicaApi.id("altar");
+    private static final Identifier ID = ArsMagicaApi.id("altar");
     private static final String POWER = "power";
     static final AltarComponentProvider INSTANCE = new AltarComponentProvider();
 
     @Override
-    public ResourceLocation getUid() {
+    public Identifier getUid() {
         return ID;
     }
 

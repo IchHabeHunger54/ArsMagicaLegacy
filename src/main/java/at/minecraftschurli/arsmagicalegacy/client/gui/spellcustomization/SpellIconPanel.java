@@ -3,10 +3,10 @@ package at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SpellIconAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.vertex.Tesselator;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.client.gui.widget.ScrollPanel;
 import org.jetbrains.annotations.Nullable;
 
@@ -17,11 +17,11 @@ class SpellIconPanel extends ScrollPanel {
     private static final int SELECTED_COLOR = 0xffffff00;
     private static final int HOVERED_COLOR = 0xffffffff;
     private final SpellCustomizationScreen screen;
-    private final List<ResourceLocation> icons;
+    private final List<Identifier> icons;
     private final int iconsPerRow;
-    private ResourceLocation selected;
+    private Identifier selected;
 
-    public SpellIconPanel(int x, int y, int width, int height, SpellCustomizationScreen screen, @Nullable ResourceLocation selected) {
+    public SpellIconPanel(int x, int y, int width, int height, SpellCustomizationScreen screen, @Nullable Identifier selected) {
         super(AMClientUtil.mc(), width, height, y, x, 0);
         this.screen = screen;
         this.selected = selected;
@@ -50,14 +50,14 @@ class SpellIconPanel extends ScrollPanel {
     }
 
     @Override
-    protected void drawBackground(GuiGraphics guiGraphics, Tesselator tess, float partialTick) {
+    protected void drawBackground(GuiGraphicsExtractor guiGraphics, Tesselator tess, float partialTick) {
     }
 
     @Override
-    protected void drawPanel(GuiGraphics guiGraphics, int entryRight, int relativeY, Tesselator tess, int mouseX, int mouseY) {
+    protected void drawPanel(GuiGraphicsExtractor guiGraphics, int entryRight, int relativeY, Tesselator tess, int mouseX, int mouseY) {
         int i = 0;
-        ResourceLocation hovered = getHovered(mouseX - left, mouseY - top + scrollDistance);
-        for (ResourceLocation icon : icons) {
+        Identifier hovered = getHovered(mouseX - left, mouseY - top + scrollDistance);
+        for (Identifier icon : icons) {
             int x = i % iconsPerRow * (ICON_SIZE + 1) + left + 1;
             int y = i / iconsPerRow * (ICON_SIZE + 1) + relativeY + 1;
             if (y + ICON_SIZE > 0 && y < bottom) {
@@ -74,7 +74,7 @@ class SpellIconPanel extends ScrollPanel {
 
     @Override
     protected boolean clickPanel(double mouseX, double mouseY, int button) {
-        ResourceLocation hovered = getHovered(mouseX, mouseY);
+        Identifier hovered = getHovered(mouseX, mouseY);
         if (hovered == null) return super.clickPanel(mouseX, mouseY, button);
         selected = hovered;
         screen.setSpell(screen.getSpell().setIcon(selected));
@@ -87,7 +87,7 @@ class SpellIconPanel extends ScrollPanel {
     }
 
     @Nullable
-    private ResourceLocation getHovered(double mouseX, double mouseY) {
+    private Identifier getHovered(double mouseX, double mouseY) {
         if (mouseX < 0 || mouseX >= width || mouseY < scrollDistance || mouseY >= scrollDistance + height) return null;
         int x = Math.floorDiv((int) mouseX, ICON_SIZE + 1);
         int y = Math.floorDiv((int) mouseY, ICON_SIZE + 1);

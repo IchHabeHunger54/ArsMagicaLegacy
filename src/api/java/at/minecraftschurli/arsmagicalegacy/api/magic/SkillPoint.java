@@ -3,7 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.api.magic;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -30,6 +30,6 @@ public record SkillPoint(int color, int minEarnLevel, int levelsForPoint) {
      * @return The display name of the given skill point.
      */
     public static MutableComponent getName(Holder<SkillPoint> holder) {
-        return Component.translatable(Util.makeDescriptionId("skill_point", holder.getKey().location()));
+        return Component.translatable(Util.makeDescriptionId("skill_point", holder.getKey().identifier()));
     }
 }

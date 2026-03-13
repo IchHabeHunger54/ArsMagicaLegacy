@@ -7,13 +7,13 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -66,21 +66,21 @@ public abstract class EtheriumGeneratorBlockEntity extends BlockEntity implement
     public abstract int getTier(Level level, BlockPos pos);
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        etherium = tag.getInt(ETHERIUM_KEY);
+    protected void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        etherium = input.getInt(ETHERIUM_KEY).orElse(0);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        tag.putInt(ETHERIUM_KEY, etherium);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        output.putInt(ETHERIUM_KEY, etherium);
     }
 
     @SuppressWarnings("DataFlowIssue")
     @Override
     public List<Holder<EtheriumType>> getEtheriumTypes() {
-        return List.of(AMRegistries.etheriumTypes(level.registryAccess()).getHolderOrThrow(etheriumType));
+        return List.of(AMRegistries.etheriumTypes(level.registryAccess()).getOrThrow(etheriumType));
     }
 
     @Override

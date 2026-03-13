@@ -14,7 +14,7 @@ import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.ComponentPath;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -23,7 +23,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
@@ -33,9 +33,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionTableMenu> {
-    private static final ResourceLocation BACKGROUND = ArsMagicaApi.id("textures/gui/inscription_table/background.png");
-    private static final ResourceLocation SHAPE_GROUP = ArsMagicaApi.id("textures/gui/inscription_table/shape_group.png");
-    private static final ResourceLocation SLOT = ArsMagicaApi.id("textures/gui/inscription_table/slot.png");
+    private static final Identifier BACKGROUND = ArsMagicaApi.id("textures/gui/inscription_table/background.png");
+    private static final Identifier SHAPE_GROUP = ArsMagicaApi.id("textures/gui/inscription_table/shape_group.png");
+    private static final Identifier SLOT = ArsMagicaApi.id("textures/gui/inscription_table/slot.png");
     private final List<DragArea> dragAreas = new ArrayList<>();
     private final List<ShapeGroupArea> shapeGroupAreas = new ArrayList<>();
     private Draggable dragged;
@@ -52,7 +52,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+    protected void renderBg(GuiGraphicsExtractor guiGraphics, float partialTick, int mouseX, int mouseY) {
         updateCachedData();
         guiGraphics.blit(BACKGROUND, leftPos, topPos, 0, 0, imageWidth, imageHeight);
         guiGraphics.blit(SLOT, leftPos + 101, topPos + 73, 0, 0, 18, 18, 18, 18);
@@ -94,7 +94,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         for (DragArea area : dragAreas) {
             area.render(guiGraphics, mouseX, mouseY, partialTick);
@@ -111,7 +111,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     }
 
     @Override
-    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    protected void renderLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
     }
 
     @Nullable
@@ -232,7 +232,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         sourceArea.setTypeFilter(
             shapeGroupAreas.stream().anyMatch(ShapeGroupArea::isEmpty),
             shapeGroupAreas.stream().anyMatch(e -> !e.isEmpty() && e.isNotFull() && e.getAll().stream().noneMatch(p -> {
-                Optional<? extends Holder<SpellPart>> holder = AMRegistries.SPELL_PARTS.getHolder(p.getSkill().getKey().location());
+                Optional<? extends Holder<SpellPart>> holder = AMRegistries.SPELL_PARTS.getHolder(p.getSkill().getKey().identifier());
                 return holder.isPresent() && holder.get().value().isSecondaryShape();
             })),
             grammarArea.isNotFull(),

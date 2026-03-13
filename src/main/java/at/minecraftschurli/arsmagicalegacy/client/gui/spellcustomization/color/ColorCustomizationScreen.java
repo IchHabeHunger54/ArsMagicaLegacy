@@ -6,13 +6,13 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
 import org.jetbrains.annotations.Nullable;
@@ -22,7 +22,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScreen<Integer> {
-    private static final ResourceLocation BACKGROUND = ArsMagicaApi.id("textures/gui/spell_customization/color.png");
+    private static final Identifier BACKGROUND = ArsMagicaApi.id("textures/gui/spell_customization/color.png");
     private static final int WIDTH = 180;
     private static final int HEIGHT = 130;
     private static final int COLUMNS = 4;
@@ -90,7 +90,7 @@ public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScre
     }
 
     @Override
-    public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void renderBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
         guiGraphics.blit(BACKGROUND, leftPos, topPos, 0, 0, WIDTH, HEIGHT);
     }

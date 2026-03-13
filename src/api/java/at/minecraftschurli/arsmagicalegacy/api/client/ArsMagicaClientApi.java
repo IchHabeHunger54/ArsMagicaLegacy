@@ -11,7 +11,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -33,7 +33,7 @@ public abstract class ArsMagicaClientApi {
     /**
      * A {@link Lazy} that holds the {@link ArsMagicaClientApi} instance retrieved from the {@link ServiceLoader}. DO NOT ACCESS YOURSELF!
      */
-    private static final Lazy<ArsMagicaClientApi> INSTANCE = Lazy.of(() -> ServiceLoader.load(FMLLoader.getGameLayer(), ArsMagicaClientApi.class).findFirst().orElseThrow());
+    private static final Lazy<ArsMagicaClientApi> INSTANCE = Lazy.of(() -> ServiceLoader.load(FMLLoader.getCurrent().getGameLayer(), ArsMagicaClientApi.class).findFirst().orElseThrow());
 
     /**
      * @param tab The {@link Holder} to get the {@link OcculusTabRenderer.Factory} for.
@@ -49,7 +49,7 @@ public abstract class ArsMagicaClientApi {
      * @return The {@link ParticleController} for the given id.
      */
     @Nullable
-    public static ParticleController.Type particleController(ResourceLocation id) {
+    public static ParticleController.Type particleController(Identifier id) {
         return INSTANCE.get().getParticleController(id);
     }
 
@@ -99,7 +99,7 @@ public abstract class ArsMagicaClientApi {
 
     @ApiStatus.Internal
     @Nullable
-    protected abstract ParticleController.Type getParticleController(ResourceLocation id);
+    protected abstract ParticleController.Type getParticleController(Identifier id);
 
     @ApiStatus.Internal
     @Nullable

@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.effect;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -9,7 +9,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.neoforged.neoforge.common.NeoForgeMod;
 
 public class FlightEffect extends AMMobEffect {
-    public FlightEffect(ResourceLocation id) {
+    public FlightEffect(Identifier id) {
         super(MobEffectCategory.BENEFICIAL, 0xc6dada);
         addAttributeModifier(NeoForgeMod.CREATIVE_FLIGHT, id.withPrefix("effect."), 1, AttributeModifier.Operation.ADD_VALUE);
     }

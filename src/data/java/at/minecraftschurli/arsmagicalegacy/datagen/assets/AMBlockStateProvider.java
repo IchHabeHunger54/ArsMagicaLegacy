@@ -10,7 +10,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.BaseRailBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -78,8 +78,8 @@ public final class AMBlockStateProvider extends BlockStateProvider {
             .partialState().with(AltarCoreBlock.FORMED, false).modelForState().modelFile(cubeAll(AMBlocks.ALTAR_CORE.get())).addModel()
             .partialState().with(AltarCoreBlock.FORMED, true).modelForState().modelFile(models().getExistingFile(modLoc("block/altar_core_overlay"))).addModel();
         simpleBlock(AMBlocks.MAGIC_WALL.get(), modelBuilder(models().cubeAll(AMBlocks.MAGIC_WALL.getId().getPath(), AMBlocks.MAGIC_WALL.getId().withPrefix("block/")).renderType("translucent")).build());
-        ResourceLocation obelisk = modLoc("block/obelisk.obj");
-        ResourceLocation stoneBricks = mcLoc("block/stone_bricks");
+        Identifier obelisk = modLoc("block/obelisk.obj");
+        Identifier stoneBricks = mcLoc("block/stone_bricks");
         rotatedBlock(AMBlocks.OBELISK, List.of(
             Pair.of(state -> state.with(ObeliskBlock.PART, ObeliskBlock.Part.LOWER).with(ObeliskBlock.LIT, true), modelBuilder(objModel("obelisk_lit", obelisk).texture("tex", modLoc("block/obelisk_lit")).texture("particle", stoneBricks))),
             Pair.of(state -> state.with(ObeliskBlock.PART, ObeliskBlock.Part.LOWER).with(ObeliskBlock.LIT, false), modelBuilder(objModel("obelisk", obelisk).texture("tex", modLoc("block/obelisk")).texture("particle", stoneBricks))),
@@ -123,7 +123,7 @@ public final class AMBlockStateProvider extends BlockStateProvider {
         crossBlock(AMBlocks.WITCHWOOD_SAPLING);
         flowerPotBlock(AMBlocks.POTTED_WITCHWOOD_SAPLING, AMBlocks.WITCHWOOD_SAPLING);
         simpleBlock(AMBlocks.WITCHWOOD_PLANKS);
-        ResourceLocation planksTexture = blockTexture(AMBlocks.WITCHWOOD_PLANKS.get());
+        Identifier planksTexture = blockTexture(AMBlocks.WITCHWOOD_PLANKS.get());
         slabBlock(AMBlocks.WITCHWOOD_SLAB.get(), cubeAll(AMBlocks.WITCHWOOD_PLANKS.get()).getLocation(), planksTexture);
         stairsBlock(AMBlocks.WITCHWOOD_STAIRS.get(), planksTexture);
         fenceBlock(AMBlocks.WITCHWOOD_FENCE.get(), planksTexture);
@@ -190,7 +190,7 @@ public final class AMBlockStateProvider extends BlockStateProvider {
 
     @SuppressWarnings("deprecation")
     private void railBlock(DeferredBlock<? extends BaseRailBlock> block) {
-        ResourceLocation texture = blockTexture(block.get());
+        Identifier texture = blockTexture(block.get());
         ModelFile straight = models().withExistingParent(block.getId().getPath(), mcLoc("block/rail")).texture("rail", texture).renderType("cutout");
         ModelFile curved = models().withExistingParent(block.getId().getPath() + "_corner", mcLoc("block/rail_curved")).texture("rail", texture.withSuffix("_corner")).renderType("cutout");
         ModelFile raisedNE = models().withExistingParent(block.getId().getPath() + "_raised_ne", mcLoc("block/template_rail_raised_ne")).texture("rail", texture).renderType("cutout");
@@ -213,11 +213,11 @@ public final class AMBlockStateProvider extends BlockStateProvider {
         });
     }
 
-    private BlockModelBuilder particleModel(String name, ResourceLocation particle) {
+    private BlockModelBuilder particleModel(String name, Identifier particle) {
         return models().getBuilder(name).texture("particle", particle);
     }
 
-    private BlockModelBuilder objModel(String name, ResourceLocation location) {
+    private BlockModelBuilder objModel(String name, Identifier location) {
         return models().getBuilder(name)
             .customLoader(ObjModelBuilder::begin)
             .modelLocation(location.withPrefix("models/"))

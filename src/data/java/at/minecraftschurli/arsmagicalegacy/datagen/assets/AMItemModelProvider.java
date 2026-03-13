@@ -8,7 +8,7 @@ import at.minecraftschurli.arsmagicalegacy.item.CrystalPhylacteryItem;
 import at.minecraftschurli.arsmagicalegacy.item.CrystalWrenchItem;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.BlockItem;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
@@ -31,7 +31,7 @@ public final class AMItemModelProvider extends ItemModelProvider {
         basicItemWithVariants(AMItems.SPELL, AMMagic.AFFINITIES_WITH_NONE);
         withExistingParent(AMItems.SPELL_RECIPE.getId().getPath(), mcLoc("item/written_book"));
         basicItem(AMItems.ETHERIUM_PLACEHOLDER);
-        withExistingParent(AMItems.LIQUID_ETHERIUM_BUCKET.getId().getPath(), ResourceLocation.fromNamespaceAndPath("neoforge", "item/bucket")).customLoader(DynamicFluidContainerModelBuilder::begin).fluid(AMFluids.LIQUID_ETHERIUM.get()).end();
+        withExistingParent(AMItems.LIQUID_ETHERIUM_BUCKET.getId().getPath(), Identifier.fromNamespaceAndPath("neoforge", "item/bucket")).customLoader(DynamicFluidContainerModelBuilder::begin).fluid(AMFluids.LIQUID_ETHERIUM.get()).end();
         blockItem(AMItems.OCCULUS);
         basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1);
         basicItem(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_2);
@@ -174,7 +174,7 @@ public final class AMItemModelProvider extends ItemModelProvider {
      */
     private void basicItemWithVariants(DeferredItem<?> item, List<? extends ResourceKey<?>> variants) {
         for (ResourceKey<?> variant : variants) {
-            ResourceLocation location = variant.location().withPrefix(item.getId().getPath() + "_");
+            Identifier location = variant.location().withPrefix(item.getId().getPath() + "_");
             singleTexture(location.getPath(), mcLoc("item/generated"), "layer0", location.withPrefix("item/"));
         }
     }

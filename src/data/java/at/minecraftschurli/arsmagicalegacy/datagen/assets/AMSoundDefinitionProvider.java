@@ -4,7 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.data.SoundDefinition;
@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public final class AMSoundDefinitionProvider extends SoundDefinitionsProvider {
-    private final Set<ResourceLocation> sounds = new HashSet<>();
+    private final Set<Identifier> sounds = new HashSet<>();
 
     public AMSoundDefinitionProvider(PackOutput output, ExistingFileHelper helper) {
         super(output, ArsMagicaApi.MOD_ID, helper);
@@ -30,7 +30,7 @@ public final class AMSoundDefinitionProvider extends SoundDefinitionsProvider {
     @SuppressWarnings("DataFlowIssue")
     private void sound(Holder<SoundEvent> sound, int count) {
         if (count <= 0) return;
-        ResourceLocation location = sound.getKey().location();
+        Identifier location = sound.getKey().identifier();
         if (sounds.contains(location)) return;
         sounds.add(location);
         String subtitle = "subtitle." + location.getNamespace() + "." + location.getPath();

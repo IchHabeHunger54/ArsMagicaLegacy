@@ -6,11 +6,11 @@ import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleControlle
 import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleControllerInstance;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ExtraCodecs;
 
 public record FadeOutController(boolean stopOtherControllers, boolean killOnFinish, float speed) implements ParticleController {
-    public static final ResourceLocation ID = ArsMagicaApi.id("fade_out");
+    public static final Identifier ID = ArsMagicaApi.id("fade_out");
     public static final MapCodec<FadeOutController> CODEC = RecordCodecBuilder.mapCodec(inst -> ParticleController.baseFields(inst)
         .and(ExtraCodecs.POSITIVE_FLOAT.optionalFieldOf("speed", 0.05f).forGetter(FadeOutController::speed))
         .apply(inst, FadeOutController::new));
@@ -33,7 +33,7 @@ public record FadeOutController(boolean stopOtherControllers, boolean killOnFini
     }
 
     @Override
-    public ResourceLocation id() {
+    public Identifier id() {
         return ID;
     }
 }

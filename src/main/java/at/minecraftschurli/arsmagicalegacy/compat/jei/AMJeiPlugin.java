@@ -14,7 +14,7 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Comparator;
@@ -23,11 +23,11 @@ import java.util.Comparator;
 @JeiPlugin
 public final class AMJeiPlugin implements IModPlugin {
     public static final IIngredientType<Skill> SKILL_TYPE = () -> Skill.class;
-    private static final ResourceLocation ID = ArsMagicaApi.id(ArsMagicaApi.MOD_ID);
+    private static final Identifier ID = ArsMagicaApi.id(ArsMagicaApi.MOD_ID);
     private static IJeiRuntime runtime = null;
 
     @Override
-    public ResourceLocation getPluginUid() {
+    public Identifier getPluginUid() {
         return ID;
     }
 
@@ -43,7 +43,7 @@ public final class AMJeiPlugin implements IModPlugin {
     public void registerIngredients(IModIngredientRegistration registration) {
         registration.register(SKILL_TYPE, AMRegistries.skills(true)
             .holders()
-            .filter(e -> AMRegistries.SPELL_PARTS.containsKey(e.getKey().location()))
+            .filter(e -> AMRegistries.SPELL_PARTS.containsKey(e.getKey().identifier()))
             .sorted(Comparator.comparing(e -> Skill.getName(e).getString()))
             .map(Holder::value)
             .toList(), new SkillIngredientHelper(), new SkillIngredientRenderer(), Skill.CODEC.xmap(Holder::value, AMRegistries.skills(true)::wrapAsHolder));

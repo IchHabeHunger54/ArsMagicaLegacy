@@ -44,7 +44,7 @@ public record SpellDamage(Map<Integer, Map<ResourceKey<DamageType>, Pair<Float, 
     }
 
     public void apply(Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity) {
-        Registry<DamageType> damageTypes = level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE);
+        Registry<DamageType> damageTypes = level.registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE);
         for (Map.Entry<Integer, Map<ResourceKey<DamageType>, Pair<Float, ItemStack>>> damageEntry : damage.entrySet()) {
             Entity entity = level.getEntity(damageEntry.getKey());
             if (entity == null) continue;

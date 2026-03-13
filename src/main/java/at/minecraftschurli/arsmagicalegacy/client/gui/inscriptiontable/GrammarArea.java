@@ -4,7 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.blockentity.InscriptionTableBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.Holder;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,7 +26,7 @@ public class GrammarArea extends DragTargetArea {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         for (int i = 0; i < contents.size(); i++) {
             contents.get(i).render(guiGraphics, x + i * Draggable.SIZE + X_PADDING, y, partialTick);
         }

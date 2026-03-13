@@ -32,7 +32,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -84,7 +84,7 @@ import java.util.function.ToIntFunction;
 import java.util.stream.Collector;
 
 public final class AMUtil {
-    public static final ResourceLocation MISSINGNO = ResourceLocation.withDefaultNamespace("missingno");
+    public static final Identifier MISSINGNO = Identifier.withDefaultNamespace("missingno");
     private static final RandomSource RANDOM = RandomSource.create();
 
     private AMUtil() {
@@ -125,13 +125,13 @@ public final class AMUtil {
     @SuppressWarnings("DataFlowIssue")
     @Nullable
     public static Holder<SpellPart> spellPart(Holder<Skill> skill) {
-        return AMRegistries.SPELL_PARTS.getHolder(skill.getKey().location()).orElse(null);
+        return AMRegistries.SPELL_PARTS.getHolder(skill.getKey().identifier()).orElse(null);
     }
 
     @SuppressWarnings("DataFlowIssue")
     @Nullable
     public static Holder<Skill> skill(Holder<SpellPart> part, boolean client) {
-        return AMRegistries.skills(client).getHolder(part.getKey().location()).orElse(null);
+        return AMRegistries.skills(client).getHolder(part.getKey().identifier()).orElse(null);
     }
 
     public static Vec3 bezier(Vec3 start, Vec3 control1, Vec3 control2, Vec3 end, double delta) {
@@ -223,10 +223,10 @@ public final class AMUtil {
 
     public static ItemStack getEnchanted(ItemStack stack, List<SpellModifier> modifiers, SpellCastContext context, Map<ResourceKey<Enchantment>, SpellStat> enchantments) {
         stack.set(AMDataComponents.SPELL, context.spell());
-        Registry<Enchantment> registry = context.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT);
+        Registry<Enchantment> registry = context.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
         SpellHelper helper = ArsMagicaApi.spellHelper();
         for (Map.Entry<ResourceKey<Enchantment>, SpellStat> entry : enchantments.entrySet()) {
-            stack.enchant(registry.getHolderOrThrow(entry.getKey()), (int) helper.getModifiedStat(0, entry.getValue(), modifiers, context));
+            stack.enchant(registry.getOrThrow(entry.getKey()), (int) helper.getModifiedStat(0, entry.getValue(), modifiers, context));
         }
         return stack;
     }

@@ -8,11 +8,11 @@ import at.minecraftschurli.arsmagicalegacy.util.AMExtraCodecs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 
 public record FloatUpwardController(boolean stopOtherControllers, boolean killOnFinish, double jitter, double minSpeed, double maxSpeed) implements ParticleController {
-    public static final ResourceLocation ID = ArsMagicaApi.id("float_upward");
+    public static final Identifier ID = ArsMagicaApi.id("float_upward");
     public static final MapCodec<FloatUpwardController> CODEC = RecordCodecBuilder.mapCodec(inst -> ParticleController.baseFields(inst)
         .and(AMExtraCodecs.NON_NEGATIVE_DOUBLE_CODEC.optionalFieldOf("jitter", 0.).forGetter(FloatUpwardController::jitter))
         .and(Codec.DOUBLE.fieldOf("min_speed").forGetter(FloatUpwardController::minSpeed))
@@ -50,7 +50,7 @@ public record FloatUpwardController(boolean stopOtherControllers, boolean killOn
     }
 
     @Override
-    public ResourceLocation id() {
+    public Identifier id() {
         return ID;
     }
 }

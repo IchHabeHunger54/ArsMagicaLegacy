@@ -10,19 +10,19 @@ import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 
 public class BarsLayer implements LayeredDraw.Layer {
-    private static final ResourceLocation TEXTURE = ArsMagicaApi.id("textures/gui/bar.png");
+    private static final Identifier TEXTURE = ArsMagicaApi.id("textures/gui/bar.png");
     private static final int WIDTH = 80;
     private static final int HEIGHT = 10;
 
     @Override
-    public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+    public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
         Player player = AMClientUtil.player();
         MagicHelper magicHelper = ArsMagicaApi.magicHelper();
         if (!magicHelper.knowsMagic(player)) return;
@@ -46,7 +46,7 @@ public class BarsLayer implements LayeredDraw.Layer {
         renderBar(guiGraphics, font, x, renderLevelAtTop ? y + 30 : y + 10, burnout, maxBurnout, AMTranslations.BARS_VALUE_BURNOUT_KEY, 0x880000);
     }
 
-    private static void renderBar(GuiGraphics guiGraphics, Font font, int x, int y, double value, double maxValue, String translationKey, int color) {
+    private static void renderBar(GuiGraphicsExtractor guiGraphics, Font font, int x, int y, double value, double maxValue, String translationKey, int color) {
         guiGraphics.pose().pushPose();
         RenderSystem.enableBlend();
         guiGraphics.blit(TEXTURE, x, y, 0, 0, WIDTH + 1, HEIGHT - 1);
@@ -66,7 +66,7 @@ public class BarsLayer implements LayeredDraw.Layer {
         }
     }
 
-    private static void renderOutlineText(GuiGraphics guiGraphics, Font font, Component text, int x, int y, int color) {
+    private static void renderOutlineText(GuiGraphicsExtractor guiGraphics, Font font, Component text, int x, int y, int color) {
         guiGraphics.drawString(font, text, x + 1, y, 0, false);
         guiGraphics.drawString(font, text, x - 1, y, 0, false);
         guiGraphics.drawString(font, text, x, y + 1, 0, false);

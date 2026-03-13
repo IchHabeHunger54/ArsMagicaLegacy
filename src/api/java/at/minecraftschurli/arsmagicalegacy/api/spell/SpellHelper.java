@@ -1,6 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.api.spell;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -91,7 +91,7 @@ public interface SpellHelper {
      * @param contingency The name of the contingency to trigger the contingency {@link Spell} for.
      * @param spell       The {@link Spell} to cast when the contingency is triggered.
      */
-    void setContingency(LivingEntity entity, ResourceLocation contingency, Spell spell);
+    void setContingency(LivingEntity entity, Identifier contingency, Spell spell);
 
     /**
      * Triggers a contingency.
@@ -99,7 +99,7 @@ public interface SpellHelper {
      * @param entity      The {@link LivingEntity} to trigger the contingency for.
      * @param contingency The name of the contingency to trigger.
      */
-    void triggerContingency(LivingEntity entity, ResourceLocation contingency);
+    void triggerContingency(LivingEntity entity, Identifier contingency);
 
     /**
      * @param toolTier The tool tier to get the incorrect block tag for.
@@ -141,5 +141,5 @@ public interface SpellHelper {
      * @param modifiers The {@link SpellModifier}s to consider.
      * @param context   The {@link SpellCastContext} to use.
      */
-    void spawnParticles(ResourceLocation part, List<SpellModifier> modifiers, SpellCastContext context);
+    void spawnParticles(Identifier part, List<SpellModifier> modifiers, SpellCastContext context);
 }

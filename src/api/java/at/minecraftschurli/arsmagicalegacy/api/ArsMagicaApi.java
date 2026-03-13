@@ -9,7 +9,7 @@ import at.minecraftschurli.arsmagicalegacy.api.plant.Plant;
 import at.minecraftschurli.arsmagicalegacy.api.ritual.Ritual;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.util.Lazy;
@@ -25,7 +25,7 @@ public abstract class ArsMagicaApi {
     /**
      * A {@link Lazy} that holds the {@link ArsMagicaApi} instance retrieved from the {@link ServiceLoader}. DO NOT ACCESS YOURSELF!
      */
-    private static final Lazy<ArsMagicaApi> INSTANCE = Lazy.of(() -> ServiceLoader.load(FMLLoader.getGameLayer(), ArsMagicaApi.class).findFirst().orElseThrow());
+    private static final Lazy<ArsMagicaApi> INSTANCE = Lazy.of(() -> ServiceLoader.load(FMLLoader.getCurrent().getGameLayer(), ArsMagicaApi.class).findFirst().orElseThrow());
 
     /**
      * The id of the Ars Magica: Legacy mod.
@@ -33,13 +33,13 @@ public abstract class ArsMagicaApi {
     public static final String MOD_ID = "arsmagicalegacy";
 
     /**
-     * Creates a new {@link ResourceLocation} with the mod's namespace.
+     * Creates a new {@link Identifier} with the mod's namespace.
      *
-     * @param path The path of the {@link ResourceLocation}.
-     * @return A new {@link ResourceLocation}.
+     * @param path The path of the {@link Identifier}.
+     * @return A new {@link Identifier}.
      */
-    public static ResourceLocation id(String path) {
-        return ResourceLocation.fromNamespaceAndPath(ArsMagicaApi.MOD_ID, path);
+    public static Identifier id(String path) {
+        return Identifier.fromNamespaceAndPath(ArsMagicaApi.MOD_ID, path);
     }
 
     /**

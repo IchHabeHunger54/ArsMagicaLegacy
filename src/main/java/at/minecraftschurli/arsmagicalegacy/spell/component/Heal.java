@@ -8,7 +8,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -18,7 +18,7 @@ import net.minecraft.world.phys.HitResult;
 import java.util.List;
 
 public class Heal extends SpellComponent.CastEntity {
-    public static final ResourceLocation UNDEAD_PARTICLES = ArsMagicaApi.id("heal_undead");
+    public static final Identifier UNDEAD_PARTICLES = ArsMagicaApi.id("heal_undead");
 
     public Heal() {
         super(AMSpells.HEALING_STAT);

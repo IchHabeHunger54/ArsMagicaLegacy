@@ -7,16 +7,16 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.EntityHitResult;
 
 import java.util.List;
 
 public class Contingency extends SecondarySpellShape {
-    private final ResourceLocation contingency;
+    private final Identifier contingency;
 
-    public Contingency(ResourceLocation contingency) {
+    public Contingency(Identifier contingency) {
         this.contingency = contingency;
     }
 

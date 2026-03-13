@@ -4,7 +4,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ritual.Ritual;
 import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualEffect;
 import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualRequirement;
 import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualTrigger;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class RitualBuilder extends AbstractDataProvider.Builder<Ritual<?>> {
      * @param id      The id of the {@link Ritual} to generate data for.
      * @param trigger The {@link RitualTrigger} to use.
      */
-    public RitualBuilder(ResourceLocation id, RitualTrigger<?> trigger) {
+    public RitualBuilder(Identifier id, RitualTrigger<?> trigger) {
         super(id);
         this.trigger = trigger;
     }

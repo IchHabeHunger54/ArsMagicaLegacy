@@ -8,12 +8,12 @@ import at.minecraftschurli.arsmagicalegacy.util.AMExtraCodecs;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
 public record ArcToEntityController(boolean stopOtherControllers, boolean killOnFinish, double speed) implements ParticleController {
-    public static final ResourceLocation ID = ArsMagicaApi.id("arc_to_entity");
+    public static final Identifier ID = ArsMagicaApi.id("arc_to_entity");
     public static final MapCodec<ArcToEntityController> CODEC = RecordCodecBuilder.mapCodec(inst -> ParticleController.baseFields(inst)
         .and(AMExtraCodecs.POSITIVE_DOUBLE_CODEC.optionalFieldOf("speed", 0.05).forGetter(ArcToEntityController::speed))
         .apply(inst, ArcToEntityController::new));
@@ -48,7 +48,7 @@ public record ArcToEntityController(boolean stopOtherControllers, boolean killOn
     }
 
     @Override
-    public ResourceLocation id() {
+    public Identifier id() {
         return ID;
     }
 }

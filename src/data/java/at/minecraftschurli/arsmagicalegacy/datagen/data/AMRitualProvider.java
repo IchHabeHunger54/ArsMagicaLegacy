@@ -32,14 +32,14 @@ import at.minecraftschurli.arsmagicalegacy.ritual.trigger.GameEventRitualTrigger
 import at.minecraftschurli.arsmagicalegacy.ritual.trigger.KillEntityRitualTrigger;
 import at.minecraftschurli.arsmagicalegacy.ritual.trigger.SetBlockStateRitualTrigger;
 import at.minecraftschurli.arsmagicalegacy.ritual.trigger.SpellCastRitualTrigger;
-import net.minecraft.advancements.critereon.EntityFlagsPredicate;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.advancements.criterion.EntityFlagsPredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
@@ -124,11 +124,11 @@ public final class AMRitualProvider extends RitualProvider {
             .addRequirement(new DimensionRitualRequirement(Level.END));
     }
 
-    private RitualBuilder spawn(String name, DeferredHolder<EntityType<?>, ? extends EntityType<?>> boss, ResourceLocation structure, RitualTrigger<?> trigger) {
+    private RitualBuilder spawn(String name, DeferredHolder<EntityType<?>, ? extends EntityType<?>> boss, Identifier structure, RitualTrigger<?> trigger) {
         return spawn(name, boss, structure, BlockPos.ZERO, trigger);
     }
 
-    private RitualBuilder spawn(String name, DeferredHolder<EntityType<?>, ? extends EntityType<?>> boss, ResourceLocation structure, BlockPos offset, RitualTrigger<?> trigger) {
+    private RitualBuilder spawn(String name, DeferredHolder<EntityType<?>, ? extends EntityType<?>> boss, Identifier structure, BlockPos offset, RitualTrigger<?> trigger) {
         return builder("spawn_" + name/*boss.getId().getPath()*/, trigger)
             .addRequirement(new StructureRitualRequirement(structure, offset))
             .addEffect(new SpawnEntityRitualEffect(boss.get()));
@@ -136,7 +136,7 @@ public final class AMRitualProvider extends RitualProvider {
 
     @SafeVarargs
     private void unlock(HolderLookup.RegistryLookup<Skill> skills, DeferredHolder<SpellPart, ?> part, DeferredHolder<SpellPart, ?>... parts) {
-        ResourceLocation id = part.getId();
+        Identifier id = part.getId();
         builder("unlock_" + id.getPath(), new SpellCastRitualTrigger(Arrays.stream(parts)
             .map(DeferredHolder::get)
             .map(e -> (SpellPart) e)

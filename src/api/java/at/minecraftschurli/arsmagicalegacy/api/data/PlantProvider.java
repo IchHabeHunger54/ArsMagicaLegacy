@@ -5,7 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.plant.GrowthType;
 import at.minecraftschurli.arsmagicalegacy.api.plant.Plant;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
@@ -34,7 +34,7 @@ public abstract class PlantProvider extends AbstractDataProvider<Plant, PlantBui
      * @return The new {@link PlantBuilder}.
      */
     public PlantBuilder builder(String name, GrowthType growthType, RuleTest allStates) {
-        PlantBuilder builder = new PlantBuilder(ResourceLocation.fromNamespaceAndPath(modId, name), growthType, allStates);
+        PlantBuilder builder = new PlantBuilder(Identifier.fromNamespaceAndPath(modId, name), growthType, allStates);
         add(builder);
         return builder;
     }

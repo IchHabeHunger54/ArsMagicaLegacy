@@ -4,12 +4,12 @@ import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.RegistryFileCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 /**
  * Represents an occulus tab.
@@ -22,33 +22,33 @@ import net.minecraft.resources.ResourceLocation;
  * @param renderer The id of the renderer type to use. Get an actual renderer only on the client using {@link ArsMagicaClientApi#occulusTabRendererFactory(Holder)}.
  */
 @SuppressWarnings("DataFlowIssue")
-public record OcculusTab(int width, int height, int startX, int startY, int index, ResourceLocation renderer) {
+public record OcculusTab(int width, int height, int startX, int startY, int index, Identifier renderer) {
     public static final Codec<OcculusTab> DIRECT_CODEC = RecordCodecBuilder.create(inst -> inst.group(
         Codec.INT.fieldOf("width").forGetter(OcculusTab::width),
         Codec.INT.fieldOf("height").forGetter(OcculusTab::height),
         Codec.INT.fieldOf("start_x").forGetter(OcculusTab::startX),
         Codec.INT.fieldOf("start_y").forGetter(OcculusTab::startY),
         Codec.INT.fieldOf("index").forGetter(OcculusTab::index),
-        ResourceLocation.CODEC.fieldOf("renderer").forGetter(OcculusTab::renderer)
+        Identifier.CODEC.fieldOf("renderer").forGetter(OcculusTab::renderer)
     ).apply(inst, OcculusTab::new));
     public static final Codec<Holder<OcculusTab>> CODEC = RegistryFileCodec.create(AMRegistries.Keys.OCCULUS_TAB, DIRECT_CODEC);
 
     /**
      * @param holder The occulus tab {@link Holder} to query.
-     * @return The background {@link ResourceLocation} for the given occulus tab.
+     * @return The background {@link Identifier} for the given occulus tab.
      */
-    public static ResourceLocation getBackground(Holder<OcculusTab> holder) {
-        ResourceLocation id = holder.getKey().location();
-        return ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "textures/gui/occulus/background/" + id.getPath() + ".png");
+    public static Identifier getBackground(Holder<OcculusTab> holder) {
+        Identifier id = holder.getKey().identifier();
+        return Identifier.fromNamespaceAndPath(id.getNamespace(), "textures/gui/occulus/background/" + id.getPath() + ".png");
     }
 
     /**
      * @param holder The occulus tab {@link Holder} to query.
-     * @return The icon {@link ResourceLocation} for the given occulus tab.
+     * @return The icon {@link Identifier} for the given occulus tab.
      */
-    public static ResourceLocation getIcon(Holder<OcculusTab> holder) {
-        ResourceLocation id = holder.getKey().location();
-        return ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "textures/gui/occulus/icon/" + id.getPath() + ".png");
+    public static Identifier getIcon(Holder<OcculusTab> holder) {
+        Identifier id = holder.getKey().identifier();
+        return Identifier.fromNamespaceAndPath(id.getNamespace(), "textures/gui/occulus/icon/" + id.getPath() + ".png");
     }
 
     /**
@@ -56,6 +56,6 @@ public record OcculusTab(int width, int height, int startX, int startY, int inde
      * @return The display name of the given occulus tab.
      */
     public static MutableComponent getName(Holder<OcculusTab> holder) {
-        return Component.translatable(Util.makeDescriptionId("occulus_tab", holder.getKey().location()));
+        return Component.translatable(Util.makeDescriptionId("occulus_tab", holder.getKey().identifier()));
     }
 }

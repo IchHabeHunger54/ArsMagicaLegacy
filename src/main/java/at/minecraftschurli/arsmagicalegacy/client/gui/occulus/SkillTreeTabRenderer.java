@@ -15,7 +15,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -45,7 +45,7 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         MagicHelper helper = ArsMagicaApi.magicHelper();
         Registry<Skill> registry = AMRegistries.skills(true);
@@ -105,7 +105,7 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
     }
 
     @Override
-    public void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void renderTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         if (hoveredSkill == null) return;
         MagicHelper helper = ArsMagicaApi.magicHelper();
         LocalPlayer player = AMClientUtil.player();

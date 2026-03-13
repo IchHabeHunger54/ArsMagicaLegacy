@@ -65,7 +65,7 @@ import at.minecraftschurli.arsmagicalegacy.util.CrystalPhylacteryContentsSize;
 import at.minecraftschurli.arsmagicalegacy.util.DispenseBucketBehavior;
 import at.minecraftschurli.arsmagicalegacy.util.DispenseWitchwoodBoatBehavior;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;

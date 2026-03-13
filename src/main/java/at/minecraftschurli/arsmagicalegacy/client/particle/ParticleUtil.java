@@ -14,7 +14,7 @@ import at.minecraftschurli.arsmagicalegacy.entity.SpellShapeEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -29,14 +29,14 @@ import java.util.Map;
 import java.util.stream.IntStream;
 
 public final class ParticleUtil {
-    public static final ResourceLocation ARCANE_COMPENDIUM_CONVERSION = ArsMagicaApi.id("arcane_compendium_conversion");
-    public static final ResourceLocation ARCANE_COMPENDIUM_CONVERSION_FINISH = ArsMagicaApi.id("arcane_compendium_conversion_finish");
+    public static final Identifier ARCANE_COMPENDIUM_CONVERSION = ArsMagicaApi.id("arcane_compendium_conversion");
+    public static final Identifier ARCANE_COMPENDIUM_CONVERSION_FINISH = ArsMagicaApi.id("arcane_compendium_conversion_finish");
     private static final Map<SpellEntityKey, ParticleSpawner> SPELL_SHAPE_ENTITY_PARTICLE_SPAWNERS = new HashMap<>();
 
     private ParticleUtil() {
     }
 
-    public static List<? extends ControlledParticle> spawnParticles(ResourceLocation id, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
+    public static List<? extends ControlledParticle> spawnParticles(Identifier id, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
         ParticleSpawner spawner = ParticleSpawnerManager.INSTANCE.get(id);
         return spawner != null ? ArsMagicaClientApi.spawnParticles(spawner, position, color, caster, directEntity, hitResult) : List.of();
     }
@@ -122,6 +122,6 @@ public final class ParticleUtil {
         SPELL_SHAPE_ENTITY_PARTICLE_SPAWNERS.clear();
     }
 
-    private record SpellEntityKey(ResourceLocation id, ResourceKey<Affinity> affinity) {
+    private record SpellEntityKey(Identifier id, ResourceKey<Affinity> affinity) {
     }
 }

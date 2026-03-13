@@ -2,15 +2,15 @@ package at.minecraftschurli.arsmagicalegacy.client.gui;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.menu.RiftMenu;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
 public class RiftScreen extends AbstractContainerScreen<RiftMenu> {
-    private static final ResourceLocation BACKGROUND = ArsMagicaApi.id("textures/gui/rift/background.png");
-    private static final ResourceLocation SLOT = ArsMagicaApi.id("textures/gui/rift/slot.png");
+    private static final Identifier BACKGROUND = ArsMagicaApi.id("textures/gui/rift/background.png");
+    private static final Identifier SLOT = ArsMagicaApi.id("textures/gui/rift/slot.png");
     private final int rows;
 
     public RiftScreen(RiftMenu menu, Inventory playerInventory, Component title) {
@@ -21,7 +21,7 @@ public class RiftScreen extends AbstractContainerScreen<RiftMenu> {
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+    protected void renderBg(GuiGraphicsExtractor guiGraphics, float partialTick, int mouseX, int mouseY) {
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
         guiGraphics.blit(BACKGROUND, x, y, 0, 0, imageWidth, 17, imageWidth, imageHeight);
@@ -38,7 +38,7 @@ public class RiftScreen extends AbstractContainerScreen<RiftMenu> {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         renderTooltip(guiGraphics, mouseX, mouseY);
     }

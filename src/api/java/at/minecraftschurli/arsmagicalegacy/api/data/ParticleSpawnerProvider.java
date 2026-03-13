@@ -5,14 +5,14 @@ import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleSpawner;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.concurrent.CompletableFuture;
 
 /**
  * Data provider for {@link ParticleSpawner}s. Override {@link ParticleSpawnerProvider#generate(HolderLookup.Provider)} to generate your entries,
- * and use {@link ParticleSpawnerProvider#builder(ResourceLocation, ParticleOptions, int, int)} or {@link ParticleSpawnerProvider#builder(ResourceLocation, ParticleOptions, int, int, int)} to create a new {@link ParticleSpawnerBuilder}.
+ * and use {@link ParticleSpawnerProvider#builder(Identifier, ParticleOptions, int, int)} or {@link ParticleSpawnerProvider#builder(Identifier, ParticleOptions, int, int, int)} to create a new {@link ParticleSpawnerBuilder}.
  */
 public abstract class ParticleSpawnerProvider extends AbstractDataProvider<ParticleSpawner, ParticleSpawnerBuilder> {
     /**
@@ -34,7 +34,7 @@ public abstract class ParticleSpawnerProvider extends AbstractDataProvider<Parti
      * @param maxLifetime The max lifetime of the spawned particles.
      * @return The new {@link ParticleSpawnerBuilder}.
      */
-    public ParticleSpawnerBuilder builder(ResourceLocation id, ParticleOptions particle, int count, int minLifetime, int maxLifetime) {
+    public ParticleSpawnerBuilder builder(Identifier id, ParticleOptions particle, int count, int minLifetime, int maxLifetime) {
         ParticleSpawnerBuilder builder = new ParticleSpawnerBuilder(id, particle, count, minLifetime, maxLifetime);
         add(builder);
         return builder;
@@ -49,7 +49,7 @@ public abstract class ParticleSpawnerProvider extends AbstractDataProvider<Parti
      * @param lifetime The lifetime of the spawned particles.
      * @return The new {@link ParticleSpawnerBuilder}.
      */
-    public ParticleSpawnerBuilder builder(ResourceLocation id, ParticleOptions particle, int count, int lifetime) {
+    public ParticleSpawnerBuilder builder(Identifier id, ParticleOptions particle, int count, int lifetime) {
         ParticleSpawnerBuilder builder = new ParticleSpawnerBuilder(id, particle, count, lifetime);
         add(builder);
         return builder;

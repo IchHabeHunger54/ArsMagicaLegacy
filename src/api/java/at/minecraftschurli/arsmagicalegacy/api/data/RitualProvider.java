@@ -5,7 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.api.ritual.Ritual;
 import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.concurrent.CompletableFuture;
@@ -32,7 +32,7 @@ public abstract class RitualProvider extends AbstractDataProvider<Ritual<?>, Rit
      * @return The new {@link RitualBuilder}.
      */
     public RitualBuilder builder(String name, RitualTrigger<?> trigger) {
-        RitualBuilder builder = new RitualBuilder(ResourceLocation.fromNamespaceAndPath(modId, name), trigger);
+        RitualBuilder builder = new RitualBuilder(Identifier.fromNamespaceAndPath(modId, name), trigger);
         add(builder);
         return builder;
     }

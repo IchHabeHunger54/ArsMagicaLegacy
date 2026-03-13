@@ -15,12 +15,12 @@ import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
@@ -33,7 +33,7 @@ import java.util.function.UnaryOperator;
 
 @SuppressWarnings({"DataFlowIssue", "unused"})
 public class SpellPartPage implements ICustomComponent {
-    public static final ResourceLocation ID = ArsMagicaApi.id("spell_part");
+    public static final Identifier ID = ArsMagicaApi.id("spell_part");
     public static final String TEMPLATE = "{\"components\":[{\"type\":\"patchouli:custom\",\"class\":\"at.minecraftschurli.arsmagicalegacy.compat.patchouli.SpellPartPage\",\"part\":\"#part\"}]}";
     private static final Comparator<Holder<Affinity>> COMPARATOR = Comparator.comparing(Holder::getKey);
     private static final int INGREDIENT_COLUMNS = 6;
@@ -54,7 +54,7 @@ public class SpellPartPage implements ICustomComponent {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, IComponentRenderContext context, float partialTick, int mouseX, int mouseY) {
+    public void render(GuiGraphicsExtractor guiGraphics, IComponentRenderContext context, float partialTick, int mouseX, int mouseY) {
         int x = this.x;
         int y = this.y;
         Font font = AMClientUtil.font();
@@ -111,7 +111,7 @@ public class SpellPartPage implements ICustomComponent {
     public void onVariablesAvailable(UnaryOperator<IVariable> unaryOperator, HolderLookup.Provider registries) {
         HolderLookup.RegistryLookup<SpellPart> spellParts = registries.lookupOrThrow(AMRegistries.Keys.SPELL_PART);
         HolderLookup.RegistryLookup<Skill> skills = registries.lookupOrThrow(AMRegistries.Keys.SKILL);
-        SpellPart spellPart = spellParts.getOrThrow(ResourceKey.create(AMRegistries.Keys.SPELL_PART, ResourceLocation.parse(unaryOperator.apply(IVariable.wrap(part, registries)).asString()))).value();
+        SpellPart spellPart = spellParts.getOrThrow(ResourceKey.create(AMRegistries.Keys.SPELL_PART, Identifier.parse(unaryOperator.apply(IVariable.wrap(part, registries)).asString()))).value();
         SpellPartData data = spellPart.getData();
         recipe = data.recipe();
         affinityShifts = data.affinityShifts();
@@ -122,14 +122,14 @@ public class SpellPartPage implements ICustomComponent {
             .toList();
     }
 
-    private static void drawItemStack(GuiGraphics guiGraphics, IComponentRenderContext context, ItemStack stack, List<Component> tooltip, int x, int y, int mouseX, int mouseY) {
+    private static void drawItemStack(GuiGraphicsExtractor guiGraphics, IComponentRenderContext context, ItemStack stack, List<Component> tooltip, int x, int y, int mouseX, int mouseY) {
         AMClientUtil.renderItem(guiGraphics, stack, x, y);
         if (context.isAreaHovered(mouseX, mouseY, x, y, 16, 16)) {
             context.setHoverTooltipComponents(tooltip);
         }
     }
 
-    private static void drawCentered(GuiGraphics graphics, Font font, Component component, int y) {
+    private static void drawCentered(GuiGraphicsExtractor graphics, Font font, Component component, int y) {
         graphics.drawString(font, component, (int) ((WIDTH - font.getSplitter().stringWidth(component.getString())) / 2), y, 0x404040, false);
     }
 }

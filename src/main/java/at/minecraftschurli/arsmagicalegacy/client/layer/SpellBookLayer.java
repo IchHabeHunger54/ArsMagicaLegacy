@@ -8,20 +8,20 @@ import at.minecraftschurli.arsmagicalegacy.item.SpellBookItem;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.DeltaTracker;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
 
 public class SpellBookLayer implements LayeredDraw.Layer {
-    private static final ResourceLocation TEXTURE = ArsMagicaApi.id("textures/gui/spell_book/overlay.png");
-    private static final ResourceLocation HIGHLIGHT_TEXTURE = ArsMagicaApi.id("textures/gui/spell_book/highlight.png");
+    private static final Identifier TEXTURE = ArsMagicaApi.id("textures/gui/spell_book/overlay.png");
+    private static final Identifier HIGHLIGHT_TEXTURE = ArsMagicaApi.id("textures/gui/spell_book/highlight.png");
 
     @Override
-    public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+    public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
         if (AMClientUtil.mc().options.hideGui) return;
         Player player = AMClientUtil.player();
         if (player == null) return;

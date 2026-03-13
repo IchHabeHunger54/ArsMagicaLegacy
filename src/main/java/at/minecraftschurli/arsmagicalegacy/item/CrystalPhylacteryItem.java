@@ -15,7 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class CrystalPhylacteryItem extends Item {
-    public static final ResourceLocation FILL = ArsMagicaApi.id("crystal_phylactery_fill");
+    public static final Identifier FILL = ArsMagicaApi.id("crystal_phylactery_fill");
 
     public CrystalPhylacteryItem(Properties properties) {
         super(properties);

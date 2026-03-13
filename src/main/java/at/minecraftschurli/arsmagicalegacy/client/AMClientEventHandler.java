@@ -85,7 +85,7 @@ import net.minecraft.client.renderer.block.BlockModelShaper;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.resources.model.ModelIdentifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -294,11 +294,11 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void modelModifyBakingResult(ModelEvent.ModifyBakingResult event) {
-        Map<ModelResourceLocation, BakedModel> models = event.getModels();
+        Map<ModelIdentifier, BakedModel> models = event.getModels();
         models.computeIfPresent(BlockModelShaper.stateToModelLocation(AMBlocks.ALTAR_CORE.get().defaultBlockState().setValue(AltarCoreBlock.FORMED, true)), ($, model) -> new AltarCoreModel(model));
-        models.computeIfPresent(ModelResourceLocation.inventory(AMItems.SPELL.getId()), ($, model) -> new SpellItemModel(model));
-        models.computeIfPresent(ModelResourceLocation.inventory(AMItems.SPELL_BOOK.getId()), ($, model) -> new SpellItemModel(model));
-        ItemOverridesModel.register(models, AMItems.INSCRIPTION_TABLE, new DataComponentOverrides<>(AMDataComponents.TIER.get(), (tier, model, stack) -> tier == 0 ? null : ModelResourceLocation.standalone(ArsMagicaApi.id("item/inscription_table_tier_" + tier))));
+        models.computeIfPresent(ModelIdentifier.inventory(AMItems.SPELL.getId()), ($, model) -> new SpellItemModel(model));
+        models.computeIfPresent(ModelIdentifier.inventory(AMItems.SPELL_BOOK.getId()), ($, model) -> new SpellItemModel(model));
+        ItemOverridesModel.register(models, AMItems.INSCRIPTION_TABLE, new DataComponentOverrides<>(AMDataComponents.TIER.get(), (tier, model, stack) -> tier == 0 ? null : ModelIdentifier.standalone(ArsMagicaApi.id("item/inscription_table_tier_" + tier))));
         ItemOverridesModel.register(models, AMItems.INFINITY_ORB, new DataComponentOverrides<>(AMDataComponents.SKILL_POINT.get(), DataComponentOverrides.holder()));
         ItemOverridesModel.register(models, AMItems.AFFINITY_ESSENCE, new DataComponentOverrides<>(AMDataComponents.AFFINITY.get(), DataComponentOverrides.holder()));
         ItemOverridesModel.register(models, AMItems.AFFINITY_TOME, new DataComponentOverrides<>(AMDataComponents.AFFINITY.get(), DataComponentOverrides.holder()));

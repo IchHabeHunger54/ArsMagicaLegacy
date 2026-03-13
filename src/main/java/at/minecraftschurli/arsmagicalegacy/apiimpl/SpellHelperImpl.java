@@ -41,7 +41,7 @@ import com.google.common.collect.Sets;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -89,7 +89,7 @@ final class SpellHelperImpl implements SpellHelper {
             if (isAwardXp && caster instanceof Player player) {
                 MagicHelper helper = ArsMagicaApi.magicHelper();
                 Registry<Skill> registry = AMRegistries.skills(player.registryAccess());
-                boolean affinityGains = registry.containsKey(AMMagic.AFFINITY_GAINS_BOOST) && helper.knows(player, registry.getHolderOrThrow(AMMagic.AFFINITY_GAINS_BOOST));
+                boolean affinityGains = registry.containsKey(AMMagic.AFFINITY_GAINS_BOOST) && helper.knows(player, registry.getOrThrow(AMMagic.AFFINITY_GAINS_BOOST));
                 boolean continuous = spell.isContinuous();
                 Map<Holder<Affinity>, Double> affinityShifts = spell.grammar().affinityShifts();
                 if (continuous) {
@@ -208,12 +208,12 @@ final class SpellHelperImpl implements SpellHelper {
     }
 
     @Override
-    public void setContingency(LivingEntity entity, ResourceLocation contingency, Spell spell) {
+    public void setContingency(LivingEntity entity, Identifier contingency, Spell spell) {
         entity.setData(AMAttachments.CONTINGENCY, new ContingencyAttachment(contingency, spell));
     }
 
     @Override
-    public void triggerContingency(LivingEntity entity, ResourceLocation contingency) {
+    public void triggerContingency(LivingEntity entity, Identifier contingency) {
         ContingencyAttachment attachment = entity.getData(AMAttachments.CONTINGENCY);
         if (attachment.contingency().equals(contingency)) {
             castGrammar(new SpellCastContext(attachment.spell(), entity.level(), entity, entity, new EntityHitResult(entity), true, true));
@@ -274,7 +274,7 @@ final class SpellHelperImpl implements SpellHelper {
     }
 
     @Override
-    public void spawnParticles(ResourceLocation part, List<SpellModifier> modifiers, SpellCastContext context) {
+    public void spawnParticles(Identifier part, List<SpellModifier> modifiers, SpellCastContext context) {
         if (!context.level().isClientSide()) return;
         HitResult hitResult = context.hitResult();
         if (hitResult == null) return;

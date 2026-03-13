@@ -7,9 +7,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.ResourceLocationException;
+import net.minecraft.IdentifierException;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
@@ -26,7 +26,7 @@ import java.util.Optional;
 
 public final class ToolTiers extends SimplePreparableReloadListener<JsonObject> {
     public static final ToolTiers INSTANCE = new ToolTiers();
-    public static final ResourceLocation PATH = ArsMagicaApi.id("tool_tiers.json");
+    public static final Identifier PATH = ArsMagicaApi.id("tool_tiers.json");
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().setLenient().create();
     private static final Logger LOGGER = LoggerFactory.getLogger(ToolTiers.class);
     private final Int2ObjectMap<TagKey<Block>> contents = new Int2ObjectOpenHashMap<>();
@@ -54,13 +54,13 @@ public final class ToolTiers extends SimplePreparableReloadListener<JsonObject> 
                 int i = Integer.parseInt(entry.getKey());
                 JsonElement value = entry.getValue();
                 if (value.isJsonPrimitive() && value.getAsJsonPrimitive().isString()) {
-                    contents.put(i, TagKey.create(Registries.BLOCK, ResourceLocation.parse(value.getAsString())));
+                    contents.put(i, TagKey.create(Registries.BLOCK, Identifier.parse(value.getAsString())));
                 } else {
                     LOGGER.warn("Found non-string value {} in {}, ignoring", entry.getValue(), PATH);
                 }
             } catch (NumberFormatException e) {
                 LOGGER.warn("Found non-integer key {} in {}, ignoring", entry.getKey(), PATH);
-            } catch (ResourceLocationException e) {
+            } catch (IdentifierException e) {
                 LOGGER.warn("Encountered invalid resource location in {}, ignoring", PATH, e);
             }
         }

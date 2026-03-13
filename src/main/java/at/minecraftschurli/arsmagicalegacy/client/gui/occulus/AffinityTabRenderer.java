@@ -19,9 +19,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.ChatFormatting;
-import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
@@ -49,7 +49,7 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         tooltip.clear();
         Registry<Affinity> affinities = AMRegistries.affinities(true);
@@ -125,7 +125,7 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
     }
 
     @Override
-    public void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void renderTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         if (tooltip.isEmpty()) return;
         guiGraphics.renderTooltip(AMClientUtil.font(), tooltip, Optional.empty(), mouseX, mouseY);
     }
@@ -135,7 +135,7 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
         return false;
     }
 
-    private void renderLine(GuiGraphics guiGraphics, float startX, float startY, float endX, float endY, int color) {
+    private void renderLine(GuiGraphicsExtractor guiGraphics, float startX, float startY, float endX, float endY, int color) {
         PoseStack pose = guiGraphics.pose();
         Matrix4f matrix = pose.last().pose();
         pose.pushPose();
@@ -148,7 +148,7 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
         pose.popPose();
     }
 
-    private void renderFractalLine(GuiGraphics guiGraphics, float startX, float startY, float endX, float endY, int color, float displace, float fractal) {
+    private void renderFractalLine(GuiGraphicsExtractor guiGraphics, float startX, float startY, float endX, float endY, int color, float displace, float fractal) {
         if (displace < fractal) {
             renderLine(guiGraphics, startX, startY, endX, endY, color);
             return;

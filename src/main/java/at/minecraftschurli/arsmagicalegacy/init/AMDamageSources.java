@@ -26,7 +26,7 @@ public interface AMDamageSources {
     }
 
     private static Holder<DamageType> damageType(RegistryAccess registryAccess, ResourceKey<DamageType> damageType) {
-        return registryAccess.registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(damageType);
+        return registryAccess.lookupOrThrow(Registries.DAMAGE_TYPE).getOrThrow(damageType);
     }
 
     static DamageSource fallingStar(FallingStar source) {

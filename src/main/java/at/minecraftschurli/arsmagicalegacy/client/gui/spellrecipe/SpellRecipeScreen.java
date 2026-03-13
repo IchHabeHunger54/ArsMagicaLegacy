@@ -7,7 +7,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellShapeGroup;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.packet.SetLecternPagePacket;
 import at.minecraftschurli.arsmagicalegacy.packet.TakeSpellRecipeFromLecternPacket;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.screens.Screen;
@@ -17,7 +17,7 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class SpellRecipeScreen extends Screen {
-    private static final ResourceLocation BACKGROUND = ArsMagicaApi.id("textures/gui/spell_recipe.png");
+    private static final Identifier BACKGROUND = ArsMagicaApi.id("textures/gui/spell_recipe.png");
     private static final int WIDTH = 192;
     private static final int HEIGHT = 192;
     private final List<Page<?>> pages = new ArrayList<>();
@@ -76,7 +76,7 @@ public class SpellRecipeScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         renderBackground(guiGraphics, mouseX, mouseY, partialTick);
         guiGraphics.blit(BACKGROUND, xPos, 2, 0, 0, WIDTH, HEIGHT);
         Page<?> page = pages.get(currentPage);

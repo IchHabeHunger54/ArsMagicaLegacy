@@ -9,7 +9,7 @@ import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
@@ -24,7 +24,7 @@ import java.util.SequencedSet;
 
 @SuppressWarnings("DataFlowIssue")
 class EtheriumComponentProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
-    private static final ResourceLocation ID = ArsMagicaApi.id("etherium");
+    private static final Identifier ID = ArsMagicaApi.id("etherium");
     private static final String ETHERIUM_TYPES = "etherium_types";
     private static final String ETHERIUM = "etherium";
     private static final String MAX_ETHERIUM = "max_etherium";
@@ -41,9 +41,9 @@ class EtheriumComponentProvider implements IBlockComponentProvider, IServerDataP
         CompoundTag etheriumTag = compoundTag.getCompound(ETHERIUM_TYPES);
         AMRegistries.etheriumTypes(blockAccessor instanceof Level l ? l.registryAccess() : AMRegistries.registryAccess(true))
             .holders()
-            .filter(holder -> etheriumTag.contains(holder.getKey().location().toString()))
+            .filter(holder -> etheriumTag.contains(holder.getKey().identifier().toString()))
             .forEach(holder -> {
-                CompoundTag tag = etheriumTag.getCompound(holder.getKey().location().toString());
+                CompoundTag tag = etheriumTag.getCompound(holder.getKey().identifier().toString());
                 if (!tag.contains(ETHERIUM) || !tag.contains(MAX_ETHERIUM)) return;
                 iTooltip.add(Component.translatable(AMTranslations.ETHERIUM_KEY, EtheriumType.getName(holder), tag.getInt(ETHERIUM), tag.getInt(MAX_ETHERIUM)));
             });
@@ -68,7 +68,7 @@ class EtheriumComponentProvider implements IBlockComponentProvider, IServerDataP
                 CompoundTag tag = new CompoundTag();
                 tag.putInt(ETHERIUM, capability.getAmount(etheriumType));
                 tag.putInt(MAX_ETHERIUM, maxEtherium);
-                etheriumTag.put(etheriumType.getKey().location().toString(), tag);
+                etheriumTag.put(etheriumType.getKey().identifier().toString(), tag);
             }
         });
         compoundTag.put(ETHERIUM_TYPES, etheriumTag);
@@ -84,7 +84,7 @@ class EtheriumComponentProvider implements IBlockComponentProvider, IServerDataP
     }
 
     @Override
-    public ResourceLocation getUid() {
+    public Identifier getUid() {
         return ID;
     }
 }

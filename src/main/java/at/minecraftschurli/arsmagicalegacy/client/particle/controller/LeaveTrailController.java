@@ -8,10 +8,10 @@ import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleSpawner;
 import at.minecraftschurli.arsmagicalegacy.client.particle.AMParticle;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public record LeaveTrailController(boolean stopOtherControllers, boolean killOnFinish, ParticleSpawner spawner) implements ParticleController {
-    public static final ResourceLocation ID = ArsMagicaApi.id("leave_trail");
+    public static final Identifier ID = ArsMagicaApi.id("leave_trail");
     public static final MapCodec<LeaveTrailController> CODEC = RecordCodecBuilder.mapCodec(inst -> ParticleController.baseFields(inst)
         .and(ParticleSpawner.CODEC.fieldOf("spawner").forGetter(LeaveTrailController::spawner))
         .apply(inst, LeaveTrailController::new));
@@ -27,7 +27,7 @@ public record LeaveTrailController(boolean stopOtherControllers, boolean killOnF
     }
 
     @Override
-    public ResourceLocation id() {
+    public Identifier id() {
         return ID;
     }
 }

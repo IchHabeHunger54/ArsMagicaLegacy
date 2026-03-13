@@ -21,11 +21,11 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.Comparator;
 import java.util.List;
@@ -35,7 +35,7 @@ import java.util.Set;
 @SuppressWarnings("DataFlowIssue")
 public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
     public static final RecipeType<Recipe> RECIPE_TYPE = RecipeType.create(ArsMagicaApi.MOD_ID, "skill", Recipe.class);
-    private static final ResourceLocation BACKGROUND = ArsMagicaApi.id("textures/gui/skill_category.png");
+    private static final Identifier BACKGROUND = ArsMagicaApi.id("textures/gui/skill_category.png");
     private static final Comparator<Holder<Affinity>> COMPARATOR = Comparator.comparing(Holder::getKey);
     private static final int INGREDIENT_COLUMNS = 7;
     private static final int SLOT_SIZE = 18;
@@ -123,7 +123,7 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
     }
 
     @Override
-    public void draw(Recipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(Recipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         guiGraphics.blit(BACKGROUND, 0, 0, 0, 0, WIDTH, HEIGHT);
         Font font = AMClientUtil.font();
         drawCentered(guiGraphics, font, Skill.getName(recipe.skill), 0);
@@ -147,7 +147,7 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
         }
     }
 
-    private static void drawCentered(GuiGraphics graphics, Font font, Component component, int y) {
+    private static void drawCentered(GuiGraphicsExtractor graphics, Font font, Component component, int y) {
         graphics.drawString(font, component, (int) ((WIDTH - font.getSplitter().stringWidth(component.getString())) / 2), y, 0x404040, false);
     }
 

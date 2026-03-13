@@ -8,13 +8,13 @@ import at.minecraftschurli.arsmagicalegacy.util.AMExtraCodecs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 
 public record OrbitPointController(boolean stopOtherControllers, boolean killOnFinish, double minSpeed, double maxSpeed, double minDistance, double maxDistance, boolean followTarget) implements ParticleController {
-    public static final ResourceLocation ID = ArsMagicaApi.id("orbit_point");
+    public static final Identifier ID = ArsMagicaApi.id("orbit_point");
     public static final MapCodec<OrbitPointController> CODEC = RecordCodecBuilder.mapCodec(inst -> ParticleController.baseFields(inst)
         .and(AMExtraCodecs.doubleRangeCodec(0, 180).fieldOf("min_speed").forGetter(OrbitPointController::minSpeed))
         .and(AMExtraCodecs.doubleRangeCodec(0, 180).fieldOf("max_speed").forGetter(OrbitPointController::maxSpeed))
@@ -68,7 +68,7 @@ public record OrbitPointController(boolean stopOtherControllers, boolean killOnF
     }
 
     @Override
-    public ResourceLocation id() {
+    public Identifier id() {
         return ID;
     }
 }

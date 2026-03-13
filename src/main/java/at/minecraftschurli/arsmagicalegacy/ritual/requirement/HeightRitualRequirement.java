@@ -3,7 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.ritual.requirement;
 import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualRequirement;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;

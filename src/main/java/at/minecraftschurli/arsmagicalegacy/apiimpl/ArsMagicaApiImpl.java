@@ -11,12 +11,12 @@ import at.minecraftschurli.arsmagicalegacy.api.ritual.Ritual;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
 import at.minecraftschurli.arsmagicalegacy.util.AMDataManager;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import vazkii.patchouli.api.PatchouliAPI;
 
 public final class ArsMagicaApiImpl extends ArsMagicaApi {
-    private static final ResourceLocation ARCANE_COMPENDIUM = ArsMagicaApi.id("arcane_compendium");
+    private static final Identifier ARCANE_COMPENDIUM = ArsMagicaApi.id("arcane_compendium");
     private static final AbilityHelper ABILITY_HELPER = new AbilityHelperImpl();
     private static final BurnoutHelper BURNOUT_HELPER = new BurnoutHelperImpl();
     private static final MagicHelper MAGIC_HELPER = new MagicHelperImpl();

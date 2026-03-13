@@ -3,7 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.api.etherium;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -26,6 +26,6 @@ public record EtheriumType(int color) {
      */
     @SuppressWarnings("DataFlowIssue")
     public static MutableComponent getName(Holder<EtheriumType> holder) {
-        return Component.translatable(Util.makeDescriptionId("etherium", holder.getKey().location()));
+        return Component.translatable(Util.makeDescriptionId("etherium", holder.getKey().identifier()));
     }
 }

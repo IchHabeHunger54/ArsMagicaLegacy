@@ -3,7 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.api.magic;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -39,7 +39,7 @@ public record Skill(List<Holder<Skill>> parents, Optional<Holder<SkillPoint>> co
      * @return The display name of the given skill.
      */
     public static MutableComponent getName(Holder<Skill> holder) {
-        return Component.translatable(Util.makeDescriptionId("skill", holder.getKey().location()) + ".name");
+        return Component.translatable(Util.makeDescriptionId("skill", holder.getKey().identifier()) + ".name");
     }
 
     /**
@@ -47,6 +47,6 @@ public record Skill(List<Holder<Skill>> parents, Optional<Holder<SkillPoint>> co
      * @return The description of the given skill.
      */
     public static MutableComponent getDescription(Holder<Skill> holder) {
-        return Component.translatable(Util.makeDescriptionId("skill", holder.getKey().location()) + ".description");
+        return Component.translatable(Util.makeDescriptionId("skill", holder.getKey().identifier()) + ".description");
     }
 }

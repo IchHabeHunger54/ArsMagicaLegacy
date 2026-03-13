@@ -9,7 +9,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.EntityHitResult;
@@ -18,7 +18,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 
 public class Transplace extends SpellComponent.CastEntity {
-    public static final ResourceLocation CASTER_PARTICLES = ArsMagicaApi.id("transplace_caster");
+    public static final Identifier CASTER_PARTICLES = ArsMagicaApi.id("transplace_caster");
 
     @Override
     public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {

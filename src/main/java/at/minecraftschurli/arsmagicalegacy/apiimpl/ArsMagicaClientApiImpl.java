@@ -21,7 +21,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -37,8 +37,8 @@ import java.util.List;
 import java.util.Map;
 
 public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
-    private static final Map<ResourceLocation, OcculusTabRenderer.Factory> OCCULUS_TAB_RENDERERS = new HashMap<>();
-    private static final Map<ResourceLocation, ParticleController.Type> PARTICLE_CONTROLLERS = new HashMap<>();
+    private static final Map<Identifier, OcculusTabRenderer.Factory> OCCULUS_TAB_RENDERERS = new HashMap<>();
+    private static final Map<Identifier, ParticleController.Type> PARTICLE_CONTROLLERS = new HashMap<>();
     private static final Map<Holder<SpellPart>, SpellPartCustomizationScreen.Factory<?, ?>> SPELL_PART_CUSTOMIZATION_SCREENS = new HashMap<>();
 
     @Override
@@ -49,7 +49,7 @@ public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
 
     @Override
     @Nullable
-    protected ParticleController.Type getParticleController(ResourceLocation id) {
+    protected ParticleController.Type getParticleController(Identifier id) {
         return PARTICLE_CONTROLLERS.get(id);
     }
 

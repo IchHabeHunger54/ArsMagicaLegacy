@@ -8,7 +8,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.Optional;
 
@@ -18,7 +18,7 @@ import java.util.Optional;
  * Register {@link ParticleController}s during {@link RegisterParticleControllersEvent}, using the {@link ParticleController.Type} record.
  */
 public interface ParticleController {
-    Codec<ParticleController> CODEC = ResourceLocation.CODEC.comapFlatMap(
+    Codec<ParticleController> CODEC = Identifier.CODEC.comapFlatMap(
         id -> Optional.ofNullable(ArsMagicaClientApi.particleController(id))
             .map(DataResult::success)
             .orElseGet(() -> DataResult.error(() -> "Unknown particle controller: " + id)),
@@ -55,7 +55,7 @@ public interface ParticleController {
     /**
      * @return The registered id of the controller.
      */
-    ResourceLocation id();
+    Identifier id();
 
     /**
      * @return Whether all further controllers are stopped when this controller is run.
@@ -73,6 +73,6 @@ public interface ParticleController {
      * @param id    The id of the controller.
      * @param codec The {@link MapCodec} of the controller.
      */
-    record Type(ResourceLocation id, MapCodec<? extends ParticleController> codec) {
+    record Type(Identifier id, MapCodec<? extends ParticleController> codec) {
     }
 }

@@ -6,8 +6,8 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicAttachment;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.Util;
-import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.util.Util;
+import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -85,6 +85,6 @@ public record Ability(Holder<Affinity> affinity, MinMaxBounds.Doubles bounds, bo
      */
     @SuppressWarnings("DataFlowIssue")
     public static MutableComponent getName(Holder<Ability> holder) {
-        return Component.translatable(Util.makeDescriptionId("ability", holder.getKey().location()));
+        return Component.translatable(Util.makeDescriptionId("ability", holder.getKey().identifier()));
     }
 }

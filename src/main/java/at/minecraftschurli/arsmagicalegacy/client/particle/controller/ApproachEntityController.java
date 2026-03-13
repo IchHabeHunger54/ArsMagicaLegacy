@@ -7,14 +7,14 @@ import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleControlle
 import at.minecraftschurli.arsmagicalegacy.util.AMExtraCodecs;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.phys.EntityHitResult;
 
 public record ApproachEntityController(boolean stopOtherControllers, boolean killOnFinish, double speed, double distance) implements ParticleController {
-    public static final ResourceLocation ID = ArsMagicaApi.id("approach_entity");
+    public static final Identifier ID = ArsMagicaApi.id("approach_entity");
     public static final MapCodec<ApproachEntityController> CODEC = RecordCodecBuilder.mapCodec(inst -> ParticleController.baseFields(inst)
         .and(AMExtraCodecs.POSITIVE_DOUBLE_CODEC.fieldOf("speed").forGetter(ApproachEntityController::speed))
         .and(AMExtraCodecs.POSITIVE_DOUBLE_CODEC.fieldOf("distance").forGetter(ApproachEntityController::distance))
@@ -48,7 +48,7 @@ public record ApproachEntityController(boolean stopOtherControllers, boolean kil
     }
 
     @Override
-    public ResourceLocation id() {
+    public Identifier id() {
         return ID;
     }
 }

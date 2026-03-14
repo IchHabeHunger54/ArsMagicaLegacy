@@ -74,26 +74,26 @@ public class OcculusScreen extends Screen {
             maxPage = 0;
             for (int i = 0; i < list.size(); i++) {
                 final int j = i;
-                buttons.add(addRenderableWidget(new OcculusTabButton(list.get(i), leftPos + 6 + i * OcculusTabButton.SIZE, topPos, $ -> setTab(j))));
+                buttons.add(addRenderableWidget(new OcculusTabButton(list.get(i), leftPos + 6 + i * OcculusTabButton.SIZE, topPos, _ -> setTab(j))));
             }
         } else {
             // we need page buttons
             maxPage = list.size() / 7;
             for (int i = 0; i < list.size(); i++) {
                 final int j = i;
-                buttons.add(addRenderableWidget(new OcculusTabButton(list.get(i), leftPos + 28 + i % 7 * OcculusTabButton.SIZE, topPos, $ -> setTab(j))));
+                buttons.add(addRenderableWidget(new OcculusTabButton(list.get(i), leftPos + 28 + i % 7 * OcculusTabButton.SIZE, topPos, _ -> setTab(j))));
             }
-            nextButton = Button.builder(AMTranslations.OCCULUS_NEXT, $ -> nextPage()).bounds(leftPos + SIZE - 20, topPos, 20, 20).build();
-            prevButton = Button.builder(AMTranslations.OCCULUS_PREV, $ -> prevPage()).bounds(leftPos, topPos, 20, 20).build();
+            nextButton = Button.builder(AMTranslations.OCCULUS_NEXT, _ -> nextPage()).bounds(leftPos + SIZE - 20, topPos, 20, 20).build();
+            prevButton = Button.builder(AMTranslations.OCCULUS_PREV, _ -> prevPage()).bounds(leftPos, topPos, 20, 20).build();
             onPageChange();
         }
         setRenderer(tabs.getFirst());
-        Button button = addRenderableWidget(Button.builder(AMTranslations.OCCULUS_FORGET_ALL, $ -> forgetAll())
+        Button button = addRenderableWidget(Button.builder(AMTranslations.OCCULUS_FORGET_ALL, _ -> forgetAll())
             .bounds(width / 2 - 100, topPos + SIZE + OcculusTabButton.SIZE + 4, 98, 20)
             .tooltip(Tooltip.create(AMTranslations.OCCULUS_FORGET_ALL_TOOLTIP))
             .build());
         button.active = player.getInventory().contains(AMTags.Items.OCCULUS_FORGET_ALL) || player.isCreative();
-        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, $ -> onClose())
+        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, _ -> onClose())
             .bounds(width / 2 + 2, topPos + SIZE + OcculusTabButton.SIZE + 4, 98, 20)
             .build());
     }

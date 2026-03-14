@@ -29,7 +29,7 @@ public class Rift extends SpellComponent.CastEntity {
         int size = (int) modifiers.stream()
             .filter(e -> e.getStats().contains(AMSpells.RANGE_STAT))
             .count() * 9 + 9;
-        player.openMenu(new SimpleMenuProvider((id, inventory, $) -> new RiftMenu(id, inventory, entityId, size), AMTranslations.RIFT), buf -> {
+        player.openMenu(new SimpleMenuProvider((id, inventory, _) -> new RiftMenu(id, inventory, entityId, size), AMTranslations.RIFT), buf -> {
             buf.writeInt(entityId);
             buf.writeInt(size);
         });

@@ -63,9 +63,9 @@ public class SpellRecipeScreen extends Screen {
     @Override
     protected void init() {
         xPos = (width - WIDTH) / 2;
-        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, $ -> onClose()).bounds(width / 2 - 100, 196, lecternPos == null ? 200 : 98, 20).build());
+        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, _ -> onClose()).bounds(width / 2 - 100, 196, lecternPos == null ? 200 : 98, 20).build());
         if (lecternPos != null) {
-            addRenderableWidget(Button.builder(Component.translatable("lectern.take_book"), $ -> {
+            addRenderableWidget(Button.builder(Component.translatable("lectern.take_book"), _ -> {
                 PacketDistributor.sendToServer(new TakeSpellRecipeFromLecternPacket(lecternPos));
                 onClose();
             }).pos(this.width / 2 + 2, 196).size(98, 20).build());

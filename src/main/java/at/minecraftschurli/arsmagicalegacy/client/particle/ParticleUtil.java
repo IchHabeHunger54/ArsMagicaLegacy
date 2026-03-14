@@ -62,7 +62,7 @@ public final class ParticleUtil {
         List<? extends ControlledParticle> list;
         if (ground) {
             list = IntStream.range(0, (int) entity.getDamage())
-                .mapToObj($ -> spawnParticles(FallingStar.GROUND_PARTICLES, position, color, owner, entity, null))
+                .mapToObj(_ -> spawnParticles(FallingStar.GROUND_PARTICLES, position, color, owner, entity, null))
                 .flatMap(List::stream)
                 .toList();
             int lifetime = (int) entity.getRange();

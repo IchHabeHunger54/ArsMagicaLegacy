@@ -27,7 +27,7 @@ public class RuneBagItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         if (player instanceof ServerPlayer serverPlayer) {
-            serverPlayer.openMenu(new SimpleMenuProvider((id, inventory, $) -> new RuneBagMenu(id, inventory, usedHand), Component.empty()), buf -> buf.writeEnum(usedHand));
+            serverPlayer.openMenu(new SimpleMenuProvider((id, inventory, _) -> new RuneBagMenu(id, inventory, usedHand), Component.empty()), buf -> buf.writeEnum(usedHand));
         }
         return InteractionResultHolder.sidedSuccess(player.getItemInHand(usedHand), level.isClientSide());
     }

@@ -36,7 +36,7 @@ public class Damage extends SpellComponent.CastEntity {
     }
 
     public Damage(ResourceKey<DamageType> damageType) {
-        this($ -> damageType);
+        this(_ -> damageType);
     }
 
     @Override

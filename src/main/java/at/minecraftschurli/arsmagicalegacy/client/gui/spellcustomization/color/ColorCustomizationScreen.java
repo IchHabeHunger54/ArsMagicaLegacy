@@ -76,16 +76,16 @@ public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScre
             addRenderableWidget(new ColorButton(buttonX + (i % COLUMNS) * 11, buttonY + (i / COLUMNS) * 11, dyeColor.getTextureDiffuseColor(), this::setColorRgb, DyeItem.byColor(dyeColor).getDescription()));
             i++;
         }
-        addRenderableWidget(Button.builder(AMTranslations.SPELL_CUSTOMIZATION_COLOR_CLEAR, $ -> {
+        addRenderableWidget(Button.builder(AMTranslations.SPELL_CUSTOMIZATION_COLOR_CLEAR, _ -> {
             value = null;
             setValue();
             onClose();
         }).bounds(leftPos - 10, topPos + HEIGHT + 4, 200, 20).build());
-        addRenderableWidget(Button.builder(CommonComponents.GUI_CANCEL, $ -> {
+        addRenderableWidget(Button.builder(CommonComponents.GUI_CANCEL, _ -> {
             value = null;
             onClose();
         }).bounds(leftPos - 10, topPos + HEIGHT + 28, 98, 20).build());
-        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, $ -> onClose()).bounds(leftPos + 92, topPos + HEIGHT + 28, 98, 20).build());
+        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, _ -> onClose()).bounds(leftPos + 92, topPos + HEIGHT + 28, 98, 20).build());
         setColorRgb(value == null ? 0xffffff : value, true);
     }
 

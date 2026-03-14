@@ -43,7 +43,7 @@ public class RecallCustomizationScreen extends AbstractSpellPartCustomizationScr
     protected void init() {
         leftPos = (width - WIDTH) / 2;
         topPos = (height - HEIGHT) / 2;
-        addRenderableWidget(Button.builder(AMTranslations.SPELL_CUSTOMIZATION_RECALL_SET, $ -> {
+        addRenderableWidget(Button.builder(AMTranslations.SPELL_CUSTOMIZATION_RECALL_SET, _ -> {
             LocalPlayer player = AMClientUtil.player();
             value = new GlobalVec3(player.level().dimension(), player.position());
             clearButton.active = true;
@@ -65,7 +65,7 @@ public class RecallCustomizationScreen extends AbstractSpellPartCustomizationScr
             messageTime = MESSAGE_TIME;
         }).bounds(leftPos + 102, topPos + 36, 98, 20).build());
         clearButton.active = value != null;
-        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, $ -> onClose()).bounds(leftPos, topPos + 60, 200, 20).build());
+        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, _ -> onClose()).bounds(leftPos, topPos + 60, 200, 20).build());
     }
 
     @Override

@@ -29,7 +29,7 @@ public class SpellPartButton<T> extends Button {
     private BiConsumer<DataComponentType<T>, T> valueSetter;
 
     private SpellPartButton(int x, int y, Holder<SpellPart> spellPart, TextureAtlasSprite sprite) {
-        super(x, y, SIZE, SIZE, Component.empty(), $ -> {}, DEFAULT_NARRATION);
+        super(x, y, SIZE, SIZE, Component.empty(), _ -> {}, DEFAULT_NARRATION);
         this.spellPart = spellPart;
         this.sprite = sprite;
     }

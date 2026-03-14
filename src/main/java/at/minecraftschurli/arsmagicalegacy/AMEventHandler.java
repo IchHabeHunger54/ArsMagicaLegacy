@@ -239,10 +239,10 @@ final class AMEventHandler {
         event.registerItem(Capabilities.ItemHandler.ITEM, RuneBagItem::getItemHandler, AMItems.RUNE_BAG);
         event.registerItem(Capabilities.ItemHandler.ITEM, SpellBookItem::getItemHandler, AMItems.SPELL_BOOK);
         event.registerBlock(Capabilities.ItemHandler.BLOCK, ObeliskBlock::getItemHandler, AMBlocks.OBELISK.get());
-        event.registerBlockEntity(AMCapabilities.BLOCK_ETHERIUM, AMBlockEntities.ALTAR_CORE.get(), (blockEntity, $) -> blockEntity);
-        event.registerBlockEntity(AMCapabilities.BLOCK_ETHERIUM, AMBlockEntities.OBELISK.get(), (blockEntity, $) -> blockEntity);
-        event.registerBlockEntity(AMCapabilities.BLOCK_ETHERIUM, AMBlockEntities.CELESTIAL_PRISM.get(), (blockEntity, $) -> blockEntity);
-        event.registerBlockEntity(AMCapabilities.BLOCK_ETHERIUM, AMBlockEntities.BLACK_AUREM.get(), (blockEntity, $) -> blockEntity);
+        event.registerBlockEntity(AMCapabilities.BLOCK_ETHERIUM, AMBlockEntities.ALTAR_CORE.get(), (blockEntity, _) -> blockEntity);
+        event.registerBlockEntity(AMCapabilities.BLOCK_ETHERIUM, AMBlockEntities.OBELISK.get(), (blockEntity, _) -> blockEntity);
+        event.registerBlockEntity(AMCapabilities.BLOCK_ETHERIUM, AMBlockEntities.CELESTIAL_PRISM.get(), (blockEntity, _) -> blockEntity);
+        event.registerBlockEntity(AMCapabilities.BLOCK_ETHERIUM, AMBlockEntities.BLACK_AUREM.get(), (blockEntity, _) -> blockEntity);
     }
 
     @SubscribeEvent

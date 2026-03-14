@@ -56,7 +56,7 @@ public class SpellCustomizationScreen extends Screen {
         for (int i = 0; i < spell.grammar().parts().size(); i++) {
             addRenderableWidget(SpellPartButton.create(leftPos + i * SpellPartButton.SIZE + 22, topPos + 138, AMRegistries.SPELL_PARTS.wrapAsHolder(spell.grammar().parts().get(i)), this, -1));
         }
-        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, $ -> onClose()).bounds(leftPos, topPos + 158, 180, 20).build());
+        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, _ -> onClose()).bounds(leftPos, topPos + 158, 180, 20).build());
     }
 
     @Override

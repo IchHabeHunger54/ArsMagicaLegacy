@@ -28,7 +28,7 @@ public record FrostWalkerAbilityEffect(int min, int max, ReplaceDisk effect) imp
     @Override
     public void tick(Player player, Holder<Ability> ability) {
         if (player.level() instanceof ServerLevel serverLevel && player.onGround()) {
-            effect.apply(serverLevel, (int) ArsMagicaApi.abilityHelper().scaleToDepth(player, ability.value(), min, max), new EnchantedItemInUse(ItemStack.EMPTY, null, null, $ -> {}), player, player.position());
+            effect.apply(serverLevel, (int) ArsMagicaApi.abilityHelper().scaleToDepth(player, ability.value(), min, max), new EnchantedItemInUse(ItemStack.EMPTY, null, null, _ -> {}), player, player.position());
         }
     }
 }

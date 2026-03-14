@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.properties.RailShape;
 
 public class InlayBlock extends BaseRailBlock {
     private static final MapCodec<InlayBlock> CODEC = simpleCodec(InlayBlock::new);
-    public static final EnumProperty<RailShape> SHAPE = EnumProperty.create("shape", RailShape.class, e -> !e.isAscending());
+    public static final EnumProperty<RailShape> SHAPE = EnumProperty.create("shape", RailShape.class, e -> !e.isSlope());
 
     public InlayBlock(Properties properties) {
         super(false, properties);

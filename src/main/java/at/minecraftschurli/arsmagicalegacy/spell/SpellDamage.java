@@ -11,6 +11,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
@@ -44,6 +45,7 @@ public record SpellDamage(Map<Integer, Map<ResourceKey<DamageType>, Pair<Float, 
     }
 
     public void apply(Level level, @Nullable LivingEntity caster, @Nullable Entity directEntity) {
+        if (!(level instanceof ServerLevel serverLevel)) return;
         Registry<DamageType> damageTypes = level.registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE);
         for (Map.Entry<Integer, Map<ResourceKey<DamageType>, Pair<Float, ItemStack>>> damageEntry : damage.entrySet()) {
             Entity entity = level.getEntity(damageEntry.getKey());
@@ -51,14 +53,14 @@ public record SpellDamage(Map<Integer, Map<ResourceKey<DamageType>, Pair<Float, 
             int invulnerableTime = entity.invulnerableTime;
             boolean hurtMarked = entity.hurtMarked;
             for (Map.Entry<ResourceKey<DamageType>, Pair<Float, ItemStack>> entry : damageEntry.getValue().entrySet()) {
-                Optional<? extends Holder<DamageType>> holder = damageTypes.getHolder(entry.getKey());
+                Optional<? extends Holder<DamageType>> holder = damageTypes.get(entry.getKey());
                 if (holder.isEmpty()) continue;
                 Pair<Float, ItemStack> value = entry.getValue();
                 if (caster != null) {
                     ItemStack oldStack = caster.getMainHandItem();
                     caster.setItemInHand(InteractionHand.MAIN_HAND, value.getSecond());
                     DamageSource source = new DamageSourceWithItemStack(holder.get(), directEntity, caster, value.getSecond());
-                    if (entity.isInvulnerableTo(source)) {
+                    if (entity instanceof LivingEntity living && living.isInvulnerableTo(serverLevel, source)) {
                         caster.setItemInHand(InteractionHand.MAIN_HAND, oldStack);
                         continue;
                     }
@@ -66,7 +68,7 @@ public record SpellDamage(Map<Integer, Map<ResourceKey<DamageType>, Pair<Float, 
                     caster.setItemInHand(InteractionHand.MAIN_HAND, oldStack);
                 } else {
                     DamageSource source = new DamageSourceWithItemStack(holder.get(), directEntity, caster, value.getSecond());
-                    if (entity.isInvulnerableTo(source)) continue;
+                    if (entity instanceof LivingEntity living && living.isInvulnerableTo(serverLevel, source)) continue;
                     entity.hurt(source, value.getFirst());
                 }
                 invulnerableTime = Math.max(invulnerableTime, entity.invulnerableTime);

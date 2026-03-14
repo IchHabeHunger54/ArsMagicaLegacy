@@ -12,15 +12,15 @@ public class FuryEffect extends AMMobEffect {
 
     @Override
     public void startEffect(LivingEntity entity, MobEffectInstance effect) {
-        entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, effect.getDuration(), effect.getAmplifier()));
-        entity.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, effect.getDuration(), effect.getAmplifier()));
+        entity.addEffect(new MobEffectInstance(MobEffects.STRENGTH, effect.getDuration(), effect.getAmplifier()));
+        entity.addEffect(new MobEffectInstance(MobEffects.HASTE, effect.getDuration(), effect.getAmplifier()));
         entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, effect.getDuration(), effect.getAmplifier()));
-        entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, effect.getDuration(), effect.getAmplifier()));
+        entity.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, effect.getDuration(), effect.getAmplifier()));
     }
 
     @Override
     public void stopEffect(LivingEntity entity, MobEffectInstance effect) {
-        entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, effect.getAmplifier()));
+        entity.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 200, effect.getAmplifier()));
         entity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 200, effect.getAmplifier()));
     }
 }

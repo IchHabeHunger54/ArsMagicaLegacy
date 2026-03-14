@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 public record IngredientRitualRequirement(Ingredient ingredient, double radius) implements RitualRequirement {
     public static final MapCodec<IngredientRitualRequirement> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-        Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter(IngredientRitualRequirement::ingredient),
+        Ingredient.CODEC.fieldOf("ingredient").forGetter(IngredientRitualRequirement::ingredient),
         Codec.DOUBLE.fieldOf("radius").forGetter(IngredientRitualRequirement::radius)
     ).apply(inst, IngredientRitualRequirement::new));
 

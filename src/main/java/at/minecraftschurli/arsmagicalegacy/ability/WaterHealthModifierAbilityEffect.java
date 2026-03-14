@@ -31,7 +31,7 @@ public record WaterHealthModifierAbilityEffect(double min, double max) implement
         if (attribute == null) return;
         Identifier location = ability.getKey().identifier();
         attribute.removeModifier(location);
-        if (!player.isInWaterOrBubble()) return;
+        if (!player.isInWater()) return;
         attribute.addTransientModifier(new AttributeModifier(location, ArsMagicaApi.abilityHelper().scaleToDepth(player, ability.value(), min, max), AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
     }
 }

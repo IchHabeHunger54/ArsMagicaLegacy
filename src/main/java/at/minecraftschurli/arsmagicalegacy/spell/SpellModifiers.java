@@ -17,22 +17,22 @@ public final class SpellModifiers {
 
     public static Map<SpellStat, SpellStatModifier> lunarStatModifiers() {
         return Map.of(
-            AMSpells.DAMAGE_STAT, (base, modified, context) -> modified + lunarMultiplier(context),
-            AMSpells.DURATION_STAT, (base, modified, context) -> modified + modified * lunarMultiplier(context),
-            AMSpells.HEALING_STAT, (base, modified, context) -> modified + modified * lunarMultiplier(context),
-            AMSpells.PIERCING_STAT, (base, modified, context) -> modified + lunarMultiplier(context),
-            AMSpells.RANGE_STAT, (base, modified, context) -> modified + modified * lunarMultiplier(context),
-            AMSpells.SPEED_STAT, (base, modified, context) -> modified + modified * lunarMultiplier(context));
+            AMSpells.DAMAGE_STAT, (_, modified, context) -> modified + lunarMultiplier(context),
+            AMSpells.DURATION_STAT, (_, modified, context) -> modified + modified * lunarMultiplier(context),
+            AMSpells.HEALING_STAT, (_, modified, context) -> modified + modified * lunarMultiplier(context),
+            AMSpells.PIERCING_STAT, (_, modified, context) -> modified + lunarMultiplier(context),
+            AMSpells.RANGE_STAT, (_, modified, context) -> modified + modified * lunarMultiplier(context),
+            AMSpells.SPEED_STAT, (_, modified, context) -> modified + modified * lunarMultiplier(context));
     }
 
     public static Map<SpellStat, SpellStatModifier> solarStatModifiers() {
         return Map.of(
-            AMSpells.DAMAGE_STAT, (base, modified, context) -> modified + solarMultiplier(context),
-            AMSpells.DURATION_STAT, (base, modified, context) -> modified + modified * solarMultiplier(context),
-            AMSpells.HEALING_STAT, (base, modified, context) -> modified + modified * solarMultiplier(context),
-            AMSpells.PIERCING_STAT, (base, modified, context) -> modified + solarMultiplier(context),
-            AMSpells.RANGE_STAT, (base, modified, context) -> modified + modified * solarMultiplier(context),
-            AMSpells.SPEED_STAT, (base, modified, context) -> modified + modified * solarMultiplier(context));
+            AMSpells.DAMAGE_STAT, (_, modified, context) -> modified + solarMultiplier(context),
+            AMSpells.DURATION_STAT, (_, modified, context) -> modified + modified * solarMultiplier(context),
+            AMSpells.HEALING_STAT, (_, modified, context) -> modified + modified * solarMultiplier(context),
+            AMSpells.PIERCING_STAT, (_, modified, context) -> modified + solarMultiplier(context),
+            AMSpells.RANGE_STAT, (_, modified, context) -> modified + modified * solarMultiplier(context),
+            AMSpells.SPEED_STAT, (_, modified, context) -> modified + modified * solarMultiplier(context));
     }
 
     private static double lunarMultiplier(SpellCastContext context) {

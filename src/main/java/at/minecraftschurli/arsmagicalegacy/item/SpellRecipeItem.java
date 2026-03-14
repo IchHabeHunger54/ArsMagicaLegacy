@@ -47,15 +47,15 @@ public class SpellRecipeItem extends DataComponentNamedItem<Spell> {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
         ItemStack stack = player.getItemInHand(usedHand);
         if (!ArsMagicaApi.magicHelper().knowsMagic(player)) {
-            player.displayClientMessage(AMTranslations.PREVENT_ITEM, false);
-            return InteractionResultHolder.consume(stack);
+            player.sendOverlayMessage(AMTranslations.PREVENT_ITEM);
+            return InteractionResult.CONSUME.heldItemTransformedTo(stack);
         }
         if (level.isClientSide()) {
             AMClientUtil.setSpellRecipeScreen(stack, true, 0, null);
         }
-        return InteractionResultHolder.success(stack);
+        return InteractionResult.SUCCESS.heldItemTransformedTo(stack);
     }
 }

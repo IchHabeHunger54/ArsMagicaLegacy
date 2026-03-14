@@ -7,10 +7,10 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
-import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
+import net.minecraft.util.Util;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -26,13 +26,13 @@ public class AffinityTomeItem extends DataComponentNamedItem<Holder<Affinity>> {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
         ItemStack stack = player.getItemInHand(usedHand);
         if (!stack.has(AMDataComponents.AFFINITY)) return super.use(level, player, usedHand);
         MagicHelper helper = ArsMagicaApi.magicHelper();
         if (!helper.knowsMagic(player)) {
-            player.displayClientMessage(AMTranslations.PREVENT_ITEM, true);
-            return InteractionResultHolder.fail(stack);
+            player.sendOverlayMessage(AMTranslations.PREVENT_ITEM);
+            return InteractionResult.FAIL;
         }
         Holder<Affinity> affinity = stack.get(AMDataComponents.AFFINITY);
         double shift = AMServerConfig.AFFINITY_TOME_SHIFT.get();
@@ -45,6 +45,6 @@ public class AffinityTomeItem extends DataComponentNamedItem<Holder<Affinity>> {
         if (!player.isCreative()) {
             stack.shrink(1);
         }
-        return InteractionResultHolder.success(stack);
+        return InteractionResult.SUCCESS.heldItemTransformedTo(stack);
     }
 }

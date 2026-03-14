@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.effect;
 
 import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,7 +13,7 @@ public class IlluminationEffect extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
+    public boolean applyEffectTick(ServerLevel level, LivingEntity livingEntity, int amplifier) {
         if (livingEntity.level().getBrightness(LightLayer.BLOCK, livingEntity.blockPosition()) == 0) {
             livingEntity.level().setBlockAndUpdate(livingEntity.blockPosition(), AMBlocks.SPELL_LIGHT.get().defaultBlockState());
         }

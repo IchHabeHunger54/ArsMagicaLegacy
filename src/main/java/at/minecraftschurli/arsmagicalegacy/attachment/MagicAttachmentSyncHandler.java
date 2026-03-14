@@ -16,9 +16,10 @@ public class MagicAttachmentSyncHandler implements AttachmentSyncHandler<MagicAt
         MagicAttachment.STREAM_CODEC.encode(buf, attachment);
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Override
     public MagicAttachment read(IAttachmentHolder holder, RegistryFriendlyByteBuf buf, @Nullable MagicAttachment previousValue) {
-        if (FMLEnvironment.dist.isClient() && ModList.get().isLoaded("jei")) {
+        if (FMLEnvironment.getDist().isClient() && ModList.get().isLoaded("jei")) {
             AMClientUtil.mc().submit(HiddenSkills::update);
         }
         return MagicAttachment.STREAM_CODEC.decode(buf);

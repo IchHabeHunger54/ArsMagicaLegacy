@@ -5,6 +5,7 @@ import at.minecraftschurli.arsmagicalegacy.menu.container.ItemStackContainer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
@@ -25,11 +26,11 @@ public class RuneBagItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         if (player instanceof ServerPlayer serverPlayer) {
-            serverPlayer.openMenu(new SimpleMenuProvider((id, inventory, _) -> new RuneBagMenu(id, inventory, usedHand), Component.empty()), buf -> buf.writeEnum(usedHand));
+            serverPlayer.openMenu(new SimpleMenuProvider((id, inventory, _) -> new RuneBagMenu(id, inventory, hand), Component.empty()), buf -> buf.writeEnum(hand));
         }
-        return InteractionResultHolder.sidedSuccess(player.getItemInHand(usedHand), level.isClientSide());
+        return InteractionResult.SUCCESS.heldItemTransformedTo(player.getItemInHand(hand));
     }
 
     @Override
@@ -37,6 +38,7 @@ public class RuneBagItem extends Item {
         return !ItemStack.isSameItem(oldStack, newStack);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean canFitInsideContainerItems() {
         return false;

@@ -79,13 +79,13 @@ public record TemporalAnchorAttachment(
         entity.removeAllEffects();
         mobEffects.forEach(entity::addEffect);
         if (entity instanceof ServerPlayer player) {
-            player.teleportTo(player.serverLevel(), position.x, position.y, position.z, Set.of(), yaw, pitch);
+            player.teleportTo(player.level(), position.x, position.y, position.z, Set.of(), yaw, pitch, true);
             FoodData foodData = new FoodData();
             foodData.readAdditionalSaveData(food);
             player.foodData = foodData;
             magic.ifPresent(data -> player.setData(AMAttachments.MAGIC, data));
         } else {
-            entity.moveTo(position.x, position.y, position.z, yaw, pitch);
+            entity.snapTo(position.x, position.y, position.z, yaw, pitch);
             entity.setYHeadRot(headYaw);
         }
     }

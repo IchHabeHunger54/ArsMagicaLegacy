@@ -24,6 +24,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.Container;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.ContainerUser;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -135,12 +136,12 @@ public class InscriptionTableBlockEntity extends AMBlockEntity<InscriptionTableB
     }
 
     @Override
-    public void startOpen(Player player) {
+    public void startOpen(ContainerUser containerUser) {
         open = true;
     }
 
     @Override
-    public void stopOpen(Player player) {
+    public void stopOpen(ContainerUser containerUser) {
         open = false;
     }
 
@@ -177,8 +178,11 @@ public class InscriptionTableBlockEntity extends AMBlockEntity<InscriptionTableB
             return skills.stream()
                 .map(Holder::getKey)
                 .filter(Objects::nonNull)
-                .map(ResourceKey::location)
+                .map(ResourceKey::identifier)
                 .map(AMRegistries.SPELL_PARTS::get)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .map(Holder::value)
                 .toList();
         }
 
@@ -186,7 +190,7 @@ public class InscriptionTableBlockEntity extends AMBlockEntity<InscriptionTableB
             return parts.stream()
                 .map(AMRegistries.SPELL_PARTS::getKey)
                 .filter(Objects::nonNull)
-                .map(AMRegistries.skills(registryAccess)::getHolder)
+                .map(AMRegistries.skills(registryAccess)::get)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .map(e -> (Holder<Skill>) e)

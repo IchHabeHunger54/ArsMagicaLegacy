@@ -22,11 +22,11 @@ import at.minecraftschurli.arsmagicalegacy.ritual.effect.SetBlockRitualEffect;
 import at.minecraftschurli.arsmagicalegacy.ritual.effect.SpawnEntityRitualEffect;
 import at.minecraftschurli.arsmagicalegacy.ritual.requirement.BiomeTagRitualRequirement;
 import at.minecraftschurli.arsmagicalegacy.ritual.requirement.DimensionRitualRequirement;
+import at.minecraftschurli.arsmagicalegacy.ritual.requirement.EnvironmentAttributeRitualRequirement;
 import at.minecraftschurli.arsmagicalegacy.ritual.requirement.HeightRitualRequirement;
 import at.minecraftschurli.arsmagicalegacy.ritual.requirement.IngredientRitualRequirement;
 import at.minecraftschurli.arsmagicalegacy.ritual.requirement.MoonPhaseRitualRequirement;
 import at.minecraftschurli.arsmagicalegacy.ritual.requirement.StructureRitualRequirement;
-import at.minecraftschurli.arsmagicalegacy.ritual.requirement.UltrawarmRitualRequirement;
 import at.minecraftschurli.arsmagicalegacy.ritual.trigger.DroppedItemRitualTrigger;
 import at.minecraftschurli.arsmagicalegacy.ritual.trigger.GameEventRitualTrigger;
 import at.minecraftschurli.arsmagicalegacy.ritual.trigger.KillEntityRitualTrigger;
@@ -41,6 +41,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -96,7 +97,7 @@ public final class AMRitualProvider extends RitualProvider {
             .addRequirement(new BiomeTagRitualRequirement(AMTags.Biomes.CAN_SUMMON_WATER_GUARDIAN));
         spawn("fire_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.FIRE_GUARDIAN_SPAWN_RITUAL,
             new DroppedItemRitualTrigger(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.WATER), AMItems.AFFINITY_ESSENCE)))
-            .addRequirement(new UltrawarmRitualRequirement());
+            .addRequirement(new EnvironmentAttributeRitualRequirement<>(EnvironmentAttributes.WATER_EVAPORATES, true));
         spawn("earth_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.EARTH_GUARDIAN_SPAWN_RITUAL,
             new DroppedItemRitualTrigger(Ingredient.of(Tags.Items.GEMS_EMERALD), Ingredient.of(AMTags.Items.GEMS_CHIMERITE), Ingredient.of(AMTags.Items.GEMS_TOPAZ)))
             .addRequirement(new DimensionRitualRequirement(Level.OVERWORLD));

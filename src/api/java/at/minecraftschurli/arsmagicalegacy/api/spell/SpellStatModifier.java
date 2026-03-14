@@ -5,7 +5,7 @@ package at.minecraftschurli.arsmagicalegacy.api.spell;
  */
 @FunctionalInterface
 public interface SpellStatModifier {
-    SpellStatModifier NOOP = (base, modified, context) -> modified;
+    SpellStatModifier NOOP = (_, modified, _) -> modified;
 
     /**
      * Calculates a modified value.
@@ -22,7 +22,7 @@ public interface SpellStatModifier {
      * @return A spell stat modifier that adds the given value to the modified value.
      */
     static SpellStatModifier add(double value) {
-        return (base, modified, context) -> modified + value;
+        return (_, modified, _) -> modified + value;
     }
 
     /**
@@ -30,7 +30,7 @@ public interface SpellStatModifier {
      * @return A spell stat modifier that multiplies the given value with the modified value.
      */
     static SpellStatModifier multiply(double value) {
-        return (base, modified, context) -> modified * value;
+        return (_, modified, _) -> modified * value;
     }
 
     /**
@@ -38,7 +38,7 @@ public interface SpellStatModifier {
      * @return A spell stat modifier that adds the base value, multiplied with the given value, to the modified value.
      */
     static SpellStatModifier addMultipliedBase(double value) {
-        return (base, modified, context) -> modified + base * value;
+        return (base, modified, _) -> modified + base * value;
     }
 
     /**
@@ -46,6 +46,6 @@ public interface SpellStatModifier {
      * @return A spell stat modifier that adds the modified value, multiplied with the given value, to the modified value.
      */
     static SpellStatModifier addMultipliedTotal(double value) {
-        return (base, modified, context) -> modified + modified * value;
+        return (_, modified, _) -> modified + modified * value;
     }
 }

@@ -47,7 +47,7 @@ public class RuneBagMenu extends AbstractContainerMenu implements QuickMoveStack
             addSlot(new PlacePredicateSlot(container, i, 8 + i % 8 * 18, 8 + i / 8 * 18, stack -> stack.is(RUNES.get(j))));
         }
         for (int i = 0; i < 9; i++) {
-            addSlot(i == inventory.selected ? new ViewSlot(inventory, i, 8 + i * 18, 126) : new Slot(inventory, i, 8 + i * 18, 126));
+            addSlot(i == inventory.getSelectedSlot() ? new ViewSlot(inventory, i, 8 + i * 18, 126) : new Slot(inventory, i, 8 + i * 18, 126));
         }
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {

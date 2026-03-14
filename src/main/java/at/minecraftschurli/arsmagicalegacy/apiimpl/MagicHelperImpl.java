@@ -116,7 +116,7 @@ final class MagicHelperImpl implements MagicHelper {
         ManaHelper manaHelper = ArsMagicaApi.manaHelper();
         manaHelper.setMana(player, manaHelper.getMaxMana(player));
         AMRegistries.skillPoints(player.registryAccess())
-            .getHolder(AMMagic.BLUE_POINT)
+            .get(AMMagic.BLUE_POINT)
             .ifPresent(skillPoint -> addSkillPoint(player, skillPoint, AMServerConfig.EXTRA_SKILL_POINTS.get()));
     }
 

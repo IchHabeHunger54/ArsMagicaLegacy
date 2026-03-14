@@ -14,6 +14,8 @@ import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public abstract class AMBlockEntity<T> extends BlockEntity {
     private static final String DATA_KEY = ArsMagicaApi.id("data").toString();
@@ -29,15 +31,15 @@ public abstract class AMBlockEntity<T> extends BlockEntity {
     public abstract T toData();
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        fromData(codec.decode(RegistryOps.create(NbtOps.INSTANCE, registries), tag.get(DATA_KEY)).map(Pair::getFirst).getOrThrow());
+    protected void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        input.read(DATA_KEY, codec).ifPresent(this::fromData);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        tag.put(DATA_KEY, codec.encodeStart(RegistryOps.create(NbtOps.INSTANCE, registries), toData()).getOrThrow());
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        output.store(DATA_KEY, codec, toData());
     }
 
     @Override

@@ -61,6 +61,6 @@ public class WizardsChalkItem extends BlockItem {
         level.playSound(player, pos, getPlaceSound(oldState, level, pos, player), SoundSource.BLOCKS, (soundtype.getVolume() + 1) / 2f, soundtype.getPitch() * 0.8f);
         level.gameEvent(GameEvent.BLOCK_PLACE, pos, GameEvent.Context.of(player, oldState));
         stack.hurtAndBreak(1, player, context.getHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
-        return InteractionResult.sidedSuccess(level.isClientSide);
+        return InteractionResult.SUCCESS.heldItemTransformedTo(stack);
     }
 }

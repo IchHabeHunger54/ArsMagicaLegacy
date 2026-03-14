@@ -41,6 +41,7 @@ import com.google.common.collect.Sets;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
@@ -238,7 +239,7 @@ final class SpellHelperImpl implements SpellHelper {
     @Override
     public List<SpellIngredient> getRecipe(Spell spell) {
         List<SpellIngredient> list = new ArrayList<>();
-        list.add(new ItemSpellIngredient(Ingredient.of(AMTags.Items.SPELLCRAFTING_START), 1));
+        list.add(new ItemSpellIngredient(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(AMTags.Items.SPELLCRAFTING_START)), 1));
         spell.shapeGroups()
             .stream()
             .map(SpellShapeGroup::parts)
@@ -252,7 +253,7 @@ final class SpellHelperImpl implements SpellHelper {
             .map(SpellPart::getData)
             .map(SpellPartData::recipe)
             .forEach(list::addAll);
-        list.add(new ItemSpellIngredient(Ingredient.of(AMTags.Items.SPELLCRAFTING_END), 1));
+        list.add(new ItemSpellIngredient(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(AMTags.Items.SPELLCRAFTING_END)), 1));
         return list;
     }
 

@@ -13,6 +13,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -56,15 +58,15 @@ public class CelestialPrismBlockEntity extends EtheriumGeneratorBlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        time = tag.getInt(TIME_KEY);
+    protected void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        time = input.getIntOr(TIME_KEY, 0);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        tag.putInt(TIME_KEY, time);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        output.putInt(TIME_KEY, time);
     }
 
     @Override
@@ -75,6 +77,6 @@ public class CelestialPrismBlockEntity extends EtheriumGeneratorBlockEntity {
 
     @Override
     public int getOutlineColor(Level level, BlockPos pos, BlockState state) {
-        return AMRegistries.etheriumTypes(level.registryAccess()).getOrThrow(AMEtheriumTypes.LIGHT).color();
+        return AMRegistries.etheriumTypes(level.registryAccess()).getOrThrow(AMEtheriumTypes.LIGHT).value().color();
     }
 }

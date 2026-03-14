@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.entity;
 
 import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -19,8 +20,10 @@ public class ManaCreeper extends Creeper {
     @Override
     protected void explodeCreeper() {
         super.explodeCreeper();
-        ManaVortex entity = AMEntities.MANA_VORTEX.get().create(level());
-        entity.moveTo(position());
-        level().addFreshEntity(entity);
+        ManaVortex entity = AMEntities.MANA_VORTEX.get().create(level(), EntitySpawnReason.MOB_SUMMONED);
+        if (entity != null) {
+            entity.snapTo(position());
+            level().addFreshEntity(entity);
+        }
     }
 }

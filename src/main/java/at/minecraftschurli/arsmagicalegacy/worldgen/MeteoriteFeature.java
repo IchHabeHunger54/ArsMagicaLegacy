@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.worldgen;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
@@ -25,7 +26,7 @@ public class MeteoriteFeature extends Feature<MeteoriteFeature.Configuration> {
         while (origin.getY() > level.getMinY() + config.height()) {
             if (!level.isEmptyBlock(origin.below())) {
                 BlockState state = level.getBlockState(origin.below());
-                if (isDirt(state) || isStone(state)) break;
+                if (state.is(BlockTags.DIRT) || state.is(BlockTags.BASE_STONE_OVERWORLD)) break;
             }
             origin = origin.below();
         }

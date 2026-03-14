@@ -36,7 +36,7 @@ public class SpellBookMenu extends AbstractContainerMenu implements QuickMoveSta
             }
         }
         for (int i = 0; i < 9; i++) {
-            addSlot(i == inventory.selected ? new ViewSlot(inventory, i, 48 + i * 18, 229) : new Slot(inventory, i, 48 + i * 18, 229));
+            addSlot(i == inventory.getSelectedSlot() ? new ViewSlot(inventory, i, 48 + i * 18, 229) : new Slot(inventory, i, 48 + i * 18, 229));
         }
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {

@@ -14,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -33,27 +34,27 @@ public class SpellItem extends DataComponentNamedItem<Spell> {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
         ItemStack stack = player.getItemInHand(usedHand);
         Spell spell = stack.get(AMDataComponents.SPELL);
-        if (spell == null) return InteractionResultHolder.fail(stack);
+        if (spell == null) return InteractionResult.FAIL;
         if (spell.name().isEmpty() || spell.icon().isEmpty()) {
             if (level.isClientSide()) {
                 AMClientUtil.setSpellCustomizationScreen(spell, usedHand);
             }
-            return InteractionResultHolder.consume(stack);
+            return InteractionResult.CONSUME.heldItemTransformedTo(stack);
         }
         if (spell.isContinuous()) {
             player.startUsingItem(usedHand);
-            return InteractionResultHolder.consume(stack);
+            return InteractionResult.CONSUME.heldItemTransformedTo(stack);
         }
         SpellCastResult result = ArsMagicaApi.spellHelper().cast(spell, level, player, true, true);
         if (result.isSuccess()) {
             onSuccess(level, player, stack, result.getSpell());
-            return InteractionResultHolder.success(stack);
+            return InteractionResult.SUCCESS.heldItemTransformedTo(stack);
         } else {
             onFailure(player, result.getMessage());
-            return InteractionResultHolder.fail(stack);
+            return InteractionResult.FAIL;
         }
     }
 
@@ -81,7 +82,7 @@ public class SpellItem extends DataComponentNamedItem<Spell> {
     }
 
     @Override
-    public boolean canAttackBlock(BlockState state, Level level, BlockPos pos, Player player) {
+    public boolean canDestroyBlock(ItemStack itemStack, BlockState state, Level level, BlockPos pos, LivingEntity user) {
         return false;
     }
 
@@ -100,7 +101,7 @@ public class SpellItem extends DataComponentNamedItem<Spell> {
 
     private void onFailure(Player player, @Nullable Component message) {
         if (message != null) {
-            player.displayClientMessage(message, true);
+            player.sendOverlayMessage(message);
         }
     }
 }

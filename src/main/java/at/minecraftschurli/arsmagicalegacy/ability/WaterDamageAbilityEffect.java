@@ -23,7 +23,7 @@ public record WaterDamageAbilityEffect(double min, double max) implements Abilit
 
     @Override
     public void tick(Player player, Holder<Ability> ability) {
-        if (player.tickCount % 20 == 0 && player.isInWaterRainOrBubble() && player.getHealth() / player.getMaxHealth() > 1 - ArsMagicaApi.abilityHelper().scaleToDepth(player, ability.value(), min, max)) {
+        if (player.tickCount % 20 == 0 && player.isInWaterOrRain() && player.getHealth() / player.getMaxHealth() > 1 - ArsMagicaApi.abilityHelper().scaleToDepth(player, ability.value(), min, max)) {
             player.hurt(new DamageSource(player.damageSources().drown().typeHolder()), 1);
         }
     }

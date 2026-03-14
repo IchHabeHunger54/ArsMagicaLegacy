@@ -15,6 +15,8 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.entity.EntityTypeTest;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -41,7 +43,7 @@ public class BlackAuremBlockEntity extends EtheriumGeneratorBlockEntity {
         if (time <= 0) {
             time = 6 - getTier(level, pos);
             Vec3 vec3 = Vec3.atBottomCenterOf(pos);
-            List<Mob> mobs = level.getEntities(EntityTypeTest.forClass(Mob.class), new AABB(vec3.add(-2, 0, -2), vec3.add(2, 4, 2)), e -> !e.getType().is(AMTags.EntityTypes.BLACK_AUREM_IMMUNE));
+            List<Mob> mobs = level.getEntities(EntityTypeTest.forClass(Mob.class), new AABB(vec3.add(-2, 0, -2), vec3.add(2, 4, 2)), e -> !e.is(AMTags.EntityTypes.BLACK_AUREM_IMMUNE));
             mobs.sort(Comparator.comparingDouble(e -> e.distanceToSqr(vec3)));
             for (Mob mob : mobs) {
                 if (mob.isAlive() && !mob.isInvertedHealAndHarm() && mob.hurt(level.damageSources().magic(), 1)) {
@@ -68,15 +70,15 @@ public class BlackAuremBlockEntity extends EtheriumGeneratorBlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        time = tag.getInt(TIME_KEY);
+    protected void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        time = input.getIntOr(TIME_KEY, 0);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        tag.putInt(TIME_KEY, time);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        output.putInt(TIME_KEY, time);
     }
 
     @Override
@@ -86,6 +88,6 @@ public class BlackAuremBlockEntity extends EtheriumGeneratorBlockEntity {
 
     @Override
     public int getOutlineColor(Level level, BlockPos pos, BlockState state) {
-        return AMRegistries.etheriumTypes(level.registryAccess()).getOrThrow(AMEtheriumTypes.DARK).color();
+        return AMRegistries.etheriumTypes(level.registryAccess()).getOrThrow(AMEtheriumTypes.DARK).value().color();
     }
 }

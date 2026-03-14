@@ -21,7 +21,7 @@ import java.util.List;
 
 public record DroppedItemRitualTrigger(List<Ingredient> ingredients, double radius, int checkInterval) implements RitualTrigger<ItemEntity> {
     public static final MapCodec<DroppedItemRitualTrigger> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-        Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").forGetter(DroppedItemRitualTrigger::ingredients),
+        Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(DroppedItemRitualTrigger::ingredients),
         AMExtraCodecs.POSITIVE_DOUBLE_CODEC.optionalFieldOf("radius", 1.).forGetter(DroppedItemRitualTrigger::radius),
         ExtraCodecs.POSITIVE_INT.optionalFieldOf("check_interval", 20).forGetter(DroppedItemRitualTrigger::checkInterval)
     ).apply(inst, DroppedItemRitualTrigger::new));

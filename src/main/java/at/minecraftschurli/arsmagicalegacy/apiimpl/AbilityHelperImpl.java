@@ -47,7 +47,7 @@ public final class AbilityHelperImpl implements AbilityHelper {
                     : newAbilities.size() == 1 ? AMTranslations.ABILITY_INTO_SINGLE_OUT_OF_MULTIPLE_KEY
                     : AMTranslations.ABILITY_INTO_MULTIPLE_OUT_OF_MULTIPLE_KEY, joinAbilities(newAbilities), joinAbilities(oldAbilities));
             }
-            player.displayClientMessage(message, true);
+            player.sendOverlayMessage(message);
         }
         oldSet.forEach(holder -> holder.value().effects().forEach(effect -> effect.shiftOutOf(player, holder)));
         newSet.forEach(holder -> holder.value().effects().forEach(effect -> effect.shiftInto(player, holder)));

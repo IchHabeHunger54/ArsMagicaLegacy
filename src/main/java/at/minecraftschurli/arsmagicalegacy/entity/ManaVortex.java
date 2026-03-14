@@ -16,6 +16,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class ManaVortex extends Entity {
     public static final Identifier PARTICLES = ArsMagicaApi.id("mana_vortex");
@@ -34,18 +36,17 @@ public class ManaVortex extends Entity {
     }
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag compound) {
-        CompoundTag tag = compound.getCompound(ArsMagicaApi.MOD_ID);
-        entityData.set(DURATION, tag.getInt("duration"));
-        entityData.set(MANA, tag.getFloat("mana"));
+    protected void readAdditionalSaveData(ValueInput input) {
+        ValueInput child = input.childOrEmpty(ArsMagicaApi.MOD_ID);
+        entityData.set(DURATION, child.getIntOr("duration", 50));
+        entityData.set(MANA, child.getFloatOr("mana", 0f));
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag compound) {
-        CompoundTag tag = new CompoundTag();
-        tag.putInt("duration", getDuration());
-        tag.putFloat("mana", entityData.get(MANA));
-        compound.put(ArsMagicaApi.MOD_ID, tag);
+    protected void addAdditionalSaveData(ValueOutput output) {
+        ValueOutput child = output.child(ArsMagicaApi.MOD_ID);
+        child.putInt("duration", getDuration());
+        child.putFloat("mana", entityData.get(MANA));
     }
 
     @Override
@@ -74,7 +75,7 @@ public class ManaVortex extends Entity {
                 setDeltaMovement(entity.getEyePosition().subtract(getEyePosition()).normalize().scale(0.075));
             }
             entityData.set(MANA, (float) mana);
-            moveTo(position().add(getDeltaMovement()));
+            snapTo(position().add(getDeltaMovement()));
         } else if (duration - tickCount <= 20) {
             setBoundingBox(getBoundingBox().inflate(-0.05));
             if (duration - tickCount <= 5) {

@@ -9,6 +9,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,13 +34,13 @@ public class SpellBookItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
         ItemStack stack = player.getItemInHand(usedHand);
         if (!player.isSecondaryUseActive()) return getSelectedSpell(stack).use(level, player, usedHand);
         if (player instanceof ServerPlayer serverPlayer) {
             serverPlayer.openMenu(new SimpleMenuProvider((id, inventory, _) -> new SpellBookMenu(id, inventory, usedHand), Component.empty()), buf -> buf.writeEnum(usedHand));
         }
-        return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
+        return InteractionResult.SUCCESS.heldItemTransformedTo(stack);
     }
 
     @Override
@@ -53,8 +54,9 @@ public class SpellBookItem extends Item {
     }
 
     @Override
-    public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {
+    public boolean releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeCharged) {
         getSelectedSpell(stack).releaseUsing(level, livingEntity, timeCharged);
+        return true;
     }
 
     @Override

@@ -15,7 +15,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.FarmlandBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -60,7 +60,7 @@ public record StemGrowthType(RuleTest stem, Block attachedStem, BlockState fruit
             do {
                 BlockPos fruitPos = pos.relative(direction);
                 BlockState soil = level.getBlockState(fruitPos.below());
-                if (level.isEmptyBlock(fruitPos) && (soil.getBlock() instanceof FarmBlock || soil.is(BlockTags.DIRT))) {
+                if (level.isEmptyBlock(fruitPos) && (soil.getBlock() instanceof FarmlandBlock || soil.is(BlockTags.DIRT))) {
                     level.setBlockAndUpdate(fruitPos, fruit);
                     level.setBlockAndUpdate(pos, attachedStem.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, direction));
                     break;
@@ -78,7 +78,7 @@ public record StemGrowthType(RuleTest stem, Block attachedStem, BlockState fruit
         if (state == fruit) return true;
         if (state.is(attachedStem)) return false;
         if (!state.hasProperty(BlockStateProperties.HORIZONTAL_FACING)) return false;
-        return context.level().getBlockState(context.pos().offset(state.getValue(BlockStateProperties.HORIZONTAL_FACING).getNormal())) == fruit;
+        return context.level().getBlockState(context.pos().offset(state.getValue(BlockStateProperties.HORIZONTAL_FACING).getUnitVec3i())) == fruit;
     }
 
     @Override
@@ -86,7 +86,7 @@ public record StemGrowthType(RuleTest stem, Block attachedStem, BlockState fruit
         BlockState state = context.state();
         BlockPos pos = context.pos();
         if (state.is(attachedStem) && state.hasProperty(BlockStateProperties.HORIZONTAL_FACING)) {
-            pos = pos.offset(state.getValue(BlockStateProperties.HORIZONTAL_FACING).getNormal());
+            pos = pos.offset(state.getValue(BlockStateProperties.HORIZONTAL_FACING).getUnitVec3i());
         }
         return AMUtil.destroyBlockAndGetDrops(context.level(), pos, state, context.player(), context.tool());
     }

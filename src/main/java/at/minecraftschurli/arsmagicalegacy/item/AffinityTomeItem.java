@@ -38,7 +38,7 @@ public class AffinityTomeItem extends DataComponentNamedItem<Holder<Affinity>> {
         double shift = AMServerConfig.AFFINITY_TOME_SHIFT.get();
         double reduction = -AMServerConfig.AFFINITY_TOME_REDUCTION.get();
         helper.addAffinityDepth(player, AMRegistries.affinities(level.registryAccess())
-            .holders()
+            .listElements()
             .filter(e -> e.getKey() != Affinity.NONE)
             .map(e -> Map.entry(e, e.getKey() == affinity.getKey() ? shift : reduction))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)), true, false);

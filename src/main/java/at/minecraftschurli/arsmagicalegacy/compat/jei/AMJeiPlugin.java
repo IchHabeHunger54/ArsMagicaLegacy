@@ -42,7 +42,7 @@ public final class AMJeiPlugin implements IModPlugin {
     @Override
     public void registerIngredients(IModIngredientRegistration registration) {
         registration.register(SKILL_TYPE, AMRegistries.skills(true)
-            .holders()
+            .listElements()
             .filter(e -> AMRegistries.SPELL_PARTS.containsKey(e.getKey().identifier()))
             .sorted(Comparator.comparing(e -> Skill.getName(e).getString()))
             .map(Holder::value)

@@ -58,7 +58,7 @@ final class MagicHelperImpl implements MagicHelper {
             AMCriterionTriggers.LEVEL_CHANGE.get().trigger(serverPlayer, level);
         }
         player.setData(AMAttachments.MAGIC, data.setLevel(level));
-        List<? extends Holder<SkillPoint>> skillPoints = AMRegistries.skillPoints(player.registryAccess()).holders().toList();
+        List<? extends Holder<SkillPoint>> skillPoints = AMRegistries.skillPoints(player.registryAccess()).listElements().toList();
         for (int i = oldLevel; i <= level; i++) {
             for (Holder<SkillPoint> holder : skillPoints) {
                 SkillPoint skillPoint = holder.value();
@@ -141,7 +141,7 @@ final class MagicHelperImpl implements MagicHelper {
     @Override
     public List<? extends Holder<Skill>> getKnown(Player player) {
         return AMRegistries.skills(player.registryAccess())
-            .holders()
+            .listElements()
             .filter(holder -> knows(player, holder))
             .toList();
     }
@@ -149,7 +149,7 @@ final class MagicHelperImpl implements MagicHelper {
     @Override
     public List<? extends Holder<Skill>> getUnknown(Player player) {
         return AMRegistries.skills(player.registryAccess())
-            .holders()
+            .listElements()
             .filter(holder -> !knows(player, holder))
             .toList();
     }
@@ -172,7 +172,7 @@ final class MagicHelperImpl implements MagicHelper {
 
     @Override
     public void learnAll(Player player) {
-        player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkills(set -> set.addAll(AMRegistries.skills(false).holders().toList())));
+        player.setData(AMAttachments.MAGIC, player.getData(AMAttachments.MAGIC).updateSkills(set -> set.addAll(AMRegistries.skills(false).listElements().toList())));
         if (player instanceof ServerPlayer serverPlayer) {
             AMCriterionTriggers.SKILL_CHANGE.get().trigger(serverPlayer);
         }

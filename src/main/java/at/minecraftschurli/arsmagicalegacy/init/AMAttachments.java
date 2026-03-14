@@ -24,7 +24,7 @@ import java.util.function.Supplier;
 
 public interface AMAttachments {
     DeferredRegister<AttachmentType<?>> ATTACHMENTS = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, ArsMagicaApi.MOD_ID);
-    DeferredHolder<AttachmentType<?>, AttachmentType<MagicAttachment>> MAGIC = ATTACHMENTS.register("magic", () -> AttachmentType.builder(() -> MagicAttachment.DEFAULT).serialize(MagicAttachment.CODEC).sync(new MagicAttachmentSyncHandler()).build());
+    DeferredHolder<AttachmentType<?>, AttachmentType<MagicAttachment>> MAGIC = ATTACHMENTS.register("magic", () -> AttachmentType.builder(() -> MagicAttachment.DEFAULT).serialize(MagicAttachment.CODEC.fieldOf("magic")).sync(new MagicAttachmentSyncHandler()).build());
     // @formatter:off
     DeferredHolder<AttachmentType<?>, AttachmentType<Double>>                   BURNOUT          = register("burnout",          () -> 0.,                            Codec.DOUBLE,                ByteBufCodecs.DOUBLE);
     DeferredHolder<AttachmentType<?>, AttachmentType<Integer>>                  COMPENDIUM_TIMER = register("compendium_timer", () -> 0,                             Codec.INT,                   ByteBufCodecs.INT);
@@ -39,10 +39,10 @@ public interface AMAttachments {
     // @formatter:on
 
     private static <T> DeferredHolder<AttachmentType<?>, AttachmentType<T>> register(String name, Supplier<T> defaultValueSupplier, Codec<T> codec) {
-        return ATTACHMENTS.register(name, () -> AttachmentType.builder(defaultValueSupplier).serialize(codec).copyOnDeath().build());
+        return ATTACHMENTS.register(name, () -> AttachmentType.builder(defaultValueSupplier).serialize(codec.fieldOf(name)).copyOnDeath().build());
     }
 
     private static <T> DeferredHolder<AttachmentType<?>, AttachmentType<T>> register(String name, Supplier<T> defaultValueSupplier, Codec<T> codec, StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec) {
-        return ATTACHMENTS.register(name, () -> AttachmentType.builder(defaultValueSupplier).serialize(codec).sync(streamCodec).copyOnDeath().build());
+        return ATTACHMENTS.register(name, () -> AttachmentType.builder(defaultValueSupplier).serialize(codec.fieldOf(name)).sync(streamCodec).copyOnDeath().build());
     }
 }

@@ -45,12 +45,12 @@ public interface AMMobEffects {
     // @formatter:on
 
     DeferredRegister<Potion> POTIONS = DeferredRegister.create(Registries.POTION, ArsMagicaApi.MOD_ID);
-    DeferredHolder<Potion, Potion> LESSER_MANA = POTIONS.register("lesser_mana", () -> new Potion(new MobEffectInstance(INSTANT_MANA, 1, 0), new MobEffectInstance(MANA_REGENERATION, 600, 0)));
     // @formatter:off
-    DeferredHolder<Potion, Potion> STANDARD_MANA  = POTIONS.register("standard_mana",  () -> new Potion(new MobEffectInstance(INSTANT_MANA, 1, 1), new MobEffectInstance(MANA_REGENERATION, 1200, 1)));
-    DeferredHolder<Potion, Potion> GREATER_MANA   = POTIONS.register("greater_mana",   () -> new Potion(new MobEffectInstance(INSTANT_MANA, 1, 2), new MobEffectInstance(MANA_REGENERATION, 1800, 2)));
-    DeferredHolder<Potion, Potion> EPIC_MANA      = POTIONS.register("epic_mana",      () -> new Potion(new MobEffectInstance(INSTANT_MANA, 1, 3), new MobEffectInstance(MANA_REGENERATION, 1800, 2), new MobEffectInstance(MANA_BOOST,  600, 0)));
-    DeferredHolder<Potion, Potion> LEGENDARY_MANA = POTIONS.register("legendary_mana", () -> new Potion(new MobEffectInstance(INSTANT_MANA, 1, 4), new MobEffectInstance(MANA_REGENERATION, 1800, 2), new MobEffectInstance(MANA_BOOST, 1200, 1)));
-    DeferredHolder<Potion, Potion> INFUSED_MANA   = POTIONS.register("infused_mana",   () -> new Potion(new MobEffectInstance(INSTANT_MANA, 1, 9)));
+    DeferredHolder<Potion, Potion> LESSER_MANA    = POTIONS.register("lesser_mana",    id -> new Potion(id.getPath(), new MobEffectInstance(INSTANT_MANA, 1, 0), new MobEffectInstance(MANA_REGENERATION, 600, 0)));
+    DeferredHolder<Potion, Potion> STANDARD_MANA  = POTIONS.register("standard_mana",  id -> new Potion(id.getPath(), new MobEffectInstance(INSTANT_MANA, 1, 1), new MobEffectInstance(MANA_REGENERATION, 1200, 1)));
+    DeferredHolder<Potion, Potion> GREATER_MANA   = POTIONS.register("greater_mana",   id -> new Potion(id.getPath(), new MobEffectInstance(INSTANT_MANA, 1, 2), new MobEffectInstance(MANA_REGENERATION, 1800, 2)));
+    DeferredHolder<Potion, Potion> EPIC_MANA      = POTIONS.register("epic_mana",      id -> new Potion(id.getPath(), new MobEffectInstance(INSTANT_MANA, 1, 3), new MobEffectInstance(MANA_REGENERATION, 1800, 2), new MobEffectInstance(MANA_BOOST,  600, 0)));
+    DeferredHolder<Potion, Potion> LEGENDARY_MANA = POTIONS.register("legendary_mana", id -> new Potion(id.getPath(), new MobEffectInstance(INSTANT_MANA, 1, 4), new MobEffectInstance(MANA_REGENERATION, 1800, 2), new MobEffectInstance(MANA_BOOST, 1200, 1)));
+    DeferredHolder<Potion, Potion> INFUSED_MANA   = POTIONS.register("infused_mana",   id -> new Potion(id.getPath(), new MobEffectInstance(INSTANT_MANA, 1, 9)));
     // @formatter:on
 }

@@ -28,8 +28,7 @@ public interface AMBlockEntities {
     DeferredHolder<BlockEntityType<?>, BlockEntityType<SpellRuneBlockEntity>>        SPELL_RUNE        = register("spell_rune",        SpellRuneBlockEntity::new,        AMBlocks.SPELL_RUNE);
     // @formatter:on
 
-    @SuppressWarnings("DataFlowIssue")
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>> register(String name, BlockEntityType.BlockEntitySupplier<T> factory, DeferredBlock<?>... blocks) {
-        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of(factory, Arrays.stream(blocks).map(DeferredBlock::get).toArray(Block[]::new)).build(null));
+        return BLOCK_ENTITIES.register(name, () -> new BlockEntityType<>(factory, Arrays.stream(blocks).map(DeferredBlock::get).toArray(Block[]::new)));
     }
 }

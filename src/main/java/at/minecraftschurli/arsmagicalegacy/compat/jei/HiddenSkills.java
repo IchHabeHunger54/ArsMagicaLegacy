@@ -11,8 +11,8 @@ import mezz.jei.api.runtime.IIngredientManager;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 
 import java.util.ArrayList;
 import java.util.Collection;

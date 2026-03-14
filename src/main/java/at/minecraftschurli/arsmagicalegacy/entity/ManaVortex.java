@@ -5,7 +5,6 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.magic.ManaHelper;
 import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;

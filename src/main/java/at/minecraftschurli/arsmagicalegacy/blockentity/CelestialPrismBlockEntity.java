@@ -9,8 +9,6 @@ import at.minecraftschurli.arsmagicalegacy.compat.patchouli.MultiblockMatcher;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMEtheriumTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;

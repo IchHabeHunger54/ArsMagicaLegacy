@@ -3,7 +3,6 @@ package at.minecraftschurli.arsmagicalegacy.client.particle;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleSpawner;
 import at.minecraftschurli.arsmagicalegacy.util.AMDataManager;
-import com.google.gson.JsonElement;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;

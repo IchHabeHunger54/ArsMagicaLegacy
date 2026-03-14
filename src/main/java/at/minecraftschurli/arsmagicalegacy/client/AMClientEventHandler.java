@@ -33,6 +33,7 @@ import at.minecraftschurli.arsmagicalegacy.client.model.DryadModel;
 import at.minecraftschurli.arsmagicalegacy.client.model.item.DataComponentOverrides;
 import at.minecraftschurli.arsmagicalegacy.client.model.item.ItemOverridesModel;
 import at.minecraftschurli.arsmagicalegacy.client.model.item.SpellItemModel;
+import at.minecraftschurli.arsmagicalegacy.client.model.item.SpellItemModelV2;
 import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleSpawnerManager;
 import at.minecraftschurli.arsmagicalegacy.client.particle.SimpleParticleProvider;
 import at.minecraftschurli.arsmagicalegacy.client.particle.SymbolsParticleProvider;
@@ -89,18 +90,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.event.AddClientReloadListenersEvent;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.InputEvent;
-import net.neoforged.neoforge.client.event.ModelEvent;
-import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
-import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
-import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
-import net.neoforged.neoforge.client.event.RegisterTextureAtlasesEvent;
-import net.neoforged.neoforge.client.event.RenderHandEvent;
+import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
@@ -175,6 +165,11 @@ final class AMClientEventHandler {
         event.registerBelowAll(ArsMagicaApi.id("bars"), new BarsLayer());
         event.registerBelowAll(ArsMagicaApi.id("shape_groups"), new ShapeGroupsLayer());
         event.registerBelowAll(ArsMagicaApi.id("spell_book"), new SpellBookLayer());
+    }
+
+    @SubscribeEvent
+    public static void registerItemModels(RegisterItemModelsEvent event) {
+        event.register(ArsMagicaApi.id("spell"), SpellItemModelV2.Unbaked.MAP_CODEC);
     }
 
     @SubscribeEvent

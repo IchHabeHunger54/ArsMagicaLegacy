@@ -1,6 +1,8 @@
 package at.minecraftschurli.arsmagicalegacy.datagen.assets;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
+import at.minecraftschurli.arsmagicalegacy.client.model.item.SpellItemModelV2;
 import at.minecraftschurli.arsmagicalegacy.init.AMFluids;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
@@ -17,6 +19,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.List;
@@ -35,9 +38,12 @@ public class AMModelProvider extends AbstractModelProvider {
 
     private void registerItemModels(ItemModelGenerators itemModels) {
         ModelTemplates.FLAT_ITEM.create(ArsMagicaApi.id("arcane_compendium"), TextureMapping.layer0(new Material(ArsMagicaApi.id("item/arcane_compendium"))), itemModels.modelOutput);
-        basicItem(AMItems.SPELL);
-        basicItemWithVariants(AMItems.SPELL, AMMagic.AFFINITIES_WITH_NONE);
-        withExistingParent(AMItems.SPELL_RECIPE.getId().getPath(), mcLoc("item/written_book"));
+        itemModels.itemModelOutput.accept(AMItems.SPELL.get(), new SpellItemModelV2.Unbaked(itemModels.createFlatItemModel(AMItems.SPELL.get(), ModelTemplates.FLAT_ITEM)));
+        for (ResourceKey<Affinity> affinity : AMMagic.AFFINITIES_WITH_NONE) {
+            Identifier identifier = affinity.identifier().withPrefix("item/spell_");
+            ModelTemplates.FLAT_ITEM.create(identifier, TextureMapping.layer0(new Material(identifier)), itemModels.modelOutput);
+        }
+        itemModels.itemModelOutput.copy(Items.WRITTEN_BOOK, AMItems.SPELL_RECIPE.get());
         basicItem(AMItems.ETHERIUM_PLACEHOLDER);
         withExistingParent(AMItems.LIQUID_ETHERIUM_BUCKET.getId().getPath(), Identifier.fromNamespaceAndPath("neoforge", "item/bucket")).customLoader(DynamicFluidContainerModelBuilder::begin).fluid(AMFluids.LIQUID_ETHERIUM.get()).end();
         blockItem(AMItems.OCCULUS);

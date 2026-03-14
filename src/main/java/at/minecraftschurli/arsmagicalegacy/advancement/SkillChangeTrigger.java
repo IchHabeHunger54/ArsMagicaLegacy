@@ -69,7 +69,7 @@ public class SkillChangeTrigger extends SimpleCriterionTrigger<SkillChangeTrigge
         public boolean matches(Player player) {
             Predicate<Holder<Skill>> predicate = requirements.map(left -> switch (left.hidden) {
                 case TRUE -> skill -> skill.value().hidden();
-                case DEFAULT -> $ -> true;
+                case DEFAULT -> _ -> true;
                 case FALSE -> skill -> !skill.value().hidden();
             }, right -> right::contains);
             Predicate<Holder<Skill>> knows = skill -> ArsMagicaApi.magicHelper().knows(player, skill);

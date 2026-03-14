@@ -70,7 +70,7 @@ public final class HiddenSkills {
                 .map(Holder::getKey)
                 .filter(Objects::nonNull)
                 .toList();
-            Map<String, SkillCategory.Recipe> recipes = RECIPES.computeIfAbsent(holder.getKey(), $ -> new HashMap<>());
+            Map<String, SkillCategory.Recipe> recipes = RECIPES.computeIfAbsent(holder.getKey(), _ -> new HashMap<>());
             for (Set<ResourceKey<Skill>> set : Sets.powerSet(new HashSet<>(keys))) {
                 Set<ResourceKey<Skill>> hiddenModifiers = new HashSet<>(keys);
                 set.forEach(hiddenModifiers::remove);

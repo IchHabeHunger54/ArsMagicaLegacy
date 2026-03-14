@@ -47,7 +47,7 @@ public class LiquidEtheriumCauldronBlock extends AbstractCauldronBlock {
     }
 
     public static ItemInteractionResult fillBucket(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, ItemStack emptyStack) {
-        return CauldronInteraction.fillBucket(state, level, pos, player, hand, emptyStack, AMItems.LIQUID_ETHERIUM_BUCKET.toStack(), $ -> true, SoundEvents.BUCKET_FILL);
+        return CauldronInteraction.fillBucket(state, level, pos, player, hand, emptyStack, AMItems.LIQUID_ETHERIUM_BUCKET.toStack(), _ -> true, SoundEvents.BUCKET_FILL);
     }
 
     public static ItemInteractionResult emptyBucket(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, ItemStack filledStack) {

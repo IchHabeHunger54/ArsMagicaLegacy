@@ -12,7 +12,7 @@ class ColorButton extends Button {
     private final int color;
 
     protected ColorButton(int x, int y, int color, IntConsumer onPress, Component tooltip) {
-        super(x, y, SIZE, SIZE, Component.empty(), $ -> onPress.accept(color), DEFAULT_NARRATION);
+        super(x, y, SIZE, SIZE, Component.empty(), _ -> onPress.accept(color), DEFAULT_NARRATION);
         this.color = color;
         setTooltip(Tooltip.create(tooltip));
     }

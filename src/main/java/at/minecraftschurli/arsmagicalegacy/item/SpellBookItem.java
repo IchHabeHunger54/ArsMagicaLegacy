@@ -37,7 +37,7 @@ public class SpellBookItem extends Item {
         ItemStack stack = player.getItemInHand(usedHand);
         if (!player.isSecondaryUseActive()) return getSelectedSpell(stack).use(level, player, usedHand);
         if (player instanceof ServerPlayer serverPlayer) {
-            serverPlayer.openMenu(new SimpleMenuProvider((id, inventory, $) -> new SpellBookMenu(id, inventory, usedHand), Component.empty()), buf -> buf.writeEnum(usedHand));
+            serverPlayer.openMenu(new SimpleMenuProvider((id, inventory, _) -> new SpellBookMenu(id, inventory, usedHand), Component.empty()), buf -> buf.writeEnum(usedHand));
         }
         return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
     }

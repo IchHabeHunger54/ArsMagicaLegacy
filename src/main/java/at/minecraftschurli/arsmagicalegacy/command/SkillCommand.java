@@ -94,7 +94,7 @@ public final class SkillCommand {
     }
 
     private static int listAll(CommandContext<CommandSourceStack> context) {
-        List<? extends Holder<Skill>> holders = AMRegistries.skills(context.getSource().registryAccess()).holders().toList();
+        List<? extends Holder<Skill>> holders = AMRegistries.skills(context.getSource().registryAccess()).listElements().toList();
         context.getSource().sendSuccess(() -> Component.translatable(AMTranslations.COMMAND_SKILL_LIST_ALL_KEY, skillsComponent(holders)), true);
         return holders.size();
     }

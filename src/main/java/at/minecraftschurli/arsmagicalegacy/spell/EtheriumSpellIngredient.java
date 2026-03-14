@@ -67,7 +67,7 @@ public record EtheriumSpellIngredient(Optional<Holder<EtheriumType>> etheriumTyp
     @Override
     public List<ItemStack> asItemStacks() {
         return etheriumType.map(holder -> List.of(etheriumPlaceholder(holder))).orElseGet(() -> AMRegistries.etheriumTypes(true)
-            .holders()
+            .listElements()
             .map(this::etheriumPlaceholder)
             .toList());
     }

@@ -101,7 +101,7 @@ public final class HiddenSkills {
 
     private static Stream<Holder.Reference<Skill>> getSkills() {
         return AMRegistries.skills(true)
-            .holders()
+            .listElements()
             .filter(e -> AMRegistries.SPELL_PARTS.containsKey(e.getKey().identifier()))
             .sorted(Comparator.comparing(e -> Skill.getName(e).getString()));
     }

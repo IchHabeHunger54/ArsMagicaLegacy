@@ -27,10 +27,10 @@ public final class AbilityHelperImpl implements AbilityHelper {
     @Override
     public void onMagicChange(Player player, MagicAttachment oldData, MagicAttachment newData) {
         Registry<Ability> registry = AMRegistries.abilities(player.registryAccess());
-        Set<Holder<Ability>> oldSet = registry.holders()
+        Set<Holder<Ability>> oldSet = registry.listElements()
             .filter(ability -> ability.value().test(oldData))
             .collect(Collectors.toSet());
-        Set<Holder<Ability>> newSet = registry.holders()
+        Set<Holder<Ability>> newSet = registry.listElements()
             .filter(ability -> ability.value().test(newData))
             .collect(Collectors.toSet());
         Set<Holder<Ability>> oldAbilities = Sets.difference(oldSet, newSet);
@@ -56,7 +56,7 @@ public final class AbilityHelperImpl implements AbilityHelper {
     @Override
     public Stream<? extends Holder<Ability>> getActiveAbilities(Player player) {
         return AMRegistries.abilities(player.registryAccess())
-            .holders()
+            .listElements()
             .filter(e -> e.value().test(player));
     }
 

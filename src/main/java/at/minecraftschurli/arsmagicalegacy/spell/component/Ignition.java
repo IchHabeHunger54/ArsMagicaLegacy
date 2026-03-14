@@ -35,7 +35,7 @@ public class Ignition extends SpellComponent.CastBoth {
         Entity target = hitResult.getEntity();
         if (target instanceof Creeper creeper && !creeper.isIgnited()) {
             creeper.ignite();
-        } else if (!target.isOnFire() && !target.isInWaterRainOrBubble()) {
+        } else if (!target.isOnFire() && !target.isInWaterOrRain()) {
             target.setRemainingFireTicks((int) ArsMagicaApi.spellHelper().getModifiedStat(60, AMSpells.DURATION_STAT, modifiers, context));
         }
         return SpellComponentCastResult.success(context.spell());

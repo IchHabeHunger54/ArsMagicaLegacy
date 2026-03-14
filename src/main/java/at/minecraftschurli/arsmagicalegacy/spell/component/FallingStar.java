@@ -12,6 +12,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
 import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 
@@ -31,7 +32,7 @@ public class FallingStar extends SpellComponent {
         if (level.dimensionType().hasCeiling()) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_FALLING_STAR);
         if (context.isHitResultNullOrMiss()) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_HIT);
         LivingEntity caster = context.caster();
-        var fallingStar = AMEntities.FALLING_STAR.get().create(level);
+        var fallingStar = AMEntities.FALLING_STAR.get().create(level, EntitySpawnReason.MOB_SUMMONED);
         fallingStar.setPos(context.hitResult().getLocation().add(0, AMServerConfig.FALLING_STAR_SPAWN_HEIGHT.get(), 0));
         if (caster != null) {
             fallingStar.setOwner(caster);

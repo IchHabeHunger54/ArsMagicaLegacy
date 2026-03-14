@@ -10,9 +10,11 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,8 +35,9 @@ public class Storm extends SpellComponent {
         SpellHelper helper = ArsMagicaApi.spellHelper();
         LivingEntity caster = context.caster();
         Entity directEntity = context.directEntity();
-        if (!(level.getRainLevel(1f) > 0.9)) {
-            level.setWeatherParameters(0, (int) helper.getModifiedStat(AMServerConfig.STORM_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context), true, true);
+        MinecraftServer server = level.getServer();
+        if (server != null && !(level.getRainLevel(1f) > 0.9)) {
+            server.setWeatherParameters(0, (int) helper.getModifiedStat(AMServerConfig.STORM_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context), true, true);
         }
         if (directEntity == null) return SpellComponentCastResult.success(spell);
         int range = (int) helper.getModifiedStat(AMServerConfig.STORM_RANGE.get(), AMSpells.RANGE_STAT, modifiers, context);
@@ -50,7 +53,7 @@ public class Storm extends SpellComponent {
             while (level.getBlockState(BlockPos.containing(x, y - 1, z)).getBlock().equals(Blocks.AIR)) {
                 y--;
             }
-            LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(level);
+            LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(level, EntitySpawnReason.MOB_SUMMONED);
             if (bolt != null) {
                 bolt.setPos(x, y, z);
                 bolt.setVisualOnly(false);
@@ -64,7 +67,7 @@ public class Storm extends SpellComponent {
             if (caster instanceof Player player) {
                 entity.hurt(level.damageSources().playerAttack(player), 1);
             }
-            LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(level);
+            LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(level, EntitySpawnReason.MOB_SUMMONED);
             if (bolt != null) {
                 bolt.setPos(entity.position());
                 bolt.setVisualOnly(false);

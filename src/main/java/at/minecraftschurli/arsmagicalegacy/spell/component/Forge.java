@@ -13,7 +13,7 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -47,7 +47,7 @@ public class Forge extends SpellComponent.CastBoth {
         level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
         if (stack.getItem() instanceof BlockItem blockItem) {
             Direction direction = hitResult.getDirection();
-            Vec3i normal = direction.getNormal();
+            Vec3i normal = direction.getUnitVec3i();
             blockItem.place(new BlockPlaceContext(level, context.caster() instanceof Player player ? player : null, InteractionHand.MAIN_HAND, stack, new BlockHitResult(hitResult.getLocation().add(normal.getX(), normal.getY(), normal.getZ()), direction, pos.offset(normal), hitResult.isInside())));
         } else {
             ItemEntity item = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack);

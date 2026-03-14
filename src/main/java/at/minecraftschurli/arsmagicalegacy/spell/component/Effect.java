@@ -10,6 +10,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -31,10 +32,10 @@ public class Effect extends SpellComponent.CastEntity {
         if (!(hitResult.getEntity() instanceof LivingEntity living)) return SpellComponentCastResult.pass(spell);
         SpellHelper helper = ArsMagicaApi.spellHelper();
         int amplifier = (int) helper.getModifiedStat(0, AMSpells.EFFECT_POWER_STAT, modifiers, context);
-        if (effect.value().isInstantenous()) {
-            effect.value().applyInstantenousEffect(context.directEntity(), context.caster(), living, amplifier, living.getHealth());
-        } else {
+        if (!effect.value().isInstantenous()) {
             living.addEffect(new MobEffectInstance(effect, (int) helper.getModifiedStat(AMServerConfig.EFFECT_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context), amplifier));
+        } else if (context.level() instanceof ServerLevel level) {
+            effect.value().applyInstantenousEffect(level, context.directEntity(), context.caster(), living, amplifier, living.getHealth());
         }
         return SpellComponentCastResult.success(spell);
     }

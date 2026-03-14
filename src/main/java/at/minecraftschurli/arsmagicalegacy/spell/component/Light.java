@@ -30,7 +30,7 @@ public class Light extends SpellComponent.CastBoth {
     public SpellComponentCastResult castBlock(List<SpellModifier> modifiers, SpellCastContext context, BlockHitResult hitResult) {
         Level level = context.level();
         Direction direction = hitResult.getDirection();
-        BlockPos pos = hitResult.getBlockPos().offset(direction.getNormal());
+        BlockPos pos = hitResult.getBlockPos().offset(direction.getUnitVec3i());
         if (level.getBlockState(pos).isAir()) {
             level.setBlockAndUpdate(pos, AMBlocks.SPELL_LIGHT.get().defaultBlockState());
         }

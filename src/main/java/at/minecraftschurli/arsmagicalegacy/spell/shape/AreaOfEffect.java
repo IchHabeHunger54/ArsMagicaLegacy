@@ -34,7 +34,7 @@ public class AreaOfEffect extends SecondarySpellShape {
             BlockPos pos = blockHitResult.getBlockPos();
             Direction direction = blockHitResult.getDirection();
             doBlockAoe(result, context, pos, (int) range, direction, blockHitResult.isInside());
-            doEntityAoe(result, context, Vec3.atCenterOf(pos).add(Vec3.atLowerCornerOf(direction.getNormal()).scale(0.5)), range);
+            doEntityAoe(result, context, Vec3.atCenterOf(pos).add(Vec3.atLowerCornerOf(direction.getUnitVec3i()).scale(0.5)), range);
         } else if (hitResult instanceof EntityHitResult entityHitResult) {
             float xRot = directEntity.getXRot();
             Entity entity = entityHitResult.getEntity();

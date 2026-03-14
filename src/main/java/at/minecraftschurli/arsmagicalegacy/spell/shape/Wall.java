@@ -12,6 +12,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
 import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class Wall extends SecondarySpellShape {
         Level level = context.level();
         Entity directEntity = context.directEntity();
         if (level.isClientSide() || directEntity == null) return new SpellCastResult(spell);
-        var wall = AMEntities.WALL.get().create(level);
+        var wall = AMEntities.WALL.get().create(level, EntitySpawnReason.MOB_SUMMONED);
         wall.setPos(directEntity.getEyePosition());
         wall.setXRot(directEntity.getXRot());
         wall.setYRot(directEntity.getYRot());

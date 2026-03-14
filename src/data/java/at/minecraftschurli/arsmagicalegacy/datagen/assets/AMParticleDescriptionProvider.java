@@ -4,13 +4,12 @@ import at.minecraftschurli.arsmagicalegacy.init.AMParticles;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.data.PackOutput;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.common.data.ParticleDescriptionProvider;
+import net.neoforged.neoforge.client.data.ParticleDescriptionProvider;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 public final class AMParticleDescriptionProvider extends ParticleDescriptionProvider {
-    public AMParticleDescriptionProvider(PackOutput output, ExistingFileHelper fileHelper) {
-        super(output, fileHelper);
+    public AMParticleDescriptionProvider(PackOutput output) {
+        super(output);
     }
 
     @Override
@@ -49,6 +48,6 @@ public final class AMParticleDescriptionProvider extends ParticleDescriptionProv
     }
 
     private void sprite(DeferredHolder<ParticleType<?>, SimpleParticleType> particle) {
-        sprite(particle.get(), particle.getId());
+        spriteSet(particle.get(), particle.getId());
     }
 }

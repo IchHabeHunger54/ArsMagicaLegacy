@@ -14,6 +14,7 @@ import at.minecraftschurli.arsmagicalegacy.recipe.spelltransformation.SpellTrans
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -28,14 +29,15 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.BlastingRecipe;
+import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
@@ -51,14 +53,15 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public final class AMRecipeProvider extends RecipeProvider {
-    public AMRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-        super(output, registries);
+    public AMRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
+        super(registries, output);
     }
 
     @Override
-    protected void buildRecipes(RecipeOutput output, HolderLookup.Provider registries) {
+    protected void buildRecipes() {
         HolderLookup.RegistryLookup<Affinity> affinities = registries.lookupOrThrow(AMRegistries.Keys.AFFINITY);
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.OCCULUS.get())
+        HolderLookup.RegistryLookup<Item> items = registries.lookupOrThrow(Registries.ITEM);
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, AMItems.OCCULUS.get())
             .pattern("SGS")
             .pattern(" S ")
             .pattern("CTC")
@@ -68,7 +71,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('T', AMTags.Items.GEMS_TOPAZ)
             .unlockedBy(getHasName(AMItems.TOPAZ), has(AMTags.Items.GEMS_TOPAZ))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.INSCRIPTION_TABLE.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, AMItems.INSCRIPTION_TABLE.get())
             .pattern("TPF")
             .pattern("SSS")
             .pattern("W W")
@@ -79,56 +82,56 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('W', ItemTags.PLANKS)
             .unlockedBy(getHasName(AMItems.SPELL_PARCHMENT), has(AMItems.SPELL_PARCHMENT.get()))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1.get())
             .requires(Items.BOOK)
             .requires(Tags.Items.DYES_BLACK)
             .requires(Tags.Items.FEATHERS)
             .requires(Tags.Items.STRINGS)
             .unlockedBy(getHasName(Items.BOOK), has(Items.BOOK))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_2.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_2.get())
             .requires(Items.BOOK)
             .requires(Tags.Items.DYES_BLACK)
             .requires(ItemTags.WOOL_CARPETS)
             .requires(AMItems.WIZARDS_CHALK.get())
             .unlockedBy(getHasName(Items.BOOK), has(Items.BOOK))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3.get())
             .requires(Items.BOOK)
             .requires(ItemTags.CANDLES)
             .requires(Items.HONEYCOMB)
             .requires(Items.GLASS_BOTTLE)
             .unlockedBy(getHasName(Items.BOOK), has(Items.BOOK))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, new ItemStack(AMItems.INSCRIPTION_TABLE, 1, DataComponentPatch.builder().set(AMDataComponents.TIER.get(), 1).build()))
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, new ItemStackTemplate(AMItems.INSCRIPTION_TABLE, 1, DataComponentPatch.builder().set(AMDataComponents.TIER.get(), 1).build()))
             .requires(DataComponentIngredient.of(false, AMDataComponents.TIER, 0, AMItems.INSCRIPTION_TABLE.get()))
             .requires(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1.get())
             .unlockedBy(getHasName(AMItems.INSCRIPTION_TABLE), has(AMItems.INSCRIPTION_TABLE.get()))
-            .save(output, ArsMagicaApi.id("inscription_table_tier_1"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, new ItemStack(AMItems.INSCRIPTION_TABLE, 1, DataComponentPatch.builder().set(AMDataComponents.TIER.get(), 2).build()))
+            .save(output, id("inscription_table_tier_1"));
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, new ItemStackTemplate(AMItems.INSCRIPTION_TABLE, 1, DataComponentPatch.builder().set(AMDataComponents.TIER.get(), 2).build()))
             .requires(DataComponentIngredient.of(false, AMDataComponents.TIER, 1, AMItems.INSCRIPTION_TABLE.get()))
             .requires(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_2.get())
             .unlockedBy(getHasName(AMItems.INSCRIPTION_TABLE), has(AMItems.INSCRIPTION_TABLE.get()))
-            .save(output, ArsMagicaApi.id("inscription_table_tier_2"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, new ItemStack(AMItems.INSCRIPTION_TABLE, 1, DataComponentPatch.builder().set(AMDataComponents.TIER.get(), 3).build()))
+            .save(output, id("inscription_table_tier_2"));
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, new ItemStackTemplate(AMItems.INSCRIPTION_TABLE, 1, DataComponentPatch.builder().set(AMDataComponents.TIER.get(), 3).build()))
             .requires(DataComponentIngredient.of(false, AMDataComponents.TIER, 2, AMItems.INSCRIPTION_TABLE.get()))
             .requires(AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3.get())
             .unlockedBy(getHasName(AMItems.INSCRIPTION_TABLE), has(AMItems.INSCRIPTION_TABLE.get()))
-            .save(output, ArsMagicaApi.id("inscription_table_tier_3"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.ALTAR_CORE.get())
+            .save(output, id("inscription_table_tier_3"));
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, AMItems.ALTAR_CORE.get())
             .pattern("V")
             .pattern("S")
             .define('V', AMTags.Items.DUSTS_VINTEUM)
             .define('S', Tags.Items.STONES)
             .unlockedBy(getHasName(AMItems.VINTEUM_DUST), has(AMTags.Items.DUSTS_VINTEUM))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.MAGIC_WALL.get(), 16)
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, AMItems.MAGIC_WALL.get(), 16)
             .pattern("VSV")
             .define('V', AMTags.Items.DUSTS_VINTEUM)
             .define('S', Tags.Items.STONES)
             .unlockedBy(getHasName(AMItems.VINTEUM_DUST), has(AMTags.Items.DUSTS_VINTEUM))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.OBELISK.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, AMItems.OBELISK.get())
             .pattern("VSV")
             .pattern("SBS")
             .pattern("VSV")
@@ -137,7 +140,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('B', ItemTags.STONE_BRICKS)
             .unlockedBy(getHasName(AMItems.VINTEUM_DUST), has(AMTags.Items.DUSTS_VINTEUM))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, AMItems.CRYSTAL_WRENCH.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.TOOLS, AMItems.CRYSTAL_WRENCH.get())
             .pattern("GTG")
             .pattern(" G ")
             .pattern(" G ")
@@ -145,7 +148,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('T', AMTags.Items.GEMS_TOPAZ)
             .unlockedBy(getHasName(AMItems.TOPAZ), has(AMTags.Items.GEMS_TOPAZ))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, AMItems.WIZARDS_CHALK.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.TOOLS, AMItems.WIZARDS_CHALK.get())
             .requires(AMTags.Items.DUSTS_VINTEUM)
             .requires(Items.BONE_MEAL)
             .requires(Items.CLAY_BALL)
@@ -153,7 +156,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .requires(Items.PAPER)
             .unlockedBy(getHasName(AMItems.VINTEUM_DUST), has(AMTags.Items.DUSTS_VINTEUM))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.TRANSPORTATION, AMItems.REDSTONE_INLAY.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.TRANSPORTATION, AMItems.REDSTONE_INLAY.get())
             .pattern("RRR")
             .pattern("RVR")
             .pattern("RRR")
@@ -161,7 +164,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('V', AMTags.Items.DUSTS_VINTEUM)
             .unlockedBy(getHasName(Items.REDSTONE), has(Tags.Items.DUSTS_REDSTONE))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.TRANSPORTATION, AMItems.IRON_INLAY.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.TRANSPORTATION, AMItems.IRON_INLAY.get())
             .pattern("III")
             .pattern("IAI")
             .pattern("III")
@@ -169,7 +172,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('A', AMTags.Items.DUSTS_ARCANE_ASH)
             .unlockedBy(getHasName(Items.IRON_INGOT), has(Tags.Items.INGOTS_IRON))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.TRANSPORTATION, AMItems.GOLD_INLAY.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.TRANSPORTATION, AMItems.GOLD_INLAY.get())
             .pattern("III")
             .pattern("IVI")
             .pattern("III")
@@ -177,14 +180,14 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('V', AMTags.Items.DUSTS_PURIFIED_VINTEUM)
             .unlockedBy(getHasName(Items.GOLD_INGOT), has(Tags.Items.INGOTS_GOLD))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, AMItems.VINTEUM_TORCH.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.DECORATIONS, AMItems.VINTEUM_TORCH.get())
             .pattern("V")
             .pattern("S")
             .define('V', AMTags.Items.DUSTS_VINTEUM)
             .define('S', Tags.Items.RODS_WOODEN)
             .unlockedBy(getHasName(AMItems.VINTEUM_DUST), has(AMTags.Items.DUSTS_VINTEUM))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.SPELL_PARCHMENT.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, AMItems.SPELL_PARCHMENT.get())
             .pattern("S")
             .pattern("P")
             .pattern("S")
@@ -192,7 +195,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('P', Items.PAPER)
             .unlockedBy(getHasName(Items.PAPER), has(Items.PAPER))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.SPELL_BOOK.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, AMItems.SPELL_BOOK.get())
             .pattern("SLL")
             .pattern("SPP")
             .pattern("SLL")
@@ -201,7 +204,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('P', Items.PAPER)
             .unlockedBy(getHasName(Items.PAPER), has(Items.PAPER))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, AMItems.MAGITECH_GOGGLES.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.TOOLS, AMItems.MAGITECH_GOGGLES.get())
             .pattern("LLL")
             .pattern("CGC")
             .pattern("TLT")
@@ -211,7 +214,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('G', Tags.Items.NUGGETS_GOLD)
             .unlockedBy(getHasName(AMItems.TOPAZ), has(AMTags.Items.GEMS_TOPAZ))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, AMItems.MAGE_HELMET.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.COMBAT, AMItems.MAGE_HELMET.get())
             .pattern("LWL")
             .pattern("WRW")
             .define('W', ItemTags.WOOL)
@@ -219,7 +222,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('R', AMItems.MAGENTA_RUNE)
             .unlockedBy(getHasName(AMItems.MAGENTA_RUNE), has(AMItems.MAGENTA_RUNE))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, AMItems.MAGE_CHESTPLATE.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.COMBAT, AMItems.MAGE_CHESTPLATE.get())
             .pattern("L L")
             .pattern("WRW")
             .pattern("WWW")
@@ -228,7 +231,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('R', AMItems.WHITE_RUNE)
             .unlockedBy(getHasName(AMItems.WHITE_RUNE), has(AMItems.WHITE_RUNE))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, AMItems.MAGE_LEGGINGS.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.COMBAT, AMItems.MAGE_LEGGINGS.get())
             .pattern("LRL")
             .pattern("W W")
             .pattern("W W")
@@ -237,7 +240,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('R', AMItems.YELLOW_RUNE)
             .unlockedBy(getHasName(AMItems.YELLOW_RUNE), has(AMItems.YELLOW_RUNE))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, AMItems.MAGE_BOOTS.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.COMBAT, AMItems.MAGE_BOOTS.get())
             .pattern("W W")
             .pattern("LRL")
             .define('W', ItemTags.WOOL)
@@ -245,7 +248,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('R', AMItems.BLACK_RUNE)
             .unlockedBy(getHasName(AMItems.BLACK_RUNE), has(AMItems.BLACK_RUNE))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, AMItems.BATTLEMAGE_HELMET.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.COMBAT, AMItems.BATTLEMAGE_HELMET.get())
             .pattern("GOG")
             .pattern("ORO")
             .pattern(" E ")
@@ -255,7 +258,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('R', AMItems.RED_RUNE)
             .unlockedBy(getHasName(AMItems.RED_RUNE), has(AMItems.RED_RUNE))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, AMItems.BATTLEMAGE_CHESTPLATE.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.COMBAT, AMItems.BATTLEMAGE_CHESTPLATE.get())
             .pattern("GEG")
             .pattern("ORO")
             .pattern("OOO")
@@ -265,7 +268,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('R', AMItems.RED_RUNE)
             .unlockedBy(getHasName(AMItems.RED_RUNE), has(AMItems.RED_RUNE))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, AMItems.BATTLEMAGE_LEGGINGS.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.COMBAT, AMItems.BATTLEMAGE_LEGGINGS.get())
             .pattern("GRG")
             .pattern("OEO")
             .pattern("O O")
@@ -275,7 +278,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('R', AMItems.RED_RUNE)
             .unlockedBy(getHasName(AMItems.RED_RUNE), has(AMItems.RED_RUNE))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, AMItems.BATTLEMAGE_BOOTS.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.COMBAT, AMItems.BATTLEMAGE_BOOTS.get())
             .pattern("OEO")
             .pattern("GRG")
             .define('O', Tags.Items.OBSIDIANS_NORMAL)
@@ -284,14 +287,14 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('R', AMItems.RED_RUNE)
             .unlockedBy(getHasName(AMItems.RED_RUNE), has(AMItems.RED_RUNE))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, AMItems.MANA_CAKE.get(), 3)
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.FOOD, AMItems.MANA_CAKE.get(), 3)
             .requires(Tags.Items.CROPS_WHEAT)
             .requires(Items.SUGAR)
             .requires(AMItems.AUM)
             .requires(AMItems.CERUBLOSSOM)
             .unlockedBy(getHasName(AMItems.CERUBLOSSOM), has(AMItems.CERUBLOSSOM))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, AMItems.MANA_MARTINI.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.FOOD, AMItems.MANA_MARTINI.get())
             .requires(Tags.Items.RODS_WOODEN)
             .requires(Tags.Items.CROPS_POTATO)
             .requires(Items.ICE)
@@ -299,7 +302,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .requires(DataComponentIngredient.of(false, DataComponents.POTION_CONTENTS, new PotionContents(Potions.WATER), Items.POTION))
             .unlockedBy(getHasName(Items.ICE), has(Items.ICE))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.WATER).copyWithCount(2))
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, affinityEssence(affinities, AMMagic.WATER).withCount(2))
             .pattern("AIA")
             .pattern("JEJ")
             .pattern("AIA")
@@ -308,8 +311,8 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('I', AMItems.WAKEBLOOM.get())
             .define('J', Items.WATER_BUCKET)
             .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
-            .save(output, ArsMagicaApi.id("affinity_essence_water"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.FIRE).copyWithCount(2))
+            .save(output, id("affinity_essence_water"));
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, affinityEssence(affinities, AMMagic.FIRE).withCount(2))
             .pattern("AIA")
             .pattern("JEJ")
             .pattern("AIA")
@@ -318,8 +321,8 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('I', ItemTags.COALS)
             .define('J', Items.BLAZE_POWDER)
             .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
-            .save(output, ArsMagicaApi.id("affinity_essence_fire"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.EARTH).copyWithCount(2))
+            .save(output, id("affinity_essence_fire"));
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, affinityEssence(affinities, AMMagic.EARTH).withCount(2))
             .pattern("AIA")
             .pattern("JEJ")
             .pattern("AIA")
@@ -328,8 +331,8 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('I', ItemTags.DIRT)
             .define('J', Tags.Items.STONES)
             .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
-            .save(output, ArsMagicaApi.id("affinity_essence_earth"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.AIR).copyWithCount(2))
+            .save(output, id("affinity_essence_earth"));
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, affinityEssence(affinities, AMMagic.AIR).withCount(2))
             .pattern("AIA")
             .pattern("JEJ")
             .pattern("AIA")
@@ -338,8 +341,8 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('I', Items.FEATHER)
             .define('J', AMItems.TARMA_ROOT.get())
             .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
-            .save(output, ArsMagicaApi.id("affinity_essence_air"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.ICE).copyWithCount(2))
+            .save(output, id("affinity_essence_air"));
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, affinityEssence(affinities, AMMagic.ICE).withCount(2))
             .pattern("AIA")
             .pattern("JEJ")
             .pattern("AIA")
@@ -348,8 +351,8 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('I', Items.SNOW_BLOCK)
             .define('J', Items.ICE)
             .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
-            .save(output, ArsMagicaApi.id("affinity_essence_ice"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.LIGHTNING).copyWithCount(2))
+            .save(output, id("affinity_essence_ice"));
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, affinityEssence(affinities, AMMagic.LIGHTNING).withCount(2))
             .pattern("AIA")
             .pattern("JEJ")
             .pattern("AIA")
@@ -358,8 +361,8 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('I', Tags.Items.DUSTS_REDSTONE)
             .define('J', Tags.Items.DUSTS_GLOWSTONE)
             .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
-            .save(output, ArsMagicaApi.id("affinity_essence_lightning"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.NATURE).copyWithCount(2))
+            .save(output, id("affinity_essence_lightning"));
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, affinityEssence(affinities, AMMagic.NATURE).withCount(2))
             .pattern("AIA")
             .pattern("JEK")
             .pattern("ALA")
@@ -370,8 +373,8 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('K', Items.CACTUS)
             .define('L', Items.VINE)
             .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
-            .save(output, ArsMagicaApi.id("affinity_essence_nature"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.LIFE).copyWithCount(2))
+            .save(output, id("affinity_essence_nature"));
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, affinityEssence(affinities, AMMagic.LIFE).withCount(2))
             .pattern("AIA")
             .pattern("JEJ")
             .pattern("AIA")
@@ -380,16 +383,16 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('I', Tags.Items.EGGS)
             .define('J', Items.GOLDEN_APPLE)
             .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
-            .save(output, ArsMagicaApi.id("affinity_essence_life"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.ARCANE).copyWithCount(2))
+            .save(output, id("affinity_essence_life"));
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, affinityEssence(affinities, AMMagic.ARCANE).withCount(2))
             .pattern("AAA")
             .pattern("AEA")
             .pattern("AAA")
             .define('A', AMItems.ARCANE_ASH.get())
             .define('E', DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.ARCANE), AMItems.AFFINITY_ESSENCE))
             .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
-            .save(output, ArsMagicaApi.id("affinity_essence_arcane"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, affinityEssence(affinities, AMMagic.ENDER).copyWithCount(2))
+            .save(output, id("affinity_essence_arcane"));
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, affinityEssence(affinities, AMMagic.ENDER).withCount(2))
             .pattern("AIA")
             .pattern("JEJ")
             .pattern("AIA")
@@ -398,95 +401,95 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('I', Tags.Items.ENDER_PEARLS)
             .define('J', Items.ENDER_EYE)
             .unlockedBy("has_arcane_ash", has(AMItems.ARCANE_ASH.get()))
-            .save(output, ArsMagicaApi.id("affinity_essence_ender"));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.BLANK_RUNE.get(), 2)
+            .save(output, id("affinity_essence_ender"));
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, AMItems.BLANK_RUNE.get(), 2)
             .pattern(" # ")
             .pattern("###")
             .pattern("## ")
             .define('#', Tags.Items.COBBLESTONES)
             .unlockedBy(getHasName(Items.COBBLESTONE), has(Tags.Items.COBBLESTONES))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.WHITE_RUNE.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.WHITE_RUNE.get())
             .requires(AMItems.BLANK_RUNE.get())
             .requires(Tags.Items.DYES_WHITE)
             .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.ORANGE_RUNE.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.ORANGE_RUNE.get())
             .requires(AMItems.BLANK_RUNE.get())
             .requires(Tags.Items.DYES_ORANGE)
             .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.MAGENTA_RUNE.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.MAGENTA_RUNE.get())
             .requires(AMItems.BLANK_RUNE.get())
             .requires(Tags.Items.DYES_MAGENTA)
             .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.LIGHT_BLUE_RUNE.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.LIGHT_BLUE_RUNE.get())
             .requires(AMItems.BLANK_RUNE.get())
             .requires(Tags.Items.DYES_LIGHT_BLUE)
             .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.YELLOW_RUNE.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.YELLOW_RUNE.get())
             .requires(AMItems.BLANK_RUNE.get())
             .requires(Tags.Items.DYES_YELLOW)
             .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.LIME_RUNE.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.LIME_RUNE.get())
             .requires(AMItems.BLANK_RUNE.get())
             .requires(Tags.Items.DYES_LIME)
             .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.PINK_RUNE.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.PINK_RUNE.get())
             .requires(AMItems.BLANK_RUNE.get())
             .requires(Tags.Items.DYES_PINK)
             .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.GRAY_RUNE.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.GRAY_RUNE.get())
             .requires(AMItems.BLANK_RUNE.get())
             .requires(Tags.Items.DYES_GRAY)
             .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.LIGHT_GRAY_RUNE.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.LIGHT_GRAY_RUNE.get())
             .requires(AMItems.BLANK_RUNE.get())
             .requires(Tags.Items.DYES_LIGHT_GRAY)
             .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.CYAN_RUNE.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.CYAN_RUNE.get())
             .requires(AMItems.BLANK_RUNE.get())
             .requires(Tags.Items.DYES_CYAN)
             .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.PURPLE_RUNE.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.PURPLE_RUNE.get())
             .requires(AMItems.BLANK_RUNE.get())
             .requires(Tags.Items.DYES_PURPLE)
             .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.BLUE_RUNE.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.BLUE_RUNE.get())
             .requires(AMItems.BLANK_RUNE.get())
             .requires(Tags.Items.DYES_BLUE)
             .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.BROWN_RUNE.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.BROWN_RUNE.get())
             .requires(AMItems.BLANK_RUNE.get())
             .requires(Tags.Items.DYES_BROWN)
             .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.GREEN_RUNE.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.GREEN_RUNE.get())
             .requires(AMItems.BLANK_RUNE.get())
             .requires(Tags.Items.DYES_GREEN)
             .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.RED_RUNE.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.RED_RUNE.get())
             .requires(AMItems.BLANK_RUNE.get())
             .requires(Tags.Items.DYES_RED)
             .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.BLACK_RUNE.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.BLACK_RUNE.get())
             .requires(AMItems.BLANK_RUNE.get())
             .requires(Tags.Items.DYES_BLACK)
             .unlockedBy(getHasName(AMItems.BLANK_RUNE), has(AMItems.BLANK_RUNE.get()))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, AMItems.RUNE_BAG.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.TOOLS, AMItems.RUNE_BAG.get())
             .pattern("SHS")
             .pattern("HRH")
             .pattern("HHH")
@@ -495,11 +498,11 @@ public final class AMRecipeProvider extends RecipeProvider {
             .define('R', AMTags.Items.RUNES)
             .unlockedBy(getHasName(Items.RABBIT_HIDE), has(Items.RABBIT_HIDE))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.RUNE_BAG.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.RUNE_BAG.get())
             .requires(Items.BUNDLE)
             .requires(AMTags.Items.RUNES)
             .unlockedBy("has_rune", has(AMTags.Items.RUNES))
-            .save(output, ArsMagicaApi.id("rune_bag_from_bundle"));
+            .save(output, id("rune_bag_from_bundle"));
         oreSmelting(output, List.of(AMItems.CHIMERITE_ORE.get(), AMItems.DEEPSLATE_CHIMERITE_ORE.get()), AMItems.CHIMERITE.get(), 0.7f, 200, "chimerite");
         oreBlasting(output, List.of(AMItems.CHIMERITE_ORE.get(), AMItems.DEEPSLATE_CHIMERITE_ORE.get()), AMItems.CHIMERITE.get(), 0.7f, 100, "chimerite");
         nineBlockStorageRecipes(output, AMItems.CHIMERITE, AMTags.Items.GEMS_CHIMERITE, AMItems.CHIMERITE_BLOCK, AMTags.Items.STORAGE_BLOCKS_CHIMERITE);
@@ -513,7 +516,7 @@ public final class AMRecipeProvider extends RecipeProvider {
         oreBlasting(output, List.of(AMItems.MOONSTONE_ORE.get(), AMItems.DEEPSLATE_MOONSTONE_ORE.get()), AMItems.MOONSTONE.get(), 0.7f, 100, "moonstone");
         nineBlockStorageRecipes(output, AMItems.MOONSTONE, AMTags.Items.GEMS_MOONSTONE, AMItems.MOONSTONE_BLOCK, AMTags.Items.STORAGE_BLOCKS_MOONSTONE);
         nineBlockStorageRecipes(output, AMItems.SUNSTONE, AMTags.Items.GEMS_SUNSTONE, AMItems.SUNSTONE_BLOCK, AMTags.Items.STORAGE_BLOCKS_SUNSTONE);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.ARCANE_COMPOUND.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.ARCANE_COMPOUND.get())
             .requires(Tags.Items.DUSTS_GLOWSTONE)
             .requires(Tags.Items.DUSTS_GLOWSTONE)
             .requires(Tags.Items.DUSTS_REDSTONE)
@@ -524,17 +527,17 @@ public final class AMRecipeProvider extends RecipeProvider {
             .requires(Tags.Items.STONES)
             .unlockedBy(getHasName(Items.GLOWSTONE_DUST), has(Tags.Items.DUSTS_GLOWSTONE))
             .save(output);
-        SimpleCookingRecipeBuilder.smelting(Ingredient.of(AMTags.Items.DUSTS_ARCANE_COMPOUND), RecipeCategory.MISC, AMItems.ARCANE_ASH.get(), 0.2f, 200)
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(items.getOrThrow(AMTags.Items.DUSTS_ARCANE_COMPOUND)), RecipeCategory.MISC, CookingBookCategory.MISC, AMItems.ARCANE_ASH.get(), 0.2f, 200)
             .unlockedBy(getHasName(AMItems.ARCANE_COMPOUND), has(AMTags.Items.DUSTS_ARCANE_COMPOUND))
             .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AMItems.PURIFIED_VINTEUM_DUST.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, AMItems.PURIFIED_VINTEUM_DUST.get())
             .requires(AMTags.Items.DUSTS_ARCANE_ASH)
             .requires(AMItems.CERUBLOSSOM.get())
             .requires(AMItems.DESERT_NOVA.get())
             .requires(AMTags.Items.DUSTS_VINTEUM)
             .unlockedBy(getHasName(AMItems.VINTEUM_DUST), has(AMTags.Items.DUSTS_VINTEUM))
             .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AMItems.CRYSTAL_PHYLACTERY.get())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, AMItems.CRYSTAL_PHYLACTERY.get())
             .pattern(" M ")
             .pattern("GAG")
             .pattern(" W ")
@@ -573,6 +576,10 @@ public final class AMRecipeProvider extends RecipeProvider {
         drought(output, "red_sandstone", new BlockMatchTest(Blocks.RED_SANDSTONE), Blocks.SMOOTH_RED_SANDSTONE.defaultBlockState());
     }
 
+    private ResourceKey<Recipe<?>> id(String name) {
+        return ResourceKey.create(Registries.RECIPE, ArsMagicaApi.id(name));
+    }
+
     /**
      * Adds smelting recipes for the given {@link Ingredient}s.
      *
@@ -585,7 +592,7 @@ public final class AMRecipeProvider extends RecipeProvider {
      */
     @SuppressWarnings("SameParameterValue")
     private void oreSmelting(RecipeOutput output, List<ItemLike> ingredients, ItemLike result, float experience, int cookingTime, String group) {
-        oreCooking(output, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new, ingredients, result, experience, cookingTime, group, "_from_smelting");
+        oreCooking(output, SmeltingRecipe::new, ingredients, result, experience, cookingTime, group, "_from_smelting");
     }
 
     /**
@@ -600,14 +607,13 @@ public final class AMRecipeProvider extends RecipeProvider {
      */
     @SuppressWarnings("SameParameterValue")
     private void oreBlasting(RecipeOutput output, List<ItemLike> ingredients, ItemLike result, float experience, int cookingTime, String group) {
-        oreCooking(output, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new, ingredients, result, experience, cookingTime, group, "_from_blasting");
+        oreCooking(output, BlastingRecipe::new, ingredients, result, experience, cookingTime, group, "_from_blasting");
     }
 
     /**
      * Adds generic cooking recipes for the given {@link Ingredient}s.
      *
      * @param output        The {@link RecipeOutput} to use.
-     * @param serializer    The {@link RecipeSerializer} to use.
      * @param recipeFactory The {@link AbstractCookingRecipe.Factory} to use.
      * @param ingredients   A list of {@link Ingredient}s.
      * @param result        The result item to use.
@@ -616,12 +622,12 @@ public final class AMRecipeProvider extends RecipeProvider {
      * @param group         The crafting book group to use.
      * @param suffix        The suffix to append to the recipe name.
      */
-    private <T extends AbstractCookingRecipe> void oreCooking(RecipeOutput output, RecipeSerializer<T> serializer, AbstractCookingRecipe.Factory<T> recipeFactory, List<ItemLike> ingredients, ItemLike result, float experience, int cookingTime, String group, String suffix) {
+    private <T extends AbstractCookingRecipe> void oreCooking(RecipeOutput output, AbstractCookingRecipe.Factory<T> recipeFactory, List<ItemLike> ingredients, ItemLike result, float experience, int cookingTime, String group, String suffix) {
         for (ItemLike item : ingredients) {
-            SimpleCookingRecipeBuilder.generic(Ingredient.of(item), RecipeCategory.MISC, result, experience, cookingTime, serializer, recipeFactory)
+            SimpleCookingRecipeBuilder.generic(Ingredient.of(item), RecipeCategory.MISC, CookingBookCategory.MISC, result, experience, cookingTime, recipeFactory)
                 .group(group)
                 .unlockedBy(getHasName(item), has(item))
-                .save(output, ArsMagicaApi.id(getItemName(result) + suffix + "_" + getItemName(item)));
+                .save(output, id(getItemName(result) + suffix + "_" + getItemName(item)));
         }
     }
 
@@ -635,17 +641,17 @@ public final class AMRecipeProvider extends RecipeProvider {
      * @param packedTag   The block's associated tag to use.
      */
     private void nineBlockStorageRecipes(RecipeOutput output, ItemLike unpacked, TagKey<Item> unpackedTag, ItemLike packed, TagKey<Item> packedTag) {
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, unpacked, 9)
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, unpacked, 9)
             .requires(packedTag)
             .unlockedBy(getHasName(packed), has(packed))
-            .save(output, ArsMagicaApi.id(getSimpleRecipeName(unpacked)));
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, packed)
+            .save(output, id(getSimpleRecipeName(unpacked)));
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, packed)
             .define('#', unpackedTag)
             .pattern("###")
             .pattern("###")
             .pattern("###")
             .unlockedBy(getHasName(unpacked), has(unpacked))
-            .save(output, ArsMagicaApi.id(getSimpleRecipeName(packed)));
+            .save(output, id(getSimpleRecipeName(packed)));
     }
 
     /**
@@ -657,18 +663,34 @@ public final class AMRecipeProvider extends RecipeProvider {
      * @param group      The crafting book group to use.
      */
     private void oneToOneConversion(RecipeOutput output, ItemLike result, ItemLike ingredient, @Nullable String group) {
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, result, 1)
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, result, 1)
             .requires(ingredient)
             .group(group)
             .unlockedBy(getHasName(ingredient), has(ingredient))
-            .save(output, ArsMagicaApi.id(getConversionRecipeName(result, ingredient)));
+            .save(output, id(getConversionRecipeName(result, ingredient)));
     }
 
     private void drought(RecipeOutput output, String name, RuleTest ruleTest, BlockState result) {
         new SpellTransformationBuilder(ruleTest, AMSpells.DROUGHT, result).save(output, ArsMagicaApi.id("drought/" + name));
     }
 
-    private static ItemStack affinityEssence(HolderLookup.RegistryLookup<Affinity> lookup, ResourceKey<Affinity> affinity) {
-        return DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), lookup.getOrThrow(affinity));
+    private static ItemStackTemplate affinityEssence(HolderLookup.RegistryLookup<Affinity> lookup, ResourceKey<Affinity> affinity) {
+        return ItemStackTemplate.fromNonEmptyStack(DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), lookup.getOrThrow(affinity)));
+    }
+
+    public static final class Runner extends RecipeProvider.Runner {
+        public Runner(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registries) {
+            super(packOutput, registries);
+        }
+
+        @Override
+        protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
+            return new AMRecipeProvider(registries, output);
+        }
+
+        @Override
+        public String getName() {
+            return "Recipes";
+        }
     }
 }

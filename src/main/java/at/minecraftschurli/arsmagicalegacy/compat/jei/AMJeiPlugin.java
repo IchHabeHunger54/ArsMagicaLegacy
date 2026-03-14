@@ -56,9 +56,7 @@ public final class AMJeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(VanillaTypes.ITEM_STACK, AMItems.OCCULUS.toStack(), SkillCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(VanillaTypes.ITEM_STACK, AMItems.INSCRIPTION_TABLE.toStack(), SkillCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(VanillaTypes.ITEM_STACK, AMItems.ALTAR_CORE.toStack(), SkillCategory.RECIPE_TYPE);
+        registration.addCraftingStation(SkillCategory.RECIPE_TYPE, AMItems.OCCULUS.toStack(), AMItems.INSCRIPTION_TABLE.toStack(), AMItems.ALTAR_CORE.toStack());
     }
 
     @Override

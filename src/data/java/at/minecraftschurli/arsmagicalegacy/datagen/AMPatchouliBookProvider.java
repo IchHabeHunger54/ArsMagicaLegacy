@@ -16,13 +16,13 @@ import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
-import com.github.minecraftschurlimods.easydatagenlib.mods.patchouli.AbstractPageBuilder;
-import com.github.minecraftschurlimods.easydatagenlib.mods.patchouli.BookBuilder;
-import com.github.minecraftschurlimods.easydatagenlib.mods.patchouli.EntryBuilder;
-import com.github.minecraftschurlimods.easydatagenlib.mods.patchouli.PatchouliBookProvider;
-import com.github.minecraftschurlimods.easydatagenlib.mods.patchouli.translated.TranslatedBookBuilder;
-import com.github.minecraftschurlimods.easydatagenlib.mods.patchouli.translated.TranslatedCategoryBuilder;
-import com.github.minecraftschurlimods.easydatagenlib.mods.patchouli.translated.TranslatedEntryBuilder;
+import at.minecraftschurli.mods.easydatagenlib.mods.patchouli.AbstractPageBuilder;
+import at.minecraftschurli.mods.easydatagenlib.mods.patchouli.BookBuilder;
+import at.minecraftschurli.mods.easydatagenlib.mods.patchouli.EntryBuilder;
+import at.minecraftschurli.mods.easydatagenlib.mods.patchouli.PatchouliBookProvider;
+import at.minecraftschurli.mods.easydatagenlib.mods.patchouli.translated.TranslatedBookBuilder;
+import at.minecraftschurli.mods.easydatagenlib.mods.patchouli.translated.TranslatedCategoryBuilder;
+import at.minecraftschurli.mods.easydatagenlib.mods.patchouli.translated.TranslatedEntryBuilder;
 import com.google.gson.JsonObject;
 import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
@@ -40,11 +40,11 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-final class AMPatchouliBookProvider extends PatchouliBookProvider {
+public final class AMPatchouliBookProvider extends PatchouliBookProvider {
     private final BiConsumer<String, String> translationConsumer;
 
-    public AMPatchouliBookProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, BiConsumer<String, String> translationConsumer, boolean includeClient, boolean includeServer) {
-        super(output, lookupProvider, ArsMagicaApi.MOD_ID, includeClient, includeServer);
+    public AMPatchouliBookProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, BiConsumer<String, String> translationConsumer) {
+        super(output, lookupProvider, ArsMagicaApi.MOD_ID, true, true);
         this.translationConsumer = translationConsumer;
     }
 
@@ -367,7 +367,7 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
         TranslatedCategoryBuilder talents = builder.addCategory("talents", "Talents", "", ArsMagicaApi.MOD_ID + ":textures/skill/mana_regeneration_boost_1.png")
             .setSortnum(7);
         for (ResourceKey<Skill> talent : AMMagic.TALENTS) {
-            Identifier id = talent.location();
+            Identifier id = talent.identifier();
             TranslatedEntryBuilder entry = talents.addEntry(id.getPath(), Util.makeDescriptionId("skill", id) + ".name", id.getNamespace() + ":textures/skill/" + id.getPath() + ".png")
                 .setAdvancement(ArsMagicaApi.id("book/" + id.getPath()));
             entry.addSimpleTextPage(entry.getLangKey(0) + ".text").build();
@@ -385,18 +385,18 @@ final class AMPatchouliBookProvider extends PatchouliBookProvider {
         Map<ResourceKey<Affinity>, List<Holder.Reference<Ability>>> abilitiesByAffinity = lookupProvider
             .lookupOrThrow(AMRegistries.Keys.ABILITY)
             .listElements()
-            .sorted(Comparator.comparing(e -> e.key().location(), Identifier::compareNamespaced))
+            .sorted(Comparator.comparing(e -> e.key().identifier(), Identifier::compareNamespaced))
             .sorted(Comparator.comparing(e -> AMAbilityProvider.PATCHOULI_ABILITY_DATA.get(e.getKey()).bounds().min().orElse(0.)))
             .collect(Collectors.groupingBy(e -> AMAbilityProvider.PATCHOULI_ABILITY_DATA.get(e.getKey()).affinity()));
         for (Holder<Affinity> affinity : affinityRegistry.listElements().toList()) {
             ResourceKey<Affinity> key = affinity.getKey();
-            Identifier id = key.location();
-            if (!id.getNamespace().equals(builder.getId().getNamespace()) || id.equals(Affinity.NONE.location())) continue;
+            Identifier id = key.identifier();
+            if (!id.getNamespace().equals(builder.getId().getNamespace()) || id.equals(Affinity.NONE.identifier())) continue;
             TranslatedEntryBuilder entry = affinities.addEntry(id.getPath(), Util.makeDescriptionId("affinity", id), affinityEssence(affinityRegistry, key));
             entry.addSimpleTextPage(entry.getLangKey(0) + ".text");
             entry.addSimpleRecipePage("crafting", id.withPrefix("affinity_essence_"));
             for (Holder.Reference<Ability> ability : abilitiesByAffinity.get(key)) {
-                String translationKey = Util.makeDescriptionId("ability", ability.key().location());
+                String translationKey = Util.makeDescriptionId("ability", ability.key().identifier());
                 entry.addSimpleTextPage(translationKey + ".description", translationKey + ".name");
             }
             entry.build();

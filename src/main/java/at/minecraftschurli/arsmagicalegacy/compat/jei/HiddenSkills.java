@@ -53,7 +53,7 @@ public final class HiddenSkills {
             .map(Holder::value)
             .toList());
         ingredientManager.addIngredientsAtRuntime(AMJeiPlugin.SKILL_TYPE, VISIBLE_SKILLS.stream()
-            .map(skills::get)
+            .map(skills::getValue)
             .toList());
         recipeManager.unhideRecipes(SkillCategory.RECIPE_TYPE, VISIBLE_RECIPES);
     }
@@ -110,9 +110,9 @@ public final class HiddenSkills {
         Registry<Skill> skills = AMRegistries.skills(true);
         Registry<SpellPart> spellParts = AMRegistries.SPELL_PARTS;
         return ArsMagicaApi.spellHelper()
-            .getModifiers(spellParts.get(ResourceKey.create(AMRegistries.Keys.SPELL_PART, skill.location())))
+            .getModifiers(spellParts.getValue(ResourceKey.create(AMRegistries.Keys.SPELL_PART, skill.identifier())))
             .stream()
-            .map(e -> skills.get(spellParts.getKey(e)))
+            .map(e -> skills.getValue(spellParts.getKey(e)))
             .filter(Skill::hidden)
             .map(skills::wrapAsHolder);
     }
@@ -123,7 +123,7 @@ public final class HiddenSkills {
 
     private static String getKey(Collection<ResourceKey<Skill>> set) {
         return String.join(",", set.stream()
-            .map(ResourceKey::location)
+            .map(ResourceKey::identifier)
             .map(Identifier::toString)
             .sorted()
             .toList());

@@ -19,10 +19,9 @@ public class SkillIngredientHelper implements IIngredientHelper<Skill> {
         return Skill.getName(AMRegistries.skills(true).wrapAsHolder(skill)).getString();
     }
 
-    @SuppressWarnings("removal")
     @Override
-    public String getUniqueId(Skill skill, UidContext uidContext) {
-        return getIdentifier(skill).toString();
+    public Object getUid(Skill skill, UidContext context) {
+        return getIdentifier(skill);
     }
 
     @SuppressWarnings("DataFlowIssue")

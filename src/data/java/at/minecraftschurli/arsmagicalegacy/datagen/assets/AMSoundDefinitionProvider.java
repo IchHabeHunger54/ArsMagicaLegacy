@@ -6,7 +6,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.data.SoundDefinition;
 import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
 
@@ -16,8 +15,8 @@ import java.util.Set;
 public final class AMSoundDefinitionProvider extends SoundDefinitionsProvider {
     private final Set<Identifier> sounds = new HashSet<>();
 
-    public AMSoundDefinitionProvider(PackOutput output, ExistingFileHelper helper) {
-        super(output, ArsMagicaApi.MOD_ID, helper);
+    public AMSoundDefinitionProvider(PackOutput output) {
+        super(output, ArsMagicaApi.MOD_ID);
     }
 
     @Override

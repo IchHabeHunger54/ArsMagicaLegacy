@@ -18,10 +18,11 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
@@ -30,11 +31,12 @@ import net.minecraft.resources.Identifier;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 @SuppressWarnings("DataFlowIssue")
 public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
-    public static final RecipeType<Recipe> RECIPE_TYPE = RecipeType.create(ArsMagicaApi.MOD_ID, "skill", Recipe.class);
+    public static final IRecipeType<Recipe> RECIPE_TYPE = IRecipeType.create(ArsMagicaApi.MOD_ID, "skill", Recipe.class);
     private static final Identifier BACKGROUND = ArsMagicaApi.id("textures/gui/skill_category.png");
     private static final Comparator<Holder<Affinity>> COMPARATOR = Comparator.comparing(Holder::getKey);
     private static final int INGREDIENT_COLUMNS = 7;
@@ -49,7 +51,7 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
     }
 
     @Override
-    public RecipeType<Recipe> getRecipeType() {
+    public IRecipeType<Recipe> getRecipeType() {
         return RECIPE_TYPE;
     }
 
@@ -70,7 +72,7 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
         List<Skill> modifiers = recipe.modifiers;
         int x = 0;
         int y = AMClientUtil.font().lineHeight + TEXT_BOTTOM_PADDING;
-        builder.addSlot(RecipeIngredientRole.OUTPUT, (WIDTH - SLOT_SIZE) / 2, y).addIngredient(AMJeiPlugin.SKILL_TYPE, recipe.skill.value());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, (WIDTH - SLOT_SIZE) / 2, y).add(AMJeiPlugin.SKILL_TYPE, recipe.skill.value());
         y += SLOT_SIZE + TEXT_BOTTOM_PADDING;
         if (!ingredients.isEmpty()) {
             for (int i = 0; i < ingredients.size(); i++) {
@@ -89,7 +91,7 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
             y += SLOT_SIZE + TEXT_BOTTOM_PADDING;
             for (Holder<Affinity> affinity : affinityShifts.keySet().stream().sorted(COMPARATOR).toList()) {
                 builder.addSlot(RecipeIngredientRole.RENDER_ONLY, x, y)
-                    .addItemStack(DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinity))
+                    .add(DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinity))
                     .addRichTooltipCallback((slot, tooltip) -> {
                         tooltip.clear();
                         tooltip.add(Affinity.getName(affinity));
@@ -107,7 +109,7 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
                     x = (WIDTH - Math.min(modifiers.size() - i, INGREDIENT_COLUMNS) * SLOT_SIZE) / 2;
                     y += SLOT_SIZE;
                 }
-                builder.addSlot(RecipeIngredientRole.CATALYST, x, y).addIngredient(AMJeiPlugin.SKILL_TYPE, modifiers.get(i));
+                builder.addSlot(RecipeIngredientRole.RENDER_ONLY, x, y).add(AMJeiPlugin.SKILL_TYPE, modifiers.get(i));
             }
         }
     }
@@ -124,7 +126,7 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
 
     @Override
     public void draw(Recipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
-        guiGraphics.blit(BACKGROUND, 0, 0, 0, 0, WIDTH, HEIGHT);
+        guiGraphics.blit(RenderPipelines.GUI, BACKGROUND, 0, 0, 0, 0, WIDTH, HEIGHT, 256, 256);
         Font font = AMClientUtil.font();
         drawCentered(guiGraphics, font, Skill.getName(recipe.skill), 0);
         int y = SLOT_SIZE * 2 + TEXT_BOTTOM_PADDING;
@@ -136,7 +138,7 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
             y += font.lineHeight + font.lineHeight / 2 + TEXT_BOTTOM_PADDING;
             int x = getAffinityValueAnchor(recipe.affinityShifts) + 9;
             for (Holder<Affinity> affinity : recipe.affinityShifts.keySet().stream().sorted(COMPARATOR).toList()) {
-                guiGraphics.drawString(font, String.valueOf(Math.round(recipe.affinityShifts.get(affinity) * 1000) / 1000.), x, y, affinity.value().color(), false);
+                guiGraphics.text(font, String.valueOf(Math.round(recipe.affinityShifts.get(affinity) * 1000) / 1000.), x, y, affinity.value().color(), false);
                 y += SLOT_SIZE - 2;
             }
             y += 2 - font.lineHeight / 2 + TEXT_BOTTOM_PADDING;
@@ -148,7 +150,7 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
     }
 
     private static void drawCentered(GuiGraphicsExtractor graphics, Font font, Component component, int y) {
-        graphics.drawString(font, component, (int) ((WIDTH - font.getSplitter().stringWidth(component.getString())) / 2), y, 0x404040, false);
+        graphics.text(font, component, (int) ((WIDTH - font.getSplitter().stringWidth(component.getString())) / 2), y, 0x404040, false);
     }
 
     private static int getAffinityValueAnchor(Map<Holder<Affinity>, Double> affinityShifts) {
@@ -160,13 +162,16 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
         public static Recipe of(Holder<Skill> skill, Set<Holder<Skill>> hiddenModifiers) {
             Registry<Skill> skills = AMRegistries.skills(true);
             Registry<SpellPart> spellParts = AMRegistries.SPELL_PARTS;
-            SpellPart part = spellParts.get(skills.getKey(skill.value()));
+            SpellPart part = spellParts.getValue(skills.getKey(skill.value()));
             SpellPartData data = part.getData();
             return new Recipe(skill, data.recipe(), data.affinityShifts(), ArsMagicaApi.spellHelper()
                 .getModifiers(part)
                 .stream()
                 .map(e -> skills.get(spellParts.getKey(e)))
-                .filter(e -> !hiddenModifiers.contains(skills.wrapAsHolder(e)))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .filter(e -> !hiddenModifiers.contains(e))
+                .map(Holder::value)
                 .toList());
         }
 

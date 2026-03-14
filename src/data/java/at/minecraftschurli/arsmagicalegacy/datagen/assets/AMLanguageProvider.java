@@ -35,10 +35,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class AMLanguageProvider extends LanguageProvider {
-    private final Map<String, String> cached = new HashMap<>();
+    private final Map<String, String> cached;
 
-    public AMLanguageProvider(PackOutput output) {
+    public AMLanguageProvider(PackOutput output, Map<String, String> cached) {
         super(output, ArsMagicaApi.MOD_ID, "en_us");
+        this.cached = cached;
     }
 
     @Override
@@ -46,9 +47,9 @@ public final class AMLanguageProvider extends LanguageProvider {
         cached.forEach(this::add);
         itemIdTranslation(AMItems.SPELL);
         itemIdTranslation(AMItems.SPELL_RECIPE);
-        itemWithVariantTranslation(AMItems.ETHERIUM_PLACEHOLDER, AMEtheriumTypes.LIGHT.location(), "Light Etherium");
-        itemWithVariantTranslation(AMItems.ETHERIUM_PLACEHOLDER, AMEtheriumTypes.NEUTRAL.location(), "Neutral Etherium");
-        itemWithVariantTranslation(AMItems.ETHERIUM_PLACEHOLDER, AMEtheriumTypes.DARK.location(), "Dark Etherium");
+        itemWithVariantTranslation(AMItems.ETHERIUM_PLACEHOLDER, AMEtheriumTypes.LIGHT.identifier(), "Light Etherium");
+        itemWithVariantTranslation(AMItems.ETHERIUM_PLACEHOLDER, AMEtheriumTypes.NEUTRAL.identifier(), "Neutral Etherium");
+        itemWithVariantTranslation(AMItems.ETHERIUM_PLACEHOLDER, AMEtheriumTypes.DARK.identifier(), "Dark Etherium");
         itemIdTranslation(AMItems.ETHERIUM_PLACEHOLDER);
         blockIdTranslation(AMBlocks.SPELL_LIGHT);
         blockIdTranslation(AMBlocks.SPELL_RUNE);
@@ -84,33 +85,33 @@ public final class AMLanguageProvider extends LanguageProvider {
         itemIdTranslation(AMItems.BATTLEMAGE_BOOTS);
         itemIdTranslation(AMItems.MANA_CAKE);
         itemIdTranslation(AMItems.MANA_MARTINI);
-        itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.BLUE_POINT.location(), "Blue Infinity Orb");
-        itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.GREEN_POINT.location(), "Green Infinity Orb");
-        itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.RED_POINT.location(), "Red Infinity Orb");
+        itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.BLUE_POINT.identifier(), "Blue Infinity Orb");
+        itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.GREEN_POINT.identifier(), "Green Infinity Orb");
+        itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.RED_POINT.identifier(), "Red Infinity Orb");
         itemIdTranslation(AMItems.INFINITY_ORB);
-        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, Affinity.NONE.location(), "Affinity Essence");
-        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.WATER.location(), "Water Affinity Essence");
-        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.FIRE.location(), "Fire Affinity Essence");
-        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.EARTH.location(), "Earth Affinity Essence");
-        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.AIR.location(), "Air Affinity Essence");
-        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.ICE.location(), "Ice Affinity Essence");
-        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.LIGHTNING.location(), "Lightning Affinity Essence");
-        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.NATURE.location(), "Nature Affinity Essence");
-        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.LIFE.location(), "Life Affinity Essence");
-        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.ARCANE.location(), "Arcane Affinity Essence");
-        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.ENDER.location(), "Ender Affinity Essence");
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, Affinity.NONE.identifier(), "Affinity Essence");
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.WATER.identifier(), "Water Affinity Essence");
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.FIRE.identifier(), "Fire Affinity Essence");
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.EARTH.identifier(), "Earth Affinity Essence");
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.AIR.identifier(), "Air Affinity Essence");
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.ICE.identifier(), "Ice Affinity Essence");
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.LIGHTNING.identifier(), "Lightning Affinity Essence");
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.NATURE.identifier(), "Nature Affinity Essence");
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.LIFE.identifier(), "Life Affinity Essence");
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.ARCANE.identifier(), "Arcane Affinity Essence");
+        itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.ENDER.identifier(), "Ender Affinity Essence");
         itemIdTranslation(AMItems.AFFINITY_ESSENCE);
-        itemWithVariantTranslation(AMItems.AFFINITY_TOME, Affinity.NONE.location(), "Affinity Tome");
-        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.WATER.location(), "Water Affinity Tome");
-        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.FIRE.location(), "Fire Affinity Tome");
-        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.EARTH.location(), "Earth Affinity Tome");
-        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.AIR.location(), "Air Affinity Tome");
-        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.ICE.location(), "Ice Affinity Tome");
-        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.LIGHTNING.location(), "Lightning Affinity Tome");
-        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.NATURE.location(), "Nature Affinity Tome");
-        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.LIFE.location(), "Life Affinity Tome");
-        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.ARCANE.location(), "Arcane Affinity Tome");
-        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.ENDER.location(), "Ender Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, Affinity.NONE.identifier(), "Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.WATER.identifier(), "Water Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.FIRE.identifier(), "Fire Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.EARTH.identifier(), "Earth Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.AIR.identifier(), "Air Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.ICE.identifier(), "Ice Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.LIGHTNING.identifier(), "Lightning Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.NATURE.identifier(), "Nature Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.LIFE.identifier(), "Life Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.ARCANE.identifier(), "Arcane Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.ENDER.identifier(), "Ender Affinity Tome");
         itemIdTranslation(AMItems.AFFINITY_TOME);
         itemIdTranslation(AMItems.BLANK_RUNE);
         itemIdTranslation(AMItems.WHITE_RUNE);
@@ -476,16 +477,16 @@ public final class AMLanguageProvider extends LanguageProvider {
         skillTranslation(AMSpells.WAVE.getId(), "Wave", "You might not want to surf on this one.", "shapes", "You can project a wave of magic in front of you that rolls forward, applying its effect to everything in its path.");
         skillTranslation(AMSpells.WIZARDS_AUTUMN.getId(), "Wizard's Autumn", "Leaves must leave.", "components", "You have learned to focus your digging magic into a small radius that directly affects leaves.$(br2)This component has a built-in $(l:shapes/aoe)AoE$() that can be modified with $(l:modifiers/range)Range$() modifiers.");
         skillTranslation(AMSpells.ZONE.getId(), "Zone", "No one can beat me in my sanctuary!", "shapes", "You have learned to focus your will into an area effect that will persist for a time.");
-        skillTranslation(AMMagic.AFFINITY_GAINS_BOOST.location(), "Affinity Gains Boost", "Let's skip to the part where I have superpowers.", "talents", "You gain a 5%% boost in affinity gains.");
-        skillTranslation(AMMagic.AUGMENTED_CASTING.location(), "Augmented Casting", "Upgrades, people, upgrades.", "talents", "All your spells gain a little boost. A little more damage, a little more duration, a little more speed, a little bit of everything.");
-        skillTranslation(AMMagic.EXTRA_SUMMONS.location(), "Extra Summons", "Why should I do the fighting?", "talents", "When $(l:components/summon)summoning$() creatures, you can have just a little bit more of them.");
-        //skillTranslation(AMMagic.MAGE_BAND_1.location(), "Mage Band I", "Starting a cult.", "talents", "You have built enough trust with light mages for them to follow you if requested.");
-        //skillTranslation(AMMagic.MAGE_BAND_2.location(), "Mage Band II", "Group effort!", "talents", "Building even more trust, light mages will now automatically link their mana pools with yours if you are close.");
-        skillTranslation(AMMagic.MANA_REGENERATION_BOOST_1.location(), "Mana Regeneration I", "And I would gain 500 mana...", "talents", "Your mana regeneration is boosted by 5%%.");
-        skillTranslation(AMMagic.MANA_REGENERATION_BOOST_2.location(), "Mana Regeneration II", "...and I would gain 500 more...", "talents", "Your mana regeneration is boosted by 10%%. This replaces the boost of $(l:talents/mana_regen_1)Mana Regen I$().");
-        skillTranslation(AMMagic.MANA_REGENERATION_BOOST_3.location(), "Mana Regeneration III", "...just to get back every single mana point I have consumed before.", "talents", "Your mana regeneration is boosted by 15%%. This replaces the boosts of $(l:talents/mana_regen_1)Mana Regen I$() and $(l:talents/mana_regen_2)Mana Regen II$().");
-        skillTranslation(AMMagic.SHIELD_OVERLOAD.location(), "Shield Overload", "No more wasting excess mana.", "talents", "When your mana bar is full, excess mana regenerated turns into a shield that protects you from 5%% of all incoming damage.");
-        skillTranslation(AMMagic.SPELL_MOTION.location(), "Spell Motion", "I like to move it, move it.", "talents", "Manipulating the winds around you, you have found a way to move at normal speed while using spells.");
+        skillTranslation(AMMagic.AFFINITY_GAINS_BOOST.identifier(), "Affinity Gains Boost", "Let's skip to the part where I have superpowers.", "talents", "You gain a 5%% boost in affinity gains.");
+        skillTranslation(AMMagic.AUGMENTED_CASTING.identifier(), "Augmented Casting", "Upgrades, people, upgrades.", "talents", "All your spells gain a little boost. A little more damage, a little more duration, a little more speed, a little bit of everything.");
+        skillTranslation(AMMagic.EXTRA_SUMMONS.identifier(), "Extra Summons", "Why should I do the fighting?", "talents", "When $(l:components/summon)summoning$() creatures, you can have just a little bit more of them.");
+        //skillTranslation(AMMagic.MAGE_BAND_1.identifier(), "Mage Band I", "Starting a cult.", "talents", "You have built enough trust with light mages for them to follow you if requested.");
+        //skillTranslation(AMMagic.MAGE_BAND_2.identifier(), "Mage Band II", "Group effort!", "talents", "Building even more trust, light mages will now automatically link their mana pools with yours if you are close.");
+        skillTranslation(AMMagic.MANA_REGENERATION_BOOST_1.identifier(), "Mana Regeneration I", "And I would gain 500 mana...", "talents", "Your mana regeneration is boosted by 5%%.");
+        skillTranslation(AMMagic.MANA_REGENERATION_BOOST_2.identifier(), "Mana Regeneration II", "...and I would gain 500 more...", "talents", "Your mana regeneration is boosted by 10%%. This replaces the boost of $(l:talents/mana_regen_1)Mana Regen I$().");
+        skillTranslation(AMMagic.MANA_REGENERATION_BOOST_3.identifier(), "Mana Regeneration III", "...just to get back every single mana point I have consumed before.", "talents", "Your mana regeneration is boosted by 15%%. This replaces the boosts of $(l:talents/mana_regen_1)Mana Regen I$() and $(l:talents/mana_regen_2)Mana Regen II$().");
+        skillTranslation(AMMagic.SHIELD_OVERLOAD.identifier(), "Shield Overload", "No more wasting excess mana.", "talents", "When your mana bar is full, excess mana regenerated turns into a shield that protects you from 5%% of all incoming damage.");
+        skillTranslation(AMMagic.SPELL_MOTION.identifier(), "Spell Motion", "I like to move it, move it.", "talents", "Manipulating the winds around you, you have found a way to move at normal speed while using spells.");
         abilityTranslation(AMAbilities.SWIM_SPEED, "Swim Speed", "After using water spells for some time, you develop better swimming skills. As you delve deeper, you notice your speed in water getting faster and faster.$(br2)Affinity: Water$(br)Range: 1 - 100 %%");
         abilityTranslation(AMAbilities.ENDER_THORNS, "Ender Thorns", "Becoming part water, ender creatures that attack you now take damage themselves.$(br2)Affinity: Water$(br)Range: 100 %%");
         abilityTranslation(AMAbilities.NETHER_DAMAGE_WATER, "Damage in the Nether", "Having fun with water magic has made you less suitable for fire. You will take damage in the nether, though not enough to kill you on its own.$(br2)Affinity: Water$(br)Range: 50 - 100 %%");
@@ -962,8 +963,8 @@ public final class AMLanguageProvider extends LanguageProvider {
      * @param description    The ability description.
      */
     private void abilityTranslation(ResourceKey<Ability> ability, String name, String description) {
-        add(Util.makeDescriptionId("ability", ability.location()) + ".name", name);
-        add(Util.makeDescriptionId("ability", ability.location()) + ".description", description);
+        add(Util.makeDescriptionId("ability", ability.identifier()) + ".name", name);
+        add(Util.makeDescriptionId("ability", ability.identifier()) + ".description", description);
     }
 
     /**

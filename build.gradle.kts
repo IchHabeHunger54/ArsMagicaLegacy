@@ -32,7 +32,7 @@ repositories {
         name = "Geckolib"
         url = uri("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")
         content {
-            includeGroup("software.bernie.geckolib")
+            includeGroupAndSubgroups("com.geckolib")
         }
     }
     maven {
@@ -97,14 +97,14 @@ dependencies {
     // jei for integration
     val jeiApiDep = helper.minecraftVersion.zip(jei.version) { mc, version -> "mezz.jei:jei-${mc}-common-api:${version}" }
     val jeiDep = helper.minecraftVersion.zip(jei.version) { mc, version -> "mezz.jei:jei-${mc}-neoforge:${version}" }
-    //compileOnly(jeiApiDep)
+    compileOnly(jeiApiDep)
 
     // curios for additional inventory slots
     val curiosApiDep = curios.version.map { "top.theillusivec4.curios:curios-neoforge:${it}:api" }
     val curiosDep = curios.version.map { "top.theillusivec4.curios:curios-neoforge:${it}" }
-    //compileOnly(curiosApiDep)
-    //"dataCompileOnly"(curiosApiDep)
-    //"dataRuntimeOnly"(curiosDep)
+    compileOnly(curiosApiDep)
+    "dataCompileOnly"(curiosApiDep)
+    "dataRuntimeOnly"(curiosDep)
 
     // patchouli for the guide book (arcane compendium)
     val patchouliApiDep = patchouli.version.map { "vazkii.patchouli:Patchouli:${it}:api" }
@@ -115,32 +115,35 @@ dependencies {
     //"dataRuntimeOnly"(patchouliDep)
 
     // geckolib for animations
-    val geckolibDep = helper.minecraftVersion.zip(geckolib.version) { mc, version -> "software.bernie.geckolib:geckolib-neoforge-${mc}:${version}" }
-    //implementation(geckolibDep)
-    //testRuntimeOnly(geckolibDep)
-    //"dataRuntimeOnly"(geckolibDep)
+    val geckolibDep = helper.minecraftVersion.zip(geckolib.version) { mc, version -> "com.geckolib:geckolib-neoforge-${/*mc*/ "26.1-snapshot-11"}:${version}" }
+    implementation(geckolibDep)
+    testRuntimeOnly(geckolibDep)
+    "dataRuntimeOnly"(geckolibDep)
+    "interfaceInjection"(geckolibDep)
 
     // jade for integration
     val jadeDep = jade.version.map { "maven.modrinth:jade:${it}-neoforge" }
     //compileOnly(jadeDep)
 
     if (!helper.runningInCI.getOrElse(false)) {
-        //runtimeOnly(jeiDep)
+        runtimeOnly(jeiDep)
         //runtimeOnly(jadeDep)
-        //runtimeOnly(curiosDep)
+        runtimeOnly(curiosDep)
     }
 
     val easyDatagenLibVersion = project.localGradleProperty("dependency.easydatagenlib.version")
-    val easyDatagenLibApiDep = easyDatagenLibVersion.map { "com.github.minecraftschurlimods:easydatagenlib:${it}:api" }
-    val easyDatagenLibDep = easyDatagenLibVersion.map { "com.github.minecraftschurlimods:easydatagenlib:${it}" }
-    //"apiCompileOnly"(easyDatagenLibApiDep)
-    //"dataImplementation"(easyDatagenLibDep)
+    val easyDatagenLibApiDep = easyDatagenLibVersion.map { "at.minecraftschurli.mods:easydatagenlib:${it}:api" }
+    val easyDatagenLibDep = easyDatagenLibVersion.map { "at.minecraftschurli.mods:easydatagenlib:${it}" }
+    "apiCompileOnly"(easyDatagenLibApiDep)
+    "dataImplementation"(easyDatagenLibDep)
+    "accessTransformer"(easyDatagenLibDep)
 
     testImplementation("org.junit.jupiter:junit-jupiter:${project.properties["junit_version"]}")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     sourceSets.forEach {
         it.compileOnlyConfigurationName("org.jetbrains:annotations:23.0.0")
+        /*it.annotationProcessorConfigurationName("systems.manifold:manifold-preprocessor:2026.1.6")*/
     }
 }
 
@@ -152,6 +155,14 @@ minecraft.accessTransformers.file("src/main/resources/META-INF/accesstransformer
 
 tasks.jar {
     exclude("at/minecraftschurli/arsmagicalegacy/api/data")
+}
+
+/*tasks.withType<JavaCompile>().matching { !it.name.startsWith("neo") }.configureEach {
+    options.compilerArgs.add("-Xplugin:Manifold")
+}*/
+
+tasks.withType<JavaCompile>().matching { it.name == "neoFormRecompile" }.configureEach {
+    options.compilerArgs.add("-Xlint:-removal")
 }
 
 tasks.javadoc {

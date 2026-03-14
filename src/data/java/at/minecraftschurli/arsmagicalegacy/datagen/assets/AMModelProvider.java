@@ -6,27 +6,35 @@ import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.item.CrystalPhylacteryItem;
 import at.minecraftschurli.arsmagicalegacy.item.CrystalWrenchItem;
+import at.minecraftschurli.mods.easydatagenlib.AbstractModelProvider;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.resources.model.sprite.Material;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
-import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
-import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
-import net.neoforged.neoforge.client.model.generators.loaders.DynamicFluidContainerModelBuilder;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
-public final class AMItemModelProvider extends ItemModelProvider {
-    public AMItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
-        super(output, ArsMagicaApi.MOD_ID, existingFileHelper);
+public class AMModelProvider extends AbstractModelProvider {
+
+    public AMModelProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(output, lookupProvider, ArsMagicaApi.MOD_ID);
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Override
-    protected void registerModels() {
-        singleTexture("arcane_compendium", mcLoc("item/generated"), "layer0", modLoc("item/arcane_compendium"));
+    protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
+        registerItemModels(itemModels);
+    }
+
+    private void registerItemModels(ItemModelGenerators itemModels) {
+        ModelTemplates.FLAT_ITEM.create(ArsMagicaApi.id("arcane_compendium"), TextureMapping.layer0(new Material(ArsMagicaApi.id("item/arcane_compendium"))), itemModels.modelOutput);
         basicItem(AMItems.SPELL);
         basicItemWithVariants(AMItems.SPELL, AMMagic.AFFINITIES_WITH_NONE);
         withExistingParent(AMItems.SPELL_RECIPE.getId().getPath(), mcLoc("item/written_book"));

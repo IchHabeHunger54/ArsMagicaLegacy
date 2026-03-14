@@ -9,7 +9,6 @@ import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMFluids;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.data.tags.DamageTypeTagsProvider;
@@ -21,32 +20,22 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.data.BlockTagCopyingItemTagProvider;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
-import net.neoforged.neoforge.common.data.ItemTagsProvider;
+import org.jspecify.annotations.NullMarked;
 import top.theillusivec4.curios.api.CuriosTags;
 
 import java.util.concurrent.CompletableFuture;
 
 @SuppressWarnings("unchecked")
 public final class AMTagsProvider {
-    private AMTagsProvider() {
-    }
+    private AMTagsProvider() {}
 
-    public static void addProviders(DataGenerator generator, boolean includeServer, PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        generator.addProvider(includeServer, new Block(output, lookupProvider));
-        generator.addProvider(includeServer, new Item(output, lookupProvider));
-        generator.addProvider(includeServer, new Fluid(output, lookupProvider));
-        generator.addProvider(includeServer, new EntityType(output, lookupProvider));
-        generator.addProvider(includeServer, new DamageType(output, lookupProvider));
-        generator.addProvider(includeServer, new Enchantment(output, lookupProvider));
-        generator.addProvider(includeServer, new Biome(output, lookupProvider));
-    }
-
-    private static final class Block extends BlockTagsProvider {
-        public Block(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+    static final class Blocks extends BlockTagsProvider {
+        public Blocks(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
             super(output, lookupProvider, ArsMagicaApi.MOD_ID);
         }
 
@@ -86,7 +75,7 @@ public final class AMTagsProvider {
             tag(AMTags.Blocks.AUM_PLANTABLE_ON).addTag(BlockTags.DIRT);
             tag(AMTags.Blocks.CERUBLOSSOM_PLANTABLE_ON).addTag(BlockTags.DIRT);
             tag(AMTags.Blocks.DESERT_NOVA_PLANTABLE_ON).addTag(BlockTags.SAND);
-            tag(AMTags.Blocks.TARMA_ROOT_PLANTABLE_ON).add(Blocks.CLAY, Blocks.GRAVEL).addTags(BlockTags.DIRT, BlockTags.SAND, BlockTags.STONE_ORE_REPLACEABLES, BlockTags.DEEPSLATE_ORE_REPLACEABLES);
+            tag(AMTags.Blocks.TARMA_ROOT_PLANTABLE_ON).add(net.minecraft.world.level.block.Blocks.CLAY, net.minecraft.world.level.block.Blocks.GRAVEL).addTags(BlockTags.DIRT, BlockTags.SAND, BlockTags.STONE_ORE_REPLACEABLES, BlockTags.DEEPSLATE_ORE_REPLACEABLES);
             tag(AMTags.Blocks.DRYADS_SPAWNABLE_ON).addTag(BlockTags.ANIMALS_SPAWNABLE_ON);
             tag(BlockTags.RAILS).add(AMBlocks.REDSTONE_INLAY.get(), AMBlocks.IRON_INLAY.get(), AMBlocks.GOLD_INLAY.get());
             tag(BlockTags.SMALL_FLOWERS).add(AMBlocks.AUM.get(), AMBlocks.CERUBLOSSOM.get(), AMBlocks.DESERT_NOVA.get(), AMBlocks.TARMA_ROOT.get(), AMBlocks.WAKEBLOOM.get());
@@ -103,9 +92,9 @@ public final class AMTagsProvider {
         }
     }
 
-    private static final class Item extends ItemTagsProvider {
-        public Item(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-            super(output, lookupProvider, ArsMagicaApi.MOD_ID);
+    static final class Items extends BlockTagCopyingItemTagProvider {
+        public Items(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blocks) {
+            super(output, lookupProvider, blocks, ArsMagicaApi.MOD_ID);
         }
 
         @Override
@@ -163,8 +152,8 @@ public final class AMTagsProvider {
             tag(ItemTags.BOOKSHELF_BOOKS).add(AMItems.SPELL_BOOK.get());
             tag(ItemTags.LECTERN_BOOKS).add(AMItems.SPELL_RECIPE.get());
             tag(ItemTags.CAULDRON_CAN_REMOVE_DYE).add(AMItems.SPELL_BOOK.get());
-            tag(AMTags.Items.ARCANE_COMPENDIUM_BOOKS).add(Items.BOOK);
-            tag(AMTags.Items.INSCRIPTION_TABLE_BOOKS).add(Items.WRITABLE_BOOK, AMItems.SPELL_RECIPE.get());
+            tag(AMTags.Items.ARCANE_COMPENDIUM_BOOKS).add(net.minecraft.world.item.Items.BOOK);
+            tag(AMTags.Items.INSCRIPTION_TABLE_BOOKS).add(net.minecraft.world.item.Items.WRITABLE_BOOK, AMItems.SPELL_RECIPE.get());
             tag(AMTags.Items.OCCULUS_FORGET_ALL).addTag(AMTags.Items.STORAGE_BLOCKS_VINTEUM);
             tag(AMTags.Items.RUNES).add(AMItems.BLANK_RUNE.get(), AMItems.WHITE_RUNE.get(), AMItems.ORANGE_RUNE.get(), AMItems.MAGENTA_RUNE.get(), AMItems.LIGHT_BLUE_RUNE.get(), AMItems.YELLOW_RUNE.get(), AMItems.LIME_RUNE.get(), AMItems.PINK_RUNE.get(), AMItems.GRAY_RUNE.get(), AMItems.LIGHT_GRAY_RUNE.get(), AMItems.CYAN_RUNE.get(), AMItems.PURPLE_RUNE.get(), AMItems.BLUE_RUNE.get(), AMItems.BROWN_RUNE.get(), AMItems.GREEN_RUNE.get(), AMItems.RED_RUNE.get(), AMItems.BLACK_RUNE.get());
             tag(AMTags.Items.SHOWS_SPELL_VISUALS).add(AMItems.SPELL.get(), AMItems.SPELL_BOOK.get());
@@ -174,8 +163,8 @@ public final class AMTagsProvider {
         }
     }
 
-    private static final class Fluid extends FluidTagsProvider {
-        public Fluid(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
+    static final class Fluids extends FluidTagsProvider {
+        public Fluids(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
             super(output, provider, ArsMagicaApi.MOD_ID);
         }
 
@@ -185,8 +174,8 @@ public final class AMTagsProvider {
         }
     }
 
-    private static final class EntityType extends EntityTypeTagsProvider {
-        public EntityType(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
+    static final class EntityTypes extends EntityTypeTagsProvider {
+        public EntityTypes(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
             super(output, provider, ArsMagicaApi.MOD_ID);
         }
 
@@ -194,16 +183,17 @@ public final class AMTagsProvider {
         protected void addTags(HolderLookup.Provider provider) {
             tag(Tags.EntityTypes.BOATS).add(AMEntities.WITCHWOOD_BOAT.get(), AMEntities.WITCHWOOD_CHEST_BOAT.get());
             tag(AMTags.EntityTypes.BLACK_AUREM_IMMUNE).addTags(EntityTypeTags.UNDEAD, Tags.EntityTypes.BOSSES);
-            tag(AMTags.EntityTypes.AFFECTED_BY_ENDER_THORNS_ABILITY).add(net.minecraft.world.entity.EntityType.ENDER_DRAGON, net.minecraft.world.entity.EntityType.ENDERMAN, net.minecraft.world.entity.EntityType.ENDERMITE, net.minecraft.world.entity.EntityType.SHULKER);
+            tag(AMTags.EntityTypes.AFFECTED_BY_ENDER_THORNS_ABILITY).add(EntityType.ENDER_DRAGON, EntityType.ENDERMAN, EntityType.ENDERMITE, EntityType.SHULKER);
             tag(AMTags.EntityTypes.AFFECTED_BY_SMITE_ABILITY).addTag(EntityTypeTags.UNDEAD);
             tag(AMTags.EntityTypes.AFFECTED_BY_NAUSEA_ABILITY).addTag(EntityTypeTags.UNDEAD);
-            // TODO 26.1 add creaking
-            tag(AMTags.EntityTypes.SUMMONING_NOT_SUPPORTED).addTags(Tags.EntityTypes.BOSSES, Tags.EntityTypes.CAPTURING_NOT_SUPPORTED).add(net.minecraft.world.entity.EntityType.ARMOR_STAND, net.minecraft.world.entity.EntityType.GIANT, net.minecraft.world.entity.EntityType.ILLUSIONER, net.minecraft.world.entity.EntityType.PLAYER, net.minecraft.world.entity.EntityType.WARDEN);
+            tag(AMTags.EntityTypes.SUMMONING_NOT_SUPPORTED)
+                .addTags(Tags.EntityTypes.BOSSES, Tags.EntityTypes.CAPTURING_NOT_SUPPORTED)
+                .add(EntityType.ARMOR_STAND, EntityType.GIANT, EntityType.ILLUSIONER, EntityType.PLAYER, EntityType.WARDEN, EntityType.CREAKING);
         }
     }
 
-    private static final class DamageType extends DamageTypeTagsProvider {
-        public DamageType(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+    static final class DamageTypes extends DamageTypeTagsProvider {
+        public DamageTypes(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
             super(output, lookupProvider, ArsMagicaApi.MOD_ID);
         }
 
@@ -232,8 +222,8 @@ public final class AMTagsProvider {
         }
     }
 
-    private static final class Enchantment extends EnchantmentTagsProvider {
-        public Enchantment(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+    static final class Enchantments extends EnchantmentTagsProvider {
+        public Enchantments(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
             super(output, lookupProvider, ArsMagicaApi.MOD_ID);
         }
 
@@ -243,8 +233,8 @@ public final class AMTagsProvider {
         }
     }
 
-    private static final class Biome extends BiomeTagsProvider {
-        public Biome(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
+    static final class Biomes extends BiomeTagsProvider {
+        public Biomes(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
             super(output, provider, ArsMagicaApi.MOD_ID);
         }
 

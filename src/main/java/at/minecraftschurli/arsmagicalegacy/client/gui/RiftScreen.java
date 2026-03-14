@@ -14,14 +14,14 @@ public class RiftScreen extends AbstractContainerScreen<RiftMenu> {
     private final int rows;
 
     public RiftScreen(RiftMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title);
-        rows = Math.ceilDiv(menu.getSlotCount(), 9);
-        imageHeight = 114 + rows * 18;
+        int rows = Math.ceilDiv(menu.getSlotCount(), 9);
+        this.rows = rows;
+        super(menu, playerInventory, title, 176, 114 + rows * 18);
         inventoryLabelY = imageHeight - 94;
     }
 
     @Override
-    protected void renderBg(GuiGraphicsExtractor guiGraphics, float partialTick, int mouseX, int mouseY) {
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
         guiGraphics.blit(BACKGROUND, x, y, 0, 0, imageWidth, 17, imageWidth, imageHeight);
@@ -38,8 +38,8 @@ public class RiftScreen extends AbstractContainerScreen<RiftMenu> {
     }
 
     @Override
-    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
-        renderTooltip(guiGraphics, mouseX, mouseY);
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
+        extractTooltip(guiGraphics, mouseX, mouseY);
     }
 }

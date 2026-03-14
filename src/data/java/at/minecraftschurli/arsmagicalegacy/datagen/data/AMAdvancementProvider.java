@@ -14,36 +14,38 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.criterion.DataComponentMatchers;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponentPredicate;
+import net.minecraft.core.component.DataComponentExactPredicate;
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.common.data.AdvancementProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.minecraft.world.item.ItemStackTemplate;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public final class AMAdvancementProvider extends AdvancementProvider {
-    public AMAdvancementProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries, ExistingFileHelper existingFileHelper) {
-        super(output, registries, existingFileHelper, List.of(new AdvancementSubProvider()));
+    public AMAdvancementProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+        super(output, registries, List.of(new AdvancementSubProvider()));
     }
 
-    private static class AdvancementSubProvider implements AdvancementGenerator {
+    private static class AdvancementSubProvider implements net.minecraft.data.advancements.AdvancementSubProvider {
         @SuppressWarnings({"DataFlowIssue", "unchecked", "unused"})
         @Override
-        public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> saver, ExistingFileHelper existingFileHelper) {
+        public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> saver) {
             HolderLookup.RegistryLookup<Affinity> affinities = registries.lookupOrThrow(AMRegistries.Keys.AFFINITY);
             ItemStack book = ArsMagicaApi.book();
-            DataComponentType<?> bookComponent = BuiltInRegistries.DATA_COMPONENT_TYPE.get(Identifier.fromNamespaceAndPath("patchouli", "book"));
-            Criterion<InventoryChangeTrigger.TriggerInstance> bookCriterion = InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(book.getItem()).hasComponents(DataComponentPredicate.builder().<Object>expect((DataComponentType<? super Object>) bookComponent, book.get(bookComponent)).build()));
+            DataComponentType<?> bookComponent = registries.lookupOrThrow(Registries.DATA_COMPONENT_TYPE).getOrThrow(ResourceKey.create(Registries.DATA_COMPONENT_TYPE, Identifier.fromNamespaceAndPath("patchouli", "book"))).value();
+            Criterion<InventoryChangeTrigger.TriggerInstance> bookCriterion = InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(registries.lookupOrThrow(Registries.ITEM), book.getItem()).withComponents(DataComponentMatchers.Builder.components().exact(DataComponentExactPredicate.builder().<Object>expect((DataComponentType<? super Object>) bookComponent, book.get(bookComponent)).build()).build()));
 
             AdvancementHolder bookRoot = Advancement.Builder.advancement()
                 .addCriterion("arcane_compendium", bookCriterion)
@@ -54,7 +56,7 @@ public final class AMAdvancementProvider extends AdvancementProvider {
                 .save(saver, ArsMagicaApi.id("book/" + skill.getKey().identifier().getPath()).toString()));
 
             AdvancementHolder root = Advancement.Builder.advancement()
-                .display(book, title("root"), description("root"), ArsMagicaApi.id("textures/gui/advancements/background.png"), AdvancementType.TASK, false, false, true)
+                .display(ItemStackTemplate.fromNonEmptyStack(book), title("root"), description("root"), ArsMagicaApi.id("textures/gui/advancements/background.png"), AdvancementType.TASK, false, false, true)
                 .addCriterion("arcane_compendium", bookCriterion)
                 .save(saver, ArsMagicaApi.id("root").toString());
             AdvancementHolder skill = advancement(saver, "skill", root, AMItems.OCCULUS.toStack(), AdvancementType.TASK, false,
@@ -92,7 +94,7 @@ public final class AMAdvancementProvider extends AdvancementProvider {
         private AdvancementHolder advancement(Consumer<AdvancementHolder> saver, String name, AdvancementHolder parent, ItemStack icon, AdvancementType type, boolean hidden, Consumer<Advancement.Builder> consumer) {
             Advancement.Builder builder = Advancement.Builder.advancement()
                 .parent(parent)
-                .display(icon, title(name), description(name), null, type, true, true, hidden);
+                .display(ItemStackTemplate.fromNonEmptyStack(icon), title(name), description(name), null, type, true, true, hidden);
             consumer.accept(builder);
             return builder.save(saver, ArsMagicaApi.id(name).toString());
         }

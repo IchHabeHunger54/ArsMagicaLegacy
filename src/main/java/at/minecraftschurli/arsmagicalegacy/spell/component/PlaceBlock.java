@@ -41,7 +41,7 @@ public class PlaceBlock extends SpellComponent.CastBlock {
         BlockPos pos = hitResult.getBlockPos();
         BlockPlaceContext placeContext = new BlockPlaceContext(level, player, InteractionHand.MAIN_HAND, stack, hitResult);
         if (!level.getBlockState(pos).canBeReplaced(placeContext)) {
-            pos = pos.offset(hitResult.getDirection().getNormal());
+            pos = pos.offset(hitResult.getDirection().getUnitVec3i());
         }
         BlockState state = block.getStateForPlacement(placeContext);
         if (state == null || !state.canSurvive(level, pos)) return SpellComponentCastResult.success(spell);

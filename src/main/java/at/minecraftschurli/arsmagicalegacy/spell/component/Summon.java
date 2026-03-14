@@ -15,6 +15,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -40,9 +41,9 @@ public class Summon extends SpellComponent {
         if (type == null) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_SUMMON_NO_SELECTION);
         SummonMinionsAttachment attachment = caster.getData(AMAttachments.SUMMON_MINIONS);
         if (attachment.size() >= ArsMagicaApi.spellHelper().getMaxSummons(caster)) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_SUMMON_TOO_MANY);
-        if (!(type.create(level) instanceof Mob mob)) return SpellComponentCastResult.pass(spell);
+        if (!(type.create(level, EntitySpawnReason.MOB_SUMMONED) instanceof Mob mob)) return SpellComponentCastResult.pass(spell);
         mob.setPos(hitResult.getLocation());
-        EventHooks.finalizeMobSpawn(mob, level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
+        EventHooks.finalizeMobSpawn(mob, level, level.getCurrentDifficultyAt(mob.blockPosition()), EntitySpawnReason.MOB_SUMMONED, null);
         if (context.consume() && !(caster instanceof Player player && player.isCreative())) {
             double manaCost = mob.getMaxHealth() * AMServerConfig.SUMMON_MANA_COST.get();
             ManaHelper manaHelper = ArsMagicaApi.manaHelper();

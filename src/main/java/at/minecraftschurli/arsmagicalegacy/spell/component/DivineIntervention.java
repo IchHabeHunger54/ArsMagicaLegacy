@@ -9,11 +9,13 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.portal.DimensionTransition;
+import net.minecraft.world.level.portal.TeleportTransition;
+import net.minecraft.world.level.storage.LevelData;
 import net.minecraft.world.phys.EntityHitResult;
 
 import java.util.List;
@@ -30,9 +32,14 @@ public class DivineIntervention extends SpellComponent.CastEntity {
         if (dimension == Level.NETHER) return SpellComponentCastResult.failure(spell, AMTranslations.NO_TELEPORT_NETHER);
         if (dimension == Level.OVERWORLD) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_DIVINE_INTERVENTION);
         if (!(level instanceof ServerLevel server)) return SpellComponentCastResult.pass(spell);
-        entity.changeDimension(entity instanceof ServerPlayer player
-            ? player.findRespawnPositionAndUseSpawnBlock(false, DimensionTransition.DO_NOTHING)
-            : new DimensionTransition(server.getServer().overworld(), server.getSharedSpawnPos().getBottomCenter(), entity.getDeltaMovement(), entity.getYRot(), entity.getXRot(), DimensionTransition.DO_NOTHING));
+        TeleportTransition transition;
+        if (entity instanceof ServerPlayer player) {
+            transition = player.findRespawnPositionAndUseSpawnBlock(false, TeleportTransition.DO_NOTHING);
+        } else {
+            LevelData.RespawnData respawnData = server.getRespawnData();
+            transition = new TeleportTransition(server.getServer().getLevel(respawnData.dimension()), respawnData.pos().getBottomCenter(), entity.getDeltaMovement(), respawnData.yaw(), respawnData.pitch(), TeleportTransition.DO_NOTHING);
+        }
+        entity.teleport(transition);
         return SpellComponentCastResult.success(spell);
     }
 }

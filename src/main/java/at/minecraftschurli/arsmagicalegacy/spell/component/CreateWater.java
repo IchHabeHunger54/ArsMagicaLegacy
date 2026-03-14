@@ -22,7 +22,7 @@ public class CreateWater extends SpellComponent.CastBlock {
         if (state.is(Blocks.CAULDRON) || state.is(Blocks.WATER_CAULDRON) && state.getValue(LayeredCauldronBlock.LEVEL) != LayeredCauldronBlock.MAX_FILL_LEVEL) {
             level.setBlockAndUpdate(pos, Blocks.WATER_CAULDRON.defaultBlockState().setValue(LayeredCauldronBlock.LEVEL, LayeredCauldronBlock.MAX_FILL_LEVEL));
         } else {
-            BlockPos offsetPos = pos.offset(hitResult.getDirection().getNormal());
+            BlockPos offsetPos = pos.offset(hitResult.getDirection().getUnitVec3i());
             if (level.getBlockState(offsetPos).isAir()) {
                 level.setBlockAndUpdate(offsetPos, Blocks.WATER.defaultBlockState());
             }

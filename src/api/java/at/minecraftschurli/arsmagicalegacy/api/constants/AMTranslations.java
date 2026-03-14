@@ -81,6 +81,7 @@ public interface AMTranslations {
     String SPELL_FAIL_BURNED_OUT_KEY                         = ArsMagicaApi.MOD_ID + ".spell.fail.burned_out";
     String SPELL_FAIL_COMPONENT_BANISH_RAIN_KEY              = ArsMagicaApi.MOD_ID + ".spell.fail.component.banish_rain";
     String SPELL_FAIL_COMPONENT_CHARM_KEY                    = ArsMagicaApi.MOD_ID + ".spell.fail.component.charm";
+    String SPELL_FAIL_COMPONENT_DAMAGE_PVP_KEY               = ArsMagicaApi.MOD_ID + ".spell.fail.component.damage.pvp";
     String SPELL_FAIL_COMPONENT_DAYLIGHT_KEY                 = ArsMagicaApi.MOD_ID + ".spell.fail.component.daylight";
     String SPELL_FAIL_COMPONENT_DIVINE_INTERVENTION_KEY      = ArsMagicaApi.MOD_ID + ".spell.fail.component.divine_intervention";
     String SPELL_FAIL_COMPONENT_ENDER_INTERVENTION_KEY       = ArsMagicaApi.MOD_ID + ".spell.fail.component.ender_intervention";
@@ -144,6 +145,7 @@ public interface AMTranslations {
     Component SPELL_FAIL_BURNED_OUT                         = Component.translatable(SPELL_FAIL_BURNED_OUT_KEY);
     Component SPELL_FAIL_COMPONENT_BANISH_RAIN              = Component.translatable(SPELL_FAIL_COMPONENT_BANISH_RAIN_KEY);
     Component SPELL_FAIL_COMPONENT_CHARM                    = Component.translatable(SPELL_FAIL_COMPONENT_CHARM_KEY);
+    Component SPELL_FAIL_COMPONENT_DAMAGE_PVP               = Component.translatable(SPELL_FAIL_COMPONENT_DAMAGE_PVP_KEY);
     Component SPELL_FAIL_COMPONENT_DAYLIGHT                 = Component.translatable(SPELL_FAIL_COMPONENT_DAYLIGHT_KEY);
     Component SPELL_FAIL_COMPONENT_DIVINE_INTERVENTION      = Component.translatable(SPELL_FAIL_COMPONENT_DIVINE_INTERVENTION_KEY);
     Component SPELL_FAIL_COMPONENT_ENDER_INTERVENTION       = Component.translatable(SPELL_FAIL_COMPONENT_ENDER_INTERVENTION_KEY);

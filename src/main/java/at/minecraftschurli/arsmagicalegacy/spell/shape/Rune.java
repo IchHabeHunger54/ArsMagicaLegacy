@@ -43,7 +43,7 @@ public class Rune extends SecondarySpellShape {
         LivingEntity caster = context.caster();
         ServerPlayer player = caster instanceof ServerPlayer p ? p : FakePlayerFactory.get(serverLevel, GAME_PROFILE);
         Direction direction = blockHitResult.getDirection();
-        BlockPos pos = blockHitResult.getBlockPos().offset(direction.getNormal());
+        BlockPos pos = blockHitResult.getBlockPos().offset(direction.getUnitVec3i());
         BlockState state = AMBlocks.SPELL_RUNE.get().getStateForPlacement(new BlockPlaceContext(level, player, InteractionHand.MAIN_HAND, ItemStack.EMPTY, new BlockHitResult(blockHitResult.getLocation(), direction, pos, false)));
         if (state != null) {
             level.setBlockAndUpdate(pos, state);

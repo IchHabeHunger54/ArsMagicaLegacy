@@ -14,7 +14,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.feature.EndPlatformFeature;
-import net.minecraft.world.level.portal.DimensionTransition;
+import net.minecraft.world.level.portal.TeleportTransition;
 import net.minecraft.world.phys.EntityHitResult;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class EnderIntervention extends SpellComponent.CastEntity {
         if (end != null) {
             BlockPos pos = ServerLevel.END_SPAWN_POINT;
             EndPlatformFeature.createEndPlatform(end, pos.below(), true);
-            entity.changeDimension(new DimensionTransition(end, pos.getBottomCenter(), entity.getDeltaMovement(), entity.getYRot(), entity.getXRot(), DimensionTransition.DO_NOTHING));
+            entity.teleport(new TeleportTransition(end, pos.getBottomCenter(), entity.getDeltaMovement(), entity.getYRot(), entity.getXRot(), TeleportTransition.DO_NOTHING));
         }
         return SpellComponentCastResult.success(spell);
     }

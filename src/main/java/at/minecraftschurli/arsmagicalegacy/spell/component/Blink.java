@@ -35,7 +35,7 @@ public class Blink extends SpellComponent.CastEntity {
             double x = entity.getX() + angle.x() * i;
             double y = entity.getY() + angle.y() * i;
             double z = entity.getZ() + angle.z() * i;
-            if (y >= level.getMinBuildHeight() && y < level.getMaxBuildHeight() && level.getBlockState(BlockPos.containing(x, y, z)).isAir() && level.getBlockState(BlockPos.containing(x, y + 1, z)).isAir()) {
+            if (level.isInsideBuildHeight((int) y) && level.getBlockState(BlockPos.containing(x, y, z)).isAir() && level.getBlockState(BlockPos.containing(x, y + 1, z)).isAir()) {
                 entity.teleportTo(x, y, z);
                 break;
             }

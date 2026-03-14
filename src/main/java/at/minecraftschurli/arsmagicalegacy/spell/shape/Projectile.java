@@ -11,6 +11,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
 import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 
@@ -28,7 +29,7 @@ public class Projectile extends PrimarySpellShape {
         Level level = context.level();
         LivingEntity caster = context.caster();
         if (level.isClientSide() || caster == null) return new SpellCastResult(spell);
-        var projectile = AMEntities.PROJECTILE.get().create(level);
+        var projectile = AMEntities.PROJECTILE.get().create(level, EntitySpawnReason.MOB_SUMMONED);
         projectile.setPos(caster.getEyePosition());
         projectile.setXRot(caster.getXRot());
         projectile.setYRot(caster.getYRot());

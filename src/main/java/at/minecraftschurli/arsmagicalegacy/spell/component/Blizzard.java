@@ -12,6 +12,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
 import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 
@@ -30,7 +31,7 @@ public class Blizzard extends SpellComponent {
         Level level = context.level();
         if (level.isClientSide()) return SpellComponentCastResult.pass(spell);
         LivingEntity caster = context.caster();
-        var blizzard = AMEntities.BLIZZARD.get().create(level);
+        var blizzard = AMEntities.BLIZZARD.get().create(level, EntitySpawnReason.MOB_SUMMONED);
         blizzard.setPos(context.hitResult().getLocation());
         if (caster != null) {
             blizzard.setOwner(caster);

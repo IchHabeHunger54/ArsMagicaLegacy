@@ -27,7 +27,7 @@ public class Drought extends SpellComponent.CastBlock {
         Level level = context.level();
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
-        BlockPos normalPos = pos.offset(hitResult.getDirection().getNormal());
+        BlockPos normalPos = pos.offset(hitResult.getDirection().getUnitVec3i());
         if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
             level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.WATERLOGGED, false));
             return SpellComponentCastResult.success(spell);

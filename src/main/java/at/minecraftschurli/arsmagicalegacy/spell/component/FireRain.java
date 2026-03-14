@@ -12,6 +12,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellStat;
 import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 
@@ -30,7 +31,7 @@ public class FireRain extends SpellComponent {
         Level level = context.level();
         if (level.isClientSide()) return SpellComponentCastResult.pass(spell);
         LivingEntity caster = context.caster();
-        var fireRain = AMEntities.FIRE_RAIN.get().create(level);
+        var fireRain = AMEntities.FIRE_RAIN.get().create(level, EntitySpawnReason.MOB_SUMMONED);
         fireRain.setPos(context.hitResult().getLocation());
         if (caster != null) {
             fireRain.setOwner(caster);

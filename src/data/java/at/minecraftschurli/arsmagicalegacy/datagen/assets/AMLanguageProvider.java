@@ -768,11 +768,12 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.SPELL_FAIL_BURNED_OUT_KEY, "Burned out!");
         add(AMTranslations.SPELL_FAIL_COMPONENT_BANISH_RAIN_KEY, "Banish Rain can only be cast during rain");
         add(AMTranslations.SPELL_FAIL_COMPONENT_CHARM_KEY, "Charm can only be cast on animals");
-        add(AMTranslations.SPELL_FAIL_COMPONENT_DAYLIGHT_KEY, "Daylight can only be cast during the night");
+        add(AMTranslations.SPELL_FAIL_COMPONENT_DAMAGE_PVP_KEY, "Damage components cannot be cast on players");
+        add(AMTranslations.SPELL_FAIL_COMPONENT_DAYLIGHT_KEY, "Daylight can only be cast during the night in the Overworld");
         add(AMTranslations.SPELL_FAIL_COMPONENT_DIVINE_INTERVENTION_KEY, "The target is already in the Overworld");
         add(AMTranslations.SPELL_FAIL_COMPONENT_ENDER_INTERVENTION_KEY, "The target is already in the End");
         add(AMTranslations.SPELL_FAIL_COMPONENT_FALLING_STAR_KEY, "Falling Star can only be cast in dimensions with a sky");
-        add(AMTranslations.SPELL_FAIL_COMPONENT_MOONRISE_KEY, "Moonrise can only be cast during the day");
+        add(AMTranslations.SPELL_FAIL_COMPONENT_MOONRISE_KEY, "Moonrise can only be cast during the day in the Overworld");
         add(AMTranslations.SPELL_FAIL_COMPONENT_PLACE_BLOCK_NO_BLOCK_KEY, "No block in inventory!");
         add(AMTranslations.SPELL_FAIL_COMPONENT_PLACE_BLOCK_NO_SELECTION_KEY, "No block selected! Use the Spell Customization menu to select a block.");
         add(AMTranslations.SPELL_FAIL_COMPONENT_RANDOM_TELEPORT_KEY, "Random Teleport could not find a suitable location");

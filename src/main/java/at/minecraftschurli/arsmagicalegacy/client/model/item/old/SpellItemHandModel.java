@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.client.model.item;
+package at.minecraftschurli.arsmagicalegacy.client.model.item.old;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.block.model.BakedQuad;

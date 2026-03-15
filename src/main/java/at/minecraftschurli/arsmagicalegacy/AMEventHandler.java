@@ -145,9 +145,9 @@ final class AMEventHandler {
         event.enqueueWork(() -> {
             FireBlock fire = (FireBlock) Blocks.FIRE;
             fire.setFlammable(AMBlocks.WITCHWOOD_LOG.get(), 5, 5);
-            fire.setFlammable(AMBlocks.WITCHWOOD.get(), 5, 5);
+            fire.setFlammable(AMBlocks.WITCHWOOD_WOOD.get(), 5, 5);
             fire.setFlammable(AMBlocks.STRIPPED_WITCHWOOD_LOG.get(), 5, 5);
-            fire.setFlammable(AMBlocks.STRIPPED_WITCHWOOD.get(), 5, 5);
+            fire.setFlammable(AMBlocks.STRIPPED_WITCHWOOD_WOOD.get(), 5, 5);
             fire.setFlammable(AMBlocks.WITCHWOOD_PLANKS.get(), 5, 20);
             fire.setFlammable(AMBlocks.WITCHWOOD_SLAB.get(), 5, 20);
             fire.setFlammable(AMBlocks.WITCHWOOD_STAIRS.get(), 5, 20);

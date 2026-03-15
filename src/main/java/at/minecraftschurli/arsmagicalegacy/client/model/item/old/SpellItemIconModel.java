@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.client.model.item;
+package at.minecraftschurli.arsmagicalegacy.client.model.item.old;
 
 import at.minecraftschurli.arsmagicalegacy.client.AMRenderTypes;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SpellIconAtlasHolder;

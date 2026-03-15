@@ -109,9 +109,9 @@ public final class AMLootTableProvider extends LootTableProvider {
             add(AMBlocks.SUNSTONE_ORE.get(), block -> createOreDrop(block, AMItems.SUNSTONE.get()));
             dropSelf(AMBlocks.SUNSTONE_BLOCK.get());
             dropSelf(AMBlocks.WITCHWOOD_LOG.get());
-            dropSelf(AMBlocks.WITCHWOOD.get());
+            dropSelf(AMBlocks.WITCHWOOD_WOOD.get());
             dropSelf(AMBlocks.STRIPPED_WITCHWOOD_LOG.get());
-            dropSelf(AMBlocks.STRIPPED_WITCHWOOD.get());
+            dropSelf(AMBlocks.STRIPPED_WITCHWOOD_WOOD.get());
             add(AMBlocks.WITCHWOOD_LEAVES.get(), block -> createLeavesDrops(block, AMBlocks.WITCHWOOD_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
             dropSelf(AMBlocks.WITCHWOOD_SAPLING.get());
             dropPottedContents(AMBlocks.POTTED_WITCHWOOD_SAPLING.get());

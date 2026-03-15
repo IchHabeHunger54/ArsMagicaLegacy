@@ -1,74 +1,104 @@
 package at.minecraftschurli.arsmagicalegacy.client.model.item;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.arsmagicalegacy.client.atlas.SpellIconAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
-import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.block.model.ItemOverrides;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelIdentifier;
-import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.renderer.item.ItemModels;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
+import net.minecraft.client.resources.model.sprite.Material;
+import net.minecraft.client.resources.model.sprite.SpriteGetter;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.client.model.BakedModelWrapper;
-import org.jetbrains.annotations.Nullable;
+import net.neoforged.neoforge.client.model.quad.MutableQuad;
+import org.joml.Matrix4fc;
+import org.jspecify.annotations.Nullable;
 
-public class SpellItemModel extends BakedModelWrapper<BakedModel> {
-    private Identifier icon;
-    private ResourceKey<Affinity> affinity;
-    private final ItemOverrides overrides = new ItemOverrides() {
-        @SuppressWarnings("DataFlowIssue")
-        @Override
-        @Nullable
-        public BakedModel resolve(BakedModel model, ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int seed) {
-            if (stack.has(AMDataComponents.SPELL)) {
-                Spell spell = stack.get(AMDataComponents.SPELL);
-                icon = spell.icon().orElse(null);
-                affinity = spell.grammar().primaryAffinity();
-            } else {
-                icon = null;
-                affinity = null;
-            }
-            return super.resolve(model, stack, level, entity, seed);
+import java.util.IdentityHashMap;
+import java.util.Map;
+
+public final class SpellItemModel implements ItemModel {
+    private final ItemModel defaultModel;
+    private final SpriteGetter sprites;
+    private final Map<TextureAtlasSprite, BakedQuad> spriteQuads = new IdentityHashMap<>();
+
+    public SpellItemModel(ItemModel defaultModel, SpriteGetter sprites) {
+        this.defaultModel = defaultModel;
+        this.sprites = sprites;
+    }
+
+    @Override
+    public void update(ItemStackRenderState output, ItemStack item, ItemModelResolver resolver, ItemDisplayContext displayContext, @Nullable ClientLevel level, @Nullable ItemOwner owner, int seed) {
+        output.appendModelIdentityElement(this);
+        if (!ArsMagicaApi.magicHelper().knowsMagic(AMClientUtil.player())) {
+            defaultModel.update(output, item, resolver, displayContext, level, owner, seed);
+            return;
         }
-    };
-
-    public SpellItemModel(BakedModel originalModel) {
-        super(originalModel);
+        Spell spell = item.get(AMDataComponents.SPELL);
+        if (spell == null) {
+            defaultModel.update(output, item, resolver, displayContext, level, owner, seed);
+            return;
+        }
+        var affinity = spell.grammar().primaryAffinity();
+        if (affinity != null && isHand(displayContext)) {
+            Minecraft.getInstance()
+                .getModelManager()
+                .getItemModel(affinity.identifier().withPrefix("item/spell_"))
+                .update(output, item, resolver, displayContext, level, owner, seed);
+            return;
+        }
+        var icon = spell.icon().map(i -> SpellIconAtlasHolder.getSpriteOrNull(sprites, i));
+        if (icon.isPresent() && displayContext == ItemDisplayContext.GUI) {
+            ItemStackRenderState.LayerRenderState layer = output.newLayer();
+            layer.prepareQuadList().add(spriteQuads.computeIfAbsent(icon.get(), SpellItemModel::bakedSpriteQuads));
+            layer.setUsesBlockLight(false);
+            return;
+        }
+        defaultModel.update(output, item, resolver, displayContext, level, owner, seed);
     }
 
-    private static boolean isHand(ItemDisplayContext cameraTransformType) {
-        return cameraTransformType == ItemDisplayContext.THIRD_PERSON_LEFT_HAND || cameraTransformType == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND || cameraTransformType.firstPerson();
+    private static boolean isHand(ItemDisplayContext displayContext) {
+        return displayContext == ItemDisplayContext.THIRD_PERSON_LEFT_HAND || displayContext == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND || displayContext.firstPerson();
     }
 
-    @Override
-    public boolean usesBlockLight() {
-        return false;
+    private static BakedQuad bakedSpriteQuads(TextureAtlasSprite sprite) {
+        MutableQuad mutableQuad = new MutableQuad();
+        mutableQuad.setSprite(new Material.Baked(sprite, false), sprite.transparency());
+        mutableQuad.setCubeFaceFromSpriteCoords(Direction.NORTH, 0, 0, 1, 1, 0);
+        mutableQuad.bakeUvsFromPosition();
+        return mutableQuad.toBakedQuad();
     }
 
-    @Override
-    public boolean isCustomRenderer() {
-        return true;
-    }
+    public record Unbaked(ItemModel.Unbaked defaultModel) implements ItemModel.Unbaked {
+        public static final MapCodec<Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+            ItemModels.CODEC.fieldOf("default").forGetter(Unbaked::defaultModel)
+        ).apply(i, Unbaked::new));
 
-    @Override
-    public ItemOverrides getOverrides() {
-        return overrides;
-    }
+        @Override
+        public MapCodec<Unbaked> type() {
+            return MAP_CODEC;
+        }
 
-    @Override
-    public BakedModel applyTransform(ItemDisplayContext cameraTransformType, PoseStack poseStack, boolean applyLeftHandTransform) {
-        Player player = AMClientUtil.player();
-        if (player == null || !ArsMagicaApi.magicHelper().knowsMagic(player)) return super.applyTransform(cameraTransformType, poseStack, applyLeftHandTransform);
-        if (affinity != null && isHand(cameraTransformType))
-            return new SpellItemHandModel(AMClientUtil.mc().getModelManager().getModel(ModelIdentifier.standalone(affinity.location().withPrefix("item/spell_")))).applyTransform(cameraTransformType, poseStack, applyLeftHandTransform);
-        if (icon == null || cameraTransformType != ItemDisplayContext.GUI) return super.applyTransform(cameraTransformType, poseStack, applyLeftHandTransform);
-        return new SpellItemIconModel(super.applyTransform(cameraTransformType, poseStack, applyLeftHandTransform), icon);
+        @Override
+        public ItemModel bake(BakingContext context, Matrix4fc transformation) {
+            ItemModel baked = defaultModel.bake(context, transformation);
+            return new SpellItemModel(baked, context.sprites());
+        }
+
+        @Override
+        public void resolveDependencies(Resolver resolver) {
+            defaultModel.resolveDependencies(resolver);
+        }
     }
 }

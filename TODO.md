@@ -9,3 +9,10 @@
     - Witchwood Boat
     - Fix Old Rune Outline in Rune Bag GUI
     - Contact MoonlitLamps
+- Steps for 26.1 Update
+    - Transactions
+    - Timeline/World Clock Stuff
+    - Cauldron Interactions
+    - Flammables
+    - Datagen
+    - Client Stuff

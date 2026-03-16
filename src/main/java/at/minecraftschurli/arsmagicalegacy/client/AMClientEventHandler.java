@@ -25,6 +25,7 @@ import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.color.C
 import at.minecraftschurli.arsmagicalegacy.client.layer.BarsLayer;
 import at.minecraftschurli.arsmagicalegacy.client.layer.ShapeGroupsLayer;
 import at.minecraftschurli.arsmagicalegacy.client.layer.SpellBookLayer;
+import at.minecraftschurli.arsmagicalegacy.client.model.AMModelLayers;
 import at.minecraftschurli.arsmagicalegacy.client.model.AltarCoreModel;
 import at.minecraftschurli.arsmagicalegacy.client.model.DryadModel;
 import at.minecraftschurli.arsmagicalegacy.client.model.item.CrystalPhylacteryItemTintSource;
@@ -52,8 +53,6 @@ import at.minecraftschurli.arsmagicalegacy.client.renderer.block.SpellRuneRender
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.DryadRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.EmptyRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.ManaCreeperRenderer;
-import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.WitchwoodBoatRenderer;
-//import at.minecraftschurli.arsmagicalegacy.compat.patchouli.SpellPartPage;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
@@ -71,6 +70,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.model.object.boat.BoatModel;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.client.resources.model.sprite.AtlasManager;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -108,8 +108,8 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(DryadModel.LAYER_LOCATION, DryadModel::createBodyLayer);
-        event.registerLayerDefinition(WitchwoodBoatRenderer.BOAT, BoatModel::createBoatModel);
-        event.registerLayerDefinition(WitchwoodBoatRenderer.CHEST_BOAT, BoatModel::createChestBoatModel);
+        event.registerLayerDefinition(AMModelLayers.WITCHWOOD_BOAT, BoatModel::createBoatModel);
+        event.registerLayerDefinition(AMModelLayers.WITCHWOOD_CHEST_BOAT, BoatModel::createChestBoatModel);
     }
 
     @SubscribeEvent
@@ -123,8 +123,8 @@ final class AMClientEventHandler {
         event.registerEntityRenderer(AMEntities.PROJECTILE.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.WALL.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.WAVE.get(), EmptyRenderer::new);
-        event.registerEntityRenderer(AMEntities.WITCHWOOD_BOAT.get(), context -> new WitchwoodBoatRenderer(context, false));
-        event.registerEntityRenderer(AMEntities.WITCHWOOD_CHEST_BOAT.get(), context -> new WitchwoodBoatRenderer(context, true));
+        event.registerEntityRenderer(AMEntities.WITCHWOOD_BOAT.get(), context -> new BoatRenderer(context, AMModelLayers.WITCHWOOD_BOAT));
+        event.registerEntityRenderer(AMEntities.WITCHWOOD_CHEST_BOAT.get(), context -> new BoatRenderer(context, AMModelLayers.WITCHWOOD_CHEST_BOAT));
         event.registerEntityRenderer(AMEntities.ZONE.get(), EmptyRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.ALTAR_CORE.get(), AltarCoreRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.BLACK_AUREM.get(), BlackAuremRenderer::new);
@@ -156,12 +156,12 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerItemModelProperties(RegisterConditionalItemModelPropertyEvent event) {
-        event.register(CrystalWrenchItem.ACTIVE, CrystalWrenchActiveItemModelProperty.CODEC);
+        event.register(ArsMagicaApi.id("crystal_wrench_active"), CrystalWrenchActiveItemModelProperty.CODEC);
     }
 
     @SubscribeEvent
     private static void registerItemModelProperties(RegisterRangeSelectItemModelPropertyEvent event) {
-        event.register(CrystalPhylacteryItem.FILL, CrystalPhylacteryRangeSelectItemModelProperty.CODEC);
+        event.register(ArsMagicaApi.id("crystal_phylactery_fill"), CrystalPhylacteryRangeSelectItemModelProperty.CODEC);
     }
 
     @SubscribeEvent

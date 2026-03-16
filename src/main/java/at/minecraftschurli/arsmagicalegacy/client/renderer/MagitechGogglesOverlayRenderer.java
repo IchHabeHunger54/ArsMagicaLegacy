@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -23,7 +24,7 @@ public final class MagitechGogglesOverlayRenderer {
     }
 
     public static boolean shouldRender(Player player) {
-        return player.getInventory().getArmor(3).is(AMItems.MAGITECH_GOGGLES) || AMUtil.ifModLoaded("curios", () -> CuriosApi.getCuriosInventory(player)
+        return player.getItemBySlot(EquipmentSlot.HEAD).is(AMItems.MAGITECH_GOGGLES) || AMUtil.ifModLoaded("curios", () -> CuriosApi.getCuriosInventory(player)
                 .map(ICuriosItemHandler::getCurios)
                 .map(map -> map.values()
                     .stream()

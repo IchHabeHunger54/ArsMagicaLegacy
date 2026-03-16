@@ -1,14 +1,14 @@
 package at.minecraftschurli.arsmagicalegacy.client.model;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.entity.Dryad;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 
-public class DryadModel extends HumanoidModel<Dryad> {
+public class DryadModel extends HumanoidModel<HumanoidRenderState> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ArsMagicaApi.id("dryad"), "main");
 
     public DryadModel(ModelPart root) {

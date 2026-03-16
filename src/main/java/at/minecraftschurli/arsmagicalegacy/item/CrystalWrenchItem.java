@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CrystalWrenchItem extends Item {
-    public static final Identifier ACTIVE = ArsMagicaApi.id("crystal_wrench_active");
 
     public CrystalWrenchItem(Properties properties) {
         super(properties);

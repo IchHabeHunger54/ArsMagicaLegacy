@@ -25,6 +25,7 @@ final class AMClientDataGenerator {
         DataGenerator.PackGenerator pack = event.getGenerator().getVanillaPack(true);
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
         pack.addProvider(wrap(AMModelProvider::new, lookupProvider));
+        pack.addProvider(AMEquipmentAssetProvider::new);
         pack.addProvider(AMParticleDescriptionProvider::new);
         pack.addProvider(wrap(AMParticleSpawnerProvider::new, lookupProvider));
         pack.addProvider(AMSoundDefinitionProvider::new);

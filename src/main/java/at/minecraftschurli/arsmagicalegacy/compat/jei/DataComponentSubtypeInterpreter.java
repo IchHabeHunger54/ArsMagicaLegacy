@@ -22,9 +22,4 @@ public record DataComponentSubtypeInterpreter<T>(DataComponentType<T> type, Func
     public Object getSubtypeData(ItemStack ingredient, UidContext context) {
         return ingredient.has(type) ? ingredient.get(type) : null;
     }
-
-    @Override
-    public String getLegacyStringSubtypeInfo(ItemStack ingredient, UidContext context) {
-        return ingredient.has(type) ? legacySubtype.apply(ingredient.get(type)) : "";
-    }
 }

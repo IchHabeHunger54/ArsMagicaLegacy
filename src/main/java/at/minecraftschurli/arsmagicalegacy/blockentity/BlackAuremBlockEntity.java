@@ -9,6 +9,7 @@ import at.minecraftschurli.arsmagicalegacy.compat.patchouli.MultiblockMatcher;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMEtheriumTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -36,6 +37,7 @@ public class BlackAuremBlockEntity extends EtheriumGeneratorBlockEntity {
 
     @Override
     public void tick(Level level, BlockPos pos, BlockState state) {
+        if (!(level instanceof ServerLevel serverLevel)) return;
         if (etherium >= getMaxAmount()) return;
         time--;
         if (time <= 0) {
@@ -44,7 +46,7 @@ public class BlackAuremBlockEntity extends EtheriumGeneratorBlockEntity {
             List<Mob> mobs = level.getEntities(EntityTypeTest.forClass(Mob.class), new AABB(vec3.add(-2, 0, -2), vec3.add(2, 4, 2)), e -> !e.is(AMTags.EntityTypes.BLACK_AUREM_IMMUNE));
             mobs.sort(Comparator.comparingDouble(e -> e.distanceToSqr(vec3)));
             for (Mob mob : mobs) {
-                if (mob.isAlive() && !mob.isInvertedHealAndHarm() && mob.hurt(level.damageSources().magic(), 1)) {
+                if (mob.isAlive() && !mob.isInvertedHealAndHarm() && mob.hurtServer(serverLevel, level.damageSources().magic(), 1)) {
                     etherium++;
                     break;
                 }

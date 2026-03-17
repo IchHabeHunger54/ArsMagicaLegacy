@@ -9,8 +9,8 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.particle.SimpleAnimatedParticle;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -39,7 +39,7 @@ public class AMParticle extends SimpleAnimatedParticle implements ControlledPart
         SpriteSet sprites = vanillaParticle instanceof SimpleAnimatedParticle particle ? particle.sprites : null;
         TextureAtlasSprite sprite = switch (vanillaParticle) {
             case SimpleAnimatedParticle ignored -> sprites.get(0, 1);
-            case TextureSheetParticle particle -> particle.sprite;
+            case SingleQuadParticle particle -> particle.sprite;
             default -> null;
         };
         vanillaParticle.remove();
@@ -165,7 +165,6 @@ public class AMParticle extends SimpleAnimatedParticle implements ControlledPart
         setPos((aabb.minX + aabb.maxX) / 2, aabb.minY, (aabb.minZ + aabb.maxZ) / 2);
     }
 
-    @SuppressWarnings("ConstantValue")
     @Override
     public void tick() {
         xo = x;

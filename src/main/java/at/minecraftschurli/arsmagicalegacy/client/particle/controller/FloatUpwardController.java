@@ -36,7 +36,7 @@ public record FloatUpwardController(boolean stopOtherControllers, boolean killOn
     @Override
     public void tick(ParticleControllerInstance instance) {
         ControlledParticle particle = instance.particle;
-        if (particle.y() > particle.level().getMaxBuildHeight()) {
+        if (particle.y() > particle.level().getMaxY()) {
             instance.finish();
         } else {
             particle.move(particle.random().nextDouble() * jitter - jitter / 2, instance.getContext(SPEED_KEY), particle.random().nextDouble() * jitter - jitter / 2);

@@ -12,16 +12,18 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.wrapper.InvWrapper;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.access.ItemAccess;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.VanillaContainerWrapper;
 
 public class RuneBagItem extends Item {
     public RuneBagItem(Properties properties) {
         super(properties);
     }
 
-    public static IItemHandler getItemHandler(ItemStack stack, Void v) {
-        return new InvWrapper(new ItemStackContainer(stack, DyeColor.values().length));
+    public static ResourceHandler<ItemResource> getItemHandler(ItemStack stack, ItemAccess access) {
+        return VanillaContainerWrapper.of(new ItemStackContainer(stack, DyeColor.values().length));
     }
 
     @Override

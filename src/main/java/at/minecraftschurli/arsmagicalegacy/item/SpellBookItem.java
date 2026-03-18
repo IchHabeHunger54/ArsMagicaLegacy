@@ -18,8 +18,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.wrapper.InvWrapper;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.access.ItemAccess;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.VanillaContainerWrapper;
 
 import java.util.List;
 
@@ -70,8 +72,8 @@ public class SpellBookItem extends Item {
         }
     }
 
-    public static IItemHandler getItemHandler(ItemStack stack, Void v) {
-        return new InvWrapper(new SpellBookContainer(stack));
+    public static ResourceHandler<ItemResource> getItemHandler(ItemStack stack, ItemAccess access) {
+        return VanillaContainerWrapper.of(new SpellBookContainer(stack));
     }
 
     public static void scroll(ItemStack stack, boolean backwards) {

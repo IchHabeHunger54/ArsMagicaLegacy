@@ -8,22 +8,27 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.access.ItemAccess;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
+@SuppressWarnings("deprecation")
 public record ItemSpellIngredient(Ingredient item, int count) implements SpellIngredient {
     public static final MapCodec<ItemSpellIngredient> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
         Ingredient.CODEC.fieldOf("item").forGetter(ItemSpellIngredient::item),
@@ -37,9 +42,14 @@ public record ItemSpellIngredient(Ingredient item, int count) implements SpellIn
 
     @Override
     public List<Component> tooltip() {
-        ItemStack[] items = item.getItems();
-        if (items.length == 1) return List.of(items[0].getDisplayName(), Component.translatable(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, count));
-        List<Component> components = new ArrayList<>(Arrays.stream(items).map(ItemStack::getDisplayName).toList());
+        List<Item> items = item.items()
+            .map(Holder::value)
+            .toList();
+        if (items.size() == 1) {
+            Item item = items.getFirst();
+            return List.of(item.getName(item.getDefaultInstance()), Component.translatable(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, count));
+        }
+        List<Component> components = new ArrayList<>(items.stream().map(e -> e.getName(e.getDefaultInstance())).toList());
         components.add(Component.translatable(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, count));
         return components;
     }
@@ -47,9 +57,15 @@ public record ItemSpellIngredient(Ingredient item, int count) implements SpellIn
     @Override
     public boolean canCombine(SpellIngredient other) {
         if (!(other instanceof ItemSpellIngredient that)) return false;
-        ItemStack[] thisItems = this.item.getItems();
-        ItemStack[] thatItems = that.item.getItems();
-        return thisItems.length == thatItems.length && IntStream.range(0, thisItems.length).allMatch(i -> ItemStack.isSameItemSameComponents(thisItems[i], thatItems[i]));
+        List<ItemStack> thisItems = this.item.items()
+            .map(Holder::value)
+            .map(Item::getDefaultInstance)
+            .toList();
+        List<ItemStack> thatItems = that.item.items()
+            .map(Holder::value)
+            .map(Item::getDefaultInstance)
+            .toList();
+        return thisItems.size() == thatItems.size() && IntStream.range(0, thisItems.size()).allMatch(i -> ItemStack.isSameItemSameComponents(thisItems.get(i), thatItems.get(i)));
     }
 
     @Override
@@ -70,24 +86,23 @@ public record ItemSpellIngredient(Ingredient item, int count) implements SpellIn
 
     @Override
     public List<ItemStack> asItemStacks() {
-        return Arrays.stream(item.getItems())
-            .map(e -> e.copyWithCount(count))
+        return item.items()
+            .map(Holder::value)
+            .map(e -> new ItemStack(e, count))
             .toList();
     }
 
     private boolean consume(ItemStack stack) {
-        IItemHandler handler = stack.getCapability(Capabilities.ItemHandler.ITEM);
-        if (handler != null && testItemHandler(handler)) {
-            int count = this.count;
-            for (int i = 0; i < handler.getSlots(); i++) {
-                ItemStack slotStack = handler.getStackInSlot(i).copy();
-                if (item.test(slotStack)) {
-                    int slotCount = slotStack.getCount();
-                    if (count > slotCount) {
-                        handler.extractItem(i, slotCount, false);
-                        count -= slotCount;
-                    } else {
-                        handler.extractItem(i, count, false);
+        ResourceHandler<ItemResource> handler = stack.getCapability(Capabilities.Item.ITEM, ItemAccess.forStack(stack));
+        if (handler != null) {
+            try (Transaction transaction = Transaction.openRoot()) {
+                int count = this.count;
+                for (int i = 0; i < handler.size(); i++) {
+                    ItemResource resource = handler.getResource(i);
+                    if (!item.test(resource.toStack())) continue;
+                    count -= handler.extract(resource, count, transaction);
+                    if (count <= 0) {
+                        transaction.commit();
                         return true;
                     }
                 }
@@ -98,17 +113,5 @@ public record ItemSpellIngredient(Ingredient item, int count) implements SpellIn
             return true;
         }
         return false;
-    }
-
-    private boolean testItemHandler(IItemHandler handler) {
-        int count = this.count;
-        for (int i = 0; i < handler.getSlots(); i++) {
-            ItemStack stack = handler.getStackInSlot(i);
-            if (item.test(stack)) {
-                count -= stack.getCount();
-            }
-            if (count <= 0) return true;
-        }
-        return count <= 0;
     }
 }

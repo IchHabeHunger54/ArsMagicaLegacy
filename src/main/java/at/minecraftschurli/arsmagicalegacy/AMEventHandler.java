@@ -236,9 +236,9 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void registerCapabilities(RegisterCapabilitiesEvent event) {
-        event.registerItem(Capabilities.ItemHandler.ITEM, RuneBagItem::getItemHandler, AMItems.RUNE_BAG);
-        event.registerItem(Capabilities.ItemHandler.ITEM, SpellBookItem::getItemHandler, AMItems.SPELL_BOOK);
-        event.registerBlock(Capabilities.ItemHandler.BLOCK, ObeliskBlock::getItemHandler, AMBlocks.OBELISK.get());
+        event.registerItem(Capabilities.Item.ITEM, RuneBagItem::getItemHandler, AMItems.RUNE_BAG);
+        event.registerItem(Capabilities.Item.ITEM, SpellBookItem::getItemHandler, AMItems.SPELL_BOOK);
+        event.registerBlock(Capabilities.Item.BLOCK, ObeliskBlock::getItemHandler, AMBlocks.OBELISK.get());
         event.registerBlockEntity(AMCapabilities.BLOCK_ETHERIUM, AMBlockEntities.ALTAR_CORE.get(), (blockEntity, _) -> blockEntity);
         event.registerBlockEntity(AMCapabilities.BLOCK_ETHERIUM, AMBlockEntities.OBELISK.get(), (blockEntity, _) -> blockEntity);
         event.registerBlockEntity(AMCapabilities.BLOCK_ETHERIUM, AMBlockEntities.CELESTIAL_PRISM.get(), (blockEntity, _) -> blockEntity);

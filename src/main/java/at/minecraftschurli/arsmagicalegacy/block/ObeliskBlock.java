@@ -29,8 +29,9 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.wrapper.InvWrapper;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.VanillaContainerWrapper;
 import org.jetbrains.annotations.Nullable;
 
 public class ObeliskBlock extends EtheriumGeneratorBlock {
@@ -164,10 +165,10 @@ public class ObeliskBlock extends EtheriumGeneratorBlock {
     }
 
     @Nullable
-    public static IItemHandler getItemHandler(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Direction direction) {
+    public static ResourceHandler<ItemResource> getItemHandler(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Direction direction) {
         if (!(state.getBlock() instanceof ObeliskBlock block)) return null;
         ObeliskBlockEntity obelisk = block.getBlockEntity(level, pos, state);
-        return obelisk == null ? null : new InvWrapper(obelisk);
+        return obelisk == null ? null : VanillaContainerWrapper.of(obelisk);
     }
 
     private void destroy(Level level, Player player, BlockPos pos) {

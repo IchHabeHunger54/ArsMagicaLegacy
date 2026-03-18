@@ -31,7 +31,6 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public final class AMLanguageProvider extends LanguageProvider {
@@ -154,9 +153,9 @@ public final class AMLanguageProvider extends LanguageProvider {
         itemIdTranslation(AMItems.ARCANE_ASH);
         itemIdTranslation(AMItems.PURIFIED_VINTEUM_DUST);
         blockIdTranslation(AMBlocks.WITCHWOOD_LOG);
-        blockIdTranslation(AMBlocks.WITCHWOOD);
+        blockIdTranslation(AMBlocks.WITCHWOOD_WOOD);
         blockIdTranslation(AMBlocks.STRIPPED_WITCHWOOD_LOG);
-        blockIdTranslation(AMBlocks.STRIPPED_WITCHWOOD);
+        blockIdTranslation(AMBlocks.STRIPPED_WITCHWOOD_WOOD);
         blockIdTranslation(AMBlocks.WITCHWOOD_LEAVES);
         blockIdTranslation(AMBlocks.WITCHWOOD_SAPLING);
         blockIdTranslation(AMBlocks.POTTED_WITCHWOOD_SAPLING);

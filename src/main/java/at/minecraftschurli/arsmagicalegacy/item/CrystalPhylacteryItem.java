@@ -1,6 +1,5 @@
 package at.minecraftschurli.arsmagicalegacy.item;
 
-import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
@@ -15,7 +14,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.Identifier;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -25,15 +23,13 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public class CrystalPhylacteryItem extends Item {
-    public static final Identifier FILL = ArsMagicaApi.id("crystal_phylactery_fill");
 
     public CrystalPhylacteryItem(Properties properties) {
         super(properties);
@@ -48,27 +44,18 @@ public class CrystalPhylacteryItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
         Contents contents = stack.get(AMDataComponents.CRYSTAL_PHYLACTERY_CONTENTS);
         if (contents == null || contents.amount == 0) {
-            tooltipComponents.add(AMTranslations.CRYSTAL_PHYLACTERY_EMPTY);
+            builder.accept(AMTranslations.CRYSTAL_PHYLACTERY_EMPTY);
         } else {
             EntityType<?> type = contents.type;
             MutableComponent component = Component.translatable(AMTranslations.CRYSTAL_PHYLACTERY_KEY, type.getDescription(), contents.amount, CrystalPhylacteryContentsSize.get(type));
             if (isFull(stack)) {
                 component.withStyle(ChatFormatting.GOLD);
             }
-            tooltipComponents.add(component);
+            builder.accept(component);
         }
-    }
-
-    public static int getColor(ItemStack stack) {
-        Contents contents = stack.get(AMDataComponents.CRYSTAL_PHYLACTERY_CONTENTS);
-        if (contents == null || contents.amount == 0) return -1;
-        // TODO 26.1 replace uses of SpawnEggItem
-        SpawnEggItem spawnEgg = SpawnEggItem.byId(contents.type);
-        return spawnEgg == null ? -1 : spawnEgg.getColor(0);
     }
 
     public static float getFill(ItemStack stack) {
@@ -89,7 +76,7 @@ public class CrystalPhylacteryItem extends Item {
         EntityType<?> type = entity.getType();
         if (!CrystalPhylacteryContentsSize.has(type) && !(entity instanceof Mob)) return;
         int size = CrystalPhylacteryContentsSize.get(type);
-        for (ItemStack stack : player.getInventory().items) {
+        for (ItemStack stack : player.getInventory()) {
             if (!stack.is(AMItems.CRYSTAL_PHYLACTERY)) continue;
             Contents contents = stack.get(AMDataComponents.CRYSTAL_PHYLACTERY_CONTENTS);
             if (contents == null || contents.amount == 0) {

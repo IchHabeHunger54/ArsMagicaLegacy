@@ -1,4 +1,4 @@
-package at.minecraftschurli.arsmagicalegacy.client.model.item;
+package at.minecraftschurli.arsmagicalegacy.client.model.item.old;
 
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -12,7 +12,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.apache.commons.lang3.function.TriFunction;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.stream.Stream;
 

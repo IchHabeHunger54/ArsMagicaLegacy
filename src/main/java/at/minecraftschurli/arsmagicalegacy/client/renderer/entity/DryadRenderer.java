@@ -5,9 +5,10 @@ import at.minecraftschurli.arsmagicalegacy.client.model.DryadModel;
 import at.minecraftschurli.arsmagicalegacy.entity.Dryad;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.resources.Identifier;
 
-public class DryadRenderer extends HumanoidMobRenderer<Dryad, DryadModel> {
+public class DryadRenderer extends HumanoidMobRenderer<Dryad, HumanoidRenderState, DryadModel> {
     private static final Identifier TEXTURE = ArsMagicaApi.id("textures/entity/dryad.png");
 
     public DryadRenderer(EntityRendererProvider.Context context) {
@@ -15,7 +16,12 @@ public class DryadRenderer extends HumanoidMobRenderer<Dryad, DryadModel> {
     }
 
     @Override
-    public Identifier getTextureLocation(Dryad entity) {
+    public HumanoidRenderState createRenderState() {
+        return new HumanoidRenderState();
+    }
+
+    @Override
+    public Identifier getTextureLocation(HumanoidRenderState state) {
         return TEXTURE;
     }
 }

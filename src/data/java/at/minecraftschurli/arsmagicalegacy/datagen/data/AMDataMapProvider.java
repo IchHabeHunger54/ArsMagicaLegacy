@@ -47,6 +47,6 @@ public final class AMDataMapProvider extends DataMapProvider {
             .add(EntityType.TRADER_LLAMA.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(20), false);
         builder(NeoForgeDataMaps.STRIPPABLES)
             .add(AMBlocks.WITCHWOOD_LOG, new Strippable(AMBlocks.STRIPPED_WITCHWOOD_LOG.get()), false)
-            .add(AMBlocks.WITCHWOOD, new Strippable(AMBlocks.STRIPPED_WITCHWOOD.get()), false);
+            .add(AMBlocks.WITCHWOOD_WOOD, new Strippable(AMBlocks.STRIPPED_WITCHWOOD_WOOD.get()), false);
     }
 }

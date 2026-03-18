@@ -4,11 +4,9 @@ import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterOcculusTabRenderersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterParticleControllersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterSpellPartCustomizationScreensEvent;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
-import at.minecraftschurli.arsmagicalegacy.block.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SpellIconAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.extension.LiquidEtheriumClientFluidTypeExtensions;
@@ -24,16 +22,18 @@ import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.RecallC
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.SpellCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.SummonCustomizationScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.color.ColorCustomizationScreen;
-import at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.color.ColorWheelShader;
 import at.minecraftschurli.arsmagicalegacy.client.layer.BarsLayer;
 import at.minecraftschurli.arsmagicalegacy.client.layer.ShapeGroupsLayer;
 import at.minecraftschurli.arsmagicalegacy.client.layer.SpellBookLayer;
+import at.minecraftschurli.arsmagicalegacy.client.model.AMModelLayers;
 import at.minecraftschurli.arsmagicalegacy.client.model.AltarCoreModel;
 import at.minecraftschurli.arsmagicalegacy.client.model.DryadModel;
-import at.minecraftschurli.arsmagicalegacy.client.model.item.DataComponentOverrides;
-import at.minecraftschurli.arsmagicalegacy.client.model.item.ItemOverridesModel;
+import at.minecraftschurli.arsmagicalegacy.client.model.item.CrystalPhylacteryItemTintSource;
+import at.minecraftschurli.arsmagicalegacy.client.model.item.CrystalPhylacteryRangeSelectItemModelProperty;
+import at.minecraftschurli.arsmagicalegacy.client.model.item.CrystalWrenchActiveItemModelProperty;
+import at.minecraftschurli.arsmagicalegacy.client.model.item.EtheriumTypeItemTintSource;
+import at.minecraftschurli.arsmagicalegacy.client.model.item.DataComponentOverridesModel;
 import at.minecraftschurli.arsmagicalegacy.client.model.item.SpellItemModel;
-import at.minecraftschurli.arsmagicalegacy.client.model.item.SpellItemModelV2;
 import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleSpawnerManager;
 import at.minecraftschurli.arsmagicalegacy.client.particle.SimpleParticleProvider;
 import at.minecraftschurli.arsmagicalegacy.client.particle.SymbolsParticleProvider;
@@ -53,15 +53,11 @@ import at.minecraftschurli.arsmagicalegacy.client.renderer.block.SpellRuneRender
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.DryadRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.EmptyRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.ManaCreeperRenderer;
-import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.WitchwoodBoatRenderer;
-import at.minecraftschurli.arsmagicalegacy.compat.patchouli.SpellPartPage;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
-import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMFluids;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
-import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
 import at.minecraftschurli.arsmagicalegacy.init.AMParticles;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
@@ -71,21 +67,14 @@ import at.minecraftschurli.arsmagicalegacy.packet.SetActiveShapeGroupPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SpellBookScrollPacket;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.model.object.boat.BoatModel;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.client.resources.model.sprite.AtlasManager;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.DyedItemColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -96,13 +85,10 @@ import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.client.settings.KeyModifier;
 import org.lwjgl.glfw.GLFW;
-import vazkii.patchouli.api.PatchouliAPI;
+//import vazkii.patchouli.api.PatchouliAPI;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Map;
-import java.util.stream.Stream;
+//import java.io.ByteArrayInputStream;
+//import java.nio.charset.StandardCharsets;
 
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID, value = Dist.CLIENT)
 final class AMClientEventHandler {
@@ -111,24 +97,19 @@ final class AMClientEventHandler {
     private static final KeyMapping PREV_SHAPE_GROUP = new KeyMapping(AMTranslations.KEY_PREV_SHAPE_GROUP_KEY, KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_COMMA, KEY_CATEGORY);
     private static final KeyMapping SPELL_CUSTOMIZATION = new KeyMapping(AMTranslations.KEY_SPELL_CUSTOMIZATION_KEY, KeyConflictContext.IN_GAME, KeyModifier.SHIFT, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, KEY_CATEGORY);
 
-    @SuppressWarnings("DataFlowIssue")
     @SubscribeEvent
     private static void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             ArsMagicaClientApiImpl.postEvents();
-            ItemProperties.register(AMItems.CRYSTAL_WRENCH.get(), CrystalWrenchItem.ACTIVE, (stack, level, player, seed) -> stack.has(AMDataComponents.STORED_POSITIONS) && !stack.get(AMDataComponents.STORED_POSITIONS).isEmpty() ? 1 : 0);
-            ItemProperties.register(AMItems.CRYSTAL_PHYLACTERY.get(), CrystalPhylacteryItem.FILL, (stack, level, player, seed) -> CrystalPhylacteryItem.getFill(stack));
-            PatchouliAPI.get().registerTemplateAsBuiltin(SpellPartPage.ID, () -> new ByteArrayInputStream(SpellPartPage.TEMPLATE.getBytes(StandardCharsets.UTF_8)));
+            //PatchouliAPI.get().registerTemplateAsBuiltin(SpellPartPage.ID, () -> new ByteArrayInputStream(SpellPartPage.TEMPLATE.getBytes(StandardCharsets.UTF_8)));
         });
-        ItemBlockRenderTypes.setRenderLayer(AMFluids.LIQUID_ETHERIUM.get(), RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(AMFluids.FLOWING_LIQUID_ETHERIUM.get(), RenderType.translucent());
     }
 
     @SubscribeEvent
     private static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(DryadModel.LAYER_LOCATION, DryadModel::createBodyLayer);
-        event.registerLayerDefinition(WitchwoodBoatRenderer.BOAT, BoatModel::createBoatModel);
-        event.registerLayerDefinition(WitchwoodBoatRenderer.CHEST_BOAT, BoatModel::createChestBoatModel);
+        event.registerLayerDefinition(AMModelLayers.WITCHWOOD_BOAT, BoatModel::createBoatModel);
+        event.registerLayerDefinition(AMModelLayers.WITCHWOOD_CHEST_BOAT, BoatModel::createChestBoatModel);
     }
 
     @SubscribeEvent
@@ -142,8 +123,8 @@ final class AMClientEventHandler {
         event.registerEntityRenderer(AMEntities.PROJECTILE.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.WALL.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.WAVE.get(), EmptyRenderer::new);
-        event.registerEntityRenderer(AMEntities.WITCHWOOD_BOAT.get(), context -> new WitchwoodBoatRenderer(context, false));
-        event.registerEntityRenderer(AMEntities.WITCHWOOD_CHEST_BOAT.get(), context -> new WitchwoodBoatRenderer(context, true));
+        event.registerEntityRenderer(AMEntities.WITCHWOOD_BOAT.get(), context -> new BoatRenderer(context, AMModelLayers.WITCHWOOD_BOAT));
+        event.registerEntityRenderer(AMEntities.WITCHWOOD_CHEST_BOAT.get(), context -> new BoatRenderer(context, AMModelLayers.WITCHWOOD_CHEST_BOAT));
         event.registerEntityRenderer(AMEntities.ZONE.get(), EmptyRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.ALTAR_CORE.get(), AltarCoreRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.BLACK_AUREM.get(), BlackAuremRenderer::new);
@@ -168,10 +149,33 @@ final class AMClientEventHandler {
     }
 
     @SubscribeEvent
-    public static void registerItemModels(RegisterItemModelsEvent event) {
-        event.register(ArsMagicaApi.id("spell"), SpellItemModelV2.Unbaked.MAP_CODEC);
+    private static void registerItemTintSources(RegisterColorHandlersEvent.ItemTintSources event) {
+        event.register(ArsMagicaApi.id("etherium_type"), EtheriumTypeItemTintSource.CODEC);
+        event.register(ArsMagicaApi.id("crystal_phylactery"), CrystalPhylacteryItemTintSource.CODEC);
     }
 
+    @SubscribeEvent
+    private static void registerItemModelProperties(RegisterConditionalItemModelPropertyEvent event) {
+        event.register(ArsMagicaApi.id("crystal_wrench_active"), CrystalWrenchActiveItemModelProperty.CODEC);
+    }
+
+    @SubscribeEvent
+    private static void registerItemModelProperties(RegisterRangeSelectItemModelPropertyEvent event) {
+        event.register(ArsMagicaApi.id("crystal_phylactery_fill"), CrystalPhylacteryRangeSelectItemModelProperty.CODEC);
+    }
+
+    @SubscribeEvent
+    private static void registerBlockModels(RegisterBlockStateModels event) {
+        event.registerModel(ArsMagicaApi.id("altar_core"), AltarCoreModel.Unbaked.MAP_CODEC);
+    }
+
+    @SubscribeEvent
+    private static void registerItemModels(RegisterItemModelsEvent event) {
+        event.register(ArsMagicaApi.id("spell"), SpellItemModel.Unbaked.MAP_CODEC);
+        event.register(ArsMagicaApi.id("data_component_overrides"), DataComponentOverridesModel.Unbaked.MAP_CODEC);
+    }
+
+/*
     @SubscribeEvent
     private static void registerShaders(RegisterShadersEvent event) {
         try {
@@ -180,6 +184,7 @@ final class AMClientEventHandler {
             throw new RuntimeException(e);
         }
     }
+*/
 
     @SubscribeEvent
     private static void registerKeyMappings(RegisterKeyMappingsEvent event) {
@@ -204,14 +209,6 @@ final class AMClientEventHandler {
     private static void registerClientExtensions(RegisterClientExtensionsEvent event) {
         event.registerFluidType(LiquidEtheriumClientFluidTypeExtensions.INSTANCE, AMFluids.LIQUID_ETHERIUM_TYPE);
         event.registerItem(SpellClientItemExtensions.INSTANCE, AMItems.SPELL, AMItems.SPELL_BOOK);
-    }
-
-    @SuppressWarnings("DataFlowIssue")
-    @SubscribeEvent
-    private static void registerColorHandlersItem(RegisterColorHandlersEvent.Item event) {
-        event.register((stack, tintIndex) -> tintIndex == 0 && stack.has(AMDataComponents.ETHERIUM_TYPE) ? 0xff000000 | stack.get(AMDataComponents.ETHERIUM_TYPE).value().color() : -1, AMItems.ETHERIUM_PLACEHOLDER);
-        event.register((stack, tintIndex) -> tintIndex == 1 ? 0xff000000 | DyedItemColor.getOrDefault(stack, 0) : -1, AMItems.SPELL_BOOK.get());
-        event.register((stack, tintIndex) -> tintIndex == 1 ? 0xff000000 | CrystalPhylacteryItem.getColor(stack) : -1, AMItems.CRYSTAL_PHYLACTERY.get());
     }
 
     @SubscribeEvent
@@ -276,6 +273,7 @@ final class AMClientEventHandler {
         event.register(AMSpells.SUMMON, SummonCustomizationScreen::new);
     }
 
+/*
     @SubscribeEvent
     private static void modelRegisterAdditional(ModelEvent.RegisterStandalone event) {
         DataComponentOverrides.getAdditionalModels(AMMagic.AFFINITIES_WITH_NONE.stream().map(ResourceKey::identifier), AMItems.SPELL).forEach(event::register);
@@ -287,15 +285,9 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void modelModifyBakingResult(ModelEvent.ModifyBakingResult event) {
-        Map<ModelIdentifier, BakedModel> models = event.getModels();
-        models.computeIfPresent(BlockModelShaper.stateToModelLocation(AMBlocks.ALTAR_CORE.get().defaultBlockState().setValue(AltarCoreBlock.FORMED, true)), (_, model) -> new AltarCoreModel(model));
-        models.computeIfPresent(ModelIdentifier.inventory(AMItems.SPELL.getId()), (_, model) -> new SpellItemModel(model));
-        models.computeIfPresent(ModelIdentifier.inventory(AMItems.SPELL_BOOK.getId()), (_, model) -> new SpellItemModel(model));
         ItemOverridesModel.register(models, AMItems.INSCRIPTION_TABLE, new DataComponentOverrides<>(AMDataComponents.TIER.get(), (tier, _, _) -> tier == 0 ? null : ModelIdentifier.standalone(ArsMagicaApi.id("item/inscription_table_tier_" + tier))));
-        ItemOverridesModel.register(models, AMItems.INFINITY_ORB, new DataComponentOverrides<>(AMDataComponents.SKILL_POINT.get(), DataComponentOverrides.holder()));
-        ItemOverridesModel.register(models, AMItems.AFFINITY_ESSENCE, new DataComponentOverrides<>(AMDataComponents.AFFINITY.get(), DataComponentOverrides.holder()));
-        ItemOverridesModel.register(models, AMItems.AFFINITY_TOME, new DataComponentOverrides<>(AMDataComponents.AFFINITY.get(), DataComponentOverrides.holder()));
     }
+*/
 
     @SuppressWarnings("DataFlowIssue")
     @SubscribeEvent
@@ -347,7 +339,7 @@ final class AMClientEventHandler {
      */
     @SubscribeEvent
     private static void renderHand(RenderHandEvent event) {
-        if (!(AMClientUtil.player() instanceof LocalPlayer player) || player.isInvisible() || !ArsMagicaApi.magicHelper().knowsMagic(player)) return;
+        /*if (!(AMClientUtil.player() instanceof LocalPlayer player) || player.isInvisible() || !ArsMagicaApi.magicHelper().knowsMagic(player)) return;
         ItemStack item = event.getItemStack();
         if (!item.is(AMTags.Items.SHOWS_SPELL_VISUALS) || !item.has(AMDataComponents.SPELL)) return;
         float swing = event.getSwingProgress();
@@ -371,6 +363,6 @@ final class AMClientEventHandler {
         } else {
             ((PlayerRenderer) AMClientUtil.mc().getEntityRenderDispatcher().getRenderer(player)).renderLeftHand(stack, event.getMultiBufferSource(), event.getPackedLight(), player);
         }
-        stack.popPose();
+        stack.popPose();*/
     }
 }

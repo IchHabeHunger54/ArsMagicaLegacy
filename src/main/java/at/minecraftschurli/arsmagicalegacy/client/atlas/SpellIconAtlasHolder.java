@@ -15,17 +15,17 @@ public class SpellIconAtlasHolder {
     public static final Identifier ATLAS = ArsMagicaApi.id("textures/atlas/spell_icon.png");
     public static final Identifier ATLAS_ID = ArsMagicaApi.id("spell_icon");
 
-    public static TextureAtlasSprite getSprite(@Nullable Identifier location) {
+    public static TextureAtlasSprite getSprite(@Nullable Identifier identifier) {
         TextureAtlas atlas = AMClientUtil.mc().getAtlasManager().getAtlasOrThrow(ATLAS_ID);
-        return location == null ? atlas.missingSprite() : atlas.getSprite(location);
+        return identifier == null ? atlas.missingSprite() : atlas.getSprite(identifier);
     }
 
-    public static TextureAtlasSprite getSprite(SpriteGetter getter, Identifier location) {
-        return getter.get(new SpriteId(ATLAS, location));
+    public static TextureAtlasSprite getSprite(SpriteGetter getter, Identifier identifier) {
+        return getter.get(new SpriteId(ATLAS, identifier));
     }
 
-    public static @Nullable TextureAtlasSprite getSpriteOrNull(SpriteGetter getter, Identifier location) {
-        TextureAtlasSprite sprite = getSprite(getter, location);
+    public static @Nullable TextureAtlasSprite getSpriteOrNull(SpriteGetter getter, Identifier identifier) {
+        TextureAtlasSprite sprite = getSprite(getter, identifier);
         if (sprite == getMissingSprite()) {
             return null;
         }

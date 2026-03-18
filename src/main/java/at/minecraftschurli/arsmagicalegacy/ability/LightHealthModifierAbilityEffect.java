@@ -31,9 +31,9 @@ public record LightHealthModifierAbilityEffect(double min, double max, int maxLi
     public void tick(Player player, Holder<Ability> ability) {
         AttributeInstance attribute = player.getAttribute(Attributes.MAX_HEALTH);
         if (attribute == null) return;
-        Identifier location = ability.getKey().identifier();
-        attribute.removeModifier(location);
+        Identifier identifier = ability.getKey().identifier();
+        attribute.removeModifier(identifier);
         if (player.level().getDayTime() % 24000 >= 12000 || player.level().getBrightness(LightLayer.SKY, player.blockPosition()) <= maxLight) return;
-        attribute.addTransientModifier(new AttributeModifier(location, ArsMagicaApi.abilityHelper().scaleToDepth(player, ability.value(), min, max), AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
+        attribute.addTransientModifier(new AttributeModifier(identifier, ArsMagicaApi.abilityHelper().scaleToDepth(player, ability.value(), min, max), AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
     }
 }

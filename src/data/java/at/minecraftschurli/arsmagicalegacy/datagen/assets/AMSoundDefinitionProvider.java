@@ -29,11 +29,11 @@ public final class AMSoundDefinitionProvider extends SoundDefinitionsProvider {
     @SuppressWarnings("DataFlowIssue")
     private void sound(Holder<SoundEvent> sound, int count) {
         if (count <= 0) return;
-        Identifier location = sound.getKey().identifier();
-        if (sounds.contains(location)) return;
-        sounds.add(location);
-        String subtitle = "subtitle." + location.getNamespace() + "." + location.getPath();
-        String path = location.toString().replace('.', '/');
+        Identifier identifier = sound.getKey().identifier();
+        if (sounds.contains(identifier)) return;
+        sounds.add(identifier);
+        String subtitle = "subtitle." + identifier.getNamespace() + "." + identifier.getPath();
+        String path = identifier.toString().replace('.', '/');
         if (count == 1) {
             add(sound.value(), definition().with(sound(path)).subtitle(subtitle));
         } else {

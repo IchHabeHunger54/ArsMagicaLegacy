@@ -11,6 +11,6 @@ public final class AMEnchantmentProvider {
     public static void addEnchantments(BootstrapContext<Enchantment> bootstrap) {
         bootstrap.register(AMEnchantments.DISMEMBERING, Enchantment.enchantment(
             Enchantment.definition(bootstrap.lookup(Registries.ITEM).getOrThrow(ItemTags.SHARP_WEAPON_ENCHANTABLE), 2, 3, Enchantment.dynamicCost(15, 9), Enchantment.dynamicCost(65, 9), 4, EquipmentSlotGroup.MAINHAND)
-        ).build(AMEnchantments.DISMEMBERING.location()));
+        ).build(AMEnchantments.DISMEMBERING.identifier()));
     }
 }

@@ -14,6 +14,6 @@ public final class AMDamageTypeProvider {
         bootstrap.register(AMDamageSources.SPELL_MAGIC, new DamageType("magic", 0));
         bootstrap.register(AMDamageSources.SPELL_PHYSICAL, new DamageType("mob", 0.1f));
         bootstrap.register(AMDamageSources.SPELL_PHYSICAL_PLAYER, new DamageType("player", 0.1f));
-        bootstrap.register(AMDamageSources.FALLING_STAR, new DamageType(AMDamageSources.FALLING_STAR.location().getPath(), 0.1f));
+        bootstrap.register(AMDamageSources.FALLING_STAR, new DamageType(AMDamageSources.FALLING_STAR.identifier().getPath(), 0.1f));
     }
 }

@@ -217,10 +217,10 @@ public final class AMBlockStateProvider extends BlockStateProvider {
         return models().getBuilder(name).texture("particle", particle);
     }
 
-    private BlockModelBuilder objModel(String name, Identifier location) {
+    private BlockModelBuilder objModel(String name, Identifier identifier) {
         return models().getBuilder(name)
             .customLoader(ObjModelBuilder::begin)
-            .modelLocation(location.withPrefix("models/"))
+            .modelLocation(identifier.withPrefix("models/"))
             .emissiveAmbient(false)
             .automaticCulling(false)
             .shadeQuads(false)

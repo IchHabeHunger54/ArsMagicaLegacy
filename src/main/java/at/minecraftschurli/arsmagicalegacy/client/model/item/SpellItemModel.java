@@ -67,7 +67,7 @@ public class SpellItemModel extends BakedModelWrapper<BakedModel> {
         Player player = AMClientUtil.player();
         if (player == null || !ArsMagicaApi.magicHelper().knowsMagic(player)) return super.applyTransform(cameraTransformType, poseStack, applyLeftHandTransform);
         if (affinity != null && isHand(cameraTransformType))
-            return new SpellItemHandModel(AMClientUtil.mc().getModelManager().getModel(ModelIdentifier.standalone(affinity.location().withPrefix("item/spell_")))).applyTransform(cameraTransformType, poseStack, applyLeftHandTransform);
+            return new SpellItemHandModel(AMClientUtil.mc().getModelManager().getModel(ModelIdentifier.standalone(affinity.identifier().withPrefix("item/spell_")))).applyTransform(cameraTransformType, poseStack, applyLeftHandTransform);
         if (icon == null || cameraTransformType != ItemDisplayContext.GUI) return super.applyTransform(cameraTransformType, poseStack, applyLeftHandTransform);
         return new SpellItemIconModel(super.applyTransform(cameraTransformType, poseStack, applyLeftHandTransform), icon);
     }

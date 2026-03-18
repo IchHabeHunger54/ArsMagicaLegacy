@@ -179,7 +179,7 @@ public final class AMLootTableProvider extends LootTableProvider {
 
         private void addTomeLoot(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output, ResourceKey<LootTable> lootTable, ResourceKey<Affinity> affinity, float chance) {
             HolderLookup.RegistryLookup<Affinity> lookup = registries.lookupOrThrow(AMRegistries.Keys.AFFINITY);
-            output.accept(ResourceKey.create(lootTable.registryKey(), affinity.location().withPath(lootTable.location().getPath().replace("chests/", "chests/modify/")).withSuffix("_affinity_tome")), LootTable.lootTable().withPool(LootPool.lootPool()
+            output.accept(ResourceKey.create(lootTable.registryKey(), affinity.identifier().withPath(lootTable.identifier().getPath().replace("chests/", "chests/modify/")).withSuffix("_affinity_tome")), LootTable.lootTable().withPool(LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1))
                 .add(LootItem.lootTableItem(AMItems.AFFINITY_TOME).apply(SetComponentsFunction.setComponent(AMDataComponents.AFFINITY.get(), lookup.getOrThrow(affinity))).setWeight(19))
                 .add(LootItem.lootTableItem(AMItems.AFFINITY_TOME).apply(SetComponentsFunction.setComponent(AMDataComponents.AFFINITY.get(), lookup.getOrThrow(AMMagic.LIFE))).setWeight(1))
@@ -222,15 +222,15 @@ public final class AMLootTableProvider extends LootTableProvider {
 
         @Override
         public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
-            addDismemberingLoot(output, EntityType.CREEPER.getDefaultLootTable(), Items.CREEPER_HEAD, 0.5f);
-            addDismemberingLoot(output, EntityType.PIGLIN.getDefaultLootTable(), Items.PIGLIN_HEAD, 0.5f);
-            addDismemberingLoot(output, EntityType.SKELETON.getDefaultLootTable(), Items.SKELETON_SKULL, 0.5f);
-            addDismemberingLoot(output, EntityType.WITHER_SKELETON.getDefaultLootTable(), Items.WITHER_SKELETON_SKULL, 0.5f);
-            addDismemberingLoot(output, EntityType.ZOMBIE.getDefaultLootTable(), Items.ZOMBIE_HEAD, 0.5f);
+            addDismemberingLoot(output, EntityType.CREEPER.getDefaultLootTable().orElseThrow(), Items.CREEPER_HEAD, 0.5f);
+            addDismemberingLoot(output, EntityType.PIGLIN.getDefaultLootTable().orElseThrow(), Items.PIGLIN_HEAD, 0.5f);
+            addDismemberingLoot(output, EntityType.SKELETON.getDefaultLootTable().orElseThrow(), Items.SKELETON_SKULL, 0.5f);
+            addDismemberingLoot(output, EntityType.WITHER_SKELETON.getDefaultLootTable().orElseThrow(), Items.WITHER_SKELETON_SKULL, 0.5f);
+            addDismemberingLoot(output, EntityType.ZOMBIE.getDefaultLootTable().orElseThrow(), Items.ZOMBIE_HEAD, 0.5f);
         }
 
         private void addDismemberingLoot(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output, ResourceKey<LootTable> lootTable, ItemLike item, float chance) {
-            output.accept(ResourceKey.create(lootTable.registryKey(), ArsMagicaApi.id(lootTable.location().getPath().replace("entities/", "entities/modify/")).withSuffix("_dismembering")), LootTable.lootTable().withPool(LootPool.lootPool()
+            output.accept(ResourceKey.create(lootTable.registryKey(), ArsMagicaApi.id(lootTable.identifier().getPath().replace("entities/", "entities/modify/")).withSuffix("_dismembering")), LootTable.lootTable().withPool(LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1))
                 .add(LootItem.lootTableItem(item).when(LootItemRandomChanceCondition.randomChance(new EnchantmentLevelFromItemProvider(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(AMEnchantments.DISMEMBERING), LevelBasedValue.perLevel(chance)))))
                 .apply(LimitCount.limitCount(IntRange.exact(1)))

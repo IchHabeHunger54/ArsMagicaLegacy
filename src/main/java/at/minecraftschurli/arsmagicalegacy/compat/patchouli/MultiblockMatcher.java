@@ -8,10 +8,10 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.function.BiPredicate;
 
-public record MultiblockMatcher(Identifier location) implements BiPredicate<Level, BlockPos> {
+public record MultiblockMatcher(Identifier identifier) implements BiPredicate<Level, BlockPos> {
     @Override
     public boolean test(Level level, BlockPos pos) {
-        IMultiblock multiblock = PatchouliAPI.get().getMultiblock(location);
+        IMultiblock multiblock = PatchouliAPI.get().getMultiblock(identifier);
         return multiblock != null && multiblock.validate(level, pos) != null;
     }
 }

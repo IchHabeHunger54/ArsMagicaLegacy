@@ -13,6 +13,7 @@ import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
 import net.neoforged.neoforge.common.loot.AddTableLootModifier;
 import net.neoforged.neoforge.common.loot.LootTableIdCondition;
 
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public final class AMGlobalLootModifierProvider extends GlobalLootModifierProvider {
@@ -52,17 +53,19 @@ public final class AMGlobalLootModifierProvider extends GlobalLootModifierProvid
     }
 
     private void addDismemberingModifier(EntityType<?> entityType) {
-        ResourceKey<LootTable> table = entityType.getDefaultLootTable();
-        String path = table.location().getPath();
+        Optional<ResourceKey<LootTable>> optional = entityType.getDefaultLootTable();
+        if (optional.isEmpty()) return;
+        ResourceKey<LootTable> table = optional.get();
+        String path = table.identifier().getPath();
         addModifier(table, path,  ArsMagicaApi.id(path.replace("entities/", "entities/modify/")).withSuffix("_dismembering"));
     }
 
     private void addTomeModifier(ResourceKey<LootTable> table) {
-        String path = table.location().getPath();
+        String path = table.identifier().getPath();
         addModifier(table, path, ArsMagicaApi.id(path.replace("chests/", "chests/modify/")).withSuffix("_affinity_tome"));
     }
 
-    private void addModifier(ResourceKey<LootTable> table, String modifier, Identifier location) {
-        add(modifier, new AddTableLootModifier(new LootItemCondition[]{LootTableIdCondition.builder(table.location()).build()}, ResourceKey.create(table.registryKey(), location)));
+    private void addModifier(ResourceKey<LootTable> table, String modifier, Identifier identifier) {
+        add(modifier, new AddTableLootModifier(new LootItemCondition[]{LootTableIdCondition.builder(table.identifier()).build()}, ResourceKey.create(table.registryKey(), identifier)));
     }
 }

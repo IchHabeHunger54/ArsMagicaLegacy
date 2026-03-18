@@ -62,7 +62,7 @@ public final class ToolTiers extends SimplePreparableReloadListener<JsonObject> 
             } catch (NumberFormatException e) {
                 LOGGER.warn("Found non-integer key {} in {}, ignoring", entry.getKey(), PATH);
             } catch (IdentifierException e) {
-                LOGGER.warn("Encountered invalid resource location in {}, ignoring", PATH, e);
+                LOGGER.warn("Encountered invalid identifier in {}, ignoring", PATH, e);
             }
         }
         if (contents.isEmpty()) {

@@ -29,9 +29,9 @@ public record WaterHealthModifierAbilityEffect(double min, double max) implement
     public void tick(Player player, Holder<Ability> ability) {
         AttributeInstance attribute = player.getAttribute(Attributes.MAX_HEALTH);
         if (attribute == null) return;
-        Identifier location = ability.getKey().identifier();
-        attribute.removeModifier(location);
+        Identifier identifier = ability.getKey().identifier();
+        attribute.removeModifier(identifier);
         if (!player.isInWater()) return;
-        attribute.addTransientModifier(new AttributeModifier(location, ArsMagicaApi.abilityHelper().scaleToDepth(player, ability.value(), min, max), AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
+        attribute.addTransientModifier(new AttributeModifier(identifier, ArsMagicaApi.abilityHelper().scaleToDepth(player, ability.value(), min, max), AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
     }
 }

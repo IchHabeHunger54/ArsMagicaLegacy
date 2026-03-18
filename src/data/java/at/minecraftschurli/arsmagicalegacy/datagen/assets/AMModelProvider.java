@@ -188,8 +188,8 @@ public class AMModelProvider extends AbstractModelProvider {
      */
     private void basicItemWithVariants(DeferredItem<?> item, List<? extends ResourceKey<?>> variants) {
         for (ResourceKey<?> variant : variants) {
-            Identifier location = variant.location().withPrefix(item.getId().getPath() + "_");
-            singleTexture(location.getPath(), mcLoc("item/generated"), "layer0", location.withPrefix("item/"));
+            Identifier identifier = variant.identifier().withPrefix(item.getId().getPath() + "_");
+            singleTexture(identifier.getPath(), mcLoc("item/generated"), "layer0", identifier.withPrefix("item/"));
         }
     }
 

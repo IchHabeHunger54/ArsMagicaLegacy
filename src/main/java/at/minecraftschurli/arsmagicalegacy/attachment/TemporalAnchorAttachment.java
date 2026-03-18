@@ -6,11 +6,14 @@ import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.food.FoodData;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
@@ -26,7 +29,7 @@ public record TemporalAnchorAttachment(
     double burnout,
     float health,
     int air,
-    CompoundTag attributes,
+    List<AttributeInstance.Packed> attributes,
     List<MobEffectInstance> mobEffects,
     CompoundTag food,
     Optional<MagicAttachment> magic
@@ -40,17 +43,14 @@ public record TemporalAnchorAttachment(
         Codec.DOUBLE.fieldOf("burnout").forGetter(TemporalAnchorAttachment::burnout),
         Codec.FLOAT.fieldOf("health").forGetter(TemporalAnchorAttachment::health),
         Codec.INT.fieldOf("air").forGetter(TemporalAnchorAttachment::air),
-        CompoundTag.CODEC.fieldOf("attributes").forGetter(TemporalAnchorAttachment::attributes),
+        AttributeInstance.Packed.LIST_CODEC.fieldOf("attributes").forGetter(TemporalAnchorAttachment::attributes),
         MobEffectInstance.CODEC.listOf().fieldOf("mob_effects").forGetter(TemporalAnchorAttachment::mobEffects),
         CompoundTag.CODEC.fieldOf("food").forGetter(TemporalAnchorAttachment::food),
         MagicAttachment.CODEC.optionalFieldOf("magic").forGetter(TemporalAnchorAttachment::magic)
     ).apply(inst, TemporalAnchorAttachment::new));
-    private static final String ATTRIBUTES_KEY = "attributes";
 
     public static TemporalAnchorAttachment from(LivingEntity entity) {
-        CompoundTag attributes = new CompoundTag();
-        attributes.put(ATTRIBUTES_KEY, entity.getAttributes().save());
-        CompoundTag food = new CompoundTag();
+        TagValueOutput food = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, entity.level().registryAccess());
         if (entity instanceof ServerPlayer player) {
             player.getFoodData().addAdditionalSaveData(food);
         }
@@ -63,9 +63,9 @@ public record TemporalAnchorAttachment(
             ArsMagicaApi.burnoutHelper().getBurnout(entity),
             entity.getHealth(),
             entity.getAirSupply(),
-            attributes,
+            entity.getAttributes().pack(),
             entity.getActiveEffects().stream().map(MobEffectInstance::new).toList(),
-            food,
+            food.buildResult(),
             entity instanceof ServerPlayer player ? Optional.of(player.getData(AMAttachments.MAGIC)) : Optional.empty()
         );
     }
@@ -75,13 +75,13 @@ public record TemporalAnchorAttachment(
         ArsMagicaApi.burnoutHelper().setBurnout(entity, burnout);
         entity.setHealth(health);
         entity.setAirSupply(air);
-        entity.getAttributes().load(attributes.getList(ATTRIBUTES_KEY, ListTag.TAG_COMPOUND));
+        entity.getAttributes().apply(attributes);
         entity.removeAllEffects();
         mobEffects.forEach(entity::addEffect);
         if (entity instanceof ServerPlayer player) {
             player.teleportTo(player.level(), position.x, position.y, position.z, Set.of(), yaw, pitch, true);
             FoodData foodData = new FoodData();
-            foodData.readAdditionalSaveData(food);
+            foodData.readAdditionalSaveData(TagValueInput.create(ProblemReporter.DISCARDING, entity.level().registryAccess(), food));
             player.foodData = foodData;
             magic.ifPresent(data -> player.setData(AMAttachments.MAGIC, data));
         } else {

@@ -42,6 +42,8 @@ public final class ArsMagicaLegacy {
      */
     private void register(IEventBus bus) {
         AMBlocks.BLOCKS.register(bus);
+        AMBlocks.BLOCKS.addAlias(ArsMagicaApi.id("witchwood"), AMBlocks.WITCHWOOD_WOOD.getId());
+        AMBlocks.BLOCKS.addAlias(ArsMagicaApi.id("stripped_witchwood"), AMBlocks.STRIPPED_WITCHWOOD_WOOD.getId());
         AMItems.ITEMS.register(bus);
         AMFluids.FLUIDS.register(bus);
         AMFluids.FLUID_TYPES.register(bus);

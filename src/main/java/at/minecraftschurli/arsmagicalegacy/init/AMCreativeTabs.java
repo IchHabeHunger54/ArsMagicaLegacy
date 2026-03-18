@@ -132,7 +132,7 @@ public interface AMCreativeTabs {
     @SafeVarargs
     private static <T> void acceptVariants(CreativeModeTab.ItemDisplayParameters display, CreativeModeTab.Output output, DeferredItem<?> item, ResourceKey<Registry<T>> registryKey, BiConsumer<ItemStack, Holder<T>> consumer, ResourceKey<T>... ignored) {
         Set<ResourceKey<T>> set = Set.of(ignored);
-        display.listElements().lookup(registryKey).ifPresent(registry -> registry.listElements().forEach(holder -> {
+        display.holders().lookup(registryKey).ifPresent(registry -> registry.listElements().forEach(holder -> {
             if (set.contains(holder.key())) return;
             ItemStack stack = item.toStack();
             consumer.accept(stack, holder);

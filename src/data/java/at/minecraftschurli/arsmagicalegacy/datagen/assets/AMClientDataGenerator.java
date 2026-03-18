@@ -24,9 +24,8 @@ final class AMClientDataGenerator {
         ArsMagicaClientApiImpl.postEvents();
         DataGenerator.PackGenerator pack = event.getGenerator().getVanillaPack(true);
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-        pack.addProvider(AMModelProvider::new);
-        //pack.addProvider(output -> new AMBlockStateProvider(output));
-        //pack.addProvider(output -> new AMItemModelProvider(output));
+        pack.addProvider(wrap(AMModelProvider::new, lookupProvider));
+        pack.addProvider(AMEquipmentAssetProvider::new);
         pack.addProvider(AMParticleDescriptionProvider::new);
         pack.addProvider(wrap(AMParticleSpawnerProvider::new, lookupProvider));
         pack.addProvider(AMSoundDefinitionProvider::new);

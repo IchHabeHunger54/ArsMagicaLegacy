@@ -28,6 +28,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -306,6 +307,11 @@ public final class AMUtil {
             list.set(i, entries[i]);
         }
         return list;
+    }
+
+    public static <T> ItemStack set(ItemStack stack, DataComponentType<T> type, T value) {
+        stack.set(type, value);
+        return stack;
     }
 
     public static void setMinionTargets(ServerLevel level, LivingEntity owner, LivingEntity target) {

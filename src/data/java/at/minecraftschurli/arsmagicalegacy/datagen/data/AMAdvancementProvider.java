@@ -9,7 +9,7 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
-import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
@@ -69,13 +69,13 @@ public final class AMAdvancementProvider extends AdvancementProvider {
                 builder -> builder.addCriterion("knows", SkillChangeTrigger.create(SkillChangeTrigger.Requirements.ALL_HIDDEN)));
             AdvancementHolder spell = advancement(saver, "spell", skill, AMItems.SPELL.toStack(), AdvancementType.TASK, false,
                 builder -> builder.addCriterion("spell", InventoryChangeTrigger.TriggerInstance.hasItems(AMItems.SPELL)));
-            AdvancementHolder affinityOnePercent = advancement(saver, "affinity_one_percent", spell, DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinities.getOrThrow(AMMagic.WATER)), AdvancementType.TASK, false,
+            AdvancementHolder affinityOnePercent = advancement(saver, "affinity_one_percent", spell, AMUtil.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinities.getOrThrow(AMMagic.WATER)), AdvancementType.TASK, false,
                 builder -> builder.addCriterion("affinity", AffinityChangeTrigger.create(0.01)));
-            AdvancementHolder affinityFiftyPercent = advancement(saver, "affinity_fifty_percent", affinityOnePercent, DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinities.getOrThrow(AMMagic.LIFE)), AdvancementType.TASK, false,
+            AdvancementHolder affinityFiftyPercent = advancement(saver, "affinity_fifty_percent", affinityOnePercent, AMUtil.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinities.getOrThrow(AMMagic.LIFE)), AdvancementType.TASK, false,
                 builder -> builder.addCriterion("affinity", AffinityChangeTrigger.create(0.5)));
-            AdvancementHolder affinityFull = advancement(saver, "affinity_full", affinityFiftyPercent, DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinities.getOrThrow(AMMagic.ENDER)), AdvancementType.CHALLENGE, false,
+            AdvancementHolder affinityFull = advancement(saver, "affinity_full", affinityFiftyPercent, AMUtil.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinities.getOrThrow(AMMagic.ENDER)), AdvancementType.CHALLENGE, false,
                 builder -> builder.addCriterion("affinity", AffinityChangeTrigger.create(1)));
-            AdvancementHolder affinityTome = advancement(saver, "affinity_tome", affinityFull, DataComponentNamedItem.set(AMItems.AFFINITY_TOME.toStack(), AMDataComponents.AFFINITY.get(), affinities.getOrThrow(Affinity.NONE)), AdvancementType.TASK, true,
+            AdvancementHolder affinityTome = advancement(saver, "affinity_tome", affinityFull, AMUtil.set(AMItems.AFFINITY_TOME.toStack(), AMDataComponents.AFFINITY.get(), affinities.getOrThrow(Affinity.NONE)), AdvancementType.TASK, true,
                 builder -> builder.addCriterion("affinity", AffinityChangeTrigger.create(1, 0)));
             AdvancementHolder level10 = advancement(saver, "level_10", spell, AMItems.MOONSTONE.toStack(), AdvancementType.TASK, false,
                 builder -> builder.addCriterion("level", LevelChangeTrigger.create(10)));

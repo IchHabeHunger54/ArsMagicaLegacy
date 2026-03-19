@@ -4,8 +4,8 @@ import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
-import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.Holder;
@@ -34,7 +34,7 @@ class AffinityPage extends Page<Pair<Holder<Affinity>, Double>> {
 
     @Override
     public void extractElement(Pair<Holder<Affinity>, Double> element, int index, GuiGraphicsExtractor graphics, int x, int y) {
-        AMClientUtil.renderItem(graphics, DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), element.getFirst()), x, y + index * (size + spacing));
+        AMClientUtil.renderItem(graphics, AMUtil.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), element.getFirst()), x, y + index * (size + spacing));
         graphics.text(AMClientUtil.font(), "%.3f".formatted(element.getSecond()), x + size + spacing, y + 4 + index * (size + spacing), element.getFirst().value().color(), false);
     }
 

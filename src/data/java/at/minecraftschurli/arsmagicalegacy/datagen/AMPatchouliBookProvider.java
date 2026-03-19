@@ -15,7 +15,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
-import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import at.minecraftschurli.mods.easydatagenlib.mods.patchouli.AbstractPageBuilder;
 import at.minecraftschurli.mods.easydatagenlib.mods.patchouli.BookBuilder;
 import at.minecraftschurli.mods.easydatagenlib.mods.patchouli.EntryBuilder;
@@ -406,11 +406,11 @@ public final class AMPatchouliBookProvider extends PatchouliBookProvider {
     }
 
     private ItemStack affinityEssence(HolderLookup<Affinity> affinities, ResourceKey<Affinity> affinity) {
-        return DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinities.getOrThrow(affinity));
+        return AMUtil.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinities.getOrThrow(affinity));
     }
 
     private ItemStack affinityTome(HolderLookup<Affinity> affinities, ResourceKey<Affinity> affinity) {
-        return DataComponentNamedItem.set(AMItems.AFFINITY_TOME.toStack(), AMDataComponents.AFFINITY.get(), affinities.getOrThrow(affinity));
+        return AMUtil.set(AMItems.AFFINITY_TOME.toStack(), AMDataComponents.AFFINITY.get(), affinities.getOrThrow(affinity));
     }
 
     private static class SpellPartPageBuilder extends AbstractPageBuilder<SpellPartPageBuilder> {

@@ -13,6 +13,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -89,7 +90,9 @@ public class FallingStar extends SpellEntity {
         for (Entity entity : level.getEntities(this, getBoundingBox().inflate(timeSinceImpact, AMServerConfig.FALLING_STAR_HEIGHT.get(), timeSinceImpact))) {
             int id = entity.getId();
             if (damaged.contains(id) || entity instanceof Player player && player.isCreative() || distanceTo(entity) > timeSinceImpact) continue;
-            entity.hurt(damageSource, damage);
+            if (level instanceof ServerLevel serverLevel) {
+                entity.hurtServer(serverLevel, damageSource, damage);
+            }
             damaged.add(id);
         }
         if (timeSinceImpact > getRange()) {

@@ -9,6 +9,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.EntityHitResult;
 
@@ -25,8 +26,9 @@ public class LifeDrain extends SpellComponent.CastEntity {
         if (!(hitResult.getEntity() instanceof LivingEntity entity)) return SpellComponentCastResult.pass(spell);
         LivingEntity caster = context.caster();
         if (caster == null) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_CASTER);
+        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.pass(spell);
         float damage = (float) ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.LIFE_DRAIN_DAMAGE.get(), entity.isInvertedHealAndHarm() ? AMSpells.HEALING_STAT : AMSpells.DAMAGE_STAT, modifiers, context);
-        if (entity.hurt(context.level().damageSources().indirectMagic(caster, context.directEntity()), damage)) {
+        if (entity.hurtServer(level, level.damageSources().indirectMagic(caster, context.directEntity()), damage)) {
             caster.heal(damage);
         }
         return SpellComponentCastResult.success(spell);

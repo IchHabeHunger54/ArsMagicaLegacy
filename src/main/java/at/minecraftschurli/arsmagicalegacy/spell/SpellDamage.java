@@ -64,12 +64,12 @@ public record SpellDamage(Map<Integer, Map<ResourceKey<DamageType>, Pair<Float, 
                         caster.setItemInHand(InteractionHand.MAIN_HAND, oldStack);
                         continue;
                     }
-                    entity.hurt(source, value.getFirst());
+                    entity.hurtServer(serverLevel, source, value.getFirst());
                     caster.setItemInHand(InteractionHand.MAIN_HAND, oldStack);
                 } else {
-                    DamageSource source = new DamageSourceWithItemStack(holder.get(), directEntity, caster, value.getSecond());
+                    DamageSource source = new DamageSourceWithItemStack(holder.get(), directEntity, null, value.getSecond());
                     if (entity instanceof LivingEntity living && living.isInvulnerableTo(serverLevel, source)) continue;
-                    entity.hurt(source, value.getFirst());
+                    entity.hurtServer(serverLevel, source, value.getFirst());
                 }
                 invulnerableTime = Math.max(invulnerableTime, entity.invulnerableTime);
                 hurtMarked |= entity.hurtMarked;

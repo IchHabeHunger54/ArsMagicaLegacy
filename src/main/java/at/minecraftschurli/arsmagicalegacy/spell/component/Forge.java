@@ -10,6 +10,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -61,14 +62,12 @@ public class Forge extends SpellComponent.CastBoth {
     public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
         Spell spell = context.spell();
         if (!AMServerConfig.FORGE_SMELTS_VILLAGERS.get() || !(hitResult.getEntity() instanceof Villager villager)) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_HIT);
-        Level level = context.level();
+        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.pass(spell);
         LivingEntity caster = context.caster();
-        if (!level.isClientSide()) {
-            ItemEntity item = new ItemEntity(level, villager.getX(), villager.getY(), villager.getZ(), new ItemStack(Items.EMERALD));
-            item.setDefaultPickUpDelay();
-            level.addFreshEntity(item);
-        }
-        villager.hurt(caster instanceof Player player ? level.damageSources().playerAttack(player) : caster != null ? level.damageSources().mobAttack(caster) : level.damageSources().onFire(), 5000);
+        ItemEntity item = new ItemEntity(level, villager.getX(), villager.getY(), villager.getZ(), new ItemStack(Items.EMERALD));
+        item.setDefaultPickUpDelay();
+        level.addFreshEntity(item);
+        villager.hurtServer(level, caster instanceof Player player ? level.damageSources().playerAttack(player) : caster != null ? level.damageSources().mobAttack(caster) : level.damageSources().onFire(), 5000);
         return SpellComponentCastResult.success(spell);
     }
 }

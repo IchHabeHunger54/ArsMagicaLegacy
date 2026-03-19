@@ -69,8 +69,6 @@ public class Blizzard extends SpellEntity {
             if (entity == owner || !entity.canFreeze() || entity instanceof Player player && player.isCreative()) continue;
             if (level() instanceof ServerLevel serverLevel) {
                 entity.hurtServer(serverLevel, damageSources().freeze(), damage);
-            } else if (level().isClientSide()) {
-                entity.hurtClient(damageSources().freeze());
             }
             entity.setData(AMAttachments.FROST, frostDuration);
         }

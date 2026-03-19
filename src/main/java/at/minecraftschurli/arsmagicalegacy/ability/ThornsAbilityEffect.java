@@ -12,6 +12,7 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.HolderSetCodec;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -33,7 +34,7 @@ public record ThornsAbilityEffect(double min, double max, Optional<HolderSet<Ent
 
     @Override
     public void apply(LivingDamageEvent.Post event, Player player, Holder<Ability> ability) {
-        if (!(event.getSource().getEntity() instanceof LivingEntity living)) return;
-        living.hurt(player.damageSources().indirectMagic(player, null), (float) ArsMagicaApi.abilityHelper().scaleToDepth(player, ability.value(), min, max));
+        if (!(event.getSource().getEntity() instanceof LivingEntity living) || !(living.level() instanceof ServerLevel level)) return;
+        living.hurtServer(level, level.damageSources().indirectMagic(player, null), (float) ArsMagicaApi.abilityHelper().scaleToDepth(player, ability.value(), min, max));
     }
 }

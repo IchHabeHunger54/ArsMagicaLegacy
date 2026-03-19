@@ -9,6 +9,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -73,7 +75,7 @@ public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScre
             i++;
         }
         for (DyeColor dyeColor : DyeColor.values()) {
-            addRenderableWidget(new ColorButton(buttonX + (i % COLUMNS) * 11, buttonY + (i / COLUMNS) * 11, dyeColor.getTextureDiffuseColor(), this::setColorRgb, DyeItem.byColor(dyeColor).getDescription()));
+            addRenderableWidget(new ColorButton(buttonX + (i % COLUMNS) * 11, buttonY + (i / COLUMNS) * 11, dyeColor.getTextureDiffuseColor(), this::setColorRgb, Component.translatable("color." + dyeColor.getName() + "_dye")));
             i++;
         }
         addRenderableWidget(Button.builder(AMTranslations.SPELL_CUSTOMIZATION_COLOR_CLEAR, _ -> {
@@ -90,14 +92,14 @@ public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScre
     }
 
     @Override
-    public void renderBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
-        guiGraphics.blit(BACKGROUND, leftPos, topPos, 0, 0, WIDTH, HEIGHT);
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, partialTick);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, leftPos, topPos, 0, 0, WIDTH, HEIGHT, 256, 256);
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        return editBox.active ? editBox.keyPressed(keyCode, scanCode, modifiers) : super.keyPressed(keyCode, scanCode, modifiers);
+    public boolean keyPressed(KeyEvent event) {
+        return editBox.active ? editBox.keyPressed(event) : super.keyPressed(event);
     }
 
     private void setColorRgb(int rgb) {

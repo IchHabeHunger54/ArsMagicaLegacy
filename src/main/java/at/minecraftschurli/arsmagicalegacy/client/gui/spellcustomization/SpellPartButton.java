@@ -56,11 +56,7 @@ public class SpellPartButton<T> extends Button {
 
     @Override
     protected void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
-        if (active) {
-            graphics.blitSprite(RenderPipelines.GUI, sprite, getX(), getY(), SIZE, SIZE);
-            return;
-        }
-        graphics.blitSprite(RenderPipelines.GUI, sprite, getX(), getY(), SIZE, SIZE, 0xff7f7f7f);
+        graphics.blitSprite(RenderPipelines.GUI, sprite, getX(), getY(), SIZE, SIZE, active ? -1 : 0xff7f7f7f);
     }
 
     @SuppressWarnings({"unchecked", "DataFlowIssue"})

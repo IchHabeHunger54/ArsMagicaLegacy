@@ -48,7 +48,7 @@ import at.minecraftschurli.arsmagicalegacy.client.particle.controller.MoveInView
 import at.minecraftschurli.arsmagicalegacy.client.particle.controller.OrbitPointController;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.AltarCoreRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.BlackAuremRenderer;
-import at.minecraftschurli.arsmagicalegacy.client.renderer.block.EtheriumGeneratorRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.renderer.block.EtheriumBlockEntityRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.block.SpellRuneRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.DryadRenderer;
 import at.minecraftschurli.arsmagicalegacy.client.renderer.entity.EmptyRenderer;
@@ -61,8 +61,6 @@ import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMenus;
 import at.minecraftschurli.arsmagicalegacy.init.AMParticles;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
-import at.minecraftschurli.arsmagicalegacy.item.CrystalPhylacteryItem;
-import at.minecraftschurli.arsmagicalegacy.item.CrystalWrenchItem;
 import at.minecraftschurli.arsmagicalegacy.packet.SetActiveShapeGroupPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SpellBookScrollPacket;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
@@ -128,8 +126,8 @@ final class AMClientEventHandler {
         event.registerEntityRenderer(AMEntities.ZONE.get(), EmptyRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.ALTAR_CORE.get(), AltarCoreRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.BLACK_AUREM.get(), BlackAuremRenderer::new);
-        event.registerBlockEntityRenderer(AMBlockEntities.CELESTIAL_PRISM.get(), EtheriumGeneratorRenderer::new);
-        event.registerBlockEntityRenderer(AMBlockEntities.OBELISK.get(), EtheriumGeneratorRenderer::new);
+        event.registerBlockEntityRenderer(AMBlockEntities.CELESTIAL_PRISM.get(), EtheriumBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(AMBlockEntities.OBELISK.get(), EtheriumBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.SPELL_RUNE.get(), SpellRuneRenderer::new);
     }
 

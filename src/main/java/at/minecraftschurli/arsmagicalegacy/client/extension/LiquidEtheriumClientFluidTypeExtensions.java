@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
-import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 public class LiquidEtheriumClientFluidTypeExtensions implements IClientFluidTypeExtensions {
     public static final LiquidEtheriumClientFluidTypeExtensions INSTANCE = new LiquidEtheriumClientFluidTypeExtensions();
@@ -33,7 +33,9 @@ public class LiquidEtheriumClientFluidTypeExtensions implements IClientFluidType
     }
 
     @Override
-    public Vector3f modifyFogColor(Camera camera, float partialTick, ClientLevel level, int renderDistance, float darkenWorldAmount, Vector3f fluidFogColor) {
-        return new Vector3f(0.5f, 0.65625f, 0.9375f);
+    public void modifyFogColor(Camera camera, float partialTick, ClientLevel level, int renderDistance, float darkenWorldAmount, Vector4f fluidFogColor) {
+        fluidFogColor.x = 0.5f;
+        fluidFogColor.y = 0.65625f;
+        fluidFogColor.z = 0.9375f;
     }
 }

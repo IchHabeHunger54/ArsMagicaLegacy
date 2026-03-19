@@ -195,3 +195,8 @@ helper.publication.pom {
         }
     }
 }
+
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+    options.compilerArgs.addAll(arrayOf("-Xmaxerrs", "9000"))
+}

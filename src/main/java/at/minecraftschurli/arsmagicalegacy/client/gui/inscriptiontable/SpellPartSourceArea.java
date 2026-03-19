@@ -71,10 +71,10 @@ public class SpellPartSourceArea extends DragArea {
     }
 
     @Override
-    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         for (Pair<Draggable, Pair<Integer, Integer>> pair : cache) {
             Pair<Integer, Integer> xy = pair.getSecond();
-            pair.getFirst().render(guiGraphics, xy.getFirst(), xy.getSecond(), partialTick);
+            pair.getFirst().extractRenderState(guiGraphics, xy.getFirst(), xy.getSecond(), partialTick);
         }
     }
 

@@ -10,16 +10,16 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class SpellRecipeItem extends DataComponentNamedItem<Spell> {
+public class SpellRecipeItem extends Item {
     public SpellRecipeItem(Properties properties) {
-        super(properties, AMDataComponents.SPELL.get());
-        withNameGetter((spell, name) -> spell.name().map(e -> e.getString().isEmpty() ? null : e).orElse(name));
+        super(properties);
     }
 
     @SuppressWarnings("DataFlowIssue")
@@ -29,12 +29,12 @@ public class SpellRecipeItem extends DataComponentNamedItem<Spell> {
         return spell.isEmpty() ? 0 : spell.shapeGroups().size() + 3;
     }
 
-    @SuppressWarnings("DataFlowIssue")
     @Override
     public Component getName(ItemStack stack) {
-        if (!stack.has(AMDataComponents.SPELL)) return super.getName(stack);
-        Spell spell = stack.get(AMDataComponents.SPELL);
-        return spell.name().map(e -> e.getString().isEmpty() ? null : e).orElse(super.getName(stack));
+        return stack.getOrDefault(AMDataComponents.SPELL, Spell.EMPTY)
+            .name()
+            .map(e -> e.getString().isEmpty() ? null : e)
+            .orElse(super.getName(stack));
     }
 
     @Override
@@ -42,7 +42,7 @@ public class SpellRecipeItem extends DataComponentNamedItem<Spell> {
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
-        return state.hasProperty(LecternBlock.HAS_BOOK) && LecternBlock.tryPlaceBook(context.getPlayer(), level, pos, state, context.getItemInHand()) ? InteractionResult.sidedSuccess(level.isClientSide()) : super.useOn(context);
+        return state.hasProperty(LecternBlock.HAS_BOOK) && LecternBlock.tryPlaceBook(context.getPlayer(), level, pos, state, context.getItemInHand()) ? InteractionResult.SUCCESS : super.useOn(context);
     }
 
     @Override

@@ -36,10 +36,4 @@ public class RiftScreen extends AbstractContainerScreen<RiftMenu> {
         }
         guiGraphics.blit(BACKGROUND, x, y + 17 + rows * 18, 0, 35, imageWidth, imageHeight - 35 - (rows - 1) * 18, imageWidth, imageHeight - (rows - 1) * 18);
     }
-
-    @Override
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
-        extractTooltip(guiGraphics, mouseX, mouseY);
-    }
 }

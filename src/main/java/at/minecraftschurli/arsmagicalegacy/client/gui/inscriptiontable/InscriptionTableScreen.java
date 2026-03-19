@@ -103,7 +103,6 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
                 graphics.setTooltipForNextFrame(AMClientUtil.font(), Skill.getName(part.getSkill()), mouseX, mouseY);
             }
         }
-        extractTooltip(graphics, mouseX, mouseY);
     }
 
     @Override

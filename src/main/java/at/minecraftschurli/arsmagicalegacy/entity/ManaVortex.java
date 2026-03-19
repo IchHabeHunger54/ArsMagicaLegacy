@@ -9,6 +9,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -49,15 +50,14 @@ public class ManaVortex extends Entity {
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount) {
-        return source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && super.hurt(source, amount);
+    public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
+        return source.is(DamageTypeTags.BYPASSES_INVULNERABILITY);
     }
 
     @Override
     public void tick() {
         super.tick();
-        Level level = level();
-        if (level.isClientSide()) {
+        if (!(level() instanceof ServerLevel level)) {
             AMClientUtil.spawnManaVortexParticles(this);
             return;
         }
@@ -80,7 +80,7 @@ public class ManaVortex extends Entity {
             if (duration - tickCount <= 5) {
                 float damage = (float) Math.min(AMServerConfig.MANA_VORTEX_MAX_DAMAGE.getAsDouble(), entityData.get(MANA) * AMServerConfig.MANA_VORTEX_DAMAGE.getAsDouble());
                 for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, getBoundingBox().inflate(range))) {
-                    entity.hurt(damageSources().magic(), damage);
+                    entity.hurtServer(level, damageSources().magic(), damage);
                 }
                 setRemoved(RemovalReason.KILLED);
             }

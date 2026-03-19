@@ -65,7 +65,7 @@ public class Storm extends SpellComponent {
             Entity entity = entities.get(random.nextInt(entities.size()));
             if (entity == null || !level.canSeeSky(entity.blockPosition())) return SpellComponentCastResult.success(spell);
             if (caster instanceof Player player) {
-                entity.hurt(level.damageSources().playerAttack(player), 1);
+                entity.hurtServer(level, level.damageSources().playerAttack(player), 1);
             }
             LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(level, EntitySpawnReason.MOB_SUMMONED);
             if (bolt != null) {

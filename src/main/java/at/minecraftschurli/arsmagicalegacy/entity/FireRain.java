@@ -68,8 +68,6 @@ public class FireRain extends SpellEntity {
             if (entity == owner || entity.fireImmune() || entity instanceof Player player && player.isCreative()) continue;
             if (level() instanceof ServerLevel serverLevel) {
                 entity.hurtServer(serverLevel, damageSources().inFire(), damage);
-            } else if (level().isClientSide()) {
-                entity.hurtClient(damageSources().inFire());
             }
             entity.igniteForTicks(fireDuration);
             entity.setSharedFlagOnFire(true);

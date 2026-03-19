@@ -9,9 +9,9 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
@@ -29,12 +29,11 @@ public class Heal extends SpellComponent.CastEntity {
         Spell spell = context.spell();
         if (!(hitResult.getEntity() instanceof LivingEntity living)) return SpellComponentCastResult.pass(spell);
         float healing = (float) ArsMagicaApi.spellHelper().getModifiedStat(2, AMSpells.HEALING_STAT, modifiers, context);
-        if (living.isInvertedHealAndHarm()) {
-            Level level = context.level();
-            LivingEntity caster = context.caster();
-            living.hurt(caster != null ? level.damageSources().indirectMagic(caster, context.directEntity()) : level.damageSources().magic(), healing);
-        } else {
+        if (!living.isInvertedHealAndHarm()) {
             living.heal(healing);
+        } else if (context.level() instanceof ServerLevel level) {
+            LivingEntity caster = context.caster();
+            living.hurtServer(level, caster != null ? level.damageSources().indirectMagic(caster, context.directEntity()) : level.damageSources().magic(), healing);
         }
         return SpellComponentCastResult.success(spell);
     }

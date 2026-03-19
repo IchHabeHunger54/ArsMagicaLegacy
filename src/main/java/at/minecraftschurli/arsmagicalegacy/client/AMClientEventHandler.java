@@ -83,10 +83,6 @@ import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.client.settings.KeyModifier;
 import org.lwjgl.glfw.GLFW;
-//import vazkii.patchouli.api.PatchouliAPI;
-
-//import java.io.ByteArrayInputStream;
-//import java.nio.charset.StandardCharsets;
 
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID, value = Dist.CLIENT)
 final class AMClientEventHandler {
@@ -99,7 +95,7 @@ final class AMClientEventHandler {
     private static void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             ArsMagicaClientApiImpl.postEvents();
-            //PatchouliAPI.get().registerTemplateAsBuiltin(SpellPartPage.ID, () -> new ByteArrayInputStream(SpellPartPage.TEMPLATE.getBytes(StandardCharsets.UTF_8)));
+            //TODO patchouli PatchouliAPI.get().registerTemplateAsBuiltin(SpellPartPage.ID, () -> new ByteArrayInputStream(SpellPartPage.TEMPLATE.getBytes(StandardCharsets.UTF_8)));
         });
     }
 
@@ -173,7 +169,7 @@ final class AMClientEventHandler {
         event.register(ArsMagicaApi.id("data_component_overrides"), DataComponentOverridesModel.Unbaked.MAP_CODEC);
     }
 
-/*
+/*TODO
     @SubscribeEvent
     private static void registerShaders(RegisterShadersEvent event) {
         try {
@@ -271,22 +267,6 @@ final class AMClientEventHandler {
         event.register(AMSpells.SUMMON, SummonCustomizationScreen::new);
     }
 
-/*
-    @SubscribeEvent
-    private static void modelRegisterAdditional(ModelEvent.RegisterStandalone event) {
-        DataComponentOverrides.getAdditionalModels(AMMagic.AFFINITIES_WITH_NONE.stream().map(ResourceKey::identifier), AMItems.SPELL).forEach(event::register);
-        DataComponentOverrides.getAdditionalModels(Stream.of(1, 2, 3).map(i -> ArsMagicaApi.id("tier_" + i)), AMItems.INSCRIPTION_TABLE).forEach(event::register);
-        DataComponentOverrides.getAdditionalModels(AMMagic.SKILL_POINTS.stream().map(ResourceKey::identifier), AMItems.INFINITY_ORB).forEach(event::register);
-        DataComponentOverrides.getAdditionalModels(AMMagic.AFFINITIES.stream().map(ResourceKey::identifier), AMItems.AFFINITY_ESSENCE).forEach(event::register);
-        DataComponentOverrides.getAdditionalModels(AMMagic.AFFINITIES_WITH_NONE.stream().map(ResourceKey::identifier), AMItems.AFFINITY_TOME).forEach(event::register);
-    }
-
-    @SubscribeEvent
-    private static void modelModifyBakingResult(ModelEvent.ModifyBakingResult event) {
-        ItemOverridesModel.register(models, AMItems.INSCRIPTION_TABLE, new DataComponentOverrides<>(AMDataComponents.TIER.get(), (tier, _, _) -> tier == 0 ? null : ModelIdentifier.standalone(ArsMagicaApi.id("item/inscription_table_tier_" + tier))));
-    }
-*/
-
     @SuppressWarnings("DataFlowIssue")
     @SubscribeEvent
     private static void clientTickPost(ClientTickEvent.Post event) {
@@ -337,7 +317,8 @@ final class AMClientEventHandler {
      */
     @SubscribeEvent
     private static void renderHand(RenderHandEvent event) {
-        /*if (!(AMClientUtil.player() instanceof LocalPlayer player) || player.isInvisible() || !ArsMagicaApi.magicHelper().knowsMagic(player)) return;
+        /*TODO
+        if (!(AMClientUtil.player() instanceof LocalPlayer player) || player.isInvisible() || !ArsMagicaApi.magicHelper().knowsMagic(player)) return;
         ItemStack item = event.getItemStack();
         if (!item.is(AMTags.Items.SHOWS_SPELL_VISUALS) || !item.has(AMDataComponents.SPELL)) return;
         float swing = event.getSwingProgress();
@@ -361,6 +342,7 @@ final class AMClientEventHandler {
         } else {
             ((PlayerRenderer) AMClientUtil.mc().getEntityRenderDispatcher().getRenderer(player)).renderLeftHand(stack, event.getMultiBufferSource(), event.getPackedLight(), player);
         }
-        stack.popPose();*/
+        stack.popPose();
+        */
     }
 }

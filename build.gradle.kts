@@ -157,9 +157,11 @@ tasks.jar {
     exclude("at/minecraftschurli/arsmagicalegacy/api/data")
 }
 
-/*tasks.withType<JavaCompile>().matching { !it.name.startsWith("neo") }.configureEach {
-    options.compilerArgs.add("-Xplugin:Manifold")
-}*/
+tasks.withType<JavaCompile>().matching { !it.name.startsWith("neo") }.configureEach {
+    options.encoding = "UTF-8"
+    options.compilerArgs.addAll(arrayOf("-Xmaxerrs", "9000"))
+    //options.compilerArgs.add("-Xplugin:Manifold")
+}
 
 tasks.withType<JavaCompile>().matching { it.name == "neoFormRecompile" }.configureEach {
     options.compilerArgs.add("-Xlint:-removal")
@@ -194,9 +196,4 @@ helper.publication.pom {
             timezone = "Europe/Vienna"
         }
     }
-}
-
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
-    options.compilerArgs.addAll(arrayOf("-Xmaxerrs", "9000"))
 }

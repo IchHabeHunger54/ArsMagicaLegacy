@@ -10,17 +10,17 @@ import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.packet.SpellCustomizationPacket;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 
 public class SpellCustomizationScreen extends Screen {
     private static final Identifier GRAMMAR = ArsMagicaApi.id("textures/gui/spell_customization/grammar.png");
@@ -60,19 +60,13 @@ public class SpellCustomizationScreen extends Screen {
     }
 
     @Override
-    public void renderBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
-        guiGraphics.blit(ICONS, leftPos + 5, topPos + 21, 0, 0, 168, 77);
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, partialTick);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ICONS, leftPos + 5, topPos + 21, 0, 0, 168, 77, 256, 256);
         for (int i = 0; i < Spell.MAX_SHAPE_GROUPS; i++) {
-            guiGraphics.blit(SHAPE_GROUP, leftPos + i * ShapeGroupArea.WIDTH, topPos + 99, 0, 0, ShapeGroupArea.WIDTH, ShapeGroupArea.HEIGHT, ShapeGroupArea.WIDTH, ShapeGroupArea.HEIGHT);
-            if (i < spell.shapeGroups().size() && !spell.shapeGroups().get(i).isEmpty()) continue;
-            PoseStack stack = guiGraphics.pose();
-            stack.pushPose();
-            stack.translate(0, 0, 1);
-            guiGraphics.fill(leftPos + i * ShapeGroupArea.WIDTH, topPos + 99, leftPos + (i + 1) * ShapeGroupArea.WIDTH, topPos + ShapeGroupArea.HEIGHT + 99, 0x7f000000);
-            stack.popPose();
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, SHAPE_GROUP, leftPos + i * ShapeGroupArea.WIDTH, topPos + 99, 0, 0, ShapeGroupArea.WIDTH, ShapeGroupArea.HEIGHT, ShapeGroupArea.WIDTH, ShapeGroupArea.HEIGHT, i < spell.shapeGroups().size() && !spell.shapeGroups().get(i).isEmpty() ? -1 : 0x7f000000);
         }
-        guiGraphics.blit(GRAMMAR, leftPos + 19, topPos + 135, 0, 0, 142, 22, 142, 22);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, GRAMMAR, leftPos + 19, topPos + 135, 0, 0, 142, 22, 142, 22);
     }
 
     public Spell getSpell() {
@@ -85,7 +79,7 @@ public class SpellCustomizationScreen extends Screen {
         if (stack.has(AMDataComponents.SPELL)) {
             stack.set(AMDataComponents.SPELL, spell);
         }
-        PacketDistributor.sendToServer(new SpellCustomizationPacket(spell, hand));
+        ClientPacketDistributor.sendToServer(new SpellCustomizationPacket(spell, hand));
     }
 
     @Override

@@ -10,6 +10,7 @@ import at.minecraftschurli.arsmagicalegacy.menu.container.SingleItemContainer;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.arsmagicalegacy.util.CrystalPhylacteryContentsSize;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.Container;
@@ -60,15 +61,15 @@ public class SummonCustomizationScreen extends AbstractContainerSpellPartCustomi
     }
 
     @Override
-    public void renderBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
-        guiGraphics.blit(SLOT, leftPos + 72, topPos, 0, 0, 32, 32, 32, 32);
-        guiGraphics.blit(INVENTORY, leftPos, topPos + 32, 0, 0, 176, 100);
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, partialTick);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, SLOT, leftPos + 72, topPos, 0, 0, 32, 32, 32, 32);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, INVENTORY, leftPos, topPos + 32, 0, 0, 176, 100, 256, 256);
     }
 
     @Override
     protected void renderLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         super.renderLabels(guiGraphics, mouseX, mouseY);
-        guiGraphics.drawString(font, AMClientUtil.player().getInventory().getDisplayName(), 8, 38, 0x404040, false);
+        guiGraphics.text(font, AMClientUtil.player().getInventory().getDisplayName(), 8, 38, 0x404040, false);
     }
 }

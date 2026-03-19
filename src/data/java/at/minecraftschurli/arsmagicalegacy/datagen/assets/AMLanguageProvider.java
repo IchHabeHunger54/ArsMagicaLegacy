@@ -25,6 +25,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.alchemy.Potion;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -819,6 +820,9 @@ public final class AMLanguageProvider extends LanguageProvider {
         for (ChatFormatting chatFormatting : ChatFormatting.values()) {
             if (chatFormatting.getColor() == null) continue;
             add("color." + chatFormatting.getName(), idTranslation(chatFormatting.getName()));
+        }
+        for (DyeColor dyeColor : DyeColor.values()) {
+            add("color." + dyeColor.getName() + "_dye", idTranslation(dyeColor.getName()) + " Dye");
         }
     }
 

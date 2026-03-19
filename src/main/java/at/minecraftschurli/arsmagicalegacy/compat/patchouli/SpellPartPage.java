@@ -55,11 +55,11 @@ public class SpellPartPage implements ICustomComponent {
     }
 
     @Override
-    public void render(GuiGraphicsExtractor guiGraphics, IComponentRenderContext context, float partialTick, int mouseX, int mouseY) {
+    public void render(GuiGraphicsExtractor graphics, IComponentRenderContext context, float partialTick, int mouseX, int mouseY) {
         int x = this.x;
         int y = this.y;
         Font font = AMClientUtil.font();
-        drawCentered(guiGraphics, font, AMTranslations.JEI_SKILL_INGREDIENTS, y);
+        drawCentered(graphics, font, AMTranslations.JEI_SKILL_INGREDIENTS, y);
         y += font.lineHeight + TEXT_BOTTOM_PADDING - SLOT_SIZE;
         if (!recipe.isEmpty()) {
             for (int i = 0; i < recipe.size(); i++) {
@@ -70,17 +70,17 @@ public class SpellPartPage implements ICustomComponent {
                     y += SLOT_SIZE;
                 }
                 SpellIngredient ingredient = recipe.get(i);
-                drawItemStack(guiGraphics, context, AMUtil.getByTick(ingredient.asItemStacks(), AMClientUtil.player().tickCount / 20).copyWithCount(ingredient.count()), ingredient.tooltip(), x, y, mouseX, mouseY);
+                drawItemStack(graphics, context, AMUtil.getByTick(ingredient.asItemStacks(), AMClientUtil.player().tickCount / 20).copyWithCount(ingredient.count()), ingredient.tooltip(), x, y, mouseX, mouseY);
             }
             y += TEXT_BOTTOM_PADDING + SLOT_SIZE;
         }
         if (!affinityShifts.isEmpty()) {
             x = (int) (WIDTH - font.getSplitter().stringWidth(String.valueOf(Math.round(affinityShifts.values().stream().min(Double::compareTo).orElse(0.) * 1000) / 1000.))) / 2;
-            drawCentered(guiGraphics, font, AMTranslations.JEI_SKILL_AFFINITY_BREAKDOWN, y);
+            drawCentered(graphics, font, AMTranslations.JEI_SKILL_AFFINITY_BREAKDOWN, y);
             y += font.lineHeight + TEXT_BOTTOM_PADDING;
             for (Holder<Affinity> affinity : affinityShifts.keySet().stream().sorted(COMPARATOR).toList()) {
-                drawItemStack(guiGraphics, context, DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinity), List.of(Affinity.getName(affinity)), x - 9, y, mouseX, mouseY);
-                guiGraphics.drawString(font, String.valueOf(Math.round(affinityShifts.get(affinity) * 1000) / 1000.), x + 9, y + font.lineHeight / 2, affinity.value().color(), false);
+                drawItemStack(graphics, context, DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinity), List.of(Affinity.getName(affinity)), x - 9, y, mouseX, mouseY);
+                graphics.text(font, String.valueOf(Math.round(affinityShifts.get(affinity) * 1000) / 1000.), x + 9, y + font.lineHeight / 2, affinity.value().color(), false);
                 y += SLOT_SIZE - TEXT_BOTTOM_PADDING;
             }
             y += TEXT_BOTTOM_PADDING;
@@ -90,7 +90,7 @@ public class SpellPartPage implements ICustomComponent {
             .map(Holder::value)
             .toList();
         if (!modifiers.isEmpty()) {
-            drawCentered(guiGraphics, font, AMTranslations.JEI_SKILL_MODIFIED_BY, y);
+            drawCentered(graphics, font, AMTranslations.JEI_SKILL_MODIFIED_BY, y);
             y += font.lineHeight + TEXT_BOTTOM_PADDING - SLOT_SIZE;
             for (int i = 0; i < modifiers.size(); i++) {
                 if (i % INGREDIENT_COLUMNS != 0) {
@@ -100,7 +100,7 @@ public class SpellPartPage implements ICustomComponent {
                     y += SLOT_SIZE;
                 }
                 Skill skill = modifiers.get(i);
-                guiGraphics.blitSprite(RenderPipelines.GUI, SkillAtlasHolder.getSprite(skill), x, y, 16, 16);
+                graphics.blitSprite(RenderPipelines.GUI, SkillAtlasHolder.getSprite(skill), x, y, 16, 16);
                 if (context.isAreaHovered(mouseX, mouseY, x, y, 16, 16)) {
                     context.setHoverTooltipComponents(List.of(Skill.getName(AMRegistries.skills(true).wrapAsHolder(skill))));
                 }
@@ -123,14 +123,14 @@ public class SpellPartPage implements ICustomComponent {
             .toList();
     }
 
-    private static void drawItemStack(GuiGraphicsExtractor guiGraphics, IComponentRenderContext context, ItemStack stack, List<Component> tooltip, int x, int y, int mouseX, int mouseY) {
-        AMClientUtil.renderItem(guiGraphics, stack, x, y);
+    private static void drawItemStack(GuiGraphicsExtractor graphics, IComponentRenderContext context, ItemStack stack, List<Component> tooltip, int x, int y, int mouseX, int mouseY) {
+        AMClientUtil.renderItem(graphics, stack, x, y);
         if (context.isAreaHovered(mouseX, mouseY, x, y, 16, 16)) {
             context.setHoverTooltipComponents(tooltip);
         }
     }
 
     private static void drawCentered(GuiGraphicsExtractor graphics, Font font, Component component, int y) {
-        graphics.drawString(font, component, (int) ((WIDTH - font.getSplitter().stringWidth(component.getString())) / 2), y, 0x404040, false);
+        graphics.text(font, component, (int) ((WIDTH - font.getSplitter().stringWidth(component.getString())) / 2), y, 0x404040, false);
     }
 }

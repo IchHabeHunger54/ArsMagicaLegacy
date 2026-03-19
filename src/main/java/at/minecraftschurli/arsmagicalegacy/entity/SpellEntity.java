@@ -2,7 +2,6 @@ package at.minecraftschurli.arsmagicalegacy.entity;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
-import at.minecraftschurli.arsmagicalegacy.util.OwnerSetter;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -21,7 +20,7 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.Optional;
 
-public abstract class SpellEntity extends Entity implements TraceableEntity, OwnerSetter {
+public abstract class SpellEntity extends Entity implements TraceableEntity {
     private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(SpellEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(SpellEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Optional<EntityReference<LivingEntity>>> OWNER = SynchedEntityData.defineId(SpellEntity.class, EntityDataSerializers.OPTIONAL_LIVING_ENTITY_REFERENCE);
@@ -79,18 +78,14 @@ public abstract class SpellEntity extends Entity implements TraceableEntity, Own
         entityData.set(DURATION, duration);
     }
 
-    @Override
-    public void setOwner(@Nullable EntityReference<LivingEntity> owner) {
-        entityData.set(OWNER, Optional.ofNullable(owner));
-    }
-
     public void setOwner(@Nullable LivingEntity owner) {
-        this.setOwner(EntityReference.of(owner));
+        entityData.set(OWNER, owner == null ? Optional.empty() : Optional.of(EntityReference.of(owner)));
     }
 
     @Override
-    public @Nullable LivingEntity getOwner() {
-        return EntityReference.getLivingEntity(entityData.get(OWNER).orElse(null), this.level());
+    @Nullable
+    public LivingEntity getOwner() {
+        return EntityReference.getLivingEntity(entityData.get(OWNER).orElse(null), level());
     }
 
     @Override

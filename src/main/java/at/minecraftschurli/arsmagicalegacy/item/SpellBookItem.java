@@ -17,13 +17,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemContainerContents;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.access.ItemAccess;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.VanillaContainerWrapper;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class SpellBookItem extends Item {
     public static final int INVENTORY_SLOTS = 32;
@@ -60,15 +61,16 @@ public class SpellBookItem extends Item {
         return true;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, context, display, builder, tooltipFlag);
         ItemStack spell = getSelectedSpell(stack);
         if (spell.isEmpty()) {
-            tooltipComponents.add(AMTranslations.SPELL_BOOK_NO_SPELL_SELECTED);
+            builder.accept(AMTranslations.SPELL_BOOK_NO_SPELL_SELECTED);
         } else {
-            tooltipComponents.add(Component.translatable(AMTranslations.SPELL_BOOK_SELECTED_SPELL_KEY, spell.getHoverName()));
-            spell.getItem().appendHoverText(spell, context, tooltipComponents, tooltipFlag);
+            builder.accept(Component.translatable(AMTranslations.SPELL_BOOK_SELECTED_SPELL_KEY, spell.getHoverName()));
+            spell.getItem().appendHoverText(spell, context, display, builder, tooltipFlag);
         }
     }
 

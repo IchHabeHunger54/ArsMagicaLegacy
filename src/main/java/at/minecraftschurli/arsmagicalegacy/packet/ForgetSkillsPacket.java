@@ -25,14 +25,11 @@ public record ForgetSkillsPacket() implements CustomPacketPayload {
         Player player = context.player();
         Inventory inventory = player.getInventory();
         if (inventory.contains(AMTags.Items.OCCULUS_FORGET_ALL)) {
-            List<NonNullList<ItemStack>> compartments = List.of(inventory.items, inventory.armor, inventory.offhand);
-            for (NonNullList<ItemStack> list : compartments) {
-                for (ItemStack stack : list) {
-                    if (stack.isEmpty() || !stack.is(AMTags.Items.OCCULUS_FORGET_ALL)) continue;
-                    forgetAll(player);
-                    stack.shrink(1);
-                    return;
-                }
+            for (ItemStack stack : inventory) {
+                if (stack.isEmpty() || !stack.is(AMTags.Items.OCCULUS_FORGET_ALL)) continue;
+                forgetAll(player);
+                stack.shrink(1);
+                return;
             }
         } else if (player.isCreative()) {
             forgetAll(player);

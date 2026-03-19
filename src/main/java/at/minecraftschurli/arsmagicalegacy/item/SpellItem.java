@@ -19,12 +19,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 public class SpellItem extends DataComponentNamedItem<Spell> {
     public SpellItem(Properties properties) {
@@ -74,10 +75,12 @@ public class SpellItem extends DataComponentNamedItem<Spell> {
         return 72000;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, context, display, builder, tooltipFlag);
         Spell spell = stack.get(AMDataComponents.SPELL);
-        tooltipComponents.add(spell == null || spell.isMalformed() ? AMTranslations.SPELL_INVALID : Component.translatable(AMTranslations.SPELL_MANA_COST_KEY, spell.getManaCost()));
+        builder.accept(spell == null || spell.isMalformed() ? AMTranslations.SPELL_INVALID : Component.translatable(AMTranslations.SPELL_MANA_COST_KEY, spell.getManaCost()));
     }
 
     @Override
@@ -92,7 +95,7 @@ public class SpellItem extends DataComponentNamedItem<Spell> {
 
     private void onSuccess(Level level, LivingEntity entity, ItemStack stack, Spell spell) {
         stack.set(AMDataComponents.SPELL, spell);
-        Affinity affinity = AMRegistries.affinities(level.registryAccess()).get(spell.grammar().primaryAffinity());
+        Affinity affinity = AMRegistries.affinities(level.registryAccess()).getValue(spell.grammar().primaryAffinity());
         if (affinity == null) return;
         Optional<Holder<SoundEvent>> optional = spell.isContinuous() ? affinity.loopSound() : affinity.castSound();
         optional.ifPresent(sound -> level.playSeededSound(null, entity, sound, SoundSource.PLAYERS, 1f, 1f, level.getRandom().nextLong()));

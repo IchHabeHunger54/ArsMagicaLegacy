@@ -6,6 +6,8 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellComponentCastResult;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellModifier;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.EntityHitResult;
@@ -17,7 +19,8 @@ public class MeltArmor extends SpellComponent.CastEntity {
     public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
         Spell spell = context.spell();
         if (!(hitResult.getEntity() instanceof LivingEntity entity)) return SpellComponentCastResult.pass(spell);
-        for (ItemStack stack : entity.getArmorSlots()) {
+        for (EquipmentSlot slot : EquipmentSlotGroup.ARMOR) {
+            ItemStack stack = entity.getItemBySlot(slot);
             if (stack.isDamageableItem()) {
                 int damage = stack.getMaxDamage() - stack.getDamageValue();
                 stack.setDamageValue((int) (damage * AMServerConfig.MELT_ARMOR_FACTOR.get()));

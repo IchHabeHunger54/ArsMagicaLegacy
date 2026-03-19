@@ -6,8 +6,6 @@ import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.util.StringRepresentableEnum;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -85,21 +83,6 @@ public class ObeliskBlock extends EtheriumGeneratorBlock {
         destroy(level, player, pos0);
         destroy(level, player, pos1);
         return super.playerWillDestroy(level, pos, state, player);
-    }
-
-    @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (state.is(newState.getBlock())) return;
-        BlockEntity blockentity = level.getBlockEntity(pos);
-        if (blockentity instanceof ObeliskBlockEntity obelisk) {
-            if (level instanceof ServerLevel) {
-                Containers.dropContents(level, pos, obelisk);
-            }
-            super.onRemove(state, level, pos, newState, movedByPiston);
-            level.updateNeighbourForOutputSignal(pos, this);
-        } else {
-            super.onRemove(state, level, pos, newState, movedByPiston);
-        }
     }
 
     @Override

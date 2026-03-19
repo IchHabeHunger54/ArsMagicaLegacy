@@ -54,9 +54,8 @@ import at.minecraftschurli.arsmagicalegacy.packet.InscriptionTableSyncPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.LearnSkillPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.OpenBookInLecternPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SetActiveShapeGroupPacket;
-import at.minecraftschurli.arsmagicalegacy.packet.SetBlockEntityOwnerPacket;
-import at.minecraftschurli.arsmagicalegacy.packet.SetEntityOwnerPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SetLecternPagePacket;
+import at.minecraftschurli.arsmagicalegacy.packet.SetSpellRuneOwnerPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SpellBookScrollPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.SpellCustomizationPacket;
 import at.minecraftschurli.arsmagicalegacy.packet.TakeSpellRecipeFromLecternPacket;
@@ -249,8 +248,7 @@ final class AMEventHandler {
     private static void registerPayloadHandlers(RegisterPayloadHandlersEvent event) {
         event.registrar(ModList.get().getModFileById(ArsMagicaApi.MOD_ID).versionString())
             .playToClient(OpenBookInLecternPacket.TYPE, OpenBookInLecternPacket.STREAM_CODEC, OpenBookInLecternPacket::handle)
-            .playToClient(SetBlockEntityOwnerPacket.TYPE, SetBlockEntityOwnerPacket.STREAM_CODEC, SetBlockEntityOwnerPacket::handle)
-            .playToClient(SetEntityOwnerPacket.TYPE, SetEntityOwnerPacket.STREAM_CODEC, SetEntityOwnerPacket::handle)
+            .playToClient(SetSpellRuneOwnerPacket.TYPE, SetSpellRuneOwnerPacket.STREAM_CODEC, SetSpellRuneOwnerPacket::handle)
             .playToServer(ForgetSkillsPacket.TYPE, ForgetSkillsPacket.STREAM_CODEC, ForgetSkillsPacket::handle)
             .playToServer(InscriptionTableCreateSpellPacket.TYPE, InscriptionTableCreateSpellPacket.STREAM_CODEC, InscriptionTableCreateSpellPacket::handle)
             .playToServer(InscriptionTableSyncPacket.TYPE, InscriptionTableSyncPacket.STREAM_CODEC, InscriptionTableSyncPacket::handle)
@@ -487,7 +485,6 @@ final class AMEventHandler {
         }
     }
 
-    @SuppressWarnings("ConstantValue")
     @SubscribeEvent
     private static void potionAdded(MobEffectEvent.Added event) {
         LivingEntity entity = event.getEntity();

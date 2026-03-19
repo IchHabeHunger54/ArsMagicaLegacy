@@ -59,7 +59,7 @@ public class Summon extends SpellComponent {
         mob.setData(AMAttachments.SUMMON_OWNER, caster.getUUID());
         caster.setData(AMAttachments.SUMMON_MINIONS, attachment.add(mob.getUUID()));
         if (mob instanceof TamableAnimal animal) {
-            animal.setOwnerUUID(caster.getUUID());
+            animal.setOwner(caster);
         }
         level.addFreshEntity(mob);
         return SpellComponentCastResult.success(spell);

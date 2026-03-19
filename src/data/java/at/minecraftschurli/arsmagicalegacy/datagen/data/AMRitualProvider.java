@@ -46,6 +46,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.MoonPhase;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
@@ -117,7 +118,7 @@ public final class AMRitualProvider extends RitualProvider {
         spawn("life_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.LIFE_GUARDIAN_SPAWN_RITUAL,
             new KillEntityRitualTrigger(EntityPredicate.Builder.entity().of(EntityType.VILLAGER).flags(EntityFlagsPredicate.Builder.flags().setIsBaby(true)).build()))
             .addRequirement(new DimensionRitualRequirement(Level.OVERWORLD))
-            .addRequirement(new MoonPhaseRitualRequirement(0));
+            .addRequirement(new MoonPhaseRitualRequirement(MoonPhase.NEW_MOON));
         spawn("arcane_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.ARCANE_GUARDIAN_SPAWN_RITUAL,
             new DroppedItemRitualTrigger(DataComponentIngredient.of(true, ArsMagicaApi.book())));
         spawn("ender_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.ENDER_GUARDIAN_SPAWN_RITUAL,

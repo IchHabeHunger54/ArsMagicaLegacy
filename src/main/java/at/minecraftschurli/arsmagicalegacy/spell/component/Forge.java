@@ -38,13 +38,14 @@ public class Forge extends SpellComponent.CastBoth {
     public SpellComponentCastResult castBlock(List<SpellModifier> modifiers, SpellCastContext context, BlockHitResult hitResult) {
         Spell spell = context.spell();
         Level level = context.level();
-        if (level.isClientSide()) return SpellComponentCastResult.pass(spell);
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
         if (state.isAir()) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_HIT);
-        Optional<RecipeHolder<SmeltingRecipe>> recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(new ItemStack(state.getBlock())), level);
+        if (!(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.pass(spell);
+        SingleRecipeInput input = new SingleRecipeInput(new ItemStack(state.getBlock()));
+        Optional<RecipeHolder<SmeltingRecipe>> recipe = serverLevel.recipeAccess().getRecipeFor(RecipeType.SMELTING, input, level);
         if (recipe.isEmpty()) return SpellComponentCastResult.pass(spell);
-        ItemStack stack = recipe.get().value().getResultItem(level.registryAccess());
+        ItemStack stack = recipe.get().value().assemble(input);
         level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
         if (stack.getItem() instanceof BlockItem blockItem) {
             Direction direction = hitResult.getDirection();

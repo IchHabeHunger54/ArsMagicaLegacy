@@ -10,6 +10,7 @@ import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.arsmagicalegacy.recipe.spelltransformation.SpellTransformationInput;
 import at.minecraftschurli.arsmagicalegacy.recipe.spelltransformation.SpellTransformationRecipe;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -32,7 +33,8 @@ public class Drought extends SpellComponent.CastBlock {
             level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.WATERLOGGED, false));
             return SpellComponentCastResult.success(spell);
         }
-        Optional<RecipeHolder<SpellTransformationRecipe>> optional = level.getRecipeManager().getRecipeFor(AMRecipes.SPELL_TRANSFORMATION_TYPE.get(), new SpellTransformationInput(state, AMSpells.DROUGHT), level);
+        if (!(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.pass(spell);
+        Optional<RecipeHolder<SpellTransformationRecipe>> optional = serverLevel.recipeAccess().getRecipeFor(AMRecipes.SPELL_TRANSFORMATION_TYPE.get(), new SpellTransformationInput(state, AMSpells.DROUGHT), level);
         if (optional.isPresent()) {
             level.setBlockAndUpdate(pos, optional.get().value().result());
         } else if (level.getBlockState(normalPos).is(Blocks.WATER)) {

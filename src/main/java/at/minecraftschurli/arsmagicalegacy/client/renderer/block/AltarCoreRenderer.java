@@ -11,9 +11,7 @@ import com.mojang.math.Axis;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
@@ -37,7 +35,7 @@ import org.jspecify.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AltarCoreRenderer implements BlockEntityRenderer<AltarCoreBlockEntity, AltarCoreRenderer.State> {
+public class AltarCoreRenderer extends AbstractEtheriumBlockEntityRenderer<AltarCoreBlockEntity, AltarCoreRenderer.State> {
     private static final ItemStack BARRIER = new ItemStack(Items.BARRIER);
     private final Font font;
     private final ItemModelResolver itemModelResolver;
@@ -54,7 +52,6 @@ public class AltarCoreRenderer implements BlockEntityRenderer<AltarCoreBlockEnti
 
     @Override
     public void extractRenderState(AltarCoreBlockEntity blockEntity, State state, float partialTicks, Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
-        BlockEntityRenderer.super.extractRenderState(blockEntity, state, partialTicks, cameraPosition, breakProgress);
         state.disabled = false;
         Level level = blockEntity.getLevel();
         BlockPos lecternPos = blockEntity.getLecternPos();
@@ -68,6 +65,7 @@ public class AltarCoreRenderer implements BlockEntityRenderer<AltarCoreBlockEnti
             state.disabled = true;
             return;
         }
+        super.extractRenderState(blockEntity, state, partialTicks, cameraPosition, breakProgress);
         BlockPos pos = blockEntity.getBlockPos();
         state.translateX = lecternPos.getX() - pos.getX() + 0.5;
         state.translateY = lecternPos.getY() - pos.getY() + 1.5;
@@ -89,6 +87,7 @@ public class AltarCoreRenderer implements BlockEntityRenderer<AltarCoreBlockEnti
     @Override
     public void submit(State state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
         if (state.disabled) return;
+        super.submit(state, poseStack, submitNodeCollector, camera);
         poseStack.pushPose();
         poseStack.translate(state.translateX, state.translateY, state.translateZ);
         poseStack.pushPose();
@@ -105,12 +104,6 @@ public class AltarCoreRenderer implements BlockEntityRenderer<AltarCoreBlockEnti
         state.item.submit(poseStack, submitNodeCollector, state.light, OverlayTexture.NO_OVERLAY, 0);
         poseStack.popPose();
         poseStack.popPose();
-        // TODO goggles outline
-    }
-
-    @Override
-    public boolean shouldRenderOffScreen() {
-        return true;
     }
 
     @Override
@@ -118,7 +111,7 @@ public class AltarCoreRenderer implements BlockEntityRenderer<AltarCoreBlockEnti
         return AABB.INFINITE;
     }
 
-    public static class State extends BlockEntityRenderState {
+    public static class State extends AbstractEtheriumBlockEntityRenderer.RenderState {
         public boolean disabled = false;
         public double translateX;
         public double translateY;

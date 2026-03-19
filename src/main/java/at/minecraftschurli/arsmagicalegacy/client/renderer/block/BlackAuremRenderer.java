@@ -1,56 +1,77 @@
 package at.minecraftschurli.arsmagicalegacy.client.renderer.block;
 
-import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
 import at.minecraftschurli.arsmagicalegacy.blockentity.BlackAuremBlockEntity;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.Camera;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.world.phys.Vec3;
+import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import org.jspecify.annotations.Nullable;
 
-public class BlackAuremRenderer implements BlockEntityRenderer<BlackAuremBlockEntity> {
+public class BlackAuremRenderer extends AbstractEtheriumBlockEntityRenderer<BlackAuremBlockEntity, BlackAuremRenderer.State> {
     private static final float RAD = (float) (Math.PI / 180);
     private static final Vector3f FORWARDS = new Vector3f(0, 0, -1);
     private static final Vector3f UP = new Vector3f(0, 1, 0);
     private static final Vector3f LEFT = new Vector3f(-1, 0, 0);
-    private final Quaternionf quaternion = new Quaternionf();
 
     @SuppressWarnings("unused")
     public BlackAuremRenderer(BlockEntityRendererProvider.Context context) {
     }
 
-    @SuppressWarnings("deprecation")
     @Override
-    public void render(BlackAuremBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
-        Minecraft mc = AMClientUtil.mc();
-        Camera camera = mc.gameRenderer.getMainCamera();
-        // Rotations adapted from Camera#setRotation
-        quaternion.rotationYXZ(-camera.getYRot() * RAD, camera.getXRot() * RAD, -camera.getRoll() * RAD);
-        FORWARDS.rotate(quaternion, camera.getLookVector());
-        UP.rotate(quaternion, camera.getUpVector());
-        LEFT.rotate(quaternion, camera.getLeftVector());
+    public State createRenderState() {
+        return new State();
+    }
+
+    @Override
+    public void extractRenderState(BlackAuremBlockEntity blockEntity, State state, float partialTicks, Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
+        super.extractRenderState(blockEntity, state, partialTicks, cameraPosition, breakProgress);
+        // Still need to go through the main camera because CameraRenderState doesn't give us what we need
+        Camera gameCamera = AMClientUtil.mc().gameRenderer.getMainCamera();
+        state.quaternion.rotationYXZ(-gameCamera.yRot() * RAD, gameCamera.xRot() * RAD, -gameCamera.getRoll() * RAD);
+        FORWARDS.rotate(state.quaternion, new Vector3f(gameCamera.forwardVector()));
+        UP.rotate(state.quaternion, new Vector3f(gameCamera.upVector()));
+        LEFT.rotate(state.quaternion, new Vector3f(gameCamera.leftVector()));
+        state.rotation = Axis.ZP.rotation(AMClientUtil.player().tickCount / 10f % 360);
+        state.sprite = null; // TODO
+    }
+
+    @Override
+    public void submit(State state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+        super.submit(state, poseStack, submitNodeCollector, camera);
         poseStack.pushPose();
         poseStack.translate(0.5, 0.5, 0.5);
-        poseStack.mulPose(quaternion);
-        poseStack.mulPose(Axis.ZP.rotation(AMClientUtil.player().tickCount / 10f % 360));
-        TextureAtlasSprite sprite = mc.getBlockRenderer().getBlockModelShaper().getParticleIcon(blockEntity.getBlockState());
-        VertexConsumer buffer = bufferSource.getBuffer(RenderType.translucent());
-        buffer.addVertex(poseStack.last().pose(), -1, -1, 0).setColor(1f, 1f, 1f, 1f).setUv(sprite.getU1(), sprite.getV1()).setOverlay(OverlayTexture.NO_OVERLAY).setLight(packedLight).setNormal(poseStack.last(), 0, 1, 0);
-        buffer.addVertex(poseStack.last().pose(), -1, 1, 0).setColor(1f, 1f, 1f, 1f).setUv(sprite.getU1(), sprite.getV0()).setOverlay(OverlayTexture.NO_OVERLAY).setLight(packedLight).setNormal(poseStack.last(), 0, 1, 0);
-        buffer.addVertex(poseStack.last().pose(), 1, 1, 0).setColor(1f, 1f, 1f, 1f).setUv(sprite.getU0(), sprite.getV0()).setOverlay(OverlayTexture.NO_OVERLAY).setLight(packedLight).setNormal(poseStack.last(), 0, 1, 0);
-        buffer.addVertex(poseStack.last().pose(), 1, -1, 0).setColor(1f, 1f, 1f, 1f).setUv(sprite.getU0(), sprite.getV1()).setOverlay(OverlayTexture.NO_OVERLAY).setLight(packedLight).setNormal(poseStack.last(), 0, 1, 0);
+        poseStack.mulPose(state.quaternion);
+        poseStack.mulPose(state.rotation);
+        submitNodeCollector.submitCustomGeometry(poseStack, RenderTypes.translucentMovingBlock(), new Renderer(state.sprite, state.lightCoords));
         poseStack.popPose();
-        if (ArsMagicaClientApi.shouldRenderGogglesOutline()) {
-            ArsMagicaClientApi.renderGogglesOutline(blockEntity, poseStack, bufferSource);
+    }
+
+    public static class State extends AbstractEtheriumBlockEntityRenderer.RenderState {
+        public Quaternionf quaternion = new Quaternionf();
+        public Quaternionf rotation;
+        public TextureAtlasSprite sprite;
+    }
+    
+    private record Renderer(TextureAtlasSprite sprite, int light) implements SubmitNodeCollector.CustomGeometryRenderer {
+        @Override
+        public void render(PoseStack.Pose pose, VertexConsumer buffer) {
+            Matrix4f m = pose.pose();
+            buffer.addVertex(m, -1, -1, 0).setColor(1f, 1f, 1f, 1f).setUv(sprite.getU1(), sprite.getV1()).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, 0, 1, 0);
+            buffer.addVertex(m, -1, 1, 0).setColor(1f, 1f, 1f, 1f).setUv(sprite.getU1(), sprite.getV0()).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, 0, 1, 0);
+            buffer.addVertex(m, 1, 1, 0).setColor(1f, 1f, 1f, 1f).setUv(sprite.getU0(), sprite.getV0()).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, 0, 1, 0);
+            buffer.addVertex(m, 1, -1, 0).setColor(1f, 1f, 1f, 1f).setUv(sprite.getU0(), sprite.getV1()).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, 0, 1, 0);
         }
     }
 }

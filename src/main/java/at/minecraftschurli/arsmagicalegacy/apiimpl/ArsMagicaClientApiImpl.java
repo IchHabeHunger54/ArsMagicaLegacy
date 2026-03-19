@@ -1,6 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
+import at.minecraftschurli.arsmagicalegacy.api.client.MagitechGogglesOverlayRenderState;
 import at.minecraftschurli.arsmagicalegacy.api.client.OcculusTabRenderer;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterOcculusTabRenderersEvent;
 import at.minecraftschurli.arsmagicalegacy.api.client.event.RegisterParticleControllersEvent;
@@ -9,24 +10,18 @@ import at.minecraftschurli.arsmagicalegacy.api.client.particle.ControlledParticl
 import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleController;
 import at.minecraftschurli.arsmagicalegacy.api.client.particle.ParticleSpawner;
 import at.minecraftschurli.arsmagicalegacy.api.client.screen.SpellPartCustomizationScreen;
-import at.minecraftschurli.arsmagicalegacy.api.constants.AMCapabilities;
-import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumHandler;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.client.particle.AMParticle;
-import at.minecraftschurli.arsmagicalegacy.client.renderer.MagitechGogglesOverlayRenderer;
+import at.minecraftschurli.arsmagicalegacy.client.renderer.MagitechGogglesOverlayRenderStateImpl;
+import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.core.BlockPos;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.ModLoader;
@@ -60,27 +55,26 @@ public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
     }
 
     @Override
-    protected void doRenderGogglesOutline(BlockEntity blockEntity, PoseStack poseStack, MultiBufferSource bufferSource) {
-        ClientLevel level = AMClientUtil.level();
-        BlockPos pos = blockEntity.getBlockPos();
-        EtheriumHandler cap = level.getCapability(AMCapabilities.BLOCK_ETHERIUM, pos, null);
-        if (cap == null) return;
-        BlockState state = level.getBlockState(pos);
-        AABB outline = cap.getOutline(level, pos, state);
-        int color = cap.getOutlineColor(level, pos, state);
-        if (outline != null) {
-            MagitechGogglesOverlayRenderer.renderBox(poseStack, bufferSource, outline, 0.025f, 0xff000000 | color);
-        }
-        for (BlockPos connectedPos : cap.getConnectedPositions()) {
-            EtheriumHandler connectedCap = level.getCapability(AMCapabilities.BLOCK_ETHERIUM, connectedPos, null);
-            int connectedColor = connectedCap == null ? color : AMClientUtil.averageColors(color, connectedCap.getOutlineColor(level, connectedPos, level.getBlockState(connectedPos)));
-            MagitechGogglesOverlayRenderer.renderLine(poseStack, bufferSource, pos, connectedPos, 0.025f, 0xff000000 | connectedColor);
-        }
+    protected MagitechGogglesOverlayRenderState doCreateMagitechGogglesOutlineRenderState() {
+        return new MagitechGogglesOverlayRenderStateImpl();
     }
 
     @Override
-    protected boolean doShouldRenderGogglesOutline() {
-        return MagitechGogglesOverlayRenderer.shouldRender(AMClientUtil.player());
+    protected boolean doShouldRenderMagitechGogglesOutline() {
+        LocalPlayer player = AMClientUtil.player();
+        return player.getItemBySlot(EquipmentSlot.HEAD).is(AMItems.MAGITECH_GOGGLES)/*TODO || AMUtil.ifModLoaded("curios", () -> CuriosApi.getCuriosInventory(player)
+                .map(ICuriosItemHandler::getCurios)
+                .map(map -> map.values()
+                    .stream()
+                    .map(ICurioStacksHandler::getStacks)
+                    .anyMatch(items -> {
+                        for (int i = 0; i < items.getSlots(); i++) {
+                            if (items.getStackInSlot(i).is(AMItems.MAGITECH_GOGGLES)) return true;
+                        }
+                        return false;
+                    }))
+                .orElse(false))
+            .orElse(false)*/;
     }
 
     @Override

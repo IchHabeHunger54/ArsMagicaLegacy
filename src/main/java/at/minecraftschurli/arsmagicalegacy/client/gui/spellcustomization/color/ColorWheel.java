@@ -18,7 +18,7 @@ class ColorWheel extends ColorPickerWidget {
     }
 
     @Override
-    protected void extractWidgetRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+    protected void extractWidgetRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         if (isFocused()) {
             ColorWheelShader.set(getX() + radius, getY() + radius, radius + 1, -1);
             graphics.fillGradient(AMRenderTypes.COLOR_WHEEL, getX() - 1, getY() - 1, getX() + width + 1, getY() + height + 1, 0xffffffff, 0xffffffff, 0);

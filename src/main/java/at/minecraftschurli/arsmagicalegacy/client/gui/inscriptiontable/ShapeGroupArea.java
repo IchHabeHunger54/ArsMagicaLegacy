@@ -38,12 +38,12 @@ public class ShapeGroupArea extends DragTargetArea {
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
                 int index = i * COLUMNS + j;
                 if (index >= contents.size()) return;
-                contents.get(index).extractRenderState(guiGraphics, x + j * Draggable.SIZE + X_PADDING, y + i * Draggable.SIZE + Y_PADDING, partialTick);
+                contents.get(index).extractRenderState(graphics, x + j * Draggable.SIZE + X_PADDING, y + i * Draggable.SIZE + Y_PADDING, partialTick);
             }
         }
     }

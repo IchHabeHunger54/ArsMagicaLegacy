@@ -47,15 +47,15 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
         MagicHelper helper = ArsMagicaApi.magicHelper();
         Registry<Skill> registry = AMRegistries.skills(true);
         LocalPlayer player = AMClientUtil.player();
         mouseX += (int) offsetX;
         mouseY += (int) offsetY;
         hoveredSkill = null;
-        Matrix3x2fStack stack = guiGraphics.pose();
+        Matrix3x2fStack stack = graphics.pose();
         stack.pushMatrix();
         stack.translate((float) -offsetX, (float) -offsetY);
         for (Skill skill : skills) {
@@ -76,7 +76,7 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
                 float angle = (float) Math.acos(new Vec2(0, 1).dot(vec.normalized()));
                 stack.rotate(vec.x > 0 ? -angle : angle);
                 stack.translate(-0.5f, 0);
-                guiGraphics.fillGradient(0, 0, 1, (int) vec.length(), startColor, endColor);
+                graphics.fillGradient(0, 0, 1, (int) vec.length(), startColor, endColor);
                 stack.popMatrix();
             }
         }
@@ -96,7 +96,7 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
                     c = ARGB.colorFromFloat(1, red, green, blue);
                 }
             }
-            guiGraphics.blitSprite(RenderPipelines.GUI, SkillAtlasHolder.getSprite(skill), skill.x(), skill.y(), SKILL_SIZE, SKILL_SIZE, c);
+            graphics.blitSprite(RenderPipelines.GUI, SkillAtlasHolder.getSprite(skill), skill.x(), skill.y(), SKILL_SIZE, SKILL_SIZE, c);
             if (mouseX >= skill.x() && mouseX <= skill.x() + SKILL_SIZE && mouseY >= skill.y() && mouseY <= skill.y() + SKILL_SIZE) {
                 hoveredSkill = skill;
             }
@@ -105,13 +105,13 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
     }
 
     @Override
-    public void renderTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void renderTooltip(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         if (hoveredSkill == null) return;
         MagicHelper helper = ArsMagicaApi.magicHelper();
         LocalPlayer player = AMClientUtil.player();
         Registry<Skill> registry = AMRegistries.skills(true);
         Holder<Skill> holder = registry.wrapAsHolder(hoveredSkill);
-        guiGraphics.tooltip(AMClientUtil.font(), List.of(
+        graphics.tooltip(AMClientUtil.font(), List.of(
             ClientTooltipComponent.create(Skill.getName(holder).withColor(getColorForSkill(hoveredSkill)).getVisualOrderText()),
             ClientTooltipComponent.create((helper.knows(player, holder) || helper.canLearn(player, holder) ? Skill.getDescription(holder).withStyle(ChatFormatting.DARK_GRAY) : MISSING).getVisualOrderText())
         ), mouseX, mouseY, DefaultTooltipPositioner.INSTANCE, null);

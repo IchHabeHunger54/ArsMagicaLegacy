@@ -76,27 +76,27 @@ public class SpellRecipeScreen extends Screen {
     }
 
     @Override
-    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.extractBackground(guiGraphics, mouseX, mouseY, partialTick);
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, xPos, 2, 0, 0, WIDTH, HEIGHT, WIDTH, HEIGHT, 256, 256);
+    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(graphics, mouseX, mouseY, partialTick);
+        graphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, xPos, 2, 0, 0, WIDTH, HEIGHT, WIDTH, HEIGHT, 256, 256);
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
         Page<?> page = pages.get(currentPage);
         String title = page.getTitle().getString();
-        guiGraphics.text(font, title, xPos + 93 - font.width(title) / 2, 18, 0, false);
-        page.extractRenderState(guiGraphics, xPos + 36, 32);
+        graphics.text(font, title, xPos + 93 - font.width(title) / 2, 18, 0, false);
+        page.extractRenderState(graphics, xPos + 36, 32);
         if (cachedPage != currentPage) {
             cachedPage = currentPage;
         }
         for (Renderable renderable : renderables) {
-            renderable.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
+            renderable.extractRenderState(graphics, mouseX, mouseY, partialTick);
         }
         List<Component> tooltip = page.getTooltip(mouseX - xPos - 36, mouseY - 32);
         if (!tooltip.isEmpty()) {
-            guiGraphics.setTooltipForNextFrame(font, tooltip, Optional.empty(), mouseX, mouseY);
+            graphics.setTooltipForNextFrame(font, tooltip, Optional.empty(), mouseX, mouseY);
         }
     }
 

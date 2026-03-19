@@ -38,8 +38,8 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
         tooltip.clear();
         Registry<Affinity> affinities = AMRegistries.affinities(true);
         Registry<Ability> abilities = AMRegistries.abilities(true);
@@ -69,13 +69,13 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
             float endY = (float) (sinAngle * (RADIUS + depth * DISTANCE)) + center;
             if (depth >= 0.01) {
                 float displace = (Math.abs(startX1 - startX2) + Math.abs(startY1 - startY2)) * 2;
-                renderFractalLine(guiGraphics, startX1, startY1, endX, endY, color, displace, 1 - FRACTAL);
-                renderFractalLine(guiGraphics, startX2, startY2, endX, endY, color, displace, 1 - FRACTAL);
-                renderFractalLine(guiGraphics, startX1, startY1, endX, endY, color, displace, 1 + FRACTAL);
-                renderFractalLine(guiGraphics, startX2, startY2, endX, endY, color, displace, 1 + FRACTAL);
+                renderFractalLine(graphics, startX1, startY1, endX, endY, color, displace, 1 - FRACTAL);
+                renderFractalLine(graphics, startX2, startY2, endX, endY, color, displace, 1 - FRACTAL);
+                renderFractalLine(graphics, startX1, startY1, endX, endY, color, displace, 1 + FRACTAL);
+                renderFractalLine(graphics, startX2, startY2, endX, endY, color, displace, 1 + FRACTAL);
             } else {
-                AMClientUtil.renderLine(guiGraphics, startX1, startY1, endX, endY, color, 2);
-                AMClientUtil.renderLine(guiGraphics, startX2, startY2, endX, endY, color, 2);
+                AMClientUtil.renderLine(graphics, startX1, startY1, endX, endY, color, 2);
+                AMClientUtil.renderLine(graphics, startX2, startY2, endX, endY, color, 2);
             }
             String text = percent(depth);
             double width = font.width(text);
@@ -90,10 +90,10 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
                 textX = (int) (anchorX - width / 2);
                 textY = (int) (anchorY < center ? anchorY - height : anchorY + 17);
             }
-            guiGraphics.text(font, text, textX, textY, color, false);
+            graphics.text(font, text, textX, textY, color, false);
             int stackX = (int) (textX + width / 2 - 8);
             int stackY = textY - 17;
-            AMClientUtil.renderItem(guiGraphics, font, DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinity), stackX, stackY);
+            AMClientUtil.renderItem(graphics, font, DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinity), stackX, stackY);
             if (mouseX < stackX || mouseX >= stackX + 16 || mouseY < stackY || mouseY >= stackY + 16) continue;
             tooltip.add(Affinity.getName(affinity).copy().withColor(color));
             if (AMClientUtil.mc().hasShiftDown()) {
@@ -114,9 +114,10 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
     }
 
     @Override
-    public void renderTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        if (tooltip.isEmpty()) return;
-        guiGraphics.setTooltipForNextFrame(AMClientUtil.font(), tooltip.stream().map(Component::getVisualOrderText).toList(), mouseX, mouseY);
+    public void renderTooltip(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        if (!tooltip.isEmpty()) {
+            graphics.setTooltipForNextFrame(AMClientUtil.font(), tooltip.stream().map(Component::getVisualOrderText).toList(), mouseX, mouseY);
+        }
     }
 
     @Override
@@ -124,15 +125,15 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
         return false;
     }
 
-    private void renderFractalLine(GuiGraphicsExtractor guiGraphics, float startX, float startY, float endX, float endY, int color, float displace, float fractal) {
+    private void renderFractalLine(GuiGraphicsExtractor graphics, float startX, float startY, float endX, float endY, int color, float displace, float fractal) {
         if (displace < fractal) {
-            AMClientUtil.renderLine(guiGraphics, startX, startY, endX, endY, color, 2);
+            AMClientUtil.renderLine(graphics, startX, startY, endX, endY, color, 2);
             return;
         }
         float x = (startX + endX) / 2 + (random.nextFloat() - 0.5f) * displace;
         float y = (startY + endY) / 2 + (random.nextFloat() - 0.5f) * displace;
-        renderFractalLine(guiGraphics, startX, startY, x, y, color, displace / 2, fractal);
-        renderFractalLine(guiGraphics, endX, endY, x, y, color, displace / 2, fractal);
+        renderFractalLine(graphics, startX, startY, x, y, color, displace / 2, fractal);
+        renderFractalLine(graphics, endX, endY, x, y, color, displace / 2, fractal);
     }
 
     private static String percent(double d) {

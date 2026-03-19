@@ -18,10 +18,10 @@ class ColorButton extends Button {
     }
 
     @Override
-    protected void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+    protected void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         if (isHoveredOrFocused()) {
-            guiGraphics.fill(getX() - 1, getY() - 1, getX() + width + 1, getY() + height + 1, 0xffffffff);
+            graphics.fill(getX() - 1, getY() - 1, getX() + width + 1, getY() + height + 1, 0xffffffff);
         }
-        guiGraphics.fill(getX(), getY(), getX() + width, getY() + height, color | 0xff000000);
+        graphics.fill(getX(), getY(), getX() + width, getY() + height, color | 0xff000000);
     }
 }

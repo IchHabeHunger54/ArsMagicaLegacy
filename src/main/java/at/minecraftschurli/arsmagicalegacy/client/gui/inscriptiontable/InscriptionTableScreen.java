@@ -52,7 +52,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     }
 
     @Override
-    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         updateCachedData();
         graphics.blit(RenderPipelines.GUI, BACKGROUND, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
         graphics.blit(SLOT, leftPos + 101, topPos + 73, 0, 0, 18, 18, 18, 18);
@@ -90,13 +90,13 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
-        super.extractRenderState(graphics, mouseX, mouseY, a);
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
         for (DragArea area : dragAreas) {
-            area.extractRenderState(graphics, mouseX, mouseY, a);
+            area.extractRenderState(graphics, mouseX, mouseY, partialTick);
         }
         if (dragged != null) {
-            dragged.extractRenderState(graphics, mouseX - Draggable.SIZE / 2, mouseY - Draggable.SIZE / 2, a);
+            dragged.extractRenderState(graphics, mouseX - Draggable.SIZE / 2, mouseY - Draggable.SIZE / 2, partialTick);
         } else {
             Draggable part = getHoveredSkill(mouseX, mouseY);
             if (part != null) {

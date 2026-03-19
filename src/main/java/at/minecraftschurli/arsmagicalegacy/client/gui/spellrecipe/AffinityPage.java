@@ -33,9 +33,9 @@ class AffinityPage extends Page<Pair<Holder<Affinity>, Double>> {
     }
 
     @Override
-    public void renderElement(Pair<Holder<Affinity>, Double> element, int index, GuiGraphicsExtractor guiGraphics, int x, int y) {
+    public void extractElement(Pair<Holder<Affinity>, Double> element, int index, GuiGraphicsExtractor guiGraphics, int x, int y) {
         AMClientUtil.renderItem(guiGraphics, DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), element.getFirst()), x, y + index * (size + spacing));
-        guiGraphics.drawString(AMClientUtil.font(), "%.3f".formatted(element.getSecond()), x + size + spacing, y + 4 + index * (size + spacing), element.getFirst().value().color(), false);
+        guiGraphics.text(AMClientUtil.font(), "%.3f".formatted(element.getSecond()), x + size + spacing, y + 4 + index * (size + spacing), element.getFirst().value().color(), false);
     }
 
     @Override

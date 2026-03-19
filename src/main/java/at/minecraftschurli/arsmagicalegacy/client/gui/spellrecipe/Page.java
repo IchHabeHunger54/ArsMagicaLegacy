@@ -22,9 +22,9 @@ abstract class Page<T> {
         this.elements = elements;
     }
 
-    public void render(GuiGraphicsExtractor guiGraphics, int x, int y) {
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int x, int y) {
         for (int i = 0; i < elements.size(); i++) {
-            renderElement(elements.get(i), i, guiGraphics, x + xOffset, y + yOffset);
+            extractElement(elements.get(i), i, guiGraphics, x + xOffset, y + yOffset);
         }
     }
 
@@ -54,7 +54,7 @@ abstract class Page<T> {
 
     public abstract Component getTitle();
 
-    public abstract void renderElement(T element, int index, GuiGraphicsExtractor guiGraphics, int x, int y);
+    public abstract void extractElement(T element, int index, GuiGraphicsExtractor guiGraphics, int x, int y);
 
     public abstract List<Component> getElementTooltip(T element);
 }

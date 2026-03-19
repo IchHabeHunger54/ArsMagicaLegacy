@@ -12,14 +12,14 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.PageButton;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
@@ -66,32 +66,37 @@ public class SpellRecipeScreen extends Screen {
         addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, _ -> onClose()).bounds(width / 2 - 100, 196, lecternPos == null ? 200 : 98, 20).build());
         if (lecternPos != null) {
             addRenderableWidget(Button.builder(Component.translatable("lectern.take_book"), _ -> {
-                PacketDistributor.sendToServer(new TakeSpellRecipeFromLecternPacket(lecternPos));
+                ClientPacketDistributor.sendToServer(new TakeSpellRecipeFromLecternPacket(lecternPos));
                 onClose();
             }).pos(this.width / 2 + 2, 196).size(98, 20).build());
         }
-        forwardButton = addRenderableWidget(new PageButton(xPos + 116, 159, true, p -> setPage(currentPage + 1), playTurnSound));
-        backButton = addRenderableWidget(new PageButton(xPos + 43, 159, false, p -> setPage(currentPage - 1), playTurnSound));
+        forwardButton = addRenderableWidget(new PageButton(xPos + 116, 159, true, _ -> setPage(currentPage + 1), playTurnSound));
+        backButton = addRenderableWidget(new PageButton(xPos + 43, 159, false, _ -> setPage(currentPage - 1), playTurnSound));
         setPage(startPage);
     }
 
     @Override
-    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        renderBackground(guiGraphics, mouseX, mouseY, partialTick);
-        guiGraphics.blit(BACKGROUND, xPos, 2, 0, 0, WIDTH, HEIGHT);
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, partialTick);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, xPos, 2, 0, 0, WIDTH, HEIGHT, WIDTH, HEIGHT, 256, 256);
+    }
+
+    @Override
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
         Page<?> page = pages.get(currentPage);
         String title = page.getTitle().getString();
-        guiGraphics.drawString(font, title, xPos + 93 - font.width(title) / 2, 18, 0, false);
-        page.render(guiGraphics, xPos + 36, 32);
+        guiGraphics.text(font, title, xPos + 93 - font.width(title) / 2, 18, 0, false);
+        page.extractRenderState(guiGraphics, xPos + 36, 32);
         if (cachedPage != currentPage) {
             cachedPage = currentPage;
         }
         for (Renderable renderable : renderables) {
-            renderable.render(guiGraphics, mouseX, mouseY, partialTick);
+            renderable.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
         }
         List<Component> tooltip = page.getTooltip(mouseX - xPos - 36, mouseY - 32);
         if (!tooltip.isEmpty()) {
-            guiGraphics.renderTooltip(font, tooltip, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, tooltip, Optional.empty(), mouseX, mouseY);
         }
     }
 
@@ -101,44 +106,28 @@ public class SpellRecipeScreen extends Screen {
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (super.keyPressed(keyCode, scanCode, modifiers)) return true;
-        if (keyCode == GLFW.GLFW_KEY_PAGE_UP) {
-            backButton.onPress();
+    public boolean keyPressed(KeyEvent event) {
+        if (super.keyPressed(event)) return true;
+        if (event.key() == GLFW.GLFW_KEY_PAGE_UP) {
+            backButton.onPress(event);
             return true;
         }
-        if (keyCode == GLFW.GLFW_KEY_PAGE_DOWN) {
-            forwardButton.onPress();
+        if (event.key() == GLFW.GLFW_KEY_PAGE_DOWN) {
+            forwardButton.onPress(event);
             return true;
         }
         return false;
     }
 
-    @Override
-    public boolean handleComponentClicked(@Nullable Style style) {
-        if (style == null) return false;
-        ClickEvent clickevent = style.getClickEvent();
-        if (clickevent == null) return false;
-        if (clickevent.getAction() == ClickEvent.Action.CHANGE_PAGE) {
-            try {
-                return setPage(Integer.parseInt(clickevent.getValue()) - 1);
-            } catch (NumberFormatException e) {
-                return false;
-            }
-        }
-        return super.handleComponentClicked(style);
-    }
-
-    private boolean setPage(int pPageNum) {
+    private void setPage(int pPageNum) {
         int i = Math.clamp(pPageNum, 0, pages.size() - 1);
-        if (i == currentPage) return false;
+        if (i == currentPage) return;
         currentPage = i;
         cachedPage = -1;
         forwardButton.visible = currentPage < pages.size() - 1;
         backButton.visible = currentPage > 0;
         if (lecternPos != null) {
-            PacketDistributor.sendToServer(new SetLecternPagePacket(lecternPos, currentPage));
+            ClientPacketDistributor.sendToServer(new SetLecternPagePacket(lecternPos, currentPage));
         }
-        return true;
     }
 }

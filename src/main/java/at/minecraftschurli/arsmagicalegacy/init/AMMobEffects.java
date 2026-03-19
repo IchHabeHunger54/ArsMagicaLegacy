@@ -21,7 +21,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public interface AMMobEffects {
-    DeferredRegister<MobEffect>                               MOB_EFFECTS           = DeferredRegister.create(Registries.MOB_EFFECT,                                    ArsMagicaApi.MOD_ID);// @formatter:off
+    DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT, ArsMagicaApi.MOD_ID);
     // @formatter:off
     DeferredHolder<MobEffect, AMMobEffect>            ASTRAL_DISTORTION = MOB_EFFECTS.register("astral_distortion", () -> new AMMobEffect(MobEffectCategory.HARMFUL, 0x6c0000));
     DeferredHolder<MobEffect, MobEffect>              BURNOUT_REDUCTION = MOB_EFFECTS.register("burnout_reduction", id -> new AMMobEffect(MobEffectCategory.BENEFICIAL, 0xcc0000).addAttributeModifier(AMAttributes.BURNOUT_REGENERATION, id.withPrefix("effect."), 0.5, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));

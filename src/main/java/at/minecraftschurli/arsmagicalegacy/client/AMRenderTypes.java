@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.client;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SpellIconAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
+import com.mojang.blaze3d.opengl.Uniform;
 import com.mojang.blaze3d.pipeline.BlendFunction;
 import com.mojang.blaze3d.pipeline.ColorTargetState;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
@@ -21,9 +22,9 @@ public final class AMRenderTypes {
         .withVertexShader(ArsMagicaApi.id("core/color_wheel"))
         .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
         .withVertexFormat(DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS)
-        // TODO: uniforms
         .build();
-    /*public static final RenderType COLOR_WHEEL = RenderType.create(
+    /*
+    public static final RenderType COLOR_WHEEL = RenderType.create(
         ArsMagicaApi.id("color_wheel").toString().replace(":", "_"),
         DefaultVertexFormat.POSITION_COLOR,
         VertexFormat.Mode.QUADS,
@@ -38,7 +39,8 @@ public final class AMRenderTypes {
                 getUniform("radius").ifPresent(uniform -> uniform.set(ColorWheelShader.getRadius()));
                 getUniform("brightness").ifPresent(uniform -> uniform.set(ColorWheelShader.getBrightness()));
             }, () -> {}))
-            .createCompositeState(false));*/
+            .createCompositeState(false));
+    */
     public static final RenderType SPELL_ICON = RenderType.itemEntityTranslucentCull(SpellIconAtlasHolder.ATLAS);
     public static final RenderType SPELL_ICON_FABULOUS = RenderType.entityTranslucentCull(SpellIconAtlasHolder.ATLAS);
     public static final RenderType OUTLINE = RenderType.create(

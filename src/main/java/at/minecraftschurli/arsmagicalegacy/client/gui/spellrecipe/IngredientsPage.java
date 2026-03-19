@@ -21,7 +21,7 @@ class IngredientsPage extends Page<SpellIngredient> {
     }
 
     @Override
-    public void renderElement(SpellIngredient element, int index, GuiGraphicsExtractor guiGraphics, int x, int y) {
+    public void extractElement(SpellIngredient element, int index, GuiGraphicsExtractor guiGraphics, int x, int y) {
         ItemStack stack = AMUtil.getByTick(element.asItemStacks(), AMClientUtil.player().tickCount / 20).copyWithCount(element.count());
         x = x + index % maxPerLine * (size + spacing);
         y = y + index / maxPerLine * (size + spacing);

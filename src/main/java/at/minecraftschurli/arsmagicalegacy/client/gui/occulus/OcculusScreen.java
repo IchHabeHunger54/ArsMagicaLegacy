@@ -16,7 +16,9 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.CommonComponents;
@@ -24,7 +26,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -99,9 +101,9 @@ public class OcculusScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
-        guiGraphics.blit(FRAME, leftPos, topPos + OcculusTabButton.SIZE, 0, 0, SIZE, SIZE);
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, FRAME, leftPos, topPos + OcculusTabButton.SIZE, 0, 0, SIZE, SIZE, 256, 256);
         guiGraphics.blit(BUTTON_INDICATOR, maxPage == 0 ? leftPos + 6 + tab * OcculusTabButton.SIZE : leftPos + 28 + tab % 7 * OcculusTabButton.SIZE, topPos + OcculusTabButton.SIZE, 0, 0, OcculusTabButton.SIZE, FRAME_SIZE, OcculusTabButton.SIZE, FRAME_SIZE);
         if (renderer.hasSkillPointPanel()) {
             List<? extends Holder<SkillPoint>> holders = AMRegistries.skillPoints(true)
@@ -118,21 +120,21 @@ public class OcculusScreen extends Screen {
                 .max()
                 .orElse(0);
             int height = components.size() * 16 + 4;
-            guiGraphics.blit(SKILL_POINTS, leftPos - width, topPos + OcculusTabButton.SIZE, 0, 0, width, height);
-            guiGraphics.blit(SKILL_POINTS, leftPos - width, topPos + OcculusTabButton.SIZE + height, 0, 252, width, 4);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, SKILL_POINTS, leftPos - width, topPos + OcculusTabButton.SIZE, 0, 0, width, height, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, SKILL_POINTS, leftPos - width, topPos + OcculusTabButton.SIZE + height, 0, 252, width, 4, 256, 256);
             for (int i = 0; i < holders.size(); i++) {
                 Holder<SkillPoint> holder = holders.get(i);
                 ItemStack stack = AMItems.INFINITY_ORB.toStack();
                 stack.set(AMDataComponents.SKILL_POINT, holder);
-                guiGraphics.renderItem(stack, leftPos - width + 4, topPos + OcculusTabButton.SIZE + 4 + i * 16);
-                guiGraphics.drawString(AMClientUtil.font(), components.get(i), leftPos - width + 22, topPos + OcculusTabButton.SIZE + 9 + i * 16, holder.value().color(), false);
+                guiGraphics.item(stack, leftPos - width + 4, topPos + OcculusTabButton.SIZE + 4 + i * 16);
+                guiGraphics.text(AMClientUtil.font(), components.get(i), leftPos - width + 22, topPos + OcculusTabButton.SIZE + 9 + i * 16, holder.value().color(), false);
             }
         }
         guiGraphics.enableScissor(tabX, tabY, tabX + OcculusTabRenderer.TAB_SIZE, tabY + OcculusTabRenderer.TAB_SIZE);
-        guiGraphics.pose().pushPose();
-        guiGraphics.pose().translate(tabX, tabY, 0);
-        renderer.render(guiGraphics, mouseX - tabX, mouseY - tabY, partialTick);
-        guiGraphics.pose().popPose();
+        guiGraphics.pose().pushMatrix();
+        guiGraphics.pose().translate(tabX, tabY);
+        renderer.extractRenderState(guiGraphics, mouseX - tabX, mouseY - tabY, partialTick);
+        guiGraphics.pose().popMatrix();
         guiGraphics.disableScissor();
         if (mouseX >= tabX && mouseX < tabX + OcculusTabRenderer.TAB_SIZE && mouseY >= tabY && mouseY < tabY + OcculusTabRenderer.TAB_SIZE) {
             renderer.renderTooltip(guiGraphics, mouseX, mouseY, partialTick);
@@ -177,16 +179,16 @@ public class OcculusScreen extends Screen {
     }
 
     private void forgetAll() {
-        PacketDistributor.sendToServer(new ForgetSkillsPacket());
+        ClientPacketDistributor.sendToServer(new ForgetSkillsPacket());
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        return super.mouseClicked(mouseX, mouseY, button) || renderer.mouseClicked(mouseX - tabX, mouseY - tabY, button);
+    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+        return super.mouseClicked(event, doubleClick) || renderer.mouseClicked(new MouseButtonEvent(event.x() - tabX, event.y() - tabY, event.buttonInfo()), doubleClick);
     }
 
     @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
-        return super.mouseDragged(mouseX, mouseY, button, dragX, dragY) || renderer.mouseDragged(mouseX - tabX, mouseY - tabY, button, dragX, dragY);
+    public boolean mouseDragged(MouseButtonEvent event, double dx, double dy) {
+        return super.mouseDragged(event, dx, dy) || renderer.mouseDragged(new MouseButtonEvent(event.x() - tabX, event.y() - tabY, event.buttonInfo()), dx, dy);
     }
 }

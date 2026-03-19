@@ -9,8 +9,8 @@ import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
-import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
 import at.minecraftschurli.arsmagicalegacy.recipe.spelltransformation.SpellTransformationBuilder;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
@@ -675,7 +675,7 @@ public final class AMRecipeProvider extends RecipeProvider {
     }
 
     private static ItemStackTemplate affinityEssence(HolderLookup.RegistryLookup<Affinity> lookup, ResourceKey<Affinity> affinity) {
-        return ItemStackTemplate.fromNonEmptyStack(DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), lookup.getOrThrow(affinity)));
+        return ItemStackTemplate.fromNonEmptyStack(AMUtil.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), lookup.getOrThrow(affinity)));
     }
 
     public static final class Runner extends RecipeProvider.Runner {

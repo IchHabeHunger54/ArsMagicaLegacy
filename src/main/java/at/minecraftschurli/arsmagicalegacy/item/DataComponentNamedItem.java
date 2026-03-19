@@ -17,11 +17,6 @@ public class DataComponentNamedItem<T> extends Item {
         this.dataComponent = dataComponent;
     }
 
-    public static <T> ItemStack set(ItemStack stack, DataComponentType<T> type, T value) {
-        stack.set(type, value);
-        return stack;
-    }
-
     public DataComponentNamedItem<T> withNameGetter(BiFunction<T, Component, Component> nameGetter) {
         this.nameGetter = nameGetter;
         return this;

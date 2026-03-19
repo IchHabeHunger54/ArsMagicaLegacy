@@ -9,8 +9,8 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
-import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.client.gui.Font;
@@ -93,7 +93,7 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
             graphics.text(font, text, textX, textY, color, false);
             int stackX = (int) (textX + width / 2 - 8);
             int stackY = textY - 17;
-            AMClientUtil.renderItem(graphics, font, DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinity), stackX, stackY);
+            AMClientUtil.renderItem(graphics, font, AMUtil.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinity), stackX, stackY);
             if (mouseX < stackX || mouseX >= stackX + 16 || mouseY < stackY || mouseY >= stackY + 16) continue;
             tooltip.add(Affinity.getName(affinity).copy().withColor(color));
             if (AMClientUtil.mc().hasShiftDown()) {

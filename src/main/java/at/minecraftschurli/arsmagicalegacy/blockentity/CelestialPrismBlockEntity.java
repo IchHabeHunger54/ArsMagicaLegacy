@@ -9,12 +9,15 @@ import at.minecraftschurli.arsmagicalegacy.compat.patchouli.MultiblockMatcher;
 import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.arsmagicalegacy.init.AMEtheriumTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.clock.ClockManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.timeline.Timeline;
+import net.minecraft.world.timeline.Timelines;
 import org.jetbrains.annotations.Nullable;
 
 public class CelestialPrismBlockEntity extends EtheriumGeneratorBlockEntity {
@@ -32,7 +35,10 @@ public class CelestialPrismBlockEntity extends EtheriumGeneratorBlockEntity {
 
     @Override
     public void tick(Level level, BlockPos pos, BlockState state) {
-        if (etherium >= getMaxAmount() || !level.isDay() || !level.canSeeSky(pos.above())) return;
+        ClockManager clockManager = level.clockManager();
+        Timeline dayTimeline = level.registryAccess().getOrThrow(Timelines.OVERWORLD_DAY).value();
+        // TODO use time markers
+        if (etherium >= getMaxAmount() || dayTimeline.getCurrentTicks(clockManager) % 24000 >= 12000 || !level.canSeeSky(pos.above())) return;
         time--;
         if (time <= 0) {
             time = 6 - getTier(level, pos);

@@ -101,10 +101,10 @@ public class OcculusScreen extends Screen {
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, FRAME, leftPos, topPos + OcculusTabButton.SIZE, 0, 0, SIZE, SIZE, 256, 256);
-        guiGraphics.blit(BUTTON_INDICATOR, maxPage == 0 ? leftPos + 6 + tab * OcculusTabButton.SIZE : leftPos + 28 + tab % 7 * OcculusTabButton.SIZE, topPos + OcculusTabButton.SIZE, 0, 0, OcculusTabButton.SIZE, FRAME_SIZE, OcculusTabButton.SIZE, FRAME_SIZE);
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
+        graphics.blit(RenderPipelines.GUI_TEXTURED, FRAME, leftPos, topPos + OcculusTabButton.SIZE, 0, 0, SIZE, SIZE, 256, 256);
+        graphics.blit(BUTTON_INDICATOR, maxPage == 0 ? leftPos + 6 + tab * OcculusTabButton.SIZE : leftPos + 28 + tab % 7 * OcculusTabButton.SIZE, topPos + OcculusTabButton.SIZE, 0, 0, OcculusTabButton.SIZE, FRAME_SIZE, OcculusTabButton.SIZE, FRAME_SIZE);
         if (renderer.hasSkillPointPanel()) {
             List<? extends Holder<SkillPoint>> holders = AMRegistries.skillPoints(true)
                 .listElements()
@@ -120,24 +120,24 @@ public class OcculusScreen extends Screen {
                 .max()
                 .orElse(0);
             int height = components.size() * 16 + 4;
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, SKILL_POINTS, leftPos - width, topPos + OcculusTabButton.SIZE, 0, 0, width, height, 256, 256);
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, SKILL_POINTS, leftPos - width, topPos + OcculusTabButton.SIZE + height, 0, 252, width, 4, 256, 256);
+            graphics.blit(RenderPipelines.GUI_TEXTURED, SKILL_POINTS, leftPos - width, topPos + OcculusTabButton.SIZE, 0, 0, width, height, 256, 256);
+            graphics.blit(RenderPipelines.GUI_TEXTURED, SKILL_POINTS, leftPos - width, topPos + OcculusTabButton.SIZE + height, 0, 252, width, 4, 256, 256);
             for (int i = 0; i < holders.size(); i++) {
                 Holder<SkillPoint> holder = holders.get(i);
                 ItemStack stack = AMItems.INFINITY_ORB.toStack();
                 stack.set(AMDataComponents.SKILL_POINT, holder);
-                guiGraphics.item(stack, leftPos - width + 4, topPos + OcculusTabButton.SIZE + 4 + i * 16);
-                guiGraphics.text(AMClientUtil.font(), components.get(i), leftPos - width + 22, topPos + OcculusTabButton.SIZE + 9 + i * 16, holder.value().color(), false);
+                graphics.item(stack, leftPos - width + 4, topPos + OcculusTabButton.SIZE + 4 + i * 16);
+                graphics.text(AMClientUtil.font(), components.get(i), leftPos - width + 22, topPos + OcculusTabButton.SIZE + 9 + i * 16, holder.value().color(), false);
             }
         }
-        guiGraphics.enableScissor(tabX, tabY, tabX + OcculusTabRenderer.TAB_SIZE, tabY + OcculusTabRenderer.TAB_SIZE);
-        guiGraphics.pose().pushMatrix();
-        guiGraphics.pose().translate(tabX, tabY);
-        renderer.extractRenderState(guiGraphics, mouseX - tabX, mouseY - tabY, partialTick);
-        guiGraphics.pose().popMatrix();
-        guiGraphics.disableScissor();
+        graphics.enableScissor(tabX, tabY, tabX + OcculusTabRenderer.TAB_SIZE, tabY + OcculusTabRenderer.TAB_SIZE);
+        graphics.pose().pushMatrix();
+        graphics.pose().translate(tabX, tabY);
+        renderer.extractRenderState(graphics, mouseX - tabX, mouseY - tabY, partialTick);
+        graphics.pose().popMatrix();
+        graphics.disableScissor();
         if (mouseX >= tabX && mouseX < tabX + OcculusTabRenderer.TAB_SIZE && mouseY >= tabY && mouseY < tabY + OcculusTabRenderer.TAB_SIZE) {
-            renderer.renderTooltip(guiGraphics, mouseX, mouseY, partialTick);
+            renderer.renderTooltip(graphics, mouseX, mouseY, partialTick);
         }
     }
 

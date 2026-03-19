@@ -21,19 +21,19 @@ public class RiftScreen extends AbstractContainerScreen<RiftMenu> {
     }
 
     @Override
-    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
-        guiGraphics.blit(BACKGROUND, x, y, 0, 0, imageWidth, 17, imageWidth, imageHeight);
+        graphics.blit(BACKGROUND, x, y, 0, 0, imageWidth, 17, imageWidth, imageHeight);
         int size = menu.getSlotCount();
         for (int i = 0; i < rows; i++) {
-            guiGraphics.blit(BACKGROUND, x, y + 17 + i * 18, 0, 17, imageWidth, 18, imageWidth, imageHeight);
+            graphics.blit(BACKGROUND, x, y + 17 + i * 18, 0, 17, imageWidth, 18, imageWidth, imageHeight);
             for (int j = 0; j < 9; j++) {
                 if (i * 9 + j < size) {
-                    guiGraphics.blit(SLOT, x + 7 + j * 18, y + 17 + i * 18, 0, 0, 18, 18, 18, 18);
+                    graphics.blit(SLOT, x + 7 + j * 18, y + 17 + i * 18, 0, 0, 18, 18, 18, 18);
                 }
             }
         }
-        guiGraphics.blit(BACKGROUND, x, y + 17 + rows * 18, 0, 35, imageWidth, imageHeight - 35 - (rows - 1) * 18, imageWidth, imageHeight - (rows - 1) * 18);
+        graphics.blit(BACKGROUND, x, y + 17 + rows * 18, 0, 35, imageWidth, imageHeight - 35 - (rows - 1) * 18, imageWidth, imageHeight - (rows - 1) * 18);
     }
 }

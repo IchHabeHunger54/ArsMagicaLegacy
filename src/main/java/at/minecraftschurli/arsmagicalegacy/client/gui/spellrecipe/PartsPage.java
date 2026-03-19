@@ -27,8 +27,8 @@ class PartsPage extends Page<Holder<SpellPart>> {
     }
 
     @Override
-    public void extractElement(Holder<SpellPart> element, int index, GuiGraphicsExtractor guiGraphics, int x, int y) {
-        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SkillAtlasHolder.getSprite(skill(element).value()), x + index % maxPerLine * (size + spacing), y + index / maxPerLine * (size + spacing), size, size);
+    public void extractElement(Holder<SpellPart> element, int index, GuiGraphicsExtractor graphics, int x, int y) {
+        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, SkillAtlasHolder.getSprite(skill(element).value()), x + index % maxPerLine * (size + spacing), y + index / maxPerLine * (size + spacing), size, size);
     }
 
     @Override

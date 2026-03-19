@@ -35,7 +35,7 @@ public class ShapeGroupsLayer implements GuiLayer {
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
+    public void render(GuiGraphicsExtractor graphics, DeltaTracker deltaTracker) {
         if (AMClientUtil.mc().options.hideGui) return;
         Player player = AMClientUtil.player();
         if (player == null) return;
@@ -51,17 +51,17 @@ public class ShapeGroupsLayer implements GuiLayer {
         for (int i = 0; i < shapeGroups.size(); i++) {
             List<SpellPart> shapeGroup = shapeGroups.get(i).parts();
             if (shapeGroup.isEmpty()) continue;
-            guiGraphics.blit(TEXTURE, x + i * WIDTH, y, 0, 0, WIDTH, HEIGHT, WIDTH, HEIGHT);
+            graphics.blit(TEXTURE, x + i * WIDTH, y, 0, 0, WIDTH, HEIGHT, WIDTH, HEIGHT);
             for (int j = 0; j < ROWS; j++) {
                 for (int k = 0; k < COLUMNS; k++) {
                     int index = j * COLUMNS + k;
                     if (index >= shapeGroup.size()) continue;
                     TextureAtlasSprite sprite = SkillAtlasHolder.getSprite(AMRegistries.SPELL_PARTS.getKey(shapeGroup.get(index)));
-                    guiGraphics.blitSprite(RenderPipelines.GUI, sprite, x + i * WIDTH + k * SIZE + X_PADDING, y + j * SIZE + Y_PADDING, SIZE, SIZE);
+                    graphics.blitSprite(RenderPipelines.GUI, sprite, x + i * WIDTH + k * SIZE + X_PADDING, y + j * SIZE + Y_PADDING, SIZE, SIZE);
                 }
             }
             if (i == spell.activeShapeGroup()) continue;
-            guiGraphics.fill(i * WIDTH, 0, (i + 1) * WIDTH, HEIGHT, 0x7f000000);
+            graphics.fill(i * WIDTH, 0, (i + 1) * WIDTH, HEIGHT, 0x7f000000);
         }
     }
 }

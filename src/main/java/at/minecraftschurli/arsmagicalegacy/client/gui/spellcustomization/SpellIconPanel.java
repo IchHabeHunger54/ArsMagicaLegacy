@@ -49,7 +49,7 @@ class SpellIconPanel extends ScrollPanel {
     }
 
     @Override
-    protected void drawPanel(GuiGraphicsExtractor guiGraphics, int entryRight, int relativeY, int mouseX, int mouseY) {
+    protected void drawPanel(GuiGraphicsExtractor graphics, int entryRight, int relativeY, int mouseX, int mouseY) {
         int i = 0;
         Identifier hovered = getHovered(mouseX - left, mouseY - top + scrollDistance);
         for (Identifier icon : icons) {
@@ -57,11 +57,11 @@ class SpellIconPanel extends ScrollPanel {
             int y = i / iconsPerRow * (ICON_SIZE + 1) + relativeY + 1;
             if (y + ICON_SIZE > 0 && y < bottom) {
                 if (icon.equals(selected)) {
-                    guiGraphics.fill(x - 1, y - 1, x + ICON_SIZE + 1, y + ICON_SIZE + 1, SELECTED_COLOR);
+                    graphics.fill(x - 1, y - 1, x + ICON_SIZE + 1, y + ICON_SIZE + 1, SELECTED_COLOR);
                 } else if (icon.equals(hovered)) {
-                    guiGraphics.fill(x - 1, y - 1, x + ICON_SIZE + 1, y + ICON_SIZE + 1, HOVERED_COLOR);
+                    graphics.fill(x - 1, y - 1, x + ICON_SIZE + 1, y + ICON_SIZE + 1, HOVERED_COLOR);
                 }
-                guiGraphics.blitSprite(RenderPipelines.GUI, SpellIconAtlasHolder.getSprite(icon), x, y, 0, ICON_SIZE, ICON_SIZE);
+                graphics.blitSprite(RenderPipelines.GUI, SpellIconAtlasHolder.getSprite(icon), x, y, 0, ICON_SIZE, ICON_SIZE);
             }
             i++;
         }

@@ -17,7 +17,7 @@ class BrightnessSlider extends ColorPickerWidget {
     }
 
     @Override
-    protected void extractWidgetRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+    protected void extractWidgetRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         if (isFocused()) {
             graphics.fill(getX() - 1, getY() - 1, getX() + width + 1, getY() + height + 1, 0xffffffff);
         }

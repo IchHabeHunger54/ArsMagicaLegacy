@@ -56,15 +56,15 @@ public class PlaceBlockCustomizationScreen extends AbstractContainerSpellPartCus
     }
 
     @Override
-    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.extractBackground(guiGraphics, mouseX, mouseY, partialTick);
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, SLOT, leftPos + 72, topPos, 0, 0, 32, 32, 32, 32);
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, INVENTORY, leftPos, topPos + 32, 0, 0, 176, 100, 256, 256);
+    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(graphics, mouseX, mouseY, partialTick);
+        graphics.blit(RenderPipelines.GUI_TEXTURED, SLOT, leftPos + 72, topPos, 0, 0, 32, 32, 32, 32);
+        graphics.blit(RenderPipelines.GUI_TEXTURED, INVENTORY, leftPos, topPos + 32, 0, 0, 176, 100, 256, 256);
     }
 
     @Override
-    protected void renderLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        super.renderLabels(guiGraphics, mouseX, mouseY);
-        guiGraphics.text(font, AMClientUtil.player().getInventory().getDisplayName(), 8, 38, 0x404040, false);
+    protected void renderLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
+        super.renderLabels(graphics, mouseX, mouseY);
+        graphics.text(font, AMClientUtil.player().getInventory().getDisplayName(), 8, 38, 0x404040, false);
     }
 }

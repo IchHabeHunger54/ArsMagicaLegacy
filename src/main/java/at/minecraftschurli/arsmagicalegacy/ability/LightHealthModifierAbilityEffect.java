@@ -38,6 +38,7 @@ public record LightHealthModifierAbilityEffect(double min, double max, int maxLi
         attribute.removeModifier(identifier);
         ClockManager clockManager = player.level().clockManager();
         Timeline timeline = player.level().registryAccess().getOrThrow(Timelines.OVERWORLD_DAY).value();
+        // TODO use time marker
         if (timeline.getCurrentTicks(clockManager) >= 12000 || player.level().getBrightness(LightLayer.SKY, player.blockPosition()) <= maxLight) return;
         attribute.addTransientModifier(new AttributeModifier(identifier, ArsMagicaApi.abilityHelper().scaleToDepth(player, ability.value(), min, max), AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
     }

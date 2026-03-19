@@ -17,6 +17,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -27,10 +28,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public class SpellItem extends DataComponentNamedItem<Spell> {
+public class SpellItem extends Item {
     public SpellItem(Properties properties) {
-        super(properties, AMDataComponents.SPELL.get());
-        withNameGetter((spell, name) -> spell.name().map(e -> e.getString().isEmpty() ? null : e).orElse(name));
+        super(properties);
     }
 
     @Override
@@ -68,6 +68,14 @@ public class SpellItem extends DataComponentNamedItem<Spell> {
         } else if (livingEntity instanceof Player player) {
             onFailure(player, result.getMessage());
         }
+    }
+
+    @Override
+    public Component getName(ItemStack stack) {
+        return stack.getOrDefault(AMDataComponents.SPELL, Spell.EMPTY)
+            .name()
+            .map(e -> e.getString().isEmpty() ? null : e)
+            .orElse(super.getName(stack));
     }
 
     @Override

@@ -8,7 +8,6 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import net.minecraft.core.Holder;
-import net.minecraft.util.Util;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -19,10 +18,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("DataFlowIssue")
-public class AffinityTomeItem extends DataComponentNamedItem<Holder<Affinity>> {
+public class AffinityTomeItem extends HolderDataComponentItem<Affinity> {
     public AffinityTomeItem(Properties properties) {
         super(properties, AMDataComponents.AFFINITY.get());
-        withTranslationKeyGetter((holder, name) -> Util.makeDescriptionId(name, holder.getKey().identifier()));
     }
 
     @Override

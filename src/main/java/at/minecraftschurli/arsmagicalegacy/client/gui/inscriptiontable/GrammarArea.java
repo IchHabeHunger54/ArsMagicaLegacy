@@ -26,9 +26,9 @@ public class GrammarArea extends DragTargetArea {
     }
 
     @Override
-    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         for (int i = 0; i < contents.size(); i++) {
-            contents.get(i).render(guiGraphics, x + i * Draggable.SIZE + X_PADDING, y, partialTick);
+            contents.get(i).extractRenderState(guiGraphics, x + i * Draggable.SIZE + X_PADDING, y, partialTick);
         }
     }
 

@@ -32,7 +32,7 @@ import java.util.concurrent.CompletableFuture;
 public final class AMTagsProvider {
     private AMTagsProvider() {}
 
-    static final class Blocks extends BlockTagsProvider {
+    public static final class Blocks extends BlockTagsProvider {
         public Blocks(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
             super(output, lookupProvider, ArsMagicaApi.MOD_ID);
         }
@@ -90,7 +90,7 @@ public final class AMTagsProvider {
         }
     }
 
-    static final class Items extends BlockTagCopyingItemTagProvider {
+    public static final class Items extends BlockTagCopyingItemTagProvider {
         public Items(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blocks) {
             super(output, lookupProvider, blocks, ArsMagicaApi.MOD_ID);
         }
@@ -161,7 +161,7 @@ public final class AMTagsProvider {
         }
     }
 
-    static final class Fluids extends FluidTagsProvider {
+    public static final class Fluids extends FluidTagsProvider {
         public Fluids(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
             super(output, provider, ArsMagicaApi.MOD_ID);
         }
@@ -172,7 +172,7 @@ public final class AMTagsProvider {
         }
     }
 
-    static final class EntityTypes extends EntityTypeTagsProvider {
+    public static final class EntityTypes extends EntityTypeTagsProvider {
         public EntityTypes(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
             super(output, provider, ArsMagicaApi.MOD_ID);
         }
@@ -190,7 +190,7 @@ public final class AMTagsProvider {
         }
     }
 
-    static final class DamageTypes extends DamageTypeTagsProvider {
+    public static final class DamageTypes extends DamageTypeTagsProvider {
         public DamageTypes(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
             super(output, lookupProvider, ArsMagicaApi.MOD_ID);
         }
@@ -220,7 +220,7 @@ public final class AMTagsProvider {
         }
     }
 
-    static final class Enchantments extends EnchantmentTagsProvider {
+    public static final class Enchantments extends EnchantmentTagsProvider {
         public Enchantments(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
             super(output, lookupProvider, ArsMagicaApi.MOD_ID);
         }
@@ -231,7 +231,7 @@ public final class AMTagsProvider {
         }
     }
 
-    static final class Biomes extends BiomeTagsProvider {
+    public static final class Biomes extends BiomeTagsProvider {
         public Biomes(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
             super(output, provider, ArsMagicaApi.MOD_ID);
         }

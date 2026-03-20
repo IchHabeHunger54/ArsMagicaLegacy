@@ -1,7 +1,16 @@
-package at.minecraftschurli.arsmagicalegacy.datagen.data;
+package at.minecraftschurli.arsmagicalegacy.datagen;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
+import at.minecraftschurli.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
+import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMEquipmentAssetProvider;
+import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMLanguageProvider;
+import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMModelProvider;
+import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMParticleDescriptionProvider;
+import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMParticleSpawnerProvider;
+import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMSoundDefinitionProvider;
+import at.minecraftschurli.arsmagicalegacy.datagen.assets.AMSpriteSourceProvider;
+import at.minecraftschurli.arsmagicalegacy.datagen.data.*;
 import com.mojang.datafixers.util.Function3;
 import com.mojang.datafixers.util.Function4;
 import net.minecraft.core.HolderLookup;
@@ -16,14 +25,18 @@ import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
 
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID)
-final class AMServerDataGenerator {
+public final class AMDatagen {
     @SubscribeEvent
-    private static void gatherData(GatherDataEvent.Server event) {
+    private static void gatherData(GatherDataEvent.Client event) {
+        ArsMagicaClientApiImpl.postEvents();
+
         DataGenerator.PackGenerator pack = event.getGenerator().getVanillaPack(true);
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
         lookupProvider = pack.addProvider(wrap(
@@ -45,6 +58,7 @@ final class AMServerDataGenerator {
                 .add(AMRegistries.Keys.ETHERIUM_TYPE, AMEtheriumTypeProvider::addEtheriumTypes),
             Set.of(ArsMagicaApi.MOD_ID))
         ).getRegistryProvider();
+
         var blocks = pack.addProvider(wrap(AMTagsProvider.Blocks::new, lookupProvider)).contentsGetter();
         pack.addProvider(wrap(AMTagsProvider.Items::new, lookupProvider, blocks));
         pack.addProvider(wrap(AMTagsProvider.Fluids::new, lookupProvider));
@@ -62,6 +76,15 @@ final class AMServerDataGenerator {
         pack.addProvider(wrap(AMRitualProvider::new, lookupProvider));
         pack.addProvider(wrap(AMSpellPartDataProvider::new, lookupProvider));
         pack.addProvider(wrap(AMToolTierProvider::new, lookupProvider));
+        pack.addProvider(wrap(AMModelProvider::new, lookupProvider));
+        pack.addProvider(AMEquipmentAssetProvider::new);
+        pack.addProvider(AMParticleDescriptionProvider::new);
+        pack.addProvider(wrap(AMParticleSpawnerProvider::new, lookupProvider));
+        pack.addProvider(AMSoundDefinitionProvider::new);
+        pack.addProvider(wrap(AMSpriteSourceProvider::new, lookupProvider));
+        Map<String, String> cached = new HashMap<>();
+        pack.addProvider(wrap(AMPatchouliBookProvider::new, lookupProvider, cached::put));
+        pack.addProvider(wrap(AMLanguageProvider::new, cached));
     }
 
     private static <T extends DataProvider, P> DataProvider.Factory<T> wrap(BiFunction<PackOutput, P, T> provider, P param) {

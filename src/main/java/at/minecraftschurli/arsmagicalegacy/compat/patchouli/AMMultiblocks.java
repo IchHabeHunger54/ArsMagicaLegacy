@@ -1,23 +1,7 @@
 package at.minecraftschurli.arsmagicalegacy.compat.patchouli;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.arsmagicalegacy.block.CelestialPrismBlock;
-import at.minecraftschurli.arsmagicalegacy.block.InlayBlock;
-import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
-import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
-import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CandleBlock;
-import net.minecraft.world.level.block.LecternBlock;
-import net.minecraft.world.level.block.LeverBlock;
-import net.minecraft.world.level.block.LightningRodBlock;
-import net.minecraft.world.level.block.state.properties.AttachFace;
-import net.minecraft.world.level.block.state.properties.Half;
-import net.minecraft.world.level.block.state.properties.RailShape;
-import vazkii.patchouli.api.IMultiblock;
-import vazkii.patchouli.api.IStateMatcher;
-import vazkii.patchouli.api.PatchouliAPI;
 
 public final class AMMultiblocks {
     public static final Identifier ALTAR = ArsMagicaApi.id("altar");
@@ -103,6 +87,7 @@ public final class AMMultiblocks {
     }
 
     public static void init() {
+        /* TODO patchouli
         PatchouliAPI.IPatchouliAPI api = PatchouliAPI.get();
         IStateMatcher air = api.airMatcher();
         IStateMatcher chalk = api.looseBlockMatcher(AMBlocks.WIZARDS_CHALK.get());
@@ -289,5 +274,6 @@ public final class AMMultiblocks {
             'P', pillar,
             'T', top
         ).setSymmetrical(true);
+        */
     }
 }

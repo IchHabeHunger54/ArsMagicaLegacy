@@ -1,3 +1,4 @@
+/* TODO patchouli
 package at.minecraftschurli.arsmagicalegacy.compat.patchouli;
 
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
@@ -40,3 +41,4 @@ public class AltarStairStateMatcher implements IStateMatcher {
         return predicate;
     }
 }
+*/

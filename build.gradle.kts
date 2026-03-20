@@ -1,8 +1,8 @@
 import com.github.minecraftschurlimods.helperplugin.api
 import com.github.minecraftschurlimods.helperplugin.localGradleProperty
-import com.github.minecraftschurlimods.helperplugin.version
 import com.github.minecraftschurlimods.helperplugin.moddependencies.ModDependency
 import com.github.minecraftschurlimods.helperplugin.sourceSets
+import com.github.minecraftschurlimods.helperplugin.version
 
 plugins {
     idea
@@ -159,7 +159,7 @@ tasks.jar {
 
 tasks.withType<JavaCompile>().matching { !it.name.startsWith("neo") }.configureEach {
     options.encoding = "UTF-8"
-    options.compilerArgs.addAll(arrayOf("-Xmaxerrs", "9000"))
+    options.compilerArgs.addAll(arrayOf("-Xlint:-removal", "-Xmaxerrs", "9999"))
     //options.compilerArgs.add("-Xplugin:Manifold")
 }
 

@@ -14,3 +14,4 @@ jobs:
     with:
       upload-artifacts: true
       datagen-folder: src/main/generated/
+      run-datagen-task: 'runClientData'

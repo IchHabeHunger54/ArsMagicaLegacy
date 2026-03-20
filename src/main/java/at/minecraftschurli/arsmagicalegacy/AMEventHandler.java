@@ -24,6 +24,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.attachment.DryadKillsAttachment;
 import at.minecraftschurli.arsmagicalegacy.attachment.SummonMinionsAttachment;
+import at.minecraftschurli.arsmagicalegacy.block.LiquidEtheriumCauldronBlock;
 import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
 import at.minecraftschurli.arsmagicalegacy.command.AffinityCommand;
 import at.minecraftschurli.arsmagicalegacy.command.MagicXpCommand;
@@ -33,31 +34,11 @@ import at.minecraftschurli.arsmagicalegacy.compat.patchouli.AMMultiblocks;
 import at.minecraftschurli.arsmagicalegacy.effect.AMMobEffect;
 import at.minecraftschurli.arsmagicalegacy.entity.Dryad;
 import at.minecraftschurli.arsmagicalegacy.entity.ManaCreeper;
-import at.minecraftschurli.arsmagicalegacy.init.AMAbilities;
-import at.minecraftschurli.arsmagicalegacy.init.AMAttachments;
-import at.minecraftschurli.arsmagicalegacy.init.AMAttributes;
-import at.minecraftschurli.arsmagicalegacy.init.AMBlockEntities;
-import at.minecraftschurli.arsmagicalegacy.init.AMBlocks;
-import at.minecraftschurli.arsmagicalegacy.init.AMEntities;
-import at.minecraftschurli.arsmagicalegacy.init.AMFluids;
-import at.minecraftschurli.arsmagicalegacy.init.AMItems;
-import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
-import at.minecraftschurli.arsmagicalegacy.init.AMRituals;
-import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
+import at.minecraftschurli.arsmagicalegacy.init.*;
 import at.minecraftschurli.arsmagicalegacy.item.CrystalPhylacteryItem;
 import at.minecraftschurli.arsmagicalegacy.item.RuneBagItem;
 import at.minecraftschurli.arsmagicalegacy.item.SpellBookItem;
-import at.minecraftschurli.arsmagicalegacy.packet.ForgetSkillsPacket;
-import at.minecraftschurli.arsmagicalegacy.packet.InscriptionTableCreateSpellPacket;
-import at.minecraftschurli.arsmagicalegacy.packet.InscriptionTableSyncPacket;
-import at.minecraftschurli.arsmagicalegacy.packet.LearnSkillPacket;
-import at.minecraftschurli.arsmagicalegacy.packet.OpenBookInLecternPacket;
-import at.minecraftschurli.arsmagicalegacy.packet.SetActiveShapeGroupPacket;
-import at.minecraftschurli.arsmagicalegacy.packet.SetLecternPagePacket;
-import at.minecraftschurli.arsmagicalegacy.packet.SetSpellRuneOwnerPacket;
-import at.minecraftschurli.arsmagicalegacy.packet.SpellBookScrollPacket;
-import at.minecraftschurli.arsmagicalegacy.packet.SpellCustomizationPacket;
-import at.minecraftschurli.arsmagicalegacy.packet.TakeSpellRecipeFromLecternPacket;
+import at.minecraftschurli.arsmagicalegacy.packet.*;
 import at.minecraftschurli.arsmagicalegacy.spell.ToolTiers;
 import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import at.minecraftschurli.arsmagicalegacy.util.CrystalPhylacteryContentsSize;
@@ -67,6 +48,8 @@ import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.core.cauldron.CauldronInteractions;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Util;
@@ -82,10 +65,13 @@ import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -132,37 +118,50 @@ import java.util.UUID;
 
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID)
 final class AMEventHandler {
-    private AMEventHandler() {
-    }
+    private AMEventHandler() {}
 
     @SubscribeEvent
     private static void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            /* TODO flammability
-            FireBlock fire = (FireBlock) Blocks.FIRE;
-            fire.setFlammable(AMBlocks.WITCHWOOD_LOG.get(), 5, 5);
-            fire.setFlammable(AMBlocks.WITCHWOOD_WOOD.get(), 5, 5);
-            fire.setFlammable(AMBlocks.STRIPPED_WITCHWOOD_LOG.get(), 5, 5);
-            fire.setFlammable(AMBlocks.STRIPPED_WITCHWOOD_WOOD.get(), 5, 5);
-            fire.setFlammable(AMBlocks.WITCHWOOD_PLANKS.get(), 5, 20);
-            fire.setFlammable(AMBlocks.WITCHWOOD_SLAB.get(), 5, 20);
-            fire.setFlammable(AMBlocks.WITCHWOOD_STAIRS.get(), 5, 20);
-            fire.setFlammable(AMBlocks.WITCHWOOD_FENCE.get(), 5, 20);
-            fire.setFlammable(AMBlocks.WITCHWOOD_FENCE_GATE.get(), 5, 20);
-            fire.setFlammable(AMBlocks.WITCHWOOD_LEAVES.get(), 30, 60);
-            fire.setFlammable(AMBlocks.AUM.get(), 60, 100);
-            fire.setFlammable(AMBlocks.CERUBLOSSOM.get(), 60, 100);
-            fire.setFlammable(AMBlocks.DESERT_NOVA.get(), 60, 100);
-            fire.setFlammable(AMBlocks.TARMA_ROOT.get(), 60, 100);
-            fire.setFlammable(AMBlocks.WAKEBLOOM.get(), 60, 100);
-            */
-            // TODO cauldron
-            //CauldronInteraction.INTERACTIONS.forEach((k, v) -> v.map().put(AMItems.LIQUID_ETHERIUM_BUCKET.get(), LiquidEtheriumCauldronBlock::emptyBucket));
+            registerFlammability();
+            registerCauldronInteractions();
             DispenserBlock.registerBehavior(AMItems.LIQUID_ETHERIUM_BUCKET, DispenseBucketBehavior.INSTANCE);
             DispenserBlock.registerBehavior(AMItems.WITCHWOOD_BOAT, new BoatDispenseItemBehavior(AMEntities.WITCHWOOD_BOAT.get()));
             DispenserBlock.registerBehavior(AMItems.WITCHWOOD_CHEST_BOAT, new BoatDispenseItemBehavior(AMEntities.WITCHWOOD_CHEST_BOAT.get()));
             AMMultiblocks.init();
         });
+    }
+    
+    private static void registerFlammability() {
+        FireBlock fire = (FireBlock) Blocks.FIRE;
+        fire.setFlammable(AMBlocks.WITCHWOOD_LOG.get(), 5, 5);
+        fire.setFlammable(AMBlocks.WITCHWOOD_WOOD.get(), 5, 5);
+        fire.setFlammable(AMBlocks.STRIPPED_WITCHWOOD_LOG.get(), 5, 5);
+        fire.setFlammable(AMBlocks.STRIPPED_WITCHWOOD_WOOD.get(), 5, 5);
+        fire.setFlammable(AMBlocks.WITCHWOOD_PLANKS.get(), 5, 20);
+        fire.setFlammable(AMBlocks.WITCHWOOD_SLAB.get(), 5, 20);
+        fire.setFlammable(AMBlocks.WITCHWOOD_STAIRS.get(), 5, 20);
+        fire.setFlammable(AMBlocks.WITCHWOOD_FENCE.get(), 5, 20);
+        fire.setFlammable(AMBlocks.WITCHWOOD_FENCE_GATE.get(), 5, 20);
+        fire.setFlammable(AMBlocks.WITCHWOOD_LEAVES.get(), 30, 60);
+        fire.setFlammable(AMBlocks.AUM.get(), 60, 100);
+        fire.setFlammable(AMBlocks.CERUBLOSSOM.get(), 60, 100);
+        fire.setFlammable(AMBlocks.DESERT_NOVA.get(), 60, 100);
+        fire.setFlammable(AMBlocks.TARMA_ROOT.get(), 60, 100);
+        fire.setFlammable(AMBlocks.WAKEBLOOM.get(), 60, 100);
+    }
+    
+    private static void registerCauldronInteractions() {
+        LiquidEtheriumCauldronBlock.CAULDRON_INTERACTIONS.put(Items.BUCKET, LiquidEtheriumCauldronBlock::fillBucket);
+        LiquidEtheriumCauldronBlock.CAULDRON_INTERACTIONS.put(Items.LAVA_BUCKET, CauldronInteractions::fillLavaInteraction);
+        LiquidEtheriumCauldronBlock.CAULDRON_INTERACTIONS.put(Items.WATER_BUCKET, CauldronInteractions::fillWaterInteraction);
+        LiquidEtheriumCauldronBlock.CAULDRON_INTERACTIONS.put(Items.POWDER_SNOW_BUCKET, CauldronInteractions::fillPowderSnowInteraction);
+        CauldronInteraction fillLiquidEtheriumInteraction = LiquidEtheriumCauldronBlock::emptyBucket;
+        CauldronInteractions.EMPTY.put(AMItems.LIQUID_ETHERIUM_BUCKET.get(), fillLiquidEtheriumInteraction);
+        CauldronInteractions.WATER.put(AMItems.LIQUID_ETHERIUM_BUCKET.get(), fillLiquidEtheriumInteraction);
+        CauldronInteractions.LAVA.put(AMItems.LIQUID_ETHERIUM_BUCKET.get(), fillLiquidEtheriumInteraction);
+        CauldronInteractions.POWDER_SNOW.put(AMItems.LIQUID_ETHERIUM_BUCKET.get(), fillLiquidEtheriumInteraction);
+        LiquidEtheriumCauldronBlock.CAULDRON_INTERACTIONS.put(AMItems.LIQUID_ETHERIUM_BUCKET.get(), fillLiquidEtheriumInteraction);
     }
 
     @SubscribeEvent

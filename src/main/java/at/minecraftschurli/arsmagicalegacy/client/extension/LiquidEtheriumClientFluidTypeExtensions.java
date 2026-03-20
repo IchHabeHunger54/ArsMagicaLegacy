@@ -8,24 +8,11 @@ import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import org.joml.Vector4f;
 
-public class LiquidEtheriumClientFluidTypeExtensions implements IClientFluidTypeExtensions {
+public final class LiquidEtheriumClientFluidTypeExtensions implements IClientFluidTypeExtensions {
     public static final LiquidEtheriumClientFluidTypeExtensions INSTANCE = new LiquidEtheriumClientFluidTypeExtensions();
-    private static final Identifier STILL_TEXTURE = ArsMagicaApi.id("block/liquid_etherium_still");
-    private static final Identifier FLOWING_TEXTURE = ArsMagicaApi.id("block/liquid_etherium_flowing");
     private static final Identifier UNDERWATER_TEXTURE = ArsMagicaApi.id("textures/misc/in_liquid_etherium.png");
 
-    private LiquidEtheriumClientFluidTypeExtensions() {
-    }
-
-    @Override
-    public Identifier getStillTexture() {
-        return STILL_TEXTURE;
-    }
-
-    @Override
-    public Identifier getFlowingTexture() {
-        return FLOWING_TEXTURE;
-    }
+    private LiquidEtheriumClientFluidTypeExtensions() {}
 
     @Override
     public Identifier getRenderOverlayTexture(Minecraft mc) {

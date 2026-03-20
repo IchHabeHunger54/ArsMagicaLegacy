@@ -37,12 +37,14 @@ import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -65,6 +67,8 @@ public final class AMRitualProvider extends RitualProvider {
 
     @Override
     public void generate(HolderLookup.Provider provider) {
+        HolderLookup.RegistryLookup<EntityType<?>> entityTypes = provider.lookupOrThrow(Registries.ENTITY_TYPE);
+        HolderLookup.RegistryLookup<Item> items = provider.lookupOrThrow(Registries.ITEM);
         builder("purification", new SpellCastRitualTrigger(List.of(AMSpells.SELF.get(), AMSpells.LIGHT.get())))
             .addRequirement(new IngredientRitualRequirement(Ingredient.of(AMItems.MOONSTONE), 4))
             .addRequirement(new StructureRitualRequirement(AMMultiblocks.PURIFICATION, BlockPos.ZERO.below(3)))
@@ -93,14 +97,14 @@ public final class AMRitualProvider extends RitualProvider {
         HolderLookup.RegistryLookup<Affinity> affinities = provider.lookupOrThrow(AMRegistries.Keys.AFFINITY);
         // TODO guardians
         spawn("water_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.WATER_GUARDIAN_SPAWN_RITUAL,
-            new DroppedItemRitualTrigger(Ingredient.of(ItemTags.BOATS), Ingredient.of(Items.WATER_BUCKET)))
+            new DroppedItemRitualTrigger(Ingredient.of(items.getOrThrow(ItemTags.BOATS)), Ingredient.of(Items.WATER_BUCKET)))
             .addRequirement(new DimensionRitualRequirement(Level.OVERWORLD))
             .addRequirement(new BiomeTagRitualRequirement(AMTags.Biomes.CAN_SUMMON_WATER_GUARDIAN));
         spawn("fire_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.FIRE_GUARDIAN_SPAWN_RITUAL,
             new DroppedItemRitualTrigger(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.WATER), AMItems.AFFINITY_ESSENCE)))
             .addRequirement(new EnvironmentAttributeRitualRequirement<>(EnvironmentAttributes.WATER_EVAPORATES, true));
         spawn("earth_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.EARTH_GUARDIAN_SPAWN_RITUAL,
-            new DroppedItemRitualTrigger(Ingredient.of(Tags.Items.GEMS_EMERALD), Ingredient.of(AMTags.Items.GEMS_CHIMERITE), Ingredient.of(AMTags.Items.GEMS_TOPAZ)))
+            new DroppedItemRitualTrigger(Ingredient.of(items.getOrThrow(Tags.Items.GEMS_EMERALD)), Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_CHIMERITE)), Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_TOPAZ))))
             .addRequirement(new DimensionRitualRequirement(Level.OVERWORLD));
         spawn("air_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.AIR_GUARDIAN_SPAWN_RITUAL,
             new DroppedItemRitualTrigger(Ingredient.of(AMItems.TARMA_ROOT)))
@@ -116,7 +120,7 @@ public final class AMRitualProvider extends RitualProvider {
         spawn("lightning_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.LIGHTNING_GUARDIAN_SPAWN_RITUAL, new BlockPos(0, -3, 0),
             new GameEventRitualTrigger(GameEvent.LIGHTNING_STRIKE));
         spawn("life_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.LIFE_GUARDIAN_SPAWN_RITUAL,
-            new KillEntityRitualTrigger(EntityPredicate.Builder.entity().of(EntityType.VILLAGER).flags(EntityFlagsPredicate.Builder.flags().setIsBaby(true)).build()))
+            new KillEntityRitualTrigger(EntityPredicate.Builder.entity().of(entityTypes, EntityType.VILLAGER).flags(EntityFlagsPredicate.Builder.flags().setIsBaby(true)).build()))
             .addRequirement(new DimensionRitualRequirement(Level.OVERWORLD))
             .addRequirement(new MoonPhaseRitualRequirement(MoonPhase.NEW_MOON));
         spawn("arcane_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.ARCANE_GUARDIAN_SPAWN_RITUAL,
@@ -131,7 +135,7 @@ public final class AMRitualProvider extends RitualProvider {
     }
 
     private RitualBuilder spawn(String name, DeferredHolder<EntityType<?>, ? extends EntityType<?>> boss, Identifier structure, BlockPos offset, RitualTrigger<?> trigger) {
-        return builder("spawn_" + name/*boss.getId().getPath()*/, trigger)
+        return builder("spawn_" + name/*TODO boss.getId().getPath()*/, trigger)
             .addRequirement(new StructureRitualRequirement(structure, offset))
             .addEffect(new SpawnEntityRitualEffect(boss.get()));
     }

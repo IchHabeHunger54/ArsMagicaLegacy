@@ -1,3 +1,4 @@
+/* TODO jade
 package at.minecraftschurli.arsmagicalegacy.compat.jade;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
@@ -37,3 +38,4 @@ class AltarComponentProvider implements IBlockComponentProvider, IServerDataProv
         }
     }
 }
+*/

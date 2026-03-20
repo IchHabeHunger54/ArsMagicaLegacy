@@ -1,3 +1,4 @@
+/* TODO jade
 package at.minecraftschurli.arsmagicalegacy.compat.jade;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
@@ -88,3 +89,4 @@ class EtheriumComponentProvider implements IBlockComponentProvider, IServerDataP
         return ID;
     }
 }
+*/

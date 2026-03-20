@@ -1,3 +1,4 @@
+/* TODO render pipeline
 package at.minecraftschurli.arsmagicalegacy.client;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
@@ -23,7 +24,6 @@ public final class AMRenderTypes {
         .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
         .withVertexFormat(DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS)
         .build();
-    /*
     public static final RenderType COLOR_WHEEL = RenderType.create(
         ArsMagicaApi.id("color_wheel").toString().replace(":", "_"),
         DefaultVertexFormat.POSITION_COLOR,
@@ -40,7 +40,6 @@ public final class AMRenderTypes {
                 getUniform("brightness").ifPresent(uniform -> uniform.set(ColorWheelShader.getBrightness()));
             }, () -> {}))
             .createCompositeState(false));
-    */
     public static final RenderType SPELL_ICON = RenderType.itemEntityTranslucentCull(SpellIconAtlasHolder.ATLAS);
     public static final RenderType SPELL_ICON_FABULOUS = RenderType.entityTranslucentCull(SpellIconAtlasHolder.ATLAS);
     public static final RenderType OUTLINE = RenderType.create(
@@ -61,3 +60,4 @@ public final class AMRenderTypes {
         return Optional.ofNullable(RenderSystem.getShader()).map(shader -> shader.getUniform(name));
     }
 }
+*/

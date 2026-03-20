@@ -182,7 +182,7 @@ final class AMClientEventHandler {
         event.register(ArsMagicaApi.id("data_component_overrides"), DataComponentOverridesModel.Unbaked.MAP_CODEC);
     }
 
-/*TODO
+/* TODO render pipeline
     @SubscribeEvent
     private static void registerShaders(RegisterShadersEvent event) {
         try {

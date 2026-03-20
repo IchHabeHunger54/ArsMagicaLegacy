@@ -3,7 +3,6 @@ package at.minecraftschurli.arsmagicalegacy.client.renderer;
 import at.minecraftschurli.arsmagicalegacy.api.client.MagitechGogglesOverlayRenderState;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMCapabilities;
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumHandler;
-import at.minecraftschurli.arsmagicalegacy.client.AMRenderTypes;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -103,6 +102,7 @@ public class MagitechGogglesOverlayRenderStateImpl implements MagitechGogglesOve
 
     @Override
     public void submit(PoseStack stack, SubmitNodeCollector collector) {
+        /* TODO render pipeline
         for (Pair<CubeRenderState, Quaternionf> line : lines) {
             stack.pushPose();
             stack.mulPose(line.getSecond());
@@ -112,6 +112,7 @@ public class MagitechGogglesOverlayRenderStateImpl implements MagitechGogglesOve
         for (CubeRenderState box : boxes) {
             collector.submitCustomGeometry(stack, AMRenderTypes.OUTLINE, new Renderer(box));
         }
+        */
     }
 
     private record CubeRenderState(float minX, float minY, float minZ, float maxX, float maxY, float maxZ, int red, int green, int blue, int alpha) {

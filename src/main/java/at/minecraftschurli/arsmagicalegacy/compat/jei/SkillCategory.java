@@ -1,3 +1,4 @@
+/* TODO jei
 package at.minecraftschurli.arsmagicalegacy.compat.jei;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
@@ -180,3 +181,4 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
         }
     }
 }
+*/

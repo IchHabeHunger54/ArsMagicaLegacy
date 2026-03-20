@@ -1,8 +1,6 @@
 package at.minecraftschurli.arsmagicalegacy.attachment;
 
 import at.minecraftschurli.arsmagicalegacy.api.magic.MagicAttachment;
-import at.minecraftschurli.arsmagicalegacy.compat.jei.HiddenSkills;
-import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLEnvironment;
@@ -16,11 +14,11 @@ public class MagicAttachmentSyncHandler implements AttachmentSyncHandler<MagicAt
         MagicAttachment.STREAM_CODEC.encode(buf, attachment);
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Override
     public MagicAttachment read(IAttachmentHolder holder, RegistryFriendlyByteBuf buf, @Nullable MagicAttachment previousValue) {
         if (FMLEnvironment.getDist().isClient() && ModList.get().isLoaded("jei")) {
-            AMClientUtil.mc().submit(HiddenSkills::update);
+            // TODO jei
+            //AMClientUtil.mc().submit(HiddenSkills::update);
         }
         return MagicAttachment.STREAM_CODEC.decode(buf);
     }

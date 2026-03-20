@@ -1,3 +1,4 @@
+/* TODO jei
 package at.minecraftschurli.arsmagicalegacy.compat.jei;
 
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
@@ -40,3 +41,4 @@ public class SkillIngredientHelper implements IIngredientHelper<Skill> {
         return skill == null ? "Unknown skill" : skill.toString();
     }
 }
+*/

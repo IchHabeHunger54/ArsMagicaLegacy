@@ -1,3 +1,4 @@
+/* TODO jei
 package at.minecraftschurli.arsmagicalegacy.compat.jei;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
@@ -135,3 +136,4 @@ public final class HiddenSkills {
             .collect(Collectors.toSet()));
     }
 }
+*/

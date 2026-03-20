@@ -1,3 +1,4 @@
+/* TODO jei
 package at.minecraftschurli.arsmagicalegacy.compat.jei;
 
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
@@ -23,3 +24,4 @@ public record DataComponentSubtypeInterpreter<T>(DataComponentType<T> type, Func
         return ingredient.has(type) ? ingredient.get(type) : null;
     }
 }
+*/

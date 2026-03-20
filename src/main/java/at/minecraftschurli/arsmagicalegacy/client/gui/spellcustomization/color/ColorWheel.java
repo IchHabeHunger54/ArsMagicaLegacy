@@ -1,6 +1,5 @@
 package at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.color;
 
-import at.minecraftschurli.arsmagicalegacy.client.AMRenderTypes;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
@@ -19,12 +18,14 @@ class ColorWheel extends ColorPickerWidget {
 
     @Override
     protected void extractWidgetRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        /* TODO render pipeline
         if (isFocused()) {
             ColorWheelShader.set(getX() + radius, getY() + radius, radius + 1, -1);
             graphics.fillGradient(AMRenderTypes.COLOR_WHEEL, getX() - 1, getY() - 1, getX() + width + 1, getY() + height + 1, 0xffffffff, 0xffffffff, 0);
         }
         ColorWheelShader.set(getX() + radius, getY() + radius, radius, brightness);
         graphics.fillGradient(AMRenderTypes.COLOR_WHEEL, getX(), getY(), getX() + width, getY() + height, 0xffffffff, 0xffffffff, 0);
+        */
         renderIndicator(graphics, (int) (getX() + radius + radius * saturation * Math.cos(hue * Math.TAU)), (int) (getY() + radius + radius * saturation * Math.sin(hue * Math.TAU)));
     }
 

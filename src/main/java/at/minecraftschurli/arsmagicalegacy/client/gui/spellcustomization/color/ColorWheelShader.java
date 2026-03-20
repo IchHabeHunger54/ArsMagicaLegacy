@@ -1,3 +1,4 @@
+/* TODO render pipeline
 package at.minecraftschurli.arsmagicalegacy.client.gui.spellcustomization.color;
 
 import net.minecraft.client.renderer.ShaderInstance;
@@ -40,3 +41,4 @@ public class ColorWheelShader {
         ColorWheelShader.brightness = brightness;
     }
 }
+*/

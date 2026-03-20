@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.init;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.recipe.spelltransformation.SpellTransformationRecipe;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -16,4 +17,6 @@ public interface AMRecipes {
     DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Registries.RECIPE_TYPE, ArsMagicaApi.MOD_ID);
     DeferredHolder<RecipeType<?>, RecipeType<SpellTransformationRecipe>> SPELL_TRANSFORMATION_TYPE =
         RECIPE_TYPES.register("spell_transformation", () -> RecipeType.simple(ArsMagicaApi.id("spell_transformation")));
+
+    RecipeBookCategory SPELL_RECIPE_BOOK_CATEGORY = new RecipeBookCategory();
 }

@@ -671,7 +671,7 @@ public final class AMRecipeProvider extends RecipeProvider {
     }
 
     private void drought(RecipeOutput output, String name, RuleTest ruleTest, BlockState result) {
-        new SpellTransformationBuilder(ruleTest, AMSpells.DROUGHT, result).save(output, ArsMagicaApi.id("drought/" + name));
+        new SpellTransformationBuilder(ruleTest, AMSpells.DROUGHT, result).save(output, ResourceKey.create(Registries.RECIPE, ArsMagicaApi.id("drought/" + name)));
     }
 
     private static ItemStackTemplate affinityEssence(HolderLookup.RegistryLookup<Affinity> lookup, ResourceKey<Affinity> affinity) {

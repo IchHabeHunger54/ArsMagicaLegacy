@@ -1,3 +1,4 @@
+/* TODO jade
 package at.minecraftschurli.arsmagicalegacy.compat.jade;
 
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumGeneratorBlockEntity;
@@ -66,3 +67,4 @@ public final class AMJadePlugin implements IWailaPlugin {
         }));
     }
 }
+*/

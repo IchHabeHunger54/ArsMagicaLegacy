@@ -16,12 +16,12 @@ import at.minecraftschurli.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.arsmagicalegacy.init.AMSounds;
 import at.minecraftschurli.arsmagicalegacy.init.AMSpells;
 import net.minecraft.ChatFormatting;
-import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Util;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -863,7 +863,7 @@ public final class AMLanguageProvider extends LanguageProvider {
      */
     @SuppressWarnings("SameParameterValue")
     private void itemWithVariantTranslation(DeferredItem<?> item, Identifier variant, String translation) {
-        add(Util.makeDescriptionId(item.toStack().getDescriptionId(), variant), translation);
+        add(Util.makeDescriptionId(item.get().getDescriptionId(), variant), translation);
     }
 
     /**

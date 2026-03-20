@@ -25,7 +25,6 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagCopyingItemTagProvider;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
-import top.theillusivec4.curios.api.CuriosTags;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -158,7 +157,7 @@ public final class AMTagsProvider {
             tag(AMTags.Items.SHOWS_SPELL_VISUALS).add(AMItems.SPELL.get(), AMItems.SPELL_BOOK.get());
             tag(AMTags.Items.SPELLCRAFTING_START).add(AMItems.BLANK_RUNE.get());
             tag(AMTags.Items.SPELLCRAFTING_END).add(AMItems.SPELL_PARCHMENT.get());
-            tag(CuriosTags.HEAD).add(AMItems.MAGITECH_GOGGLES.get());
+            // TODO curios tag(CuriosTags.HEAD).add(AMItems.MAGITECH_GOGGLES.get());
         }
     }
 

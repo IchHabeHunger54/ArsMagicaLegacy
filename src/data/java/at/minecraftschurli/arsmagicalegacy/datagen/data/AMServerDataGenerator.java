@@ -53,7 +53,7 @@ final class AMServerDataGenerator {
         pack.addProvider(wrap(AMTagsProvider.Enchantments::new, lookupProvider));
         pack.addProvider(wrap(AMTagsProvider.Biomes::new, lookupProvider));
         pack.addProvider(wrap(AMAdvancementProvider::new, lookupProvider));
-        pack.addProvider(wrap(AMCuriosProvider::new, lookupProvider));
+        // TODO curios pack.addProvider(wrap(AMCuriosProvider::new, lookupProvider));
         pack.addProvider(wrap(AMDataMapProvider::new, lookupProvider));
         pack.addProvider(wrap(AMGlobalLootModifierProvider::new, lookupProvider));
         pack.addProvider(wrap(AMLootTableProvider::new, lookupProvider));

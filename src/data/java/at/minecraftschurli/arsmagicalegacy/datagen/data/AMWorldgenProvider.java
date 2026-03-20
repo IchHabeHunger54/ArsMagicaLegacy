@@ -9,18 +9,19 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.random.Weighted;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
@@ -33,11 +34,13 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.DarkOakFoliageP
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.DarkOakTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
+import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.neoforged.neoforge.common.Tags;
@@ -73,11 +76,11 @@ public final class AMWorldgenProvider {
             BlockStateProvider.simple(AMBlocks.WITCHWOOD_LEAVES.get()),
             new DarkOakFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1)),
             new ThreeLayersFeatureSize(1, 2, 1, 1, 2, OptionalInt.empty())).ignoreVines().build());
-        registerFlower(bootstrap, AMWorldgen.AUM_CONFIGURED_FEATURE, 64, AMBlocks.AUM);
-        registerFlower(bootstrap, AMWorldgen.CERUBLOSSOM_CONFIGURED_FEATURE, 64, AMBlocks.CERUBLOSSOM);
-        registerFlower(bootstrap, AMWorldgen.DESERT_NOVA_CONFIGURED_FEATURE, 64, AMBlocks.DESERT_NOVA);
-        registerFlower(bootstrap, AMWorldgen.TARMA_ROOT_CONFIGURED_FEATURE, 64, AMBlocks.TARMA_ROOT);
-        registerFlower(bootstrap, AMWorldgen.WAKEBLOOM_CONFIGURED_FEATURE, 64, AMBlocks.WAKEBLOOM);
+        registerFlower(bootstrap, AMWorldgen.AUM_CONFIGURED_FEATURE, AMBlocks.AUM);
+        registerFlower(bootstrap, AMWorldgen.CERUBLOSSOM_CONFIGURED_FEATURE, AMBlocks.CERUBLOSSOM);
+        registerFlower(bootstrap, AMWorldgen.DESERT_NOVA_CONFIGURED_FEATURE, AMBlocks.DESERT_NOVA);
+        registerFlower(bootstrap, AMWorldgen.TARMA_ROOT_CONFIGURED_FEATURE, AMBlocks.TARMA_ROOT);
+        registerFlower(bootstrap, AMWorldgen.WAKEBLOOM_CONFIGURED_FEATURE, AMBlocks.WAKEBLOOM);
         register(bootstrap, AMWorldgen.LIQUID_ETHERIUM_LAKE_CONFIGURED_FEATURE, Feature.LAKE, new LakeFeature.Configuration(
             BlockStateProvider.simple(AMBlocks.LIQUID_ETHERIUM.get()),
             BlockStateProvider.simple(Blocks.STONE)));
@@ -99,11 +102,11 @@ public final class AMWorldgenProvider {
             .addAll(VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.1f, 1), AMBlocks.WITCHWOOD_SAPLING.get()))
             .add(RarityFilter.onAverageOnceEvery(8))
             .build());
-        registerFlower(bootstrap, AMWorldgen.AUM_PLACED_FEATURE, AMWorldgen.AUM_CONFIGURED_FEATURE, 32);
-        registerFlower(bootstrap, AMWorldgen.CERUBLOSSOM_PLACED_FEATURE, AMWorldgen.CERUBLOSSOM_CONFIGURED_FEATURE, 32);
-        registerFlower(bootstrap, AMWorldgen.DESERT_NOVA_PLACED_FEATURE, AMWorldgen.DESERT_NOVA_CONFIGURED_FEATURE, 32);
-        registerFlower(bootstrap, AMWorldgen.TARMA_ROOT_PLACED_FEATURE, AMWorldgen.TARMA_ROOT_CONFIGURED_FEATURE, 32);
-        registerFlower(bootstrap, AMWorldgen.WAKEBLOOM_PLACED_FEATURE, AMWorldgen.WAKEBLOOM_CONFIGURED_FEATURE, 32);
+        registerFlower(bootstrap, AMWorldgen.AUM_PLACED_FEATURE, AMWorldgen.AUM_CONFIGURED_FEATURE, 32, 64);
+        registerFlower(bootstrap, AMWorldgen.CERUBLOSSOM_PLACED_FEATURE, AMWorldgen.CERUBLOSSOM_CONFIGURED_FEATURE, 32, 64);
+        registerFlower(bootstrap, AMWorldgen.DESERT_NOVA_PLACED_FEATURE, AMWorldgen.DESERT_NOVA_CONFIGURED_FEATURE, 32, 64);
+        registerFlower(bootstrap, AMWorldgen.TARMA_ROOT_PLACED_FEATURE, AMWorldgen.TARMA_ROOT_CONFIGURED_FEATURE, 32, 64);
+        registerFlower(bootstrap, AMWorldgen.WAKEBLOOM_PLACED_FEATURE, AMWorldgen.WAKEBLOOM_CONFIGURED_FEATURE, 32, 64);
         register(bootstrap, AMWorldgen.LIQUID_ETHERIUM_LAKE_PLACED_FEATURE, AMWorldgen.LIQUID_ETHERIUM_LAKE_CONFIGURED_FEATURE, List.of(
             RarityFilter.onAverageOnceEvery(200),
             InSquarePlacement.spread(),
@@ -164,11 +167,11 @@ public final class AMWorldgenProvider {
             AMWorldgen.TARMA_ROOT_PLACED_FEATURE);
         bootstrap.register(AMWorldgen.SPAWN_DRYADS_BIOME_MODIFIER, BiomeModifiers.AddSpawnsBiomeModifier.singleSpawn(
             HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.biomeTag(bootstrap, BiomeTags.IS_FOREST)),
-            new MobSpawnSettings.SpawnerData(AMEntities.DRYAD.get(), 2, 15, 25)
+            new Weighted<>(new MobSpawnSettings.SpawnerData(AMEntities.DRYAD.get(), 15, 25), 2)
         ));
         bootstrap.register(AMWorldgen.SPAWN_MANA_CREEPERS_BIOME_MODIFIER, BiomeModifiers.AddSpawnsBiomeModifier.singleSpawn(
             HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.not(HolderSets.biomeTag(bootstrap, Tags.Biomes.NO_DEFAULT_MONSTERS))),
-            new MobSpawnSettings.SpawnerData(AMEntities.MANA_CREEPER.get(), 10, 1, 4)
+            new Weighted<>(new MobSpawnSettings.SpawnerData(AMEntities.MANA_CREEPER.get(), 1, 4), 10)
         ));
     }
 
@@ -209,14 +212,10 @@ public final class AMWorldgenProvider {
      *
      * @param bootstrap The {@link BootstrapContext} to use.
      * @param key       The {@link ResourceKey} to use.
-     * @param tries     The amount of placement tries.
      * @param flower    The flower to place.
      */
-    private static void registerFlower(BootstrapContext<ConfiguredFeature<?, ?>> bootstrap, ResourceKey<ConfiguredFeature<?, ?>> key, int tries, DeferredBlock<?> flower) {
-        register(bootstrap, key, Feature.FLOWER, FeatureUtils.simpleRandomPatchConfiguration(
-            tries,
-            PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(flower.get())))
-        ));
+    private static void registerFlower(BootstrapContext<ConfiguredFeature<?, ?>> bootstrap, ResourceKey<ConfiguredFeature<?, ?>> key, DeferredBlock<?> flower) {
+        register(bootstrap, key, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(flower.get())));
     }
 
     /**
@@ -251,9 +250,10 @@ public final class AMWorldgenProvider {
      * @param key               The {@link ResourceKey} to use.
      * @param configuredFeature The {@link ConfiguredFeature} to use as a base.
      * @param rarity            How rare patches should be.
+     * @param count             The amount of placement tries.
      */
-    private static void registerFlower(BootstrapContext<PlacedFeature> bootstrap, ResourceKey<PlacedFeature> key, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, int rarity) {
-        register(bootstrap, key, configuredFeature, List.of(RarityFilter.onAverageOnceEvery(rarity), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()));
+    private static void registerFlower(BootstrapContext<PlacedFeature> bootstrap, ResourceKey<PlacedFeature> key, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, int rarity, int count) {
+        register(bootstrap, key, configuredFeature, List.of(RarityFilter.onAverageOnceEvery(rarity), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), CountPlacement.of(count), RandomOffsetPlacement.ofTriangle(6, 2), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)));
     }
 
     /**

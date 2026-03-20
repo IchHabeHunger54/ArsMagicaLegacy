@@ -24,7 +24,6 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.attachment.DryadKillsAttachment;
 import at.minecraftschurli.arsmagicalegacy.attachment.SummonMinionsAttachment;
-import at.minecraftschurli.arsmagicalegacy.block.LiquidEtheriumCauldronBlock;
 import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
 import at.minecraftschurli.arsmagicalegacy.command.AffinityCommand;
 import at.minecraftschurli.arsmagicalegacy.command.MagicXpCommand;
@@ -68,7 +67,6 @@ import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Util;
@@ -87,9 +85,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -142,6 +138,7 @@ final class AMEventHandler {
     @SubscribeEvent
     private static void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+            /* TODO flammability
             FireBlock fire = (FireBlock) Blocks.FIRE;
             fire.setFlammable(AMBlocks.WITCHWOOD_LOG.get(), 5, 5);
             fire.setFlammable(AMBlocks.WITCHWOOD_WOOD.get(), 5, 5);
@@ -158,7 +155,9 @@ final class AMEventHandler {
             fire.setFlammable(AMBlocks.DESERT_NOVA.get(), 60, 100);
             fire.setFlammable(AMBlocks.TARMA_ROOT.get(), 60, 100);
             fire.setFlammable(AMBlocks.WAKEBLOOM.get(), 60, 100);
-            CauldronInteraction.INTERACTIONS.forEach((k, v) -> v.map().put(AMItems.LIQUID_ETHERIUM_BUCKET.get(), LiquidEtheriumCauldronBlock::emptyBucket));
+            */
+            // TODO cauldron
+            //CauldronInteraction.INTERACTIONS.forEach((k, v) -> v.map().put(AMItems.LIQUID_ETHERIUM_BUCKET.get(), LiquidEtheriumCauldronBlock::emptyBucket));
             DispenserBlock.registerBehavior(AMItems.LIQUID_ETHERIUM_BUCKET, DispenseBucketBehavior.INSTANCE);
             DispenserBlock.registerBehavior(AMItems.WITCHWOOD_BOAT, new BoatDispenseItemBehavior(AMEntities.WITCHWOOD_BOAT.get()));
             DispenserBlock.registerBehavior(AMItems.WITCHWOOD_CHEST_BOAT, new BoatDispenseItemBehavior(AMEntities.WITCHWOOD_CHEST_BOAT.get()));
@@ -489,7 +488,7 @@ final class AMEventHandler {
     private static void potionAdded(MobEffectEvent.Added event) {
         LivingEntity entity = event.getEntity();
         MobEffectInstance effectInstance = event.getEffectInstance();
-        if (effectInstance != null && effectInstance.getEffect().value() instanceof AMMobEffect effect) {
+        if (effectInstance.getEffect().value() instanceof AMMobEffect effect) {
             effect.startEffect(entity, effectInstance);
         }
     }

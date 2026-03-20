@@ -3,11 +3,12 @@ package at.minecraftschurli.arsmagicalegacy.recipe.spelltransformation;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import org.jetbrains.annotations.Nullable;
@@ -30,12 +31,12 @@ public class SpellTransformationBuilder implements RecipeBuilder {
     }
 
     @Override
-    public Item getResult() {
-        return Items.AIR;
+    public ResourceKey<Recipe<?>> defaultId() {
+        return ResourceKey.create(Registries.RECIPE, BuiltInRegistries.BLOCK.getKey(recipe.result().getBlock()));
     }
 
     @Override
-    public void save(RecipeOutput recipeOutput, Identifier id) {
-        recipeOutput.accept(id, recipe, null);
+    public void save(RecipeOutput recipeOutput, ResourceKey<Recipe<?>> resourceKey) {
+        recipeOutput.accept(resourceKey, recipe, null);
     }
 }

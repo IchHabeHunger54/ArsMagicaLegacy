@@ -10,7 +10,6 @@ import at.minecraftschurli.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.atlas.SpellIconAtlasHolder;
 import at.minecraftschurli.arsmagicalegacy.client.extension.LiquidEtheriumClientFluidTypeExtensions;
-import at.minecraftschurli.arsmagicalegacy.client.extension.SpellClientItemExtensions;
 import at.minecraftschurli.arsmagicalegacy.client.gui.RiftScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.RuneBagScreen;
 import at.minecraftschurli.arsmagicalegacy.client.gui.SpellBookScreen;
@@ -31,8 +30,8 @@ import at.minecraftschurli.arsmagicalegacy.client.model.DryadModel;
 import at.minecraftschurli.arsmagicalegacy.client.model.item.CrystalPhylacteryItemTintSource;
 import at.minecraftschurli.arsmagicalegacy.client.model.item.CrystalPhylacteryRangeSelectItemModelProperty;
 import at.minecraftschurli.arsmagicalegacy.client.model.item.CrystalWrenchActiveItemModelProperty;
-import at.minecraftschurli.arsmagicalegacy.client.model.item.EtheriumTypeItemTintSource;
 import at.minecraftschurli.arsmagicalegacy.client.model.item.DataComponentOverridesModel;
+import at.minecraftschurli.arsmagicalegacy.client.model.item.EtheriumTypeItemTintSource;
 import at.minecraftschurli.arsmagicalegacy.client.model.item.SpellItemModel;
 import at.minecraftschurli.arsmagicalegacy.client.particle.ParticleSpawnerManager;
 import at.minecraftschurli.arsmagicalegacy.client.particle.SimpleParticleProvider;
@@ -77,7 +76,21 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.event.AddClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.neoforge.client.event.RegisterBlockStateModels;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.event.RegisterConditionalItemModelPropertyEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.event.RegisterItemModelsEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.event.RegisterRangeSelectItemModelPropertyEvent;
+import net.neoforged.neoforge.client.event.RegisterTextureAtlasesEvent;
+import net.neoforged.neoforge.client.event.RenderHandEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
@@ -202,7 +215,6 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void registerClientExtensions(RegisterClientExtensionsEvent event) {
         event.registerFluidType(LiquidEtheriumClientFluidTypeExtensions.INSTANCE, AMFluids.LIQUID_ETHERIUM_TYPE);
-        event.registerItem(SpellClientItemExtensions.INSTANCE, AMItems.SPELL, AMItems.SPELL_BOOK);
     }
 
     @SubscribeEvent

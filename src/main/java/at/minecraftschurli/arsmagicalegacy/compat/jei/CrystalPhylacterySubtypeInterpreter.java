@@ -1,3 +1,4 @@
+/* TODO jei
 package at.minecraftschurli.arsmagicalegacy.compat.jei;
 
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
@@ -22,3 +23,4 @@ public final class CrystalPhylacterySubtypeInterpreter implements ISubtypeInterp
         return CrystalPhylacteryContentsSize.get(type) > 0 ? type : null;
     }
 }
+*/

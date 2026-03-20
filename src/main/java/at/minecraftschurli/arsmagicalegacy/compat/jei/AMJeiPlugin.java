@@ -1,3 +1,4 @@
+/* TODO jei
 package at.minecraftschurli.arsmagicalegacy.compat.jei;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
@@ -76,3 +77,4 @@ public final class AMJeiPlugin implements IModPlugin {
         return runtime;
     }
 }
+*/

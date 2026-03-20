@@ -1,3 +1,4 @@
+/* TODO jei
 package at.minecraftschurli.arsmagicalegacy.compat.jei;
 
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
@@ -22,3 +23,4 @@ public class SkillIngredientRenderer implements IIngredientRenderer<Skill> {
         return List.of(Skill.getName(AMRegistries.skills(true).wrapAsHolder(skill)));
     }
 }
+*/

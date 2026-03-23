@@ -12,8 +12,8 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
 import at.minecraftschurli.arsmagicalegacy.util.AMDataManager;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ItemStackTemplate;
+import vazkii.patchouli.api.PatchouliAPI;
 
 public final class ArsMagicaApiImpl extends ArsMagicaApi {
     private static final Identifier ARCANE_COMPENDIUM = ArsMagicaApi.id("arcane_compendium");
@@ -27,9 +27,8 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     private static final AMDataManager<SpellPartData> SPELL_PART_DATA_MANAGER = new AMDataManager<>(id("spell_part"), SpellPartData.CODEC);
 
     @Override
-    protected ItemStack getBook() {
-        return new ItemStack(Items.BOOK);
-        // TODO patchouli return PatchouliAPI.get().getBookStack(ARCANE_COMPENDIUM);
+    protected ItemStackTemplate getBook() {
+        return PatchouliAPI.get().getBookStackTemplate(ARCANE_COMPENDIUM);
     }
 
     @Override

@@ -109,10 +109,10 @@ dependencies {
     // patchouli for the guide book (arcane compendium)
     val patchouliApiDep = patchouli.version.map { "vazkii.patchouli:Patchouli:${it}:api" }
     val patchouliDep = patchouli.version.map { "vazkii.patchouli:Patchouli:${it}" }
-    //compileOnly(patchouliApiDep)
-    //runtimeOnly(patchouliDep)
-    //testRuntimeOnly(patchouliDep)
-    //"dataRuntimeOnly"(patchouliDep)
+    compileOnly(patchouliApiDep)
+    runtimeOnly(patchouliDep)
+    testRuntimeOnly(patchouliDep)
+    "dataRuntimeOnly"(patchouliDep)
 
     // geckolib for animations
     val geckolibDep = helper.minecraftVersion.zip(geckolib.version) { mc, version -> "com.geckolib:geckolib-neoforge-${/*mc*/ "26.1-snapshot-11"}:${version}" }

@@ -28,6 +28,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -48,7 +49,9 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -189,7 +192,7 @@ public final class AMUtil {
         if (!positions.isEmpty()) {
             int timer = itemFrame.getData(AMAttachments.COMPENDIUM_TIMER);
             if (timer >= AMServerConfig.ARCANE_COMPENDIUM_CONVERSION_DURATION.getAsInt()) {
-                itemFrame.setItem(ArsMagicaApi.book());
+                itemFrame.setItem(ArsMagicaApi.book().create());
                 if (level.isClientSide()) {
                     AMClientUtil.spawnArcaneCompendiumConversionFinishParticles(itemFrame.position());
                 }
@@ -334,5 +337,9 @@ public final class AMUtil {
         if (!player.getInventory().add(stack)) {
             player.drop(stack, false);
         }
+    }
+
+    public static <T> ItemStackTemplate template(Holder<Item> item, DataComponentType<T> componentType, T value) {
+        return new ItemStackTemplate(item, DataComponentPatch.builder().set(componentType, value).build());
     }
 }

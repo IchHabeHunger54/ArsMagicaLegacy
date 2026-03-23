@@ -16,7 +16,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public interface AMArmorMaterials {
-    ArmorMaterial MAGITECH_GOGGLES = register("magitech_goggles", 10, Map.of(ArmorType.HELMET, 0), 0, SoundEvents.ARMOR_EQUIP_LEATHER, AMTags.Items.MAGITECH_GOGGLES_REPAIR_ITEMS, 0);
+    ArmorMaterial MAGITECH_GOGGLES = register("magitech_goggles", 10, Map.of(ArmorType.HELMET, 0), 1, SoundEvents.ARMOR_EQUIP_LEATHER, AMTags.Items.MAGITECH_GOGGLES_REPAIR_ITEMS, 0);
     ArmorMaterial MAGE = register("mage", 8, defenseMap(2, 6, 4, 2), 15, SoundEvents.ARMOR_EQUIP_LEATHER, AMTags.Items.MAGE_ARMOR_REPAIR_ITEMS, 0.5f);
     ArmorMaterial BATTLEMAGE = register("battlemage", 12, defenseMap(3, 8, 6, 3), 10, SoundEvents.ARMOR_EQUIP_NETHERITE, AMTags.Items.BATTLEMAGE_ARMOR_REPAIR_ITEMS, 1);
 

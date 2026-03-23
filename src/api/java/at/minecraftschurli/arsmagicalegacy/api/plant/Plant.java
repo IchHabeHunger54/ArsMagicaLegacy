@@ -6,8 +6,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
+
+import java.util.Optional;
 
 /**
  * Represents a plant. Plants are used by certain mod mechanics, such as the Harvest component or Dryads growing certain crops.
@@ -18,13 +21,13 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
  * @param tool          The tool {@link ItemStack} to use when harvesting.
  * @param allStates     A {@link RuleTest} for all states of the plant.
  */
-public record Plant(GrowthType growthType, RuleTest allStates, ItemStack seed, ItemStack crop, ItemStack tool) {
+public record Plant(GrowthType growthType, RuleTest allStates, Optional<ItemStackTemplate> seed, Optional<ItemStackTemplate> crop, Optional<ItemStackTemplate> tool) {
     public static final Codec<Plant> CODEC = RecordCodecBuilder.create(inst -> inst.group(
         GrowthType.CODEC.fieldOf("growth_type").forGetter(Plant::growthType),
         RuleTest.CODEC.fieldOf("all_states").forGetter(Plant::allStates),
-        ItemStack.OPTIONAL_CODEC.optionalFieldOf("seed", ItemStack.EMPTY).forGetter(Plant::seed),
-        ItemStack.OPTIONAL_CODEC.optionalFieldOf("crop", ItemStack.EMPTY).forGetter(Plant::crop),
-        ItemStack.OPTIONAL_CODEC.optionalFieldOf("tool", ItemStack.EMPTY).forGetter(Plant::tool)
+        ItemStackTemplate.CODEC.optionalFieldOf("seed").forGetter(Plant::seed),
+        ItemStackTemplate.CODEC.optionalFieldOf("crop").forGetter(Plant::crop),
+        ItemStackTemplate.CODEC.optionalFieldOf("tool").forGetter(Plant::tool)
     ).apply(inst, Plant::new));
 
     /**

@@ -23,7 +23,7 @@ public interface AMCreativeTabs {
     DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ArsMagicaApi.MOD_ID);
     DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN = CREATIVE_TABS.register("main", () -> CreativeModeTab.builder()
         .title(Component.translatable("itemGroup." + ArsMagicaApi.MOD_ID))
-        .icon(ArsMagicaApi::book)
+        .icon(ArsMagicaApi.book()::create)
         .displayItems((display, output) -> {
             output.accept(AMItems.LIQUID_ETHERIUM_BUCKET);
             output.accept(AMItems.OCCULUS);

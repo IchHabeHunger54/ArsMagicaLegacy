@@ -10,8 +10,8 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import java.util.Map;
 
 public final class ParticleSpawnerManager extends AMDataManager<ParticleSpawner> {
-    public static final ParticleSpawnerManager INSTANCE = new ParticleSpawnerManager();
     public static final Identifier ID = ArsMagicaApi.id("particle_spawners");
+    public static final ParticleSpawnerManager INSTANCE = new ParticleSpawnerManager();
 
     private ParticleSpawnerManager() {
         super(ID, ParticleSpawner.CODEC);

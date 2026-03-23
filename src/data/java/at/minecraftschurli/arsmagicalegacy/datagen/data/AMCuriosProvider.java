@@ -1,4 +1,3 @@
-/* TODO curios
 package at.minecraftschurli.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
@@ -18,4 +17,3 @@ public final class AMCuriosProvider extends CuriosDataProvider {
         createEntities("player").addPlayer().addSlots("head");
     }
 }
-*/

@@ -8,7 +8,7 @@
     {
       "type": "arsmagicalegacy:attribute",
       "modifiers": {
-        "minecraft:generic.movement_speed": {
+        "minecraft:movement_speed": {
           "id": "arsmagicalegacy:slowness",
           "max": -0.05,
           "min": 0.0,

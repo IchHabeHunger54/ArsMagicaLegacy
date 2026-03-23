@@ -7,16 +7,12 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:gray_rune"
-      }
+      "item": "arsmagicalegacy:gray_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:stones"
-      }
+      "item": "#c:stones"
     }
   ]
 }

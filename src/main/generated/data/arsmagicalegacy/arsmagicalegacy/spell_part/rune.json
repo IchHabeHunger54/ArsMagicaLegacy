@@ -5,44 +5,32 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:black_rune"
-      }
+      "item": "arsmagicalegacy:black_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:blue_rune"
-      }
+      "item": "arsmagicalegacy:blue_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:green_rune"
-      }
+      "item": "arsmagicalegacy:green_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:red_rune"
-      }
+      "item": "arsmagicalegacy:red_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:white_rune"
-      }
+      "item": "arsmagicalegacy:white_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:yellow_rune"
-      }
+      "item": "arsmagicalegacy:yellow_rune"
     }
   ]
 }

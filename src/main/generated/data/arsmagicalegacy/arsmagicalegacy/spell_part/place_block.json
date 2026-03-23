@@ -7,16 +7,12 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:light_gray_rune"
-      }
+      "item": "arsmagicalegacy:light_gray_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:chests/wooden"
-      }
+      "item": "#c:chests/wooden"
     }
   ]
 }

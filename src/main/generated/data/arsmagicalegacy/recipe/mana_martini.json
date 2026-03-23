@@ -2,20 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
+    "#c:rods/wooden",
+    "#c:crops/potato",
+    "minecraft:ice",
+    "minecraft:sugar",
     {
-      "tag": "c:rods/wooden"
-    },
-    {
-      "tag": "c:crops/potato"
-    },
-    {
-      "item": "minecraft:ice"
-    },
-    {
-      "item": "minecraft:sugar"
-    },
-    {
-      "type": "neoforge:components",
+      "neoforge:ingredient_type": "neoforge:components",
       "components": {
         "minecraft:potion_contents": {
           "potion": "minecraft:water"
@@ -25,7 +17,6 @@
     }
   ],
   "result": {
-    "count": 1,
     "id": "arsmagicalegacy:mana_martini"
   }
 }

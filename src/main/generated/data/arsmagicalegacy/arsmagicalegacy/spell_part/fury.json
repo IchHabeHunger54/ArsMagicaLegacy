@@ -7,23 +7,17 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:orange_rune"
-      }
+      "item": "arsmagicalegacy:orange_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:rods/blaze"
-      }
+      "item": "#c:rods/blaze"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:tropical_fish"
-      }
+      "item": "minecraft:tropical_fish"
     }
   ]
 }

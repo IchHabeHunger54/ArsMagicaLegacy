@@ -4,7 +4,6 @@
     "predicate_type": "minecraft:block_match"
   },
   "crop": {
-    "count": 1,
     "id": "minecraft:cocoa_beans"
   },
   "growth_type": {
@@ -77,7 +76,6 @@
     ]
   },
   "seed": {
-    "count": 1,
     "id": "minecraft:cocoa_beans"
   }
 }

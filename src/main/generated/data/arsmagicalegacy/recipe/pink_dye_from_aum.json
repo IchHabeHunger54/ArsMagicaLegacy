@@ -3,12 +3,9 @@
   "category": "misc",
   "group": "pink_dye",
   "ingredients": [
-    {
-      "item": "arsmagicalegacy:aum"
-    }
+    "arsmagicalegacy:aum"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:pink_dye"
   }
 }

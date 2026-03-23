@@ -5,9 +5,7 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:tnt"
-      }
+      "item": "minecraft:tnt"
     },
     {
       "type": "arsmagicalegacy:etherium",

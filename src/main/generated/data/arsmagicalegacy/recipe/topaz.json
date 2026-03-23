@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:storage_blocks/topaz"
-    }
+    "#c:storage_blocks/topaz"
   ],
   "result": {
     "count": 9,

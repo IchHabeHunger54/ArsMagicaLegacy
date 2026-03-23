@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "hanging_sign",
   "key": {
-    "#": {
-      "item": "arsmagicalegacy:stripped_witchwood_log"
-    },
-    "X": {
-      "item": "minecraft:chain"
-    }
+    "#": "arsmagicalegacy:stripped_witchwood_log",
+    "X": "minecraft:iron_chain"
   },
   "pattern": [
     "X X",

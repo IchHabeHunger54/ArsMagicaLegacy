@@ -5,30 +5,22 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:dusts/vinteum"
-      }
+      "item": "#c:dusts/vinteum"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:fences/wooden"
-      }
+      "item": "#c:fences/wooden"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:magic_wall"
-      }
+      "item": "arsmagicalegacy:magic_wall"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "minecraft:walls"
-      }
+      "item": "#minecraft:walls"
     },
     {
       "type": "arsmagicalegacy:etherium",

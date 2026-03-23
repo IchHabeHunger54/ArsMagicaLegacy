@@ -8,7 +8,7 @@
     {
       "type": "arsmagicalegacy:attribute",
       "modifiers": {
-        "minecraft:generic.gravity": {
+        "minecraft:gravity": {
           "id": "arsmagicalegacy:gravity",
           "max": 0.5,
           "min": 0.0,

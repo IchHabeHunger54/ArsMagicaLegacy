@@ -13,7 +13,6 @@
     ]
   },
   "crop": {
-    "count": 1,
     "id": "minecraft:glow_berries"
   },
   "growth_type": {
@@ -37,7 +36,6 @@
     "head": "minecraft:cave_vines"
   },
   "seed": {
-    "count": 1,
     "id": "minecraft:glow_berries"
   }
 }

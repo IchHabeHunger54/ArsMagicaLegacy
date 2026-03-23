@@ -6,7 +6,7 @@
       "type": "arsmagicalegacy:item",
       "count": 1,
       "item": {
-        "type": "neoforge:components",
+        "neoforge:ingredient_type": "neoforge:components",
         "components": {
           "arsmagicalegacy:affinity": "arsmagicalegacy:air"
         },
@@ -16,9 +16,7 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:slime_balls"
-      }
+      "item": "#c:slime_balls"
     }
   ]
 }

@@ -7,23 +7,17 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:cyan_rune"
-      }
+      "item": "arsmagicalegacy:cyan_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:gems/moonstone"
-      }
+      "item": "#c:gems/moonstone"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:cerublossom"
-      }
+      "item": "arsmagicalegacy:cerublossom"
     }
   ]
 }

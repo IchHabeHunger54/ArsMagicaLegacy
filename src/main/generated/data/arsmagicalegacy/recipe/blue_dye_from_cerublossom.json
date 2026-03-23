@@ -3,12 +3,9 @@
   "category": "misc",
   "group": "blue_dye",
   "ingredients": [
-    {
-      "item": "arsmagicalegacy:cerublossom"
-    }
+    "arsmagicalegacy:cerublossom"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:blue_dye"
   }
 }

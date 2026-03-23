@@ -7,23 +7,17 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:green_rune"
-      }
+      "item": "arsmagicalegacy:green_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:wheat_seeds"
-      }
+      "item": "minecraft:wheat_seeds"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:witchwood_sapling"
-      }
+      "item": "arsmagicalegacy:witchwood_sapling"
     }
   ]
 }

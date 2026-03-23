@@ -7,30 +7,22 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:bones"
-      }
+      "item": "#c:bones"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:brown_mushroom"
-      }
+      "item": "minecraft:brown_mushroom"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:spider_eye"
-      }
+      "item": "minecraft:spider_eye"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:stone_button"
-      }
+      "item": "minecraft:stone_button"
     }
   ]
 }

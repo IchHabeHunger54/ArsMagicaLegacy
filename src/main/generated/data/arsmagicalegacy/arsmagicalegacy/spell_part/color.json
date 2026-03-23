@@ -5,9 +5,7 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:chimerite"
-      }
+      "item": "arsmagicalegacy:chimerite"
     }
   ]
 }

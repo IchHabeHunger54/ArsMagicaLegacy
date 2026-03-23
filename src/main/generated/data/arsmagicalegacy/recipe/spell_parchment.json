@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "P": {
-      "item": "minecraft:paper"
-    },
-    "S": {
-      "tag": "c:rods/wooden"
-    }
+    "P": "minecraft:paper",
+    "S": "#c:rods/wooden"
   },
   "pattern": [
     "S",
@@ -15,7 +11,6 @@
     "S"
   ],
   "result": {
-    "count": 1,
     "id": "arsmagicalegacy:spell_parchment"
   }
 }

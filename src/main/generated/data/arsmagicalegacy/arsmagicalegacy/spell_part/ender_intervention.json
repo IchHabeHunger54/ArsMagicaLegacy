@@ -7,23 +7,17 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:purple_rune"
-      }
+      "item": "arsmagicalegacy:purple_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:ender_pearls"
-      }
+      "item": "#c:ender_pearls"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:ender_eye"
-      }
+      "item": "minecraft:ender_eye"
     }
   ]
 }

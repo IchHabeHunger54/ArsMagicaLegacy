@@ -7,16 +7,12 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:black_rune"
-      }
+      "item": "arsmagicalegacy:black_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:ender_pearls"
-      }
+      "item": "#c:ender_pearls"
     }
   ]
 }

@@ -22,12 +22,8 @@
   "trigger": {
     "type": "arsmagicalegacy:dropped_item",
     "ingredients": [
-      {
-        "tag": "minecraft:boats"
-      },
-      {
-        "item": "minecraft:water_bucket"
-      }
+      "#minecraft:boats",
+      "minecraft:water_bucket"
     ]
   }
 }

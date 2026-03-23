@@ -7,16 +7,12 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:pink_rune"
-      }
+      "item": "arsmagicalegacy:pink_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:dusts/glowstone"
-      }
+      "item": "#c:dusts/glowstone"
     }
   ]
 }

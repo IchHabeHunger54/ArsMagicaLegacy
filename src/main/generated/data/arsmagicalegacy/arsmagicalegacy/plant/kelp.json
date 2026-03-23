@@ -13,7 +13,6 @@
     ]
   },
   "crop": {
-    "count": 1,
     "id": "minecraft:kelp"
   },
   "growth_type": {
@@ -23,7 +22,6 @@
     "max_height": 26
   },
   "seed": {
-    "count": 1,
     "id": "minecraft:kelp"
   }
 }

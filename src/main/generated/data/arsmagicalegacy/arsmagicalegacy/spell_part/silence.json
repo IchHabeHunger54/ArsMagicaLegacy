@@ -7,23 +7,17 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:brown_rune"
-      }
+      "item": "arsmagicalegacy:brown_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "minecraft:wool"
-      }
+      "item": "#minecraft:wool"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:jukebox"
-      }
+      "item": "minecraft:jukebox"
     }
   ]
 }

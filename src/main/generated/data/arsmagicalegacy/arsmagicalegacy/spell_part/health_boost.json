@@ -8,7 +8,7 @@
       "type": "arsmagicalegacy:item",
       "count": 1,
       "item": {
-        "type": "neoforge:components",
+        "neoforge:ingredient_type": "neoforge:components",
         "components": {
           "arsmagicalegacy:affinity": "arsmagicalegacy:life"
         },
@@ -18,16 +18,12 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:light_blue_rune"
-      }
+      "item": "arsmagicalegacy:light_blue_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:enchanted_golden_apple"
-      }
+      "item": "minecraft:enchanted_golden_apple"
     }
   ]
 }

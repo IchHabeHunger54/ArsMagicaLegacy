@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "arsmagicalegacy:blank_rune"
-    },
-    {
-      "tag": "c:dyes/red"
-    }
+    "arsmagicalegacy:blank_rune",
+    "#c:dyes/red"
   ],
   "result": {
-    "count": 1,
     "id": "arsmagicalegacy:red_rune"
   }
 }

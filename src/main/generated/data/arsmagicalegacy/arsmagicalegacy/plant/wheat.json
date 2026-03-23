@@ -4,7 +4,6 @@
     "predicate_type": "minecraft:block_match"
   },
   "crop": {
-    "count": 1,
     "id": "minecraft:wheat"
   },
   "growth_type": {
@@ -27,7 +26,6 @@
     ]
   },
   "seed": {
-    "count": 1,
     "id": "minecraft:wheat_seeds"
   }
 }

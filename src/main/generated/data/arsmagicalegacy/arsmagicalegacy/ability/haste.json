@@ -8,13 +8,13 @@
     {
       "type": "arsmagicalegacy:attribute",
       "modifiers": {
-        "minecraft:generic.attack_speed": {
+        "minecraft:attack_speed": {
           "id": "arsmagicalegacy:haste",
           "max": 0.5,
           "min": 0.0,
           "operation": "add_multiplied_total"
         },
-        "minecraft:player.block_break_speed": {
+        "minecraft:block_break_speed": {
           "id": "arsmagicalegacy:haste",
           "max": 0.5,
           "min": 0.0,

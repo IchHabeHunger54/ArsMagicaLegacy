@@ -6,6 +6,7 @@
     "minecraft:giant",
     "minecraft:illusioner",
     "minecraft:player",
-    "minecraft:warden"
+    "minecraft:warden",
+    "minecraft:creaking"
   ]
 }

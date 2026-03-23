@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "arsmagicalegacy:item/wizards_chalk"
+    "layer0": "arsmagicalegacy:block/wizards_chalk"
   }
 }

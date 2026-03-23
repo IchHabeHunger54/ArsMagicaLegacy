@@ -7,7 +7,7 @@
     {
       "type": "arsmagicalegacy:attribute",
       "modifiers": {
-        "minecraft:generic.step_height": {
+        "minecraft:step_height": {
           "id": "arsmagicalegacy:step_assist",
           "max": 0.4,
           "min": 0.0,

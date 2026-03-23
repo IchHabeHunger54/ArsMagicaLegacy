@@ -7,23 +7,17 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:white_rune"
-      }
+      "item": "arsmagicalegacy:white_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:gems/chimerite"
-      }
+      "item": "#c:gems/chimerite"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:glass_blocks"
-      }
+      "item": "#c:glass_blocks"
     }
   ]
 }

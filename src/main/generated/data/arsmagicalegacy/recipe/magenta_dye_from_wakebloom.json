@@ -3,12 +3,9 @@
   "category": "misc",
   "group": "magenta_dye",
   "ingredients": [
-    {
-      "item": "arsmagicalegacy:wakebloom"
-    }
+    "arsmagicalegacy:wakebloom"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:magenta_dye"
   }
 }

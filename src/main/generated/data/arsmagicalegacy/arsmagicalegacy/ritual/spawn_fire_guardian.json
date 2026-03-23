@@ -11,14 +11,15 @@
       "structure": "arsmagicalegacy:fire_guardian_spawn_ritual"
     },
     {
-      "type": "arsmagicalegacy:ultrawarm"
+      "type": "arsmagicalegacy:environment_attribute",
+      "value": true
     }
   ],
   "trigger": {
     "type": "arsmagicalegacy:dropped_item",
     "ingredients": [
       {
-        "type": "neoforge:components",
+        "neoforge:ingredient_type": "neoforge:components",
         "components": {
           "arsmagicalegacy:affinity": "arsmagicalegacy:water"
         },

@@ -7,16 +7,12 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:green_rune"
-      }
+      "item": "arsmagicalegacy:green_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:slime_balls"
-      }
+      "item": "#c:slime_balls"
     }
   ]
 }

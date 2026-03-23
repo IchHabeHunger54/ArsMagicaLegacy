@@ -7,22 +7,18 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:white_rune"
-      }
+      "item": "arsmagicalegacy:white_rune"
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": "#c:gems/chimerite"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
       "item": {
-        "tag": "c:gems/chimerite"
-      }
-    },
-    {
-      "type": "arsmagicalegacy:item",
-      "count": 1,
-      "item": {
-        "type": "neoforge:components",
+        "neoforge:ingredient_type": "neoforge:components",
         "components": {
           "minecraft:potion_contents": {
             "potion": "minecraft:invisibility"

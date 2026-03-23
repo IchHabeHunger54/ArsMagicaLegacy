@@ -7,30 +7,22 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:light_gray_rune"
-      }
+      "item": "arsmagicalegacy:light_gray_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:rods/blaze"
-      }
+      "item": "#c:rods/blaze"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:glass_blocks"
-      }
+      "item": "#c:glass_blocks"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "arsmagicalegacy:witchwood_logs"
-      }
+      "item": "#arsmagicalegacy:witchwood_logs"
     }
   ]
 }

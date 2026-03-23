@@ -6,7 +6,7 @@
       "type": "arsmagicalegacy:item",
       "count": 1,
       "item": {
-        "type": "neoforge:components",
+        "neoforge:ingredient_type": "neoforge:components",
         "components": {
           "arsmagicalegacy:affinity": "arsmagicalegacy:water"
         },
@@ -16,16 +16,12 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:arrow"
-      }
+      "item": "minecraft:arrow"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:snowball"
-      }
+      "item": "minecraft:snowball"
     }
   ]
 }

@@ -2,12 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "redstone",
   "ingredients": [
-    {
-      "item": "arsmagicalegacy:witchwood_planks"
-    }
+    "arsmagicalegacy:witchwood_planks"
   ],
   "result": {
-    "count": 1,
     "id": "arsmagicalegacy:witchwood_button"
   }
 }

@@ -1,55 +1,5 @@
 {
   "parent": "minecraft:item/generated",
-  "overrides": [
-    {
-      "model": "arsmagicalegacy:item/crystal_phylactery_fill_0",
-      "predicate": {
-        "arsmagicalegacy:crystal_phylactery_fill": 0.125
-      }
-    },
-    {
-      "model": "arsmagicalegacy:item/crystal_phylactery_fill_1",
-      "predicate": {
-        "arsmagicalegacy:crystal_phylactery_fill": 0.25
-      }
-    },
-    {
-      "model": "arsmagicalegacy:item/crystal_phylactery_fill_2",
-      "predicate": {
-        "arsmagicalegacy:crystal_phylactery_fill": 0.375
-      }
-    },
-    {
-      "model": "arsmagicalegacy:item/crystal_phylactery_fill_3",
-      "predicate": {
-        "arsmagicalegacy:crystal_phylactery_fill": 0.5
-      }
-    },
-    {
-      "model": "arsmagicalegacy:item/crystal_phylactery_fill_4",
-      "predicate": {
-        "arsmagicalegacy:crystal_phylactery_fill": 0.625
-      }
-    },
-    {
-      "model": "arsmagicalegacy:item/crystal_phylactery_fill_5",
-      "predicate": {
-        "arsmagicalegacy:crystal_phylactery_fill": 0.75
-      }
-    },
-    {
-      "model": "arsmagicalegacy:item/crystal_phylactery_fill_6",
-      "predicate": {
-        "arsmagicalegacy:crystal_phylactery_fill": 0.875
-      }
-    },
-    {
-      "model": "arsmagicalegacy:item/crystal_phylactery_fill_7",
-      "predicate": {
-        "arsmagicalegacy:crystal_phylactery_fill": 1.0
-      }
-    }
-  ],
   "textures": {
     "layer0": "arsmagicalegacy:item/crystal_phylactery"
   }

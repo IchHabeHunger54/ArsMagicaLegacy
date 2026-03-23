@@ -5,16 +5,12 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:dusts/vinteum"
-      }
+      "item": "#c:dusts/vinteum"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:magic_wall"
-      }
+      "item": "arsmagicalegacy:magic_wall"
     },
     {
       "type": "arsmagicalegacy:etherium",

@@ -25,7 +25,6 @@
       "components": {
         "patchouli:book": "arsmagicalegacy:arcane_compendium"
       },
-      "count": 1,
       "id": "patchouli:guide_book"
     },
     "show_toast": false,

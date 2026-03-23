@@ -21,7 +21,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AltarCoreRenderer extends AbstractEtheriumBlockEntityRenderer<AltarCoreBlockEntity, AltarCoreRenderer.State> {
-    private static final ItemStack BARRIER = new ItemStack(Items.BARRIER);
+    private static final ItemStackTemplate BARRIER = new ItemStackTemplate(Items.BARRIER);
     private final Font font;
     private final ItemModelResolver itemModelResolver;
 
@@ -81,7 +81,7 @@ public class AltarCoreRenderer extends AbstractEtheriumBlockEntityRenderer<Altar
         state.light = LevelRenderer.getLightCoords(level, lecternPos.above());
         state.backgroundColor = (int) (AMClientUtil.mc().options.getBackgroundOpacity(0.25f) * 255) << 24;
         state.rotation = Axis.YP.rotationDegrees(level.getGameTime() % 360 + partialTicks);
-        itemModelResolver.updateForTopItem(state.item, blockEntity.hasRecipe() ? AMUtil.getByTick(ingredient.asItemStacks(), AMClientUtil.player().tickCount / 20).copyWithCount(1) : BARRIER, ItemDisplayContext.FIXED, level, null, (int) pos.asLong());
+        itemModelResolver.updateForTopItem(state.item, blockEntity.hasRecipe() ? AMUtil.getByTick(ingredient.asItemStacks(), AMClientUtil.player().tickCount / 20).copyWithCount(1) : BARRIER.create(), ItemDisplayContext.FIXED, level, null, (int) pos.asLong());
     }
 
     @Override

@@ -11,6 +11,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.util.Lazy;
 import org.jetbrains.annotations.ApiStatus;
@@ -45,7 +46,7 @@ public abstract class ArsMagicaApi {
     /**
      * @return An Arcane Compendium {@link ItemStack}.
      */
-    public static ItemStack book() {
+    public static ItemStackTemplate book() {
         return INSTANCE.get().getBook();
     }
 
@@ -106,7 +107,7 @@ public abstract class ArsMagicaApi {
     }
 
     @ApiStatus.Internal
-    protected abstract ItemStack getBook();
+    protected abstract ItemStackTemplate getBook();
 
     @ApiStatus.Internal
     protected abstract AbilityHelper getAbilityHelper();

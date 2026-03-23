@@ -3,6 +3,7 @@ package at.minecraftschurli.arsmagicalegacy.datagen.assets;
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.block.AltarCoreBlock;
 import at.minecraftschurli.arsmagicalegacy.block.CelestialPrismBlock;
+import at.minecraftschurli.arsmagicalegacy.block.InlayBlock;
 import at.minecraftschurli.arsmagicalegacy.block.ObeliskBlock;
 import at.minecraftschurli.arsmagicalegacy.block.SpellRuneBlock;
 import at.minecraftschurli.arsmagicalegacy.block.WizardsChalkBlock;
@@ -25,6 +26,8 @@ import net.minecraft.client.color.item.Dye;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplate;
@@ -38,6 +41,7 @@ import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.RangeSelectItemModel;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.PackOutput;
@@ -45,7 +49,9 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Util;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.client.model.block.CustomUnbakedBlockStateModel;
 import net.neoforged.neoforge.client.model.generators.blockstate.CustomBlockStateModelBuilder;
@@ -58,6 +64,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 public final class AMModelProvider extends AbstractModelProvider {
     private static final TextureSlot TEX = TextureSlot.create("tex");
@@ -97,6 +104,11 @@ public final class AMModelProvider extends AbstractModelProvider {
     }
 
     @Override
+    protected Stream<? extends Holder<Block>> getKnownBlocks() {
+        return super.getKnownBlocks().filter(h -> !h.is(AMBlocks.INSCRIPTION_TABLE.getKey()));
+    }
+
+    @Override
     protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         registerBlockModels(blockModels);
         registerItemModels(itemModels);
@@ -111,10 +123,9 @@ public final class AMModelProvider extends AbstractModelProvider {
         blockModels.createHangingSign(AMBlocks.STRIPPED_WITCHWOOD_LOG.get(), AMBlocks.WITCHWOOD_HANGING_SIGN.get(), AMBlocks.WITCHWOOD_WALL_HANGING_SIGN.get());
         blockModels.createPlantWithDefaultItem(AMBlocks.WITCHWOOD_SAPLING.get(), AMBlocks.POTTED_WITCHWOOD_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
         blockModels.createTrivialCube(AMBlocks.WITCHWOOD_LEAVES.get());
-        blockModels.createPlantWithDefaultItem(AMBlocks.WITCHWOOD_SAPLING.get(), AMBlocks.POTTED_WITCHWOOD_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
         blockModels.createPlantWithDefaultItem(AMBlocks.AUM.get(), AMBlocks.POTTED_AUM.get(), BlockModelGenerators.PlantType.NOT_TINTED);
         blockModels.createPlantWithDefaultItem(AMBlocks.CERUBLOSSOM.get(), AMBlocks.POTTED_CERUBLOSSOM.get(), BlockModelGenerators.PlantType.NOT_TINTED);
-        blockModels.createPlantWithDefaultItem(AMBlocks.DESERT_NOVA.get(), AMBlocks.POTTED_DESERT_NOVA.get(), BlockModelGenerators.PlantType.EMISSIVE_NOT_TINTED);
+        blockModels.createPlantWithDefaultItem(AMBlocks.DESERT_NOVA.get(), AMBlocks.POTTED_DESERT_NOVA.get(), BlockModelGenerators.PlantType.NOT_TINTED);
         blockModels.createPlantWithDefaultItem(AMBlocks.TARMA_ROOT.get(), AMBlocks.POTTED_TARMA_ROOT.get(), BlockModelGenerators.PlantType.NOT_TINTED);
         blockModels.createPlantWithDefaultItem(AMBlocks.WAKEBLOOM.get(), AMBlocks.POTTED_WAKEBLOOM.get(), BlockModelGenerators.PlantType.NOT_TINTED);
         blockModels.createTrivialCube(AMBlocks.CHIMERITE_ORE.get());
@@ -131,9 +142,9 @@ public final class AMModelProvider extends AbstractModelProvider {
         blockModels.createTrivialCube(AMBlocks.MOONSTONE_BLOCK.get());
         blockModels.createTrivialCube(AMBlocks.SUNSTONE_ORE.get());
         blockModels.createTrivialCube(AMBlocks.SUNSTONE_BLOCK.get());
-        blockModels.createPassiveRail(AMBlocks.REDSTONE_INLAY.get());
-        blockModels.createPassiveRail(AMBlocks.IRON_INLAY.get());
-        blockModels.createPassiveRail(AMBlocks.GOLD_INLAY.get());
+        createInlay(blockModels, AMBlocks.REDSTONE_INLAY.get());
+        createInlay(blockModels, AMBlocks.IRON_INLAY.get());
+        createInlay(blockModels, AMBlocks.GOLD_INLAY.get());
         blockModels.createNormalTorch(AMBlocks.VINTEUM_TORCH.get(), AMBlocks.VINTEUM_WALL_TORCH.get());
         BlockModelDatagenUtil.builder(blockModels, AMBlocks.WIZARDS_CHALK)
             .withFlatItemModel()
@@ -148,7 +159,6 @@ public final class AMModelProvider extends AbstractModelProvider {
                 case UPPER -> PARTICLE_ONLY_TEMPLATE;
             }, TextureMapping.particle(AMBlocks.CELESTIAL_PRISM.get())
                 .put(TEX, TextureMapping.getBlockTexture(AMBlocks.CELESTIAL_PRISM.get())))
-            .withHorizontalRotation()
             .build();
         Identifier obeliskParticleOnly = PARTICLE_ONLY_TEMPLATE.create(
             AMBlocks.OBELISK.get(),
@@ -197,7 +207,7 @@ public final class AMModelProvider extends AbstractModelProvider {
     }
 
     private void registerItemModels(ItemModelGenerators itemModels) {
-        ModelTemplates.FLAT_ITEM.create(ArsMagicaApi.id("arcane_compendium"), TextureMapping.layer0(new Material(ArsMagicaApi.id("item/arcane_compendium"))), itemModels.modelOutput);
+        ModelTemplates.FLAT_ITEM.create(ArsMagicaApi.id("item/arcane_compendium"), TextureMapping.layer0(new Material(ArsMagicaApi.id("item/arcane_compendium"))), itemModels.modelOutput);
         itemWithVariants(
             itemModels,
             AMItems.SPELL,
@@ -308,9 +318,6 @@ public final class AMModelProvider extends AbstractModelProvider {
         basicItem(itemModels, AMItems.ARCANE_COMPOUND);
         basicItem(itemModels, AMItems.ARCANE_ASH);
         basicItem(itemModels, AMItems.PURIFIED_VINTEUM_DUST);
-        basicItem(itemModels, AMItems.WITCHWOOD_DOOR);
-        basicItem(itemModels, AMItems.WITCHWOOD_SIGN);
-        basicItem(itemModels, AMItems.WITCHWOOD_HANGING_SIGN);
         basicItem(itemModels, AMItems.WITCHWOOD_BOAT);
         basicItem(itemModels, AMItems.WITCHWOOD_CHEST_BOAT);
         basicItem(itemModels, AMItems.DRYAD_SPAWN_EGG);
@@ -350,12 +357,33 @@ public final class AMModelProvider extends AbstractModelProvider {
     private void itemWithVariants(ItemModelGenerators itemModels, DeferredItem<?> item, ItemModel.Unbaked model, List<? extends ResourceKey<?>> variants) {
         itemModels.itemModelOutput.accept(item.get(), model);
         for (ResourceKey<?> variant : variants) {
-            Identifier identifier = variant.identifier().withPrefix(item.getId().getPath() + "_");
+            Identifier identifier = variant.identifier().withPrefix("item/" + item.getId().getPath() + "_");
             ModelTemplates.FLAT_ITEM.create(
                 identifier,
                 TextureMapping.layer0(new Material(identifier.withPrefix("item/"))),
                 itemModels.modelOutput);
         }
+    }
+
+    public void createInlay(BlockModelGenerators blockModels, Block block) {
+        TextureMapping texture = TextureMapping.rail(block);
+        TextureMapping cornerTexture = TextureMapping.rail(TextureMapping.getBlockTexture(block, "_corner"));
+        MultiVariant flat = BlockModelGenerators.plainVariant(ModelTemplates.RAIL_FLAT.create(block, texture, blockModels.modelOutput));
+        MultiVariant curved = BlockModelGenerators.plainVariant(ModelTemplates.RAIL_CURVED.create(block, cornerTexture, blockModels.modelOutput));
+        blockModels.registerSimpleFlatItemModel(block);
+        blockModels.blockStateOutput
+            .accept(
+                MultiVariantGenerator.dispatch(block)
+                    .with(
+                        PropertyDispatch.initial(InlayBlock.SHAPE)
+                            .select(RailShape.NORTH_SOUTH, flat)
+                            .select(RailShape.EAST_WEST, flat.with(BlockModelGenerators.Y_ROT_90))
+                            .select(RailShape.SOUTH_EAST, curved)
+                            .select(RailShape.SOUTH_WEST, curved.with(BlockModelGenerators.Y_ROT_90))
+                            .select(RailShape.NORTH_WEST, curved.with(BlockModelGenerators.Y_ROT_180))
+                            .select(RailShape.NORTH_EAST, curved.with(BlockModelGenerators.Y_ROT_270))
+                    )
+            );
     }
 
     private static class Builder extends WrappingCustomBlockStateModelBuilder {

@@ -7,16 +7,12 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:light_blue_rune"
-      }
+      "item": "arsmagicalegacy:light_blue_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:powder_snow_bucket"
-      }
+      "item": "minecraft:powder_snow_bucket"
     }
   ]
 }

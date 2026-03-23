@@ -7,16 +7,12 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:magenta_rune"
-      }
+      "item": "arsmagicalegacy:magenta_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:popped_chorus_fruit"
-      }
+      "item": "minecraft:popped_chorus_fruit"
     }
   ]
 }

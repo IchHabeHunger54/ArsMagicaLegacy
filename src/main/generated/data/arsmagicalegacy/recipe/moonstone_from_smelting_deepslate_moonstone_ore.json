@@ -4,11 +4,8 @@
   "cookingtime": 200,
   "experience": 0.7,
   "group": "moonstone",
-  "ingredient": {
-    "item": "arsmagicalegacy:deepslate_moonstone_ore"
-  },
+  "ingredient": "arsmagicalegacy:deepslate_moonstone_ore",
   "result": {
-    "count": 1,
     "id": "arsmagicalegacy:moonstone"
   }
 }

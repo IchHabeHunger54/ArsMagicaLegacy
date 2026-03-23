@@ -5,16 +5,12 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:gems/topaz"
-      }
+      "item": "#c:gems/topaz"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:aum"
-      }
+      "item": "arsmagicalegacy:aum"
     },
     {
       "type": "arsmagicalegacy:etherium",

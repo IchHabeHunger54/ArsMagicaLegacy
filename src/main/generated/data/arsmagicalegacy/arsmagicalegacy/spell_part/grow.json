@@ -7,23 +7,17 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:green_rune"
-      }
+      "item": "arsmagicalegacy:green_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:bone_meal"
-      }
+      "item": "minecraft:bone_meal"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "arsmagicalegacy:witchwood_logs"
-      }
+      "item": "#arsmagicalegacy:witchwood_logs"
     }
   ]
 }

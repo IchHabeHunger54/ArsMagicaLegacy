@@ -4,7 +4,6 @@
     "predicate_type": "minecraft:block_match"
   },
   "crop": {
-    "count": 1,
     "id": "minecraft:vine"
   },
   "growth_type": {
@@ -13,11 +12,9 @@
     "head": "minecraft:vine"
   },
   "seed": {
-    "count": 1,
     "id": "minecraft:vine"
   },
   "tool": {
-    "count": 1,
     "id": "minecraft:shears"
   }
 }

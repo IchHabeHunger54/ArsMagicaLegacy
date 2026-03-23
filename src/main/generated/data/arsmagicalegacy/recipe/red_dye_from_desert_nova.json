@@ -3,12 +3,9 @@
   "category": "misc",
   "group": "red_dye",
   "ingredients": [
-    {
-      "item": "arsmagicalegacy:desert_nova"
-    }
+    "arsmagicalegacy:desert_nova"
   ],
   "result": {
-    "count": 1,
     "id": "minecraft:red_dye"
   }
 }

@@ -2,22 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "item": "arsmagicalegacy:arcane_ash"
-    },
+    "A": "arsmagicalegacy:arcane_ash",
     "E": {
-      "type": "neoforge:components",
+      "neoforge:ingredient_type": "neoforge:components",
       "components": {
         "arsmagicalegacy:affinity": "arsmagicalegacy:fire"
       },
       "items": "arsmagicalegacy:affinity_essence"
     },
-    "I": {
-      "tag": "minecraft:coals"
-    },
-    "J": {
-      "item": "minecraft:blaze_powder"
-    }
+    "I": "#minecraft:coals",
+    "J": "minecraft:blaze_powder"
   },
   "pattern": [
     "AIA",

@@ -9,16 +9,12 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:yellow_rune"
-      }
+      "item": "arsmagicalegacy:yellow_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:piston"
-      }
+      "item": "minecraft:piston"
     }
   ]
 }

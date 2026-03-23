@@ -7,30 +7,22 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:red_rune"
-      }
+      "item": "arsmagicalegacy:red_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:yellow_rune"
-      }
+      "item": "arsmagicalegacy:yellow_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:dusts/vinteum"
-      }
+      "item": "#c:dusts/vinteum"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:ingots/iron"
-      }
+      "item": "#c:ingots/iron"
     }
   ]
 }

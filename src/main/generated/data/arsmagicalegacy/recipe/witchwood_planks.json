@@ -3,9 +3,7 @@
   "category": "building",
   "group": "planks",
   "ingredients": [
-    {
-      "tag": "arsmagicalegacy:witchwood_logs"
-    }
+    "#arsmagicalegacy:witchwood_logs"
   ],
   "result": {
     "count": 4,

@@ -1,13 +1,5 @@
 {
   "parent": "minecraft:item/generated",
-  "overrides": [
-    {
-      "model": "arsmagicalegacy:item/crystal_wrench_active",
-      "predicate": {
-        "arsmagicalegacy:crystal_wrench_active": 1.0
-      }
-    }
-  ],
   "textures": {
     "layer0": "arsmagicalegacy:item/crystal_wrench"
   }

@@ -2,22 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "L": {
-      "tag": "c:leathers"
-    },
-    "R": {
-      "item": "arsmagicalegacy:magenta_rune"
-    },
-    "W": {
-      "tag": "minecraft:wool"
-    }
+    "L": "#c:leathers",
+    "R": "arsmagicalegacy:magenta_rune",
+    "W": "#minecraft:wool"
   },
   "pattern": [
     "LWL",
     "WRW"
   ],
   "result": {
-    "count": 1,
     "id": "arsmagicalegacy:mage_helmet"
   }
 }

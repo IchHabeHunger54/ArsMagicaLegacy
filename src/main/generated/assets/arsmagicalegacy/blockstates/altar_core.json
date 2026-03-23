@@ -4,7 +4,10 @@
       "model": "arsmagicalegacy:block/altar_core"
     },
     "formed=true": {
-      "model": "arsmagicalegacy:block/altar_core_overlay"
+      "type": "arsmagicalegacy:altar_core",
+      "parent": {
+        "model": "arsmagicalegacy:block/altar_core_overlay"
+      }
     }
   }
 }

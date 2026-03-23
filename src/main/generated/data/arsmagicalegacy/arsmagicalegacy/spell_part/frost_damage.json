@@ -7,30 +7,22 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:cyan_rune"
-      }
+      "item": "arsmagicalegacy:cyan_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:light_blue_rune"
-      }
+      "item": "arsmagicalegacy:light_blue_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:gems/topaz"
-      }
+      "item": "#c:gems/topaz"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:ice"
-      }
+      "item": "minecraft:ice"
     }
   ]
 }

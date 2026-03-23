@@ -43,9 +43,7 @@
   "requirements": [
     {
       "type": "arsmagicalegacy:ingredient",
-      "ingredient": {
-        "item": "arsmagicalegacy:moonstone"
-      },
+      "ingredient": "arsmagicalegacy:moonstone",
       "radius": 4.0
     },
     {

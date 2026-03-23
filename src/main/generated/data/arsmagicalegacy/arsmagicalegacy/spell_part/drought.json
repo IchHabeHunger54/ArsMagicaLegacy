@@ -7,16 +7,12 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:orange_rune"
-      }
+      "item": "arsmagicalegacy:orange_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:dead_bush"
-      }
+      "item": "minecraft:dead_bush"
     }
   ]
 }

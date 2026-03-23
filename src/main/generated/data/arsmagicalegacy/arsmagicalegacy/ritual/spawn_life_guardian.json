@@ -16,7 +16,7 @@
     },
     {
       "type": "arsmagicalegacy:moon_phase",
-      "moon_phase": 0
+      "moon_phase": "new_moon"
     }
   ],
   "trigger": {

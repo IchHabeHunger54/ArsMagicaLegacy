@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:storage_blocks/moonstone"
-    }
+    "#c:storage_blocks/moonstone"
   ],
   "result": {
     "count": 9,

@@ -7,30 +7,22 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:gray_rune"
-      }
+      "item": "arsmagicalegacy:gray_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:gems/chimerite"
-      }
+      "item": "#c:gems/chimerite"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:dusts/purified_vinteum"
-      }
+      "item": "#c:dusts/purified_vinteum"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:cerublossom"
-      }
+      "item": "arsmagicalegacy:cerublossom"
     },
     {
       "type": "arsmagicalegacy:etherium",

@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "sign",
   "key": {
-    "#": {
-      "item": "arsmagicalegacy:witchwood_planks"
-    },
-    "X": {
-      "item": "minecraft:stick"
-    }
+    "#": "arsmagicalegacy:witchwood_planks",
+    "X": "minecraft:stick"
   },
   "pattern": [
     "###",

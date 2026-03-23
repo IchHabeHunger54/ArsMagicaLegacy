@@ -7,16 +7,12 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:white_rune"
-      }
+      "item": "arsmagicalegacy:white_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:dusts/purified_vinteum"
-      }
+      "item": "#c:dusts/purified_vinteum"
     }
   ]
 }

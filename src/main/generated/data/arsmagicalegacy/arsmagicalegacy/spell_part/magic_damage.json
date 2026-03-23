@@ -7,30 +7,22 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:magenta_rune"
-      }
+      "item": "arsmagicalegacy:magenta_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:purple_rune"
-      }
+      "item": "arsmagicalegacy:purple_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:gems/chimerite"
-      }
+      "item": "#c:gems/chimerite"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:book"
-      }
+      "item": "minecraft:book"
     }
   ]
 }

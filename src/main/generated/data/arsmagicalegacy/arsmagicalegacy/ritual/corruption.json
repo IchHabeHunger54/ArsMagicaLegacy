@@ -37,9 +37,7 @@
   "requirements": [
     {
       "type": "arsmagicalegacy:ingredient",
-      "ingredient": {
-        "item": "arsmagicalegacy:sunstone"
-      },
+      "ingredient": "arsmagicalegacy:sunstone",
       "radius": 4.0
     },
     {

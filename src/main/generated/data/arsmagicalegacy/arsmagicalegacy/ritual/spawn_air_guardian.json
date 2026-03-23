@@ -24,9 +24,7 @@
   "trigger": {
     "type": "arsmagicalegacy:dropped_item",
     "ingredients": [
-      {
-        "item": "arsmagicalegacy:tarma_root"
-      }
+      "arsmagicalegacy:tarma_root"
     ]
   }
 }

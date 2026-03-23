@@ -18,9 +18,7 @@
   "trigger": {
     "type": "arsmagicalegacy:dropped_item",
     "ingredients": [
-      {
-        "item": "minecraft:ender_eye"
-      }
+      "minecraft:ender_eye"
     ]
   }
 }

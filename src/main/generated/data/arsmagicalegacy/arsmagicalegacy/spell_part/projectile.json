@@ -5,23 +5,17 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:dusts/vinteum"
-      }
+      "item": "#c:dusts/vinteum"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:arrow"
-      }
+      "item": "minecraft:arrow"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:snowball"
-      }
+      "item": "minecraft:snowball"
     }
   ]
 }

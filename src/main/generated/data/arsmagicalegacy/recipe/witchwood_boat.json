@@ -3,16 +3,13 @@
   "category": "misc",
   "group": "boat",
   "key": {
-    "#": {
-      "item": "arsmagicalegacy:witchwood_planks"
-    }
+    "#": "arsmagicalegacy:witchwood_planks"
   },
   "pattern": [
     "# #",
     "###"
   ],
   "result": {
-    "count": 1,
     "id": "arsmagicalegacy:witchwood_boat"
   }
 }

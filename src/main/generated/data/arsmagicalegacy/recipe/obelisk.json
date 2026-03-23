@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "tag": "minecraft:stone_bricks"
-    },
-    "S": {
-      "tag": "c:stones"
-    },
-    "V": {
-      "tag": "c:dusts/vinteum"
-    }
+    "B": "#minecraft:stone_bricks",
+    "S": "#c:stones",
+    "V": "#c:dusts/vinteum"
   },
   "pattern": [
     "VSV",
@@ -18,7 +12,6 @@
     "VSV"
   ],
   "result": {
-    "count": 1,
     "id": "arsmagicalegacy:obelisk"
   }
 }

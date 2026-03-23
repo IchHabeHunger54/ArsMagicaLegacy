@@ -9,8 +9,8 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "arsmagicalegacy:witchwood",
-      "recipe2": "arsmagicalegacy:stripped_witchwood"
+      "recipe": "arsmagicalegacy:witchwood_wood",
+      "recipe2": "arsmagicalegacy:stripped_witchwood_wood"
     },
     {
       "type": "patchouli:crafting",

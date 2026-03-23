@@ -7,16 +7,12 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:purple_rune"
-      }
+      "item": "arsmagicalegacy:purple_rune"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "minecraft:ender_chest"
-      }
+      "item": "minecraft:ender_chest"
     }
   ]
 }

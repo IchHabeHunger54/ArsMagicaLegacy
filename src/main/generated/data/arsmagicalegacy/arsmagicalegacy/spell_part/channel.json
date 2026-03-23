@@ -5,16 +5,12 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "tag": "c:dusts/vinteum"
-      }
+      "item": "#c:dusts/vinteum"
     },
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
-      "item": {
-        "item": "arsmagicalegacy:cerublossom"
-      }
+      "item": "arsmagicalegacy:cerublossom"
     }
   ]
 }

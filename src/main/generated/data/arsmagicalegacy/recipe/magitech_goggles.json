@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "C": {
-      "tag": "c:gems/chimerite"
-    },
-    "G": {
-      "tag": "c:nuggets/gold"
-    },
-    "L": {
-      "tag": "c:leathers"
-    },
-    "T": {
-      "tag": "c:gems/topaz"
-    }
+    "C": "#c:gems/chimerite",
+    "G": "#c:nuggets/gold",
+    "L": "#c:leathers",
+    "T": "#c:gems/topaz"
   },
   "pattern": [
     "LLL",
@@ -21,7 +13,6 @@
     "TLT"
   ],
   "result": {
-    "count": 1,
     "id": "arsmagicalegacy:magitech_goggles"
   }
 }

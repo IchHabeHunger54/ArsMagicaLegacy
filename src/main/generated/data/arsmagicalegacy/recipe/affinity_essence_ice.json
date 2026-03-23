@@ -2,22 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "item": "arsmagicalegacy:arcane_ash"
-    },
+    "A": "arsmagicalegacy:arcane_ash",
     "E": {
-      "type": "neoforge:components",
+      "neoforge:ingredient_type": "neoforge:components",
       "components": {
         "arsmagicalegacy:affinity": "arsmagicalegacy:ice"
       },
       "items": "arsmagicalegacy:affinity_essence"
     },
-    "I": {
-      "item": "minecraft:snow_block"
-    },
-    "J": {
-      "item": "minecraft:ice"
-    }
+    "I": "minecraft:snow_block",
+    "J": "minecraft:ice"
   },
   "pattern": [
     "AIA",

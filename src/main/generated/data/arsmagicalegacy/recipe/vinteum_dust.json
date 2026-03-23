@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:storage_blocks/vinteum"
-    }
+    "#c:storage_blocks/vinteum"
   ],
   "result": {
     "count": 9,

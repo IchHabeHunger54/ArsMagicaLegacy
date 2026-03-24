@@ -45,7 +45,7 @@ public class Dryad extends PathfinderMob {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return createMobAttributes().add(Attributes.MAX_HEALTH, 20D).add(Attributes.MOVEMENT_SPEED, 0.2F);
+        return createMobAttributes().add(Attributes.MAX_HEALTH, 20D).add(Attributes.MOVEMENT_SPEED, 0.2F).add(Attributes.TEMPT_RANGE, 10.0);
     }
 
     public static boolean checkSpawnRules(EntityType<Dryad> entityType, ServerLevelAccessor level, EntitySpawnReason spawnType, BlockPos pos, RandomSource random) {

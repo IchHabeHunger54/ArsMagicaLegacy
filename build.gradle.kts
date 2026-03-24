@@ -123,7 +123,7 @@ dependencies {
 
     // jade for integration
     val jadeDep = jade.version.map { "maven.modrinth:jade:${it}-neoforge" }
-    //compileOnly(jadeDep)
+    compileOnly(jadeDep)
 
     if (!helper.runningInCI.getOrElse(false)) {
         runtimeOnly(jeiDep)

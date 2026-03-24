@@ -78,41 +78,41 @@ repositories {
     }
 }
 
-val jei = helper.dependencies.jei()
-val jade = helper.dependencies.jade()
 val curios = helper.dependencies.curios()
+val jade = helper.dependencies.jade()
+val jei = helper.dependencies.jei()
 val geckolib = helper.dependencies.required("geckolib") {
     ordering = ModDependency.Ordering.BEFORE
     side = ModDependency.Side.BOTH
 }
+/* TODO patchouli
 val patchouli = helper.dependencies.required("patchouli") {
     ordering = ModDependency.Ordering.BEFORE
     side = ModDependency.Side.BOTH
 }
+*/
 
 dependencies {
     implementation(helper.neoforge())
     testImplementation(helper.testframework())
 
-    // jei for integration
-    val jeiApiDep = helper.minecraftVersion.zip(jei.version) { mc, version -> "mezz.jei:jei-${mc}-common-api:${version}" }
-    val jeiDep = helper.minecraftVersion.zip(jei.version) { mc, version -> "mezz.jei:jei-${mc}-neoforge:${version}" }
-    compileOnly(jeiApiDep)
-
-    // curios for additional inventory slots
+    // curios for integration
     val curiosApiDep = curios.version.map { "top.theillusivec4.curios:curios-neoforge:${it}:api" }
     val curiosDep = curios.version.map { "top.theillusivec4.curios:curios-neoforge:${it}" }
     compileOnly(curiosApiDep)
     "dataCompileOnly"(curiosApiDep)
     "dataRuntimeOnly"(curiosDep)
 
-    // patchouli for the guide book (arcane compendium)
-    val patchouliApiDep = patchouli.version.map { "vazkii.patchouli:Patchouli:${it}:api" }
-    val patchouliDep = patchouli.version.map { "vazkii.patchouli:Patchouli:${it}" }
-    compileOnly(patchouliApiDep)
-    runtimeOnly(patchouliDep)
-    testRuntimeOnly(patchouliDep)
-    "dataRuntimeOnly"(patchouliDep)
+    // jade for integration
+    val jadeDep = jade.version.map { "maven.modrinth:jade:${it}-neoforge" }
+    compileOnly(jadeDep)
+
+    /* TODO jei
+    // jei for integration
+    val jeiApiDep = helper.minecraftVersion.zip(jei.version) { mc, version -> "mezz.jei:jei-${mc}-common-api:${version}" }
+    val jeiDep = helper.minecraftVersion.zip(jei.version) { mc, version -> "mezz.jei:jei-${mc}-neoforge:${version}" }
+    compileOnly(jeiApiDep)
+    */
 
     // geckolib for animations
     val geckolibDep = helper.minecraftVersion.zip(geckolib.version) { mc, version -> "com.geckolib:geckolib-neoforge-${/*mc*/ "26.1-snapshot-11"}:${version}" }
@@ -121,14 +121,20 @@ dependencies {
     "dataRuntimeOnly"(geckolibDep)
     "interfaceInjection"(geckolibDep)
 
-    // jade for integration
-    val jadeDep = jade.version.map { "maven.modrinth:jade:${it}-neoforge" }
-    compileOnly(jadeDep)
+    /* TODO patchouli
+    // patchouli for the guide book (arcane compendium)
+    val patchouliApiDep = patchouli.version.map { "vazkii.patchouli:Patchouli:${it}:api" }
+    val patchouliDep = patchouli.version.map { "vazkii.patchouli:Patchouli:${it}" }
+    compileOnly(patchouliApiDep)
+    runtimeOnly(patchouliDep)
+    testRuntimeOnly(patchouliDep)
+    "dataRuntimeOnly"(patchouliDep)
+    */
 
     if (!helper.runningInCI.getOrElse(false)) {
-        runtimeOnly(jeiDep)
-        //runtimeOnly(jadeDep)
         runtimeOnly(curiosDep)
+        // TODO jade runtimeOnly(jadeDep)
+        // TODO jei runtimeOnly(jeiDep)
     }
 
     val easyDatagenLibVersion = project.localGradleProperty("dependency.easydatagenlib.version")

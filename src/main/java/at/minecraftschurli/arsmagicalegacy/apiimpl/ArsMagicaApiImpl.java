@@ -13,7 +13,7 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
 import at.minecraftschurli.arsmagicalegacy.util.AMDataManager;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStackTemplate;
-import vazkii.patchouli.api.PatchouliAPI;
+import net.minecraft.world.item.Items;
 
 public final class ArsMagicaApiImpl extends ArsMagicaApi {
     private static final Identifier ARCANE_COMPENDIUM = ArsMagicaApi.id("arcane_compendium");
@@ -28,7 +28,8 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
 
     @Override
     protected ItemStackTemplate getBook() {
-        return PatchouliAPI.get().getBookStackTemplate(ARCANE_COMPENDIUM);
+        return new ItemStackTemplate(Items.BOOK);
+        // TODO patchouli return PatchouliAPI.get().getBookStackTemplate(ARCANE_COMPENDIUM);
     }
 
     @Override

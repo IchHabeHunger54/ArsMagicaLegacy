@@ -4,12 +4,12 @@ import at.minecraftschurli.arsmagicalegacy.api.client.ArsMagicaClientApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.RegistryFileCodec;
+import net.minecraft.util.Util;
 
 /**
  * Represents an occulus tab.

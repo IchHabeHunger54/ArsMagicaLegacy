@@ -6,7 +6,6 @@ import at.minecraftschurli.arsmagicalegacy.api.magic.MagicHelper;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.Holder;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Inventory;
@@ -14,7 +13,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-import java.util.List;
 import java.util.Optional;
 
 public record ForgetSkillsPacket() implements CustomPacketPayload {

@@ -54,10 +54,10 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     @Override
     public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         updateCachedData();
-        graphics.blit(RenderPipelines.GUI, BACKGROUND, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
-        graphics.blit(SLOT, leftPos + 101, topPos + 73, 0, 0, 18, 18, 18, 18);
+        graphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
+        graphics.blit(RenderPipelines.GUI_TEXTURED, SLOT, leftPos + 101, topPos + 73, 0, 0, 18, 18, 18, 18);
         for (int i = 0; i < Spell.MAX_SHAPE_GROUPS; i++) {
-            graphics.blit(SHAPE_GROUP, leftPos + 20 + i * ShapeGroupArea.WIDTH, topPos + 107, 0, 0, ShapeGroupArea.WIDTH, ShapeGroupArea.HEIGHT, ShapeGroupArea.WIDTH, ShapeGroupArea.HEIGHT);
+            graphics.blit(RenderPipelines.GUI_TEXTURED, SHAPE_GROUP, leftPos + 20 + i * ShapeGroupArea.WIDTH, topPos + 107, 0, 0, ShapeGroupArea.WIDTH, ShapeGroupArea.HEIGHT, ShapeGroupArea.WIDTH, ShapeGroupArea.HEIGHT);
             if (i < menu.getShapeGroups() && !shapeGroupAreas.get(i).locked) continue;
             graphics.fill(leftPos + 20 + i * ShapeGroupArea.WIDTH, topPos + 107, leftPos + 20 + (i + 1) * ShapeGroupArea.WIDTH, topPos + 107 + ShapeGroupArea.HEIGHT, 0x7f000000);
         }

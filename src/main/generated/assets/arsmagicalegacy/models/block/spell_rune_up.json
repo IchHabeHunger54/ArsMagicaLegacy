@@ -19,6 +19,7 @@
     }
   ],
   "textures": {
+    "particle": "arsmagicalegacy:block/spell_rune",
     "texture": "arsmagicalegacy:block/spell_rune"
   }
 }

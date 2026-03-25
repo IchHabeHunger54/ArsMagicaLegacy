@@ -5,7 +5,6 @@ import net.minecraft.client.renderer.entity.CreeperRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.CreeperRenderState;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.entity.monster.Creeper;
 
 public class ManaCreeperRenderer extends CreeperRenderer {
     public static final Identifier TEXTURE = ArsMagicaApi.id("textures/entity/mana_creeper.png");

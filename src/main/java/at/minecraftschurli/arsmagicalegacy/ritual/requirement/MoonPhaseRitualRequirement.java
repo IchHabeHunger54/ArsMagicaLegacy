@@ -3,7 +3,6 @@ package at.minecraftschurli.arsmagicalegacy.ritual.requirement;
 import at.minecraftschurli.arsmagicalegacy.api.ritual.RitualRequirement;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.clock.ClockManager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;

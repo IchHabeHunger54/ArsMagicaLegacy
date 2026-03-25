@@ -62,11 +62,11 @@ public class SpellCustomizationScreen extends Screen {
     @Override
     public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         super.extractBackground(graphics, mouseX, mouseY, partialTick);
-        graphics.blit(RenderPipelines.GUI_TEXTURED, ICONS, leftPos + 5, topPos + 21, 0, 0, 168, 77, 256, 256);
+        AMClientUtil.blitFull(graphics, ICONS, leftPos + 5, topPos + 21, 168, 77);
         for (int i = 0; i < Spell.MAX_SHAPE_GROUPS; i++) {
-            graphics.blit(RenderPipelines.GUI_TEXTURED, SHAPE_GROUP, leftPos + i * ShapeGroupArea.WIDTH, topPos + 99, 0, 0, ShapeGroupArea.WIDTH, ShapeGroupArea.HEIGHT, ShapeGroupArea.WIDTH, ShapeGroupArea.HEIGHT, i < spell.shapeGroups().size() && !spell.shapeGroups().get(i).isEmpty() ? -1 : 0x7f000000);
+            AMClientUtil.blit(graphics, SHAPE_GROUP, leftPos + i * ShapeGroupArea.WIDTH, topPos + 99, ShapeGroupArea.WIDTH, ShapeGroupArea.HEIGHT, i < spell.shapeGroups().size() && !spell.shapeGroups().get(i).isEmpty() ? -1 : 0x7f000000);
         }
-        graphics.blit(RenderPipelines.GUI_TEXTURED, GRAMMAR, leftPos + 19, topPos + 135, 0, 0, 142, 22, 142, 22);
+        AMClientUtil.blit(graphics, GRAMMAR, leftPos + 19, topPos + 135, 142, 22);
     }
 
     public Spell getSpell() {

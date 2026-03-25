@@ -63,8 +63,8 @@ public class SummonCustomizationScreen extends AbstractContainerSpellPartCustomi
     @Override
     public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         super.extractBackground(graphics, mouseX, mouseY, partialTick);
-        graphics.blit(RenderPipelines.GUI_TEXTURED, SLOT, leftPos + 72, topPos, 0, 0, 32, 32, 32, 32);
-        graphics.blit(RenderPipelines.GUI_TEXTURED, INVENTORY, leftPos, topPos + 32, 0, 0, 176, 100, 256, 256);
+        AMClientUtil.blit(graphics, SLOT, leftPos + 72, topPos, 32, 32);
+        AMClientUtil.blitFull(graphics, INVENTORY, leftPos, topPos + 32, 176, 100);
     }
 
     @Override

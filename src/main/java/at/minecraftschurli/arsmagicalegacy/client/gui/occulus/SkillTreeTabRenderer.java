@@ -96,7 +96,7 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
                     c = ARGB.colorFromFloat(1, red, green, blue);
                 }
             }
-            graphics.blitSprite(RenderPipelines.GUI_TEXTURED, SkillAtlasHolder.getSprite(skill), skill.x(), skill.y(), SKILL_SIZE, SKILL_SIZE, c);
+            AMClientUtil.blit(graphics, SkillAtlasHolder.getSprite(skill), skill.x(), skill.y(), SKILL_SIZE, SKILL_SIZE, c);
             if (mouseX >= skill.x() && mouseX <= skill.x() + SKILL_SIZE && mouseY >= skill.y() && mouseY <= skill.y() + SKILL_SIZE) {
                 hoveredSkill = skill;
             }

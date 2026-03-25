@@ -17,6 +17,7 @@ import net.minecraft.client.gui.render.TextureSetup;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
@@ -171,6 +172,54 @@ public final class AMClientUtil {
 
     public static void spawnSpellEntityParticles(SpellShapeEntity entity, Spell spell, Vec3 position, int color, @Nullable LivingEntity caster) {
         ParticleUtil.spawnSpellEntityParticles(entity, spell, position, color, caster);
+    }
+
+    public static void blit(GuiGraphicsExtractor graphics, Identifier texture, int x, int y, int width, int height) {
+        blit(graphics, texture, x, y, 0, 0, width, height);
+    }
+
+    public static void blit(GuiGraphicsExtractor graphics, Identifier texture, int x, int y, int width, int height, int color) {
+        blit(graphics, texture, x, y, 0, 0, width, height, color);
+    }
+
+    public static void blit(GuiGraphicsExtractor graphics, Identifier texture, int x, int y, float u, float v, int width, int height) {
+        blit(graphics, texture, x, y, u, v, width, height, width, height, -1);
+    }
+
+    public static void blit(GuiGraphicsExtractor graphics, Identifier texture, int x, int y, float u, float v, int width, int height, int color) {
+        blit(graphics, texture, x, y, u, v, width, height, width, height, color);
+    }
+
+    public static void blit(GuiGraphicsExtractor graphics, Identifier texture, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
+        blit(graphics, texture, x, y, u, v, width, height, textureWidth, textureHeight, -1);
+    }
+
+    public static void blit(GuiGraphicsExtractor graphics, Identifier texture, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight, int color) {
+        graphics.blit(RenderPipelines.GUI_TEXTURED, texture, x, y, u, v, width, height, textureWidth, textureHeight, color);
+    }
+
+    public static void blitFull(GuiGraphicsExtractor graphics, Identifier texture, int x, int y, int width, int height) {
+        blitFull(graphics, texture, x, y, 0, 0, width, height);
+    }
+
+    public static void blitFull(GuiGraphicsExtractor graphics, Identifier texture, int x, int y, int width, int height, int color) {
+        blitFull(graphics, texture, x, y, 0, 0, width, height, color);
+    }
+
+    public static void blitFull(GuiGraphicsExtractor graphics, Identifier texture, int x, int y, float u, float v, int width, int height) {
+        blit(graphics, texture, x, y, u, v, width, height, 256, 256, -1);
+    }
+
+    public static void blitFull(GuiGraphicsExtractor graphics, Identifier texture, int x, int y, float u, float v, int width, int height, int color) {
+        blit(graphics, texture, x, y, u, v, width, height, 256, 256, color);
+    }
+
+    public static void blit(GuiGraphicsExtractor graphics, TextureAtlasSprite sprite, int x, int y, int width, int height) {
+        blit(graphics, sprite, x, y, width, height, -1);
+    }
+
+    public static void blit(GuiGraphicsExtractor graphics, TextureAtlasSprite sprite, int x, int y, int width, int height, int color) {
+        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, x, y, width, height, color);
     }
 
     public static void renderLine(GuiGraphicsExtractor graphics, float startX, float startY, float endX, float endY, int color, int lineWidth) {

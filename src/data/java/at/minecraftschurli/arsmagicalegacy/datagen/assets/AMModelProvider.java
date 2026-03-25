@@ -148,7 +148,6 @@ public final class AMModelProvider extends AbstractModelProvider {
         createInlay(blockModels, AMBlocks.GOLD_INLAY.get());
         blockModels.createNormalTorch(AMBlocks.VINTEUM_TORCH.get(), AMBlocks.VINTEUM_WALL_TORCH.get());
         BlockModelDatagenUtil.builder(blockModels, AMBlocks.WIZARDS_CHALK)
-            .withFlatItemModel()
             .withModelDispatch(WizardsChalkBlock.VARIANT, i -> ModelTemplates.RAIL_FLAT.createWithSuffix(AMBlocks.WIZARDS_CHALK.get(), "_" + i, TextureMapping.rail(TextureMapping.getBlockTexture(AMBlocks.WIZARDS_CHALK.get(), "_" + i)), blockModels.modelOutput))
             .withHorizontalRotation()
             .build();
@@ -241,6 +240,7 @@ public final class AMModelProvider extends AbstractModelProvider {
             ItemModelUtils.plainModel(itemModels.createFlatItemModel(AMItems.CRYSTAL_WRENCH.get(), "_active", ModelTemplates.FLAT_ITEM)),
             ItemModelUtils.plainModel(itemModels.createFlatItemModel(AMItems.CRYSTAL_WRENCH.get(), ModelTemplates.FLAT_ITEM))
         );
+        basicItem(itemModels, AMItems.WIZARDS_CHALK);
         basicItem(itemModels, AMItems.SPELL_PARCHMENT);
         itemModels.itemModelOutput.accept(
             AMItems.SPELL_BOOK.get(),
@@ -373,19 +373,13 @@ public final class AMModelProvider extends AbstractModelProvider {
         MultiVariant flat = BlockModelGenerators.plainVariant(ModelTemplates.RAIL_FLAT.create(block, texture, blockModels.modelOutput));
         MultiVariant curved = BlockModelGenerators.plainVariant(ModelTemplates.RAIL_CURVED.create(block, cornerTexture, blockModels.modelOutput));
         blockModels.registerSimpleFlatItemModel(block);
-        blockModels.blockStateOutput
-            .accept(
-                MultiVariantGenerator.dispatch(block)
-                    .with(
-                        PropertyDispatch.initial(InlayBlock.SHAPE)
-                            .select(RailShape.NORTH_SOUTH, flat)
-                            .select(RailShape.EAST_WEST, flat.with(BlockModelGenerators.Y_ROT_90))
-                            .select(RailShape.SOUTH_EAST, curved)
-                            .select(RailShape.SOUTH_WEST, curved.with(BlockModelGenerators.Y_ROT_90))
-                            .select(RailShape.NORTH_WEST, curved.with(BlockModelGenerators.Y_ROT_180))
-                            .select(RailShape.NORTH_EAST, curved.with(BlockModelGenerators.Y_ROT_270))
-                    )
-            );
+        blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(PropertyDispatch.initial(InlayBlock.SHAPE)
+            .select(RailShape.NORTH_SOUTH, flat)
+            .select(RailShape.EAST_WEST, flat.with(BlockModelGenerators.Y_ROT_90))
+            .select(RailShape.SOUTH_EAST, curved)
+            .select(RailShape.SOUTH_WEST, curved.with(BlockModelGenerators.Y_ROT_90))
+            .select(RailShape.NORTH_WEST, curved.with(BlockModelGenerators.Y_ROT_180))
+            .select(RailShape.NORTH_EAST, curved.with(BlockModelGenerators.Y_ROT_270))));
     }
 
     private static class Builder extends WrappingCustomBlockStateModelBuilder {

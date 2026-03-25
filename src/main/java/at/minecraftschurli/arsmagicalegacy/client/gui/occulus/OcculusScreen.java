@@ -127,7 +127,7 @@ public class OcculusScreen extends Screen {
                 ItemStack stack = AMItems.INFINITY_ORB.toStack();
                 stack.set(AMDataComponents.SKILL_POINT, holder);
                 graphics.item(stack, leftPos - width + 4, topPos + OcculusTabButton.SIZE + 4 + i * 16);
-                graphics.text(AMClientUtil.font(), components.get(i), leftPos - width + 22, topPos + OcculusTabButton.SIZE + 9 + i * 16, holder.value().color(), false);
+                graphics.text(AMClientUtil.font(), components.get(i), leftPos - width + 22, topPos + OcculusTabButton.SIZE + 9 + i * 16, 0xff000000 | holder.value().color(), false);
             }
         }
         graphics.enableScissor(tabX, tabY, tabX + OcculusTabRenderer.TAB_SIZE, tabY + OcculusTabRenderer.TAB_SIZE);
@@ -139,6 +139,11 @@ public class OcculusScreen extends Screen {
         if (mouseX >= tabX && mouseX < tabX + OcculusTabRenderer.TAB_SIZE && mouseY >= tabY && mouseY < tabY + OcculusTabRenderer.TAB_SIZE) {
             renderer.renderTooltip(graphics, mouseX, mouseY, partialTick);
         }
+    }
+
+    @Override
+    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+        super.extractBackground(graphics, mouseX, mouseY, a);
     }
 
     @Override

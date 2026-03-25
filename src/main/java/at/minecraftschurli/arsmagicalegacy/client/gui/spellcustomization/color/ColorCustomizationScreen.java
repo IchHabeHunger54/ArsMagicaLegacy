@@ -10,7 +10,6 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.input.KeyEvent;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;

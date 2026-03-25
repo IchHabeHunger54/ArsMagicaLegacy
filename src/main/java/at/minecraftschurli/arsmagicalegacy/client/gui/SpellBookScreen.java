@@ -5,7 +5,6 @@ import at.minecraftschurli.arsmagicalegacy.menu.SpellBookMenu;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.Identifier;

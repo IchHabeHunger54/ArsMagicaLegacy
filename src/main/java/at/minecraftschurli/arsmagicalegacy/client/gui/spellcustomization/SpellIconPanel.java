@@ -5,7 +5,6 @@ import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.input.MouseButtonEvent;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.client.gui.widget.ScrollPanel;

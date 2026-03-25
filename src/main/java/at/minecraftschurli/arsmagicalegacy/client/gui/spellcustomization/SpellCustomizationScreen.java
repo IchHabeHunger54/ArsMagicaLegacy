@@ -64,7 +64,10 @@ public class SpellCustomizationScreen extends Screen {
         super.extractBackground(graphics, mouseX, mouseY, partialTick);
         AMClientUtil.blitFull(graphics, ICONS, leftPos + 5, topPos + 21, 168, 77);
         for (int i = 0; i < Spell.MAX_SHAPE_GROUPS; i++) {
-            AMClientUtil.blit(graphics, SHAPE_GROUP, leftPos + i * ShapeGroupArea.WIDTH, topPos + 99, ShapeGroupArea.WIDTH, ShapeGroupArea.HEIGHT, i < spell.shapeGroups().size() && !spell.shapeGroups().get(i).isEmpty() ? -1 : 0x7f000000);
+            AMClientUtil.blit(graphics, SHAPE_GROUP, leftPos + i * ShapeGroupArea.WIDTH, topPos + 99, ShapeGroupArea.WIDTH, ShapeGroupArea.HEIGHT);
+            if (i >= spell.shapeGroups().size() || spell.shapeGroups().get(i).isEmpty()) {
+                graphics.fill(leftPos + i * ShapeGroupArea.WIDTH, topPos + 99, leftPos + (i + 1) * ShapeGroupArea.WIDTH, topPos + 99 + ShapeGroupArea.HEIGHT, 0x7f000000);
+            }
         }
         AMClientUtil.blit(graphics, GRAMMAR, leftPos + 19, topPos + 135, 142, 22);
     }

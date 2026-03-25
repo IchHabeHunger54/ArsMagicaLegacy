@@ -1,6 +1,7 @@
 {
   "parent": "block/block",
   "textures": {
+    "particle": "arsmagicalegacy:block/inscription_table_base",
     "candle": "arsmagicalegacy:block/inscription_table_candle"
   },
   "elements": [

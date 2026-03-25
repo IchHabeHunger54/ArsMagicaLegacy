@@ -88,7 +88,7 @@ public final class AMModelProvider extends AbstractModelProvider {
     private static final ModelTemplate PARTICLE_ONLY_TEMPLATE = ModelTemplates.PARTICLE_ONLY.extend().suffix("_particle").build();
     private static final Map<Direction, ModelTemplate> SPELL_RUNE_TEMPLATE = Util.makeEnumMap(
         Direction.class,
-        direction -> new ModelTemplate(Optional.empty(), Optional.of("_" + direction.getName()), TextureSlot.TEXTURE)
+        direction -> new ModelTemplate(Optional.empty(), Optional.of("_" + direction.getName()), TextureSlot.TEXTURE, TextureSlot.PARTICLE)
             .extend()
             .element(element -> {
                 AABB aabb = SpellRuneBlock.SHAPES.get(direction).bounds();
@@ -202,7 +202,7 @@ public final class AMModelProvider extends AbstractModelProvider {
             .withModelDispatch(
                 SpellRuneBlock.FACING,
                 SPELL_RUNE_TEMPLATE::get,
-                TextureMapping.defaultTexture(AMBlocks.SPELL_RUNE.get()))
+                TextureMapping.defaultTexture(AMBlocks.SPELL_RUNE.get()).put(TextureSlot.PARTICLE, TextureMapping.getBlockTexture(AMBlocks.SPELL_RUNE.get())))
             .build();
     }
 

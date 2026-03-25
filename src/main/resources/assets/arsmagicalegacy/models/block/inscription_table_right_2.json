@@ -2,6 +2,7 @@
   "parent": "block/block",
   "render_type": "minecraft:cutout",
   "textures": {
+    "particle": "arsmagicalegacy:block/inscription_table_base",
     "cloth": "arsmagicalegacy:block/inscription_table_cloth"
   },
   "elements": [

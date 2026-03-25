@@ -4,10 +4,7 @@
       "conditions": {
         "items": [
           {
-            "components": {
-              "patchouli:book": "arsmagicalegacy:arcane_compendium"
-            },
-            "items": "patchouli:guide_book"
+            "items": "minecraft:book"
           }
         ]
       },

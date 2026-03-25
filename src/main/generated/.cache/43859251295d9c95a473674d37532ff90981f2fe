@@ -1,4 +1,4 @@
-// 26.1-pre-3	2026-03-23T13:08:07.4840537	vanilla/Tags for minecraft:entity_type mod id arsmagicalegacy
+// 26.1	2026-03-25T00:31:40.8479276	vanilla/Tags for minecraft:entity_type mod id arsmagicalegacy
 7e8ccf4dfd95cc8e89542aac3c307a35640013fa data/arsmagicalegacy/tags/entity_type/affected_by_ender_thorns_ability.json
 e2f26c4696552a05feacf8eaadfb3b41a8907161 data/arsmagicalegacy/tags/entity_type/affected_by_nausea_ability.json
 e2f26c4696552a05feacf8eaadfb3b41a8907161 data/arsmagicalegacy/tags/entity_type/affected_by_smite_ability.json

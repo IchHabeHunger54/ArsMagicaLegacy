@@ -24,11 +24,15 @@ public record DataComponentOverridesModel<T>(DataComponentType<T> type, ItemMode
     @Override
     public void update(ItemStackRenderState output, ItemStack item, ItemModelResolver resolver, ItemDisplayContext displayContext, @Nullable ClientLevel level, @Nullable ItemOwner owner, int seed) {
         output.appendModelIdentityElement(this);
-        Identifier id = getIdentifier(item);
-        if (id != null) {
-            ResourceKey<Item> itemKey = item.typeHolder().getKey();
-            assert itemKey != null;
-            Identifier identifier = getIdentifier(id, itemKey);
+        Identifier id = switch (item.get(type)) {
+            case Holder.Reference<?> reference -> reference.key().identifier();
+            case ResourceKey<?> resourceKey -> resourceKey.identifier();
+            case Identifier identifier -> identifier;
+            case null, default -> null;
+        };
+        ResourceKey<Item> itemKey = item.typeHolder().getKey();
+        if (id != null && itemKey != null) {
+            Identifier identifier = id.withPrefix("item/" + itemKey.identifier().getPath() + "_");
             ItemModel itemModel = AMClientUtil.mc().getModelManager().getItemModel(identifier);
             if (!(itemModel instanceof MissingItemModel)) {
                 itemModel.update(output, item, resolver, displayContext, level, owner, seed);
@@ -36,19 +40,6 @@ public record DataComponentOverridesModel<T>(DataComponentType<T> type, ItemMode
             }
         }
         fallback.update(output, item, resolver, displayContext, level, owner, seed);
-    }
-
-    public static Identifier getIdentifier(Identifier id, ResourceKey<Item> itemKey) {
-        return id.withPrefix("item/" + itemKey.identifier().getPath() + "_");
-    }
-
-    private @Nullable Identifier getIdentifier(ItemStack item) {
-        return switch (item.get(type)) {
-            case Holder.Reference<?> reference -> reference.key().identifier();
-            case ResourceKey<?> resourceKey -> resourceKey.identifier();
-            case Identifier identifier -> identifier;
-            case null, default -> null;
-        };
     }
 
     public record Unbaked<T>(DataComponentType<T> componentType, ItemModel.Unbaked fallback) implements ItemModel.Unbaked {

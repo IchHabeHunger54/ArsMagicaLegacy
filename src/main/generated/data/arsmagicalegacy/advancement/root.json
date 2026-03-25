@@ -4,10 +4,7 @@
       "conditions": {
         "items": [
           {
-            "components": {
-              "patchouli:book": "arsmagicalegacy:arcane_compendium"
-            },
-            "items": "patchouli:guide_book"
+            "items": "minecraft:book"
           }
         ]
       },
@@ -22,10 +19,7 @@
     },
     "hidden": true,
     "icon": {
-      "components": {
-        "patchouli:book": "arsmagicalegacy:arcane_compendium"
-      },
-      "id": "patchouli:guide_book"
+      "id": "minecraft:book"
     },
     "show_toast": false,
     "title": {

@@ -1,4 +1,4 @@
-// 26.1-pre-3	2026-03-23T13:08:07.4465193	vanilla/Tags for minecraft:damage_type mod id arsmagicalegacy
+// 26.1	2026-03-25T00:31:40.8338365	vanilla/Tags for minecraft:damage_type mod id arsmagicalegacy
 008a3dd0669075ebebc0e06e870de0fd82a9137d data/arsmagicalegacy/tags/damage_type/affected_by_fall_damage_ability.json
 008a3dd0669075ebebc0e06e870de0fd82a9137d data/arsmagicalegacy/tags/damage_type/affected_by_feather_falling_ability.json
 0e110df8315b95626e86ddc18110ee278c2c468f data/arsmagicalegacy/tags/damage_type/affected_by_fire_resistance_ability.json

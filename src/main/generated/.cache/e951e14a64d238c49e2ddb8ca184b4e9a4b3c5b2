@@ -1,4 +1,4 @@
-// 26.1-pre-3	2026-03-23T13:08:07.4295048	vanilla/Advancements
+// 26.1	2026-03-25T00:31:40.8328368	vanilla/Advancements
 6fbd5c791c33b9a676a35f5e3fa35235556485e9 data/arsmagicalegacy/advancement/affinity_fifty_percent.json
 777e71b62e24f7e8fd3febee3d85a9eb3016ed03 data/arsmagicalegacy/advancement/affinity_full.json
 94eae2df7299718ea808a1f843135576f5768e1d data/arsmagicalegacy/advancement/affinity_one_percent.json
@@ -93,7 +93,7 @@ cc374444d6c3f71a98c52701a38f4616396295ac data/arsmagicalegacy/advancement/book/r
 b87672fc66c5d2639aac28960e9fd72728bf2461 data/arsmagicalegacy/advancement/book/replant.json
 c7410d652027ab2365d068ecec6b544049dfc1bc data/arsmagicalegacy/advancement/book/resistance.json
 1893e5c4502ec82f33a2f94006acf90342ea0d06 data/arsmagicalegacy/advancement/book/rift.json
-3c71782688284decc272e6e1ef98529ec4c192f9 data/arsmagicalegacy/advancement/book/root.json
+9247684e5c0f7f3a813f4d9948ef9e1e696232cb data/arsmagicalegacy/advancement/book/root.json
 51a6ec90684bdbf82f6070d905e8a73ab37fed18 data/arsmagicalegacy/advancement/book/rune.json
 7af795c0a16acde4b9c666760bbf787b9d133d84 data/arsmagicalegacy/advancement/book/rune_power.json
 95d28d19b77aed407541053e4ea3e067863b56ca data/arsmagicalegacy/advancement/book/self.json
@@ -124,6 +124,6 @@ a631e895bb84c7d5a0b915b5dda2e05c6efacc31 data/arsmagicalegacy/advancement/book/w
 c8f26b0ea970887a2dbdf85f365ce1449b57498e data/arsmagicalegacy/advancement/hidden_skill.json
 aa22d04873e875f40da577094c56b40ce9898e88 data/arsmagicalegacy/advancement/level_10.json
 5569ca320e1c9b3f5e9f7bbe06c806d212b557f9 data/arsmagicalegacy/advancement/level_100.json
-3ffa2810fa9bb05f1a38613f782ac2169dd907dd data/arsmagicalegacy/advancement/root.json
+a98439c260ec5859c80c0b954c06bcc22938b728 data/arsmagicalegacy/advancement/root.json
 9586f1534836adbc582da6ee7fb6d076ebb6df5b data/arsmagicalegacy/advancement/skill.json
 2767997a4b1c3b6ba78edf1201da79b3ae21e827 data/arsmagicalegacy/advancement/spell.json

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "arsmagicalegacy:item/item/spell_earth"
+    "layer0": "arsmagicalegacy:item/spell_earth"
   }
 }

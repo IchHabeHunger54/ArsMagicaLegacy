@@ -16,10 +16,8 @@
     "ingredients": [
       {
         "neoforge:ingredient_type": "neoforge:components",
-        "components": {
-          "patchouli:book": "arsmagicalegacy:arcane_compendium"
-        },
-        "items": "patchouli:guide_book",
+        "components": {},
+        "items": "minecraft:book",
         "strict": true
       }
     ]

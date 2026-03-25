@@ -37,6 +37,7 @@ import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 import net.minecraft.client.renderer.block.dispatch.SingleVariant;
 import net.minecraft.client.renderer.block.dispatch.VariantMutator;
+import net.minecraft.client.renderer.item.ClientItem;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.RangeSelectItemModel;
 import net.minecraft.client.resources.model.sprite.Material;
@@ -358,9 +359,10 @@ public final class AMModelProvider extends AbstractModelProvider {
         itemModels.itemModelOutput.accept(item.get(), model);
         for (ResourceKey<?> variant : variants) {
             Identifier identifier = variant.identifier().withPrefix("item/" + item.getId().getPath() + "_");
+            itemModels.itemModelOutput.register(identifier, new ClientItem(ItemModelUtils.plainModel(identifier), new ClientItem.Properties(true, false, 1)));
             ModelTemplates.FLAT_ITEM.create(
                 identifier,
-                TextureMapping.layer0(new Material(identifier.withPrefix("item/"))),
+                TextureMapping.layer0(new Material(identifier)),
                 itemModels.modelOutput);
         }
     }

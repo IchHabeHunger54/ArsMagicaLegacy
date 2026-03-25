@@ -2,6 +2,7 @@ package at.minecraftschurli.arsmagicalegacy.client.gui.occulus;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.magic.OcculusTab;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
@@ -23,7 +24,7 @@ public class OcculusTabButton extends Button {
 
     @Override
     protected void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
-        graphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, getX(), getY(), 0, 0, SIZE, SIZE, SIZE, SIZE);
-        graphics.blit(RenderPipelines.GUI_TEXTURED, OcculusTab.getIcon(tab), getX() + 1, getY() + 1, 0, 0, ICON_SIZE, ICON_SIZE, ICON_SIZE, ICON_SIZE);
+        AMClientUtil.blit(graphics, TEXTURE, getX(), getY(), SIZE, SIZE);
+        AMClientUtil.blit(graphics, OcculusTab.getIcon(tab), getX() + 1, getY() + 1, ICON_SIZE, ICON_SIZE);
     }
 }

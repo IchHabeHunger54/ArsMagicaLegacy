@@ -103,8 +103,8 @@ public class OcculusScreen extends Screen {
     @Override
     public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         super.extractRenderState(graphics, mouseX, mouseY, partialTick);
-        graphics.blit(RenderPipelines.GUI_TEXTURED, FRAME, leftPos, topPos + OcculusTabButton.SIZE, 0, 0, SIZE, SIZE, 256, 256);
-        graphics.blit(RenderPipelines.GUI_TEXTURED, BUTTON_INDICATOR, maxPage == 0 ? leftPos + 6 + tab * OcculusTabButton.SIZE : leftPos + 28 + tab % 7 * OcculusTabButton.SIZE, topPos + OcculusTabButton.SIZE, 0, 0, OcculusTabButton.SIZE, FRAME_SIZE, OcculusTabButton.SIZE, FRAME_SIZE);
+        AMClientUtil.blitFull(graphics, FRAME, leftPos, topPos + OcculusTabButton.SIZE, SIZE, SIZE);
+        AMClientUtil.blit(graphics, BUTTON_INDICATOR, maxPage == 0 ? leftPos + 6 + tab * OcculusTabButton.SIZE : leftPos + 28 + tab % 7 * OcculusTabButton.SIZE, topPos + OcculusTabButton.SIZE, OcculusTabButton.SIZE, FRAME_SIZE);
         if (renderer.hasSkillPointPanel()) {
             List<? extends Holder<SkillPoint>> holders = AMRegistries.skillPoints(true)
                 .listElements()
@@ -120,8 +120,8 @@ public class OcculusScreen extends Screen {
                 .max()
                 .orElse(0);
             int height = components.size() * 16 + 4;
-            graphics.blit(RenderPipelines.GUI_TEXTURED, SKILL_POINTS, leftPos - width, topPos + OcculusTabButton.SIZE, 0, 0, width, height, 256, 256);
-            graphics.blit(RenderPipelines.GUI_TEXTURED, SKILL_POINTS, leftPos - width, topPos + OcculusTabButton.SIZE + height, 0, 252, width, 4, 256, 256);
+            AMClientUtil.blitFull(graphics, SKILL_POINTS, leftPos - width, topPos + OcculusTabButton.SIZE, width, height);
+            AMClientUtil.blitFull(graphics, SKILL_POINTS, leftPos - width, topPos + OcculusTabButton.SIZE + height, 0, 252, width, 4);
             for (int i = 0; i < holders.size(); i++) {
                 Holder<SkillPoint> holder = holders.get(i);
                 ItemStack stack = AMItems.INFINITY_ORB.toStack();

@@ -1,4 +1,3 @@
-/* TODO jei
 package at.minecraftschurli.arsmagicalegacy.compat.jei;
 
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
@@ -11,12 +10,9 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.function.Function;
-
-@SuppressWarnings("DataFlowIssue")
-public record DataComponentSubtypeInterpreter<T>(DataComponentType<T> type, Function<T, String> legacySubtype) implements ISubtypeInterpreter<ItemStack> {
-    public static final DataComponentSubtypeInterpreter<Holder<Affinity>> AFFINITY = new DataComponentSubtypeInterpreter<>(AMDataComponents.AFFINITY.get(), holder -> holder.getKey().identifier().toString());
-    public static final DataComponentSubtypeInterpreter<Holder<SkillPoint>> SKILL_POINT = new DataComponentSubtypeInterpreter<>(AMDataComponents.SKILL_POINT.get(), holder -> holder.getKey().identifier().toString());
+record DataComponentSubtypeInterpreter<T>(DataComponentType<T> type) implements ISubtypeInterpreter<ItemStack> {
+    public static final DataComponentSubtypeInterpreter<Holder<Affinity>> AFFINITY = new DataComponentSubtypeInterpreter<>(AMDataComponents.AFFINITY.get());
+    public static final DataComponentSubtypeInterpreter<Holder<SkillPoint>> SKILL_POINT = new DataComponentSubtypeInterpreter<>(AMDataComponents.SKILL_POINT.get());
 
     @Override
     @Nullable
@@ -24,4 +20,3 @@ public record DataComponentSubtypeInterpreter<T>(DataComponentType<T> type, Func
         return ingredient.has(type) ? ingredient.get(type) : null;
     }
 }
-*/

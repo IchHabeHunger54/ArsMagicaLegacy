@@ -1,4 +1,3 @@
-/* TODO jei
 package at.minecraftschurli.arsmagicalegacy.compat.jei;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
@@ -20,7 +19,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Comparator;
 
-@SuppressWarnings("DataFlowIssue")
 @JeiPlugin
 public final class AMJeiPlugin implements IModPlugin {
     public static final IIngredientType<Skill> SKILL_TYPE = () -> Skill.class;
@@ -44,7 +42,7 @@ public final class AMJeiPlugin implements IModPlugin {
     public void registerIngredients(IModIngredientRegistration registration) {
         registration.register(SKILL_TYPE, AMRegistries.skills(true)
             .listElements()
-            .filter(e -> AMRegistries.SPELL_PARTS.containsKey(e.getKey().identifier()))
+            .filter(e -> AMRegistries.SPELL_PARTS.containsKey(e.key().identifier()))
             .sorted(Comparator.comparing(e -> Skill.getName(e).getString()))
             .map(Holder::value)
             .toList(), new SkillIngredientHelper(), new SkillIngredientRenderer(), Skill.CODEC.xmap(Holder::value, AMRegistries.skills(true)::wrapAsHolder));
@@ -77,4 +75,3 @@ public final class AMJeiPlugin implements IModPlugin {
         return runtime;
     }
 }
-*/

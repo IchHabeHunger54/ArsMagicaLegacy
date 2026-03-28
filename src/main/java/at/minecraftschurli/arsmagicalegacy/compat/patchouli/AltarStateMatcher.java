@@ -1,4 +1,3 @@
-/* TODO patchouli
 package at.minecraftschurli.arsmagicalegacy.compat.patchouli;
 
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
@@ -12,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.TriPredicate;
 
-public class AltarStateMatcher implements IStateMatcher {
+public final class AltarStateMatcher implements IStateMatcher {
     private final TriPredicate<BlockGetter, BlockPos, BlockState> predicate;
 
     public AltarStateMatcher() {
@@ -34,4 +33,3 @@ public class AltarStateMatcher implements IStateMatcher {
         return predicate;
     }
 }
-*/

@@ -1,4 +1,3 @@
-/* TODO jei
 package at.minecraftschurli.arsmagicalegacy.compat.jei;
 
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
@@ -9,7 +8,7 @@ import mezz.jei.api.ingredients.subtypes.UidContext;
 import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Nullable;
 
-public class SkillIngredientHelper implements IIngredientHelper<Skill> {
+final class SkillIngredientHelper implements IIngredientHelper<Skill> {
     @Override
     public IIngredientType<Skill> getIngredientType() {
         return AMJeiPlugin.SKILL_TYPE;
@@ -41,4 +40,3 @@ public class SkillIngredientHelper implements IIngredientHelper<Skill> {
         return skill == null ? "Unknown skill" : skill.toString();
     }
 }
-*/

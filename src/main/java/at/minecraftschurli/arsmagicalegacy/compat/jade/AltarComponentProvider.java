@@ -1,41 +1,56 @@
-/* TODO jade
 package at.minecraftschurli.arsmagicalegacy.compat.jade;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.blockentity.AltarCoreBlockEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
+import org.jspecify.annotations.Nullable;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
-import snownee.jade.api.IServerDataProvider;
 import snownee.jade.api.ITooltip;
+import snownee.jade.api.StreamServerDataProvider;
 import snownee.jade.api.config.IPluginConfig;
 
-class AltarComponentProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
+final class AltarComponentProvider implements StreamServerDataProvider<BlockAccessor, Integer> {
     private static final Identifier ID = ArsMagicaApi.id("altar");
-    private static final String POWER = "power";
     static final AltarComponentProvider INSTANCE = new AltarComponentProvider();
+
+    private AltarComponentProvider() {}
+
+    @Override
+    public @Nullable Integer streamData(BlockAccessor blockAccessor) {
+        return blockAccessor.getBlockEntity() instanceof AltarCoreBlockEntity altar ? altar.getPower() : null;
+    }
+
+    @Override
+    public StreamCodec<RegistryFriendlyByteBuf, Integer> streamCodec() {
+        return ByteBufCodecs.VAR_INT.cast();
+    }
 
     @Override
     public Identifier getUid() {
         return ID;
     }
 
-    @Override
-    public void appendTooltip(ITooltip iTooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
-        CompoundTag tag = blockAccessor.getServerData();
-        if (tag.contains(POWER)) {
-            iTooltip.add(Component.translatable(AMTranslations.ALTAR_CORE_POWER_KEY, tag.getInt(POWER)));
-        }
-    }
+    public static final class Client implements IBlockComponentProvider {
+        public static final Client INSTANCE = new Client();
 
-    @Override
-    public void appendServerData(CompoundTag compoundTag, BlockAccessor blockAccessor) {
-        if (blockAccessor.getBlockEntity() instanceof AltarCoreBlockEntity altar) {
-            compoundTag.putInt(POWER, altar.getPower());
+        private Client() {}
+
+        @Override
+        public void appendTooltip(ITooltip iTooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
+            AltarComponentProvider.INSTANCE.decodeFromData(blockAccessor).ifPresent(power -> {
+                iTooltip.add(Component.translatable(AMTranslations.ALTAR_CORE_POWER_KEY, power));
+            });
+        }
+
+        @Override
+        public Identifier getUid() {
+            return ID;
         }
     }
 }
-*/

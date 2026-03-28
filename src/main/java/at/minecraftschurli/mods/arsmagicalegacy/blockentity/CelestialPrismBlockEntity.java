@@ -18,7 +18,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.timeline.Timeline;
 import net.minecraft.world.timeline.Timelines;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class CelestialPrismBlockEntity extends EtheriumGeneratorBlockEntity {
     private static final MultiblockMatcher CHALK = new MultiblockMatcher(AMMultiblocks.CELESTIAL_PRISM_CHALK);

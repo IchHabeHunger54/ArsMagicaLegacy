@@ -6,7 +6,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.blockentity.InscriptionTableBloc
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.Holder;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Objects;
 

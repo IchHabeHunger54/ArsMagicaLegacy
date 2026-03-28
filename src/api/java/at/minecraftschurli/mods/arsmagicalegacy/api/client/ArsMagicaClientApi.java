@@ -15,8 +15,9 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.util.Lazy;
-import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.ApiStatus.Internal;
+import org.jetbrains.annotations.ApiStatus.NonExtendable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.ServiceLoader;
@@ -24,7 +25,7 @@ import java.util.ServiceLoader;
 /**
  * The client entrypoint for the Ars Magica: Legacy API.
  */
-@ApiStatus.NonExtendable
+@NonExtendable
 public abstract class ArsMagicaClientApi {
     /**
      * A {@link Lazy} that holds the {@link ArsMagicaClientApi} instance retrieved from the {@link ServiceLoader}. DO NOT ACCESS YOURSELF!
@@ -35,8 +36,7 @@ public abstract class ArsMagicaClientApi {
      * @param tab The {@link Holder} to get the {@link OcculusTabRenderer.Factory} for.
      * @return The {@link OcculusTabRenderer.Factory} for the specified {@link Holder}.
      */
-    @Nullable
-    public static OcculusTabRenderer.Factory occulusTabRendererFactory(Holder<OcculusTab> tab) {
+    public static OcculusTabRenderer.@Nullable Factory occulusTabRendererFactory(Holder<OcculusTab> tab) {
         return INSTANCE.get().getOcculusTabRendererFactory(tab);
     }
 
@@ -44,8 +44,7 @@ public abstract class ArsMagicaClientApi {
      * @param id The id of the {@link ParticleController} to get.
      * @return The {@link ParticleController} for the given id.
      */
-    @Nullable
-    public static ParticleController.Type particleController(Identifier id) {
+    public static ParticleController.@Nullable Type particleController(Identifier id) {
         return INSTANCE.get().getParticleController(id);
     }
 
@@ -53,8 +52,7 @@ public abstract class ArsMagicaClientApi {
      * @param spellPart The {@link SpellPart} to get the {@link SpellPartCustomizationScreen.Factory} for.
      * @return The {@link SpellPartCustomizationScreen.Factory} for the given {@link SpellPart}.
      */
-    @Nullable
-    public static SpellPartCustomizationScreen.Factory<?, ?> spellPartCustomizationScreen(Holder<SpellPart> spellPart) {
+    public static SpellPartCustomizationScreen.@Nullable Factory<?, ?> spellPartCustomizationScreen(Holder<SpellPart> spellPart) {
         return INSTANCE.get().getSpellPartCustomizationScreen(spellPart);
     }
 
@@ -85,24 +83,21 @@ public abstract class ArsMagicaClientApi {
         return INSTANCE.get().doSpawnParticles(spawner, position, color, caster, directEntity, hitResult);
     }
 
-    @ApiStatus.Internal
-    @Nullable
-    protected abstract OcculusTabRenderer.Factory getOcculusTabRendererFactory(Holder<OcculusTab> tab);
+    @Internal
+    protected abstract OcculusTabRenderer.@Nullable Factory getOcculusTabRendererFactory(Holder<OcculusTab> tab);
 
-    @ApiStatus.Internal
-    @Nullable
-    protected abstract ParticleController.Type getParticleController(Identifier id);
+    @Internal
+    protected abstract ParticleController.@Nullable Type getParticleController(Identifier id);
 
-    @ApiStatus.Internal
-    @Nullable
-    protected abstract SpellPartCustomizationScreen.Factory<?, ?> getSpellPartCustomizationScreen(Holder<SpellPart> spellPart);
+    @Internal
+    protected abstract SpellPartCustomizationScreen.@Nullable Factory<?, ?> getSpellPartCustomizationScreen(Holder<SpellPart> spellPart);
 
-    @ApiStatus.Internal
+    @Internal
     protected abstract MagitechGogglesOverlayRenderState doCreateMagitechGogglesOutlineRenderState();
 
-    @ApiStatus.Internal
+    @Internal
     protected abstract boolean doShouldRenderMagitechGogglesOutline();
 
-    @ApiStatus.Internal
+    @Internal
     protected abstract List<? extends ControlledParticle> doSpawnParticles(ParticleSpawner spawner, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult);
 }

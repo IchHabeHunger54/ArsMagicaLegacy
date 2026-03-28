@@ -26,25 +26,25 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public final class AMClientUtil {
-    private AMClientUtil() {
-    }
+    private AMClientUtil() {}
 
     public static Minecraft mc() {
         return Minecraft.getInstance();
     }
 
     public static LocalPlayer player() {
-        return mc().player;
+        return Objects.requireNonNull(mc().player);
     }
 
     public static ClientLevel level() {
-        return mc().level;
+        return Objects.requireNonNull(mc().level);
     }
 
     public static Font font() {

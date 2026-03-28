@@ -5,7 +5,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellStat;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellStatModifier;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
 import net.minecraft.core.component.DataComponentType;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Map;
 

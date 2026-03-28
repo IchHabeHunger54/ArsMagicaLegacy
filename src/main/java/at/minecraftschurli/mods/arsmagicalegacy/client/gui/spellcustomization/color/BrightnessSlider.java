@@ -4,7 +4,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import org.apache.commons.lang3.function.TriConsumer;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 class BrightnessSlider extends ColorPickerWidget {
     protected BrightnessSlider(int x, int y, int width, int height, TriConsumer<Float, Float, Float> onChange) {

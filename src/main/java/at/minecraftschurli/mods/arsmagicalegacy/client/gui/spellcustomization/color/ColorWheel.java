@@ -5,7 +5,7 @@ import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.world.phys.Vec2;
 import org.apache.commons.lang3.function.TriConsumer;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
 class ColorWheel extends ColorPickerWidget {

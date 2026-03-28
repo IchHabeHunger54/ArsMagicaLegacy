@@ -1,7 +1,7 @@
 package at.minecraftschurli.mods.arsmagicalegacy.api.spell;
 
 import net.minecraft.network.chat.Component;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Represents the result of a {@link Spell} cast. Holds the {@link Spell} itself, whether the {@link Spell} cast was successful, and an error message if one was set.

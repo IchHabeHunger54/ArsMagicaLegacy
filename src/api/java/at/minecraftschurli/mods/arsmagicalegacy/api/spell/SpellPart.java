@@ -3,7 +3,7 @@ package at.minecraftschurli.mods.arsmagicalegacy.api.spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
 import net.minecraft.core.component.DataComponentType;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Set;
 

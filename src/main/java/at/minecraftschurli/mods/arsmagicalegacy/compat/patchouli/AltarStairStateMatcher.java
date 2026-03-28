@@ -7,7 +7,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Half;
@@ -22,7 +21,7 @@ public final class AltarStairStateMatcher implements IStateMatcher {
     public AltarStairStateMatcher(Direction direction, Half half) {
         this.direction = direction;
         this.half = half;
-        predicate = (level, pos, state) -> AMRegistries.altarMaterials(level instanceof Level l ? l.registryAccess() : AMRegistries.registryAccess(false))
+        predicate = (level, _, state) -> AMRegistries.altarMaterials(level instanceof Level l ? l.registryAccess() : AMRegistries.registryAccess(false))
             .stream()
             .anyMatch(material -> state.is(material.stair()) && state.getValue(StairBlock.FACING) == direction && state.getValue(StairBlock.HALF) == half);
     }
@@ -32,7 +31,7 @@ public final class AltarStairStateMatcher implements IStateMatcher {
         AltarMaterial material = AMUtil.getByTick(AMRegistries.altarMaterials(false)
             .stream()
             .toArray(AltarMaterial[]::new), (int) ticks / 20);
-        return material == null ? Blocks.AIR.defaultBlockState() : material.stair().defaultBlockState().setValue(StairBlock.FACING, direction).setValue(StairBlock.HALF, half);
+        return material.stair().defaultBlockState().setValue(StairBlock.FACING, direction).setValue(StairBlock.HALF, half);
     }
 
     @Override

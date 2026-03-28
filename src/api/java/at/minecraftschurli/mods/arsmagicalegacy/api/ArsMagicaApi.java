@@ -14,14 +14,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.util.Lazy;
-import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.ApiStatus.Internal;
+import org.jetbrains.annotations.ApiStatus.NonExtendable;
 
 import java.util.ServiceLoader;
 
 /**
  * The main entrypoint for the Ars Magica: Legacy API.
  */
-@ApiStatus.NonExtendable
+@NonExtendable
 public abstract class ArsMagicaApi {
     /**
      * A {@link Lazy} that holds the {@link ArsMagicaApi} instance retrieved from the {@link ServiceLoader}. DO NOT ACCESS YOURSELF!
@@ -106,30 +107,30 @@ public abstract class ArsMagicaApi {
         return INSTANCE.get().getSpellPartDataManager();
     }
 
-    @ApiStatus.Internal
+    @Internal
     protected abstract ItemStackTemplate getBook();
 
-    @ApiStatus.Internal
+    @Internal
     protected abstract AbilityHelper getAbilityHelper();
 
-    @ApiStatus.Internal
+    @Internal
     protected abstract BurnoutHelper getBurnoutHelper();
 
-    @ApiStatus.Internal
+    @Internal
     protected abstract MagicHelper getMagicHelper();
 
-    @ApiStatus.Internal
+    @Internal
     protected abstract ManaHelper getManaHelper();
 
-    @ApiStatus.Internal
+    @Internal
     protected abstract SpellHelper getSpellHelper();
 
-    @ApiStatus.Internal
+    @Internal
     protected abstract JsonDataManager<Plant> getPlantManager();
 
-    @ApiStatus.Internal
+    @Internal
     protected abstract JsonDataManager<Ritual<?>> getRitualManager();
 
-    @ApiStatus.Internal
+    @Internal
     protected abstract JsonDataManager<SpellPartData> getSpellPartDataManager();
 }

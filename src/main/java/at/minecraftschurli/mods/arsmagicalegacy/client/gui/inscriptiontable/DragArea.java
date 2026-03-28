@@ -1,7 +1,7 @@
 package at.minecraftschurli.mods.arsmagicalegacy.client.gui.inscriptiontable;
 
 import net.minecraft.client.gui.components.Renderable;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 

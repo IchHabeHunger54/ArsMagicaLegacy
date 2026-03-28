@@ -10,7 +10,7 @@ import net.minecraft.world.level.MoonPhase;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.timeline.Timeline;
 import net.minecraft.world.timeline.Timelines;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public record MoonPhaseRitualRequirement(MoonPhase moonPhase) implements RitualRequirement {
     public static final MapCodec<MoonPhaseRitualRequirement> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(

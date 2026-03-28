@@ -1,4 +1,3 @@
-/* TODO jei
 package at.minecraftschurli.arsmagicalegacy.compat.jei;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
@@ -11,8 +10,8 @@ import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.init.AMItems;
-import at.minecraftschurli.arsmagicalegacy.item.DataComponentNamedItem;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -35,10 +34,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-@SuppressWarnings("DataFlowIssue")
-public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
+final class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
     public static final IRecipeType<Recipe> RECIPE_TYPE = IRecipeType.create(ArsMagicaApi.MOD_ID, "skill", Recipe.class);
     private static final Identifier BACKGROUND = ArsMagicaApi.id("textures/gui/skill_category.png");
+    @SuppressWarnings("DataFlowIssue")
     private static final Comparator<Holder<Affinity>> COMPARATOR = Comparator.comparing(Holder::getKey);
     private static final int INGREDIENT_COLUMNS = 7;
     private static final int SLOT_SIZE = 18;
@@ -92,7 +91,7 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
             y += SLOT_SIZE + TEXT_BOTTOM_PADDING;
             for (Holder<Affinity> affinity : affinityShifts.keySet().stream().sorted(COMPARATOR).toList()) {
                 builder.addSlot(RecipeIngredientRole.RENDER_ONLY, x, y)
-                    .add(DataComponentNamedItem.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinity))
+                    .add(AMUtil.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinity))
                     .addRichTooltipCallback((slot, tooltip) -> {
                         tooltip.clear();
                         tooltip.add(Affinity.getName(affinity));
@@ -181,4 +180,3 @@ public class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
         }
     }
 }
-*/

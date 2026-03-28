@@ -1,4 +1,3 @@
-/* TODO patchouli
 package at.minecraftschurli.arsmagicalegacy.compat.patchouli;
 
 import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
@@ -15,7 +14,7 @@ import net.minecraft.world.level.block.state.properties.Half;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.TriPredicate;
 
-public class AltarStairStateMatcher implements IStateMatcher {
+public final class AltarStairStateMatcher implements IStateMatcher {
     private final Direction direction;
     private final Half half;
     private final TriPredicate<BlockGetter, BlockPos, BlockState> predicate;
@@ -41,4 +40,3 @@ public class AltarStairStateMatcher implements IStateMatcher {
         return predicate;
     }
 }
-*/

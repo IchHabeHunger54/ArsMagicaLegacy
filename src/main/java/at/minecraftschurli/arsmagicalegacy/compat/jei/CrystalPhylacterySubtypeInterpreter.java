@@ -1,4 +1,3 @@
-/* TODO jei
 package at.minecraftschurli.arsmagicalegacy.compat.jei;
 
 import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
@@ -9,7 +8,7 @@ import mezz.jei.api.ingredients.subtypes.UidContext;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 
-public final class CrystalPhylacterySubtypeInterpreter implements ISubtypeInterpreter<ItemStack> {
+final class CrystalPhylacterySubtypeInterpreter implements ISubtypeInterpreter<ItemStack> {
     public static final CrystalPhylacterySubtypeInterpreter INSTANCE = new CrystalPhylacterySubtypeInterpreter();
 
     private CrystalPhylacterySubtypeInterpreter() {
@@ -23,4 +22,3 @@ public final class CrystalPhylacterySubtypeInterpreter implements ISubtypeInterp
         return CrystalPhylacteryContentsSize.get(type) > 0 ? type : null;
     }
 }
-*/

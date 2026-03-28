@@ -1,20 +1,40 @@
 package at.minecraftschurli.arsmagicalegacy.compat.patchouli;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMRegistries;
+import at.minecraftschurli.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.arsmagicalegacy.api.spell.SpellIngredient;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.arsmagicalegacy.api.spell.SpellPartData;
+import at.minecraftschurli.arsmagicalegacy.client.atlas.SkillAtlasHolder;
+import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
+import at.minecraftschurli.arsmagicalegacy.init.AMItems;
+import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
+import at.minecraftschurli.arsmagicalegacy.util.AMUtil;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.ItemStack;
+import vazkii.patchouli.api.IComponentRenderContext;
+import vazkii.patchouli.api.ICustomComponent;
+import vazkii.patchouli.api.IVariable;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.UnaryOperator;
 
-@SuppressWarnings({"DataFlowIssue", "unused"})
-public class SpellPartPage/* TODO patchouli implements ICustomComponent*/ {
+public final class SpellPartPage implements ICustomComponent {
     public static final Identifier ID = ArsMagicaApi.id("spell_part");
     public static final String TEMPLATE = "{\"components\":[{\"type\":\"patchouli:custom\",\"class\":\"at.minecraftschurli.arsmagicalegacy.compat.patchouli.SpellPartPage\",\"part\":\"#part\"}]}";
+    @SuppressWarnings("DataFlowIssue")
     private static final Comparator<Holder<Affinity>> COMPARATOR = Comparator.comparing(Holder::getKey);
     private static final int INGREDIENT_COLUMNS = 6;
     private static final int SLOT_SIZE = 18;
@@ -27,7 +47,6 @@ public class SpellPartPage/* TODO patchouli implements ICustomComponent*/ {
     private transient Map<Holder<Affinity>, Double> affinityShifts;
     private transient List<? extends Holder<Skill>> modifierHolders;
 
-    /* TODO patchouli
     @Override
     public void build(int x, int y, int page) {
         this.x = x;
@@ -35,7 +54,7 @@ public class SpellPartPage/* TODO patchouli implements ICustomComponent*/ {
     }
 
     @Override
-    public void render(GuiGraphicsExtractor graphics, IComponentRenderContext context, float partialTick, int mouseX, int mouseY) {
+    public void extractRenderState(GuiGraphicsExtractor graphics, IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
         int x = this.x;
         int y = this.y;
         Font font = AMClientUtil.font();
@@ -80,7 +99,7 @@ public class SpellPartPage/* TODO patchouli implements ICustomComponent*/ {
                     y += SLOT_SIZE;
                 }
                 Skill skill = modifiers.get(i);
-                graphics.blitSprite(RenderPipelines.GUI, SkillAtlasHolder.getSprite(skill), x, y, 16, 16);
+                graphics.blitSprite(RenderPipelines.GUI_TEXTURED, SkillAtlasHolder.getSprite(skill), x, y, 16, 16);
                 if (context.isAreaHovered(mouseX, mouseY, x, y, 16, 16)) {
                     context.setHoverTooltipComponents(List.of(Skill.getName(AMRegistries.skills(true).wrapAsHolder(skill))));
                 }
@@ -113,5 +132,4 @@ public class SpellPartPage/* TODO patchouli implements ICustomComponent*/ {
     private static void drawCentered(GuiGraphicsExtractor graphics, Font font, Component component, int y) {
         graphics.text(font, component, (int) ((WIDTH - font.getSplitter().stringWidth(component.getString())) / 2), y, 0x404040, false);
     }
-    */
 }

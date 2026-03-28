@@ -1,4 +1,3 @@
-/* TODO jei
 package at.minecraftschurli.arsmagicalegacy.compat.jei;
 
 import at.minecraftschurli.arsmagicalegacy.api.ArsMagicaApi;
@@ -27,14 +26,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@SuppressWarnings("DataFlowIssue")
-public final class HiddenSkills {
+final class HiddenSkills {
     private static final List<ResourceKey<Skill>> VISIBLE_SKILLS = new ArrayList<>();
     private static final List<SkillCategory.Recipe> VISIBLE_RECIPES = new ArrayList<>();
     private static final Map<ResourceKey<Skill>, Map<String, SkillCategory.Recipe>> RECIPES = new HashMap<>();
 
-    private HiddenSkills() {
-    }
+    private HiddenSkills() {}
 
     public static void update() {
         IJeiRuntime runtime = AMJeiPlugin.getRuntime();
@@ -55,6 +52,7 @@ public final class HiddenSkills {
             .toList());
         ingredientManager.addIngredientsAtRuntime(AMJeiPlugin.SKILL_TYPE, VISIBLE_SKILLS.stream()
             .map(skills::getValue)
+            .filter(Objects::nonNull)
             .toList());
         recipeManager.unhideRecipes(SkillCategory.RECIPE_TYPE, VISIBLE_RECIPES);
     }
@@ -67,7 +65,7 @@ public final class HiddenSkills {
 
     private static void registerRecipes(IJeiRuntime runtime) {
         getSkills().forEach(holder -> {
-                List<ResourceKey<Skill>> keys = getHiddenModifiers(holder.getKey())
+                List<ResourceKey<Skill>> keys = getHiddenModifiers(holder.key())
                 .map(Holder::getKey)
                 .filter(Objects::nonNull)
                 .toList();
@@ -90,7 +88,7 @@ public final class HiddenSkills {
 
     private static void addVisibleSkillsAndRecipes() {
         getSkills().filter(HiddenSkills::shouldShow)
-            .map(Holder::getKey)
+            .map(Holder.Reference::key)
             .forEach(skill -> {
                 VISIBLE_SKILLS.add(skill);
                 VISIBLE_RECIPES.add(RECIPES.get(skill).get(getKey(getHiddenModifiers(skill)
@@ -103,7 +101,7 @@ public final class HiddenSkills {
     private static Stream<Holder.Reference<Skill>> getSkills() {
         return AMRegistries.skills(true)
             .listElements()
-            .filter(e -> AMRegistries.SPELL_PARTS.containsKey(e.getKey().identifier()))
+            .filter(e -> AMRegistries.SPELL_PARTS.containsKey(e.key().identifier()))
             .sorted(Comparator.comparing(e -> Skill.getName(e).getString()));
     }
 
@@ -114,6 +112,7 @@ public final class HiddenSkills {
             .getModifiers(spellParts.getValue(ResourceKey.create(AMRegistries.Keys.SPELL_PART, skill.identifier())))
             .stream()
             .map(e -> skills.getValue(spellParts.getKey(e)))
+            .filter(Objects::nonNull)
             .filter(Skill::hidden)
             .map(skills::wrapAsHolder);
     }
@@ -136,4 +135,3 @@ public final class HiddenSkills {
             .collect(Collectors.toSet()));
     }
 }
-*/

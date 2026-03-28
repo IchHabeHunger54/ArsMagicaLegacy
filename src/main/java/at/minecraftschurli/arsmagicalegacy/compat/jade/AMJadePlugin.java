@@ -1,4 +1,3 @@
-/* TODO jade
 package at.minecraftschurli.arsmagicalegacy.compat.jade;
 
 import at.minecraftschurli.arsmagicalegacy.api.etherium.EtheriumGeneratorBlockEntity;
@@ -29,14 +28,14 @@ public final class AMJadePlugin implements IWailaPlugin {
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
-        registration.registerBlockComponent(AltarComponentProvider.INSTANCE, AltarCoreBlock.class);
-        registration.registerBlockComponent(EtheriumComponentProvider.INSTANCE, AltarCoreBlock.class);
-        registration.registerBlockComponent(EtheriumComponentProvider.INSTANCE, ObeliskBlock.class);
-        registration.registerBlockComponent(EtheriumComponentProvider.INSTANCE, CelestialPrismBlock.class);
-        registration.registerBlockComponent(EtheriumComponentProvider.INSTANCE, BlackAuremBlock.class);
-        registration.registerBlockComponent(TierComponentProvider.INSTANCE, ObeliskBlock.class);
-        registration.registerBlockComponent(TierComponentProvider.INSTANCE, CelestialPrismBlock.class);
-        registration.registerBlockComponent(TierComponentProvider.INSTANCE, BlackAuremBlock.class);
+        registration.registerBlockComponent(AltarComponentProvider.Client.INSTANCE, AltarCoreBlock.class);
+        registration.registerBlockComponent(EtheriumComponentProvider.Client.INSTANCE, AltarCoreBlock.class);
+        registration.registerBlockComponent(EtheriumComponentProvider.Client.INSTANCE, ObeliskBlock.class);
+        registration.registerBlockComponent(EtheriumComponentProvider.Client.INSTANCE, CelestialPrismBlock.class);
+        registration.registerBlockComponent(EtheriumComponentProvider.Client.INSTANCE, BlackAuremBlock.class);
+        registration.registerBlockComponent(TierComponentProvider.Client.INSTANCE, ObeliskBlock.class);
+        registration.registerBlockComponent(TierComponentProvider.Client.INSTANCE, CelestialPrismBlock.class);
+        registration.registerBlockComponent(TierComponentProvider.Client.INSTANCE, BlackAuremBlock.class);
         registration.addRayTraceCallback(((hitResult, accessor, original) -> {
             if (!(accessor instanceof BlockAccessor blockAccessor) || hitResult.getType() != HitResult.Type.BLOCK || !(hitResult instanceof BlockHitResult bhr)) return accessor;
             BlockPos pos = bhr.getBlockPos();
@@ -67,4 +66,3 @@ public final class AMJadePlugin implements IWailaPlugin {
         }));
     }
 }
-*/

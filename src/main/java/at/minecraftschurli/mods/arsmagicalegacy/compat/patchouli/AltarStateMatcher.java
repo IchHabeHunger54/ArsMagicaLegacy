@@ -6,7 +6,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.TriPredicate;
@@ -15,7 +14,7 @@ public final class AltarStateMatcher implements IStateMatcher {
     private final TriPredicate<BlockGetter, BlockPos, BlockState> predicate;
 
     public AltarStateMatcher() {
-        predicate = (level, pos, state) -> AMRegistries.altarMaterials(level instanceof Level l ? l.registryAccess() : AMRegistries.registryAccess(false))
+        predicate = (level, _, state) -> AMRegistries.altarMaterials(level instanceof Level l ? l.registryAccess() : AMRegistries.registryAccess(false))
             .stream()
             .anyMatch(material -> state.is(material.block()));
     }
@@ -25,7 +24,7 @@ public final class AltarStateMatcher implements IStateMatcher {
         AltarMaterial material = AMUtil.getByTick(AMRegistries.altarMaterials(false)
             .stream()
             .toArray(AltarMaterial[]::new), (int) ticks / 20);
-        return material == null ? Blocks.AIR.defaultBlockState() : material.block().defaultBlockState();
+        return material.block().defaultBlockState();
     }
 
     @Override

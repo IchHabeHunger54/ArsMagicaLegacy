@@ -22,6 +22,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
+import org.jspecify.annotations.Nullable;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
 import vazkii.patchouli.api.IVariable;
@@ -29,6 +30,7 @@ import vazkii.patchouli.api.IVariable;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.UnaryOperator;
 
 public final class SpellPartPage implements ICustomComponent {
@@ -40,12 +42,12 @@ public final class SpellPartPage implements ICustomComponent {
     private static final int SLOT_SIZE = 18;
     private static final int TEXT_BOTTOM_PADDING = 2;
     private static final int WIDTH = 116;
-    private String part;
+    private @Nullable String part;
     private transient int x;
     private transient int y;
-    private transient List<SpellIngredient> recipe;
-    private transient Map<Holder<Affinity>, Double> affinityShifts;
-    private transient List<? extends Holder<Skill>> modifierHolders;
+    private transient @Nullable List<SpellIngredient> recipe;
+    private transient @Nullable Map<Holder<Affinity>, Double> affinityShifts;
+    private transient @Nullable List<? extends Holder<Skill>> modifierHolders;
 
     @Override
     public void build(int x, int y, int page) {
@@ -60,7 +62,7 @@ public final class SpellPartPage implements ICustomComponent {
         Font font = AMClientUtil.font();
         drawCentered(graphics, font, AMTranslations.JEI_SKILL_INGREDIENTS, y);
         y += font.lineHeight + TEXT_BOTTOM_PADDING - SLOT_SIZE;
-        if (!recipe.isEmpty()) {
+        if (recipe != null && !recipe.isEmpty()) {
             for (int i = 0; i < recipe.size(); i++) {
                 if (i % INGREDIENT_COLUMNS != 0) {
                     x += SLOT_SIZE;
@@ -73,7 +75,7 @@ public final class SpellPartPage implements ICustomComponent {
             }
             y += TEXT_BOTTOM_PADDING + SLOT_SIZE;
         }
-        if (!affinityShifts.isEmpty()) {
+        if (affinityShifts != null && !affinityShifts.isEmpty()) {
             x = (int) (WIDTH - font.getSplitter().stringWidth(String.valueOf(Math.round(affinityShifts.values().stream().min(Double::compareTo).orElse(0.) * 1000) / 1000.))) / 2;
             drawCentered(graphics, font, AMTranslations.JEI_SKILL_AFFINITY_BREAKDOWN, y);
             y += font.lineHeight + TEXT_BOTTOM_PADDING;
@@ -84,24 +86,26 @@ public final class SpellPartPage implements ICustomComponent {
             }
             y += TEXT_BOTTOM_PADDING;
         }
-        List<Skill> modifiers = modifierHolders.stream()
-            .filter(e -> !e.value().hidden() || ArsMagicaApi.magicHelper().knows(AMClientUtil.player(), e))
-            .map(Holder::value)
-            .toList();
-        if (!modifiers.isEmpty()) {
-            drawCentered(graphics, font, AMTranslations.JEI_SKILL_MODIFIED_BY, y);
-            y += font.lineHeight + TEXT_BOTTOM_PADDING - SLOT_SIZE;
-            for (int i = 0; i < modifiers.size(); i++) {
-                if (i % INGREDIENT_COLUMNS != 0) {
-                    x += SLOT_SIZE;
-                } else {
-                    x = (WIDTH - Math.min(modifiers.size() - i, INGREDIENT_COLUMNS) * SLOT_SIZE) / 2;
-                    y += SLOT_SIZE;
-                }
-                Skill skill = modifiers.get(i);
-                graphics.blitSprite(RenderPipelines.GUI_TEXTURED, SkillAtlasHolder.getSprite(skill), x, y, 16, 16);
-                if (context.isAreaHovered(mouseX, mouseY, x, y, 16, 16)) {
-                    context.setHoverTooltipComponents(List.of(Skill.getName(AMRegistries.skills(true).wrapAsHolder(skill))));
+        if (modifierHolders != null) {
+            List<Skill> modifiers = modifierHolders.stream()
+                .filter(e -> !e.value().hidden() || ArsMagicaApi.magicHelper().knows(AMClientUtil.player(), e))
+                .map(Holder::value)
+                .toList();
+            if (!modifiers.isEmpty()) {
+                drawCentered(graphics, font, AMTranslations.JEI_SKILL_MODIFIED_BY, y);
+                y += font.lineHeight + TEXT_BOTTOM_PADDING - SLOT_SIZE;
+                for (int i = 0; i < modifiers.size(); i++) {
+                    if (i % INGREDIENT_COLUMNS != 0) {
+                        x += SLOT_SIZE;
+                    } else {
+                        x = (WIDTH - Math.min(modifiers.size() - i, INGREDIENT_COLUMNS) * SLOT_SIZE) / 2;
+                        y += SLOT_SIZE;
+                    }
+                    Skill skill = modifiers.get(i);
+                    graphics.blitSprite(RenderPipelines.GUI_TEXTURED, SkillAtlasHolder.getSprite(skill), x, y, 16, 16);
+                    if (context.isAreaHovered(mouseX, mouseY, x, y, 16, 16)) {
+                        context.setHoverTooltipComponents(List.of(Skill.getName(AMRegistries.skills(true).wrapAsHolder(skill))));
+                    }
                 }
             }
         }
@@ -118,7 +122,9 @@ public final class SpellPartPage implements ICustomComponent {
         modifierHolders = ArsMagicaApi.spellHelper()
             .getModifiers(spellPart)
             .stream()
-            .map(e -> skills.getOrThrow(ResourceKey.create(AMRegistries.Keys.SKILL, AMRegistries.SPELL_PARTS.getKey(e))))
+            .map(AMRegistries.SPELL_PARTS::getKey)
+            .filter(Objects::nonNull)
+            .map(e -> skills.getOrThrow(ResourceKey.create(AMRegistries.Keys.SKILL, e)))
             .toList();
     }
 

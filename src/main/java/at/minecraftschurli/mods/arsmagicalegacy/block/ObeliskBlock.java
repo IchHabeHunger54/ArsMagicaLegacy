@@ -30,7 +30,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.VanillaContainerWrapper;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class ObeliskBlock extends EtheriumGeneratorBlock {
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;

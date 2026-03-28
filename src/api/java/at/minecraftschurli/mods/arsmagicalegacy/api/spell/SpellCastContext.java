@@ -4,7 +4,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The context of a spell cast, passed into many spell casting methods in {@link SpellHelper} and related places.

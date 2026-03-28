@@ -6,7 +6,7 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.attachment.AttachmentSyncHandler;
 import net.neoforged.neoforge.attachment.IAttachmentHolder;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class MagicAttachmentSyncHandler implements AttachmentSyncHandler<MagicAttachment> {
     @Override

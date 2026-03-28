@@ -25,7 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.phys.EntityHitResult;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;

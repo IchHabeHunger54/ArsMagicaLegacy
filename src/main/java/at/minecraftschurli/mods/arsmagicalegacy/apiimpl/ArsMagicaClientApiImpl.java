@@ -25,7 +25,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.ModLoader;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,20 +37,17 @@ public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
     private static final Map<Holder<SpellPart>, SpellPartCustomizationScreen.Factory<?, ?>> SPELL_PART_CUSTOMIZATION_SCREENS = new HashMap<>();
 
     @Override
-    @Nullable
-    protected OcculusTabRenderer.Factory getOcculusTabRendererFactory(Holder<OcculusTab> tab) {
+    protected OcculusTabRenderer.@Nullable Factory getOcculusTabRendererFactory(Holder<OcculusTab> tab) {
         return OCCULUS_TAB_RENDERERS.get(tab.value().renderer());
     }
 
     @Override
-    @Nullable
-    protected ParticleController.Type getParticleController(Identifier id) {
+    protected ParticleController.@Nullable Type getParticleController(Identifier id) {
         return PARTICLE_CONTROLLERS.get(id);
     }
 
     @Override
-    @Nullable
-    protected SpellPartCustomizationScreen.Factory<?, ?> getSpellPartCustomizationScreen(Holder<SpellPart> spellPart) {
+    protected SpellPartCustomizationScreen.@Nullable Factory<?, ?> getSpellPartCustomizationScreen(Holder<SpellPart> spellPart) {
         return SPELL_PART_CUSTOMIZATION_SCREENS.get(spellPart);
     }
 

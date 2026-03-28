@@ -48,7 +48,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.model.data.ModelData;
 import net.neoforged.neoforge.model.data.ModelProperty;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;

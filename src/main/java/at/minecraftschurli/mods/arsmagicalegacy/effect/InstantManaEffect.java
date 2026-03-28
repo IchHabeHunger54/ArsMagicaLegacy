@@ -8,7 +8,7 @@ import net.minecraft.world.effect.InstantenousMobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class InstantManaEffect extends InstantenousMobEffect {
     public InstantManaEffect() {

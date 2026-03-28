@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class SpellTransformationBuilder implements RecipeBuilder {
     private final SpellTransformationRecipe recipe;

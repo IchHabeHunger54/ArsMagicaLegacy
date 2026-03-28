@@ -7,7 +7,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.Identifier;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class SkillAtlasHolder {
     public static final Identifier ATLAS = ArsMagicaApi.id("textures/atlas/skill.png");

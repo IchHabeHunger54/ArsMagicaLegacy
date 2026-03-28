@@ -5,7 +5,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.Holder;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;

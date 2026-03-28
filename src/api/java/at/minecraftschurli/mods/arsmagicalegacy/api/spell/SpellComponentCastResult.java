@@ -1,7 +1,7 @@
 package at.minecraftschurli.mods.arsmagicalegacy.api.spell;
 
 import net.minecraft.network.chat.Component;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Represents the result of an individual {@link SpellPart} being cast. The result is then used to accordingly populate a {@link SpellCastResult}.

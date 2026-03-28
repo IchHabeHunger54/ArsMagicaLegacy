@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class CelestialPrismBlock extends EtheriumGeneratorBlock {
     public static final EnumProperty<Part> PART = EnumProperty.create("part", Part.class);

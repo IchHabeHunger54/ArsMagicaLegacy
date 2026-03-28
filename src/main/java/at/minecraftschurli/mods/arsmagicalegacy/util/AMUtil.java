@@ -71,7 +71,7 @@ import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collection;

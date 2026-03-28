@@ -7,7 +7,7 @@ import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public record HeightRitualRequirement(MinMaxBounds.Doubles bounds) implements RitualRequirement {
     public static final MapCodec<HeightRitualRequirement> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(

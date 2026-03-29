@@ -9,6 +9,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
 import org.jspecify.annotations.Nullable;
 
@@ -62,10 +63,10 @@ public class SpellPartSourceArea extends DragArea {
 
     @Override
     public List<Draggable> getAll() {
-        return AMRegistries.skills(true)
+        LocalPlayer player = AMClientUtil.player();
+        return player == null ? List.of() : AMRegistries.skills(true)
             .listElements()
-            .filter(Objects::nonNull)
-            .filter(e -> ArsMagicaApi.magicHelper().knows(AMClientUtil.player(), e))
+            .filter(e -> ArsMagicaApi.magicHelper().knows(player, e))
             .map(Draggable::new)
             .toList();
     }

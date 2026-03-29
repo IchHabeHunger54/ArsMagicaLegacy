@@ -30,6 +30,7 @@ import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class OcculusScreen extends Screen {
     private static final Identifier BUTTON_INDICATOR = ArsMagicaApi.id("textures/gui/occulus/tab_button_indicator.png");
@@ -62,7 +63,7 @@ public class OcculusScreen extends Screen {
         tabY = topPos + OcculusTabButton.SIZE + FRAME_SIZE;
         tabs.clear();
         buttons.clear();
-        LocalPlayer player = AMClientUtil.player();
+        LocalPlayer player = Objects.requireNonNull(AMClientUtil.player());
         Registry<OcculusTab> registry = AMRegistries.occulusTabs(true);
         List<? extends Holder<OcculusTab>> list = registry
             .listElements()

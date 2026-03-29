@@ -17,6 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import org.jspecify.annotations.Nullable;
 
+import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
@@ -29,6 +30,7 @@ public class RecallCustomizationScreen extends AbstractSpellPartCustomizationScr
     private int leftPos;
     private int topPos;
     private Button clearButton;
+    @Nullable
     private GlobalVec3 oldValue;
     private Component message;
     private long messageTime;
@@ -43,7 +45,7 @@ public class RecallCustomizationScreen extends AbstractSpellPartCustomizationScr
         leftPos = (width - WIDTH) / 2;
         topPos = (height - HEIGHT) / 2;
         addRenderableWidget(Button.builder(AMTranslations.SPELL_CUSTOMIZATION_RECALL_SET, _ -> {
-            LocalPlayer player = AMClientUtil.player();
+            LocalPlayer player = Objects.requireNonNull(AMClientUtil.player());
             value = new GlobalVec3(player.level().dimension(), player.position());
             clearButton.active = true;
             message = AMTranslations.SPELL_CUSTOMIZATION_RECALL_SET_SUCCESS;

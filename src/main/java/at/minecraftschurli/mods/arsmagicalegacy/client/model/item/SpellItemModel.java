@@ -1,6 +1,7 @@
 package at.minecraftschurli.mods.arsmagicalegacy.client.model.item;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.client.atlas.SpellIconAtlasHolder;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
@@ -18,6 +19,7 @@ import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.client.resources.model.sprite.SpriteGetter;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -27,6 +29,7 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.IdentityHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public final class SpellItemModel implements ItemModel {
     private final ItemModel defaultModel;
@@ -41,7 +44,7 @@ public final class SpellItemModel implements ItemModel {
     @Override
     public void update(ItemStackRenderState output, ItemStack item, ItemModelResolver resolver, ItemDisplayContext displayContext, @Nullable ClientLevel level, @Nullable ItemOwner owner, int seed) {
         output.appendModelIdentityElement(this);
-        if (!ArsMagicaApi.magicHelper().knowsMagic(AMClientUtil.player())) {
+        if (!ArsMagicaApi.magicHelper().knowsMagic(Objects.requireNonNull(AMClientUtil.player()))) {
             defaultModel.update(output, item, resolver, displayContext, level, owner, seed);
             return;
         }
@@ -50,8 +53,8 @@ public final class SpellItemModel implements ItemModel {
             defaultModel.update(output, item, resolver, displayContext, level, owner, seed);
             return;
         }
-        var affinity = spell.grammar().primaryAffinity();
-        if (affinity != null && isHand(displayContext)) {
+        ResourceKey<Affinity> affinity = spell.grammar().primaryAffinity();
+        if (isHand(displayContext)) {
             Minecraft.getInstance()
                 .getModelManager()
                 .getItemModel(affinity.identifier().withPrefix("item/spell_"))

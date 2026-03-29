@@ -16,6 +16,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.particle.AMParticle;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.MagitechGogglesOverlayRenderStateImpl;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
@@ -59,7 +60,9 @@ public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
     @Override
     protected boolean doShouldRenderMagitechGogglesOutline() {
         LocalPlayer player = AMClientUtil.player();
-        return player.getItemBySlot(EquipmentSlot.HEAD).is(AMItems.MAGITECH_GOGGLES)/*TODO || AMUtil.ifModLoaded("curios", () -> CuriosApi.getCuriosInventory(player)
+        return player != null && (player.getItemBySlot(EquipmentSlot.HEAD).is(AMItems.MAGITECH_GOGGLES)
+            /*TODO curios
+            || AMUtil.ifModLoaded("curios", () -> CuriosApi.getCuriosInventory(player)
                 .map(ICuriosItemHandler::getCurios)
                 .map(map -> map.values()
                     .stream()
@@ -71,12 +74,13 @@ public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
                         return false;
                     }))
                 .orElse(false))
-            .orElse(false)*/;
+            .orElse(false)*/);
     }
 
     @Override
     protected List<? extends ControlledParticle> doSpawnParticles(ParticleSpawner spawner, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {
-        return AMParticle.spawn(AMClientUtil.level(), position.x(), position.y(), position.z(), spawner, color, caster, directEntity, hitResult);
+        ClientLevel level = AMClientUtil.level();
+        return level == null ? List.of() : AMParticle.spawn(level, position.x(), position.y(), position.z(), spawner, color, caster, directEntity, hitResult);
     }
 
     public static void postEvents() {

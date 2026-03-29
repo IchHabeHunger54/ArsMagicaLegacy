@@ -31,6 +31,7 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionTableMenu> {
@@ -78,7 +79,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         searchBar.setHint(AMTranslations.INSCRIPTION_TABLE_SEARCH);
         searchBar.setResponder(sourceArea::setNameFilter);
         addRenderableWidget(Button.builder(AMTranslations.INSCRIPTION_TABLE_CLEAR, _ -> clear()).bounds(leftPos + 40, topPos + 72, 60, 20).build());
-        if (AMClientUtil.player().isCreative()) {
+        if (Objects.requireNonNull(AMClientUtil.player()).isCreative()) {
             addRenderableWidget(Button.builder(AMTranslations.INSCRIPTION_TABLE_GIVE_SPELL, _ -> giveSpellRecipe()).bounds(leftPos + 120, topPos + 72, 60, 20).build());
         }
         nameBar = addRenderableWidget(new EditBox(AMClientUtil.font(), leftPos + 40, topPos + 93, 140, 12, nameBar, AMTranslations.INSCRIPTION_TABLE_NAME));

@@ -15,6 +15,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -62,7 +63,9 @@ public final class SpellPartPage implements ICustomComponent {
         Font font = AMClientUtil.font();
         drawCentered(graphics, font, AMTranslations.JEI_SKILL_INGREDIENTS, y);
         y += font.lineHeight + TEXT_BOTTOM_PADDING - SLOT_SIZE;
+        LocalPlayer player = Objects.requireNonNull(AMClientUtil.player());
         if (recipe != null && !recipe.isEmpty()) {
+            int tick = player.tickCount / 20;
             for (int i = 0; i < recipe.size(); i++) {
                 if (i % INGREDIENT_COLUMNS != 0) {
                     x += SLOT_SIZE;
@@ -71,7 +74,7 @@ public final class SpellPartPage implements ICustomComponent {
                     y += SLOT_SIZE;
                 }
                 SpellIngredient ingredient = recipe.get(i);
-                drawItemStack(graphics, context, AMUtil.getByTick(ingredient.asItemStacks(), AMClientUtil.player().tickCount / 20).copyWithCount(ingredient.count()), ingredient.tooltip(), x, y, mouseX, mouseY);
+                drawItemStack(graphics, context, AMUtil.getByTick(ingredient.asItemStacks(), tick).copyWithCount(ingredient.count()), ingredient.tooltip(), x, y, mouseX, mouseY);
             }
             y += TEXT_BOTTOM_PADDING + SLOT_SIZE;
         }
@@ -88,7 +91,7 @@ public final class SpellPartPage implements ICustomComponent {
         }
         if (modifierHolders != null) {
             List<Skill> modifiers = modifierHolders.stream()
-                .filter(e -> !e.value().hidden() || ArsMagicaApi.magicHelper().knows(AMClientUtil.player(), e))
+                .filter(e -> !e.value().hidden() || ArsMagicaApi.magicHelper().knows(player, e))
                 .map(Holder::value)
                 .toList();
             if (!modifiers.isEmpty()) {

@@ -33,6 +33,7 @@ public class MagitechGogglesOverlayRenderStateImpl implements MagitechGogglesOve
     @Override
     public void extract(BlockEntity blockEntity) {
         ClientLevel level = AMClientUtil.level();
+        if (level == null) return;
         BlockPos pos = blockEntity.getBlockPos();
         EtheriumHandler cap = level.getCapability(AMCapabilities.BLOCK_ETHERIUM, pos, null);
         if (cap == null) return;

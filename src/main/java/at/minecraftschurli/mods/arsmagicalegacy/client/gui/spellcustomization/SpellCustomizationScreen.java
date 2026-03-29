@@ -21,6 +21,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 
+import java.util.Objects;
+
 public class SpellCustomizationScreen extends Screen {
     private static final Identifier GRAMMAR = ArsMagicaApi.id("textures/gui/spell_customization/grammar.png");
     private static final Identifier ICONS = ArsMagicaApi.id("textures/gui/spell_customization/icons.png");
@@ -77,7 +79,7 @@ public class SpellCustomizationScreen extends Screen {
 
     public void setSpell(Spell spell) {
         this.spell = spell;
-        ItemStack stack = AMClientUtil.player().getItemInHand(hand);
+        ItemStack stack = Objects.requireNonNull(AMClientUtil.player()).getItemInHand(hand);
         if (stack.has(AMDataComponents.SPELL)) {
             stack.set(AMDataComponents.SPELL, spell);
         }

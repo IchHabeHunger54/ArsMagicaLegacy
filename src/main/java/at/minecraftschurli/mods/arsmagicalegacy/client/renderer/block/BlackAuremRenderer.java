@@ -19,6 +19,8 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.jspecify.annotations.Nullable;
 
+import java.util.Objects;
+
 public class BlackAuremRenderer extends AbstractEtheriumBlockEntityRenderer<BlackAuremBlockEntity, BlackAuremRenderer.State> {
     private static final float RAD = (float) (Math.PI / 180);
     private static final Vector3f FORWARDS = new Vector3f(0, 0, -1);
@@ -43,7 +45,7 @@ public class BlackAuremRenderer extends AbstractEtheriumBlockEntityRenderer<Blac
         FORWARDS.rotate(state.quaternion, new Vector3f(gameCamera.forwardVector()));
         UP.rotate(state.quaternion, new Vector3f(gameCamera.upVector()));
         LEFT.rotate(state.quaternion, new Vector3f(gameCamera.leftVector()));
-        state.rotation = Axis.ZP.rotation(AMClientUtil.player().tickCount / 10f % 360);
+        state.rotation = Axis.ZP.rotation(Objects.requireNonNull(AMClientUtil.player()).tickCount / 10f % 360);
         state.sprite = null; // TODO
     }
 

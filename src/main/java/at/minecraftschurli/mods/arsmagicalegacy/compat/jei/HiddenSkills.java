@@ -9,6 +9,7 @@ import com.google.common.collect.Sets;
 import mezz.jei.api.recipe.IRecipeManager;
 import mezz.jei.api.runtime.IIngredientManager;
 import mezz.jei.api.runtime.IJeiRuntime;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
@@ -118,7 +119,8 @@ final class HiddenSkills {
     }
 
     private static boolean shouldShow(Holder<Skill> skill) {
-        return !skill.value().hidden() || ArsMagicaApi.magicHelper().knows(AMClientUtil.player(), skill);
+        LocalPlayer player = AMClientUtil.player();
+        return player != null && (!skill.value().hidden() || ArsMagicaApi.magicHelper().knows(player, skill));
     }
 
     private static String getKey(Collection<ResourceKey<Skill>> set) {

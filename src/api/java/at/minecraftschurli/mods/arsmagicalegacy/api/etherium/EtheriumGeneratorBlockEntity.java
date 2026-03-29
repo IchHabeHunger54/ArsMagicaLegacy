@@ -1,10 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.api.etherium;
 
-import at.minecraftschurli.mods.arsmagicalegacy.api.client.ArsMagicaClientApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
@@ -22,8 +18,6 @@ import java.util.SequencedSet;
 
 /**
  * Simple implementation of an etherium generator, as used by the three generators in the base mod (Obelisk, Celestial Prism and Black Aurem).
- * If this class (or any other implementation of a block-bound etherium handler) is used, an associated {@link BlockEntityRenderer}
- * that calls {@link ArsMagicaClientApi#renderGogglesOutline(BlockEntity, PoseStack, MultiBufferSource)} should be registered for the Magitech Goggles item to pick it up.
  */
 public abstract class EtheriumGeneratorBlockEntity extends BlockEntity implements EtheriumHandler {
     private static final String ETHERIUM_KEY = "etherium";

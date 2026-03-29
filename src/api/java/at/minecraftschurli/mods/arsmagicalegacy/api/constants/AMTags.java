@@ -112,6 +112,7 @@ public interface AMTags {
     interface Biomes {
         TagKey<Biome> CAN_SUMMON_WATER_GUARDIAN = tag("can_summon_water_guardian");
 
+        @SuppressWarnings("SameParameterValue")
         private static TagKey<Biome> tag(String name) {
             return TagKey.create(Registries.BIOME, ArsMagicaApi.id(name));
         }

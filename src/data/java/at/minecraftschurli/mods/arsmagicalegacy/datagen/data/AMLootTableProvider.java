@@ -229,6 +229,7 @@ public final class AMLootTableProvider extends LootTableProvider {
             addDismemberingLoot(output, EntityType.ZOMBIE.getDefaultLootTable().orElseThrow(), Items.ZOMBIE_HEAD, 0.5f);
         }
 
+        @SuppressWarnings("SameParameterValue")
         private void addDismemberingLoot(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output, ResourceKey<LootTable> lootTable, ItemLike item, float chance) {
             output.accept(ResourceKey.create(lootTable.registryKey(), ArsMagicaApi.id(lootTable.identifier().getPath().replace("entities/", "entities/modify/")).withSuffix("_dismembering")), LootTable.lootTable().withPool(LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1))

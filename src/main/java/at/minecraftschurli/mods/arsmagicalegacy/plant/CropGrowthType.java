@@ -36,7 +36,7 @@ public record CropGrowthType(List<HarvestState> harvestStates) implements Boneme
 
     @Override
     public boolean canReplant(GrowthContext context) {
-        return !context.plant().seed().isEmpty();
+        return context.plant().seed().isPresent();
     }
 
     @Override

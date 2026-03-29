@@ -93,9 +93,7 @@ final class EtheriumComponentProvider implements StreamServerDataProvider<BlockA
             Optional<Data> optionalData = EtheriumComponentProvider.INSTANCE.decodeFromData(blockAccessor);
             if (optionalData.isEmpty()) return;
             Data data = optionalData.get();
-            data.etheriumMap().forEach((holder, etherium) -> {
-                iTooltip.add(Component.translatable(AMTranslations.ETHERIUM_KEY, EtheriumType.getName(holder), etherium.amount(), etherium.maxAmount()));
-            });
+            data.etheriumMap().forEach((holder, etherium) -> iTooltip.add(Component.translatable(AMTranslations.ETHERIUM_KEY, EtheriumType.getName(holder), etherium.amount(), etherium.maxAmount())));
             Level level = blockAccessor.getLevel();
             data.connectedPositions().ifPresent(positions -> {
                 if (positions.isEmpty()) return;

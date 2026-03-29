@@ -30,7 +30,6 @@ import net.minecraft.world.level.Level;
 import java.util.function.Consumer;
 
 public class CrystalPhylacteryItem extends Item {
-
     public CrystalPhylacteryItem(Properties properties) {
         super(properties);
     }

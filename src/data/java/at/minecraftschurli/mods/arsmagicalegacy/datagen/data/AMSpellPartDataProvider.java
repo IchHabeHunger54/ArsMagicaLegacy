@@ -457,10 +457,6 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
             .ingredient(new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.DUSTS_PURIFIED_VINTEUM)), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.CERUBLOSSOM.get()), 1))
             .ingredient(new EtheriumSpellIngredient(etheriumTypes.getOrThrow(AMEtheriumTypes.DARK), 2500));
-        //builder(AMSpells.TELEKINESIS, 5f)
-        //    .affinity(affinities.getOrThrow(AMMagic.ARCANE), 0.001f)
-        //    .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.PURPLE_RUNE), 1))
-        //    .ingredient(new ItemSpellIngredient(Ingredient.of(Items.STICKY_PISTON), 1));
         builder(AMSpells.TRANSPLACE, 80f)
             .affinity(affinities.getOrThrow(AMMagic.ENDER), 0.002f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.BLACK_RUNE), 1))

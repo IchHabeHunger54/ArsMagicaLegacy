@@ -43,9 +43,7 @@ final class AltarComponentProvider implements StreamServerDataProvider<BlockAcce
 
         @Override
         public void appendTooltip(ITooltip iTooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
-            AltarComponentProvider.INSTANCE.decodeFromData(blockAccessor).ifPresent(power -> {
-                iTooltip.add(Component.translatable(AMTranslations.ALTAR_CORE_POWER_KEY, power));
-            });
+            AltarComponentProvider.INSTANCE.decodeFromData(blockAccessor).ifPresent(power -> iTooltip.add(Component.translatable(AMTranslations.ALTAR_CORE_POWER_KEY, power)));
         }
 
         @Override

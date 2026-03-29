@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ public class AMDataManager<T> extends SimpleJsonResourceReloadListener<T> implem
     }
 
     @Override
+    @Nullable
     public T get(Identifier id) {
         return values.get(id);
     }

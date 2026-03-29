@@ -27,6 +27,7 @@ public abstract class SpellPartCastEvent<T extends SpellPart> extends SpellEvent
      * @param modifiers The list of {@link SpellModifier}s used by the spell part.
      * @param context   The {@link SpellCastContext} used by the spell cast.
      */
+    @SuppressWarnings("DataFlowIssue")
     public SpellPartCastEvent(T spellPart, List<SpellModifier> modifiers, SpellCastContext context) {
         super(context.caster(), context.spell());
         this.spellPart = spellPart;

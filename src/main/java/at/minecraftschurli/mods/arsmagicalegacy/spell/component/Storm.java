@@ -10,7 +10,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSpells;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -35,9 +34,8 @@ public class Storm extends SpellComponent {
         SpellHelper helper = ArsMagicaApi.spellHelper();
         LivingEntity caster = context.caster();
         Entity directEntity = context.directEntity();
-        MinecraftServer server = level.getServer();
-        if (server != null && !(level.getRainLevel(1f) > 0.9)) {
-            server.setWeatherParameters(0, (int) helper.getModifiedStat(AMServerConfig.STORM_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context), true, true);
+        if (!(level.getRainLevel(1f) > 0.9)) {
+            level.getServer().setWeatherParameters(0, (int) helper.getModifiedStat(AMServerConfig.STORM_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context), true, true);
         }
         if (directEntity == null) return SpellComponentCastResult.success(spell);
         int range = (int) helper.getModifiedStat(AMServerConfig.STORM_RANGE.get(), AMSpells.RANGE_STAT, modifiers, context);
@@ -63,7 +61,7 @@ public class Storm extends SpellComponent {
             List<Entity> entities = level.getEntities(caster, directEntity.getBoundingBox().inflate(range / 2., range / 2., range / 2.));
             if (entities.isEmpty()) return SpellComponentCastResult.success(spell);
             Entity entity = entities.get(random.nextInt(entities.size()));
-            if (entity == null || !level.canSeeSky(entity.blockPosition())) return SpellComponentCastResult.success(spell);
+            if (!level.canSeeSky(entity.blockPosition())) return SpellComponentCastResult.success(spell);
             if (caster instanceof Player player) {
                 entity.hurtServer(level, level.damageSources().playerAttack(player), 1);
             }

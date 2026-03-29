@@ -43,12 +43,16 @@ public final class SpellPartPage implements ICustomComponent {
     private static final int SLOT_SIZE = 18;
     private static final int TEXT_BOTTOM_PADDING = 2;
     private static final int WIDTH = 116;
-    private @Nullable String part;
+    @Nullable
+    private String part;
     private transient int x;
     private transient int y;
-    private transient @Nullable List<SpellIngredient> recipe;
-    private transient @Nullable Map<Holder<Affinity>, Double> affinityShifts;
-    private transient @Nullable List<? extends Holder<Skill>> modifierHolders;
+    @Nullable
+    private transient List<SpellIngredient> recipe;
+    @Nullable
+    private transient Map<Holder<Affinity>, Double> affinityShifts;
+    @Nullable
+    private transient List<? extends Holder<Skill>> modifierHolders;
 
     @Override
     public void build(int x, int y, int page) {

@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
+import org.jspecify.annotations.NullUnmarked;
 import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -112,6 +113,7 @@ public class AltarCoreRenderer extends AbstractEtheriumBlockEntityRenderer<Altar
         return AABB.INFINITE;
     }
 
+    @NullUnmarked
     public static class State extends AbstractEtheriumBlockEntityRenderer.RenderState {
         public boolean disabled = false;
         public double translateX;
@@ -120,7 +122,6 @@ public class AltarCoreRenderer extends AbstractEtheriumBlockEntityRenderer<Altar
         public List<FormattedCharSequenceXY> strings = new ArrayList<>();
         public int light;
         public int backgroundColor;
-        @Nullable
         public Quaternionf rotation;
         public ItemStackRenderState item = new ItemStackRenderState();
     }

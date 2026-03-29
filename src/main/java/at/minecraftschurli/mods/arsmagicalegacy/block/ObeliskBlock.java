@@ -147,6 +147,7 @@ public class ObeliskBlock extends EtheriumGeneratorBlock {
         return level.getBlockState(pos).is(this) && level.getBlockState(pos).getValue(PART) == Part.LOWER && level.getBlockEntity(pos) instanceof ObeliskBlockEntity blockEntity ? blockEntity : null;
     }
 
+    @SuppressWarnings("unused")
     @Nullable
     public static ResourceHandler<ItemResource> getItemHandler(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Direction direction) {
         if (!(state.getBlock() instanceof ObeliskBlock block)) return null;

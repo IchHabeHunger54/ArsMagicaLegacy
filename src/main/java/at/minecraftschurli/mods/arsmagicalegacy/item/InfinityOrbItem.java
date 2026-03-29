@@ -16,6 +16,7 @@ public class InfinityOrbItem extends HolderDataComponentItem<SkillPoint> {
         super(properties, AMDataComponents.SKILL_POINT.get());
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
         ItemStack stack = player.getItemInHand(usedHand);

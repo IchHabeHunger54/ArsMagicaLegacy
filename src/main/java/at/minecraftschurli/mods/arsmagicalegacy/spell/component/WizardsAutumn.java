@@ -1,5 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.spell.component;
 
+import at.minecraftschurli.mods.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
@@ -13,6 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.HitResult;
 
 import java.util.List;
 
@@ -27,8 +29,10 @@ public class WizardsAutumn extends SpellComponent {
         if (context.isHitResultNullOrMiss()) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_HIT);
         Level level = context.level();
         LivingEntity caster = context.caster();
-        BlockPos origin = BlockPos.containing(context.hitResult().getLocation());
-        int range = (int) ArsMagicaApi.spellHelper().getModifiedStat(2, AMSpells.RANGE_STAT, modifiers, context);
+        HitResult hitResult = context.hitResult();
+        if (hitResult == null) return SpellComponentCastResult.pass(spell);
+        BlockPos origin = BlockPos.containing(hitResult.getLocation());
+        int range = (int) ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.WIZARDS_AUTUMN_RANGE.get(), AMSpells.RANGE_STAT, modifiers, context);
         for (int i = -range; i <= range; i++) {
             for (int j = -range; j <= range; j++) {
                 for (int k = -range; k <= range; k++) {

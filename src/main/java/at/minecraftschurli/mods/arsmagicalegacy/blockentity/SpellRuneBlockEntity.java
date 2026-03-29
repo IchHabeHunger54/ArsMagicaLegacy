@@ -19,12 +19,14 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.EntityHitResult;
 import net.neoforged.neoforge.network.PacketDistributor;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.UUID;
 
 public class SpellRuneBlockEntity extends AMBlockEntity<SpellRuneBlockEntity.Data> {
-    private Spell spell;
+    private Spell spell = Spell.EMPTY;
+    @Nullable
     private LivingEntity owner;
     private boolean consume;
     private boolean awardXp;
@@ -51,7 +53,7 @@ public class SpellRuneBlockEntity extends AMBlockEntity<SpellRuneBlockEntity.Dat
         return new Data(spell, owner == null ? Optional.empty() : Optional.of(owner.getUUID()), consume, awardXp, power);
     }
 
-    public void setOwner(UUID uuid) {
+    public void setOwner(@Nullable UUID uuid) {
         if (level == null) return;
         owner = uuid != null && level.getEntity(uuid) instanceof LivingEntity living ? living : null;
     }

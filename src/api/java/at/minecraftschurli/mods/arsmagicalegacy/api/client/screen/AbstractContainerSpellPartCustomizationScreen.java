@@ -62,7 +62,7 @@ public abstract class AbstractContainerSpellPartCustomizationScreen<T> extends A
             if (isHovering(slot, mouseX, mouseY) && slot.isActive()) {
                 hoveredSlot = slot;
                 if (slot.isHighlightable()) {
-                    // FIXME 26.1
+                    // TODO 26.1
                     //AbstractContainerScreen.renderSlotHighlight(guiGraphics, slot.x, slot.y, 0, 0x80ffffff);
                 }
             }

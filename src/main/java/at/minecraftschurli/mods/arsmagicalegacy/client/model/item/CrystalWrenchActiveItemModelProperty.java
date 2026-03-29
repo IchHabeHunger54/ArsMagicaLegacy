@@ -17,6 +17,7 @@ public record CrystalWrenchActiveItemModelProperty() implements ConditionalItemM
         return CODEC;
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Override
     public boolean get(ItemStack itemStack, @Nullable ClientLevel level, @Nullable LivingEntity owner, int seed, ItemDisplayContext displayContext) {
         return itemStack.has(AMDataComponents.STORED_POSITIONS) && !itemStack.get(AMDataComponents.STORED_POSITIONS).isEmpty();

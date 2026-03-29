@@ -34,6 +34,7 @@ public class Attract extends SpellComponent {
         LivingEntity caster = context.caster();
         Entity directEntity = context.directEntity();
         HitResult hitResult = context.hitResult();
+        if (hitResult == null) return SpellComponentCastResult.pass(spell);
         Entity target = hitResult instanceof EntityHitResult result ? result.getEntity() : null;
         Vec3 targetPos = hitResult.getLocation();
         for (Entity entity : context.level().getEntities(target, target == null ? AABB.ofSize(targetPos, range, range, range) : target.getBoundingBox().inflate(range))) {

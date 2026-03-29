@@ -15,7 +15,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.mods.arsmagicalegacy.spell.SpellDamage;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
@@ -55,10 +54,7 @@ public class Damage extends SpellComponent.CastEntity {
             }
             return SpellComponentCastResult.success(spell);
         }
-        if (context.level() instanceof ServerLevel level) {
-            MinecraftServer server = level.getServer();
-            if (server != null && !server.getGameRules().get(GameRules.PVP) && target instanceof Player) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_DAMAGE_PVP);
-        }
+        if (context.level() instanceof ServerLevel level && !level.getServer().getGameRules().get(GameRules.PVP) && target instanceof Player) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_DAMAGE_PVP);
         float finalDamage = (float) helper.getModifiedStat(damage, AMSpells.DAMAGE_STAT, modifiers, context);
         ItemStack stack = AMUtil.getEnchantedSpell(modifiers, context, Map.of(Enchantments.LOOTING, AMSpells.FORTUNE_STAT, AMEnchantments.DISMEMBERING, AMSpells.DISMEMBERING_STAT));
         spell = spell.updateDataComponents(map -> map.updateGrammar(grammar -> grammar.set(AMDataComponents.SPELL_DAMAGE.get(), grammar.getOrDefault(AMDataComponents.SPELL_DAMAGE.get(), SpellDamage.EMPTY).setDamage(target, damageType.apply(context.caster()), finalDamage, stack))));

@@ -45,11 +45,9 @@ public class Rune extends SecondarySpellShape {
         Direction direction = blockHitResult.getDirection();
         BlockPos pos = blockHitResult.getBlockPos().offset(direction.getUnitVec3i());
         BlockState state = AMBlocks.SPELL_RUNE.get().getStateForPlacement(new BlockPlaceContext(level, player, InteractionHand.MAIN_HAND, ItemStack.EMPTY, new BlockHitResult(blockHitResult.getLocation(), direction, pos, false)));
-        if (state != null) {
-            level.setBlockAndUpdate(pos, state);
-            if (level.getBlockEntity(pos) instanceof SpellRuneBlockEntity spellRune) {
-                spellRune.setData(context, (int) ArsMagicaApi.spellHelper().getModifiedStat(1, AMSpells.RUNE_POWER_STAT, modifiers, context));
-            }
+        level.setBlockAndUpdate(pos, state);
+        if (level.getBlockEntity(pos) instanceof SpellRuneBlockEntity spellRune) {
+            spellRune.setData(context, (int) ArsMagicaApi.spellHelper().getModifiedStat(1, AMSpells.RUNE_POWER_STAT, modifiers, context));
         }
         return new SpellCastResult(spell).setSuccess();
     }

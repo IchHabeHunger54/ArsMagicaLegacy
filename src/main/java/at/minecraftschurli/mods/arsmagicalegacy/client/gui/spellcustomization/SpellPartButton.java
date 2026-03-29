@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
+import org.jspecify.annotations.Nullable;
 
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -24,8 +25,10 @@ public class SpellPartButton<T> extends Button {
     public static final int SIZE = 16;
     private final Holder<SpellPart> spellPart;
     private final TextureAtlasSprite sprite;
-    private Function<DataComponentType<T>, T> valueGetter;
-    private BiConsumer<DataComponentType<T>, T> valueSetter;
+    @Nullable
+    private Function<DataComponentType<T>, @Nullable T> valueGetter;
+    @Nullable
+    private BiConsumer<DataComponentType<T>, @Nullable T> valueSetter;
 
     private SpellPartButton(int x, int y, Holder<SpellPart> spellPart, TextureAtlasSprite sprite) {
         super(x, y, SIZE, SIZE, Component.empty(), _ -> {}, DEFAULT_NARRATION);

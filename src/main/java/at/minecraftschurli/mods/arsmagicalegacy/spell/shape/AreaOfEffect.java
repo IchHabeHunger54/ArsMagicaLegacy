@@ -8,6 +8,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSpells;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.AABB;
@@ -69,7 +70,10 @@ public class AreaOfEffect extends SecondarySpellShape {
 
     private void updateResult(SpellCastResult result, SpellCastResult grammarResult) {
         result.setSpell(grammarResult.getSpell());
-        result.setMessage(grammarResult.getMessage());
+        Component message = grammarResult.getMessage();
+        if (message != null) {
+            result.setMessage(message);
+        }
         if (grammarResult.isSuccess()) {
             result.setSuccess();
         }

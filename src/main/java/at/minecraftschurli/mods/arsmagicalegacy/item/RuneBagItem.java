@@ -22,6 +22,7 @@ public class RuneBagItem extends Item {
         super(properties);
     }
 
+    @SuppressWarnings("unused")
     public static ResourceHandler<ItemResource> getItemHandler(ItemStack stack, ItemAccess access) {
         return VanillaContainerWrapper.of(new ItemStackContainer(stack, DyeColor.values().length));
     }

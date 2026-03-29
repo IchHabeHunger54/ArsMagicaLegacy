@@ -26,6 +26,7 @@ public class SpellPartSourceArea extends DragArea {
     private static final int COLUMNS = 8;
     private final InscriptionTableScreen screen;
     private final List<Pair<Draggable, Pair<Integer, Integer>>> cache = new ArrayList<>();
+    @Nullable
     private String nameFilter;
     private boolean primaryShapes = true;
     private boolean secondaryShapes = true;
@@ -95,7 +96,6 @@ public class SpellPartSourceArea extends DragArea {
         List<Draggable> list = getAll()
             .stream()
             .map(Draggable::getSkill)
-            .filter(Objects::nonNull)
             .filter(e -> nameFilter == null || Skill.getName(e).getString().toLowerCase(Locale.ROOT).contains(nameFilter))
             .filter(this::isSkillVisible)
             .limit(ROWS * COLUMNS)

@@ -55,7 +55,7 @@ public class Dig extends SpellComponent.CastBlock {
         ServerPlayer player = caster instanceof ServerPlayer p ? p : FakePlayerFactory.get(level, GAME_PROFILE);
         Block block = state.getBlock();
         if (block instanceof GameMasterBlock && !player.canUseGameMasterBlocks() || player.blockActionRestricted(level, pos, player.gameMode.getGameModeForPlayer())) return SpellComponentCastResult.pass(spell);
-        if (context.consume() && !player.isCreative()) {
+        if (context.consume() && caster != null && !player.isCreative()) {
             double manaCost = hardness * AMServerConfig.DIG_MANA_FACTOR.get();
             ManaHelper manaHelper = ArsMagicaApi.manaHelper();
             BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();

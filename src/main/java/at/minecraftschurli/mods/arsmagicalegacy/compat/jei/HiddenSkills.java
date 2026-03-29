@@ -70,7 +70,9 @@ final class HiddenSkills {
                 .map(Holder::getKey)
                 .filter(Objects::nonNull)
                 .toList();
-            Map<String, SkillCategory.Recipe> recipes = RECIPES.computeIfAbsent(holder.getKey(), _ -> new HashMap<>());
+            ResourceKey<Skill> key = holder.getKey();
+            if (key == null) return;
+            Map<String, SkillCategory.Recipe> recipes = RECIPES.computeIfAbsent(key, _ -> new HashMap<>());
             for (Set<ResourceKey<Skill>> set : Sets.powerSet(new HashSet<>(keys))) {
                 Set<ResourceKey<Skill>> hiddenModifiers = new HashSet<>(keys);
                 set.forEach(hiddenModifiers::remove);
@@ -87,6 +89,7 @@ final class HiddenSkills {
         runtime.getRecipeManager().hideRecipes(SkillCategory.RECIPE_TYPE, recipes);
     }
 
+    @SuppressWarnings("DataFlowIssue")
     private static void addVisibleSkillsAndRecipes() {
         getSkills().filter(HiddenSkills::shouldShow)
             .map(Holder.Reference::key)
@@ -109,8 +112,9 @@ final class HiddenSkills {
     private static Stream<Holder<Skill>> getHiddenModifiers(ResourceKey<Skill> skill) {
         Registry<Skill> skills = AMRegistries.skills(true);
         Registry<SpellPart> spellParts = AMRegistries.SPELL_PARTS;
-        return ArsMagicaApi.spellHelper()
-            .getModifiers(spellParts.getValue(ResourceKey.create(AMRegistries.Keys.SPELL_PART, skill.identifier())))
+        SpellPart part = spellParts.getValue(ResourceKey.create(AMRegistries.Keys.SPELL_PART, skill.identifier()));
+        return part == null ? Stream.of() : ArsMagicaApi.spellHelper()
+            .getModifiers(part)
             .stream()
             .map(e -> skills.getValue(spellParts.getKey(e)))
             .filter(Objects::nonNull)

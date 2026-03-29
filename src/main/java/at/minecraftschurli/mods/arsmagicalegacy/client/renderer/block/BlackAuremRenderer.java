@@ -17,6 +17,7 @@ import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import org.jspecify.annotations.NullUnmarked;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Objects;
@@ -60,6 +61,7 @@ public class BlackAuremRenderer extends AbstractEtheriumBlockEntityRenderer<Blac
         poseStack.popPose();
     }
 
+    @NullUnmarked
     public static class State extends AbstractEtheriumBlockEntityRenderer.RenderState {
         public Quaternionf quaternion = new Quaternionf();
         public Quaternionf rotation;

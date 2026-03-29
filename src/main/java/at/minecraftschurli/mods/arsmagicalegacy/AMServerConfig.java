@@ -565,7 +565,6 @@ public final class AMServerConfig {
     }
 
     private static boolean isValidIdentifierOrEmpty(Object o) {
-        if (o == null) return false;
         String s = o.toString();
         if (s.isEmpty()) return true;
         if (!s.contains(":")) return Identifier.isValidPath(s);

@@ -124,6 +124,7 @@ final class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
         return HEIGHT;
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Override
     public void draw(Recipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         guiGraphics.blit(RenderPipelines.GUI, BACKGROUND, 0, 0, 0, 0, WIDTH, HEIGHT, 256, 256);
@@ -173,10 +174,6 @@ final class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
                 .filter(e -> !hiddenModifiers.contains(e))
                 .map(Holder::value)
                 .toList());
-        }
-
-        public static Recipe of(Holder<Skill> skill) {
-            return of(skill, Set.of());
         }
     }
 }

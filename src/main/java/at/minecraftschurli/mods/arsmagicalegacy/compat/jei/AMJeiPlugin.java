@@ -23,6 +23,7 @@ import java.util.Comparator;
 public final class AMJeiPlugin implements IModPlugin {
     public static final IIngredientType<Skill> SKILL_TYPE = () -> Skill.class;
     private static final Identifier ID = ArsMagicaApi.id(ArsMagicaApi.MOD_ID);
+    @Nullable
     private static IJeiRuntime runtime = null;
 
     @Override

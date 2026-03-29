@@ -26,6 +26,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
+import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -40,8 +41,11 @@ public class OcculusScreen extends Screen {
     private static final int FRAME_SIZE = 7;
     private final List<Holder<OcculusTab>> tabs = new ArrayList<>();
     private final List<OcculusTabButton> buttons = new ArrayList<>();
+    @Nullable
     private Button nextButton;
+    @Nullable
     private Button prevButton;
+    @Nullable
     private OcculusTabRenderer renderer;
     private int leftPos;
     private int topPos;
@@ -105,13 +109,15 @@ public class OcculusScreen extends Screen {
         super.extractRenderState(graphics, mouseX, mouseY, partialTick);
         AMClientUtil.blitFull(graphics, FRAME, leftPos, topPos + OcculusTabButton.SIZE, SIZE, SIZE);
         AMClientUtil.blit(graphics, BUTTON_INDICATOR, maxPage == 0 ? leftPos + 6 + tab * OcculusTabButton.SIZE : leftPos + 28 + tab % 7 * OcculusTabButton.SIZE, topPos + OcculusTabButton.SIZE, OcculusTabButton.SIZE, FRAME_SIZE);
+        if (renderer == null) return;
         if (renderer.hasSkillPointPanel()) {
+            LocalPlayer player = Objects.requireNonNull(AMClientUtil.player());
             List<? extends Holder<SkillPoint>> holders = AMRegistries.skillPoints(true)
                 .listElements()
                 .toList();
             List<MutableComponent> components = holders
                 .stream()
-                .map(e -> ArsMagicaApi.magicHelper().getSkillPoint(AMClientUtil.player(), e))
+                .map(e -> ArsMagicaApi.magicHelper().getSkillPoint(player, e))
                 .map(String::valueOf)
                 .map(Component::literal)
                 .toList();
@@ -175,8 +181,12 @@ public class OcculusScreen extends Screen {
     }
 
     private void onPageChange() {
-        nextButton.active = page < maxPage;
-        prevButton.active = page > 0;
+        if (nextButton != null) {
+            nextButton.active = page < maxPage;
+        }
+        if (prevButton != null) {
+            prevButton.active = page > 0;
+        }
         buttons.forEach(button -> button.visible = false);
         for (int i = page * 7; i < (page + 1) * 7 && i < buttons.size(); i++) {
             buttons.get(i).visible = true;
@@ -189,11 +199,11 @@ public class OcculusScreen extends Screen {
 
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-        return super.mouseClicked(event, doubleClick) || renderer.mouseClicked(new MouseButtonEvent(event.x() - tabX, event.y() - tabY, event.buttonInfo()), doubleClick);
+        return super.mouseClicked(event, doubleClick) || renderer != null && renderer.mouseClicked(new MouseButtonEvent(event.x() - tabX, event.y() - tabY, event.buttonInfo()), doubleClick);
     }
 
     @Override
     public boolean mouseDragged(MouseButtonEvent event, double dx, double dy) {
-        return super.mouseDragged(event, dx, dy) || renderer.mouseDragged(new MouseButtonEvent(event.x() - tabX, event.y() - tabY, event.buttonInfo()), dx, dy);
+        return super.mouseDragged(event, dx, dy) || renderer != null && renderer.mouseDragged(new MouseButtonEvent(event.x() - tabX, event.y() - tabY, event.buttonInfo()), dx, dy);
     }
 }

@@ -35,6 +35,8 @@ public class Wave extends PrimarySpellShape {
         wave.setYRot(caster.getYRot());
         wave.setOwner(caster);
         wave.setSpell(spell);
+        wave.setConsume(context.consume());
+        wave.setAwardXp(context.awardXp());
         SpellHelper helper = ArsMagicaApi.spellHelper();
         wave.setDeltaMovement(caster.getLookAngle().scale(helper.getModifiedStat(AMServerConfig.WAVE_SPEED.get(), AMSpells.SPEED_STAT, modifiers, context)));
         wave.setColor(helper.getColor(modifiers, spell, spell.activeShapeGroup()));

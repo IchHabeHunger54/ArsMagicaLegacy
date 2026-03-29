@@ -53,14 +53,16 @@ public class WizardsChalkItem extends BlockItem {
                 blockentity.setChanged();
             }
             oldState.getBlock().setPlacedBy(level, pos, oldState, player, stack);
-            if (player instanceof ServerPlayer) {
-                CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayer)player, pos, stack);
+            if (player instanceof ServerPlayer serverPlayer) {
+                CriteriaTriggers.PLACED_BLOCK.trigger(serverPlayer, pos, stack);
             }
         }
         SoundType soundtype = oldState.getSoundType(level, pos, player);
-        level.playSound(player, pos, getPlaceSound(oldState, level, pos, player), SoundSource.BLOCKS, (soundtype.getVolume() + 1) / 2f, soundtype.getPitch() * 0.8f);
-        level.gameEvent(GameEvent.BLOCK_PLACE, pos, GameEvent.Context.of(player, oldState));
-        stack.hurtAndBreak(1, player, context.getHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
+        if (player != null) {
+            level.playSound(player, pos, getPlaceSound(oldState, level, pos, player), SoundSource.BLOCKS, (soundtype.getVolume() + 1) / 2f, soundtype.getPitch() * 0.8f);
+            level.gameEvent(GameEvent.BLOCK_PLACE, pos, GameEvent.Context.of(player, oldState));
+            stack.hurtAndBreak(1, player, context.getHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
+        }
         return InteractionResult.SUCCESS.heldItemTransformedTo(stack);
     }
 }

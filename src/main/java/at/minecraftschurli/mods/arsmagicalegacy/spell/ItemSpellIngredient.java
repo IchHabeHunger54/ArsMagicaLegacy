@@ -23,6 +23,7 @@ import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.access.ItemAccess;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
+import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +70,7 @@ public record ItemSpellIngredient(Ingredient item, int count) implements SpellIn
     }
 
     @Override
+    @Nullable
     public SpellIngredient combine(SpellIngredient other) {
         return canCombine(other) ? new ItemSpellIngredient(item, count + ((ItemSpellIngredient) other).count) : null;
     }

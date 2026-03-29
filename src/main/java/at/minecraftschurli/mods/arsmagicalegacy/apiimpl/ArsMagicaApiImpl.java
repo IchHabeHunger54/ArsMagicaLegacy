@@ -26,6 +26,7 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     private static final AMDataManager<Ritual<?>> RITUAL_MANAGER = new AMDataManager<>(id("ritual"), Ritual.CODEC);
     private static final AMDataManager<SpellPartData> SPELL_PART_DATA_MANAGER = new AMDataManager<>(id("spell_part"), SpellPartData.CODEC);
 
+    @SuppressWarnings("DataFlowIssue")
     @Override
     protected ItemStackTemplate getBook() {
         return PatchouliAPI.get().getBookStackTemplate(ARCANE_COMPENDIUM);

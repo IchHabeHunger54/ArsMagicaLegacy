@@ -40,12 +40,17 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     private static final Identifier SLOT = ArsMagicaApi.id("textures/gui/inscription_table/slot.png");
     private final List<DragArea> dragAreas = new ArrayList<>();
     private final List<ShapeGroupArea> shapeGroupAreas = new ArrayList<>();
+    @Nullable
     private Draggable dragged;
+    @Nullable
     private SpellPartSourceArea sourceArea;
+    @Nullable
     private GrammarArea grammarArea;
+    @Nullable
     private EditBox searchBar;
+    @Nullable
     private EditBox nameBar;
-    private InscriptionTableBlockEntity.MenuData cachedData;
+    private InscriptionTableBlockEntity.@Nullable MenuData cachedData;
 
     public InscriptionTableScreen(InscriptionTableMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, 220, 252);
@@ -188,7 +193,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     }
 
     public GrammarArea getGrammarArea() {
-        return grammarArea;
+        return Objects.requireNonNull(grammarArea);
     }
 
     public List<ShapeGroupArea> getShapeGroupAreas() {
@@ -197,8 +202,8 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
 
     private void sync() {
         InscriptionTableBlockEntity.MenuData data = new InscriptionTableBlockEntity.MenuData(
-            Optional.of(Component.literal(nameBar.getValue())),
-            grammarArea.getVisible().stream().map(Draggable::getSkill).toList(),
+            Optional.ofNullable(nameBar).map(EditBox::getValue).map(Component::literal),
+            getGrammarArea().getVisible().stream().map(Draggable::getSkill).toList(),
             shapeGroupAreas.stream().map(area -> area.getVisible().stream().map(Draggable::getSkill).toList()).toList());
         menu.getBlockEntity().setMenuData(data);
         ClientPacketDistributor.sendToServer(new InscriptionTableSyncPacket(menu.getBlockEntity().getBlockPos(), data));
@@ -215,10 +220,14 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     }
 
     private void clear() {
-        grammarArea.getAll().clear();
+        getGrammarArea().getAll().clear();
         shapeGroupAreas.forEach(area -> area.getAll().clear());
-        searchBar.setValue("");
-        nameBar.setValue("");
+        if (searchBar != null) {
+            searchBar.setValue("");
+        }
+        if (nameBar != null) {
+            nameBar.setValue("");
+        }
         sync();
     }
 
@@ -244,8 +253,10 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         InscriptionTableBlockEntity.MenuData data = menu.getBlockEntity().getMenuData();
         if (data == cachedData) return;
         cachedData = data;
-        cachedData.name().ifPresent(name -> nameBar.setValue(name.getString()));
-        grammarArea.setFromData(cachedData);
+        if (nameBar != null) {
+            cachedData.name().ifPresent(name -> nameBar.setValue(name.getString()));
+        }
+        getGrammarArea().setFromData(cachedData);
         for (int i = 0; i < Math.min(cachedData.shapeGroups().size(), shapeGroupAreas.size()); i++) {
             shapeGroupAreas.get(i).setFromData(cachedData.shapeGroups().get(i));
         }

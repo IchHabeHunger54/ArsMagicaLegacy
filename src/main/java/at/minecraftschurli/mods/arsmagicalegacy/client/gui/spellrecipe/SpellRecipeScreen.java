@@ -39,7 +39,9 @@ public class SpellRecipeScreen extends Screen {
     private int currentPage = -1;
     private int cachedPage = -1;
     private int xPos;
+    @Nullable
     private PageButton forwardButton;
+    @Nullable
     private PageButton backButton;
 
     public SpellRecipeScreen(ItemStack stack, boolean playTurnSound, int startPage, @Nullable BlockPos lecternPos) {
@@ -108,11 +110,11 @@ public class SpellRecipeScreen extends Screen {
     @Override
     public boolean keyPressed(KeyEvent event) {
         if (super.keyPressed(event)) return true;
-        if (event.key() == GLFW.GLFW_KEY_PAGE_UP) {
+        if (backButton != null && event.key() == GLFW.GLFW_KEY_PAGE_UP) {
             backButton.onPress(event);
             return true;
         }
-        if (event.key() == GLFW.GLFW_KEY_PAGE_DOWN) {
+        if (forwardButton != null && event.key() == GLFW.GLFW_KEY_PAGE_DOWN) {
             forwardButton.onPress(event);
             return true;
         }
@@ -124,8 +126,12 @@ public class SpellRecipeScreen extends Screen {
         if (i == currentPage) return;
         currentPage = i;
         cachedPage = -1;
-        forwardButton.visible = currentPage < pages.size() - 1;
-        backButton.visible = currentPage > 0;
+        if (forwardButton != null) {
+            forwardButton.visible = currentPage < pages.size() - 1;
+        }
+        if (backButton != null) {
+            backButton.visible = currentPage > 0;
+        }
         if (lecternPos != null) {
             ClientPacketDistributor.sendToServer(new SetLecternPagePacket(lecternPos, currentPage));
         }

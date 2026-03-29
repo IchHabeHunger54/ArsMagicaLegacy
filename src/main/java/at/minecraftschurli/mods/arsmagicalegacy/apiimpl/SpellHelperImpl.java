@@ -42,6 +42,7 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
@@ -68,26 +69,30 @@ final class SpellHelperImpl implements SpellHelper {
         if (caster != null && caster.hasEffect(AMMobEffects.SILENCE)) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_SILENCED);
         ManaHelper manaHelper = ArsMagicaApi.manaHelper();
         BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
-        double manaCost = caster != null && caster.hasEffect(AMMobEffects.CLARITY) ? 0 : NeoForge.EVENT_BUS.post(new ManaCostCalculationEvent(caster, spell, spell.getManaCost(), burnoutHelper.getBurnout(caster))).getResult();
-        double burnoutCost = caster != null && caster.hasEffect(AMMobEffects.CLARITY) ? 0 : NeoForge.EVENT_BUS.post(new BurnoutCostCalculationEvent(caster, spell, spell.grammar().getBurnoutCost())).getBurnout();
+        double manaCost = 0;
+        double burnoutCost = 0;
         if (caster != null) {
-            caster.removeEffect(AMMobEffects.CLARITY);
+            if (caster.hasEffect(AMMobEffects.CLARITY)) {
+                manaCost = NeoForge.EVENT_BUS.post(new ManaCostCalculationEvent(caster, spell, spell.getManaCost(), burnoutHelper.getBurnout(caster))).getResult();
+                burnoutCost = NeoForge.EVENT_BUS.post(new BurnoutCostCalculationEvent(caster, spell, spell.grammar().getBurnoutCost())).getBurnout();
+                caster.removeEffect(AMMobEffects.CLARITY);
+            }
+            SpellCastEvent.Pre event = new SpellCastEvent.Pre(caster, spell, manaCost, burnoutCost, consume, awardXp);
+            if (event.isCanceled()) return new SpellCastResult(spell).setMessage(event.getCancellationMessage());
+            consume = event.isConsume();
+            awardXp = event.isAwardXp();
+            if (consume && !(caster instanceof Player player && player.isCreative())) {
+                if (manaHelper.getMana(caster) < manaCost) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_NOT_ENOUGH_MANA);
+                if (burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) < burnoutCost) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_BURNED_OUT);
+            }
         }
-        SpellCastEvent.Pre event = new SpellCastEvent.Pre(caster, spell, manaCost, burnoutCost, consume, awardXp);
-        if (event.isCanceled()) return new SpellCastResult(spell).setMessage(event.getCancellationMessage());
-        boolean isConsume = event.isConsume();
-        boolean isAwardXp = event.isAwardXp();
-        if (isConsume && !(caster instanceof Player player && player.isCreative())) {
-            if (manaHelper.getMana(caster) < manaCost) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_NOT_ENOUGH_MANA);
-            if (burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) < burnoutCost) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_BURNED_OUT);
-        }
-        SpellCastResult result = castPrimary(new SpellCastContext(spell, level, caster, isConsume, isAwardXp));
+        SpellCastResult result = castPrimary(new SpellCastContext(spell, level, caster, consume, awardXp));
         if (result.isSuccess()) {
-            if (isConsume && !(caster instanceof Player player && player.isCreative())) {
+            if (consume && caster != null && !(caster instanceof Player player && player.isCreative())) {
                 manaHelper.decreaseMana(caster, manaCost);
                 burnoutHelper.increaseBurnout(caster, burnoutCost);
             }
-            if (isAwardXp && caster instanceof Player player) {
+            if (awardXp && caster instanceof Player player) {
                 MagicHelper helper = ArsMagicaApi.magicHelper();
                 Registry<Skill> registry = AMRegistries.skills(player.registryAccess());
                 boolean affinityGains = registry.containsKey(AMMagic.AFFINITY_GAINS_BOOST) && helper.knows(player, registry.getOrThrow(AMMagic.AFFINITY_GAINS_BOOST));
@@ -110,7 +115,9 @@ final class SpellHelperImpl implements SpellHelper {
                 helper.addXp(player, xp);
             }
         }
-        NeoForge.EVENT_BUS.post(new SpellCastEvent.Post(caster, spell, manaCost, burnoutCost, isConsume, isAwardXp));
+        if (caster != null) {
+            NeoForge.EVENT_BUS.post(new SpellCastEvent.Post(caster, spell, manaCost, burnoutCost, consume, awardXp));
+        }
         return result;
     }
 
@@ -158,7 +165,10 @@ final class SpellHelperImpl implements SpellHelper {
             if (componentResult.isSuccess()) {
                 result.setSuccess();
             } else if (componentResult.isFailure()) {
-                result.setMessage(componentResult.getMessage());
+                Component message = componentResult.getMessage();
+                if (message != null) {
+                    result.setMessage(message);
+                }
             }
             spell = componentResult.getSpell();
             if (level.isClientSide()) {
@@ -257,6 +267,7 @@ final class SpellHelperImpl implements SpellHelper {
         return list;
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Override
     public List<SpellIngredient> getFlatRecipe(Spell spell) {
         List<SpellIngredient> result = new ArrayList<>();

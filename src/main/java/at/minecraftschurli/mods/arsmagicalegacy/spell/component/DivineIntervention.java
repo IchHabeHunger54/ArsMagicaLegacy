@@ -36,7 +36,9 @@ public class DivineIntervention extends SpellComponent.CastEntity {
             transition = player.findRespawnPositionAndUseSpawnBlock(false, TeleportTransition.DO_NOTHING);
         } else {
             LevelData.RespawnData respawnData = server.getRespawnData();
-            transition = new TeleportTransition(server.getServer().getLevel(respawnData.dimension()), respawnData.pos().getBottomCenter(), entity.getDeltaMovement(), respawnData.yaw(), respawnData.pitch(), TeleportTransition.DO_NOTHING);
+            ServerLevel serverLevel = server.getServer().getLevel(respawnData.dimension());
+            if (serverLevel == null) return SpellComponentCastResult.pass(spell);
+            transition = new TeleportTransition(serverLevel, respawnData.pos().getBottomCenter(), entity.getDeltaMovement(), respawnData.yaw(), respawnData.pitch(), TeleportTransition.DO_NOTHING);
         }
         entity.teleport(transition);
         return SpellComponentCastResult.success(spell);

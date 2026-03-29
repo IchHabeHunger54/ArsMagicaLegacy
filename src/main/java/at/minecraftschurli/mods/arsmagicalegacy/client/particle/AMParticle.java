@@ -192,8 +192,6 @@ public class AMParticle extends SimpleAnimatedParticle implements ControlledPart
             xd *= 0.7;
             zd *= 0.7;
         }
-        if (sprites != null) {
-            setSpriteFromAge(sprites);
-        }
+        setSpriteFromAge(sprites);
     }
 }

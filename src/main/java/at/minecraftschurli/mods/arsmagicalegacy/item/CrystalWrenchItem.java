@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CrystalWrenchItem extends Item {
-
     public CrystalWrenchItem(Properties properties) {
         super(properties);
     }

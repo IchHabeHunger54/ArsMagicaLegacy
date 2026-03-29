@@ -29,9 +29,11 @@ public class RecallCustomizationScreen extends AbstractSpellPartCustomizationScr
     private final TextureAtlasSprite sprite;
     private int leftPos;
     private int topPos;
+    @Nullable
     private Button clearButton;
     @Nullable
     private GlobalVec3 oldValue;
+    @Nullable
     private Component message;
     private long messageTime;
 
@@ -47,7 +49,9 @@ public class RecallCustomizationScreen extends AbstractSpellPartCustomizationScr
         addRenderableWidget(Button.builder(AMTranslations.SPELL_CUSTOMIZATION_RECALL_SET, _ -> {
             LocalPlayer player = Objects.requireNonNull(AMClientUtil.player());
             value = new GlobalVec3(player.level().dimension(), player.position());
-            clearButton.active = true;
+            if (clearButton != null) {
+                clearButton.active = true;
+            }
             message = AMTranslations.SPELL_CUSTOMIZATION_RECALL_SET_SUCCESS;
             messageTime = MESSAGE_TIME;
         }).bounds(leftPos, topPos + 36, 98, 20).build());

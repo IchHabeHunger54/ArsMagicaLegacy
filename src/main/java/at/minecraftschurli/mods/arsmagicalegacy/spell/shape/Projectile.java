@@ -35,6 +35,8 @@ public class Projectile extends PrimarySpellShape {
         projectile.setYRot(caster.getYRot());
         projectile.setOwner(caster);
         projectile.setSpell(spell);
+        projectile.setConsume(context.consume());
+        projectile.setAwardXp(context.awardXp());
         SpellHelper helper = ArsMagicaApi.spellHelper();
         projectile.setDeltaMovement(caster.getLookAngle().scale(helper.getModifiedStat(AMServerConfig.PROJECTILE_SPEED.get(), AMSpells.SPEED_STAT, modifiers, context)));
         projectile.setColor(helper.getColor(modifiers, spell, spell.activeShapeGroup()));

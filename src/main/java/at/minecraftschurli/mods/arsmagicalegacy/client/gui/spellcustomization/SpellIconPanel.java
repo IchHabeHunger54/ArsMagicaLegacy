@@ -19,6 +19,7 @@ class SpellIconPanel extends ScrollPanel {
     private final SpellCustomizationScreen screen;
     private final List<Identifier> icons;
     private final int iconsPerRow;
+    @Nullable
     private Identifier selected;
 
     public SpellIconPanel(int x, int y, int width, int height, SpellCustomizationScreen screen, @Nullable Identifier selected) {
@@ -27,7 +28,7 @@ class SpellIconPanel extends ScrollPanel {
         this.selected = selected;
         icons = SpellIconAtlasHolder.getIcons()
             .stream()
-            .filter(icon -> icon != null && !icon.equals(MissingTextureAtlasSprite.getLocation()))
+            .filter(icon -> !icon.equals(MissingTextureAtlasSprite.getLocation()))
             .sorted()
             .toList();
         iconsPerRow = (width - 1) / (ICON_SIZE + 1);

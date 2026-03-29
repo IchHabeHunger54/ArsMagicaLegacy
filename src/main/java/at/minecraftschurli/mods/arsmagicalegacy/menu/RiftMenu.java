@@ -11,6 +11,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.Objects;
+
 public class RiftMenu extends AbstractContainerMenu implements QuickMoveStack {
     private final int size;
     private final LivingEntity entity;
@@ -18,7 +20,7 @@ public class RiftMenu extends AbstractContainerMenu implements QuickMoveStack {
     public RiftMenu(int containerId, Inventory inventory, int entityId, int size) {
         super(AMMenus.RIFT.get(), containerId);
         this.size = size;
-        entity = (LivingEntity) inventory.player.level().getEntity(entityId);
+        entity = (LivingEntity) Objects.requireNonNull(inventory.player.level().getEntity(entityId));
         RiftContainer container = new RiftContainer(entity, size);
         int rows = Math.ceilDiv(container.getContainerSize(), 9);
         for (int i = 0; i < rows; i++) {

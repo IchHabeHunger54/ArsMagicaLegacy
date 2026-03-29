@@ -39,8 +39,11 @@ public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScre
     private int red;
     private int green;
     private int blue;
+    @Nullable
     private ColorWheel colorWheel;
+    @Nullable
     private BrightnessSlider brightnessSlider;
+    @Nullable
     private EditBox editBox;
 
     public ColorCustomizationScreen(Function<DataComponentType<Integer>, @Nullable Integer> valueGetter, BiConsumer<DataComponentType<Integer>, @Nullable Integer> valueSetter) {
@@ -97,7 +100,7 @@ public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScre
 
     @Override
     public boolean keyPressed(KeyEvent event) {
-        return editBox.active ? editBox.keyPressed(event) : super.keyPressed(event);
+        return editBox != null && editBox.active ? editBox.keyPressed(event) : super.keyPressed(event);
     }
 
     private void setColorRgb(int rgb) {

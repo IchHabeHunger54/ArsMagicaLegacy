@@ -18,6 +18,7 @@ import java.util.function.Function;
 public abstract class AbstractSpellPartCustomizationScreen<T> extends Screen implements SpellPartCustomizationScreen {
     private final DataComponentType<T> type;
     private final BiConsumer<DataComponentType<T>, T> setter;
+    @Nullable
     protected T value;
 
     /**
@@ -44,6 +45,7 @@ public abstract class AbstractSpellPartCustomizationScreen<T> extends Screen imp
     /**
      * Sets the value as if the screen were closed. This does not null-check the value.
      */
+    @SuppressWarnings("DataFlowIssue")
     protected void setValue() {
         setter.accept(type, value);
     }

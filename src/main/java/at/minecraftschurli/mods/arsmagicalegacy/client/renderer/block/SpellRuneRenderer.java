@@ -4,7 +4,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.blockentity.SpellRuneBlockEntity
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.BlockModelRenderState;
 import net.minecraft.client.renderer.block.BlockModelResolver;
@@ -42,7 +41,6 @@ public class SpellRuneRenderer implements BlockEntityRenderer<SpellRuneBlockEnti
         Player player = Objects.requireNonNull(AMClientUtil.player());
         if (level != null && (player.isCreative() || player.hasEffect(AMMobEffects.TRUE_SIGHT))) {
             blockModelResolver.update(state.blockModel, blockEntity.getBlockState(), BlockDisplayContext.create());
-            state.light = LevelRenderer.getLightCoords(level, blockEntity.getBlockPos());
         } else {
             state.disabled = true;
         }
@@ -51,13 +49,12 @@ public class SpellRuneRenderer implements BlockEntityRenderer<SpellRuneBlockEnti
     @Override
     public void submit(State state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
         if (!state.disabled) {
-            state.blockModel.submit(poseStack, submitNodeCollector, 0, OverlayTexture.NO_OVERLAY, 0);
+            state.blockModel.submit(poseStack, submitNodeCollector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
         }
     }
 
     public static class State extends BlockEntityRenderState {
         public boolean disabled = false;
         public BlockModelRenderState blockModel = new BlockModelRenderState();
-        public int light = 0;
     }
 }

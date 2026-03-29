@@ -10,6 +10,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.Identifier;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -23,7 +24,7 @@ public interface ParticleController {
             .map(DataResult::success)
             .orElseGet(() -> DataResult.error(() -> "Unknown particle controller: " + id)),
         ParticleController.Type::id
-    ).dispatch(controller -> ArsMagicaClientApi.particleController(controller.id()), ParticleController.Type::codec);
+    ).dispatch(controller -> Objects.requireNonNull(ArsMagicaClientApi.particleController(controller.id())), ParticleController.Type::codec);
 
     /**
      * @param instance The {@link RecordCodecBuilder.Instance} to use.

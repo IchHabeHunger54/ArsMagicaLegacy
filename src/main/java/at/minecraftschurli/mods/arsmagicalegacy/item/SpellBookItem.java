@@ -74,6 +74,7 @@ public class SpellBookItem extends Item {
         }
     }
 
+    @SuppressWarnings("unused")
     public static ResourceHandler<ItemResource> getItemHandler(ItemStack stack, ItemAccess access) {
         return VanillaContainerWrapper.of(new SpellBookContainer(stack));
     }

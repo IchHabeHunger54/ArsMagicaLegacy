@@ -96,6 +96,7 @@ public final class ParticleUtil {
         });
     }
 
+    @SuppressWarnings("DataFlowIssue")
     public static void spawnSpellEntityParticles(SpellShapeEntity entity, Spell spell, Vec3 position, int color, @Nullable LivingEntity caster) {
         SpellEntityKey key = new SpellEntityKey(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()), spell.grammar().primaryAffinity());
         SPELL_SHAPE_ENTITY_PARTICLE_SPAWNERS.computeIfAbsent(key, _ -> {

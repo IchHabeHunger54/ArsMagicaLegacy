@@ -7,6 +7,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPartData;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ public class SpellPartDataBuilder extends AbstractDataProvider.Builder<SpellPart
     private final Map<Holder<Affinity>, Double> affinityShifts = new HashMap<>();
     private final List<SpellIngredient> recipe = new ArrayList<>();
     private final double mana;
+    @Nullable
     private Double burnout;
 
     /**

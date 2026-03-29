@@ -17,8 +17,11 @@ import java.util.Map;
 public final class ParticleControllerInstance {
     public final ControlledParticle particle;
     public final ParticleController controller;
+    @Nullable
     public final LivingEntity caster;
+    @Nullable
     public final Entity directEntity;
+    @Nullable
     public final HitResult hitResult;
     private final Map<String, Object> context = new HashMap<>();
     private int tickCount = 0;
@@ -121,10 +124,9 @@ public final class ParticleControllerInstance {
      */
     @Nullable
     public Vec3 getLocationOrFinish() {
-        if (hitResult == null || hitResult.getType() == HitResult.Type.MISS) {
-            finish();
-            return null;
-        }
-        return hitResult.getLocation();
+        if (hitResult == null) return null;
+        if (hitResult.getType() != HitResult.Type.MISS) return hitResult.getLocation();
+        finish();
+        return null;
     }
 }

@@ -42,6 +42,7 @@ public class CrystalPhylacteryItem extends Item {
         return InteractionResult.SUCCESS.heldItemTransformedTo(stack);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
         Contents contents = stack.get(AMDataComponents.CRYSTAL_PHYLACTERY_CONTENTS);

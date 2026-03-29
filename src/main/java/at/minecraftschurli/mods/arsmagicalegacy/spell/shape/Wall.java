@@ -35,6 +35,8 @@ public class Wall extends SecondarySpellShape {
         wall.setYRot(directEntity.getYRot());
         wall.setOwner(context.caster());
         wall.setSpell(spell);
+        wall.setConsume(context.consume());
+        wall.setAwardXp(context.awardXp());
         SpellHelper helper = ArsMagicaApi.spellHelper();
         wall.setColor(helper.getColor(modifiers, spell, spell.activeShapeGroup()));
         wall.setTargetNonSolid(helper.getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, context) > 0);

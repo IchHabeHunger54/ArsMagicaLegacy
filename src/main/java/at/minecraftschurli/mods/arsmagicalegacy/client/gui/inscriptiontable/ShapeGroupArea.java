@@ -8,7 +8,6 @@ import net.minecraft.core.Holder;
 import org.jspecify.annotations.Nullable;
 
 import java.util.List;
-import java.util.Objects;
 
 public class ShapeGroupArea extends DragTargetArea {
     public static final int ROWS = 2;
@@ -66,7 +65,6 @@ public class ShapeGroupArea extends DragTargetArea {
     public void setFromData(List<Holder<Skill>> skills) {
         contents.clear();
         skills.stream()
-            .filter(Objects::nonNull)
             .map(Draggable::new)
             .forEach(contents::add);
     }

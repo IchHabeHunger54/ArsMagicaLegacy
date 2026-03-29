@@ -86,7 +86,7 @@ public class SpellRecipeScreen extends Screen {
         super.extractRenderState(graphics, mouseX, mouseY, partialTick);
         Page<?> page = pages.get(currentPage);
         String title = page.getTitle().getString();
-        graphics.text(font, title, xPos + 93 - font.width(title) / 2, 18, 0, false);
+        graphics.text(font, title, xPos + 93 - font.width(title) / 2, 18, 0xff000000, false);
         page.extractRenderState(graphics, xPos + 36, 32);
         if (cachedPage != currentPage) {
             cachedPage = currentPage;

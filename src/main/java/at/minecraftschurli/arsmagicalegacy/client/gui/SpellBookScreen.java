@@ -32,7 +32,7 @@ public class SpellBookScreen extends AbstractContainerScreen<SpellBookMenu> {
             ItemStack item = menu.slots.get(i).getItem();
             if (item.isEmpty()) continue;
             Component name = item.getHoverName();
-            graphics.text(font, name, 37, 9 + i * 18, Optional.ofNullable(name.getStyle().getColor()).orElse(TextColor.fromRgb(0x000000)).getValue(), false);
+            graphics.text(font, name, 37, 9 + i * 18, 0xff000000 | Optional.ofNullable(name.getStyle().getColor()).orElse(TextColor.fromRgb(0x000000)).getValue(), false);
         }
     }
 }

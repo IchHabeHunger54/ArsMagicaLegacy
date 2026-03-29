@@ -14,8 +14,6 @@ import at.minecraftschurli.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -51,13 +49,13 @@ public class ShapeGroupsLayer implements GuiLayer {
         for (int i = 0; i < shapeGroups.size(); i++) {
             List<SpellPart> shapeGroup = shapeGroups.get(i).parts();
             if (shapeGroup.isEmpty()) continue;
-            graphics.blit(TEXTURE, x + i * WIDTH, y, 0, 0, WIDTH, HEIGHT, WIDTH, HEIGHT);
+            AMClientUtil.blit(graphics, TEXTURE, x + i * WIDTH, y, WIDTH, HEIGHT);
             for (int j = 0; j < ROWS; j++) {
                 for (int k = 0; k < COLUMNS; k++) {
                     int index = j * COLUMNS + k;
-                    if (index >= shapeGroup.size()) continue;
-                    TextureAtlasSprite sprite = SkillAtlasHolder.getSprite(AMRegistries.SPELL_PARTS.getKey(shapeGroup.get(index)));
-                    graphics.blitSprite(RenderPipelines.GUI, sprite, x + i * WIDTH + k * SIZE + X_PADDING, y + j * SIZE + Y_PADDING, SIZE, SIZE);
+                    if (index < shapeGroup.size()) {
+                        AMClientUtil.blit(graphics, SkillAtlasHolder.getSprite(AMRegistries.SPELL_PARTS.getKey(shapeGroup.get(index))), x + i * WIDTH + k * SIZE + X_PADDING, y + j * SIZE + Y_PADDING, SIZE, SIZE);
+                    }
                 }
             }
             if (i == spell.activeShapeGroup()) continue;

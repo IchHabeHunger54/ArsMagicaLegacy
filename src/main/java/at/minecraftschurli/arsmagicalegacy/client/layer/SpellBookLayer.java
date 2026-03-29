@@ -8,7 +8,6 @@ import at.minecraftschurli.arsmagicalegacy.item.SpellBookItem;
 import at.minecraftschurli.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
@@ -40,11 +39,11 @@ public class SpellBookLayer implements GuiLayer {
         stack.pushMatrix();
         stack.translate(x, y);
         stack.scale(0.75f, 0.75f);
-        graphics.blit(RenderPipelines.GUI, TEXTURE, 0, 0, 0, 0, 148, 22, 148, 22);
+        AMClientUtil.blit(graphics, TEXTURE, 0, 0, 148, 22);
         for (int i = 0; i < Math.min(container.getSlots(), SpellBookItem.HOTBAR_SLOTS); i++) {
             AMClientUtil.renderItem(graphics, container.getStackInSlot(i), i * 18 + 3, 3);
         }
-        graphics.blit(RenderPipelines.GUI, HIGHLIGHT_TEXTURE, index * 18 + 1, 1, 0, 0, 20, 20, 20, 20);
+        AMClientUtil.blit(graphics, HIGHLIGHT_TEXTURE, index * 18 + 1, 1, 20, 20);
         stack.popMatrix();
     }
 }

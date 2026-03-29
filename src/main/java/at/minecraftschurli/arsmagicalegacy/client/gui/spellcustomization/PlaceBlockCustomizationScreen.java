@@ -64,6 +64,6 @@ public class PlaceBlockCustomizationScreen extends AbstractContainerSpellPartCus
     @Override
     protected void renderLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
         super.renderLabels(graphics, mouseX, mouseY);
-        graphics.text(font, AMClientUtil.player().getInventory().getDisplayName(), 8, 38, 0x404040, false);
+        graphics.text(font, AMClientUtil.player().getInventory().getDisplayName(), 8, 38, 0xff404040, false);
     }
 }

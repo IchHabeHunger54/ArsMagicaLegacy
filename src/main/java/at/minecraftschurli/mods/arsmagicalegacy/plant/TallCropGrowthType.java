@@ -66,7 +66,7 @@ public record TallCropGrowthType(List<TallHarvestState> harvestStates, RuleTest 
 
     @Override
     public boolean canReplant(GrowthContext context) {
-        return !context.plant().seed().isEmpty();
+        return context.plant().seed().isPresent();
     }
 
     @Override

@@ -120,6 +120,7 @@ public class AltarCoreRenderer extends AbstractEtheriumBlockEntityRenderer<Altar
         public List<FormattedCharSequenceXY> strings = new ArrayList<>();
         public int light;
         public int backgroundColor;
+        @Nullable
         public Quaternionf rotation;
         public ItemStackRenderState item = new ItemStackRenderState();
     }

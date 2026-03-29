@@ -28,7 +28,6 @@ public record SpellShapeGroup(List<SpellPart> parts, @Nullable PrimarySpellShape
     /**
      * @deprecated Use {@link SpellShapeGroup#of(List)} instead.
      */
-    @SuppressWarnings("DeprecatedIsStillUsed")
     @Deprecated
     public SpellShapeGroup {
     }

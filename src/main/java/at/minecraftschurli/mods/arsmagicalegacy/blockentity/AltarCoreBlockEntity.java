@@ -64,15 +64,23 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
     private final SequencedSet<BlockPos> etheriumProviders = new LinkedHashSet<>();
     private final Map<ResourceKey<EtheriumType>, Integer> etherium = new HashMap<>();
     private int checkCounter = 0;
+    @Nullable
     private Direction direction;
+    @Nullable
     private BlockPos lecternPos;
+    @Nullable
     private BlockPos leverPos;
+    @Nullable
     private AltarMaterial material;
+    @Nullable
     private AltarCapMaterial capMaterial;
+    @Nullable
     private BlockState camo;
     private int power = 0;
     private int currentIngredient = 0;
+    @Nullable
     private Spell spell = Spell.EMPTY;
+    @Nullable
     private List<SpellIngredient> recipe;
     private final BlockPattern pattern = BlockPatternBuilder.start()
         .aisle("BBBBB", "BBBBB", "BBCBB", "BBBBB", "BBBBB")

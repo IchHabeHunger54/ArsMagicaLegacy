@@ -34,7 +34,7 @@ public record TemporalAnchorAttachment(
     CompoundTag food,
     Optional<MagicAttachment> magic
 ) {
-    public static Codec<TemporalAnchorAttachment> CODEC = RecordCodecBuilder.create(inst -> inst.group(
+    public static final Codec<TemporalAnchorAttachment> CODEC = RecordCodecBuilder.create(inst -> inst.group(
         Vec3.CODEC.fieldOf("position").forGetter(TemporalAnchorAttachment::position),
         Codec.FLOAT.fieldOf("pitch").forGetter(TemporalAnchorAttachment::pitch),
         Codec.FLOAT.fieldOf("yaw").forGetter(TemporalAnchorAttachment::yaw),

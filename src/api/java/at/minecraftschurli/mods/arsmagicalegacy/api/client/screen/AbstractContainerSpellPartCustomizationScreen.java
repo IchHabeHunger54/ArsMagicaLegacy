@@ -34,6 +34,7 @@ public abstract class AbstractContainerSpellPartCustomizationScreen<T> extends A
     protected int topPos;
     protected int inventorySlotCount = 36;
     protected ItemStack carried = ItemStack.EMPTY;
+    @Nullable
     protected Slot hoveredSlot;
 
     public AbstractContainerSpellPartCustomizationScreen(Component title, DataComponentType<T> type, Function<DataComponentType<T>, @Nullable T> valueGetter, BiConsumer<DataComponentType<T>, @Nullable T> valueSetter) {
@@ -145,7 +146,7 @@ public abstract class AbstractContainerSpellPartCustomizationScreen<T> extends A
      * @param x The x position of the inventory.
      * @param y The y position of the inventory.
      */
-    @SuppressWarnings("DataFlowIssue")
+    @SuppressWarnings({"DataFlowIssue", "SameParameterValue"})
     protected void addInventorySlots(int x, int y) {
         Inventory inventory = Minecraft.getInstance().player.getInventory();
         for (int i = 0; i < 9; i++) {

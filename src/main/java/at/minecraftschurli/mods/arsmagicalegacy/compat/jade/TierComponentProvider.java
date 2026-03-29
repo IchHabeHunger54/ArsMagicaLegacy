@@ -49,9 +49,7 @@ final class TierComponentProvider implements StreamServerDataProvider<BlockAcces
 
         @Override
         public void appendTooltip(ITooltip iTooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
-            TierComponentProvider.INSTANCE.decodeFromData(blockAccessor).ifPresent(tier -> {
-                iTooltip.add(Component.translatable(AMTranslations.TIER_KEY, tier));
-            });
+            TierComponentProvider.INSTANCE.decodeFromData(blockAccessor).ifPresent(tier -> iTooltip.add(Component.translatable(AMTranslations.TIER_KEY, tier)));
         }
 
         @Override

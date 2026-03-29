@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.Strictness;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.IdentifierException;
@@ -28,7 +29,7 @@ public final class ToolTiers extends SimplePreparableReloadListener<JsonObject> 
     public static final Identifier ID = ArsMagicaApi.id("tool_tiers");
     public static final ToolTiers INSTANCE = new ToolTiers();
     public static final Identifier PATH = ArsMagicaApi.id("tool_tiers.json");
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().setLenient().create();
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().setStrictness(Strictness.LENIENT).create();
     private static final Logger LOGGER = LoggerFactory.getLogger(ToolTiers.class);
     private final Int2ObjectMap<TagKey<Block>> contents = new Int2ObjectOpenHashMap<>();
 

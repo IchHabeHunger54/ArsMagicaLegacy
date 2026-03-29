@@ -85,9 +85,4 @@ public class SpellCustomizationScreen extends Screen {
         }
         ClientPacketDistributor.sendToServer(new SpellCustomizationPacket(spell, hand));
     }
-
-    @Override
-    public void onClose() {
-        super.onClose();
-    }
 }

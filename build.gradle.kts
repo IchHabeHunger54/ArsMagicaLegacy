@@ -21,14 +21,6 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven {
-        name = "NeoForge Maven for PR #2993" // https://github.com/neoforged/NeoForge/pull/2993
-        url = uri("https://prmaven.neoforged.net/NeoForge/pr2993")
-        content {
-            includeModule("net.neoforged", "neoforge")
-            includeModule("net.neoforged", "testframework")
-        }
-    }
-    maven {
         name = "Geckolib"
         url = uri("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")
         content {
@@ -85,12 +77,10 @@ val geckolib = helper.dependencies.required("geckolib") {
     ordering = ModDependency.Ordering.BEFORE
     side = ModDependency.Side.BOTH
 }
-/* TODO patchouli
 val patchouli = helper.dependencies.required("patchouli") {
     ordering = ModDependency.Ordering.BEFORE
     side = ModDependency.Side.BOTH
 }
-*/
 
 dependencies {
     implementation(helper.neoforge())
@@ -107,34 +97,30 @@ dependencies {
     val jadeDep = jade.version.map { "maven.modrinth:jade:${it}-neoforge" }
     compileOnly(jadeDep)
 
-    /* TODO jei
     // jei for integration
     val jeiApiDep = helper.minecraftVersion.zip(jei.version) { mc, version -> "mezz.jei:jei-${mc}-common-api:${version}" }
     val jeiDep = helper.minecraftVersion.zip(jei.version) { mc, version -> "mezz.jei:jei-${mc}-neoforge:${version}" }
     compileOnly(jeiApiDep)
-    */
 
     // geckolib for animations
-    val geckolibDep = helper.minecraftVersion.zip(geckolib.version) { mc, version -> "com.geckolib:geckolib-neoforge-${/*mc*/ "26.1-snapshot-11"}:${version}" }
+    val geckolibDep = helper.minecraftVersion.zip(geckolib.version) { mc, version -> "com.geckolib:geckolib-neoforge-${mc}:${version}" }
     implementation(geckolibDep)
     testRuntimeOnly(geckolibDep)
     "dataRuntimeOnly"(geckolibDep)
     "interfaceInjection"(geckolibDep)
 
-    /* TODO patchouli
     // patchouli for the guide book (arcane compendium)
-    val patchouliApiDep = patchouli.version.map { "vazkii.patchouli:Patchouli:${it}:api" }
-    val patchouliDep = patchouli.version.map { "vazkii.patchouli:Patchouli:${it}" }
+    val patchouliApiDep = patchouli.version.map { "vazkii.patchouli:patchouli-neoforge:${it}:api" }
+    val patchouliDep = patchouli.version.map { "vazkii.patchouli:patchouli-neoforge:${it}" }
     compileOnly(patchouliApiDep)
     runtimeOnly(patchouliDep)
     testRuntimeOnly(patchouliDep)
     "dataRuntimeOnly"(patchouliDep)
-    */
 
     if (!helper.runningInCI.getOrElse(false)) {
         runtimeOnly(curiosDep)
-        // TODO jade runtimeOnly(jadeDep)
-        // TODO jei runtimeOnly(jeiDep)
+        runtimeOnly(jadeDep)
+        runtimeOnly(jeiDep)
     }
 
     val easyDatagenLibVersion = project.localGradleProperty("dependency.easydatagenlib.version")

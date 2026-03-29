@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import org.jspecify.annotations.Nullable;
 
+import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
@@ -64,6 +65,6 @@ public class PlaceBlockCustomizationScreen extends AbstractContainerSpellPartCus
     @Override
     protected void renderLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
         super.renderLabels(graphics, mouseX, mouseY);
-        graphics.text(font, AMClientUtil.player().getInventory().getDisplayName(), 8, 38, 0xff404040, false);
+        graphics.text(font, Objects.requireNonNull(AMClientUtil.player()).getInventory().getDisplayName(), 8, 38, 0xff404040, false);
     }
 }

@@ -20,6 +20,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
+import java.util.Objects;
+
 public class SpellRuneRenderer implements BlockEntityRenderer<SpellRuneBlockEntity, SpellRuneRenderer.State> {
     private final BlockModelResolver blockModelResolver;
 
@@ -37,7 +39,7 @@ public class SpellRuneRenderer implements BlockEntityRenderer<SpellRuneBlockEnti
         BlockEntityRenderer.super.extractRenderState(blockEntity, state, partialTicks, cameraPosition, breakProgress);
         state.disabled = false;
         Level level = blockEntity.getLevel();
-        Player player = AMClientUtil.player();
+        Player player = Objects.requireNonNull(AMClientUtil.player());
         if (level != null && (player.isCreative() || player.hasEffect(AMMobEffects.TRUE_SIGHT))) {
             blockModelResolver.update(state.blockModel, blockEntity.getBlockState(), BlockDisplayContext.create());
             state.light = LevelRenderer.getLightCoords(level, blockEntity.getBlockPos());

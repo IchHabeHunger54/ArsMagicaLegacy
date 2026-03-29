@@ -30,7 +30,6 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public final class AMClientUtil {
     private AMClientUtil() {}
@@ -39,12 +38,14 @@ public final class AMClientUtil {
         return Minecraft.getInstance();
     }
 
+    @Nullable
     public static LocalPlayer player() {
-        return Objects.requireNonNull(mc().player);
+        return mc().player;
     }
 
+    @Nullable
     public static ClientLevel level() {
-        return Objects.requireNonNull(mc().level);
+        return mc().level;
     }
 
     public static Font font() {

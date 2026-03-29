@@ -22,7 +22,9 @@ public class BarsLayer implements GuiLayer {
 
     @Override
     public void render(GuiGraphicsExtractor graphics, DeltaTracker deltaTracker) {
+        if (AMClientUtil.mc().options.hideGui) return;
         Player player = AMClientUtil.player();
+        if (player == null) return;
         MagicHelper magicHelper = ArsMagicaApi.magicHelper();
         if (!magicHelper.knowsMagic(player)) return;
         ManaHelper manaHelper = ArsMagicaApi.manaHelper();

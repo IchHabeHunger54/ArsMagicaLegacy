@@ -24,13 +24,14 @@ import net.minecraft.util.RandomSource;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class AffinityTabRenderer extends OcculusTabRenderer {
     private static final Component DETAILS = Component.translatable(AMTranslations.OCCULUS_DETAILS_KEY).withStyle(ChatFormatting.GRAY);
     private static final int RADIUS = 5;
     private static final int DISTANCE = 60;
     private static final float FRACTAL = 0.1f;
-    private final RandomSource random = AMClientUtil.level().getRandom();
+    private final RandomSource random = Objects.requireNonNull(AMClientUtil.level()).getRandom();
     private final List<Component> tooltip = new ArrayList<>();
 
     public AffinityTabRenderer(Holder<OcculusTab> occulusTab) {
@@ -41,10 +42,11 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
     public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         super.extractRenderState(graphics, mouseX, mouseY, partialTick);
         tooltip.clear();
+        LocalPlayer player = AMClientUtil.player();
+        if (player == null) return;
+        Font font = AMClientUtil.font();
         Registry<Affinity> affinities = AMRegistries.affinities(true);
         Registry<Ability> abilities = AMRegistries.abilities(true);
-        Font font = AMClientUtil.font();
-        LocalPlayer player = AMClientUtil.player();
         int center = TAB_SIZE / 2 + RADIUS;
         int count = affinities.size() - 1;
         double angleStep = Math.toRadians(360. / count);

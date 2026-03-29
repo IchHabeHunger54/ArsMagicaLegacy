@@ -34,6 +34,7 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AltarCoreRenderer extends AbstractEtheriumBlockEntityRenderer<AltarCoreBlockEntity, AltarCoreRenderer.State> {
     private static final ItemStackTemplate BARRIER = new ItemStackTemplate(Items.BARRIER);
@@ -81,7 +82,7 @@ public class AltarCoreRenderer extends AbstractEtheriumBlockEntityRenderer<Altar
         state.light = LevelRenderer.getLightCoords(level, lecternPos.above());
         state.backgroundColor = (int) (AMClientUtil.mc().options.getBackgroundOpacity(0.25f) * 255) << 24;
         state.rotation = Axis.YP.rotationDegrees(level.getGameTime() % 360 + partialTicks);
-        itemModelResolver.updateForTopItem(state.item, blockEntity.hasRecipe() ? AMUtil.getByTick(ingredient.asItemStacks(), AMClientUtil.player().tickCount / 20).copyWithCount(1) : BARRIER.create(), ItemDisplayContext.FIXED, level, null, (int) pos.asLong());
+        itemModelResolver.updateForTopItem(state.item, blockEntity.hasRecipe() ? AMUtil.getByTick(ingredient.asItemStacks(), Objects.requireNonNull(AMClientUtil.player()).tickCount / 20).copyWithCount(1) : BARRIER.create(), ItemDisplayContext.FIXED, level, null, (int) pos.asLong());
     }
 
     @Override

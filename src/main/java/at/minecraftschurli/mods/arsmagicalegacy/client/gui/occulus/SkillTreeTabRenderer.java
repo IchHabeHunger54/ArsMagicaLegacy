@@ -24,8 +24,10 @@ import net.minecraft.util.ARGB;
 import net.minecraft.world.phys.Vec2;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import org.joml.Matrix3x2fStack;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 
 public class SkillTreeTabRenderer extends OcculusTabRenderer {
     private static final Component MISSING = Component.translatable(AMTranslations.OCCULUS_MISSING_KEY).withStyle(ChatFormatting.DARK_RED);
@@ -33,6 +35,7 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
     private final List<Skill> skills;
     private double offsetX;
     private double offsetY;
+    @Nullable
     private Skill hoveredSkill;
 
     public SkillTreeTabRenderer(Holder<OcculusTab> occulusTab) {
@@ -50,7 +53,7 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
         super.extractRenderState(graphics, mouseX, mouseY, partialTick);
         MagicHelper helper = ArsMagicaApi.magicHelper();
         Registry<Skill> registry = AMRegistries.skills(true);
-        LocalPlayer player = AMClientUtil.player();
+        LocalPlayer player = Objects.requireNonNull(AMClientUtil.player());
         mouseX += (int) offsetX;
         mouseY += (int) offsetY;
         hoveredSkill = null;
@@ -107,7 +110,7 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
     public void renderTooltip(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         if (hoveredSkill == null) return;
         MagicHelper helper = ArsMagicaApi.magicHelper();
-        LocalPlayer player = AMClientUtil.player();
+        LocalPlayer player = Objects.requireNonNull(AMClientUtil.player());
         Registry<Skill> registry = AMRegistries.skills(true);
         Holder<Skill> holder = registry.wrapAsHolder(hoveredSkill);
         graphics.tooltip(AMClientUtil.font(), List.of(
@@ -122,7 +125,7 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
             return super.mouseClicked(event, doubleClick);
         if (hoveredSkill != null) {
             Holder<Skill> holder = AMRegistries.skills(true).wrapAsHolder(hoveredSkill);
-            LocalPlayer player = AMClientUtil.player();
+            LocalPlayer player = Objects.requireNonNull(AMClientUtil.player());
             if (ArsMagicaApi.magicHelper().canLearn(player, holder) || player.isCreative()) {
                 ClientPacketDistributor.sendToServer(new LearnSkillPacket(holder));
                 return true;

@@ -1,4 +1,4 @@
-package at.minecraftschurli.mods.arsmagicalegacy.menu.slot;
+package at.minecraftschurli.mods.arsmagicalegacy.slot;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;

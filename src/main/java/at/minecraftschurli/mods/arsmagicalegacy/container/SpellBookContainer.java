@@ -1,4 +1,4 @@
-package at.minecraftschurli.mods.arsmagicalegacy.menu.container;
+package at.minecraftschurli.mods.arsmagicalegacy.container;
 
 import at.minecraftschurli.mods.arsmagicalegacy.item.SpellBookItem;
 import net.minecraft.world.item.ItemStack;

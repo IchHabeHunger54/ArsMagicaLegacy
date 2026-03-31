@@ -4,7 +4,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.client.screen.AbstractContainerSpellPartCustomizationScreen;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
-import at.minecraftschurli.mods.arsmagicalegacy.menu.container.SingleItemContainer;
+import at.minecraftschurli.mods.arsmagicalegacy.container.SingleItemContainer;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.component.DataComponentType;

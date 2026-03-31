@@ -2,9 +2,9 @@ package at.minecraftschurli.mods.arsmagicalegacy.menu;
 
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMMenus;
-import at.minecraftschurli.mods.arsmagicalegacy.menu.container.ItemStackContainer;
-import at.minecraftschurli.mods.arsmagicalegacy.menu.slot.PlacePredicateSlot;
-import at.minecraftschurli.mods.arsmagicalegacy.menu.slot.ViewSlot;
+import at.minecraftschurli.mods.arsmagicalegacy.container.ItemStackContainer;
+import at.minecraftschurli.mods.arsmagicalegacy.slot.PlacePredicateSlot;
+import at.minecraftschurli.mods.arsmagicalegacy.slot.ViewSlot;
 import at.minecraftschurli.mods.arsmagicalegacy.util.QuickMoveStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;

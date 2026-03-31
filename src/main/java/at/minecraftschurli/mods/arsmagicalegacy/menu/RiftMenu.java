@@ -1,7 +1,7 @@
 package at.minecraftschurli.mods.arsmagicalegacy.menu;
 
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMMenus;
-import at.minecraftschurli.mods.arsmagicalegacy.menu.container.RiftContainer;
+import at.minecraftschurli.mods.arsmagicalegacy.container.RiftContainer;
 import at.minecraftschurli.mods.arsmagicalegacy.util.QuickMoveStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.LivingEntity;

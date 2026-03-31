@@ -6,7 +6,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.mods.arsmagicalegacy.item.CrystalPhylacteryItem;
-import at.minecraftschurli.mods.arsmagicalegacy.menu.container.SingleItemContainer;
+import at.minecraftschurli.mods.arsmagicalegacy.container.SingleItemContainer;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.mods.arsmagicalegacy.util.CrystalPhylacteryContentsSize;
 import net.minecraft.client.gui.GuiGraphicsExtractor;

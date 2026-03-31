@@ -51,12 +51,14 @@ import net.neoforged.neoforge.model.data.ModelProperty;
 import org.jspecify.annotations.Nullable;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.SequencedSet;
+import java.util.Set;
 
 @SuppressWarnings("DataFlowIssue")
 public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Data> implements EtheriumHandler {
@@ -200,6 +202,7 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
         if (!level.isClientSide()) {
             ItemStack stack = lectern.getBook();
             spell = stack.has(AMDataComponents.SPELL) ? stack.get(AMDataComponents.SPELL) : null;
+            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
         }
         SpellHelper helper = ArsMagicaApi.spellHelper();
         recipe = spell != null && helper.getFlatRecipe(spell).size() <= power ? helper.getRecipe(spell) : null;
@@ -334,17 +337,32 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
             if (count < ingredient.count()) return false;
             etherium.put(ingredient.etheriumType().get().getKey(), count - ingredient.count());
         } else {
-            int count = etherium.values().stream().mapToInt(Integer::intValue).sum();
+            int count = etherium.values()
+                .stream()
+                .mapToInt(Integer::intValue)
+                .sum();
             if (count < ingredient.count()) return false;
+            Set<ResourceKey<EtheriumType>> set = new HashSet<>();
             while (count > 0) {
-                int decrease = Math.min(etherium.values().stream().mapToInt(Integer::intValue).min().orElse(0), count / etherium.size());
-                for (ResourceKey<EtheriumType> holder : etherium.keySet()) {
-                    etherium.compute(holder, (_, v) -> v - decrease);
-                    if (etherium.get(holder) <= 0) {
-                        etherium.remove(holder);
+                set.clear();
+                int decrease = Math.min(count / etherium.size(), etherium.values()
+                    .stream()
+                    .mapToInt(Integer::intValue)
+                    .min()
+                    .orElse(0));
+                for (Map.Entry<ResourceKey<EtheriumType>, Integer> entry : etherium.entrySet()) {
+                    int value = entry.getValue();
+                    if (value > decrease) {
+                        count -= decrease;
+                        etherium.compute(entry.getKey(), (_, v) -> v - decrease);
+                    } else {
+                        count -= value;
+                        set.add(entry.getKey());
                     }
                 }
-                count -= decrease * etherium.size();
+                for (ResourceKey<EtheriumType> key : set) {
+                    etherium.remove(key);
+                }
             }
         }
         setChanged();

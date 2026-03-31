@@ -36,19 +36,19 @@ public abstract class OcculusTabRenderer extends AbstractContainerEventHandler i
      * @see Renderable#extractRenderState(GuiGraphicsExtractor, int, int, float) for parameter documentation.
      */
     @Override
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, OcculusTab.getBackground(occulusTab), 0, 0, 0, 0, TAB_SIZE, TAB_SIZE, TAB_SIZE, TAB_SIZE);
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        graphics.blit(RenderPipelines.GUI_TEXTURED, OcculusTab.getBackground(occulusTab), 0, 0, 0, 0, TAB_SIZE, TAB_SIZE, TAB_SIZE, TAB_SIZE);
     }
 
     /**
      * Render tooltips here. This is kept in a separate method to allow drawing outside the scissor space.
      *
-     * @param guiGraphics The {@link GuiGraphicsExtractor} to use.
+     * @param graphics    The {@link GuiGraphicsExtractor} to use.
      * @param mouseX      The mouse X position.
      * @param mouseY      The mouse Y position.
      * @param partialTick The partial tick value.
      */
-    public void renderTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void renderTooltip(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
     }
 
     /**

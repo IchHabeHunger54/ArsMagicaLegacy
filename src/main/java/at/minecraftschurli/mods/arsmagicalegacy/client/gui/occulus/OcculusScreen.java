@@ -148,11 +148,6 @@ public class OcculusScreen extends Screen {
     }
 
     @Override
-    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
-        super.extractBackground(graphics, mouseX, mouseY, a);
-    }
-
-    @Override
     public boolean isPauseScreen() {
         return false;
     }

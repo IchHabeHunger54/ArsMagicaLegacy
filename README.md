@@ -67,6 +67,8 @@ Ars Magica is a trademark of Atlas Games®, used with permission.
 
 Some textures used in this mod are property of D3miurge, used with permission.
 
+The code in `src/main/java/at/minecraftschurli/mods/arsmagicalegacy/client/colorthief` is a copy of the Java Color Thief library, licensed under [Creative Commons Attribution 2.5](https://creativecommons.org/licenses/by/2.5/).
+
 [Build Workflow]: https://github.com/MinecraftschurliMods/Ars-Magica-Legacy/actions/workflows/build.yml
 [GitHub Releases]: https://github.com/MinecraftschurliMods/Ars-Magica-Legacy/releases/latest
 [GitHub Issues]: https://github.com/MinecraftschurliMods/Ars-Magica-Legacy/issues?q=is%3Aopen+is%3Aissue+label%3Abug

@@ -1,6 +1,6 @@
 # General
 
-- Updated to 1.21.1
+- Updated to 26.1
 - Rewrote most of the mod from the ground up for more overall stability going forward
 - Updated many textures, credit to the amazing @MoonlitLamps for their texture work 
 - Added new advancements for the mod

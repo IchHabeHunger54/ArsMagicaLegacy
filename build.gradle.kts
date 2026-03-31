@@ -129,6 +129,8 @@ dependencies {
     "dataImplementation"(easyDatagenLibDep)
     "accessTransformer"(easyDatagenLibDep)
 
+    jarJar(implementation("de.androidpit:color-thief:${project.properties["colorthief_version"]}")) {}
+
     testImplementation("org.junit.jupiter:junit-jupiter:${project.properties["junit_version"]}")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 

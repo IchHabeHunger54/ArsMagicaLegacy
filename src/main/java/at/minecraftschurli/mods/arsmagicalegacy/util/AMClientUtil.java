@@ -138,13 +138,13 @@ public final class AMClientUtil {
         mc().setScreen(new SpellRecipeScreen(stack, playTurnSound, startPage, lecternPos));
     }
 
-    public static void renderItem(GuiGraphicsExtractor guiGraphics, ItemStack stack, int x, int y) {
-        renderItem(guiGraphics, font(), stack, x, y);
+    public static void renderItem(GuiGraphicsExtractor graphics, ItemStack stack, int x, int y) {
+        renderItem(graphics, font(), stack, x, y);
     }
 
-    public static void renderItem(GuiGraphicsExtractor guiGraphics, Font font, ItemStack stack, int x, int y) {
-        guiGraphics.item(stack, x, y);
-        guiGraphics.itemDecorations(font, stack, x, y);
+    public static void renderItem(GuiGraphicsExtractor graphics, Font font, ItemStack stack, int x, int y) {
+        graphics.item(stack, x, y);
+        graphics.itemDecorations(font, stack, x, y);
     }
 
     public static void spawnParticles(Identifier id, Vec3 position, int color, @Nullable LivingEntity caster, @Nullable Entity directEntity, @Nullable HitResult hitResult) {

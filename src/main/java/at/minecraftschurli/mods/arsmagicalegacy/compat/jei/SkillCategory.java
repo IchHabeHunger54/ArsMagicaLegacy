@@ -126,27 +126,27 @@ final class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public void draw(Recipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
-        guiGraphics.blit(RenderPipelines.GUI, BACKGROUND, 0, 0, 0, 0, WIDTH, HEIGHT, 256, 256);
+    public void draw(Recipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor graphics, double mouseX, double mouseY) {
+        AMClientUtil.blitFull(graphics, BACKGROUND, 0, 0, WIDTH, HEIGHT);
         Font font = AMClientUtil.font();
-        drawCentered(guiGraphics, font, Skill.getName(recipe.skill), 0);
+        drawCentered(graphics, font, Skill.getName(recipe.skill), 0);
         int y = SLOT_SIZE * 2 + TEXT_BOTTOM_PADDING;
-        drawCentered(guiGraphics, font, AMTranslations.JEI_SKILL_INGREDIENTS, y);
+        drawCentered(graphics, font, AMTranslations.JEI_SKILL_INGREDIENTS, y);
         y += (recipe.recipe.size() / INGREDIENT_COLUMNS + 1) * SLOT_SIZE + font.lineHeight + TEXT_BOTTOM_PADDING;
         if (!recipe.affinityShifts.isEmpty()) {
             y += SLOT_SIZE - font.lineHeight;
-            drawCentered(guiGraphics, font, AMTranslations.JEI_SKILL_AFFINITY_BREAKDOWN, y);
+            drawCentered(graphics, font, AMTranslations.JEI_SKILL_AFFINITY_BREAKDOWN, y);
             y += font.lineHeight + font.lineHeight / 2 + TEXT_BOTTOM_PADDING;
             int x = getAffinityValueAnchor(recipe.affinityShifts) + 9;
             for (Holder<Affinity> affinity : recipe.affinityShifts.keySet().stream().sorted(COMPARATOR).toList()) {
-                guiGraphics.text(font, String.valueOf(Math.round(recipe.affinityShifts.get(affinity) * 1000) / 1000.), x, y, affinity.value().color(), false);
+                graphics.text(font, String.valueOf(Math.round(recipe.affinityShifts.get(affinity) * 1000) / 1000.), x, y, affinity.value().color(), false);
                 y += SLOT_SIZE - 2;
             }
             y += 2 - font.lineHeight / 2 + TEXT_BOTTOM_PADDING;
         }
         if (!recipe.modifiers.isEmpty()) {
             y += SLOT_SIZE - font.lineHeight;
-            drawCentered(guiGraphics, font, AMTranslations.JEI_SKILL_MODIFIED_BY, y);
+            drawCentered(graphics, font, AMTranslations.JEI_SKILL_MODIFIED_BY, y);
         }
     }
 

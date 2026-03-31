@@ -103,6 +103,8 @@ public class AltarCoreRenderer extends AbstractEtheriumBlockEntityRenderer<Altar
         poseStack.popPose();
         poseStack.pushPose();
         poseStack.mulPose(state.rotation);
+        poseStack.translate(0, 0.15, 0);
+        poseStack.scale(0.65f, 0.65f, 0.65f);
         state.item.submit(poseStack, submitNodeCollector, state.light, OverlayTexture.NO_OVERLAY, 0);
         poseStack.popPose();
         poseStack.popPose();

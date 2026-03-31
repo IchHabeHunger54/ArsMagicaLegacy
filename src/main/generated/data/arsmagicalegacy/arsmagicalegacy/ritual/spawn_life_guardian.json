@@ -15,8 +15,11 @@
       "dimension": "minecraft:overworld"
     },
     {
-      "type": "arsmagicalegacy:moon_phase",
-      "moon_phase": "new_moon"
+      "type": "arsmagicalegacy:environment_attribute",
+      "environment_attribute": {
+        "type": "minecraft:visual/moon_phase",
+        "value": "new_moon"
+      }
     }
   ],
   "trigger": {

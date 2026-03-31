@@ -13,7 +13,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.ritual.requirement.DimensionRitu
 import at.minecraftschurli.mods.arsmagicalegacy.ritual.requirement.EnvironmentAttributeRitualRequirement;
 import at.minecraftschurli.mods.arsmagicalegacy.ritual.requirement.HeightRitualRequirement;
 import at.minecraftschurli.mods.arsmagicalegacy.ritual.requirement.IngredientRitualRequirement;
-import at.minecraftschurli.mods.arsmagicalegacy.ritual.requirement.MoonPhaseRitualRequirement;
 import at.minecraftschurli.mods.arsmagicalegacy.ritual.requirement.StructureRitualRequirement;
 import at.minecraftschurli.mods.arsmagicalegacy.ritual.trigger.DroppedItemRitualTrigger;
 import at.minecraftschurli.mods.arsmagicalegacy.ritual.trigger.GameEventRitualTrigger;
@@ -34,13 +33,12 @@ public interface AMRituals {
     DeferredHolder<MapCodec<? extends RitualEffect>, MapCodec<SetBlockRitualEffect>>    SET_BLOCK_EFFECT    = RITUAL_EFFECTS.register("set_block",    () -> SetBlockRitualEffect.CODEC);
     DeferredHolder<MapCodec<? extends RitualEffect>, MapCodec<SpawnEntityRitualEffect>> SPAWN_ENTITY_EFFECT = RITUAL_EFFECTS.register("spawn_entity", () -> SpawnEntityRitualEffect.CODEC);
 
-    DeferredHolder<MapCodec<? extends RitualRequirement>, MapCodec<BiomeTagRitualRequirement>>                 BIOME_TAG_REQUIREMENT              = RITUAL_REQUIREMENTS.register("biome_tag",              () -> BiomeTagRitualRequirement.CODEC);
-    DeferredHolder<MapCodec<? extends RitualRequirement>, MapCodec<DimensionRitualRequirement>>                DIMENSION_REQUIREMENT              = RITUAL_REQUIREMENTS.register("dimension",              () -> DimensionRitualRequirement.CODEC);
-    DeferredHolder<MapCodec<? extends RitualRequirement>, MapCodec<HeightRitualRequirement>>                   HEIGHT_REQUIREMENT                 = RITUAL_REQUIREMENTS.register("height",                 () -> HeightRitualRequirement.CODEC);
-    DeferredHolder<MapCodec<? extends RitualRequirement>, MapCodec<IngredientRitualRequirement>>               INGREDIENT_REQUIREMENT             = RITUAL_REQUIREMENTS.register("ingredient",             () -> IngredientRitualRequirement.CODEC);
-    DeferredHolder<MapCodec<? extends RitualRequirement>, MapCodec<MoonPhaseRitualRequirement>>                MOON_PHASE_REQUIREMENT             = RITUAL_REQUIREMENTS.register("moon_phase",             () -> MoonPhaseRitualRequirement.CODEC);
-    DeferredHolder<MapCodec<? extends RitualRequirement>, MapCodec<StructureRitualRequirement>>                STRUCTURE_REQUIREMENT              = RITUAL_REQUIREMENTS.register("structure",              () -> StructureRitualRequirement.CODEC);
-    DeferredHolder<MapCodec<? extends RitualRequirement>, MapCodec<EnvironmentAttributeRitualRequirement<?>>> ENVIRONMENT_ATTRIBUTE_REQUIREMENT  = RITUAL_REQUIREMENTS.register("environment_attribute",  () -> EnvironmentAttributeRitualRequirement.CODEC);
+    DeferredHolder<MapCodec<? extends RitualRequirement>, MapCodec<BiomeTagRitualRequirement>>                BIOME_TAG_REQUIREMENT             = RITUAL_REQUIREMENTS.register("biome_tag",             () -> BiomeTagRitualRequirement.CODEC);
+    DeferredHolder<MapCodec<? extends RitualRequirement>, MapCodec<DimensionRitualRequirement>>               DIMENSION_REQUIREMENT             = RITUAL_REQUIREMENTS.register("dimension",             () -> DimensionRitualRequirement.CODEC);
+    DeferredHolder<MapCodec<? extends RitualRequirement>, MapCodec<EnvironmentAttributeRitualRequirement<?>>> ENVIRONMENT_ATTRIBUTE_REQUIREMENT = RITUAL_REQUIREMENTS.register("environment_attribute", () -> EnvironmentAttributeRitualRequirement.CODEC);
+    DeferredHolder<MapCodec<? extends RitualRequirement>, MapCodec<HeightRitualRequirement>>                  HEIGHT_REQUIREMENT                = RITUAL_REQUIREMENTS.register("height",                () -> HeightRitualRequirement.CODEC);
+    DeferredHolder<MapCodec<? extends RitualRequirement>, MapCodec<IngredientRitualRequirement>>              INGREDIENT_REQUIREMENT            = RITUAL_REQUIREMENTS.register("ingredient",            () -> IngredientRitualRequirement.CODEC);
+    DeferredHolder<MapCodec<? extends RitualRequirement>, MapCodec<StructureRitualRequirement>>               STRUCTURE_REQUIREMENT             = RITUAL_REQUIREMENTS.register("structure",             () -> StructureRitualRequirement.CODEC);
 
     DeferredHolder<MapCodec<? extends RitualTrigger<?>>, MapCodec<DroppedItemRitualTrigger>>   DROPPED_ITEM_TRIGGER    = RITUAL_TRIGGERS.register("dropped_item",    () -> DroppedItemRitualTrigger.CODEC);
     DeferredHolder<MapCodec<? extends RitualTrigger<?>>, MapCodec<GameEventRitualTrigger>>     GAME_EVENT_TRIGGER      = RITUAL_TRIGGERS.register("game_event",      () -> GameEventRitualTrigger.CODEC);

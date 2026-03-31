@@ -12,7 +12,10 @@
     },
     {
       "type": "arsmagicalegacy:environment_attribute",
-      "value": true
+      "environment_attribute": {
+        "type": "minecraft:gameplay/water_evaporates",
+        "value": true
+      }
     }
   ],
   "trigger": {

@@ -191,6 +191,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         blockIdTranslation(AMBlocks.POTTED_TARMA_ROOT);
         blockIdTranslation(AMBlocks.WAKEBLOOM);
         blockIdTranslation(AMBlocks.POTTED_WAKEBLOOM);
+        itemIdTranslation(AMItems.WAKEBLOOM);
         itemIdTranslation(AMItems.DRYAD_SPAWN_EGG);
         itemIdTranslation(AMItems.MANA_CREEPER_SPAWN_EGG);
         itemIdTranslation(AMItems.CRYSTAL_PHYLACTERY);

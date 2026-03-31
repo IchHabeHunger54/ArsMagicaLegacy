@@ -27,6 +27,8 @@ import java.util.function.Function;
  * @param <T> The type of the modified data component.
  */
 public abstract class AbstractContainerSpellPartCustomizationScreen<T> extends AbstractSpellPartCustomizationScreen<T> {
+    private static final Identifier SLOT_HIGHLIGHT_BACK_SPRITE = Identifier.withDefaultNamespace("container/slot_highlight_back");
+    private static final Identifier SLOT_HIGHLIGHT_FRONT_SPRITE = Identifier.withDefaultNamespace("container/slot_highlight_front");
     protected final List<Slot> slots = new ArrayList<>();
     protected int imageWidth = 176;
     protected int imageHeight = 166;
@@ -50,34 +52,34 @@ public abstract class AbstractContainerSpellPartCustomizationScreen<T> extends A
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
-        guiGraphics.pose().pushMatrix();
-        guiGraphics.pose().translate(leftPos, topPos);
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
+        graphics.pose().pushMatrix();
+        graphics.pose().translate(leftPos, topPos);
         hoveredSlot = null;
         for (Slot slot : slots) {
-            if (slot.isActive()) {
-                renderSlot(guiGraphics, slot);
-            }
-            if (isHovering(slot, mouseX, mouseY) && slot.isActive()) {
+            if (slot.isActive() && isHovering(slot, mouseX, mouseY)) {
                 hoveredSlot = slot;
-                if (slot.isHighlightable()) {
-                    // TODO 26.1
-                    //AbstractContainerScreen.renderSlotHighlight(guiGraphics, slot.x, slot.y, 0, 0x80ffffff);
-                }
+                break;
             }
         }
-        renderLabels(guiGraphics, mouseX, mouseY);
-        if (!carried.isEmpty()) {
-            guiGraphics.item(carried, mouseX - leftPos - 8, mouseY - topPos - 8);
+        if (hoveredSlot != null && hoveredSlot.isHighlightable()) {
+            graphics.blitSprite(RenderPipelines.GUI_TEXTURED, SLOT_HIGHLIGHT_BACK_SPRITE, hoveredSlot.x - 4, hoveredSlot.y - 4, 24, 24);
         }
-        guiGraphics.pose().popMatrix();
-        renderTooltip(guiGraphics, mouseX, mouseY);
-    }
-
-    @Override
-    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        extractTransparentBackground(guiGraphics);
+        for (Slot slot : slots) {
+            if (slot.isActive()) {
+                extractSlot(graphics, slot);
+            }
+        }
+        if (this.hoveredSlot != null && this.hoveredSlot.isHighlightable()) {
+            graphics.blitSprite(RenderPipelines.GUI_TEXTURED, SLOT_HIGHLIGHT_FRONT_SPRITE, hoveredSlot.x - 4, hoveredSlot.y - 4, 24, 24);
+        }
+        extractLabels(graphics, mouseX, mouseY);
+        if (!carried.isEmpty()) {
+            graphics.item(carried, mouseX - leftPos - 8, mouseY - topPos - 8);
+        }
+        graphics.pose().popMatrix();
+        extractTooltip(graphics, mouseX, mouseY);
     }
 
     @Override
@@ -162,51 +164,51 @@ public abstract class AbstractContainerSpellPartCustomizationScreen<T> extends A
     /**
      * Called from {@link #extractRenderState(GuiGraphicsExtractor, int, int, float)} to render inventory labels.
      *
-     * @param guiGraphics The {@link GuiGraphicsExtractor} to use.
-     * @param mouseX      The mouse x position.
-     * @param mouseY      The mouse y position.
+     * @param graphics The {@link GuiGraphicsExtractor} to use.
+     * @param mouseX   The mouse x position.
+     * @param mouseY   The mouse y position.
      */
-    protected void renderLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+    protected void extractLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
     }
 
     /**
      * Called from {@link #extractRenderState(GuiGraphicsExtractor, int, int, float)} to render a {@link Slot}.
      *
-     * @param guiGraphics The {@link GuiGraphicsExtractor} to use.
-     * @param slot        The {@link Slot} to render.
+     * @param graphics The {@link GuiGraphicsExtractor} to use.
+     * @param slot     The {@link Slot} to render.
      */
-    protected void renderSlot(GuiGraphicsExtractor guiGraphics, Slot slot) {
+    protected void extractSlot(GuiGraphicsExtractor graphics, Slot slot) {
         int x = slot.x;
         int y = slot.y;
         ItemStack stack = slot.getItem();
-        guiGraphics.pose().pushMatrix();
+        graphics.pose().pushMatrix();
         if (stack.isEmpty() && slot.isActive()) {
             Identifier icon = slot.getNoItemIcon();
             if (icon != null) {
-                guiGraphics.blitSprite(RenderPipelines.GUI, icon, x, y, 16, 16);
+                graphics.blitSprite(RenderPipelines.GUI, icon, x, y, 16, 16);
             }
         } else if (!stack.isEmpty()) {
             int seed = x + y * imageWidth;
             if (slot.isFake()) {
-                guiGraphics.fakeItem(stack, x, y, seed);
+                graphics.fakeItem(stack, x, y, seed);
             } else {
-                guiGraphics.item(stack, x, y, seed);
+                graphics.item(stack, x, y, seed);
             }
-            guiGraphics.itemDecorations(font, stack, x, y);
+            graphics.itemDecorations(font, stack, x, y);
         }
-        guiGraphics.pose().popMatrix();
+        graphics.pose().popMatrix();
     }
 
     /**
      * Called from {@link #extractRenderState(GuiGraphicsExtractor, int, int, float)} to render inventory labels.
      *
-     * @param guiGraphics The {@link GuiGraphicsExtractor} to use.
+     * @param graphics The {@link GuiGraphicsExtractor} to use.
      * @param mouseX      The mouse x position.
      * @param mouseY      The mouse y position.
      */
-    protected void renderTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+    protected void extractTooltip(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
         if (carried.isEmpty() && hoveredSlot != null && hoveredSlot.hasItem()) {
-            guiGraphics.setTooltipForNextFrame(font, hoveredSlot.getItem(), mouseX, mouseY);
+            graphics.setTooltipForNextFrame(font, hoveredSlot.getItem(), mouseX, mouseY);
         }
     }
 

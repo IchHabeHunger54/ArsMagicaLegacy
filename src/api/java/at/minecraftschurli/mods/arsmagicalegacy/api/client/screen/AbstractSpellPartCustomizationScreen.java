@@ -1,5 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.api.client.screen;
 
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
@@ -32,6 +33,11 @@ public abstract class AbstractSpellPartCustomizationScreen<T> extends Screen imp
         this.type = type;
         this.value = valueGetter.apply(type);
         this.setter = valueSetter;
+    }
+
+    @Override
+    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        extractTransparentBackground(graphics);
     }
 
     @Override

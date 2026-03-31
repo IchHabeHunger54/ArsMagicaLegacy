@@ -1,4 +1,4 @@
-package at.minecraftschurli.mods.arsmagicalegacy.menu.container;
+package at.minecraftschurli.mods.arsmagicalegacy.container;
 
 import at.minecraftschurli.mods.arsmagicalegacy.attachment.RiftAttachment;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttachments;

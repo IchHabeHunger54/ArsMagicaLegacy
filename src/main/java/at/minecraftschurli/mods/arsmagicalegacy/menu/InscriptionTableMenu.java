@@ -3,7 +3,7 @@ package at.minecraftschurli.mods.arsmagicalegacy.menu;
 import at.minecraftschurli.mods.arsmagicalegacy.block.InscriptionTableBlock;
 import at.minecraftschurli.mods.arsmagicalegacy.blockentity.InscriptionTableBlockEntity;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMMenus;
-import at.minecraftschurli.mods.arsmagicalegacy.menu.slot.InscriptionTableSlot;
+import at.minecraftschurli.mods.arsmagicalegacy.slot.InscriptionTableSlot;
 import at.minecraftschurli.mods.arsmagicalegacy.util.QuickMoveStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;

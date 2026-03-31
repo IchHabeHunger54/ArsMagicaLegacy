@@ -975,6 +975,7 @@ public final class AMLanguageProvider extends LanguageProvider {
      * @param description    The ability description.
      */
     private void abilityTranslation(ResourceKey<Ability> ability, String name, String description) {
+        add(Util.makeDescriptionId("ability", ability.identifier()), name);
         add(Util.makeDescriptionId("ability", ability.identifier()) + ".name", name);
         add(Util.makeDescriptionId("ability", ability.identifier()) + ".description", description);
     }

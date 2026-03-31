@@ -58,6 +58,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
 
     @Override
     public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(graphics, mouseX, mouseY, partialTick);
         updateCachedData();
         AMClientUtil.blitFull(graphics, BACKGROUND, leftPos, topPos, imageWidth, imageHeight);
         AMClientUtil.blit(graphics, SLOT, leftPos + 101, topPos + 73, 18, 18);

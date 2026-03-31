@@ -25,7 +25,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.ritual.requirement.DimensionRitu
 import at.minecraftschurli.mods.arsmagicalegacy.ritual.requirement.EnvironmentAttributeRitualRequirement;
 import at.minecraftschurli.mods.arsmagicalegacy.ritual.requirement.HeightRitualRequirement;
 import at.minecraftschurli.mods.arsmagicalegacy.ritual.requirement.IngredientRitualRequirement;
-import at.minecraftschurli.mods.arsmagicalegacy.ritual.requirement.MoonPhaseRitualRequirement;
 import at.minecraftschurli.mods.arsmagicalegacy.ritual.requirement.StructureRitualRequirement;
 import at.minecraftschurli.mods.arsmagicalegacy.ritual.trigger.DroppedItemRitualTrigger;
 import at.minecraftschurli.mods.arsmagicalegacy.ritual.trigger.GameEventRitualTrigger;
@@ -122,7 +121,7 @@ public final class AMRitualProvider extends RitualProvider {
         spawn("life_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.LIFE_GUARDIAN_SPAWN_RITUAL,
             new KillEntityRitualTrigger(EntityPredicate.Builder.entity().of(entityTypes, EntityType.VILLAGER).flags(EntityFlagsPredicate.Builder.flags().setIsBaby(true)).build()))
             .addRequirement(new DimensionRitualRequirement(Level.OVERWORLD))
-            .addRequirement(new MoonPhaseRitualRequirement(MoonPhase.NEW_MOON));
+            .addRequirement(new EnvironmentAttributeRitualRequirement<>(EnvironmentAttributes.MOON_PHASE, MoonPhase.NEW_MOON));
         spawn("arcane_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.ARCANE_GUARDIAN_SPAWN_RITUAL,
             new DroppedItemRitualTrigger(DataComponentIngredient.of(true, ArsMagicaApi.book())));
         spawn("ender_guardian", AMEntities.MANA_CREEPER, AMMultiblocks.ENDER_GUARDIAN_SPAWN_RITUAL,

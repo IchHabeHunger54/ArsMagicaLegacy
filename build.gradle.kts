@@ -15,7 +15,6 @@ helper.withDataGenSourceSet()
 helper.withTestSourceSet()
 
 helper.accessTransformers.add("META-INF/accesstransformer.cfg")
-helper.enumExtensions.set("META-INF/enumextensions.json")
 
 repositories {
     mavenLocal()

@@ -16,7 +16,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
@@ -109,7 +108,7 @@ public final class SpellPartPage implements ICustomComponent {
                         y += SLOT_SIZE;
                     }
                     Skill skill = modifiers.get(i);
-                    graphics.blitSprite(RenderPipelines.GUI_TEXTURED, SkillAtlasHolder.getSprite(skill), x, y, 16, 16);
+                    AMClientUtil.blit(graphics, SkillAtlasHolder.getSprite(skill), x, y, 16, 16);
                     if (context.isAreaHovered(mouseX, mouseY, x, y, 16, 16)) {
                         context.setHoverTooltipComponents(List.of(Skill.getName(AMRegistries.skills(true).wrapAsHolder(skill))));
                     }

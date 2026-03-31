@@ -80,7 +80,7 @@ public class SpellRecipeScreen extends Screen {
     @Override
     public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         super.extractBackground(graphics, mouseX, mouseY, partialTick);
-        AMClientUtil.blit(graphics, BACKGROUND, xPos, 2, WIDTH, HEIGHT);
+        AMClientUtil.blitFull(graphics, BACKGROUND, xPos, 2, WIDTH, HEIGHT);
     }
 
     @Override

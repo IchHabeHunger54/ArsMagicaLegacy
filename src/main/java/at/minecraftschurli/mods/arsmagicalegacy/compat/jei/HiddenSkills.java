@@ -27,7 +27,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-final class HiddenSkills {
+public final class HiddenSkills {
     private static final List<ResourceKey<Skill>> VISIBLE_SKILLS = new ArrayList<>();
     private static final List<SkillCategory.Recipe> VISIBLE_RECIPES = new ArrayList<>();
     private static final Map<ResourceKey<Skill>, Map<String, SkillCategory.Recipe>> RECIPES = new HashMap<>();

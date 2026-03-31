@@ -16,6 +16,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.particle.AMParticle;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.MagitechGogglesOverlayRenderStateImpl;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
+import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
@@ -27,6 +28,9 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.ModLoader;
 import org.jspecify.annotations.Nullable;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 
 import java.util.HashMap;
 import java.util.List;
@@ -61,7 +65,6 @@ public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
     protected boolean doShouldRenderMagitechGogglesOutline() {
         LocalPlayer player = AMClientUtil.player();
         return player != null && (player.getItemBySlot(EquipmentSlot.HEAD).is(AMItems.MAGITECH_GOGGLES)
-            /*TODO curios
             || AMUtil.ifModLoaded("curios", () -> CuriosApi.getCuriosInventory(player)
                 .map(ICuriosItemHandler::getCurios)
                 .map(map -> map.values()
@@ -74,7 +77,7 @@ public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
                         return false;
                     }))
                 .orElse(false))
-            .orElse(false)*/);
+            .orElse(false));
     }
 
     @Override

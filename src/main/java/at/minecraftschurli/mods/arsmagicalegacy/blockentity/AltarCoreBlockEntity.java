@@ -120,8 +120,8 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
         if (checkCounter <= 0) {
             checkCounter = AMServerConfig.ALTAR_CHECK_INTERVAL.get();
             boolean multiblock = checkMultiblock();
-            BlockState lectern = level.getBlockState(lecternPos);
-            if (!multiblock || !lectern.is(Blocks.LECTERN) || !lectern.getValue(LecternBlock.HAS_BOOK)) {
+            BlockState lectern = lecternPos == null ? null : level.getBlockState(lecternPos);
+            if (!multiblock || lectern == null || !lectern.is(Blocks.LECTERN) || !lectern.getValue(LecternBlock.HAS_BOOK)) {
                 direction = null;
                 lecternPos = null;
                 leverPos = null;

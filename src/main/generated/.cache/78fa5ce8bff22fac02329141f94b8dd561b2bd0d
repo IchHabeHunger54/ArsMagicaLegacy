@@ -1,8 +1,8 @@
-// 26.1	2026-03-25T00:31:40.8489285	vanilla/Ritual: arsmagicalegacy
+// 26.1	2026-03-31T13:18:02.1553902	vanilla/Ritual: arsmagicalegacy
 a519ba0184cf648a5913309ba252dc427355a0d2 data/arsmagicalegacy/arsmagicalegacy/ritual/corruption.json
 b417c7aa1a7c937c3381150327baa519b3083aa8 data/arsmagicalegacy/arsmagicalegacy/ritual/purification.json
 d215c031e4ba8a189846d893c477b7c5218c26fe data/arsmagicalegacy/arsmagicalegacy/ritual/spawn_air_guardian.json
-b059a402be1260f0a522553fe0f3ae11b4e0e3e3 data/arsmagicalegacy/arsmagicalegacy/ritual/spawn_arcane_guardian.json
+2d368efe2074f1c7f12eb3b920048d9e3b116190 data/arsmagicalegacy/arsmagicalegacy/ritual/spawn_arcane_guardian.json
 65900048e3b88eeee1004e0c98c7339207613c98 data/arsmagicalegacy/arsmagicalegacy/ritual/spawn_earth_guardian.json
 e5946bb1fdf8c4ea23825131a50979988c82aff1 data/arsmagicalegacy/arsmagicalegacy/ritual/spawn_ender_guardian.json
 956d250d064ab7923ad0ad1e4f423fcc94208ee0 data/arsmagicalegacy/arsmagicalegacy/ritual/spawn_fire_guardian.json

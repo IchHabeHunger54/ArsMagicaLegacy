@@ -187,7 +187,7 @@ public final class AMTagsProvider {
             tag(AMTags.EntityTypes.AFFECTED_BY_NAUSEA_ABILITY).addTag(EntityTypeTags.UNDEAD);
             tag(AMTags.EntityTypes.SUMMONING_NOT_SUPPORTED)
                 .addTags(Tags.EntityTypes.BOSSES, Tags.EntityTypes.CAPTURING_NOT_SUPPORTED)
-                .add(EntityType.ARMOR_STAND, EntityType.GIANT, EntityType.ILLUSIONER, EntityType.PLAYER, EntityType.WARDEN, EntityType.CREAKING);
+                .add(EntityType.ARMOR_STAND, EntityType.GIANT, EntityType.ILLUSIONER, EntityType.MANNEQUIN, EntityType.PLAYER, EntityType.WARDEN, EntityType.CREAKING);
         }
     }
 

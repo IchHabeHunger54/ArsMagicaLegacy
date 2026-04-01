@@ -5,6 +5,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.layer.LayerAnchor;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 public final class AMClientConfig {
+    public static final ModConfigSpec.IntValue CRYSTAL_PHYLACTERY_MODEL_QUALITY;
     public static final ModConfigSpec.IntValue BARS_X;
     public static final ModConfigSpec.IntValue BARS_Y;
     public static final ModConfigSpec.EnumValue<LayerAnchor.X> BARS_X_ANCHOR;
@@ -23,6 +24,10 @@ public final class AMClientConfig {
 
     static {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
+        CRYSTAL_PHYLACTERY_MODEL_QUALITY = builder
+            .comment("The 'quality' value of the algorithm that calculates the crystal phylactery colors. Lower value means more accurate results and more calculation cost, however lower values have diminishing returns.")
+            .translation(AMTranslations.CONFIG_KEY + "crystal_phylactery_model_quality")
+            .defineInRange("crystal_phylactery_model_quality", 5, 1, 10);
         builder.comment("Configuration for the various GUI layers in this mod.").push("gui_layers");
         builder.comment("Configuration for the mana, burnout and level bars. The size of the layer is 80x40.").push("bars");
         BARS_X = builder

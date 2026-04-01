@@ -83,6 +83,7 @@ import net.neoforged.neoforge.client.event.AddClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterBlockStateModels;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterConditionalItemModelPropertyEvent;
@@ -172,6 +173,11 @@ final class AMClientEventHandler {
         event.registerBelowAll(ArsMagicaApi.id("bars"), new BarsLayer());
         event.registerBelowAll(ArsMagicaApi.id("shape_groups"), new ShapeGroupsLayer());
         event.registerBelowAll(ArsMagicaApi.id("spell_book"), new SpellBookLayer());
+    }
+
+    @SubscribeEvent
+    private static void bakingCompleted(ModelEvent.BakingCompleted event) {
+        CrystalPhylacteryItemTintSource.clearCache();
     }
 
     @SubscribeEvent

@@ -14,6 +14,5 @@
         - Liquid Essence Bucket
         - Obelisk
         - Celestial Prism
-        - Crystal Phylactery
         - Spells
     - Occulus Affinity Tab Lines

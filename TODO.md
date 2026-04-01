@@ -12,7 +12,5 @@
     - Item Models
         - Inscription Table
         - Liquid Essence Bucket
-        - Obelisk
-        - Celestial Prism
         - Spells
     - Occulus Affinity Tab Lines

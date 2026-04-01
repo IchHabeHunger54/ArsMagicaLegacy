@@ -217,6 +217,8 @@
   "arsmagicalegacy.configuration.components.tooltip": "Configuration of various component-specific values.",
   "arsmagicalegacy.configuration.continuous_modifier": "Continuous Modifier",
   "arsmagicalegacy.configuration.continuous_modifier.tooltip": "By what factor affinity and xp gain will be amplified when a continuous spell shape is used.",
+  "arsmagicalegacy.configuration.crystal_phylactery_model_quality": "Crystal Phylactery Model Quality",
+  "arsmagicalegacy.configuration.crystal_phylactery_model_quality.tooltip": "The 'quality' value of the algorithm that calculates the crystal phylactery colors. Lower value means more accurate results and more calculation cost, however lower values have diminishing returns.",
   "arsmagicalegacy.configuration.damage_damage": "Damage Damage",
   "arsmagicalegacy.configuration.damage_damage.tooltip": "The damage of damage-based components, in half hearts. May be amplified by spell modifiers.",
   "arsmagicalegacy.configuration.dig_mana_factor": "Dig Mana Factor",

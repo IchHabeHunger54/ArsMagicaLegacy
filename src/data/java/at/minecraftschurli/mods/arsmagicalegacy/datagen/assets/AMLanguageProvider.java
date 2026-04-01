@@ -642,6 +642,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("zone_range", "Zone Range", "The range used by the Zone shape. May be amplified by spell modifiers.");
         configTranslation("zone_height", "Zone Height", "The height used by the Zone shape.");
         configTranslation("zone_tick_interval", "Zone Tick Interval", "The tick interval used by the Zone shape.");
+        configTranslation("crystal_phylactery_model_quality", "Crystal Phylactery Model Quality", "The 'quality' value of the algorithm that calculates the crystal phylactery colors. Lower value means more accurate results and more calculation cost, however lower values have diminishing returns.");
         configTranslation("gui_layers", "GUI Layers", "Configuration for the various GUI layers in this mod.");
         configTranslation("bars", "Mana/Burnout/Level Bars", "Configuration for the mana, burnout and level bars. The size of the layer is 80x40.");
         configTranslation("bars_x", "Horizontal Position", "Horizontal position of the mana, burnout and level bars.");

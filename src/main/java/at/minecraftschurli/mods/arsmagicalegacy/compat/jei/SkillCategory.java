@@ -139,7 +139,7 @@ final class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
             y += font.lineHeight + font.lineHeight / 2 + TEXT_BOTTOM_PADDING;
             int x = getAffinityValueAnchor(recipe.affinityShifts) + 9;
             for (Holder<Affinity> affinity : recipe.affinityShifts.keySet().stream().sorted(COMPARATOR).toList()) {
-                graphics.text(font, String.valueOf(Math.round(recipe.affinityShifts.get(affinity) * 1000) / 1000.), x, y, affinity.value().color(), false);
+                graphics.text(font, String.valueOf(Math.round(recipe.affinityShifts.get(affinity) * 1000) / 1000.), x, y, 0xff000000 | affinity.value().color(), false);
                 y += SLOT_SIZE - 2;
             }
             y += 2 - font.lineHeight / 2 + TEXT_BOTTOM_PADDING;
@@ -151,7 +151,7 @@ final class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
     }
 
     private static void drawCentered(GuiGraphicsExtractor graphics, Font font, Component component, int y) {
-        graphics.text(font, component, (int) ((WIDTH - font.getSplitter().stringWidth(component.getString())) / 2), y, 0x404040, false);
+        graphics.text(font, component, (int) ((WIDTH - font.getSplitter().stringWidth(component.getString())) / 2), y, 0xff404040, false);
     }
 
     private static int getAffinityValueAnchor(Map<Holder<Affinity>, Double> affinityShifts) {

@@ -19,6 +19,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMFluids;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMMagic;
+import at.minecraftschurli.mods.arsmagicalegacy.item.CrystalPhylacteryItem;
 import at.minecraftschurli.mods.easydatagenlib.AbstractModelProvider;
 import at.minecraftschurli.mods.easydatagenlib.util.BlockModelDatagenUtil;
 import at.minecraftschurli.mods.easydatagenlib.util.WrappingCustomBlockStateModelBuilder;
@@ -98,7 +99,6 @@ public final class AMModelProvider extends AbstractModelProvider {
                     .face(direction.getOpposite(), face -> face.texture(TextureSlot.TEXTURE));
             })
             .build());
-    private static final ModelTemplate ALTAR_CORE_TEMPLATE = ModelTemplates.create();
 
     public AMModelProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(output, lookupProvider, ArsMagicaApi.MOD_ID);
@@ -159,6 +159,7 @@ public final class AMModelProvider extends AbstractModelProvider {
                 case UPPER -> PARTICLE_ONLY_TEMPLATE;
             }, TextureMapping.particle(AMBlocks.CELESTIAL_PRISM.get())
                 .put(TEX, TextureMapping.getBlockTexture(AMBlocks.CELESTIAL_PRISM.get())))
+            .withItemModel(ArsMagicaApi.id("item/celestial_prism"))
             .build();
         Identifier obeliskParticleOnly = PARTICLE_ONLY_TEMPLATE.create(
             AMBlocks.OBELISK.get(),
@@ -178,7 +179,8 @@ public final class AMModelProvider extends AbstractModelProvider {
                 ObeliskBlock.PART,
                 ObeliskBlock.LIT,
                 (part, lit) -> part != ObeliskBlock.Part.LOWER ? obeliskParticleOnly : lit ? obeliskLit : obeliskUnlit)
-            .withHorizontalRotation()
+            .withVariantDispatch(BlockModelGenerators.ROTATION_HORIZONTAL_FACING_ALT)
+            .withItemModel(ArsMagicaApi.id("item/obelisk"))
             .build();
         BlockModelDatagenUtil.builder(blockModels, AMBlocks.ALTAR_CORE)
             .withModelDispatch(
@@ -323,20 +325,17 @@ public final class AMModelProvider extends AbstractModelProvider {
         basicItem(itemModels, AMItems.WITCHWOOD_CHEST_BOAT);
         basicItem(itemModels, AMItems.DRYAD_SPAWN_EGG);
         basicItem(itemModels, AMItems.MANA_CREEPER_SPAWN_EGG);
-        {
-            var item = AMItems.CRYSTAL_PHYLACTERY.get();
-            Material baseTexture = TextureMapping.getItemTexture(item);
-            Identifier modelLocation = ModelLocationUtils.getModelLocation(item);
-            List<RangeSelectItemModel.Entry> entries = new ArrayList<>();
-            for (int i = 0; i < 8; i++) {
-                Material fillTexture = TextureMapping.getItemTexture(item, "_fill_" + i);
-                Identifier modelId = itemModels.generateLayeredItem(modelLocation.withSuffix("_fill_" + i), baseTexture, fillTexture);
-                var model = ItemModelUtils.tintedModel(modelId, ItemModelGenerators.BLANK_LAYER, CrystalPhylacteryItemTintSource.INSTANCE);
-                entries.add(new RangeSelectItemModel.Entry((i + 1) / 8f, model));
-            }
-            var fallback = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, ModelTemplates.FLAT_ITEM));
-            itemModels.itemModelOutput.accept(item, ItemModelUtils.rangeSelect(new CrystalPhylacteryRangeSelectItemModelProperty(), fallback, entries));
+        CrystalPhylacteryItem item = AMItems.CRYSTAL_PHYLACTERY.get();
+        Material baseTexture = TextureMapping.getItemTexture(item);
+        Identifier modelLocation = ModelLocationUtils.getModelLocation(item);
+        List<RangeSelectItemModel.Entry> entries = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            Material fillTexture = TextureMapping.getItemTexture(item, "_fill_" + i);
+            Identifier modelId = itemModels.generateLayeredItem(modelLocation.withSuffix("_fill_" + i), baseTexture, fillTexture);
+            var model = ItemModelUtils.tintedModel(modelId, ItemModelGenerators.BLANK_LAYER, CrystalPhylacteryItemTintSource.INSTANCE);
+            entries.add(new RangeSelectItemModel.Entry((i + 1) / 8f, model));
         }
+        itemModels.itemModelOutput.accept(item, ItemModelUtils.rangeSelect(new CrystalPhylacteryRangeSelectItemModelProperty(), ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, ModelTemplates.FLAT_ITEM)), entries));
     }
 
     /**

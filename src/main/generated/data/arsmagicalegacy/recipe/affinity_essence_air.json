@@ -2,14 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": "arsmagicalegacy:arcane_ash",
-    "E": {
-      "neoforge:ingredient_type": "neoforge:components",
-      "components": {
-        "arsmagicalegacy:affinity": "arsmagicalegacy:air"
-      },
-      "items": "arsmagicalegacy:affinity_essence"
-    },
+    "A": "#c:dusts/arcane_ash",
+    "E": "#c:dusts/purified_vinteum",
     "I": "minecraft:feather",
     "J": "arsmagicalegacy:tarma_root"
   },

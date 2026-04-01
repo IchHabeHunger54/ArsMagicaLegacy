@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_red_rune": {
+    "has_green_rune": {
       "conditions": {
         "items": [
           {
-            "items": "arsmagicalegacy:red_rune"
+            "items": "arsmagicalegacy:green_rune"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_red_rune"
+      "has_green_rune"
     ]
   ],
   "rewards": {

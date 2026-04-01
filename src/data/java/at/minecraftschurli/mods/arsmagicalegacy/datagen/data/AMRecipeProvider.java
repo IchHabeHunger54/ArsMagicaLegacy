@@ -295,8 +295,7 @@ public final class AMRecipeProvider extends RecipeProvider {
             .unlockedBy(getHasName(AMItems.CERUBLOSSOM), has(AMItems.CERUBLOSSOM))
             .save(output);
         ShapelessRecipeBuilder.shapeless(items, RecipeCategory.FOOD, AMItems.MANA_MARTINI.get())
-            .requires(Tags.Items.RODS_WOODEN)
-            .requires(Tags.Items.CROPS_POTATO)
+            .requires(Items.BAMBOO)
             .requires(Items.ICE)
             .requires(Items.SUGAR)
             .requires(DataComponentIngredient.of(false, DataComponents.POTION_CONTENTS, new PotionContents(Potions.WATER), Items.POTION))

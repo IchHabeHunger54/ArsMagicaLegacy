@@ -1,4 +1,4 @@
-// 26.1	2026-04-01T21:17:06.1435859	vanilla/Recipes
+// 26.1	2026-04-01T23:03:05.5875277	vanilla/Recipes
 b9c60e6bb3357479f8b7bd65081f40f51777b77a data/arsmagicalegacy/advancement/recipes/building_blocks/stripped_witchwood_wood.json
 93c9f5aa62f30aff1df72e966cd213d6efd1a3ab data/arsmagicalegacy/advancement/recipes/building_blocks/witchwood_planks.json
 c727b9785edebf8ab5a92a5beb880a6e03bb9946 data/arsmagicalegacy/advancement/recipes/building_blocks/witchwood_slab.json
@@ -178,7 +178,7 @@ d4e949367925d627e1fb7cc9271e4baa69d60420 data/arsmagicalegacy/recipe/mage_leggin
 12e306c77d3149316d27dbdc1a5d3cd5c23a5599 data/arsmagicalegacy/recipe/magic_wall.json
 f3b37949738e04c1ce7e96c2251340b89e300198 data/arsmagicalegacy/recipe/magitech_goggles.json
 4bb40d6d3dcc6c975f6d2b6b749c78bc9ae21d24 data/arsmagicalegacy/recipe/mana_cake.json
-bed614a41d8df85fbbba9a0dd22e2ea1ef20854b data/arsmagicalegacy/recipe/mana_martini.json
+ba4e834452ab14efafeaa38c5f03f7c0949858b2 data/arsmagicalegacy/recipe/mana_martini.json
 f766f20672649567265042e8c8c9f30467939e32 data/arsmagicalegacy/recipe/moonstone.json
 57e3f2761ed519adefdea3c3edb6a2790ac0733d data/arsmagicalegacy/recipe/moonstone_block.json
 22720903f6421e06d8e34af8a740e21a5f4972a6 data/arsmagicalegacy/recipe/moonstone_from_blasting_deepslate_moonstone_ore.json

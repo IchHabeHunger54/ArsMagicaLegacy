@@ -6,7 +6,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -40,14 +42,16 @@ public class BlackAuremRenderer extends AbstractEtheriumBlockEntityRenderer<Blac
     @Override
     public void extractRenderState(BlackAuremBlockEntity blockEntity, State state, float partialTicks, Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
         super.extractRenderState(blockEntity, state, partialTicks, cameraPosition, breakProgress);
+        Minecraft mc = AMClientUtil.mc();
         // Still need to go through the main camera because CameraRenderState doesn't give us what we need
-        Camera gameCamera = AMClientUtil.mc().gameRenderer.getMainCamera();
+        Camera gameCamera = mc.gameRenderer.getMainCamera();
         state.quaternion.rotationYXZ(-gameCamera.yRot() * RAD, gameCamera.xRot() * RAD, -gameCamera.getRoll() * RAD);
         FORWARDS.rotate(state.quaternion, new Vector3f(gameCamera.forwardVector()));
         UP.rotate(state.quaternion, new Vector3f(gameCamera.upVector()));
         LEFT.rotate(state.quaternion, new Vector3f(gameCamera.leftVector()));
         state.rotation = Axis.ZP.rotation(Objects.requireNonNull(AMClientUtil.player()).tickCount / 10f % 360);
-        state.sprite = null; // TODO
+        BlockStateModel model = mc.getModelManager().getBlockStateModelSet().get(blockEntity.getBlockState());
+        state.sprite = model.particleMaterial(Objects.requireNonNull(AMClientUtil.level()), blockEntity.getBlockPos(), blockEntity.getBlockState()).sprite();
     }
 
     @Override

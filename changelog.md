@@ -83,3 +83,9 @@
 
 - Affinity abilities now use an effect system that can be modified via datapacks
 - Added a notification when shifting into/out of affinity abilities
+
+# World Generation
+
+- Moonstone meteorites have been made rarer to compensate for Liquid Etherium now also generating in lakes
+- All of the mod's flowers now spawn in larger patchesw
+- Dryads now spawn twice as often

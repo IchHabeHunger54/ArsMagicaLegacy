@@ -2,7 +2,7 @@
   "values": [
     "minecraft:clay",
     "minecraft:gravel",
-    "#minecraft:dirt",
+    "#minecraft:substrate_overworld",
     "#minecraft:sand",
     "#minecraft:stone_ore_replaceables",
     "#minecraft:deepslate_ore_replaceables"

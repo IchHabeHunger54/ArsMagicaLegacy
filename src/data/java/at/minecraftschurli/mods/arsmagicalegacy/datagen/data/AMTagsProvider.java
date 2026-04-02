@@ -71,10 +71,10 @@ public final class AMTagsProvider {
             tag(BlockTags.WALL_SIGNS).add(AMBlocks.WITCHWOOD_WALL_SIGN.get());
             tag(BlockTags.CEILING_HANGING_SIGNS).add(AMBlocks.WITCHWOOD_HANGING_SIGN.get());
             tag(BlockTags.WALL_HANGING_SIGNS).add(AMBlocks.WITCHWOOD_WALL_HANGING_SIGN.get());
-            tag(AMTags.Blocks.AUM_PLANTABLE_ON).addTag(BlockTags.DIRT);
-            tag(AMTags.Blocks.CERUBLOSSOM_PLANTABLE_ON).addTag(BlockTags.DIRT);
+            tag(AMTags.Blocks.AUM_PLANTABLE_ON).addTag(BlockTags.SUBSTRATE_OVERWORLD);
+            tag(AMTags.Blocks.CERUBLOSSOM_PLANTABLE_ON).addTag(BlockTags.SUBSTRATE_OVERWORLD);
             tag(AMTags.Blocks.DESERT_NOVA_PLANTABLE_ON).addTag(BlockTags.SAND);
-            tag(AMTags.Blocks.TARMA_ROOT_PLANTABLE_ON).add(net.minecraft.world.level.block.Blocks.CLAY, net.minecraft.world.level.block.Blocks.GRAVEL).addTags(BlockTags.DIRT, BlockTags.SAND, BlockTags.STONE_ORE_REPLACEABLES, BlockTags.DEEPSLATE_ORE_REPLACEABLES);
+            tag(AMTags.Blocks.TARMA_ROOT_PLANTABLE_ON).add(net.minecraft.world.level.block.Blocks.CLAY, net.minecraft.world.level.block.Blocks.GRAVEL).addTags(BlockTags.SUBSTRATE_OVERWORLD, BlockTags.SAND, BlockTags.STONE_ORE_REPLACEABLES, BlockTags.DEEPSLATE_ORE_REPLACEABLES);
             tag(AMTags.Blocks.DRYADS_SPAWNABLE_ON).addTag(BlockTags.ANIMALS_SPAWNABLE_ON);
             tag(BlockTags.RAILS).add(AMBlocks.REDSTONE_INLAY.get(), AMBlocks.IRON_INLAY.get(), AMBlocks.GOLD_INLAY.get());
             tag(BlockTags.SMALL_FLOWERS).add(AMBlocks.AUM.get(), AMBlocks.CERUBLOSSOM.get(), AMBlocks.DESERT_NOVA.get(), AMBlocks.TARMA_ROOT.get(), AMBlocks.WAKEBLOOM.get());

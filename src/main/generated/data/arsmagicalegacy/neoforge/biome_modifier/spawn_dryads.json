@@ -11,6 +11,6 @@
     "type": "arsmagicalegacy:dryad",
     "maxCount": 25,
     "minCount": 15,
-    "weight": 2
+    "weight": 4
   }
 }

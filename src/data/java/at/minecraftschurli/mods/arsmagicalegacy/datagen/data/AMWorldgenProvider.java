@@ -92,7 +92,7 @@ public final class AMWorldgenProvider {
         registerOre(bootstrap, AMWorldgen.TOPAZ_ORE_EXTRA_PLACED_FEATURE, AMWorldgen.TOPAZ_ORE_EXTRA_CONFIGURED_FEATURE, 100, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(480)));
         registerOre(bootstrap, AMWorldgen.VINTEUM_ORE_PLACED_FEATURE, AMWorldgen.VINTEUM_ORE_CONFIGURED_FEATURE, 8, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(80)));
         register(bootstrap, AMWorldgen.MOONSTONE_METEORITE_PLACED_FEATURE, AMWorldgen.MOONSTONE_METEORITE_CONFIGURED_FEATURE, List.of(
-            RarityFilter.onAverageOnceEvery(200),
+            RarityFilter.onAverageOnceEvery(400),
             InSquarePlacement.spread(),
             PlacementUtils.HEIGHTMAP,
             HeightRangePlacement.uniform(VerticalAnchor.absolute(56), VerticalAnchor.absolute(180)),
@@ -102,13 +102,13 @@ public final class AMWorldgenProvider {
             .addAll(VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.1f, 1), AMBlocks.WITCHWOOD_SAPLING.get()))
             .add(RarityFilter.onAverageOnceEvery(8))
             .build());
-        registerFlower(bootstrap, AMWorldgen.AUM_PLACED_FEATURE, AMWorldgen.AUM_CONFIGURED_FEATURE, 32, 64);
-        registerFlower(bootstrap, AMWorldgen.CERUBLOSSOM_PLACED_FEATURE, AMWorldgen.CERUBLOSSOM_CONFIGURED_FEATURE, 32, 64);
-        registerFlower(bootstrap, AMWorldgen.DESERT_NOVA_PLACED_FEATURE, AMWorldgen.DESERT_NOVA_CONFIGURED_FEATURE, 32, 64);
-        registerFlower(bootstrap, AMWorldgen.TARMA_ROOT_PLACED_FEATURE, AMWorldgen.TARMA_ROOT_CONFIGURED_FEATURE, 32, 64);
-        registerFlower(bootstrap, AMWorldgen.WAKEBLOOM_PLACED_FEATURE, AMWorldgen.WAKEBLOOM_CONFIGURED_FEATURE, 32, 64);
+        registerFlower(bootstrap, AMWorldgen.AUM_PLACED_FEATURE, AMWorldgen.AUM_CONFIGURED_FEATURE, 32, 96);
+        registerFlower(bootstrap, AMWorldgen.CERUBLOSSOM_PLACED_FEATURE, AMWorldgen.CERUBLOSSOM_CONFIGURED_FEATURE, 32, 96);
+        registerFlower(bootstrap, AMWorldgen.DESERT_NOVA_PLACED_FEATURE, AMWorldgen.DESERT_NOVA_CONFIGURED_FEATURE, 32, 96);
+        registerFlower(bootstrap, AMWorldgen.TARMA_ROOT_PLACED_FEATURE, AMWorldgen.TARMA_ROOT_CONFIGURED_FEATURE, 32, 96);
+        registerFlower(bootstrap, AMWorldgen.WAKEBLOOM_PLACED_FEATURE, AMWorldgen.WAKEBLOOM_CONFIGURED_FEATURE, 32, 96);
         register(bootstrap, AMWorldgen.LIQUID_ETHERIUM_LAKE_PLACED_FEATURE, AMWorldgen.LIQUID_ETHERIUM_LAKE_CONFIGURED_FEATURE, List.of(
-            RarityFilter.onAverageOnceEvery(200),
+            RarityFilter.onAverageOnceEvery(50),
             InSquarePlacement.spread(),
             PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
             BiomeFilter.biome()));
@@ -167,7 +167,7 @@ public final class AMWorldgenProvider {
             AMWorldgen.TARMA_ROOT_PLACED_FEATURE);
         bootstrap.register(AMWorldgen.SPAWN_DRYADS_BIOME_MODIFIER, BiomeModifiers.AddSpawnsBiomeModifier.singleSpawn(
             HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.biomeTag(bootstrap, BiomeTags.IS_FOREST)),
-            new Weighted<>(new MobSpawnSettings.SpawnerData(AMEntities.DRYAD.get(), 15, 25), 2)
+            new Weighted<>(new MobSpawnSettings.SpawnerData(AMEntities.DRYAD.get(), 15, 25), 4)
         ));
         bootstrap.register(AMWorldgen.SPAWN_MANA_CREEPERS_BIOME_MODIFIER, BiomeModifiers.AddSpawnsBiomeModifier.singleSpawn(
             HolderSets.and(HolderSets.biomeTag(bootstrap, Tags.Biomes.IS_OVERWORLD), HolderSets.not(HolderSets.biomeTag(bootstrap, Tags.Biomes.NO_DEFAULT_MONSTERS))),

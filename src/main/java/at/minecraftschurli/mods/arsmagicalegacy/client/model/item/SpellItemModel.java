@@ -10,15 +10,17 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemModels;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
-import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.client.resources.model.sprite.SpriteGetter;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -34,7 +36,7 @@ import java.util.Objects;
 public final class SpellItemModel implements ItemModel {
     private final ItemModel defaultModel;
     private final SpriteGetter sprites;
-    private final Map<TextureAtlasSprite, BakedQuad> spriteQuads = new IdentityHashMap<>();
+    private final Map<Identifier, BakedQuad> spriteQuads = new IdentityHashMap<>();
 
     public SpellItemModel(ItemModel defaultModel, SpriteGetter sprites) {
         this.defaultModel = defaultModel;
@@ -61,26 +63,31 @@ public final class SpellItemModel implements ItemModel {
                 .update(output, item, resolver, displayContext, level, owner, seed);
             return;
         }
-        var icon = spell.icon().map(i -> SpellIconAtlasHolder.getSpriteOrNull(sprites, i));
+        var icon = spell.icon();
         if (icon.isPresent() && displayContext == ItemDisplayContext.GUI) {
-            ItemStackRenderState.LayerRenderState layer = output.newLayer();
-            layer.prepareQuadList().add(spriteQuads.computeIfAbsent(icon.get(), SpellItemModel::bakedSpriteQuads));
-            layer.setUsesBlockLight(false);
-            return;
+            Identifier iconId = icon.get();
+            TextureAtlasSprite sprite = SpellIconAtlasHolder.getSpriteOrNull(sprites, iconId);
+            if (sprite != null) {
+                output.appendModelIdentityElement(iconId);
+                ItemStackRenderState.LayerRenderState layer = output.newLayer();
+                layer.prepareQuadList().add(spriteQuads.computeIfAbsent(iconId, _ -> bakedSpriteQuads(sprite)));
+                layer.setUsesBlockLight(false);
+                return;
+            }
         }
         defaultModel.update(output, item, resolver, displayContext, level, owner, seed);
     }
 
-    private static boolean isHand(ItemDisplayContext displayContext) {
-        return displayContext == ItemDisplayContext.THIRD_PERSON_LEFT_HAND || displayContext == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND || displayContext.firstPerson();
-    }
-
     private static BakedQuad bakedSpriteQuads(TextureAtlasSprite sprite) {
         MutableQuad mutableQuad = new MutableQuad();
-        mutableQuad.setSprite(new Material.Baked(sprite, false), sprite.transparency());
-        mutableQuad.setCubeFaceFromSpriteCoords(Direction.NORTH, 0, 0, 1, 1, 0);
+        mutableQuad.setSprite(sprite, ChunkSectionLayer.byTransparency(sprite.transparency()), RenderTypes.itemCutout(SpellIconAtlasHolder.ATLAS));
+        mutableQuad.setCubeFaceFromSpriteCoords(Direction.SOUTH, 0, 0, 1, 1, 0);
         mutableQuad.bakeUvsFromPosition();
         return mutableQuad.toBakedQuad();
+    }
+
+    private static boolean isHand(ItemDisplayContext displayContext) {
+        return displayContext == ItemDisplayContext.THIRD_PERSON_LEFT_HAND || displayContext == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND || displayContext.firstPerson();
     }
 
     public record Unbaked(ItemModel.Unbaked defaultModel) implements ItemModel.Unbaked {

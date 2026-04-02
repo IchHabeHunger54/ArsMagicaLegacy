@@ -9,8 +9,9 @@
   "growth_type": {
     "type": "arsmagicalegacy:upwards",
     "body": "minecraft:cactus",
-    "head": "minecraft:cactus",
-    "max_height": 3
+    "head": "minecraft:cactus_flower",
+    "head_required": false,
+    "max_height": 4
   },
   "seed": {
     "id": "minecraft:cactus"

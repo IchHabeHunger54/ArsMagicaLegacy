@@ -114,10 +114,7 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void clientSetup(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> {
-            ArsMagicaClientApiImpl.postEvents();
-            PatchouliAPI.get().registerTemplateAsBuiltin(SpellPartPage.ID, () -> new ByteArrayInputStream(SpellPartPage.TEMPLATE.getBytes(StandardCharsets.UTF_8)));
-        });
+        event.enqueueWork(() -> PatchouliAPI.get().registerTemplateAsBuiltin(SpellPartPage.ID, () -> new ByteArrayInputStream(SpellPartPage.TEMPLATE.getBytes(StandardCharsets.UTF_8))));
     }
 
     @SubscribeEvent
@@ -235,6 +232,7 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void registerClientReloadListeners(AddClientReloadListenersEvent event) {
         event.addListener(ParticleSpawnerManager.ID, ParticleSpawnerManager.INSTANCE);
+        ArsMagicaClientApiImpl.postEvents();
     }
 
     @SubscribeEvent

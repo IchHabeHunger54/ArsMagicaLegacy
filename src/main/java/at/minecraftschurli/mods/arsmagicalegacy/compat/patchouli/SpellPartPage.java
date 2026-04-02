@@ -35,7 +35,7 @@ import java.util.function.UnaryOperator;
 
 public final class SpellPartPage implements ICustomComponent {
     public static final Identifier ID = ArsMagicaApi.id("spell_part");
-    public static final String TEMPLATE = "{\"components\":[{\"type\":\"patchouli:custom\",\"class\":\"at.minecraftschurli.arsmagicalegacy.compat.patchouli.SpellPartPage\",\"part\":\"#part\"}]}";
+    public static final String TEMPLATE = "{\"components\":[{\"type\":\"patchouli:custom\",\"class\":\"at.minecraftschurli.mods.arsmagicalegacy.compat.patchouli.SpellPartPage\",\"part\":\"#part\"}]}";
     @SuppressWarnings("DataFlowIssue")
     private static final Comparator<Holder<Affinity>> COMPARATOR = Comparator.comparing(Holder::getKey);
     private static final int INGREDIENT_COLUMNS = 6;

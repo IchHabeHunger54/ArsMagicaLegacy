@@ -82,6 +82,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.AddClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.InitializeClientRegistriesEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterBlockStateModels;
@@ -115,6 +116,11 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> PatchouliAPI.get().registerTemplateAsBuiltin(SpellPartPage.ID, () -> new ByteArrayInputStream(SpellPartPage.TEMPLATE.getBytes(StandardCharsets.UTF_8))));
+    }
+
+    @SubscribeEvent
+    private static void initializeClientRegistries(InitializeClientRegistriesEvent event) {
+        ArsMagicaClientApiImpl.postEvents();
     }
 
     @SubscribeEvent
@@ -232,7 +238,6 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void registerClientReloadListeners(AddClientReloadListenersEvent event) {
         event.addListener(ParticleSpawnerManager.ID, ParticleSpawnerManager.INSTANCE);
-        ArsMagicaClientApiImpl.postEvents();
     }
 
     @SubscribeEvent

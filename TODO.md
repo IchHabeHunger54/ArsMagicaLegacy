@@ -1,5 +1,4 @@
 - Test All Spell Parts and Particles
-- Add Liquid Etherium Sounds
 - Add Bosses and their Projectiles
 - Add Compat Recipes
 - Test With Sodium/Embeddium/Iris

@@ -4,6 +4,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.client.event.RegisterOcculusTabRenderersEvent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.client.event.RegisterParticleControllersEvent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.client.event.RegisterSpellPartCustomizationScreensEvent;
+import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
@@ -65,15 +66,24 @@ import at.minecraftschurli.mods.arsmagicalegacy.packet.SetActiveShapeGroupPacket
 import at.minecraftschurli.mods.arsmagicalegacy.packet.SpellBookScrollPacket;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.model.object.boat.BoatModel;
+import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.renderer.entity.BoatRenderer;
+import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 import net.minecraft.client.resources.model.sprite.AtlasManager;
 import net.minecraft.client.resources.model.sprite.Material;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -96,6 +106,7 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.event.RegisterRangeSelectItemModelPropertyEvent;
 import net.neoforged.neoforge.client.event.RegisterTextureAtlasesEvent;
+import net.neoforged.neoforge.client.event.RenderHandEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
@@ -353,9 +364,8 @@ final class AMClientEventHandler {
     }
 
     /**
-     * Adapted from ItemInHandRenderer#renderArmWithItem
+     * Adapted from ItemInHandRenderer#renderArmWithItem and ItemInHandRenderer#renderPlayerArm
      */
-    /*TODO
     @SubscribeEvent
     private static void renderHand(RenderHandEvent event) {
         if (!(AMClientUtil.player() instanceof LocalPlayer player) || player.isInvisible() || !ArsMagicaApi.magicHelper().knowsMagic(player)) return;
@@ -367,7 +377,6 @@ final class AMClientEventHandler {
         int armMultiplier = isRightHand ? 1 : -1;
         PoseStack stack = event.getPoseStack();
         stack.pushPose();
-        RenderSystem.setShaderTexture(0, player.getSkin().texture());
         stack.translate(armMultiplier * (-0.3 * Mth.sin((float) (swingSqrt * Math.PI)) + 0.64), 0.4 * Mth.sin((float) (swingSqrt * (Math.PI * 2))) - 0.6 + event.getEquipProgress() * -0.6, -0.4 * Mth.sin((float) (swing * Math.PI)) - 0.72);
         stack.mulPose(Axis.YP.rotationDegrees(armMultiplier * 45));
         stack.mulPose(Axis.YP.rotationDegrees(armMultiplier * Mth.sin((float) (swingSqrt * Math.PI)) * 70));
@@ -377,12 +386,15 @@ final class AMClientEventHandler {
         stack.mulPose(Axis.XP.rotationDegrees(200));
         stack.mulPose(Axis.YP.rotationDegrees(armMultiplier * -135));
         stack.translate(armMultiplier * 5.6, 0, 0);
+        AvatarRenderer<AbstractClientPlayer> avatarRenderer = AMClientUtil.mc().getEntityRenderDispatcher().getPlayerRenderer(player);
+        SubmitNodeCollector submitNodeCollector = event.getSubmitNodeCollector();
+        int lightCoords = event.getPackedLight();
+        Identifier skinTexture = player.getSkin().body().texturePath();
         if (isRightHand) {
-            ((PlayerRenderer) AMClientUtil.mc().getEntityRenderDispatcher().getRenderer(player)).renderRightHand(stack, event.getMultiBufferSource(), event.getPackedLight(), player);
+            avatarRenderer.renderRightHand(stack, submitNodeCollector, lightCoords, skinTexture, player.isModelPartShown(PlayerModelPart.RIGHT_SLEEVE), player);
         } else {
-            ((PlayerRenderer) AMClientUtil.mc().getEntityRenderDispatcher().getRenderer(player)).renderLeftHand(stack, event.getMultiBufferSource(), event.getPackedLight(), player);
+            avatarRenderer.renderLeftHand(stack, submitNodeCollector, lightCoords, skinTexture, player.isModelPartShown(PlayerModelPart.LEFT_SLEEVE), player);
         }
         stack.popPose();
     }
-    */
 }

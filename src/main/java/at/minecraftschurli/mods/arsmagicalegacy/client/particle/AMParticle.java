@@ -8,6 +8,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleEngine;
+import net.minecraft.client.particle.ParticleResources;
 import net.minecraft.client.particle.SimpleAnimatedParticle;
 import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
@@ -44,6 +45,11 @@ public class AMParticle extends SimpleAnimatedParticle implements ControlledPart
         };
         vanillaParticle.remove();
         if (sprite == null) return List.of();
+        if (sprites == null) {
+            ParticleResources.MutableSpriteSet mutableSprites = new ParticleResources.MutableSpriteSet();
+            mutableSprites.rebind(List.of(sprite));
+            sprites = mutableSprites;
+        }
         List<AMParticle> list = new ArrayList<>();
         for (int i = 0; i < spawner.count(); i++) {
             AMParticle particle = new AMParticle(level, x, y, z, sprites);

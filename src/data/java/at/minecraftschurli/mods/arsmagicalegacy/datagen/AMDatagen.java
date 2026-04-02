@@ -51,8 +51,6 @@ import java.util.function.BiFunction;
 public final class AMDatagen {
     @SubscribeEvent
     private static void gatherData(GatherDataEvent.Client event) {
-        ArsMagicaClientApiImpl.postEvents();
-
         DataGenerator.PackGenerator pack = event.getGenerator().getVanillaPack(true);
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
         lookupProvider = pack.addProvider(wrap(

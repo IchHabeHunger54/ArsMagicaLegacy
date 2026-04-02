@@ -4,6 +4,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.plant.GrowthContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.plant.GrowthType;
 import at.minecraftschurli.mods.arsmagicalegacy.api.plant.ReplantableGrowthType;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
@@ -19,16 +20,21 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.ArrayList;
 import java.util.List;
 
-public record UpwardsGrowthType(int minHeight, int maxHeight, Block head, Block body) implements ReplantableGrowthType {
+public record UpwardsGrowthType(int minHeight, int maxHeight, Block head, Block body, boolean headRequired) implements ReplantableGrowthType {
     public static final MapCodec<UpwardsGrowthType> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
         ExtraCodecs.POSITIVE_INT.optionalFieldOf("min_height", 1).forGetter(UpwardsGrowthType::minHeight),
         ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("max_height", 0).forGetter(UpwardsGrowthType::maxHeight),
         BuiltInRegistries.BLOCK.byNameCodec().fieldOf("head").forGetter(UpwardsGrowthType::head),
-        BuiltInRegistries.BLOCK.byNameCodec().fieldOf("body").forGetter(UpwardsGrowthType::body)
+        BuiltInRegistries.BLOCK.byNameCodec().fieldOf("body").forGetter(UpwardsGrowthType::body),
+        Codec.BOOL.optionalFieldOf("head_required", true).forGetter(UpwardsGrowthType::headRequired)
     ).apply(inst, UpwardsGrowthType::new));
 
+    public UpwardsGrowthType(int minHeight, int maxHeight, Block head, Block body) {
+        this(minHeight, maxHeight, head, body, true);
+    }
+
     public UpwardsGrowthType(int minHeight, int maxHeight, Block block) {
-        this(minHeight, maxHeight, block, block);
+        this(minHeight, maxHeight, block, block, true);
     }
 
     @Override
@@ -42,7 +48,7 @@ public record UpwardsGrowthType(int minHeight, int maxHeight, Block head, Block 
         if (maxHeight > 0 && column.size() >= maxHeight) return false;
         ServerLevel level = context.level();
         BlockPos last = column.getLast();
-        return level.getBlockState(last.above()).canBeReplaced() && level.getBlockState(last).is(head);
+        return level.getBlockState(last.above()).canBeReplaced() && (!headRequired || level.getBlockState(last).is(head));
     }
 
     @Override

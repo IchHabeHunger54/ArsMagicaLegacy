@@ -33,7 +33,7 @@ public final class AMPlantProvider extends PlantProvider {
 
     @Override
     public void generate(HolderLookup.Provider provider) {
-        builder("bamboo", new UpwardsGrowthType(1, 16, Blocks.BAMBOO, Blocks.BAMBOO), new CompositeMatchTest(List.of(
+        builder("bamboo", new UpwardsGrowthType(1, 16, Blocks.BAMBOO), new CompositeMatchTest(List.of(
             new BlockMatchTest(Blocks.BAMBOO),
             new BlockMatchTest(Blocks.BAMBOO_SAPLING))))
             .seed(Items.BAMBOO)
@@ -44,8 +44,7 @@ public final class AMPlantProvider extends PlantProvider {
         ))), new BlockMatchTest(Blocks.BEETROOTS))
             .seed(Items.BEETROOT_SEEDS)
             .crop(Items.BEETROOT);
-        // TODO 26.1 cactus flower
-        builder("cactus", new UpwardsGrowthType(1, 3, Blocks.CACTUS, Blocks.CACTUS), new BlockMatchTest(Blocks.CACTUS))
+        builder("cactus", new UpwardsGrowthType(1, 4, Blocks.CACTUS_FLOWER, Blocks.CACTUS, false), new BlockMatchTest(Blocks.CACTUS))
             .seed(Items.CACTUS)
             .crop(Items.CACTUS);
         builder("carrots", new CropGrowthType(List.of(new HarvestState(
@@ -117,7 +116,7 @@ public final class AMPlantProvider extends PlantProvider {
             new BlockMatchTest(Blocks.PUMPKIN))))
             .seed(Items.PUMPKIN_SEEDS)
             .crop(Items.PUMPKIN);
-        builder("sugar_cane", new UpwardsGrowthType(1, 3, Blocks.SUGAR_CANE, Blocks.SUGAR_CANE), new BlockMatchTest(Blocks.SUGAR_CANE))
+        builder("sugar_cane", new UpwardsGrowthType(1, 3, Blocks.SUGAR_CANE), new BlockMatchTest(Blocks.SUGAR_CANE))
             .seed(Items.SUGAR_CANE)
             .crop(Items.SUGAR_CANE);
         builder("sweet_berry_bush", new BushGrowthType(List.of(

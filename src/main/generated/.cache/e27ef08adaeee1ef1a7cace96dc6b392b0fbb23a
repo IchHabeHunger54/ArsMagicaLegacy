@@ -1,4 +1,4 @@
-// 26.1.1	2026-04-02T19:16:38.5734232	vanilla/Model Definitions - arsmagicalegacy
+// 26.1.1	2026-04-02T23:32:01.844103	vanilla/Model Definitions - arsmagicalegacy
 04e3c603d8be1db1c7bdb4348fd34850a52becf7 assets/arsmagicalegacy/blockstates/altar_core.json
 beb7ab7de7f6ae890282ef38e36400685d083d78 assets/arsmagicalegacy/blockstates/aum.json
 30af4342d085e8fb94bdc195acfdc2f95908074c assets/arsmagicalegacy/blockstates/black_aurem.json
@@ -63,6 +63,7 @@ bbb195b12c389533eeab1fd35c616bd51c4d9215 assets/arsmagicalegacy/blockstates/wiza
 c10dce7eb44809f89c71949981c59de1f71ddc89 assets/arsmagicalegacy/items/affinity_tome.json
 c5cc98179dd0ed3f5fe379ec9a297775484fc206 assets/arsmagicalegacy/items/altar_core.json
 4269ce8a5bd20e6ba5a9e011d2cf8d2cd8e5883f assets/arsmagicalegacy/items/arcane_ash.json
+97a8adb9e1d9878e41ec11127fba12a0e39045b7 assets/arsmagicalegacy/items/arcane_compendium.json
 b108a4f7974994b59970f1460f6834f36b0a0708 assets/arsmagicalegacy/items/arcane_compound.json
 9b244339510a410bcce829dda9c5bb7ec1fbebad assets/arsmagicalegacy/items/aum.json
 aa852439fd46c3809fc76c3b2992b9995dd2cabc assets/arsmagicalegacy/items/battlemage_boots.json

@@ -209,7 +209,14 @@ public final class AMModelProvider extends AbstractModelProvider {
     }
 
     private void registerItemModels(ItemModelGenerators itemModels) {
-        ModelTemplates.FLAT_ITEM.create(ArsMagicaApi.id("item/arcane_compendium"), TextureMapping.layer0(new Material(ArsMagicaApi.id("item/arcane_compendium"))), itemModels.modelOutput);
+        itemModels.itemModelOutput.register(
+            ArsMagicaApi.id("arcane_compendium"), 
+            new ClientItem(
+                ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(
+                    ArsMagicaApi.id("item/arcane_compendium"),
+                    TextureMapping.layer0(new Material(ArsMagicaApi.id("item/arcane_compendium"))),
+                    itemModels.modelOutput)),
+                ClientItem.Properties.DEFAULT));
         itemWithVariants(
             itemModels,
             AMItems.SPELL,

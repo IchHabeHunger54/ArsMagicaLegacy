@@ -102,7 +102,7 @@ dependencies {
     compileOnly(jeiApiDep)
 
     // geckolib for animations
-    val geckolibDep = helper.minecraftVersion.zip(geckolib.version) { mc, version -> "com.geckolib:geckolib-neoforge-${mc}:${version}" }
+    val geckolibDep = helper.minecraftVersion.zip(geckolib.version) { mc, version -> "com.geckolib:geckolib-neoforge-${/*mc*/"26.1"}:${version}" }
     implementation(geckolibDep)
     testRuntimeOnly(geckolibDep)
     "dataRuntimeOnly"(geckolibDep)

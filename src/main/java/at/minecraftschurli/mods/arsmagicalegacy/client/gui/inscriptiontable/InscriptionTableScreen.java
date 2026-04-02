@@ -73,6 +73,8 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
     protected void init() {
         super.init();
         topPos -= 12;
+        shapeGroupAreas.clear();
+        dragAreas.clear();
         grammarArea = new GrammarArea(leftPos + 42, topPos + 144, 136, 16, this::onDrop);
         for (int i = 0; i < menu.getShapeGroups(); i++) {
             shapeGroupAreas.add(new ShapeGroupArea(leftPos + 20 + i * ShapeGroupArea.WIDTH, topPos + 107, this::onDrop));

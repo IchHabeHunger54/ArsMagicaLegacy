@@ -80,7 +80,6 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
     private BlockState camo;
     private int power = 0;
     private int currentIngredient = 0;
-    @Nullable
     private Spell spell = Spell.EMPTY;
     @Nullable
     private List<SpellIngredient> recipe;
@@ -123,7 +122,7 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
             checkCounter = AMServerConfig.ALTAR_CHECK_INTERVAL.get();
             boolean multiblock = checkMultiblock();
             BlockState lectern = lecternPos == null ? null : level.getBlockState(lecternPos);
-            if (!multiblock || lectern == null || !lectern.is(Blocks.LECTERN) || !lectern.getValue(LecternBlock.HAS_BOOK)) {
+            if (!multiblock || lectern == null || !lectern.is(Blocks.LECTERN)) {
                 direction = null;
                 lecternPos = null;
                 leverPos = null;
@@ -141,7 +140,7 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
             }
             requestModelDataUpdate();
         }
-        if (!state.getValue(AltarCoreBlock.FORMED) || spell == null || spell.isEmpty() || recipe == null) return;
+        if (!state.getValue(AltarCoreBlock.FORMED) || spell.isEmpty() || recipe == null) return;
         if (currentIngredient >= recipe.size()) {
             currentIngredient = 0;
         }
@@ -201,11 +200,11 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
         power = material.power() + capMaterial.power();
         if (!level.isClientSide()) {
             ItemStack stack = lectern.getBook();
-            spell = stack.has(AMDataComponents.SPELL) ? stack.get(AMDataComponents.SPELL) : null;
+            spell = stack.has(AMDataComponents.SPELL) ? stack.get(AMDataComponents.SPELL) : Spell.EMPTY;
             level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
         }
         SpellHelper helper = ArsMagicaApi.spellHelper();
-        recipe = spell != null && helper.getFlatRecipe(spell).size() <= power ? helper.getRecipe(spell) : null;
+        recipe = helper.getFlatRecipe(spell).size() <= power ? helper.getRecipe(spell) : null;
         if (recipe == null) {
             currentIngredient = 0;
         }
@@ -227,7 +226,7 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
 
     @Override
     public Data toData() {
-        return new Data(Optional.ofNullable(camo), power, currentIngredient, spell == null ? Spell.EMPTY : spell, List.copyOf(etheriumProviders), etherium);
+        return new Data(Optional.ofNullable(camo), power, currentIngredient, spell, List.copyOf(etheriumProviders), etherium);
     }
 
     @Override

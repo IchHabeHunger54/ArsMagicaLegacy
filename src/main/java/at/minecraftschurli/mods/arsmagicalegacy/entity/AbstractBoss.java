@@ -13,7 +13,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -24,12 +26,18 @@ import net.minecraft.world.level.Level;
 import org.jspecify.annotations.Nullable;
 
 public abstract class AbstractBoss extends Monster implements GeoEntity, SpellCasterEntity {
+    protected final TagKey<DamageType> isVulnerableTo;
+    protected final TagKey<DamageType> isImmuneTo;
+    protected final TagKey<DamageType> isHealTo;
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private int ticksInAction = 0;
     private Action action = Action.IDLE;
 
-    protected AbstractBoss(EntityType<? extends AbstractBoss> type, Level level) {
+    protected AbstractBoss(EntityType<? extends AbstractBoss> type, Level level, TagKey<DamageType> isVulnerableTo, TagKey<DamageType> isImmuneTo, TagKey<DamageType> isHealTo) {
         super(type, level);
+        this.isVulnerableTo = isVulnerableTo;
+        this.isImmuneTo = isImmuneTo;
+        this.isHealTo = isHealTo;
     }
 
     public static AttributeSupplier.Builder createBossAttributes() {
@@ -126,6 +134,14 @@ public abstract class AbstractBoss extends Monster implements GeoEntity, SpellCa
                 }
             }
             return false;
+        }
+        if (source.is(isHealTo)) {
+            heal(damage);
+            return false;
+        }
+        if (source.is(isImmuneTo)) return false;
+        if (source.is(isVulnerableTo)) {
+            damage *= 2;
         }
         SoundEvent sound = getHurtSound(source);
         if (sound != null) {

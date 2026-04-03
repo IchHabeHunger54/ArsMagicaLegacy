@@ -1,5 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.spell.shape;
 
+import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.PrimarySpellShape;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastResult;
@@ -11,7 +12,7 @@ import java.util.List;
 public class Beam extends PrimarySpellShape {
     @Override
     public SpellCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
-        return new SpellCastResult(context.spell());
+        return new SpellCastResult(context.spell()).setMessage(AMTranslations.NOT_YET_IMPLEMENTED);
     }
 
     @Override

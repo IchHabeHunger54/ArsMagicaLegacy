@@ -763,6 +763,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.NO_TELEPORT_KEY, "You are too distorted to teleport!");
         add(AMTranslations.NO_TELEPORT_NETHER_KEY, "The nether's force forbids to simply teleport out of it!");
         add(AMTranslations.NO_TELEPORT_OTHER_KEY, "The target is too distorted to be teleported!");
+        add(AMTranslations.NOT_YET_IMPLEMENTED_KEY, "Not yet implemented!");
         add(AMTranslations.OCCULUS_ABILITY_KEY, "%s (%s - %s)");
         add(AMTranslations.OCCULUS_DETAILS_KEY, "Hold Shift for details");
         add(AMTranslations.OCCULUS_FORGET_ALL_KEY, "Forget All");
@@ -818,6 +819,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.SPELL_RECIPE_INGREDIENTS_KEY, "Ingredients");
         add(AMTranslations.SPELL_RECIPE_SHAPE_GROUP_KEY, "Shape Group %s");
         add(AMTranslations.TIER_KEY, "Tier: %s");
+        add("key.category", "main", "Ars Magica: Legacy");
         add("config.jade.plugin_arsmagicalegacy.altar", "Altar");
         add("config.jade.plugin_arsmagicalegacy.etherium", "Etherium");
         add("config.jade.plugin_arsmagicalegacy.tier", "Tier");

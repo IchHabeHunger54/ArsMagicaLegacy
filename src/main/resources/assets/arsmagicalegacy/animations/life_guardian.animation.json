@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.life_guardian.base": {
+		"misc.living": {
 			"loop": true,
 			"animation_length": 4,
 			"bones": {
@@ -46,7 +46,9 @@
 					}
 				}
 			}
+		},
+		"misc.idle": {
+			"loop": true
 		}
-	},
-	"geckolib_format_version": 2
+	}
 }

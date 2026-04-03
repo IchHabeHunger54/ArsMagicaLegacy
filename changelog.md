@@ -2,20 +2,20 @@
 
 - Updated to 26.1
 - Rewrote most of the mod from the ground up for more overall stability going forward
+- Many systems now use datapacks instead of in-code solutions
 - Updated many textures, credit to the amazing @MoonlitLamps for their texture work 
-- Added new advancements for the mod
-- Added translations for the mod's tags
-- Various minor balancing tweaks
 
 # Blocks
 
 - Made various witchwood and flower blocks/items flammable, compostable and strippable where appropriate
+- All of the mod's flowers now spawn in larger patches
 - The Altar now accepts Shulker Boxes, Rune Bags and other container items, and will pull spell ingredients from their contents
 
 ## Liquid Etherium
 
 - Renamed Liquid Essence to Liquid Etherium
 - Now generates in lakes in plains-like biomes, in addition to the centers of Moonstone meteorites
+- Moonstone meteorites have been made rarer to compensate for Liquid Etherium now also generating in lakes
 - Can now be used to create the Arcane Compendium by placing a book in a nearby item frame, similar to old Ars Magica
 - Now has underwater fog
 - Now can be placed in Cauldrons
@@ -79,13 +79,10 @@
 - Added new config options for tweaking the behavior of various spell parts
 - Removed the Telekinesis component
 
-# Affinities
+# Miscellaneous
 
-- Affinity abilities now use an effect system that can be modified via datapacks
+- Added new advancements for the mod
+- Added translations for the mod's tags
 - Added a notification when shifting into/out of affinity abilities
-
-# World Generation
-
-- Moonstone meteorites have been made rarer to compensate for Liquid Etherium now also generating in lakes
-- All of the mod's flowers now spawn in larger patchesw
 - Dryads now spawn twice as often
+- Various minor fixes and balancing tweaks

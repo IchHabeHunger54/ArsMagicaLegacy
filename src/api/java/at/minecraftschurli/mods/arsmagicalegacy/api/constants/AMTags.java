@@ -89,6 +89,7 @@ public interface AMTags {
         TagKey<EntityType<?>> AFFECTED_BY_ENDER_THORNS_ABILITY = tag("affected_by_ender_thorns_ability");
         TagKey<EntityType<?>> AFFECTED_BY_SMITE_ABILITY = tag("affected_by_smite_ability");
         TagKey<EntityType<?>> AFFECTED_BY_NAUSEA_ABILITY = tag("affected_by_nausea_ability");
+        TagKey<EntityType<?>> ENDER_GUARDIAN_SACRIFICES = tag("ender_guardian_sacrifices");
         TagKey<EntityType<?>> SUMMONING_NOT_SUPPORTED = tag("summoning_not_supported");
 
         private static TagKey<EntityType<?>> tag(String name) {
@@ -103,6 +104,36 @@ public interface AMTags {
         TagKey<DamageType> AFFECTED_BY_FEATHER_FALLING_ABILITY = tag("affected_by_feather_falling_ability");
         TagKey<DamageType> AFFECTED_BY_MAGIC_DAMAGE_ABILITY = tag("affected_by_magic_damage_ability");
         TagKey<DamageType> IS_SPELL = tag("is_spell");
+        TagKey<DamageType> WATER_GUARDIAN_IS_VULNERABLE_TO = tag("is_vulnerable_to/water_guardian");
+        TagKey<DamageType> WATER_GUARDIAN_IS_IMMUNE_TO = tag("is_immune_to/water_guardian");
+        TagKey<DamageType> WATER_GUARDIAN_IS_HEAL_TO = tag("is_heal_to/water_guardian");
+        TagKey<DamageType> FIRE_GUARDIAN_IS_VULNERABLE_TO = tag("is_vulnerable_to/fire_guardian");
+        TagKey<DamageType> FIRE_GUARDIAN_IS_IMMUNE_TO = tag("is_immune_to/fire_guardian");
+        TagKey<DamageType> FIRE_GUARDIAN_IS_HEAL_TO = tag("is_heal_to/fire_guardian");
+        TagKey<DamageType> EARTH_GUARDIAN_IS_VULNERABLE_TO = tag("is_vulnerable_to/earth_guardian");
+        TagKey<DamageType> EARTH_GUARDIAN_IS_IMMUNE_TO = tag("is_immune_to/earth_guardian");
+        TagKey<DamageType> EARTH_GUARDIAN_IS_HEAL_TO = tag("is_heal_to/earth_guardian");
+        TagKey<DamageType> AIR_GUARDIAN_IS_VULNERABLE_TO = tag("is_vulnerable_to/air_guardian");
+        TagKey<DamageType> AIR_GUARDIAN_IS_IMMUNE_TO = tag("is_immune_to/air_guardian");
+        TagKey<DamageType> AIR_GUARDIAN_IS_HEAL_TO = tag("is_heal_to/air_guardian");
+        TagKey<DamageType> ICE_GUARDIAN_IS_VULNERABLE_TO = tag("is_vulnerable_to/ice_guardian");
+        TagKey<DamageType> ICE_GUARDIAN_IS_IMMUNE_TO = tag("is_immune_to/ice_guardian");
+        TagKey<DamageType> ICE_GUARDIAN_IS_HEAL_TO = tag("is_heal_to/ice_guardian");
+        TagKey<DamageType> LIGHTNING_GUARDIAN_IS_VULNERABLE_TO = tag("is_vulnerable_to/lightning_guardian");
+        TagKey<DamageType> LIGHTNING_GUARDIAN_IS_IMMUNE_TO = tag("is_immune_to/lightning_guardian");
+        TagKey<DamageType> LIGHTNING_GUARDIAN_IS_HEAL_TO = tag("is_heal_to/lightning_guardian");
+        TagKey<DamageType> NATURE_GUARDIAN_IS_VULNERABLE_TO = tag("is_vulnerable_to/nature_guardian");
+        TagKey<DamageType> NATURE_GUARDIAN_IS_IMMUNE_TO = tag("is_immune_to/nature_guardian");
+        TagKey<DamageType> NATURE_GUARDIAN_IS_HEAL_TO = tag("is_heal_to/nature_guardian");
+        TagKey<DamageType> LIFE_GUARDIAN_IS_VULNERABLE_TO = tag("is_vulnerable_to/life_guardian");
+        TagKey<DamageType> LIFE_GUARDIAN_IS_IMMUNE_TO = tag("is_immune_to/life_guardian");
+        TagKey<DamageType> LIFE_GUARDIAN_IS_HEAL_TO = tag("is_heal_to/life_guardian");
+        TagKey<DamageType> ARCANE_GUARDIAN_IS_VULNERABLE_TO = tag("is_vulnerable_to/arcane_guardian");
+        TagKey<DamageType> ARCANE_GUARDIAN_IS_IMMUNE_TO = tag("is_immune_to/arcane_guardian");
+        TagKey<DamageType> ARCANE_GUARDIAN_IS_HEAL_TO = tag("is_heal_to/arcane_guardian");
+        TagKey<DamageType> ENDER_GUARDIAN_IS_VULNERABLE_TO = tag("is_vulnerable_to/ender_guardian");
+        TagKey<DamageType> ENDER_GUARDIAN_IS_IMMUNE_TO = tag("is_immune_to/ender_guardian");
+        TagKey<DamageType> ENDER_GUARDIAN_IS_HEAL_TO = tag("is_heal_to/ender_guardian");
 
         private static TagKey<DamageType> tag(String name) {
             return TagKey.create(Registries.DAMAGE_TYPE, ArsMagicaApi.id(name));

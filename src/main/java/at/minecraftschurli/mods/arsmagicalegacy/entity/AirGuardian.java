@@ -1,5 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
+import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -8,7 +9,7 @@ import net.minecraft.world.level.Level;
 
 public class AirGuardian extends AbstractBoss {
     public AirGuardian(EntityType<? extends AirGuardian> type, Level level) {
-        super(type, level);
+        super(type, level, AMTags.DamageTypes.AIR_GUARDIAN_IS_VULNERABLE_TO, AMTags.DamageTypes.AIR_GUARDIAN_IS_IMMUNE_TO, AMTags.DamageTypes.AIR_GUARDIAN_IS_HEAL_TO);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

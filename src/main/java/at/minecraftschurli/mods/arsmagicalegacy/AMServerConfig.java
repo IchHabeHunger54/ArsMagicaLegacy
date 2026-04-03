@@ -4,6 +4,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.common.ModConfigSpec;
+import org.jspecify.annotations.Nullable;
 
 public final class AMServerConfig {
     public static final ModConfigSpec.ConfigValue<String> MAGIC_ADVANCEMENT;
@@ -564,7 +565,8 @@ public final class AMServerConfig {
         SPEC = builder.build();
     }
 
-    private static boolean isValidIdentifierOrEmpty(Object o) {
+    private static boolean isValidIdentifierOrEmpty(@Nullable Object o) {
+        if (o == null) return false;
         String s = o.toString();
         if (s.isEmpty()) return true;
         if (!s.contains(":")) return Identifier.isValidPath(s);

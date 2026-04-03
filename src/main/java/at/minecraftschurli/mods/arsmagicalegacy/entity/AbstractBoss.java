@@ -1,15 +1,13 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
+import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.BossRenderer;
 import com.geckolib.animatable.GeoEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
 import com.geckolib.animatable.manager.AnimatableManager;
 import com.geckolib.animation.AnimationController;
 import com.geckolib.animation.RawAnimation;
-import com.geckolib.constant.DataTickets;
 import com.geckolib.constant.DefaultAnimations;
-import com.geckolib.constant.dataticket.DataTicket;
 import com.geckolib.util.GeckoLibUtil;
-import com.google.common.reflect.TypeToken;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -25,7 +23,6 @@ import net.minecraft.world.level.Level;
 import org.jspecify.annotations.Nullable;
 
 public abstract class AbstractBoss extends Monster implements GeoEntity {
-    public static final DataTicket<Action> ACTION_DATA_TICKET = DataTickets.create("action", new TypeToken<>() {});
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private int ticksInAction = 0;
     private Action action = Action.IDLE;
@@ -42,7 +39,7 @@ public abstract class AbstractBoss extends Monster implements GeoEntity {
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(
             DefaultAnimations.genericLivingController(),
-            new AnimationController<>("Action", test -> test.setAndContinue(test.getDataOrDefault(ACTION_DATA_TICKET, Action.IDLE).animation))
+            new AnimationController<>("Action", test -> test.setAndContinue(test.getDataOrDefault(BossRenderer.ACTION_DATA_TICKET, Action.IDLE).animation))
         );
     }
 

@@ -417,6 +417,7 @@
   "arsmagicalegacy.no_teleport": "You are too distorted to teleport!",
   "arsmagicalegacy.no_teleport_nether": "The nether's force forbids to simply teleport out of it!",
   "arsmagicalegacy.no_teleport_other": "The target is too distorted to be teleported!",
+  "arsmagicalegacy.not_yet_implemented": "Not yet implemented!",
   "arsmagicalegacy.prevent_block": "Mystical forces prevent you from using this block! Try crafting an Arcane Compendium to learn more.",
   "arsmagicalegacy.prevent_item": "Mystical forces prevent you from using this item! Try crafting an Arcane Compendium to learn more.",
   "arsmagicalegacy.spell.fail.burned_out": "Burned out!",

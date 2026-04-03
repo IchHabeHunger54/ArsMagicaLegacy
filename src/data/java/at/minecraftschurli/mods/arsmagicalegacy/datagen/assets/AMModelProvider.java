@@ -87,18 +87,17 @@ public final class AMModelProvider extends AbstractModelProvider {
             .shadeQuads(false))
         .build();
     private static final ModelTemplate PARTICLE_ONLY_TEMPLATE = ModelTemplates.PARTICLE_ONLY.extend().suffix("_particle").build();
-    private static final Map<Direction, ModelTemplate> SPELL_RUNE_TEMPLATE = Util.makeEnumMap(
-        Direction.class,
-        direction -> new ModelTemplate(Optional.empty(), Optional.of("_" + direction.getName()), TextureSlot.TEXTURE, TextureSlot.PARTICLE)
-            .extend()
-            .element(element -> {
-                AABB aabb = SpellRuneBlock.SHAPES.get(direction).bounds();
-                element
-                    .from((float) aabb.minX * 16, (float) aabb.minY * 16, (float) aabb.minZ * 16)
-                    .to((float) aabb.maxX * 16, (float) aabb.maxY * 16, (float) aabb.maxZ * 16)
-                    .face(direction.getOpposite(), face -> face.texture(TextureSlot.TEXTURE));
-            })
-            .build());
+    private static final Map<Direction, ModelTemplate> SPELL_RUNE_TEMPLATE = Util.makeEnumMap(Direction.class, direction -> new ModelTemplate(Optional.empty(), Optional.of("_" + direction.getName()), TextureSlot.TEXTURE, TextureSlot.PARTICLE)
+        .extend()
+        .element(element -> {
+            AABB aabb = SpellRuneBlock.SHAPES.get(direction).bounds();
+            element
+                .from((float) aabb.minX * 16, (float) aabb.minY * 16, (float) aabb.minZ * 16)
+                .to((float) aabb.maxX * 16, (float) aabb.maxY * 16, (float) aabb.maxZ * 16)
+                .face(direction.getOpposite(), face -> face.texture(TextureSlot.TEXTURE));
+        })
+        .build());
+    private static final ModelTemplate SPELL_TEMPLATE = ModelTemplates.createItem(ArsMagicaApi.id("template_spell").toString(), TextureSlot.LAYER0);
 
     public AMModelProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(output, lookupProvider, ArsMagicaApi.MOD_ID);
@@ -157,8 +156,7 @@ public final class AMModelProvider extends AbstractModelProvider {
             .withModelDispatch(CelestialPrismBlock.PART, part -> switch (part) {
                 case LOWER -> CELESTIAL_PRISM_TEMPLATE;
                 case UPPER -> PARTICLE_ONLY_TEMPLATE;
-            }, TextureMapping.particle(AMBlocks.CELESTIAL_PRISM.get())
-                .put(TEX, TextureMapping.getBlockTexture(AMBlocks.CELESTIAL_PRISM.get())))
+            }, TextureMapping.particle(AMBlocks.CELESTIAL_PRISM.get()).put(TEX, TextureMapping.getBlockTexture(AMBlocks.CELESTIAL_PRISM.get())))
             .withItemModel(ArsMagicaApi.id("item/celestial_prism"))
             .build();
         Identifier obeliskParticleOnly = PARTICLE_ONLY_TEMPLATE.create(
@@ -175,71 +173,46 @@ public final class AMModelProvider extends AbstractModelProvider {
             TextureMapping.particle(Blocks.STONE_BRICKS).put(TEX, TextureMapping.getBlockTexture(AMBlocks.OBELISK.get())),
             blockModels.modelOutput);
         BlockModelDatagenUtil.builder(blockModels, AMBlocks.OBELISK)
-            .withModelDispatch(
-                ObeliskBlock.PART,
-                ObeliskBlock.LIT,
-                (part, lit) -> part != ObeliskBlock.Part.LOWER ? obeliskParticleOnly : lit ? obeliskLit : obeliskUnlit)
+            .withModelDispatch(ObeliskBlock.PART, ObeliskBlock.LIT, (part, lit) -> part != ObeliskBlock.Part.LOWER ? obeliskParticleOnly : lit ? obeliskLit : obeliskUnlit)
             .withVariantDispatch(BlockModelGenerators.ROTATION_HORIZONTAL_FACING_ALT)
             .withItemModel(ArsMagicaApi.id("item/obelisk"))
             .build();
         BlockModelDatagenUtil.builder(blockModels, AMBlocks.ALTAR_CORE)
-            .withModelDispatch(
-                BlockModelGenerators.createBooleanModelDispatch(
-                    AltarCoreBlock.FORMED,
-                    MultiVariant.of(new Builder(BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(AMBlocks.ALTAR_CORE.get(), "_overlay")))),
-                    BlockModelGenerators.plainVariant(ModelTemplates.CUBE_ALL.create(AMBlocks.ALTAR_CORE.get(), TextureMapping.cube(AMBlocks.ALTAR_CORE.get()), blockModels.modelOutput))))
+            .withModelDispatch(BlockModelGenerators.createBooleanModelDispatch(
+                AltarCoreBlock.FORMED,
+                MultiVariant.of(new AltarCoreModelBuilder(BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(AMBlocks.ALTAR_CORE.get(), "_overlay")))),
+                BlockModelGenerators.plainVariant(ModelTemplates.CUBE_ALL.create(AMBlocks.ALTAR_CORE.get(), TextureMapping.cube(AMBlocks.ALTAR_CORE.get()), blockModels.modelOutput))))
             .build();
         blockModels.createParticleOnlyBlock(AMBlocks.BLACK_AUREM.get());
         blockModels.registerSimpleFlatItemModel(AMBlocks.BLACK_AUREM.get());
         blockModels.createNonTemplateModelBlock(AMBlocks.LIQUID_ETHERIUM.get());
-        blockModels.blockStateOutput.accept(
-            BlockModelGenerators.createSimpleBlock(
+        blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(
+            AMBlocks.LIQUID_ETHERIUM_CAULDRON.get(),
+            BlockModelGenerators.plainVariant(ModelTemplates.CAULDRON_FULL.create(
                 AMBlocks.LIQUID_ETHERIUM_CAULDRON.get(),
-                BlockModelGenerators.plainVariant(
-                    ModelTemplates.CAULDRON_FULL.create(
-                        AMBlocks.LIQUID_ETHERIUM_CAULDRON.get(),
-                        TextureMapping.cauldron(TextureMapping.getBlockTexture(AMBlocks.LIQUID_ETHERIUM.get(), "_still")),
-                        blockModels.modelOutput))));
+                TextureMapping.cauldron(TextureMapping.getBlockTexture(AMBlocks.LIQUID_ETHERIUM.get(), "_still")),
+                blockModels.modelOutput))));
         BlockModelDatagenUtil.builder(blockModels, AMBlocks.SPELL_RUNE)
-            .withModelDispatch(
-                SpellRuneBlock.FACING,
-                SPELL_RUNE_TEMPLATE::get,
-                TextureMapping.defaultTexture(AMBlocks.SPELL_RUNE.get()).put(TextureSlot.PARTICLE, TextureMapping.getBlockTexture(AMBlocks.SPELL_RUNE.get())))
+            .withModelDispatch(SpellRuneBlock.FACING, SPELL_RUNE_TEMPLATE::get, TextureMapping.defaultTexture(AMBlocks.SPELL_RUNE.get()).put(TextureSlot.PARTICLE, TextureMapping.getBlockTexture(AMBlocks.SPELL_RUNE.get())))
             .build();
     }
 
     private void registerItemModels(ItemModelGenerators itemModels) {
-        itemModels.itemModelOutput.register(
-            ArsMagicaApi.id("arcane_compendium"), 
-            new ClientItem(
-                ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(
-                    ArsMagicaApi.id("item/arcane_compendium"),
-                    TextureMapping.layer0(new Material(ArsMagicaApi.id("item/arcane_compendium"))),
-                    itemModels.modelOutput)),
-                ClientItem.Properties.DEFAULT));
-        itemWithVariants(
-            itemModels,
-            AMItems.SPELL,
-            new SpellItemModel.Unbaked(
-                ItemModelUtils.plainModel(
-                    itemModels.createFlatItemModel(
-                        AMItems.SPELL.get(),
-                        ModelTemplates.FLAT_ITEM))),
-            AMMagic.AFFINITIES_WITH_NONE);
+        itemModels.itemModelOutput.register(ArsMagicaApi.id("arcane_compendium"), new ClientItem(
+            ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(
+                ArsMagicaApi.id("item/arcane_compendium"),
+                TextureMapping.layer0(new Material(ArsMagicaApi.id("item/arcane_compendium"))),
+                itemModels.modelOutput)),
+            ClientItem.Properties.DEFAULT));
+        itemWithVariants(itemModels, AMItems.SPELL, new SpellItemModel.Unbaked(ItemModelUtils.plainModel(itemModels.createFlatItemModel(AMItems.SPELL.get(), SPELL_TEMPLATE))), SPELL_TEMPLATE, AMMagic.AFFINITIES_WITH_NONE);
         itemModels.generateFlatItem(AMItems.SPELL_RECIPE.get(), Items.WRITTEN_BOOK, ModelTemplates.FLAT_ITEM);
         itemModels.itemModelOutput.accept(AMItems.ETHERIUM_PLACEHOLDER.get(), ItemModelUtils.tintedModel(itemModels.createFlatItemModel(AMItems.ETHERIUM_PLACEHOLDER.get(), ModelTemplates.FLAT_ITEM), new EtheriumTypeItemTintSource()));
-        itemModels.itemModelOutput.accept(AMItems.LIQUID_ETHERIUM_BUCKET.get(), new DynamicFluidContainerModel.Unbaked(
-            new DynamicFluidContainerModel.Textures(
-                Optional.of(new Material(Identifier.withDefaultNamespace("item/bucket"))),
-                Optional.of(new Material(Identifier.withDefaultNamespace("item/bucket"))),
-                Optional.of(new Material(Identifier.fromNamespaceAndPath("neoforge", "item/mask/bucket_fluid"))),
-                Optional.of(new Material(Identifier.fromNamespaceAndPath("neoforge", "item/mask/bucket_fluid_cover")))
-            ),
-            AMFluids.LIQUID_ETHERIUM.get(),
-            false,
-            true,
-            true
-        ));
+        itemModels.itemModelOutput.accept(AMItems.LIQUID_ETHERIUM_BUCKET.get(), new DynamicFluidContainerModel.Unbaked(new DynamicFluidContainerModel.Textures(
+            Optional.of(new Material(Identifier.withDefaultNamespace("item/bucket"))),
+            Optional.of(new Material(Identifier.withDefaultNamespace("item/bucket"))),
+            Optional.of(new Material(Identifier.fromNamespaceAndPath("neoforge", "item/mask/bucket_fluid"))),
+            Optional.of(new Material(Identifier.fromNamespaceAndPath("neoforge", "item/mask/bucket_fluid_cover")))
+        ), AMFluids.LIQUID_ETHERIUM.get(), false, true, true));
         basicItem(itemModels, AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1);
         basicItem(itemModels, AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_2);
         basicItem(itemModels, AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3);
@@ -251,16 +224,13 @@ public final class AMModelProvider extends AbstractModelProvider {
         );
         basicItem(itemModels, AMItems.WIZARDS_CHALK);
         basicItem(itemModels, AMItems.SPELL_PARCHMENT);
-        itemModels.itemModelOutput.accept(
-            AMItems.SPELL_BOOK.get(),
-            new SpellItemModel.Unbaked(
-                ItemModelUtils.tintedModel(
-                    itemModels.generateLayeredItem(
-                        AMItems.SPELL_BOOK.get(),
-                        TextureMapping.getItemTexture(AMItems.SPELL_BOOK.get()),
-                        TextureMapping.getItemTexture(AMItems.SPELL_BOOK.get(), "_overlay")),
-                    ItemModelGenerators.BLANK_LAYER,
-                    new Dye(0xff000000))));
+        itemModels.itemModelOutput.accept(AMItems.SPELL_BOOK.get(), new SpellItemModel.Unbaked(ItemModelUtils.tintedModel(
+            itemModels.generateLayeredItem(
+                AMItems.SPELL_BOOK.get(),
+                TextureMapping.getItemTexture(AMItems.SPELL_BOOK.get()),
+                TextureMapping.getItemTexture(AMItems.SPELL_BOOK.get(), "_overlay")),
+            ItemModelGenerators.BLANK_LAYER,
+            new Dye(0xff000000))));
         basicItem(itemModels, AMItems.MAGITECH_GOGGLES);
         basicItem(itemModels, AMItems.MAGE_HELMET);
         basicItem(itemModels, AMItems.MAGE_CHESTPLATE);
@@ -272,36 +242,18 @@ public final class AMModelProvider extends AbstractModelProvider {
         basicItem(itemModels, AMItems.BATTLEMAGE_BOOTS);
         basicItem(itemModels, AMItems.MANA_CAKE);
         basicItem(itemModels, AMItems.MANA_MARTINI);
-        itemWithVariants(
-            itemModels,
-            AMItems.INFINITY_ORB,
-            new DataComponentOverridesModel.Unbaked<>(
-                AMDataComponents.SKILL_POINT.get(),
-                ItemModelUtils.plainModel(
-                    itemModels.createFlatItemModel(
-                        AMItems.INFINITY_ORB.get(),
-                        ModelTemplates.FLAT_ITEM))),
-            AMMagic.SKILL_POINTS);
-        itemWithVariants(
-            itemModels,
-            AMItems.AFFINITY_ESSENCE,
-            new DataComponentOverridesModel.Unbaked<>(
-                AMDataComponents.AFFINITY.get(),
-                ItemModelUtils.plainModel(
-                    itemModels.createFlatItemModel(
-                        AMItems.AFFINITY_ESSENCE.get(),
-                        ModelTemplates.FLAT_ITEM))),
-            AMMagic.AFFINITIES);
-        itemWithVariants(
-            itemModels,
-            AMItems.AFFINITY_TOME,
-            new DataComponentOverridesModel.Unbaked<>(
-                AMDataComponents.AFFINITY.get(),
-                ItemModelUtils.plainModel(
-                    itemModels.createFlatItemModel(
-                        AMItems.AFFINITY_TOME.get(),
-                        ModelTemplates.FLAT_ITEM))),
-            AMMagic.AFFINITIES_WITH_NONE);
+        itemWithVariants(itemModels, AMItems.INFINITY_ORB, new DataComponentOverridesModel.Unbaked<>(
+            AMDataComponents.SKILL_POINT.get(),
+            ItemModelUtils.plainModel(itemModels.createFlatItemModel(AMItems.INFINITY_ORB.get(), ModelTemplates.FLAT_ITEM))
+        ), ModelTemplates.FLAT_ITEM, AMMagic.SKILL_POINTS);
+        itemWithVariants(itemModels, AMItems.AFFINITY_ESSENCE, new DataComponentOverridesModel.Unbaked<>(
+            AMDataComponents.AFFINITY.get(),
+            ItemModelUtils.plainModel(itemModels.createFlatItemModel(AMItems.AFFINITY_ESSENCE.get(), ModelTemplates.FLAT_ITEM))
+        ), ModelTemplates.FLAT_ITEM, AMMagic.AFFINITIES);
+        itemWithVariants(itemModels, AMItems.AFFINITY_TOME, new DataComponentOverridesModel.Unbaked<>(
+            AMDataComponents.AFFINITY.get(),
+            ItemModelUtils.plainModel(itemModels.createFlatItemModel(AMItems.AFFINITY_TOME.get(), ModelTemplates.FLAT_ITEM))
+        ), ModelTemplates.FLAT_ITEM, AMMagic.AFFINITIES_WITH_NONE);
         basicItem(itemModels, AMItems.BLANK_RUNE);
         basicItem(itemModels, AMItems.WHITE_RUNE);
         basicItem(itemModels, AMItems.ORANGE_RUNE);
@@ -339,7 +291,7 @@ public final class AMModelProvider extends AbstractModelProvider {
         for (int i = 0; i < 8; i++) {
             Material fillTexture = TextureMapping.getItemTexture(item, "_fill_" + i);
             Identifier modelId = itemModels.generateLayeredItem(modelLocation.withSuffix("_fill_" + i), baseTexture, fillTexture);
-            var model = ItemModelUtils.tintedModel(modelId, ItemModelGenerators.BLANK_LAYER, CrystalPhylacteryItemTintSource.INSTANCE);
+            ItemModel.Unbaked model = ItemModelUtils.tintedModel(modelId, ItemModelGenerators.BLANK_LAYER, CrystalPhylacteryItemTintSource.INSTANCE);
             entries.add(new RangeSelectItemModel.Entry((i + 1) / 8f, model));
         }
         itemModels.itemModelOutput.accept(item, ItemModelUtils.rangeSelect(new CrystalPhylacteryRangeSelectItemModelProperty(), ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, ModelTemplates.FLAT_ITEM)), entries));
@@ -361,15 +313,12 @@ public final class AMModelProvider extends AbstractModelProvider {
      * @param item     The item to add the models for.
      * @param variants The variants to add models for.
      */
-    private void itemWithVariants(ItemModelGenerators itemModels, DeferredItem<?> item, ItemModel.Unbaked model, List<? extends ResourceKey<?>> variants) {
+    private void itemWithVariants(ItemModelGenerators itemModels, DeferredItem<?> item, ItemModel.Unbaked model, ModelTemplate template, List<? extends ResourceKey<?>> variants) {
         itemModels.itemModelOutput.accept(item.get(), model);
         for (ResourceKey<?> variant : variants) {
             Identifier identifier = variant.identifier().withPrefix("item/" + item.getId().getPath() + "_");
             itemModels.itemModelOutput.register(identifier, new ClientItem(ItemModelUtils.plainModel(identifier), new ClientItem.Properties(true, false, 1)));
-            ModelTemplates.FLAT_ITEM.create(
-                identifier,
-                TextureMapping.layer0(new Material(identifier)),
-                itemModels.modelOutput);
+            template.create(identifier, TextureMapping.layer0(new Material(identifier)), itemModels.modelOutput);
         }
     }
 
@@ -388,25 +337,21 @@ public final class AMModelProvider extends AbstractModelProvider {
             .select(RailShape.NORTH_EAST, curved.with(BlockModelGenerators.Y_ROT_270))));
     }
 
-    private static class Builder extends WrappingCustomBlockStateModelBuilder {
-        private Builder(MultiVariant wrapped) {
+    private static class AltarCoreModelBuilder extends WrappingCustomBlockStateModelBuilder {
+        private AltarCoreModelBuilder(MultiVariant wrapped) {
             super(wrapped);
         }
 
         @Override
         public CustomBlockStateModelBuilder with(VariantMutator variantMutator) {
-            return new Builder(wrapped.with(variantMutator));
+            return new AltarCoreModelBuilder(wrapped.with(variantMutator));
         }
 
         @Override
         public CustomUnbakedBlockStateModel toUnbaked() {
             BlockStateModel.Unbaked unbaked = wrapped.toUnbaked();
-            if (unbaked instanceof AltarCoreModel.Unbaked altarCore) {
-                return altarCore;
-            }
-            if (unbaked instanceof SingleVariant.Unbaked singleUnbaked) {
-                return new AltarCoreModel.Unbaked(singleUnbaked);
-            }
+            if (unbaked instanceof AltarCoreModel.Unbaked altarCore) return altarCore;
+            if (unbaked instanceof SingleVariant.Unbaked singleUnbaked) return new AltarCoreModel.Unbaked(singleUnbaked);
             throw new IllegalStateException("Unexpected unbaked variant: " + unbaked);
         }
     }

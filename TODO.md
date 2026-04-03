@@ -11,5 +11,4 @@
     - Item Models
         - Inscription Table
         - Liquid Essence Bucket
-        - Spells
     - Occulus Affinity Tab Lines

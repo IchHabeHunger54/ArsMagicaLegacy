@@ -32,6 +32,7 @@ import org.jspecify.annotations.Nullable;
 import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 public final class SpellItemModel implements ItemModel {
     private final ItemModel defaultModel;
@@ -63,7 +64,7 @@ public final class SpellItemModel implements ItemModel {
                 .update(output, item, resolver, displayContext, level, owner, seed);
             return;
         }
-        var icon = spell.icon();
+        Optional<Identifier> icon = spell.icon();
         if (icon.isPresent() && displayContext == ItemDisplayContext.GUI) {
             Identifier iconId = icon.get();
             TextureAtlasSprite sprite = SpellIconAtlasHolder.getSpriteOrNull(sprites, iconId);

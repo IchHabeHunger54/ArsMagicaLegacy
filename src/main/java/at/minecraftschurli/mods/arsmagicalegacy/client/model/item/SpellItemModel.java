@@ -60,7 +60,7 @@ public final class SpellItemModel implements ItemModel {
         if (isHand(displayContext)) {
             Minecraft.getInstance()
                 .getModelManager()
-                .getItemModel(affinity.identifier().withPrefix("item/spell_"))
+                .getItemModel(affinity.identifier().withPrefix("spell/"))
                 .update(output, item, resolver, displayContext, level, owner, seed);
             return;
         }

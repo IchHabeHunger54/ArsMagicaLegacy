@@ -1,4 +1,4 @@
-package at.minecraftschurli.mods.arsmagicalegacy.client.model;
+package at.minecraftschurli.mods.arsmagicalegacy.client.model.entity;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import net.minecraft.client.model.geom.ModelLayerLocation;

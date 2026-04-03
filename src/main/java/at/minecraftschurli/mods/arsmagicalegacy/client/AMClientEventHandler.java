@@ -25,9 +25,9 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.co
 import at.minecraftschurli.mods.arsmagicalegacy.client.layer.BarsLayer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.layer.ShapeGroupsLayer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.layer.SpellBookLayer;
-import at.minecraftschurli.mods.arsmagicalegacy.client.model.AMModelLayers;
+import at.minecraftschurli.mods.arsmagicalegacy.client.model.entity.AMModelLayers;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.AltarCoreModel;
-import at.minecraftschurli.mods.arsmagicalegacy.client.model.DryadModel;
+import at.minecraftschurli.mods.arsmagicalegacy.client.model.entity.DryadModel;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.item.CrystalPhylacteryItemTintSource;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.item.CrystalPhylacteryRangeSelectItemModelProperty;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.item.CrystalWrenchActiveItemModelProperty;

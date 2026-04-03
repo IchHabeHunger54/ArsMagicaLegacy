@@ -45,21 +45,29 @@ public class ShapeGroupsLayer implements GuiLayer {
         Spell spell = item.get(AMDataComponents.SPELL);
         int x = AMClientConfig.SHAPE_GROUPS_X_ANCHOR.get().getLocation(AMClientConfig.SHAPE_GROUPS_X);
         int y = AMClientConfig.SHAPE_GROUPS_Y_ANCHOR.get().getLocation(AMClientConfig.SHAPE_GROUPS_Y);
+        graphics.pose().pushMatrix();
+        graphics.pose().translate(x, y);
         List<SpellShapeGroup> shapeGroups = spell.shapeGroups();
         for (int i = 0; i < shapeGroups.size(); i++) {
+            graphics.pose().pushMatrix();
+            graphics.pose().translate(i * WIDTH, 0);
             List<SpellPart> shapeGroup = shapeGroups.get(i).parts();
-            if (shapeGroup.isEmpty()) continue;
-            AMClientUtil.blit(graphics, TEXTURE, x + i * WIDTH, y, WIDTH, HEIGHT);
-            for (int j = 0; j < ROWS; j++) {
-                for (int k = 0; k < COLUMNS; k++) {
-                    int index = j * COLUMNS + k;
-                    if (index < shapeGroup.size()) {
-                        AMClientUtil.blit(graphics, SkillAtlasHolder.getSprite(AMRegistries.SPELL_PARTS.getKey(shapeGroup.get(index))), x + i * WIDTH + k * SIZE + X_PADDING, y + j * SIZE + Y_PADDING, SIZE, SIZE);
+            if (!shapeGroup.isEmpty()) {
+                AMClientUtil.blit(graphics, TEXTURE, 0, 0, WIDTH, HEIGHT);
+                for (int j = 0; j < ROWS; j++) {
+                    for (int k = 0; k < COLUMNS; k++) {
+                        int index = j * COLUMNS + k;
+                        if (index < shapeGroup.size()) {
+                            AMClientUtil.blit(graphics, SkillAtlasHolder.getSprite(AMRegistries.SPELL_PARTS.getKey(shapeGroup.get(index))), k * SIZE + X_PADDING, j * SIZE + Y_PADDING, SIZE, SIZE);
+                        }
                     }
                 }
+                if (i != spell.activeShapeGroup()) {
+                    graphics.fill(0, 0, WIDTH, HEIGHT, 0x7f000000);
+                }
             }
-            if (i == spell.activeShapeGroup()) continue;
-            graphics.fill(i * WIDTH, 0, (i + 1) * WIDTH, HEIGHT, 0x7f000000);
+            graphics.pose().popMatrix();
         }
+        graphics.pose().popMatrix();
     }
 }

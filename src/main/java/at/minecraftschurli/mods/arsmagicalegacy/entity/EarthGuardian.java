@@ -1,6 +1,9 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
+import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -17,5 +20,25 @@ public class EarthGuardian extends AbstractBoss {
             .add(Attributes.ARMOR, 10)
             .add(AMAttributes.MAX_MANA, 1000)
             .add(AMAttributes.MAX_BURNOUT, 1000);
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return AMSounds.EARTH_GUARDIAN_AMBIENT.get();
+    }
+
+    @Override
+    public SoundEvent getAttackSound() {
+        return AMSounds.EARTH_GUARDIAN_ATTACK.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return AMSounds.EARTH_GUARDIAN_DEATH.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return AMSounds.EARTH_GUARDIAN_HURT.get();
     }
 }

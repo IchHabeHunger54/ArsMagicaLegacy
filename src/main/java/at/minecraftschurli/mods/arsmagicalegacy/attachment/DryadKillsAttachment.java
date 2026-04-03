@@ -1,7 +1,7 @@
 package at.minecraftschurli.mods.arsmagicalegacy.attachment;
 
 import at.minecraftschurli.mods.arsmagicalegacy.AMServerConfig;
-import at.minecraftschurli.mods.arsmagicalegacy.entity.ManaCreeper;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.NatureGuardian;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMEntities;
 import com.mojang.serialization.Codec;
@@ -36,8 +36,7 @@ public record DryadKillsAttachment(List<Integer> timers) {
         List<Integer> list = new ArrayList<>(player.getData(AMAttachments.DRYAD_KILLS).timers);
         list.add(cooldown);
         if (list.size() >= AMServerConfig.DRYAD_KILLS_FOR_NATURE_GUARDIAN_SPAWN.get()) {
-            // TODO nature guardian
-            ManaCreeper natureGuardian = AMEntities.MANA_CREEPER.get().spawn(level, ItemStack.EMPTY, player, dryad.blockPosition(), EntitySpawnReason.TRIGGERED, false, false);
+            NatureGuardian natureGuardian = AMEntities.NATURE_GUARDIAN.get().spawn(level, ItemStack.EMPTY, player, dryad.blockPosition(), EntitySpawnReason.TRIGGERED, false, false);
             if (natureGuardian != null) {
                 natureGuardian.setTarget(player);
                 player.removeData(AMAttachments.DRYAD_KILLS);

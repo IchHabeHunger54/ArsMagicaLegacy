@@ -1,6 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
-import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.BossRenderer;
+import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import com.geckolib.animatable.GeoEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
 import com.geckolib.animatable.manager.AnimatableManager;
@@ -39,7 +39,7 @@ public abstract class AbstractBoss extends Monster implements GeoEntity {
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(
             DefaultAnimations.genericLivingController(),
-            new AnimationController<>("Action", test -> test.setAndContinue(test.getDataOrDefault(BossRenderer.ACTION_DATA_TICKET, Action.IDLE).animation))
+            new AnimationController<>("Action", test -> test.setAndContinue(test.getDataOrDefault(AMClientUtil.ACTION_DATA_TICKET, Action.IDLE).animation))
         );
     }
 

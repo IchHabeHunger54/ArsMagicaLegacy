@@ -202,7 +202,6 @@ public interface AMSpells {
     DeferredHolder<SpellPart, Rift>               RIFT                = register("rift",                Rift::new);
     DeferredHolder<SpellPart, Storm>              STORM               = register("storm",               Storm::new);
     DeferredHolder<SpellPart, Summon>             SUMMON              = register("summon",              Summon::new);
-    //DeferredHolder<SpellPart, Telekinesis>        TELEKINESIS         = register("telekinesis",         Telekinesis::new);
     DeferredHolder<SpellPart, Transplace>         TRANSPLACE          = register("transplace",          Transplace::new);
     DeferredHolder<SpellPart, WizardsAutumn>      WIZARDS_AUTUMN      = register("wizards_autumn",      WizardsAutumn::new);
 

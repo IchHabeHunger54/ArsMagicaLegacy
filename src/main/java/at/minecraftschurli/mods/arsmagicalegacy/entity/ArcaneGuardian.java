@@ -1,5 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
+import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
 import net.minecraft.sounds.SoundEvent;
@@ -11,7 +12,7 @@ import net.minecraft.world.level.Level;
 
 public class ArcaneGuardian extends AbstractBoss {
     public ArcaneGuardian(EntityType<? extends ArcaneGuardian> type, Level level) {
-        super(type, level);
+        super(type, level, AMTags.DamageTypes.ARCANE_GUARDIAN_IS_VULNERABLE_TO, AMTags.DamageTypes.ARCANE_GUARDIAN_IS_IMMUNE_TO, AMTags.DamageTypes.ARCANE_GUARDIAN_IS_HEAL_TO);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

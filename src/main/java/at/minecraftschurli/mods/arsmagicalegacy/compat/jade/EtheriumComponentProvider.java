@@ -40,7 +40,7 @@ final class EtheriumComponentProvider implements StreamServerDataProvider<BlockA
         EtheriumHandler capability = level.getCapability(AMCapabilities.BLOCK_ETHERIUM, blockAccessor.getPosition(), null);
         if (capability == null) return null;
         Map<Holder<EtheriumType>, Etherium> etheriumMap = new HashMap<>();
-        for (var etheriumType : capability.getEtheriumTypes()) {
+        for (Holder<EtheriumType> etheriumType : capability.getEtheriumTypes()) {
             int maxEtherium = capability.getMaxAmount(etheriumType);
             if (maxEtherium > 0) {
                 etheriumMap.put(etheriumType, new Etherium(capability.getAmount(etheriumType), maxEtherium));

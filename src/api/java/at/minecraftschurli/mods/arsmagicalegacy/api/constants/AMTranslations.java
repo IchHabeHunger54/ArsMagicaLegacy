@@ -75,6 +75,7 @@ public interface AMTranslations {
     String NO_TELEPORT_KEY                                   = ArsMagicaApi.MOD_ID + ".no_teleport";
     String NO_TELEPORT_NETHER_KEY                            = ArsMagicaApi.MOD_ID + ".no_teleport_nether";
     String NO_TELEPORT_OTHER_KEY                             = ArsMagicaApi.MOD_ID + ".no_teleport_other";
+    String NOT_YET_IMPLEMENTED_KEY                           = ArsMagicaApi.MOD_ID + ".not_yet_implemented";
     String PREVENT_BLOCK_KEY                                 = ArsMagicaApi.MOD_ID + ".prevent_block";
     String PREVENT_ITEM_KEY                                  = ArsMagicaApi.MOD_ID + ".prevent_item";
     String SPELL_BOOK_NO_SPELL_SELECTED_KEY                  = ArsMagicaApi.MOD_ID + ".spell_book.no_spell_selected";
@@ -140,6 +141,7 @@ public interface AMTranslations {
     Component NO_TELEPORT                                   = Component.translatable(NO_TELEPORT_KEY);
     Component NO_TELEPORT_NETHER                            = Component.translatable(NO_TELEPORT_NETHER_KEY);
     Component NO_TELEPORT_OTHER                             = Component.translatable(NO_TELEPORT_OTHER_KEY);
+    Component NOT_YET_IMPLEMENTED                           = Component.translatable(NOT_YET_IMPLEMENTED_KEY);
     Component PREVENT_BLOCK                                 = Component.translatable(PREVENT_BLOCK_KEY);
     Component PREVENT_ITEM                                  = Component.translatable(PREVENT_ITEM_KEY);
     Component SPELL_FAIL_BURNED_OUT                         = Component.translatable(SPELL_FAIL_BURNED_OUT_KEY);

@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.air_guardian.base": {
+		"misc.living": {
 			"loop": true,
 			"animation_length": 4,
 			"bones": {
@@ -34,19 +34,23 @@
 							"vector": [0, 0, 600]
 						}
 					}
-				},
+				}
+			}
+		},
+		"misc.idle": {
+			"loop": true,
+			"animation_length": 4,
+			"bones": {
 				"right_arm": {
 					"rotation": {
 						"0.0": {
 							"vector": [0, 0, 0]
 						},
 						"2.0": {
-							"vector": [0, 0, 5],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 5]
 						},
 						"4.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 0]
 						}
 					}
 				},
@@ -56,18 +60,16 @@
 							"vector": [0, 0, 0]
 						},
 						"2.0": {
-							"vector": [0, 0, -5],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, -5]
 						},
 						"4.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 0]
 						}
 					}
 				}
 			}
 		},
-		"animation.air_guardian.cast": {
+		"attack.cast": {
 			"animation_length": 2,
 			"bones": {
 				"body": {
@@ -76,13 +78,11 @@
 							"vector": [0, 0, 0]
 						},
 						"2.0": {
-							"vector": [0, 1440, 0],
-							"easing": "easeInBack"
+							"vector": [0, 1440, 0]
 						}
 					}
 				}
 			}
 		}
-	},
-	"geckolib_format_version": 2
+	}
 }

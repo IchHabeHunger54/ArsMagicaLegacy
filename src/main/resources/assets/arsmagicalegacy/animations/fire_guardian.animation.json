@@ -1,7 +1,10 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.fire_guardian.idle": {
+		"misc.living": {
+			"loop": true
+		},
+		"misc.idle": {
 			"loop": true,
 			"animation_length": 4,
 			"bones": {
@@ -11,12 +14,10 @@
 							"vector": [0, 0, 0]
 						},
 						"2.0": {
-							"vector": [0, 0, 5],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 5]
 						},
 						"4.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 0]
 						}
 					}
 				},
@@ -26,20 +27,17 @@
 							"vector": [0, 0, 0]
 						},
 						"2.0": {
-							"vector": [0, 0, -5],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, -5]
 						},
 						"4.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 0]
 						}
 					}
 				}
 			}
 		},
-		"animation.fire_guardian.cast": {
+		"attack.cast": {
 			"loop": true
 		}
-	},
-	"geckolib_format_version": 2
+	}
 }

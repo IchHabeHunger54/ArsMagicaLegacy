@@ -24,7 +24,7 @@ public class Rift extends SpellComponent.CastEntity {
     public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
         Spell spell = context.spell();
         if (!(hitResult.getEntity() instanceof LivingEntity entity)) return SpellComponentCastResult.pass(spell);
-        if (!(context.caster() instanceof ServerPlayer player)) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_CASTER);
+        if (!(context.caster() instanceof ServerPlayer player)) return SpellComponentCastResult.pass(spell);
         int entityId = entity.getId();
         int size = (int) modifiers.stream()
             .filter(e -> e.getStats().contains(AMSpells.RANGE_STAT))

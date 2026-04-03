@@ -23,6 +23,7 @@ public class RiftScreen extends AbstractContainerScreen<RiftMenu> {
 
     @Override
     public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(graphics, mouseX, mouseY, partialTick);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
         AMClientUtil.blit(graphics, BACKGROUND, x, y, 0, 0, imageWidth, 17, imageWidth, imageHeight);

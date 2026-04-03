@@ -47,6 +47,7 @@ public final class HiddenSkills {
         if (RECIPES.isEmpty()) {
             registerRecipes(runtime);
         }
+        VISIBLE_SKILLS.clear();
         addVisibleSkillsAndRecipes();
         ingredientManager.removeIngredientsAtRuntime(AMJeiPlugin.SKILL_TYPE, getSkills()
             .map(Holder::value)

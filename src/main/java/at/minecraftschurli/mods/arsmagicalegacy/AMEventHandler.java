@@ -34,6 +34,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.compat.patchouli.AMMultiblocks;
 import at.minecraftschurli.mods.arsmagicalegacy.effect.AMMobEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.Dryad;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ManaCreeper;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.WaterGuardian;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAbilities;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
@@ -235,6 +236,7 @@ final class AMEventHandler {
     private static void entityAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(AMEntities.DRYAD.get(), Dryad.createAttributes().build());
         event.put(AMEntities.MANA_CREEPER.get(), ManaCreeper.createAttributes().build());
+        event.put(AMEntities.WATER_GUARDIAN.get(), WaterGuardian.createAttributes().build());
     }
 
     @SubscribeEvent

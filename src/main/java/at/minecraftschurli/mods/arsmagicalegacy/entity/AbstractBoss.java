@@ -1,5 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCasterEntity;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import com.geckolib.animatable.GeoEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -22,7 +23,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import org.jspecify.annotations.Nullable;
 
-public abstract class AbstractBoss extends Monster implements GeoEntity {
+public abstract class AbstractBoss extends Monster implements GeoEntity, SpellCasterEntity {
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private int ticksInAction = 0;
     private Action action = Action.IDLE;
@@ -46,6 +47,25 @@ public abstract class AbstractBoss extends Monster implements GeoEntity {
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return geoCache;
+    }
+
+    @Override
+    public boolean canCastSpell() {
+        return action == Action.IDLE;
+    }
+
+    @Override
+    public boolean isCastingSpell() {
+        return action == Action.CAST;
+    }
+
+    @Override
+    public void setIsCastingSpell(boolean isCastingSpell) {
+        if (isCastingSpell) {
+            setAction(Action.CAST);
+        } else if (action == Action.CAST) {
+            setAction(Action.IDLE);
+        }
     }
 
     @Override

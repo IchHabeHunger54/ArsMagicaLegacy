@@ -3,7 +3,13 @@
   "category": "misc",
   "key": {
     "A": "#c:dusts/arcane_ash",
-    "E": "#c:dusts/purified_vinteum",
+    "E": {
+      "neoforge:ingredient_type": "neoforge:components",
+      "components": {
+        "arsmagicalegacy:affinity": "arsmagicalegacy:nature"
+      },
+      "items": "arsmagicalegacy:affinity_essence"
+    },
     "I": "#minecraft:leaves",
     "J": "minecraft:lily_pad",
     "K": "minecraft:cactus",

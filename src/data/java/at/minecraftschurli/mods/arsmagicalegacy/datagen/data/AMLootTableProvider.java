@@ -199,7 +199,6 @@ public final class AMLootTableProvider extends LootTableProvider {
 
         @Override
         public void generate() {
-            HolderLookup.RegistryLookup<Affinity> lookup = registries.lookupOrThrow(AMRegistries.Keys.AFFINITY);
             add(AMEntities.DRYAD.get(), LootTable.lootTable());
             add(AMEntities.MANA_CREEPER.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                 .add(LootItem.lootTableItem(AMItems.VINTEUM_DUST.get())

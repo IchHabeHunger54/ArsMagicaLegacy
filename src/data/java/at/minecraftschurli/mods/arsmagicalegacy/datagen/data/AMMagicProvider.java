@@ -251,7 +251,6 @@ public final class AMMagicProvider {
         Holder<Skill> contingencyDeath   = addSkill(bootstrap, AMSpells.CONTINGENCY_DEATH,   AMMagic.RED_POINT,   AMMagic.UTILITY, 168, 312, enderIntervention);
         Holder<Skill> charm              = addSkill(bootstrap, AMSpells.CHARM,               AMMagic.BLUE_POINT,  AMMagic.UTILITY, 168, 120, light);
         Holder<Skill> attract            = addSkill(bootstrap, AMSpells.ATTRACT,             AMMagic.BLUE_POINT,  AMMagic.UTILITY, 216, 120, charm);
-        //Holder<Skill> telekinesis        = addSkill(bootstrap, AMSpells.TELEKINESIS,         AMMagic.BLUE_POINT,  AMMagic.UTILITY, 264, 120, attract);
         Holder<Skill> plow               = addSkill(bootstrap, AMSpells.PLOW,                AMMagic.BLUE_POINT,  AMMagic.UTILITY, 168, 168, light);
         Holder<Skill> grow               = addSkill(bootstrap, AMSpells.GROW,                AMMagic.BLUE_POINT,  AMMagic.UTILITY, 216, 168, plow);
         Holder<Skill> harvest            = addSkill(bootstrap, AMSpells.HARVEST,             AMMagic.BLUE_POINT,  AMMagic.UTILITY, 264, 168, grow);

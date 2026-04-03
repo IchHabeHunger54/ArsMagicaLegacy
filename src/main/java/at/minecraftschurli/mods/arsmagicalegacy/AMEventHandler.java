@@ -32,8 +32,17 @@ import at.minecraftschurli.mods.arsmagicalegacy.command.SkillCommand;
 import at.minecraftschurli.mods.arsmagicalegacy.command.SkillPointCommand;
 import at.minecraftschurli.mods.arsmagicalegacy.compat.patchouli.AMMultiblocks;
 import at.minecraftschurli.mods.arsmagicalegacy.effect.AMMobEffect;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.AirGuardian;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ArcaneGuardian;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.Dryad;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.EarthGuardian;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.EnderGuardian;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.FireGuardian;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.IceGuardian;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.LifeGuardian;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.LightningGuardian;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ManaCreeper;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.NatureGuardian;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.WaterGuardian;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAbilities;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttachments;
@@ -237,6 +246,15 @@ final class AMEventHandler {
         event.put(AMEntities.DRYAD.get(), Dryad.createAttributes().build());
         event.put(AMEntities.MANA_CREEPER.get(), ManaCreeper.createAttributes().build());
         event.put(AMEntities.WATER_GUARDIAN.get(), WaterGuardian.createAttributes().build());
+        event.put(AMEntities.FIRE_GUARDIAN.get(), FireGuardian.createAttributes().build());
+        event.put(AMEntities.EARTH_GUARDIAN.get(), EarthGuardian.createAttributes().build());
+        event.put(AMEntities.AIR_GUARDIAN.get(), AirGuardian.createAttributes().build());
+        event.put(AMEntities.ICE_GUARDIAN.get(), IceGuardian.createAttributes().build());
+        event.put(AMEntities.LIGHTNING_GUARDIAN.get(), LightningGuardian.createAttributes().build());
+        event.put(AMEntities.NATURE_GUARDIAN.get(), NatureGuardian.createAttributes().build());
+        event.put(AMEntities.LIFE_GUARDIAN.get(), LifeGuardian.createAttributes().build());
+        event.put(AMEntities.ARCANE_GUARDIAN.get(), ArcaneGuardian.createAttributes().build());
+        event.put(AMEntities.ENDER_GUARDIAN.get(), EnderGuardian.createAttributes().build());
     }
 
     @SubscribeEvent

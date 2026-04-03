@@ -47,6 +47,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePrope
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
 import java.util.Set;
@@ -189,17 +190,22 @@ public final class AMLootTableProvider extends LootTableProvider {
     }
 
     private static class AMEntityLootSubProvider extends EntityLootSubProvider {
+        private final HolderLookup.Provider registries;
+
         protected AMEntityLootSubProvider(HolderLookup.Provider registries) {
             super(FeatureFlags.REGISTRY.allFlags(), registries);
+            this.registries = registries;
         }
 
         @Override
         public void generate() {
+            HolderLookup.RegistryLookup<Affinity> lookup = registries.lookupOrThrow(AMRegistries.Keys.AFFINITY);
             add(AMEntities.DRYAD.get(), LootTable.lootTable());
             add(AMEntities.MANA_CREEPER.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                 .add(LootItem.lootTableItem(AMItems.VINTEUM_DUST.get())
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(0, 2)))
                     .apply(EnchantedCountIncreaseFunction.lootingMultiplier(registries, UniformGenerator.between(0, 1))))));
+            addBoss(AMEntities.WATER_GUARDIAN, AMMagic.WATER);
         }
 
         @SuppressWarnings("RedundantStreamOptionalCall")
@@ -210,6 +216,12 @@ public final class AMLootTableProvider extends LootTableProvider {
                 .map(Holder::value)
                 .filter(e -> e.getCategory() != MobCategory.MISC)
                 .map(e -> e);
+        }
+
+        private void addBoss(DeferredHolder<EntityType<?>, ?> boss, ResourceKey<Affinity> affinity) {
+            add(boss.get(), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                .add(LootItem.lootTableItem(AMItems.AFFINITY_ESSENCE)
+                    .apply(SetComponentsFunction.setComponent(AMDataComponents.AFFINITY.get(), registries.lookupOrThrow(AMRegistries.Keys.AFFINITY).getOrThrow(affinity))))));
         }
     }
 

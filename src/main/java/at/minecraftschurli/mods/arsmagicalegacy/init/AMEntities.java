@@ -1,12 +1,21 @@
 package at.minecraftschurli.mods.arsmagicalegacy.init;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.AirGuardian;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ArcaneGuardian;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.Blizzard;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.Dryad;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.EarthGuardian;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.EnderGuardian;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.FallingStar;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.FireGuardian;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.FireRain;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.IceGuardian;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.LifeGuardian;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.LightningGuardian;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ManaCreeper;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ManaVortex;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.NatureGuardian;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.Projectile;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.Wall;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.WaterGuardian;
@@ -38,6 +47,15 @@ public interface AMEntities {
     DeferredHolder<EntityType<?>, EntityType<ManaCreeper>>       MANA_CREEPER       = register("mana_creeper",       ManaCreeper::new,       MobCategory.MONSTER,  0.6f,   1.7f);
     DeferredHolder<EntityType<?>, EntityType<ManaVortex>>        MANA_VORTEX        = register("mana_vortex",        ManaVortex::new,        MobCategory.MISC,     0.25f,  0.25f);
     DeferredHolder<EntityType<?>, EntityType<WaterGuardian>>     WATER_GUARDIAN     = register("water_guardian",     WaterGuardian::new,     MobCategory.MONSTER,  1f,     1.5f);
+    DeferredHolder<EntityType<?>, EntityType<FireGuardian>>      FIRE_GUARDIAN      = register("fire_guardian",      FireGuardian::new,      MobCategory.MONSTER,  1f,     3f);
+    DeferredHolder<EntityType<?>, EntityType<EarthGuardian>>     EARTH_GUARDIAN     = register("earth_guardian",     EarthGuardian::new,     MobCategory.MONSTER,  1.5f,   2.5f);
+    DeferredHolder<EntityType<?>, EntityType<AirGuardian>>       AIR_GUARDIAN       = register("air_guardian",       AirGuardian::new,       MobCategory.MONSTER,  0.6f,   1.75f);
+    DeferredHolder<EntityType<?>, EntityType<IceGuardian>>       ICE_GUARDIAN       = register("ice_guardian",       IceGuardian::new,       MobCategory.MONSTER,  1.5f,   3f);
+    DeferredHolder<EntityType<?>, EntityType<LightningGuardian>> LIGHTNING_GUARDIAN = register("lightning_guardian", LightningGuardian::new, MobCategory.MONSTER,  0.5f,   1.25f);
+    DeferredHolder<EntityType<?>, EntityType<NatureGuardian>>    NATURE_GUARDIAN    = register("nature_guardian",    NatureGuardian::new,    MobCategory.MONSTER,  1.25f,  4.25f);
+    DeferredHolder<EntityType<?>, EntityType<LifeGuardian>>      LIFE_GUARDIAN      = register("life_guardian",      LifeGuardian::new,      MobCategory.MONSTER,  1f,     1.25f);
+    DeferredHolder<EntityType<?>, EntityType<ArcaneGuardian>>    ARCANE_GUARDIAN    = register("arcane_guardian",    ArcaneGuardian::new,    MobCategory.MONSTER,  0.9f,   2.25f);
+    DeferredHolder<EntityType<?>, EntityType<EnderGuardian>>     ENDER_GUARDIAN     = register("ender_guardian",     EnderGuardian::new,     MobCategory.MONSTER,  1f,     2.25f);
     // @formatter:on
 
     private static <T extends Entity> DeferredHolder<EntityType<?>, EntityType<T>> register(String name, EntityType.EntityFactory<T> factory, MobCategory category, float width, float height) {

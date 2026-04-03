@@ -6,10 +6,14 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.gui.occulus.OcculusScreen
 import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.SpellCustomizationScreen;
 import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellrecipe.SpellRecipeScreen;
 import at.minecraftschurli.mods.arsmagicalegacy.client.particle.ParticleUtil;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.AbstractBoss;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.FallingStar;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ManaVortex;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.SpellEntity;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.SpellShapeEntity;
+import com.geckolib.constant.DataTickets;
+import com.geckolib.constant.dataticket.DataTicket;
+import com.google.common.reflect.TypeToken;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -32,6 +36,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public final class AMClientUtil {
+    public static final DataTicket<AbstractBoss.Action> ACTION_DATA_TICKET = DataTickets.create("action", new TypeToken<>() {});
+
     private AMClientUtil() {}
 
     public static Minecraft mc() {

@@ -197,7 +197,7 @@
 				}
 			}
 		},
-		"misc.cast": {
+		"attack.cast": {
 			"animation_length": 2,
 			"bones": {
 				"root": {
@@ -252,7 +252,7 @@
 				}
 			}
 		},
-		"misc.charge": {
+		"attack.charge": {
 			"animation_length": 1,
 			"bones": {
 				"root": {

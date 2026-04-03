@@ -50,6 +50,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Util;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -97,7 +98,12 @@ public final class AMModelProvider extends AbstractModelProvider {
                 .face(direction.getOpposite(), face -> face.texture(TextureSlot.TEXTURE));
         })
         .build());
-    private static final ModelTemplate SPELL_TEMPLATE = ModelTemplates.createItem(ArsMagicaApi.id("template_spell").toString(), TextureSlot.LAYER0);
+    private static final Identifier SPELL_PARENT_ID = ArsMagicaApi.id("item/template_spell");
+    private static final ModelTemplate SPELL_PARENT_TEMPLATE = ModelTemplates.createItem("generated").extend()
+        .transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND, b -> b.translation(-1.5f, 8.5f, 0f).scale(0.5f, 0.5f, 0.01f))
+        .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, b -> b.translation(-1.5f, 8.5f, 0f).scale(0.5f, 0.5f, 0.01f))
+        .build();
+    private static final ModelTemplate SPELL_TEMPLATE = ModelTemplates.FLAT_ITEM.extend().parent(SPELL_PARENT_ID).build();
 
     public AMModelProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(output, lookupProvider, ArsMagicaApi.MOD_ID);
@@ -204,6 +210,7 @@ public final class AMModelProvider extends AbstractModelProvider {
                 TextureMapping.layer0(new Material(ArsMagicaApi.id("item/arcane_compendium"))),
                 itemModels.modelOutput)),
             ClientItem.Properties.DEFAULT));
+        SPELL_PARENT_TEMPLATE.create(SPELL_PARENT_ID, new TextureMapping(), itemModels.modelOutput);
         itemWithVariants(itemModels, AMItems.SPELL, new SpellItemModel.Unbaked(ItemModelUtils.plainModel(itemModels.createFlatItemModel(AMItems.SPELL.get(), SPELL_TEMPLATE))), SPELL_TEMPLATE, AMMagic.AFFINITIES_WITH_NONE);
         itemModels.generateFlatItem(AMItems.SPELL_RECIPE.get(), Items.WRITTEN_BOOK, ModelTemplates.FLAT_ITEM);
         itemModels.itemModelOutput.accept(AMItems.ETHERIUM_PLACEHOLDER.get(), ItemModelUtils.tintedModel(itemModels.createFlatItemModel(AMItems.ETHERIUM_PLACEHOLDER.get(), ModelTemplates.FLAT_ITEM), new EtheriumTypeItemTintSource()));
@@ -211,8 +218,9 @@ public final class AMModelProvider extends AbstractModelProvider {
             Optional.of(new Material(Identifier.withDefaultNamespace("item/bucket"))),
             Optional.of(new Material(Identifier.withDefaultNamespace("item/bucket"))),
             Optional.of(new Material(Identifier.fromNamespaceAndPath("neoforge", "item/mask/bucket_fluid"))),
-            Optional.of(new Material(Identifier.fromNamespaceAndPath("neoforge", "item/mask/bucket_fluid_cover")))
+            Optional.empty()
         ), AMFluids.LIQUID_ETHERIUM.get(), false, true, true));
+        itemModels.itemModelOutput.accept(AMItems.INSCRIPTION_TABLE.get(), ItemModelUtils.plainModel(ArsMagicaApi.id("item/inscription_table")));
         basicItem(itemModels, AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_1);
         basicItem(itemModels, AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_2);
         basicItem(itemModels, AMItems.INSCRIPTION_TABLE_UPGRADE_TIER_3);

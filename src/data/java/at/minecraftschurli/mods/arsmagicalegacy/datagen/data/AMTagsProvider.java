@@ -186,6 +186,7 @@ public final class AMTagsProvider {
             tag(AMTags.EntityTypes.AFFECTED_BY_ENDER_THORNS_ABILITY).add(EntityType.ENDER_DRAGON, EntityType.ENDERMAN, EntityType.ENDERMITE, EntityType.SHULKER);
             tag(AMTags.EntityTypes.AFFECTED_BY_SMITE_ABILITY).addTag(EntityTypeTags.UNDEAD);
             tag(AMTags.EntityTypes.AFFECTED_BY_NAUSEA_ABILITY).addTag(EntityTypeTags.UNDEAD);
+            tag(AMTags.EntityTypes.ENDER_GUARDIAN_SACRIFICES).add(EntityType.ENDERMAN);
             tag(AMTags.EntityTypes.SUMMONING_NOT_SUPPORTED)
                 .addTags(Tags.EntityTypes.BOSSES, Tags.EntityTypes.CAPTURING_NOT_SUPPORTED)
                 .add(EntityType.ARMOR_STAND, EntityType.GIANT, EntityType.ILLUSIONER, EntityType.MANNEQUIN, EntityType.PLAYER, EntityType.WARDEN, EntityType.CREAKING);
@@ -219,6 +220,36 @@ public final class AMTagsProvider {
             tag(AMTags.DamageTypes.AFFECTED_BY_FEATHER_FALLING_ABILITY).addTag(DamageTypeTags.IS_FALL);
             tag(AMTags.DamageTypes.AFFECTED_BY_MAGIC_DAMAGE_ABILITY).addTag(Tags.DamageTypes.IS_MAGIC).remove(Tags.DamageTypes.IS_POISON);
             tag(AMTags.DamageTypes.IS_SPELL).add(AMDamageSources.SPELL_DROWNING, AMDamageSources.SPELL_FIRE, AMDamageSources.SPELL_FROST, AMDamageSources.SPELL_LIGHTNING, AMDamageSources.SPELL_MAGIC, AMDamageSources.SPELL_PHYSICAL, AMDamageSources.SPELL_PHYSICAL_PLAYER);
+            tag(AMTags.DamageTypes.WATER_GUARDIAN_IS_VULNERABLE_TO).addTag(DamageTypeTags.IS_LIGHTNING);
+            tag(AMTags.DamageTypes.WATER_GUARDIAN_IS_IMMUNE_TO).addTag(DamageTypeTags.IS_DROWNING);
+            tag(AMTags.DamageTypes.WATER_GUARDIAN_IS_HEAL_TO);
+            tag(AMTags.DamageTypes.FIRE_GUARDIAN_IS_VULNERABLE_TO).addTag(DamageTypeTags.IS_DROWNING);
+            tag(AMTags.DamageTypes.FIRE_GUARDIAN_IS_IMMUNE_TO).addTags(DamageTypeTags.IS_FIRE, DamageTypeTags.IS_FREEZING);
+            tag(AMTags.DamageTypes.FIRE_GUARDIAN_IS_HEAL_TO);
+            tag(AMTags.DamageTypes.EARTH_GUARDIAN_IS_VULNERABLE_TO).addTags(DamageTypeTags.IS_DROWNING, DamageTypeTags.IS_FREEZING);
+            tag(AMTags.DamageTypes.EARTH_GUARDIAN_IS_IMMUNE_TO).addTags(DamageTypeTags.IS_FIRE, DamageTypeTags.IS_LIGHTNING);
+            tag(AMTags.DamageTypes.EARTH_GUARDIAN_IS_HEAL_TO);
+            tag(AMTags.DamageTypes.AIR_GUARDIAN_IS_VULNERABLE_TO).addTag(DamageTypeTags.IS_LIGHTNING);
+            tag(AMTags.DamageTypes.AIR_GUARDIAN_IS_IMMUNE_TO).addTags(DamageTypeTags.IS_FALL, DamageTypeTags.IS_PROJECTILE);
+            tag(AMTags.DamageTypes.AIR_GUARDIAN_IS_HEAL_TO);
+            tag(AMTags.DamageTypes.ICE_GUARDIAN_IS_VULNERABLE_TO).addTag(DamageTypeTags.IS_FIRE);
+            tag(AMTags.DamageTypes.ICE_GUARDIAN_IS_IMMUNE_TO).addTag(DamageTypeTags.IS_FREEZING);
+            tag(AMTags.DamageTypes.ICE_GUARDIAN_IS_HEAL_TO);
+            tag(AMTags.DamageTypes.LIGHTNING_GUARDIAN_IS_VULNERABLE_TO).addTag(DamageTypeTags.IS_DROWNING);
+            tag(AMTags.DamageTypes.LIGHTNING_GUARDIAN_IS_IMMUNE_TO);
+            tag(AMTags.DamageTypes.LIGHTNING_GUARDIAN_IS_HEAL_TO).addTag(DamageTypeTags.IS_LIGHTNING);
+            tag(AMTags.DamageTypes.NATURE_GUARDIAN_IS_VULNERABLE_TO).addTags(DamageTypeTags.IS_FIRE, DamageTypeTags.IS_FREEZING);
+            tag(AMTags.DamageTypes.NATURE_GUARDIAN_IS_IMMUNE_TO);
+            tag(AMTags.DamageTypes.NATURE_GUARDIAN_IS_HEAL_TO).addTag(DamageTypeTags.IS_DROWNING);
+            tag(AMTags.DamageTypes.LIFE_GUARDIAN_IS_VULNERABLE_TO);
+            tag(AMTags.DamageTypes.LIFE_GUARDIAN_IS_IMMUNE_TO);
+            tag(AMTags.DamageTypes.LIFE_GUARDIAN_IS_HEAL_TO);
+            tag(AMTags.DamageTypes.ARCANE_GUARDIAN_IS_VULNERABLE_TO);
+            tag(AMTags.DamageTypes.ARCANE_GUARDIAN_IS_IMMUNE_TO);
+            tag(AMTags.DamageTypes.ARCANE_GUARDIAN_IS_HEAL_TO);
+            tag(AMTags.DamageTypes.ENDER_GUARDIAN_IS_VULNERABLE_TO).addTags(DamageTypeTags.IS_DROWNING, Tags.DamageTypes.IS_MAGIC);
+            tag(AMTags.DamageTypes.ENDER_GUARDIAN_IS_IMMUNE_TO);
+            tag(AMTags.DamageTypes.ENDER_GUARDIAN_IS_HEAL_TO);
         }
     }
 

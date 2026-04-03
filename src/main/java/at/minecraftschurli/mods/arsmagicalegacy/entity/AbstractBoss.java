@@ -134,6 +134,11 @@ public abstract class AbstractBoss extends Monster implements GeoEntity, SpellCa
         return super.hurtServer(level, source, damage);
     }
 
+    @Nullable
+    public SoundEvent getAttackSound() {
+        return null;
+    }
+
     public Action getAction() {
         return action;
     }

@@ -32,7 +32,7 @@ public record DataComponentOverridesModel<T>(DataComponentType<T> type, ItemMode
         };
         ResourceKey<Item> itemKey = item.typeHolder().getKey();
         if (id != null && itemKey != null) {
-            Identifier identifier = id.withPrefix("item/" + itemKey.identifier().getPath() + "_");
+            Identifier identifier = id.withPrefix(itemKey.identifier().getPath() + "/");
             ItemModel itemModel = AMClientUtil.mc().getModelManager().getItemModel(identifier);
             if (!(itemModel instanceof MissingItemModel)) {
                 itemModel.update(output, item, resolver, displayContext, level, owner, seed);

@@ -104,6 +104,13 @@ public final class AMModelProvider extends AbstractModelProvider {
         .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND, b -> b.translation(-1.5f, 8.5f, 0f).scale(0.5f, 0.5f, 0.01f))
         .build();
     private static final ModelTemplate SPELL_TEMPLATE = ModelTemplates.FLAT_ITEM.extend().parent(SPELL_PARENT_ID).build();
+    private static final TextureSlot ALTAR_CORE_OVERLAY = TextureSlot.create("overlay");
+    private static final ModelTemplate ALTAR_CORE_OVERLAY_TEMPLATE = new ModelTemplate(Optional.empty(), Optional.of("_overlay"), ALTAR_CORE_OVERLAY, TextureSlot.PARTICLE).extend()
+        .element(element -> element
+            .from(0, 0, 0)
+            .to(16, 0, 16)
+            .face(Direction.DOWN, face -> face.texture(ALTAR_CORE_OVERLAY)))
+        .build();
 
     public AMModelProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(output, lookupProvider, ArsMagicaApi.MOD_ID);
@@ -186,7 +193,7 @@ public final class AMModelProvider extends AbstractModelProvider {
         BlockModelDatagenUtil.builder(blockModels, AMBlocks.ALTAR_CORE)
             .withModelDispatch(BlockModelGenerators.createBooleanModelDispatch(
                 AltarCoreBlock.FORMED,
-                MultiVariant.of(new AltarCoreModelBuilder(BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(AMBlocks.ALTAR_CORE.get(), "_overlay")))),
+                MultiVariant.of(new AltarCoreModelBuilder(BlockModelGenerators.plainVariant(ALTAR_CORE_OVERLAY_TEMPLATE.create(AMBlocks.ALTAR_CORE.get(), TextureMapping.particle(AMBlocks.ALTAR_CORE.get()).put(ALTAR_CORE_OVERLAY, TextureMapping.getBlockTexture(AMBlocks.ALTAR_CORE.get(), "_overlay")), blockModels.modelOutput)))),
                 BlockModelGenerators.plainVariant(ModelTemplates.CUBE_ALL.create(AMBlocks.ALTAR_CORE.get(), TextureMapping.cube(AMBlocks.ALTAR_CORE.get()), blockModels.modelOutput))))
             .build();
         blockModels.createParticleOnlyBlock(AMBlocks.BLACK_AUREM.get());
@@ -297,8 +304,8 @@ public final class AMModelProvider extends AbstractModelProvider {
         Identifier modelLocation = ModelLocationUtils.getModelLocation(item);
         List<RangeSelectItemModel.Entry> entries = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
-            Material fillTexture = TextureMapping.getItemTexture(item, "_fill_" + i);
-            Identifier modelId = itemModels.generateLayeredItem(modelLocation.withSuffix("_fill_" + i), baseTexture, fillTexture);
+            Material fillTexture = TextureMapping.getItemTexture(item, "/fill_" + i);
+            Identifier modelId = itemModels.generateLayeredItem(modelLocation.withSuffix("/fill_" + i), baseTexture, fillTexture);
             ItemModel.Unbaked model = ItemModelUtils.tintedModel(modelId, ItemModelGenerators.BLANK_LAYER, CrystalPhylacteryItemTintSource.INSTANCE);
             entries.add(new RangeSelectItemModel.Entry((i + 1) / 8f, model));
         }
@@ -324,9 +331,9 @@ public final class AMModelProvider extends AbstractModelProvider {
     private void itemWithVariants(ItemModelGenerators itemModels, DeferredItem<?> item, ItemModel.Unbaked model, ModelTemplate template, List<? extends ResourceKey<?>> variants) {
         itemModels.itemModelOutput.accept(item.get(), model);
         for (ResourceKey<?> variant : variants) {
-            Identifier identifier = variant.identifier().withPrefix("item/" + item.getId().getPath() + "_");
-            itemModels.itemModelOutput.register(identifier, new ClientItem(ItemModelUtils.plainModel(identifier), new ClientItem.Properties(true, false, 1)));
-            template.create(identifier, TextureMapping.layer0(new Material(identifier)), itemModels.modelOutput);
+            Identifier identifier = variant.identifier().withPrefix(item.getId().getPath() + "/");
+            itemModels.itemModelOutput.register(identifier, new ClientItem(ItemModelUtils.plainModel(identifier.withPrefix("item/")), new ClientItem.Properties(true, false, 1)));
+            template.create(identifier.withPrefix("item/"), TextureMapping.layer0(new Material(identifier.withPrefix("item/"))), itemModels.modelOutput);
         }
     }
 
@@ -359,7 +366,8 @@ public final class AMModelProvider extends AbstractModelProvider {
         public CustomUnbakedBlockStateModel toUnbaked() {
             BlockStateModel.Unbaked unbaked = wrapped.toUnbaked();
             if (unbaked instanceof AltarCoreModel.Unbaked altarCore) return altarCore;
-            if (unbaked instanceof SingleVariant.Unbaked singleUnbaked) return new AltarCoreModel.Unbaked(singleUnbaked);
+            if (unbaked instanceof SingleVariant.Unbaked singleUnbaked)
+                return new AltarCoreModel.Unbaked(singleUnbaked);
             throw new IllegalStateException("Unexpected unbaked variant: " + unbaked);
         }
     }

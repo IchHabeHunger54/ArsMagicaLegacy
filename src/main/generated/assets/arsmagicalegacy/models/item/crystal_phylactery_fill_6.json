@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "arsmagicalegacy:item/crystal_phylactery",
-    "layer1": "arsmagicalegacy:item/crystal_phylactery_fill_6"
-  }
-}

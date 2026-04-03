@@ -5,7 +5,7 @@
       {
         "model": {
           "type": "minecraft:model",
-          "model": "arsmagicalegacy:item/crystal_phylactery_fill_0",
+          "model": "arsmagicalegacy:item/crystal_phylactery/fill_0",
           "tints": [
             {
               "type": "minecraft:constant",
@@ -21,7 +21,7 @@
       {
         "model": {
           "type": "minecraft:model",
-          "model": "arsmagicalegacy:item/crystal_phylactery_fill_1",
+          "model": "arsmagicalegacy:item/crystal_phylactery/fill_1",
           "tints": [
             {
               "type": "minecraft:constant",
@@ -37,7 +37,7 @@
       {
         "model": {
           "type": "minecraft:model",
-          "model": "arsmagicalegacy:item/crystal_phylactery_fill_2",
+          "model": "arsmagicalegacy:item/crystal_phylactery/fill_2",
           "tints": [
             {
               "type": "minecraft:constant",
@@ -53,7 +53,7 @@
       {
         "model": {
           "type": "minecraft:model",
-          "model": "arsmagicalegacy:item/crystal_phylactery_fill_3",
+          "model": "arsmagicalegacy:item/crystal_phylactery/fill_3",
           "tints": [
             {
               "type": "minecraft:constant",
@@ -69,7 +69,7 @@
       {
         "model": {
           "type": "minecraft:model",
-          "model": "arsmagicalegacy:item/crystal_phylactery_fill_4",
+          "model": "arsmagicalegacy:item/crystal_phylactery/fill_4",
           "tints": [
             {
               "type": "minecraft:constant",
@@ -85,7 +85,7 @@
       {
         "model": {
           "type": "minecraft:model",
-          "model": "arsmagicalegacy:item/crystal_phylactery_fill_5",
+          "model": "arsmagicalegacy:item/crystal_phylactery/fill_5",
           "tints": [
             {
               "type": "minecraft:constant",
@@ -101,7 +101,7 @@
       {
         "model": {
           "type": "minecraft:model",
-          "model": "arsmagicalegacy:item/crystal_phylactery_fill_6",
+          "model": "arsmagicalegacy:item/crystal_phylactery/fill_6",
           "tints": [
             {
               "type": "minecraft:constant",
@@ -117,7 +117,7 @@
       {
         "model": {
           "type": "minecraft:model",
-          "model": "arsmagicalegacy:item/crystal_phylactery_fill_7",
+          "model": "arsmagicalegacy:item/crystal_phylactery/fill_7",
           "tints": [
             {
               "type": "minecraft:constant",

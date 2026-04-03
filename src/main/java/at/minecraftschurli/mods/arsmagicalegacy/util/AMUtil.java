@@ -77,6 +77,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
@@ -97,21 +98,21 @@ public final class AMUtil {
     public static <T> int getCommandSelf(CommandContext<CommandSourceStack> context, Function<ServerPlayer, T> function, ToIntFunction<T> toIntFunction, BiFunction<Component, T, Component> messageFactory) throws CommandSyntaxException {
         ServerPlayer player = context.getSource().getPlayerOrException();
         T value = function.apply(player);
-        context.getSource().sendSuccess(() -> messageFactory.apply(player.getDisplayName(), value), true);
+        context.getSource().sendSuccess(() -> messageFactory.apply(Objects.requireNonNull(player.getDisplayName()), value), true);
         return toIntFunction.applyAsInt(value);
     }
 
     public static <T> int getCommand(CommandContext<CommandSourceStack> context, Function<ServerPlayer, T> function, ToIntFunction<T> toIntFunction, BiFunction<Component, T, Component> messageFactory) throws CommandSyntaxException {
         ServerPlayer player = EntityArgument.getPlayer(context, "target");
         T value = function.apply(player);
-        context.getSource().sendSuccess(() -> messageFactory.apply(player.getDisplayName(), value), true);
+        context.getSource().sendSuccess(() -> messageFactory.apply(Objects.requireNonNull(player.getDisplayName()), value), true);
         return toIntFunction.applyAsInt(value);
     }
 
     public static int runCommandSelf(CommandContext<CommandSourceStack> context, Consumer<ServerPlayer> consumer, Function<Component, Component> messageFactory) throws CommandSyntaxException {
         ServerPlayer player = context.getSource().getPlayerOrException();
         consumer.accept(player);
-        context.getSource().sendSuccess(() -> messageFactory.apply(player.getDisplayName()), true);
+        context.getSource().sendSuccess(() -> messageFactory.apply(Objects.requireNonNull(player.getDisplayName())), true);
         return 1;
     }
 
@@ -119,7 +120,7 @@ public final class AMUtil {
         Collection<ServerPlayer> players = EntityArgument.getPlayers(context, "target");
         players.forEach(consumer);
         if (players.size() == 1) {
-            context.getSource().sendSuccess(() -> singleMessageFactory.apply(players.iterator().next().getDisplayName()), true);
+            context.getSource().sendSuccess(() -> singleMessageFactory.apply(Objects.requireNonNull(players.iterator().next().getDisplayName())), true);
         } else {
             context.getSource().sendSuccess(() -> multipleMessageFactory.apply(players.size()), true);
         }

@@ -208,6 +208,15 @@ public final class AMLanguageProvider extends LanguageProvider {
         entityIdTranslation(AMEntities.MANA_CREEPER);
         entityIdTranslation(AMEntities.MANA_VORTEX);
         entityIdTranslation(AMEntities.WATER_GUARDIAN);
+        entityIdTranslation(AMEntities.FIRE_GUARDIAN);
+        entityIdTranslation(AMEntities.EARTH_GUARDIAN);
+        entityIdTranslation(AMEntities.AIR_GUARDIAN);
+        entityIdTranslation(AMEntities.ICE_GUARDIAN);
+        entityIdTranslation(AMEntities.LIGHTNING_GUARDIAN);
+        entityIdTranslation(AMEntities.NATURE_GUARDIAN);
+        entityIdTranslation(AMEntities.LIFE_GUARDIAN);
+        entityIdTranslation(AMEntities.ARCANE_GUARDIAN);
+        entityIdTranslation(AMEntities.ENDER_GUARDIAN);
         effectIdTranslation(AMMobEffects.ASTRAL_DISTORTION);
         effectIdTranslation(AMMobEffects.BURNOUT_REDUCTION);
         effectIdTranslation(AMMobEffects.CLARITY);

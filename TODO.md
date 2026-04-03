@@ -1,14 +1,17 @@
 - Test All Spell Parts and Particles
 - Add Bosses and their Projectiles
+- Change Lightning Guardian Spawn Ritual to Copper Bars (needs Neo changes)
+- Adapt to Timeline/World Clock system (needs Neo changes)
+- Fix Render Pipelines
+    - Color Wheel
+    - Magitech Goggles Overlay
+    - Occulus Affinity Tab Lines
+- Cauldron Interactions (needs Neo changes, worked around)
+- Flammables (needs Neo changes, worked around)
+- Fix Item Models
+    - Inscription Table
+    - Liquid Essence Bucket
 - Add Compat Recipes
 - Test With Sodium/Embeddium/Iris
     - Altar Model & BER
     - Magitech Goggles Overlay
-- Steps for 26.1 Update
-    - Timeline/World Clock Stuff
-    - Cauldron Interactions
-    - Flammables
-    - Item Models
-        - Inscription Table
-        - Liquid Essence Bucket
-    - Occulus Affinity Tab Lines

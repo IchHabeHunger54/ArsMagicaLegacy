@@ -23,7 +23,10 @@ class IngredientsPage extends Page<SpellIngredient> {
 
     @Override
     public void extractElement(SpellIngredient element, int index, GuiGraphicsExtractor graphics, int x, int y) {
-        ItemStack stack = AMUtil.getByTick(element.asItemStacks(), Objects.requireNonNull(AMClientUtil.player()).tickCount / 20).copyWithCount(element.count());
+        ItemStack stack = AMUtil.getByTick(element.asItemStacks(), Objects.requireNonNull(AMClientUtil.player()).tickCount / 20);
+        if (stack == null || stack.isEmpty()) {
+            return;
+        }
         x = x + index % maxPerLine * (size + spacing);
         y = y + index / maxPerLine * (size + spacing);
         AMClientUtil.renderItem(graphics, stack, x, y);

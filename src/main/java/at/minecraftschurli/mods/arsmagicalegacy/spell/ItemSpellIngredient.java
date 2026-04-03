@@ -11,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.context.ContextMap;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -88,9 +89,10 @@ public record ItemSpellIngredient(Ingredient item, int count) implements SpellIn
 
     @Override
     public List<ItemStack> asItemStacks() {
-        return item.items()
-            .map(Holder::value)
-            .map(e -> new ItemStack(e, count))
+        return item.display()
+            .resolveForStacks(ContextMap.EMPTY)
+            .stream()
+            .map(e -> e.copyWithCount(count))
             .toList();
     }
 

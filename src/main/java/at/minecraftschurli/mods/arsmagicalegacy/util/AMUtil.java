@@ -218,12 +218,12 @@ public final class AMUtil {
         return function::apply;
     }
 
-    public static <T> T getByTick(T[] array, int tick) {
-        return array[tick % array.length];
+    public static <T> @Nullable T getByTick(T[] array, int tick) {
+        return array.length == 0 ? null : array[tick % array.length];
     }
 
-    public static <T> T getByTick(List<T> list, int tick) {
-        return list.get(tick % list.size());
+    public static <T> @Nullable T getByTick(List<T> list, int tick) {
+        return list.isEmpty() ? null : list.get(tick % list.size());
     }
 
     public static ItemStack getEnchanted(ItemStack stack, List<SpellModifier> modifiers, SpellCastContext context, Map<ResourceKey<Enchantment>, SpellStat> enchantments) {

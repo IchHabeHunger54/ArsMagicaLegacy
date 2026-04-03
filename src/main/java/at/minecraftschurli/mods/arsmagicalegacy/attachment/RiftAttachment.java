@@ -8,7 +8,6 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-// TODO ItemStackTemplate
 public record RiftAttachment(List<ItemStack> contents) {
     public static final Codec<RiftAttachment> CODEC = ItemStack.OPTIONAL_CODEC.listOf().xmap(RiftAttachment::new, RiftAttachment::contents);
     public static final StreamCodec<RegistryFriendlyByteBuf, RiftAttachment> STREAM_CODEC = ItemStack.OPTIONAL_STREAM_CODEC.apply(ByteBufCodecs.list()).map(RiftAttachment::new, RiftAttachment::contents);

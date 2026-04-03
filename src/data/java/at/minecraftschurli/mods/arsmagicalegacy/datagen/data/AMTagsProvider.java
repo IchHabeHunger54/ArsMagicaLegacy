@@ -181,6 +181,7 @@ public final class AMTagsProvider {
         @Override
         protected void addTags(HolderLookup.Provider provider) {
             tag(Tags.EntityTypes.BOATS).add(AMEntities.WITCHWOOD_BOAT.get(), AMEntities.WITCHWOOD_CHEST_BOAT.get());
+            tag(Tags.EntityTypes.BOSSES).add(AMEntities.WATER_GUARDIAN.get());
             tag(AMTags.EntityTypes.BLACK_AUREM_IMMUNE).addTags(EntityTypeTags.UNDEAD, Tags.EntityTypes.BOSSES);
             tag(AMTags.EntityTypes.AFFECTED_BY_ENDER_THORNS_ABILITY).add(EntityType.ENDER_DRAGON, EntityType.ENDERMAN, EntityType.ENDERMITE, EntityType.SHULKER);
             tag(AMTags.EntityTypes.AFFECTED_BY_SMITE_ABILITY).addTag(EntityTypeTags.UNDEAD);

@@ -50,6 +50,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.block.AltarCoreR
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.block.BlackAuremRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.block.EtheriumBlockEntityRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.block.SpellRuneRenderer;
+import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.BossRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.DryadRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.EmptyRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.ManaCreeperRenderer;
@@ -65,6 +66,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.mods.arsmagicalegacy.packet.SetActiveShapeGroupPacket;
 import at.minecraftschurli.mods.arsmagicalegacy.packet.SpellBookScrollPacket;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
+import com.geckolib.renderer.GeoEntityRenderer;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -155,18 +157,19 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(AMEntities.WITCHWOOD_BOAT.get(), context -> new BoatRenderer(context, AMModelLayers.WITCHWOOD_BOAT));
+        event.registerEntityRenderer(AMEntities.WITCHWOOD_CHEST_BOAT.get(), context -> new BoatRenderer(context, AMModelLayers.WITCHWOOD_CHEST_BOAT));
         event.registerEntityRenderer(AMEntities.BLIZZARD.get(), EmptyRenderer::new);
-        event.registerEntityRenderer(AMEntities.DRYAD.get(), DryadRenderer::new);
         event.registerEntityRenderer(AMEntities.FALLING_STAR.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.FIRE_RAIN.get(), EmptyRenderer::new);
-        event.registerEntityRenderer(AMEntities.MANA_CREEPER.get(), ManaCreeperRenderer::new);
-        event.registerEntityRenderer(AMEntities.MANA_VORTEX.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.PROJECTILE.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.WALL.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.WAVE.get(), EmptyRenderer::new);
-        event.registerEntityRenderer(AMEntities.WITCHWOOD_BOAT.get(), context -> new BoatRenderer(context, AMModelLayers.WITCHWOOD_BOAT));
-        event.registerEntityRenderer(AMEntities.WITCHWOOD_CHEST_BOAT.get(), context -> new BoatRenderer(context, AMModelLayers.WITCHWOOD_CHEST_BOAT));
         event.registerEntityRenderer(AMEntities.ZONE.get(), EmptyRenderer::new);
+        event.registerEntityRenderer(AMEntities.DRYAD.get(), DryadRenderer::new);
+        event.registerEntityRenderer(AMEntities.MANA_CREEPER.get(), ManaCreeperRenderer::new);
+        event.registerEntityRenderer(AMEntities.MANA_VORTEX.get(), EmptyRenderer::new);
+        BossRenderer.register(event, AMEntities.WATER_GUARDIAN);
         event.registerBlockEntityRenderer(AMBlockEntities.ALTAR_CORE.get(), AltarCoreRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.BLACK_AUREM.get(), BlackAuremRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.CELESTIAL_PRISM.get(), EtheriumBlockEntityRenderer::new);

@@ -2,7 +2,7 @@
   "effects": [
     {
       "type": "arsmagicalegacy:spawn_entity",
-      "entity_type": "arsmagicalegacy:mana_creeper"
+      "entity_type": "arsmagicalegacy:lightning_guardian"
     }
   ],
   "requirements": [

@@ -1,7 +1,10 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.lightning_guardian.idle": {
+		"misc.living": {
+			"loop": true
+		},
+		"misc.idle": {
 			"loop": true,
 			"animation_length": 4,
 			"bones": {
@@ -11,12 +14,10 @@
 							"vector": [0, 0, 0]
 						},
 						"2.0": {
-							"vector": [0, 0, -5],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, -5]
 						},
 						"4.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 0]
 						}
 					}
 				},
@@ -26,18 +27,16 @@
 							"vector": [0, 0, 0]
 						},
 						"2.0": {
-							"vector": [0, 0, 5],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 5]
 						},
 						"4.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 0]
 						}
 					}
 				}
 			}
 		},
-		"animation.lightning_guardian.cast": {
+		"attack.cast": {
 			"animation_length": 2,
 			"bones": {
 				"left_arm": {
@@ -46,20 +45,16 @@
 							"vector": [0, 0, 0]
 						},
 						"0.25": {
-							"vector": [-90, 10, 0],
-							"easing": "easeInSine"
+							"vector": [-90, 10, 0]
 						},
 						"1.0": {
-							"vector": [-90, 5, 0],
-							"easing": "easeInOutSine"
+							"vector": [-90, 5, 0]
 						},
 						"1.75": {
-							"vector": [-90, 10, 0],
-							"easing": "easeInOutSine"
+							"vector": [-90, 10, 0]
 						},
 						"2.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeOutSine"
+							"vector": [0, 0, 0]
 						}
 					}
 				},
@@ -69,26 +64,22 @@
 							"vector": [0, 0, 0]
 						},
 						"0.25": {
-							"vector": [-90, -10, 0],
-							"easing": "easeInSine"
+							"vector": [-90, -10, 0]
 						},
 						"1.0": {
-							"vector": [-90, -5, 0],
-							"easing": "easeInOutSine"
+							"vector": [-90, -5, 0]
 						},
 						"1.75": {
-							"vector": [-90, -10, 0],
-							"easing": "easeInOutSine"
+							"vector": [-90, -10, 0]
 						},
 						"2.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeOutSine"
+							"vector": [0, 0, 0]
 						}
 					}
 				}
 			}
 		},
-		"animation.lightning_guardian.spin": {
+		"attack.charge": {
 			"animation_length": 1,
 			"bones": {
 				"body": {
@@ -97,8 +88,7 @@
 							"vector": [0, 0, 0]
 						},
 						"1.0": {
-							"vector": [0, 360, 0],
-							"easing": "easeInBack"
+							"vector": [0, 360, 0]
 						}
 					}
 				},
@@ -108,12 +98,10 @@
 							"vector": [0, 0, 0]
 						},
 						"0.5": {
-							"vector": [0, 0, -5],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, -5]
 						},
 						"1.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 0]
 						}
 					}
 				},
@@ -123,17 +111,14 @@
 							"vector": [0, 0, 0]
 						},
 						"0.5": {
-							"vector": [0, 0, 5],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 5]
 						},
 						"1.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 0]
 						}
 					}
 				}
 			}
 		}
-	},
-	"geckolib_format_version": 2
+	}
 }

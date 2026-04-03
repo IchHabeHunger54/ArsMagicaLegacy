@@ -1,4 +1,4 @@
-// 26.1.1	2026-04-03T02:51:30.4321075	vanilla/Model Definitions - arsmagicalegacy
+// 26.1.1	2026-04-03T14:01:14.6832013	vanilla/Model Definitions - arsmagicalegacy
 04e3c603d8be1db1c7bdb4348fd34850a52becf7 assets/arsmagicalegacy/blockstates/altar_core.json
 beb7ab7de7f6ae890282ef38e36400685d083d78 assets/arsmagicalegacy/blockstates/aum.json
 30af4342d085e8fb94bdc195acfdc2f95908074c assets/arsmagicalegacy/blockstates/black_aurem.json
@@ -94,7 +94,7 @@ d359adaa407aa81d0399bf8b78f111555bea23ad assets/arsmagicalegacy/items/gold_inlay
 54a11e48f94ed4e161066eea75921a31a4ec07d3 assets/arsmagicalegacy/items/gray_rune.json
 babcfa7f28157bd4e9315029638fd3ab65f50bee assets/arsmagicalegacy/items/green_rune.json
 f7fe7be20a887a027ebe4f19c6efe745dab27f94 assets/arsmagicalegacy/items/infinity_orb.json
-adb951727aae664d2a5540b44b00de98ddcd9d21 assets/arsmagicalegacy/items/inscription_table.json
+438490f132205554c4aabeed14e27af6653ce5a6 assets/arsmagicalegacy/items/inscription_table.json
 fd01a25bffbe8b9ed8b7eb4cca82df79b463b998 assets/arsmagicalegacy/items/inscription_table_upgrade_tier_1.json
 7489616fa9ece07838d4de79657c876d60f2ae13 assets/arsmagicalegacy/items/inscription_table_upgrade_tier_2.json
 7c8ef1725b1b1ebcf7a6bdc8d3ac126f84117e03 assets/arsmagicalegacy/items/inscription_table_upgrade_tier_3.json
@@ -137,7 +137,7 @@ f541ef9f8949959b828000b04dcb48dd627a15b3 assets/arsmagicalegacy/items/item/spell
 2acf51374cc3db40c93815c4675d39e842d1f011 assets/arsmagicalegacy/items/light_blue_rune.json
 e7f5ef7fd92b328a2eed58b0a2110fc2d20e5a37 assets/arsmagicalegacy/items/light_gray_rune.json
 69afa5d87ece32ebf273d9eb629c89bbea7f378c assets/arsmagicalegacy/items/lime_rune.json
-4ddc590e315c0ff6ae3301b2d7747eaf5a497172 assets/arsmagicalegacy/items/liquid_etherium.json
+2bf9382dc6c9c969adc8d0ed8176c7a328c025b0 assets/arsmagicalegacy/items/liquid_etherium.json
 c32792368fd6307065b2abe1d47a4b82f6da87c9 assets/arsmagicalegacy/items/magenta_rune.json
 1983076c16c372116f37afbe40257cc7c45b4cbc assets/arsmagicalegacy/items/mage_boots.json
 4db62e7dce347292c0813692571ed6ef2eff90cd assets/arsmagicalegacy/items/mage_chestplate.json
@@ -402,6 +402,7 @@ da8120bca45880d7de1a11a7485cc0332b77dbbe assets/arsmagicalegacy/models/item/spel
 7d729532a36245c648775a2bf4d339f26cffc38b assets/arsmagicalegacy/models/item/spell_water.json
 db1d131d27c09a93c04d0040d43d1b96d4aaf664 assets/arsmagicalegacy/models/item/sunstone.json
 7c79dcea839822e8979afe587a3a6aaed5da31fb assets/arsmagicalegacy/models/item/tarma_root.json
+5659fc9c097b160b716acc35ab83c595b23f1fd5 assets/arsmagicalegacy/models/item/template_spell.json
 5c819e3783d5ce06c5a3576504b24111401dab03 assets/arsmagicalegacy/models/item/topaz.json
 b8bfbbec0501d1cb57247ead9a025848e5d96658 assets/arsmagicalegacy/models/item/vinteum_dust.json
 04923c0a58b7162cdfd4a0ad66e79d828a763a27 assets/arsmagicalegacy/models/item/vinteum_torch.json

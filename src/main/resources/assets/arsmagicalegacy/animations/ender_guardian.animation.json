@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.ender_guardian.base": {
+		"misc.living": {
 			"loop": true,
 			"animation_length": 4,
 			"bones": {
@@ -11,36 +11,28 @@
 							"vector": [0, 0, 0]
 						},
 						"0.5": {
-							"vector": [0, 180, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 180, 0]
 						},
 						"1.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 0]
 						},
 						"1.5": {
-							"vector": [0, 180, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 180, 0]
 						},
 						"2.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 0]
 						},
 						"2.5": {
-							"vector": [0, 180, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 180, 0]
 						},
 						"3.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 0]
 						},
 						"3.5": {
-							"vector": [0, 180, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 180, 0]
 						},
 						"4.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 0]
 						}
 					}
 				},
@@ -50,42 +42,34 @@
 							"vector": [0, 0, 0]
 						},
 						"0.5": {
-							"vector": [0, -180, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, -180, 0]
 						},
 						"1.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 0]
 						},
 						"1.5": {
-							"vector": [0, -180, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, -180, 0]
 						},
 						"2.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 0]
 						},
 						"2.5": {
-							"vector": [0, -180, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, -180, 0]
 						},
 						"3.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 0]
 						},
 						"3.5": {
-							"vector": [0, -180, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, -180, 0]
 						},
 						"4.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 0]
 						}
 					}
 				}
 			}
 		},
-		"animation.ender_guardian.idle": {
+		"misc.idle": {
 			"loop": true,
 			"animation_length": 4,
 			"bones": {
@@ -95,12 +79,10 @@
 							"vector": [0, 0, 0]
 						},
 						"2.0": {
-							"vector": [0, 0, 5],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 5]
 						},
 						"4.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 0]
 						}
 					}
 				},
@@ -110,20 +92,17 @@
 							"vector": [0, 0, 0]
 						},
 						"2.0": {
-							"vector": [0, 0, -5],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, -5]
 						},
 						"4.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 0]
 						}
 					}
 				}
 			}
 		},
-		"animation.ender_guardian.cast": {
+		"attack.cast": {
 			"loop": true
 		}
-	},
-	"geckolib_format_version": 2
+	}
 }

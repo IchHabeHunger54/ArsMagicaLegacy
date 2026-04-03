@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.earth_guardian.base": {
+		"misc.living": {
 			"loop": true,
 			"animation_length": 4,
 			"bones": {
@@ -47,7 +47,7 @@
 				}
 			}
 		},
-		"animation.earth_guardian.idle": {
+		"misc.idle": {
 			"loop": true,
 			"animation_length": 4,
 			"bones": {
@@ -57,12 +57,10 @@
 							"vector": [0, 0, 0]
 						},
 						"2.0": {
-							"vector": [0, 0, -5],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, -5]
 						},
 						"4.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 0]
 						}
 					}
 				},
@@ -72,18 +70,16 @@
 							"vector": [0, 0, 0]
 						},
 						"2.0": {
-							"vector": [0, 0, 5],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 5]
 						},
 						"4.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInOutSine"
+							"vector": [0, 0, 0]
 						}
 					}
 				}
 			}
 		},
-		"animation.earth_guardian.smash": {
+		"attack.stomp": {
 			"animation_length": 1,
 			"bones": {
 				"body": {
@@ -92,12 +88,10 @@
 							"vector": [0, 0, 0]
 						},
 						"0.25": {
-							"vector": [75, 0, 0],
-							"easing": "easeInSine"
+							"vector": [75, 0, 0]
 						},
 						"1.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInBack"
+							"vector": [0, 0, 0]
 						}
 					}
 				},
@@ -107,12 +101,10 @@
 							"vector": [0, 0, 0]
 						},
 						"0.25": {
-							"vector": [-75, 10, 10],
-							"easing": "easeInSine"
+							"vector": [-75, 10, 10]
 						},
 						"1.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInBack"
+							"vector": [0, 0, 0]
 						}
 					},
 					"position": {
@@ -120,12 +112,10 @@
 							"vector": [0, 0, 0]
 						},
 						"0.25": {
-							"vector": [-1, -1, 0],
-							"easing": "easeInSine"
+							"vector": [-1, -1, 0]
 						},
 						"1.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInBack"
+							"vector": [0, 0, 0]
 						}
 					}
 				},
@@ -135,12 +125,10 @@
 							"vector": [0, 0, 0]
 						},
 						"0.25": {
-							"vector": [-75, -10, -10],
-							"easing": "easeInSine"
+							"vector": [-75, -10, -10]
 						},
 						"1.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInBack"
+							"vector": [0, 0, 0]
 						}
 					},
 					"position": {
@@ -148,18 +136,16 @@
 							"vector": [0, 0, 0]
 						},
 						"0.25": {
-							"vector": [1, -1, 0],
-							"easing": "easeInSine"
+							"vector": [1, -1, 0]
 						},
 						"1.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInBack"
+							"vector": [0, 0, 0]
 						}
 					}
 				}
 			}
 		},
-		"animation.earth_guardian.strike": {
+		"attack.strike": {
 			"animation_length": 1,
 			"bones": {
 				"left_arm": {
@@ -168,12 +154,10 @@
 							"vector": [0, 0, 0]
 						},
 						"0.4167": {
-							"vector": [-180, 0, -10],
-							"easing": "easeInQuad"
+							"vector": [-180, 0, -10]
 						},
 						"1.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeOutSine"
+							"vector": [0, 0, 0]
 						}
 					}
 				},
@@ -183,18 +167,16 @@
 							"vector": [0, 0, 0]
 						},
 						"0.4167": {
-							"vector": [-180, 0, 10],
-							"easing": "easeInQuad"
+							"vector": [-180, 0, 10]
 						},
 						"1.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeOutSine"
+							"vector": [0, 0, 0]
 						}
 					}
 				}
 			}
 		},
-		"animation.earth_guardian.throw": {
+		"attack.throw": {
 			"animation_length": 1,
 			"bones": {
 				"arms": {
@@ -203,21 +185,17 @@
 							"vector": [0, 0, 0]
 						},
 						"0.5": {
-							"vector": [-180, 0, 0],
-							"easing": "easeInQuad"
+							"vector": [-180, 0, 0]
 						},
 						"0.6667": {
-							"vector": [-180, 0, 0],
-							"easing": "linear"
+							"vector": [-180, 0, 0]
 						},
 						"1.0": {
-							"vector": [0, 0, 0],
-							"easing": "easeInBack"
+							"vector": [0, 0, 0]
 						}
 					}
 				}
 			}
 		}
-	},
-	"geckolib_format_version": 2
+	}
 }

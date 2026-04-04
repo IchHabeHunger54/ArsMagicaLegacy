@@ -50,6 +50,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Util;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -119,6 +120,11 @@ public final class AMModelProvider extends AbstractModelProvider {
     @Override
     protected Stream<? extends Holder<Block>> getKnownBlocks() {
         return super.getKnownBlocks().filter(h -> !h.is(AMBlocks.INSCRIPTION_TABLE.getKey()));
+    }
+
+    @Override
+    protected Stream<? extends Holder<Item>> getKnownItems() {
+        return super.getKnownItems().filter(h -> !h.is(AMItems.WINTERS_GRASP.getKey()));
     }
 
     @Override

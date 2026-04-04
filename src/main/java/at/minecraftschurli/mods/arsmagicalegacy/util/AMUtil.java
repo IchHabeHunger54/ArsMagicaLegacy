@@ -41,6 +41,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
@@ -342,5 +343,9 @@ public final class AMUtil {
 
     public static <T> ItemStackTemplate template(Holder<Item> item, DataComponentType<T> componentType, T value) {
         return new ItemStackTemplate(item, DataComponentPatch.builder().set(componentType, value).build());
+    }
+
+    public static float wrapToRadians(float degrees) {
+        return (float) Math.toRadians(Mth.wrapDegrees(degrees));
     }
 }

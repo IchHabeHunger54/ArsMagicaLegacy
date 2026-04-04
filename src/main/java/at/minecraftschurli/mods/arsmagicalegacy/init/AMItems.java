@@ -15,6 +15,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.item.RuneBagItem;
 import at.minecraftschurli.mods.arsmagicalegacy.item.SpellBookItem;
 import at.minecraftschurli.mods.arsmagicalegacy.item.SpellItem;
 import at.minecraftschurli.mods.arsmagicalegacy.item.SpellRecipeItem;
+import at.minecraftschurli.mods.arsmagicalegacy.item.WintersGraspItem;
 import at.minecraftschurli.mods.arsmagicalegacy.item.WizardsChalkItem;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -77,6 +78,7 @@ public interface AMItems {
     DeferredItem<Item>                                  MANA_CAKE                        = ITEMS.registerSimpleItem("mana_cake", p -> p.component(DataComponents.CONSUMABLE, Consumable.builder().onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(AMMobEffects.MANA_REGENERATION, 600))).build()).food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6f).alwaysEdible().build()));
     DeferredItem<Item>                                  MANA_MARTINI                     = ITEMS.registerSimpleItem("mana_martini", p -> p.component(DataComponents.CONSUMABLE, Consumable.builder().onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(AMMobEffects.BURNOUT_REDUCTION, 300))).animation(ItemUseAnimation.DRINK).sound(SoundEvents.GENERIC_DRINK).build()).food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6f).alwaysEdible().build()).usingConvertsTo(Items.GLASS_BOTTLE));
     DeferredItem<InfinityOrbItem>                       INFINITY_ORB                     = ITEMS.registerItem("infinity_orb", InfinityOrbItem::new);
+    DeferredItem<WintersGraspItem>                      WINTERS_GRASP                    = ITEMS.registerItem("winters_grasp", p -> new WintersGraspItem(p.stacksTo(1)));
     DeferredItem<HolderDataComponentItem<Affinity>>     AFFINITY_ESSENCE                 = ITEMS.registerItem("affinity_essence", p -> new HolderDataComponentItem<>(p, AMDataComponents.AFFINITY.get()));
     DeferredItem<AffinityTomeItem>                      AFFINITY_TOME                    = ITEMS.registerItem("affinity_tome", AffinityTomeItem::new);
     DeferredItem<Item>                                  BLANK_RUNE                       = ITEMS.registerSimpleItem("blank_rune");

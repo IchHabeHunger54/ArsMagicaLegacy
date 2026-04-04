@@ -92,6 +92,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.GREEN_POINT.identifier(), "Green Infinity Orb");
         itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.RED_POINT.identifier(), "Red Infinity Orb");
         itemIdTranslation(AMItems.INFINITY_ORB);
+        addItem(AMItems.WINTERS_GRASP, "Winter's Grasp");
         itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, Affinity.NONE.identifier(), "Affinity Essence");
         itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.WATER.identifier(), "Water Affinity Essence");
         itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.FIRE.identifier(), "Fire Affinity Essence");
@@ -217,6 +218,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         entityIdTranslation(AMEntities.LIFE_GUARDIAN);
         entityIdTranslation(AMEntities.ARCANE_GUARDIAN);
         entityIdTranslation(AMEntities.ENDER_GUARDIAN);
+        addEntityType(AMEntities.WINTERS_GRASP, "Winter's Grasp");
         effectIdTranslation(AMMobEffects.ASTRAL_DISTORTION);
         effectIdTranslation(AMMobEffects.BURNOUT_REDUCTION);
         effectIdTranslation(AMMobEffects.CLARITY);

@@ -47,4 +47,18 @@ public class LightningGuardian extends AbstractBoss {
     protected void registerGoals() {
         super.registerGoals();
     }
+
+    @Override
+    public void setAction(Action action) {
+        super.setAction(action);
+        setNoGravity(action == Action.LONG_CAST);
+    }
+
+    @Override
+    public void aiStep() {
+        if (level().isClientSide()) {
+            // TODO particles
+        }
+        super.aiStep();
+    }
 }

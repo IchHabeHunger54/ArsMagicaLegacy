@@ -5,6 +5,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -59,5 +60,16 @@ public class EnderGuardian extends AbstractBoss {
     @Override
     protected void registerGoals() {
         super.registerGoals();
+    }
+
+    @Override
+    public void aiStep() {
+        if (tickCount % 10 == 0) {
+            level().playSound(null, this, AMSounds.ENDER_GUARDIAN_FLAP.get(), SoundSource.HOSTILE, 1f, 1f);
+        }
+        if (getAction() == Action.LONG_CAST && getTicksInAction() == 20) {
+            level().playSound(null, this, AMSounds.ENDER_GUARDIAN_ROAR.get(), SoundSource.HOSTILE, 1f, 1f);
+        }
+        super.aiStep();
     }
 }

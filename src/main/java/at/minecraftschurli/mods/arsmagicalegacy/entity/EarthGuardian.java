@@ -1,5 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
+import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
@@ -9,8 +10,15 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class EarthGuardian extends AbstractBoss {
+    public static final byte RENDER_ROCK_TRUE = (byte) -8;
+    public static final byte RENDER_ROCK_FALSE = (byte) -9;
+    private static final String RENDER_ROCK_KEY = "render_rock";
+    public boolean renderRock = false;
+
     public EarthGuardian(EntityType<? extends EarthGuardian> type, Level level) {
         super(type, level, AMTags.DamageTypes.EARTH_GUARDIAN_IS_VULNERABLE_TO, AMTags.DamageTypes.EARTH_GUARDIAN_IS_IMMUNE_TO, AMTags.DamageTypes.EARTH_GUARDIAN_IS_HEAL_TO);
     }
@@ -21,6 +29,18 @@ public class EarthGuardian extends AbstractBoss {
             .add(Attributes.ARMOR, 10)
             .add(AMAttributes.MAX_MANA, 1000)
             .add(AMAttributes.MAX_BURNOUT, 1000);
+    }
+
+    @Override
+    protected void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        input.child(ArsMagicaApi.MOD_ID).ifPresent(child -> renderRock = child.getBooleanOr(RENDER_ROCK_KEY, true));
+    }
+
+    @Override
+    protected void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.child(ArsMagicaApi.MOD_ID).putBoolean(RENDER_ROCK_KEY, renderRock);
     }
 
     @Override
@@ -46,5 +66,15 @@ public class EarthGuardian extends AbstractBoss {
     @Override
     protected void registerGoals() {
         super.registerGoals();
+    }
+
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == RENDER_ROCK_TRUE) {
+            renderRock = true;
+        } else if (id == RENDER_ROCK_FALSE) {
+            renderRock = false;
+        }
+        super.handleEntityEvent(id);
     }
 }

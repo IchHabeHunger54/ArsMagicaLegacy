@@ -1,7 +1,7 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMDamageSources;
+import at.minecraftschurli.mods.arsmagicalegacy.init.AMDamageTypes;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -9,10 +9,8 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -23,39 +21,31 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.neoforge.entity.PartEntity;
-import org.jspecify.annotations.Nullable;
 
-import java.util.Optional;
-
-public class NatureScythe extends Entity implements TraceableEntity {
-    private static final EntityDataAccessor<Optional<EntityReference<LivingEntity>>> OWNER = SynchedEntityData.defineId(NatureScythe.class, EntityDataSerializers.OPTIONAL_LIVING_ENTITY_REFERENCE);
+public class NatureScythe extends AMOwnableEntity {
     private static final EntityDataAccessor<ItemStack> STACK = SynchedEntityData.defineId(NatureScythe.class, EntityDataSerializers.ITEM_STACK);
-    private static final String OWNER_KEY = "owner";
     private static final String STACK_KEY = "stack";
     private boolean hasHit = false;
     private int hitTicks = -1;
 
-    public NatureScythe(EntityType<?> type, Level level) {
+    public NatureScythe(EntityType<? extends NatureScythe> type, Level level) {
         super(type, level);
     }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder entityData) {
-        entityData.define(OWNER, Optional.empty()).define(STACK, ItemStack.EMPTY);
+        super.defineSynchedData(entityData);
+        entityData.define(STACK, ItemStack.EMPTY);
     }
 
     @Override
     protected void readAdditionalSaveData(ValueInput input) {
-        input.child(ArsMagicaApi.MOD_ID).ifPresent(child -> {
-            entityData.set(OWNER, Optional.ofNullable(EntityReference.readWithOldOwnerConversion(child, OWNER_KEY, level())));
-            entityData.set(STACK, child.read(STACK_KEY, ItemStack.CODEC).orElse(ItemStack.EMPTY));
-        });
+        input.child(ArsMagicaApi.MOD_ID).ifPresent(child -> entityData.set(STACK, child.read(STACK_KEY, ItemStack.CODEC).orElse(ItemStack.EMPTY)));
     }
 
     @Override
     protected void addAdditionalSaveData(ValueOutput output) {
         ValueOutput child = output.child(ArsMagicaApi.MOD_ID);
-        EntityReference.store(entityData.get(OWNER).orElse(null), child, OWNER_KEY);
         child.store(STACK_KEY, ItemStack.CODEC, entityData.get(STACK));
     }
 
@@ -88,7 +78,7 @@ public class NatureScythe extends Entity implements TraceableEntity {
             }
             if (entity instanceof LivingEntity living && entity != getOwner()) {
                 if (level() instanceof ServerLevel level) {
-                    living.hurtServer(level, AMDamageSources.natureScythe(this), 12);
+                    living.hurtServer(level, damageSource(AMDamageTypes.NATURE_SCYTHE), 12);
                 }
                 setHasHit();
             }
@@ -99,16 +89,6 @@ public class NatureScythe extends Entity implements TraceableEntity {
             setHasHit();
         }
         setPos(position().add(getDeltaMovement()));
-    }
-
-    public void setOwner(@Nullable LivingEntity owner) {
-        entityData.set(OWNER, owner == null ? Optional.empty() : Optional.of(EntityReference.of(owner)));
-    }
-
-    @Override
-    @Nullable
-    public LivingEntity getOwner() {
-        return EntityReference.getLivingEntity(entityData.get(OWNER).orElse(null), level());
     }
 
     public ItemStack getStack() {

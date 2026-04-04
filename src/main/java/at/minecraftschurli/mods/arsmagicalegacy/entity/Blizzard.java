@@ -25,14 +25,14 @@ public class Blizzard extends SpellEntity {
     private static final String DAMAGE_KEY = "damage";
     private static final String RANGE_KEY = "range";
 
-    public Blizzard(EntityType<?> entityType, Level level) {
-        super(entityType, level);
+    public Blizzard(EntityType<? extends Blizzard> type, Level level) {
+        super(type, level);
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(FROST_DURATION, 200)
+    protected void defineSynchedData(SynchedEntityData.Builder entityData) {
+        super.defineSynchedData(entityData);
+        entityData.define(FROST_DURATION, 200)
             .define(DAMAGE, 0f)
             .define(RANGE, 1f);
     }

@@ -44,7 +44,7 @@ public abstract class SpellEntity extends Entity implements TraceableEntity {
         input.child(ArsMagicaApi.MOD_ID).ifPresent(tag -> {
             entityData.set(COLOR, tag.getIntOr(COLOR_KEY, -1));
             entityData.set(DURATION, tag.getIntOr(DURATION_KEY, 72000));
-            entityData.set(OWNER, Optional.ofNullable(EntityReference.readWithOldOwnerConversion(tag, OWNER_KEY, this.level())));
+            entityData.set(OWNER, Optional.ofNullable(EntityReference.readWithOldOwnerConversion(tag, OWNER_KEY, level())));
             readData(tag);
         });
     }

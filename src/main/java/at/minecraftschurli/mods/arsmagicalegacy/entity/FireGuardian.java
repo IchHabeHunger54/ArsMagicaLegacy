@@ -47,4 +47,9 @@ public class FireGuardian extends AbstractBoss {
     public boolean fireImmune() {
         return true;
     }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+    }
 }

@@ -43,6 +43,11 @@ public class NatureGuardian extends AbstractBoss {
         return AMSounds.NATURE_GUARDIAN_HURT.get();
     }
 
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+    }
+
     public void setHasScythe(boolean hasScythe) {
         //TODO
     }

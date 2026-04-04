@@ -42,4 +42,9 @@ public class ArcaneGuardian extends AbstractBoss {
     protected SoundEvent getHurtSound(DamageSource source) {
         return AMSounds.ARCANE_GUARDIAN_HURT.get();
     }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+    }
 }

@@ -19,4 +19,9 @@ public class AirGuardian extends AbstractBoss {
             .add(AMAttributes.MAX_MANA, 1500)
             .add(AMAttributes.MAX_BURNOUT, 1500);
     }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+    }
 }

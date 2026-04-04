@@ -42,4 +42,9 @@ public class EarthGuardian extends AbstractBoss {
     protected SoundEvent getHurtSound(DamageSource source) {
         return AMSounds.EARTH_GUARDIAN_HURT.get();
     }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+    }
 }

@@ -49,4 +49,9 @@ public class LifeGuardian extends AbstractBoss {
     public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
         return source.is(DamageTypes.FELL_OUT_OF_WORLD) && super.hurtServer(level, source, damage);
     }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+    }
 }

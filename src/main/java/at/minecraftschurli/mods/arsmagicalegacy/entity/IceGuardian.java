@@ -37,6 +37,11 @@ public class IceGuardian extends AbstractBoss {
         return false;
     }
 
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+    }
+
     public void returnArm() {
         //TODO
     }

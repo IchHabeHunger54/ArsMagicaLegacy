@@ -55,4 +55,9 @@ public class EnderGuardian extends AbstractBoss {
         }
         return super.hurtServer(level, source, damage);
     }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+    }
 }

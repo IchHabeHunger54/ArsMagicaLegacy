@@ -16,14 +16,14 @@ public class Zone extends SpellShapeEntity {
     private static final String GRAVITY_KEY = "gravity";
     private static final String RANGE_KEY = "range";
 
-    public Zone(EntityType<?> entityType, Level level) {
-        super(entityType, level);
+    public Zone(EntityType<? extends Zone> type, Level level) {
+        super(type, level);
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(GRAVITY, 0f)
+    protected void defineSynchedData(SynchedEntityData.Builder entityData) {
+        super.defineSynchedData(entityData);
+        entityData.define(GRAVITY, 0f)
             .define(RANGE, 1f);
     }
 

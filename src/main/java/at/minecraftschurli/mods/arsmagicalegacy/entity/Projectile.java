@@ -28,14 +28,14 @@ public class Projectile extends SpellShapeEntity {
     private static final String PIERCES_KEY = "pierces";
     private static final String GRAVITY_KEY = "gravity";
 
-    public Projectile(EntityType<?> entityType, Level level) {
-        super(entityType, level);
+    public Projectile(EntityType<? extends SpellShapeEntity> type, Level level) {
+        super(type, level);
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(BOUNCES, 0)
+    protected void defineSynchedData(SynchedEntityData.Builder entityData) {
+        super.defineSynchedData(entityData);
+        entityData.define(BOUNCES, 0)
             .define(PIERCES, 0)
             .define(GRAVITY, 0f);
     }

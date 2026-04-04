@@ -24,14 +24,14 @@ public class FireRain extends SpellEntity {
     private static final String DAMAGE_KEY = "damage";
     private static final String RANGE_KEY = "range";
 
-    public FireRain(EntityType<?> entityType, Level level) {
-        super(entityType, level);
+    public FireRain(EntityType<? extends FireRain> type, Level level) {
+        super(type, level);
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(FIRE_DURATION, 200)
+    protected void defineSynchedData(SynchedEntityData.Builder entityData) {
+        super.defineSynchedData(entityData);
+        entityData.define(FIRE_DURATION, 200)
             .define(DAMAGE, 0f)
             .define(RANGE, 1f);
     }

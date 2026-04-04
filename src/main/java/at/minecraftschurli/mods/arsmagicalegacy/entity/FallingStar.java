@@ -2,7 +2,7 @@ package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
 import at.minecraftschurli.mods.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMDamageSources;
+import at.minecraftschurli.mods.arsmagicalegacy.init.AMDamageTypes;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.Codec;
@@ -14,7 +14,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
@@ -35,17 +34,16 @@ public class FallingStar extends SpellEntity {
     private static final String RANGE_KEY = "range";
     private static final String DAMAGED_KEY = "damaged";
     private final IntSet damaged = new IntOpenHashSet();
-    private final DamageSource damageSource = AMDamageSources.fallingStar(this);
     private int timeSinceImpact = -1;
 
-    public FallingStar(EntityType<?> entityType, Level level) {
-        super(entityType, level);
+    public FallingStar(EntityType<? extends FallingStar> type, Level level) {
+        super(type, level);
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(DAMAGE, 0f)
+    protected void defineSynchedData(SynchedEntityData.Builder entityData) {
+        super.defineSynchedData(entityData);
+        entityData.define(DAMAGE, 0f)
             .define(RANGE, 1f);
     }
 
@@ -91,7 +89,7 @@ public class FallingStar extends SpellEntity {
             int id = entity.getId();
             if (damaged.contains(id) || entity instanceof Player player && player.isCreative() || distanceTo(entity) > timeSinceImpact) continue;
             if (level instanceof ServerLevel serverLevel) {
-                entity.hurtServer(serverLevel, damageSource, damage);
+                entity.hurtServer(serverLevel, damageSource(AMDamageTypes.FALLING_STAR), damage);
             }
             damaged.add(id);
         }

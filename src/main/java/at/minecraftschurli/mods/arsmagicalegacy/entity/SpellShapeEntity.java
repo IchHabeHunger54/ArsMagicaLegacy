@@ -37,14 +37,14 @@ public abstract class SpellShapeEntity extends SpellEntity {
     private static final String CONSUME_KEY = "consume";
     private static final String AWARD_XP_KEY = "award_xp";
 
-    public SpellShapeEntity(EntityType<?> entityType, Level level) {
-        super(entityType, level);
+    public SpellShapeEntity(EntityType<? extends SpellShapeEntity> type, Level level) {
+        super(type, level);
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(TARGET_NON_SOLID, false)
+    protected void defineSynchedData(SynchedEntityData.Builder entityData) {
+        super.defineSynchedData(entityData);
+        entityData.define(TARGET_NON_SOLID, false)
             .define(SPELL, Spell.EMPTY)
             .define(CONSUME, true)
             .define(AWARD_XP, true);

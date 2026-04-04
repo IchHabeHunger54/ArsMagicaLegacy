@@ -25,6 +25,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.co
 import at.minecraftschurli.mods.arsmagicalegacy.client.layer.BarsLayer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.layer.ShapeGroupsLayer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.layer.SpellBookLayer;
+import at.minecraftschurli.mods.arsmagicalegacy.client.model.entity.AMEntityModel;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.entity.AMModels;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.AltarCoreModel;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.item.CrystalPhylacteryItemTintSource;
@@ -52,6 +53,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.block.SpellRuneR
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.BossRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.DryadRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.ManaCreeperRenderer;
+import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.SimpleModelEntityRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.compat.patchouli.SpellPartPage;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
@@ -148,9 +150,10 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(AMModels.DRYAD, AMModels::createDryadLayer);
         event.registerLayerDefinition(AMModels.WITCHWOOD_BOAT, BoatModel::createBoatModel);
         event.registerLayerDefinition(AMModels.WITCHWOOD_CHEST_BOAT, BoatModel::createChestBoatModel);
+        event.registerLayerDefinition(AMModels.DRYAD, AMModels::createDryadLayer);
+        event.registerLayerDefinition(AMModels.WINTERS_GRASP, AMModels::createWintersGraspLayer);
     }
 
     @SubscribeEvent
@@ -177,6 +180,7 @@ final class AMClientEventHandler {
         BossRenderer.register(event, AMEntities.LIFE_GUARDIAN);
         BossRenderer.register(event, AMEntities.ARCANE_GUARDIAN);
         BossRenderer.register(event, AMEntities.ENDER_GUARDIAN);
+        event.registerEntityRenderer(AMEntities.WINTERS_GRASP.get(), context -> new SimpleModelEntityRenderer<>(context, AMModels.WINTERS_GRASP, AMEntityModel::new, AMModels.WINTERS_GRASP_TEXTURE));
         event.registerBlockEntityRenderer(AMBlockEntities.ALTAR_CORE.get(), AltarCoreRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.BLACK_AUREM.get(), BlackAuremRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.CELESTIAL_PRISM.get(), EtheriumBlockEntityRenderer::new);

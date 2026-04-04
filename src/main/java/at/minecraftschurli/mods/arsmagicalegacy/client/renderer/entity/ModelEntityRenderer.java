@@ -6,8 +6,6 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
@@ -16,12 +14,10 @@ import net.minecraft.world.entity.Entity;
 
 public abstract class ModelEntityRenderer<T extends Entity, S extends ModelEntityRenderState, M extends EntityModel<S>> extends EntityRenderer<T, S> {
     private final M model;
-    private final RenderLayer<S, M> layer;
 
-    public ModelEntityRenderer(EntityRendererProvider.Context context, M model, RenderLayer<S, M> layer) {
+    public ModelEntityRenderer(EntityRendererProvider.Context context, M model) {
         super(context);
         this.model = model;
-        this.layer = layer;
     }
 
     @Override
@@ -37,11 +33,8 @@ public abstract class ModelEntityRenderer<T extends Entity, S extends ModelEntit
         poseStack.pushPose();
         poseStack.mulPose(Axis.YP.rotationDegrees(180 - state.bodyRot));
         poseStack.scale(-1, -1, 1);
-        poseStack.translate(0, -1.501f, 0);
-        RenderType renderType = model.renderType(getTexture(state));
-        submitNodeCollector.submitModel(model, state, poseStack, renderType, state.lightCoords, OverlayTexture.NO_OVERLAY, -1, null, state.outlineColor, null);
+        submitNodeCollector.submitModel(model, state, poseStack, model.renderType(getTexture(state)), state.lightCoords, OverlayTexture.NO_OVERLAY, -1, null, state.outlineColor, null);
         model.setupAnim(state);
-        layer.submit(poseStack, submitNodeCollector, state.lightCoords, state, state.yRot, state.xRot);
         poseStack.popPose();
         super.submit(state, poseStack, submitNodeCollector, camera);
     }

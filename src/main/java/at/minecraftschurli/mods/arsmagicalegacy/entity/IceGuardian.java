@@ -36,4 +36,8 @@ public class IceGuardian extends AbstractBoss {
     public boolean canFreeze() {
         return false;
     }
+
+    public void returnArm() {
+        //TODO
+    }
 }

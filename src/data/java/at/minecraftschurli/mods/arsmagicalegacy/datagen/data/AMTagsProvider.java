@@ -209,7 +209,7 @@ public final class AMTagsProvider {
             tag(DamageTypeTags.IS_FIRE).add(AMDamageSources.SPELL_FIRE);
             tag(DamageTypeTags.IS_FREEZING).add(AMDamageSources.SPELL_FROST);
             tag(DamageTypeTags.IS_LIGHTNING).add(AMDamageSources.SPELL_LIGHTNING);
-            //tag(DamageTypeTags.IS_PROJECTILE).add(AMDamageSources.NATURE_SCYTHE, AMDamageSources.THROWN_ROCK);
+            tag(DamageTypeTags.IS_PROJECTILE).add(AMDamageSources.NATURE_SCYTHE/*, AMDamageSources.THROWN_ROCK*/);
             tag(DamageTypeTags.WITHER_IMMUNE_TO).add(AMDamageSources.SPELL_DROWNING);
             tag(DamageTypeTags.WITCH_RESISTANT_TO).add(AMDamageSources.SPELL_MAGIC);
             tag(Tags.DamageTypes.IS_MAGIC).add(AMDamageSources.SPELL_MAGIC);

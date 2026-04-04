@@ -1,4 +1,4 @@
-// 26.1.1	2026-04-02T21:05:30.4880736	vanilla/Registries
+// 26.1.1	2026-04-04T04:08:37.337003	vanilla/Registries
 a2824e8666445c39ca58da47aedf77d31da43cec data/arsmagicalegacy/arsmagicalegacy/ability/clarity.json
 e221ec748729376e856802165a575f146ae31065 data/arsmagicalegacy/arsmagicalegacy/ability/enderman_pumpkin.json
 80053ef4569c59dfc7254f1dd3facffd80d41722 data/arsmagicalegacy/arsmagicalegacy/ability/ender_thorns.json
@@ -244,6 +244,7 @@ a1d38d3cffa76972720fbc8eedb95a6598ade801 data/arsmagicalegacy/arsmagicalegacy/sk
 ea33375c8970c1c4263b3359a2bdf44635cfc20b data/arsmagicalegacy/arsmagicalegacy/skill_point/green.json
 b508bb0a95371bb105fa246d120332bb1beceb73 data/arsmagicalegacy/arsmagicalegacy/skill_point/red.json
 60914d37b9f545120c6d8d74876c540ba543c424 data/arsmagicalegacy/damage_type/falling_star.json
+7677bb8d9ae68cd7763fbbc4fde8a9313ded2b25 data/arsmagicalegacy/damage_type/nature_scythe.json
 4c7f16d77ddf9ff466785fff80264b0fe7be17fb data/arsmagicalegacy/damage_type/spell_drowning.json
 a130a3a2bf518d4166380a6ef919014ff05d4795 data/arsmagicalegacy/damage_type/spell_fire.json
 00dcb67b5cd8ccb3f0bf5eb3f1cceba728fb631e data/arsmagicalegacy/damage_type/spell_frost.json

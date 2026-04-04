@@ -154,6 +154,7 @@ final class AMClientEventHandler {
         event.registerLayerDefinition(AMModels.WITCHWOOD_CHEST_BOAT, BoatModel::createChestBoatModel);
         event.registerLayerDefinition(AMModels.DRYAD, AMModels::createDryadLayer);
         event.registerLayerDefinition(AMModels.WINTERS_GRASP, AMModels::createWintersGraspLayer);
+        event.registerLayerDefinition(AMModels.NATURE_SCYTHE, AMModels::createNatureScytheLayer);
     }
 
     @SubscribeEvent
@@ -181,6 +182,7 @@ final class AMClientEventHandler {
         BossRenderer.register(event, AMEntities.ARCANE_GUARDIAN);
         BossRenderer.register(event, AMEntities.ENDER_GUARDIAN);
         event.registerEntityRenderer(AMEntities.WINTERS_GRASP.get(), context -> new SimpleModelEntityRenderer<>(context, AMModels.WINTERS_GRASP, AMEntityModel::new, AMModels.WINTERS_GRASP_TEXTURE));
+        event.registerEntityRenderer(AMEntities.NATURE_SCYTHE.get(), context -> new SimpleModelEntityRenderer<>(context, AMModels.NATURE_SCYTHE, AMEntityModel::new, AMModels.NATURE_SCYTHE_TEXTURE));
         event.registerBlockEntityRenderer(AMBlockEntities.ALTAR_CORE.get(), AltarCoreRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.BLACK_AUREM.get(), BlackAuremRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.CELESTIAL_PRISM.get(), EtheriumBlockEntityRenderer::new);

@@ -42,4 +42,8 @@ public class NatureGuardian extends AbstractBoss {
     protected SoundEvent getHurtSound(DamageSource source) {
         return AMSounds.NATURE_GUARDIAN_HURT.get();
     }
+
+    public void setHasScythe(boolean hasScythe) {
+        //TODO
+    }
 }

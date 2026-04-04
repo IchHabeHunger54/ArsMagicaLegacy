@@ -15,7 +15,9 @@ public interface AMModels {
     ModelLayerLocation WITCHWOOD_CHEST_BOAT = modelLayerLocation("chest_boat/witchwood");
     ModelLayerLocation DRYAD = modelLayerLocation("dryad");
     ModelLayerLocation WINTERS_GRASP = modelLayerLocation("winters_grasp");
+    ModelLayerLocation NATURE_SCYTHE = modelLayerLocation("nature_scythe");
     Identifier WINTERS_GRASP_TEXTURE = ArsMagicaApi.id("textures/entity/ice_guardian.png");
+    Identifier NATURE_SCYTHE_TEXTURE = ArsMagicaApi.id("textures/entity/nature_guardian.png");
 
     private static ModelLayerLocation modelLayerLocation(String path) {
         return new ModelLayerLocation(ArsMagicaApi.id(path), "main");
@@ -34,5 +36,16 @@ public interface AMModels {
         AMClientUtil.addCube(pd, "inner_fingers", 104, 44, -3, 11, -2, 1, 1, 5, 0, 0, 0, 90, 0, 0);
         AMClientUtil.addCube(pd, "thumb", 82, 50, 0, 11, -3, 3, 2, 1, 0, 0, 0, 90, 0, 0);
         return LayerDefinition.create(md, 128, 64);
+    }
+
+    static LayerDefinition createNatureScytheLayer() {
+        MeshDefinition md = new MeshDefinition();
+        PartDefinition pd = md.getRoot();
+        AMClientUtil.addCube(pd, "rod", 0, 73, -1, -15.5f, -10, 2, 2, 36, 0, 0, 0);
+        AMClientUtil.addCube(pd, "head", 84, 73, -1.5f, -20.5f, -13, 3, 12, 3, 0, 0, 0);
+        AMClientUtil.addCube(pd, "blade", 76, 73, -0.5f, -22.5f, -12.5f, 1, 30, 3, 0, 0, 0);
+        AMClientUtil.addCube(pd, "blade_curve", 96, 73, -0.501f, 0, -14, 1, 12, 2, 0, 0, 0, 30, 0, 0);
+        AMClientUtil.addCube(pd, "blade_tip", 102, 73, -0.5f, 2.5f, -17.5f, 1, 8, 1, 0, 0, 0, 60, 0, 0);
+        return LayerDefinition.create(md, 128, 128);
     }
 }

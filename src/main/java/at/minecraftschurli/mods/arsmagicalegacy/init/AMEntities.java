@@ -16,6 +16,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.entity.LightningGuardian;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ManaCreeper;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ManaVortex;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.NatureGuardian;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.NatureScythe;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.Projectile;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.Wall;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.WaterGuardian;
@@ -58,6 +59,7 @@ public interface AMEntities {
     DeferredHolder<EntityType<?>, EntityType<ArcaneGuardian>>    ARCANE_GUARDIAN    = register("arcane_guardian",    ArcaneGuardian::new,    MobCategory.MONSTER,  0.9f,  2.25f);
     DeferredHolder<EntityType<?>, EntityType<EnderGuardian>>     ENDER_GUARDIAN     = register("ender_guardian",     EnderGuardian::new,     MobCategory.MONSTER,  1f,    2.25f);
     DeferredHolder<EntityType<?>, EntityType<WintersGrasp>>      WINTERS_GRASP      = register("winters_grasp",      WintersGrasp::new,      MobCategory.MISC,     0.25f, 0.25f);
+    DeferredHolder<EntityType<?>, EntityType<NatureScythe>>      NATURE_SCYTHE      = register("nature_scythe",      NatureScythe::new,      MobCategory.MISC,     0.25f, 0.25f);
     // @formatter:on
 
     private static <T extends Entity> DeferredHolder<EntityType<?>, EntityType<T>> register(String name, EntityType.EntityFactory<T> factory, MobCategory category, float width, float height) {

@@ -2,6 +2,7 @@ package at.minecraftschurli.mods.arsmagicalegacy.init;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.FallingStar;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.NatureScythe;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
@@ -19,6 +20,7 @@ public interface AMDamageSources {
     ResourceKey<DamageType> SPELL_PHYSICAL        = damageType("spell_physical");
     ResourceKey<DamageType> SPELL_PHYSICAL_PLAYER = damageType("spell_physical_player");
     ResourceKey<DamageType> FALLING_STAR          = damageType("falling_star");
+    ResourceKey<DamageType> NATURE_SCYTHE         = damageType("nature_scythe");
     // @formatter:on
 
     private static ResourceKey<DamageType> damageType(String name) {
@@ -31,5 +33,9 @@ public interface AMDamageSources {
 
     static DamageSource fallingStar(FallingStar source) {
         return new DamageSource(damageType(source.registryAccess(), FALLING_STAR), source.getOwner(), source);
+    }
+
+    static DamageSource natureScythe(NatureScythe source) {
+        return new DamageSource(damageType(source.registryAccess(), NATURE_SCYTHE), source.getOwner(), source);
     }
 }

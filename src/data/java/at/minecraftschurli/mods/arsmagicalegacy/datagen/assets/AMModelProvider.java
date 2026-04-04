@@ -124,7 +124,7 @@ public final class AMModelProvider extends AbstractModelProvider {
 
     @Override
     protected Stream<? extends Holder<Item>> getKnownItems() {
-        return super.getKnownItems().filter(h -> !h.is(AMItems.WINTERS_GRASP.getKey()));
+        return super.getKnownItems().filter(h -> !h.is(AMItems.WINTERS_GRASP.getKey()) && !h.is(AMItems.NATURE_SCYTHE.getKey()));
     }
 
     @Override

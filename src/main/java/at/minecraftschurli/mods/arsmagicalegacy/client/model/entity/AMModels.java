@@ -3,7 +3,8 @@ package at.minecraftschurli.mods.arsmagicalegacy.client.model.entity;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 
-public interface AMModelLayers {
+public interface AMModels {
     ModelLayerLocation WITCHWOOD_BOAT = new ModelLayerLocation(ArsMagicaApi.id("boat/witchwood"), "main");
     ModelLayerLocation WITCHWOOD_CHEST_BOAT = new ModelLayerLocation(ArsMagicaApi.id("chest_boat/witchwood"), "main");
+    ModelLayerLocation DRYAD = new ModelLayerLocation(ArsMagicaApi.id("dryad"), "main");
 }

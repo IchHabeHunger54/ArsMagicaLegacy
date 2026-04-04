@@ -1,6 +1,7 @@
 package at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.mods.arsmagicalegacy.client.model.entity.AMModels;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.entity.DryadModel;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.Dryad;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -12,7 +13,7 @@ public class DryadRenderer extends HumanoidMobRenderer<Dryad, HumanoidRenderStat
     private static final Identifier TEXTURE = ArsMagicaApi.id("textures/entity/dryad.png");
 
     public DryadRenderer(EntityRendererProvider.Context context) {
-        super(context, new DryadModel(context.bakeLayer(DryadModel.LAYER_LOCATION)), 0.5f);
+        super(context, new DryadModel(context.bakeLayer(AMModels.DRYAD)), 0.5f);
     }
 
     @Override

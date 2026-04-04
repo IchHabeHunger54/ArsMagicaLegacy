@@ -25,7 +25,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.co
 import at.minecraftschurli.mods.arsmagicalegacy.client.layer.BarsLayer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.layer.ShapeGroupsLayer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.layer.SpellBookLayer;
-import at.minecraftschurli.mods.arsmagicalegacy.client.model.entity.AMModelLayers;
+import at.minecraftschurli.mods.arsmagicalegacy.client.model.entity.AMModels;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.AltarCoreModel;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.entity.DryadModel;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.item.CrystalPhylacteryItemTintSource;
@@ -149,15 +149,15 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(DryadModel.LAYER_LOCATION, DryadModel::createBodyLayer);
-        event.registerLayerDefinition(AMModelLayers.WITCHWOOD_BOAT, BoatModel::createBoatModel);
-        event.registerLayerDefinition(AMModelLayers.WITCHWOOD_CHEST_BOAT, BoatModel::createChestBoatModel);
+        event.registerLayerDefinition(AMModels.DRYAD, DryadModel::createBodyLayer);
+        event.registerLayerDefinition(AMModels.WITCHWOOD_BOAT, BoatModel::createBoatModel);
+        event.registerLayerDefinition(AMModels.WITCHWOOD_CHEST_BOAT, BoatModel::createChestBoatModel);
     }
 
     @SubscribeEvent
     private static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(AMEntities.WITCHWOOD_BOAT.get(), context -> new BoatRenderer(context, AMModelLayers.WITCHWOOD_BOAT));
-        event.registerEntityRenderer(AMEntities.WITCHWOOD_CHEST_BOAT.get(), context -> new BoatRenderer(context, AMModelLayers.WITCHWOOD_CHEST_BOAT));
+        event.registerEntityRenderer(AMEntities.WITCHWOOD_BOAT.get(), context -> new BoatRenderer(context, AMModels.WITCHWOOD_BOAT));
+        event.registerEntityRenderer(AMEntities.WITCHWOOD_CHEST_BOAT.get(), context -> new BoatRenderer(context, AMModels.WITCHWOOD_CHEST_BOAT));
         event.registerEntityRenderer(AMEntities.BLIZZARD.get(), NoopRenderer::new);
         event.registerEntityRenderer(AMEntities.FALLING_STAR.get(), NoopRenderer::new);
         event.registerEntityRenderer(AMEntities.FIRE_RAIN.get(), NoopRenderer::new);

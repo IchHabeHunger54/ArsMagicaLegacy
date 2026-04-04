@@ -22,7 +22,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.neoforge.entity.PartEntity;
 
-public class NatureScythe extends AMOwnableEntity {
+public class NatureScythe extends AbstractOwnableEntity {
     private static final EntityDataAccessor<ItemStack> STACK = SynchedEntityData.defineId(NatureScythe.class, EntityDataSerializers.ITEM_STACK);
     private static final String STACK_KEY = "stack";
     private boolean hasHit = false;

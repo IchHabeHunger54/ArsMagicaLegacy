@@ -12,7 +12,7 @@ import net.minecraft.world.level.Level;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Whirlwind extends AMOwnableEntity {
+public class Whirlwind extends AbstractOwnableEntity {
     private final Map<Player, Integer> cooldowns = new HashMap<>();
 
     public Whirlwind(EntityType<? extends Whirlwind> type, Level level) {

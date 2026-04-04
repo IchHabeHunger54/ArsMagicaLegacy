@@ -1,8 +1,9 @@
-// 26.1.1	2026-04-03T23:02:34.6415262	vanilla/Tags for minecraft:entity_type mod id arsmagicalegacy
+// 26.1.1	2026-04-04T03:16:20.9389309	vanilla/Tags for minecraft:entity_type mod id arsmagicalegacy
 7e8ccf4dfd95cc8e89542aac3c307a35640013fa data/arsmagicalegacy/tags/entity_type/affected_by_ender_thorns_ability.json
 e2f26c4696552a05feacf8eaadfb3b41a8907161 data/arsmagicalegacy/tags/entity_type/affected_by_nausea_ability.json
 e2f26c4696552a05feacf8eaadfb3b41a8907161 data/arsmagicalegacy/tags/entity_type/affected_by_smite_ability.json
 64958992f921bb38b4b2be1ea5af860e6bfd3751 data/arsmagicalegacy/tags/entity_type/black_aurem_immune.json
+6f8bc3eb93347d4d15c38a3b7cfbd2b796ac201c data/arsmagicalegacy/tags/entity_type/ender_guardian_sacrifices.json
 a40068cbe75b275a313475f956e576bb573406f4 data/arsmagicalegacy/tags/entity_type/summoning_not_supported.json
 b9f9fc25effddd19f33792c757c6194b5288af6d data/c/tags/entity_type/boats.json
 778b2a71238f8c76c886fcbce3e9aa2a3f093fb6 data/c/tags/entity_type/bosses.json

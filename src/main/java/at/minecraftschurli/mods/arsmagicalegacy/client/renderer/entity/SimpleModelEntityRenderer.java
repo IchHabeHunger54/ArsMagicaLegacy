@@ -9,7 +9,7 @@ import net.minecraft.world.entity.Entity;
 
 import java.util.function.Function;
 
-public class SimpleModelEntityRenderer<T extends Entity, M extends EntityModel<ModelEntityRenderState>> extends ModelEntityRenderer<T, ModelEntityRenderState, M> {
+public class SimpleModelEntityRenderer<T extends Entity, M extends EntityModel<ModelEntityRenderer.State>> extends ModelEntityRenderer<T, ModelEntityRenderer.State, M> {
     private final Identifier texture;
 
     public SimpleModelEntityRenderer(EntityRendererProvider.Context context, ModelLayerLocation modelLayerLocation, Function<ModelPart, M> modelFactory, Identifier texture) {
@@ -18,12 +18,12 @@ public class SimpleModelEntityRenderer<T extends Entity, M extends EntityModel<M
     }
 
     @Override
-    protected Identifier getTexture(ModelEntityRenderState state) {
+    protected Identifier getTexture(State state) {
         return texture;
     }
 
     @Override
-    public ModelEntityRenderState createRenderState() {
-        return new ModelEntityRenderState();
+    public State createRenderState() {
+        return new State();
     }
 }

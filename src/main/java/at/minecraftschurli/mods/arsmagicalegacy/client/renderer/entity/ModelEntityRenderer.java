@@ -6,13 +6,14 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 
-public abstract class ModelEntityRenderer<T extends Entity, S extends ModelEntityRenderState, M extends EntityModel<S>> extends EntityRenderer<T, S> {
+public abstract class ModelEntityRenderer<T extends Entity, S extends ModelEntityRenderer.State, M extends EntityModel<S>> extends EntityRenderer<T, S> {
     private final M model;
 
     public ModelEntityRenderer(EntityRendererProvider.Context context, M model) {
@@ -47,5 +48,11 @@ public abstract class ModelEntityRenderer<T extends Entity, S extends ModelEntit
 
     protected float getHeadRot(T entity, float partialTick) {
         return entity.getYRot(partialTick);
+    }
+
+    public static class State extends EntityRenderState {
+        public float bodyRot;
+        public float xRot;
+        public float yRot;
     }
 }

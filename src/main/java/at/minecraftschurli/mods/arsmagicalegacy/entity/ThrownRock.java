@@ -14,7 +14,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-public class ThrownRock extends AMOwnableEntity {
+public class ThrownRock extends AbstractOwnableEntity {
     public ThrownRock(EntityType<? extends ThrownRock> type, Level level) {
         super(type, level);
     }

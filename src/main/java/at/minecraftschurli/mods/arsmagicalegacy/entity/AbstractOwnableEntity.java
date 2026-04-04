@@ -20,11 +20,11 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.Optional;
 
-public abstract class AMOwnableEntity extends Entity implements TraceableEntity {
-    private static final EntityDataAccessor<Optional<EntityReference<LivingEntity>>> OWNER = SynchedEntityData.defineId(AMOwnableEntity.class, EntityDataSerializers.OPTIONAL_LIVING_ENTITY_REFERENCE);
+public abstract class AbstractOwnableEntity extends Entity implements TraceableEntity {
+    private static final EntityDataAccessor<Optional<EntityReference<LivingEntity>>> OWNER = SynchedEntityData.defineId(AbstractOwnableEntity.class, EntityDataSerializers.OPTIONAL_LIVING_ENTITY_REFERENCE);
     private static final String OWNER_KEY = "owner";
 
-    public AMOwnableEntity(EntityType<? extends AMOwnableEntity> type, Level level) {
+    public AbstractOwnableEntity(EntityType<? extends AbstractOwnableEntity> type, Level level) {
         super(type, level);
     }
 

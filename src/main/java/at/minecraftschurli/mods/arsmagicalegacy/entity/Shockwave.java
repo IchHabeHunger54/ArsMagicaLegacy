@@ -15,7 +15,7 @@ import net.minecraft.world.level.Level;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Shockwave extends AMOwnableEntity {
+public class Shockwave extends AbstractOwnableEntity {
     private static final ParticleOptions PARTICLE = new DustParticleOptions(0xffffff, 1);
     private final Map<LivingEntity, Integer> cooldowns = new HashMap<>();
 

@@ -21,7 +21,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.neoforge.entity.PartEntity;
 
-public class WintersGrasp extends AMOwnableEntity {
+public class WintersGrasp extends AbstractOwnableEntity {
     private static final EntityDataAccessor<ItemStack> STACK = SynchedEntityData.defineId(WintersGrasp.class, EntityDataSerializers.ITEM_STACK);
     private static final String STACK_KEY = "stack";
     private boolean hasHit = false;

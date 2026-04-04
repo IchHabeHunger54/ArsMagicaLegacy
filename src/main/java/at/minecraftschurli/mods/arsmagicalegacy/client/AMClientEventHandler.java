@@ -27,7 +27,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.layer.ShapeGroupsLayer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.layer.SpellBookLayer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.entity.AMModels;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.AltarCoreModel;
-import at.minecraftschurli.mods.arsmagicalegacy.client.model.entity.DryadModel;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.item.CrystalPhylacteryItemTintSource;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.item.CrystalPhylacteryRangeSelectItemModelProperty;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.item.CrystalWrenchActiveItemModelProperty;
@@ -149,7 +148,7 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(AMModels.DRYAD, DryadModel::createBodyLayer);
+        event.registerLayerDefinition(AMModels.DRYAD, AMModels::createDryadLayer);
         event.registerLayerDefinition(AMModels.WITCHWOOD_BOAT, BoatModel::createBoatModel);
         event.registerLayerDefinition(AMModels.WITCHWOOD_CHEST_BOAT, BoatModel::createChestBoatModel);
     }

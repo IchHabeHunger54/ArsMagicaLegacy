@@ -18,9 +18,12 @@ import at.minecraftschurli.mods.arsmagicalegacy.entity.ManaVortex;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.NatureGuardian;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.NatureScythe;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.Projectile;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.Shockwave;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ThrownRock;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.Wall;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.WaterGuardian;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.Wave;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.Whirlwind;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.WintersGrasp;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.Zone;
 import net.minecraft.world.entity.Entity;
@@ -33,11 +36,11 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public interface AMEntities {
     DeferredRegister.Entities ENTITIES = DeferredRegister.createEntities(ArsMagicaApi.MOD_ID);
-    // @formatter:off
     DeferredHolder<EntityType<?>, EntityType<Boat>> WITCHWOOD_BOAT =
         ENTITIES.registerEntityType("witchwood_boat", (type, level) -> new Boat(type, level, AMItems.WITCHWOOD_BOAT::get), MobCategory.MISC, builder -> builder.sized(1.375f, 0.5625f).eyeHeight(0.5625f).clientTrackingRange(10));
     DeferredHolder<EntityType<?>, EntityType<ChestBoat>> WITCHWOOD_CHEST_BOAT =
         ENTITIES.registerEntityType("witchwood_chest_boat", (type, level) -> new ChestBoat(type, level, AMItems.WITCHWOOD_CHEST_BOAT::get), MobCategory.MISC, builder -> builder.sized(1.375f, 0.5625f).eyeHeight(0.5625f).clientTrackingRange(10));
+    // @formatter:off
     DeferredHolder<EntityType<?>, EntityType<Blizzard>>          BLIZZARD           = register("blizzard",           Blizzard::new,          MobCategory.MISC,     0.25f, 0.25f);
     DeferredHolder<EntityType<?>, EntityType<FallingStar>>       FALLING_STAR       = register("falling_star",       FallingStar::new,       MobCategory.MISC,     0.25f, 0.25f);
     DeferredHolder<EntityType<?>, EntityType<FireRain>>          FIRE_RAIN          = register("fire_rain",          FireRain::new,          MobCategory.MISC,     0.25f, 0.25f);
@@ -60,6 +63,9 @@ public interface AMEntities {
     DeferredHolder<EntityType<?>, EntityType<EnderGuardian>>     ENDER_GUARDIAN     = register("ender_guardian",     EnderGuardian::new,     MobCategory.MONSTER,  1f,    2.25f);
     DeferredHolder<EntityType<?>, EntityType<WintersGrasp>>      WINTERS_GRASP      = register("winters_grasp",      WintersGrasp::new,      MobCategory.MISC,     0.25f, 0.25f);
     DeferredHolder<EntityType<?>, EntityType<NatureScythe>>      NATURE_SCYTHE      = register("nature_scythe",      NatureScythe::new,      MobCategory.MISC,     0.25f, 0.25f);
+    DeferredHolder<EntityType<?>, EntityType<ThrownRock>>        THROWN_ROCK        = register("thrown_rock",        ThrownRock::new,        MobCategory.MISC,     0.5f,  0.5f);
+    DeferredHolder<EntityType<?>, EntityType<Shockwave>>         SHOCKWAVE          = register("shockwave",          Shockwave::new,         MobCategory.MISC,     0.25f, 0.25f);
+    DeferredHolder<EntityType<?>, EntityType<Whirlwind>>         WHIRLWIND          = register("whirlwind",          Whirlwind::new,         MobCategory.MISC,     0.25f, 0.25f);
     // @formatter:on
 
     private static <T extends Entity> DeferredHolder<EntityType<?>, EntityType<T>> register(String name, EntityType.EntityFactory<T> factory, MobCategory category, float width, float height) {

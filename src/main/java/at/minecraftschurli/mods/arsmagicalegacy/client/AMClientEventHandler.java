@@ -53,6 +53,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.block.SpellRuneR
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.BossRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.DryadRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.ManaCreeperRenderer;
+import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.SimpleFlatEntityRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.SimpleModelEntityRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.compat.patchouli.SpellPartPage;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMBlockEntities;
@@ -155,6 +156,7 @@ final class AMClientEventHandler {
         event.registerLayerDefinition(AMModels.DRYAD, AMModels::createDryadLayer);
         event.registerLayerDefinition(AMModels.WINTERS_GRASP, AMModels::createWintersGraspLayer);
         event.registerLayerDefinition(AMModels.NATURE_SCYTHE, AMModels::createNatureScytheLayer);
+        event.registerLayerDefinition(AMModels.THROWN_ROCK, AMModels::createThrownRockLayer);
     }
 
     @SubscribeEvent
@@ -183,6 +185,9 @@ final class AMClientEventHandler {
         BossRenderer.register(event, AMEntities.ENDER_GUARDIAN);
         event.registerEntityRenderer(AMEntities.WINTERS_GRASP.get(), context -> new SimpleModelEntityRenderer<>(context, AMModels.WINTERS_GRASP, AMEntityModel::new, AMModels.WINTERS_GRASP_TEXTURE));
         event.registerEntityRenderer(AMEntities.NATURE_SCYTHE.get(), context -> new SimpleModelEntityRenderer<>(context, AMModels.NATURE_SCYTHE, AMEntityModel::new, AMModels.NATURE_SCYTHE_TEXTURE));
+        event.registerEntityRenderer(AMEntities.THROWN_ROCK.get(), context -> new SimpleModelEntityRenderer<>(context, AMModels.THROWN_ROCK, AMEntityModel::new, AMModels.THROWN_ROCK_TEXTURE));
+        event.registerEntityRenderer(AMEntities.SHOCKWAVE.get(), NoopRenderer::new);
+        event.registerEntityRenderer(AMEntities.WHIRLWIND.get(), context -> new SimpleFlatEntityRenderer<>(context, AMModels.WHIRLWIND));
         event.registerBlockEntityRenderer(AMBlockEntities.ALTAR_CORE.get(), AltarCoreRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.BLACK_AUREM.get(), BlackAuremRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.CELESTIAL_PRISM.get(), EtheriumBlockEntityRenderer::new);

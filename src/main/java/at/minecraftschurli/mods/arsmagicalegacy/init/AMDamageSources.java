@@ -3,6 +3,9 @@ package at.minecraftschurli.mods.arsmagicalegacy.init;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.FallingStar;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.NatureScythe;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.Shockwave;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ThrownRock;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.Whirlwind;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
@@ -21,6 +24,9 @@ public interface AMDamageSources {
     ResourceKey<DamageType> SPELL_PHYSICAL_PLAYER = damageType("spell_physical_player");
     ResourceKey<DamageType> FALLING_STAR          = damageType("falling_star");
     ResourceKey<DamageType> NATURE_SCYTHE         = damageType("nature_scythe");
+    ResourceKey<DamageType> SHOCKWAVE             = damageType("shockwave");
+    ResourceKey<DamageType> THROWN_ROCK           = damageType("thrown_rock");
+    ResourceKey<DamageType> WHIRLWIND             = damageType("whirlwind");
     // @formatter:on
 
     private static ResourceKey<DamageType> damageType(String name) {
@@ -37,5 +43,17 @@ public interface AMDamageSources {
 
     static DamageSource natureScythe(NatureScythe source) {
         return new DamageSource(damageType(source.registryAccess(), NATURE_SCYTHE), source.getOwner(), source);
+    }
+
+    static DamageSource shockwave(Shockwave source) {
+        return new DamageSource(damageType(source.registryAccess(), THROWN_ROCK), source.getOwner(), source);
+    }
+
+    static DamageSource thrownRock(ThrownRock source) {
+        return new DamageSource(damageType(source.registryAccess(), SHOCKWAVE), source.getOwner(), source);
+    }
+
+    static DamageSource whirlwind(Whirlwind source) {
+        return new DamageSource(damageType(source.registryAccess(), WHIRLWIND), source.getOwner(), source);
     }
 }

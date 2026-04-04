@@ -16,8 +16,11 @@ public interface AMModels {
     ModelLayerLocation DRYAD = modelLayerLocation("dryad");
     ModelLayerLocation WINTERS_GRASP = modelLayerLocation("winters_grasp");
     ModelLayerLocation NATURE_SCYTHE = modelLayerLocation("nature_scythe");
+    ModelLayerLocation THROWN_ROCK = modelLayerLocation("thrown_rock");
     Identifier WINTERS_GRASP_TEXTURE = ArsMagicaApi.id("textures/entity/ice_guardian.png");
     Identifier NATURE_SCYTHE_TEXTURE = ArsMagicaApi.id("textures/entity/nature_guardian.png");
+    Identifier THROWN_ROCK_TEXTURE = ArsMagicaApi.id("textures/entity/earth_guardian.png");
+    Identifier WHIRLWIND = ArsMagicaApi.id("whirlwind");
 
     private static ModelLayerLocation modelLayerLocation(String path) {
         return new ModelLayerLocation(ArsMagicaApi.id(path), "main");
@@ -47,5 +50,14 @@ public interface AMModels {
         AMClientUtil.addCube(pd, "blade_curve", 96, 73, -0.501f, 0, -14, 1, 12, 2, 0, 0, 0, 30, 0, 0);
         AMClientUtil.addCube(pd, "blade_tip", 102, 73, -0.5f, 2.5f, -17.5f, 1, 8, 1, 0, 0, 0, 60, 0, 0);
         return LayerDefinition.create(md, 128, 128);
+    }
+
+    static LayerDefinition createThrownRockLayer() {
+        MeshDefinition md = new MeshDefinition();
+        PartDefinition pd = md.getRoot();
+        AMClientUtil.addCube(pd, "rock1", 1, 24, -7, -4, -2.999f, 8, 6, 7, 0, 4, 0);
+        AMClientUtil.addCube(pd, "rock2", 1, 23, 1, -5, -4, 7, 7, 8, 0, 4, 0);
+        AMClientUtil.addCube(pd, "rock3", 1, 24, -3, -2, -5, 8, 6, 7, 0, 4, 0);
+        return LayerDefinition.create(md, 64, 64);
     }
 }

@@ -727,7 +727,11 @@ public final class AMLanguageProvider extends LanguageProvider {
         add("skill_point", "blue", "Blue");
         add("skill_point", "green", "Green");
         add("skill_point", "red", "Red");
-        add("death.attack", "falling_star", "%1$s was obliterated by a falling star");
+        add("death.attack", "falling_star", "%1$s was disintegrated into stardust by %2$s");
+        add("death.attack", "nature_scythe", "%1$s was ripped apart by %2$s's scythe");
+        add("death.attack", "shockwave", "%1$s was obliterated by %2$s's shockwave");
+        add("death.attack", "thrown_rock", "%1$s was crushed under a rock by %2$s");
+        add("death.attack", "whirlwind", "%1$s was torn apart by %2$s's whirlwind");
         arcaneCompendiumTranslation("affinities.fire.page0.text", "The fire affinity is associated with lava, explosions and the Nether. Fire components are usually offensive ones, like $(l:components/fire_damage)Fire Damage$(), $(l:components/ignition)Ignition$() or $(l:components/explosion)Explosion$().");
         arcaneCompendiumTranslation("affinities.water.page0.text", "The water affinity is associated with swimming, drowning and potions. Its components therefore often use effects, such as $(l:components/water_breathing)Water Breathing$(), $(l:components/swift_swim)Swift Swim$() or $(l:components/watery_grave)Watery Grave$().");
         arcaneCompendiumTranslation("affinities.earth.page0.text", "The earth affinity is associated with mining, protection and physical attacks. Earth components usually have some kind of physical interaction, like $(l:components/physical_damage)Physical Damage$(), $(l:components/dig)Dig$() or $(l:components/shield)Shield$().");

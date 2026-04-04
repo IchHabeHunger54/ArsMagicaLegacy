@@ -1,4 +1,4 @@
-// 26.1.1	2026-04-04T04:08:37.3420381	vanilla/Tags for minecraft:damage_type mod id arsmagicalegacy
+// 26.1.1	2026-04-04T20:06:38.5864981	vanilla/Tags for minecraft:damage_type mod id arsmagicalegacy
 008a3dd0669075ebebc0e06e870de0fd82a9137d data/arsmagicalegacy/tags/damage_type/affected_by_fall_damage_ability.json
 008a3dd0669075ebebc0e06e870de0fd82a9137d data/arsmagicalegacy/tags/damage_type/affected_by_feather_falling_ability.json
 0e110df8315b95626e86ddc18110ee278c2c468f data/arsmagicalegacy/tags/damage_type/affected_by_fire_resistance_ability.json
@@ -44,7 +44,7 @@ e1c6c75429e4c46d7a5a9cc1d1df45f7418a5ed6 data/minecraft/tags/damage_type/ignites
 e1c6c75429e4c46d7a5a9cc1d1df45f7418a5ed6 data/minecraft/tags/damage_type/is_fire.json
 ab5b80074e5908727f795fb164cc46b6a034d929 data/minecraft/tags/damage_type/is_freezing.json
 4768e884132e773068f6c84945efc08f32a71bc6 data/minecraft/tags/damage_type/is_lightning.json
-e6251eb79eec7b0b2d47e3724ed25a80497444ea data/minecraft/tags/damage_type/is_projectile.json
+187ec63cb4213044f3e304b75a6c55f7ed5d2968 data/minecraft/tags/damage_type/is_projectile.json
 240062c9a629d99c93ed89e53ddc1f0cb649805a data/minecraft/tags/damage_type/witch_resistant_to.json
 5a75079830398a48509c802d48817593eefb09b5 data/minecraft/tags/damage_type/wither_immune_to.json
 240062c9a629d99c93ed89e53ddc1f0cb649805a data/neoforge/tags/damage_type/is_magic.json

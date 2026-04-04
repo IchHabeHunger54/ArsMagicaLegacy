@@ -1,5 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
+import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
@@ -8,8 +9,13 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class IceGuardian extends AbstractBoss {
+    private static final String ARMS_KEY = "arms";
+    private int arms = 2;
+
     public IceGuardian(EntityType<? extends IceGuardian> type, Level level) {
         super(type, level, AMTags.DamageTypes.ICE_GUARDIAN_IS_VULNERABLE_TO, AMTags.DamageTypes.ICE_GUARDIAN_IS_IMMUNE_TO, AMTags.DamageTypes.ICE_GUARDIAN_IS_HEAL_TO);
     }
@@ -20,6 +26,18 @@ public class IceGuardian extends AbstractBoss {
             .add(Attributes.ARMOR, 20)
             .add(AMAttributes.MAX_MANA, 3000)
             .add(AMAttributes.MAX_BURNOUT, 3000);
+    }
+
+    @Override
+    protected void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        input.child(ArsMagicaApi.MOD_ID).ifPresent(child -> arms = child.getIntOr(ARMS_KEY, 2));
+    }
+
+    @Override
+    protected void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.child(ArsMagicaApi.MOD_ID).putInt(ARMS_KEY, arms);
     }
 
     @Override
@@ -42,7 +60,29 @@ public class IceGuardian extends AbstractBoss {
         super.registerGoals();
     }
 
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id <= -8 && id >= -10) {
+            arms = id + 8;
+        }
+        super.handleEntityEvent(id);
+    }
+
+    public void launchArm() {
+        arms--;
+        level().broadcastEntityEvent(this, (byte) (arms - 8));
+    }
+
     public void returnArm() {
-        //TODO
+        arms++;
+        level().broadcastEntityEvent(this, (byte) (arms - 8));
+    }
+
+    public boolean canLaunchArm() {
+        return arms > 0;
+    }
+
+    public int getArmCount() {
+        return arms;
     }
 }

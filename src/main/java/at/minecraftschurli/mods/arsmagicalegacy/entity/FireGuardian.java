@@ -3,12 +3,20 @@ package at.minecraftschurli.mods.arsmagicalegacy.entity;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+
+import java.util.Objects;
 
 public class FireGuardian extends AbstractBoss {
     public FireGuardian(EntityType<? extends FireGuardian> type, Level level) {
@@ -51,5 +59,51 @@ public class FireGuardian extends AbstractBoss {
     @Override
     protected void registerGoals() {
         super.registerGoals();
+    }
+
+    @Override
+    public void aiStep() {
+        Level level = Objects.requireNonNull(level());
+        if (tickCount % 30 == 0) {
+            if (level.getRandom().nextInt(10) == 0) {
+                level.playSound(null, this, AMSounds.FIRE_GUARDIAN_NOVA.value(), SoundSource.HOSTILE, 0.1f, 0.5f + level.getRandom().nextFloat() * 0.5f);
+            }
+            if (level instanceof ServerLevel serverLevel) {
+                for (LivingEntity e : level.getEntitiesOfClass(LivingEntity.class, getBoundingBox().inflate(2.5, 2.5, 2.5).expandTowards(0, 3, 0), e -> !(e instanceof AbstractBoss))) {
+                    e.hurtServer(serverLevel, damageSources().onFire(), 5);
+                }
+            } else {
+                // TODO particles
+            }
+        }
+        if (getTicksInAction() > 10 && getAction() == Action.LONG_CAST) {
+            if (getTarget() != null) {
+                lookAt(getTarget(), 10, 10);
+            }
+            level.playSound(null, this, AMSounds.FIRE_GUARDIAN_FLAMETHROWER.value(), SoundSource.HOSTILE, 1f, 0.5f + level.getRandom().nextFloat() * 0.5f);
+            flamethrower();
+        }
+        if (level instanceof ServerLevel serverLevel) {
+            for (Player p : level.players()) {
+                if (distanceToSqr(p) < 9) {
+                    p.hurtServer(serverLevel, damageSources().onFire(), 8);
+                }
+            }
+        }
+        super.aiStep();
+    }
+
+    public void flamethrower() {
+        Vec3 look = getLookAngle();
+        Level level = level();
+        if (level instanceof ServerLevel serverLevel) {
+            for (LivingEntity e : level.getEntitiesOfClass(LivingEntity.class, getBoundingBox().inflate(2.5, 2.5, 2.5).expandTowards(look.x * 3, 0, look.z * 3), e -> !(e instanceof AbstractBoss))) {
+                e.hurtServer(serverLevel, damageSources().onFire(), 8);
+            }
+        } else {
+            for (int i = 0; i < 20; i++) {
+                level.addParticle(ParticleTypes.FLAME, getRandomX(1), getRandomY() + 1.5, getRandomZ(1), look.x, look.y, look.z);
+            }
+        }
     }
 }

@@ -42,4 +42,9 @@ public class LightningGuardian extends AbstractBoss {
     protected SoundEvent getHurtSound(DamageSource source) {
         return AMSounds.LIGHTNING_GUARDIAN_HURT.get();
     }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+    }
 }

@@ -38,4 +38,9 @@ public class WaterGuardian extends AbstractBoss {
     public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
         return super.hurtServer(level, source, damage);
     }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+    }
 }

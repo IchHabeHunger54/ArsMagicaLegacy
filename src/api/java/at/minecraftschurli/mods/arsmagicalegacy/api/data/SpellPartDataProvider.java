@@ -31,7 +31,7 @@ public abstract class SpellPartDataProvider extends AbstractDataProvider<SpellPa
      * @param mana The mana cost of the {@link SpellPart}.
      * @return The new {@link SpellPartDataBuilder}.
      */
-    public SpellPartDataBuilder builder(DeferredHolder<SpellPart, ?> part, double mana) {
+    public final SpellPartDataBuilder builder(DeferredHolder<SpellPart, ?> part, double mana) {
         SpellPartDataBuilder builder = new SpellPartDataBuilder(part.getId(), mana);
         add(builder);
         return builder;

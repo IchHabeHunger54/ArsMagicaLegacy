@@ -34,7 +34,7 @@ public abstract class ParticleSpawnerProvider extends AbstractDataProvider<Parti
      * @param maxLifetime The max lifetime of the spawned particles.
      * @return The new {@link ParticleSpawnerBuilder}.
      */
-    public ParticleSpawnerBuilder builder(Identifier id, ParticleOptions particle, int count, int minLifetime, int maxLifetime) {
+    public final ParticleSpawnerBuilder builder(Identifier id, ParticleOptions particle, int count, int minLifetime, int maxLifetime) {
         ParticleSpawnerBuilder builder = new ParticleSpawnerBuilder(id, particle, count, minLifetime, maxLifetime);
         add(builder);
         return builder;
@@ -49,7 +49,7 @@ public abstract class ParticleSpawnerProvider extends AbstractDataProvider<Parti
      * @param lifetime The lifetime of the spawned particles.
      * @return The new {@link ParticleSpawnerBuilder}.
      */
-    public ParticleSpawnerBuilder builder(Identifier id, ParticleOptions particle, int count, int lifetime) {
+    public final ParticleSpawnerBuilder builder(Identifier id, ParticleOptions particle, int count, int lifetime) {
         ParticleSpawnerBuilder builder = new ParticleSpawnerBuilder(id, particle, count, lifetime);
         add(builder);
         return builder;

@@ -31,7 +31,7 @@ public abstract class RitualProvider extends AbstractDataProvider<Ritual<?>, Rit
      * @param trigger The {@link RitualTrigger} to use.
      * @return The new {@link RitualBuilder}.
      */
-    public RitualBuilder builder(String name, RitualTrigger<?> trigger) {
+    public final RitualBuilder builder(String name, RitualTrigger<?> trigger) {
         RitualBuilder builder = new RitualBuilder(Identifier.fromNamespaceAndPath(modId, name), trigger);
         add(builder);
         return builder;

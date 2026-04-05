@@ -15,6 +15,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
@@ -22,7 +23,7 @@ import java.util.function.BiConsumer;
 public interface AMCreativeTabs {
     DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ArsMagicaApi.MOD_ID);
     DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN = CREATIVE_TABS.register("main", () -> CreativeModeTab.builder()
-        .title(Component.translatable("itemGroup." + ArsMagicaApi.MOD_ID))
+        .title(Component.translatable("itemGroup." + ArsMagicaApi.MOD_ID + ".main"))
         .icon(ArsMagicaApi.book()::create)
         .displayItems((display, output) -> {
             output.accept(AMItems.LIQUID_ETHERIUM_BUCKET);
@@ -127,6 +128,22 @@ public interface AMCreativeTabs {
             output.accept(AMItems.CRYSTAL_PHYLACTERY);
             CrystalPhylacteryItem.addToCreativeTab(output::accept);
         })
+        .build());
+    // TODO fix
+    DeferredHolder<CreativeModeTab, CreativeModeTab> SPELL_PREFABS = CREATIVE_TABS.register("spell_prefabs", () -> CreativeModeTab.builder()
+        .title(Component.translatable("itemGroup." + ArsMagicaApi.MOD_ID + ".spell_prefabs"))
+        .icon(AMItems.SPELL_PARCHMENT::toStack)
+        .displayItems((display, output) -> ArsMagicaApi.spellPrefabManager()
+            .getAll()
+            .entrySet()
+            .stream()
+            .sorted(Map.Entry.comparingByKey())
+            .map(Map.Entry::getValue)
+            .forEach(spell -> {
+                ItemStack stack = AMItems.SPELL.toStack();
+                stack.set(AMDataComponents.SPELL, spell);
+                output.accept(stack);
+            }))
         .build());
 
     @SafeVarargs

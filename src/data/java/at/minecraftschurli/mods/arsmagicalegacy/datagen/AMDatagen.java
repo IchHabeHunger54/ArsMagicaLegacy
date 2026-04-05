@@ -2,7 +2,6 @@ package at.minecraftschurli.mods.arsmagicalegacy.datagen;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
-import at.minecraftschurli.mods.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.assets.AMEquipmentAssetProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.assets.AMLanguageProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.assets.AMModelProvider;
@@ -24,6 +23,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMPlantProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMRecipeProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMRitualProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMSpellPartDataProvider;
+import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMSpellPrefabProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMTagsProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMToolTierProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMWorldgenProvider;
@@ -89,6 +89,7 @@ public final class AMDatagen {
         pack.addProvider(wrap(AMRecipeProvider.Runner::new, lookupProvider));
         pack.addProvider(wrap(AMRitualProvider::new, lookupProvider));
         pack.addProvider(wrap(AMSpellPartDataProvider::new, lookupProvider));
+        pack.addProvider(wrap(AMSpellPrefabProvider::new, lookupProvider));
         pack.addProvider(wrap(AMToolTierProvider::new, lookupProvider));
         pack.addProvider(wrap(AMModelProvider::new, lookupProvider));
         pack.addProvider(AMEquipmentAssetProvider::new);

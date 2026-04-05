@@ -129,7 +129,6 @@ public interface AMCreativeTabs {
             CrystalPhylacteryItem.addToCreativeTab(output::accept);
         })
         .build());
-    // TODO fix
     DeferredHolder<CreativeModeTab, CreativeModeTab> SPELL_PREFABS = CREATIVE_TABS.register("spell_prefabs", () -> CreativeModeTab.builder()
         .title(Component.translatable("itemGroup." + ArsMagicaApi.MOD_ID + ".spell_prefabs"))
         .icon(AMItems.SPELL_PARCHMENT::toStack)

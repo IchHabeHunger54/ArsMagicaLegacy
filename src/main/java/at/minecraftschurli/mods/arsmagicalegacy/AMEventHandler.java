@@ -228,6 +228,7 @@ final class AMEventHandler {
         addListener(event, ArsMagicaApi.plantManager());
         addListener(event, ArsMagicaApi.ritualManager());
         addListener(event, ArsMagicaApi.spellPartDataManager());
+        addListener(event, ArsMagicaApi.spellPrefabManager());
         event.addListener(ToolTiers.ID, ToolTiers.INSTANCE);
     }
 

@@ -170,12 +170,13 @@ final class SpellHelperImpl implements SpellHelper {
                     result.setMessage(message);
                 }
             }
-            spell = componentResult.getSpell();
+            context = context.setSpell(componentResult.getSpell());
             if (level.isClientSide()) {
                 component.spawnParticles(modifiers, context);
             }
             NeoForge.EVENT_BUS.post(new SpellPartCastEvent.Component(component, modifiers, context));
         }
+        spell = context.spell();
         SpellDamage damage = spell.dataComponents().grammar().get(AMDataComponents.SPELL_DAMAGE.get());
         if (damage != null) {
             damage.apply(level, context.caster(), context.directEntity());

@@ -14,9 +14,10 @@
       "count": 1,
       "item": {
         "neoforge:ingredient_type": "neoforge:components",
-        "components": {},
-        "items": "minecraft:iron_axe",
-        "strict": true
+        "components": {
+          "minecraft:damage": 0
+        },
+        "items": "minecraft:iron_axe"
       }
     },
     {
@@ -24,9 +25,10 @@
       "count": 1,
       "item": {
         "neoforge:ingredient_type": "neoforge:components",
-        "components": {},
-        "items": "minecraft:iron_pickaxe",
-        "strict": true
+        "components": {
+          "minecraft:damage": 0
+        },
+        "items": "minecraft:iron_pickaxe"
       }
     },
     {
@@ -34,9 +36,21 @@
       "count": 1,
       "item": {
         "neoforge:ingredient_type": "neoforge:components",
-        "components": {},
-        "items": "minecraft:iron_shovel",
-        "strict": true
+        "components": {
+          "minecraft:damage": 0
+        },
+        "items": "minecraft:iron_shovel"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "neoforge:ingredient_type": "neoforge:components",
+        "components": {
+          "minecraft:damage": 0
+        },
+        "items": "minecraft:iron_hoe"
       }
     }
   ]

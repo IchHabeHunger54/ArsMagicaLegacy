@@ -28,8 +28,7 @@
             "potion": "minecraft:harming"
           }
         },
-        "items": "minecraft:potion",
-        "strict": true
+        "items": "minecraft:potion"
       }
     }
   ]

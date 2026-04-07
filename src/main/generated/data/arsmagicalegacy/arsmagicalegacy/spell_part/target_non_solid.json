@@ -33,8 +33,7 @@
             "potion": "minecraft:water"
           }
         },
-        "items": "minecraft:potion",
-        "strict": true
+        "items": "minecraft:potion"
       }
     }
   ]

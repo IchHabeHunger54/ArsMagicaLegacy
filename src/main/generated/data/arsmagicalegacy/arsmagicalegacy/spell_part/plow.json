@@ -14,9 +14,10 @@
       "count": 1,
       "item": {
         "neoforge:ingredient_type": "neoforge:components",
-        "components": {},
-        "items": "minecraft:iron_hoe",
-        "strict": true
+        "components": {
+          "minecraft:damage": 0
+        },
+        "items": "minecraft:iron_hoe"
       }
     }
   ]

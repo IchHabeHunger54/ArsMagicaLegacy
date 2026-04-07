@@ -65,7 +65,7 @@ public abstract class AbstractBossGoal<T extends AbstractBoss> extends Goal {
         boss.lookAt(target, 30, 30);
         if (boss.distanceToSqr(target) > 64) {
             double angle = -Math.atan2(target.getZ() - boss.getZ(), target.getX() - boss.getX());
-            boss.getNavigation().teleportTo(target.getX() + Math.cos(angle) * 6, target.getY(), target.getZ() + Math.sin(angle) * 6, 0.5f);
+            boss.getNavigation().moveTo(target.getX() + Math.cos(angle) * 6, target.getY(), target.getZ() + Math.sin(angle) * 6, 0.5f);
         }
         ticks++;
         performTick();

@@ -1,7 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.mods.arsmagicalegacy.AMServerConfig;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -17,8 +16,7 @@ import java.util.List;
 public class MeltArmor extends SpellComponent.CastEntity {
     @Override
     public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
-        Spell spell = context.spell();
-        if (!(hitResult.getEntity() instanceof LivingEntity entity)) return SpellComponentCastResult.pass(spell);
+        if (!(hitResult.getEntity() instanceof LivingEntity entity)) return SpellComponentCastResult.pass();
         for (EquipmentSlot slot : EquipmentSlotGroup.ARMOR) {
             ItemStack stack = entity.getItemBySlot(slot);
             if (stack.isDamageableItem()) {
@@ -26,6 +24,6 @@ public class MeltArmor extends SpellComponent.CastEntity {
                 stack.setDamageValue((int) (damage * AMServerConfig.MELT_ARMOR_FACTOR.get()));
             }
         }
-        return SpellComponentCastResult.success(spell);
+        return SpellComponentCastResult.success();
     }
 }

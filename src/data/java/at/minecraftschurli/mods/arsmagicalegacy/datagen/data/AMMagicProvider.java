@@ -1,23 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.datagen.data;
 
-import at.minecraftschurli.mods.arsmagicalegacy.ability.AttributeAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.ability.DamageModifierAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.ability.EffectAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.ability.EffectResistanceAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.ability.EndermanPumpkinAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.ability.ExtraDamageAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.ability.FirePunchAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.ability.FrostPunchAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.ability.FrostWalkerAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.ability.JumpBoostAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.ability.KillEffectAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.ability.LightHealthModifierAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.ability.ManaCostModifierAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.ability.NetherDamageAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.ability.SpellCastEffectAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.ability.ThornsAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.ability.WaterDamageAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.ability.WaterHealthModifierAbilityEffect;
+import at.minecraftschurli.mods.arsmagicalegacy.ability.*;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ability.Ability;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ability.AbilityEffect;
@@ -38,20 +21,11 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellGrammar;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPartData;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPrefab;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellShapeGroup;
 import at.minecraftschurli.mods.arsmagicalegacy.block.CelestialPrismBlock;
 import at.minecraftschurli.mods.arsmagicalegacy.compat.patchouli.AMMultiblocks;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMAbilities;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMBlocks;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMEntities;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMEtheriumTypes;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMItems;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMMagic;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMMobEffects;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMParticles;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMSpells;
+import at.minecraftschurli.mods.arsmagicalegacy.init.*;
 import at.minecraftschurli.mods.arsmagicalegacy.ritual.effect.LearnSkillRitualEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.ritual.effect.SetBlockRitualEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.ritual.effect.SpawnEntityRitualEffect;
@@ -846,7 +820,7 @@ public final class AMMagicProvider {
             new ItemSpellIngredient(Ingredient.of(AMItems.CHIMERITE.get()), 1));
     }
 
-    public static void addSpellPrefabs(BootstrapContext<Spell> bootstrap) {
+    public static void addSpellPrefabs(BootstrapContext<SpellPrefab> bootstrap) {
         spellPrefab(bootstrap, "water_bolt", "beam_blue_3",
             List.of(AMSpells.DROWNING_DAMAGE.get()),
             List.of(AMSpells.PROJECTILE.get()));
@@ -1052,13 +1026,11 @@ public final class AMMagicProvider {
         return ResourceKey.create(AMRegistries.Keys.SPELL_PART_DATA, AMRegistries.SPELL_PARTS.getKey(part.get()));
     }
 
-    private static void spellPrefab(BootstrapContext<Spell> bootstrap, String name, String icon, List<SpellPart> grammar, List<SpellPart> shapeGroup) {
-        bootstrap.register(ResourceKey.create(AMRegistries.Keys.SPELL_PREFAB, ArsMagicaApi.id(name)), new Spell(
+    private static void spellPrefab(BootstrapContext<SpellPrefab> bootstrap, String name, String icon, List<SpellPart> grammar, List<SpellPart> shapeGroup) {
+        bootstrap.register(ResourceKey.create(AMRegistries.Keys.SPELL_PREFAB, ArsMagicaApi.id(name)), new SpellPrefab(
             Optional.of(Component.translatable("spell_prefab." + ArsMagicaApi.MOD_ID + "." + name)),
-            Optional.of(ArsMagicaApi.id(icon)),
-            List.of(SpellShapeGroup.of(shapeGroup)),
-            0,
-            SpellGrammar.of(grammar),
+            ArsMagicaApi.id(icon),
+            new Spell(List.of(SpellShapeGroup.of(shapeGroup)), SpellGrammar.of(grammar)),
             SpellDataComponentMap.EMPTY
         ));
     }

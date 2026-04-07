@@ -1,7 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -22,17 +21,16 @@ public class Transplace extends SpellComponent.CastEntity {
 
     @Override
     public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
-        Spell spell = context.spell();
         LivingEntity caster = context.caster();
         Entity entity = hitResult.getEntity();
         Component cancel = AMUtil.cancelTeleport(entity, caster);
-        if (cancel != null) return SpellComponentCastResult.failure(spell, cancel);
-        if (context.level().isClientSide() || caster == null) return SpellComponentCastResult.pass(spell);
+        if (cancel != null) return SpellComponentCastResult.failure(cancel);
+        if (context.level().isClientSide() || caster == null) return SpellComponentCastResult.pass();
         Vec3 targetPos = entity.position();
         Vec3 casterPos = caster.position();
         entity.teleportTo(casterPos.x(), casterPos.y(), casterPos.z());
         caster.teleportTo(targetPos.x(), targetPos.y(), targetPos.z());
-        return SpellComponentCastResult.success(spell);
+        return SpellComponentCastResult.success();
     }
 
     @Override
@@ -41,7 +39,7 @@ public class Transplace extends SpellComponent.CastEntity {
         if (caster == null || !(context.hitResult() instanceof EntityHitResult entityHitResult)) return;
         super.spawnParticles(modifiers, context);
         if (entityHitResult.getEntity() instanceof LivingEntity living) {
-            AMClientUtil.spawnParticles(CASTER_PARTICLES, living.position(), ArsMagicaApi.spellHelper().getColor(modifiers, context.spell(), -1), living, living, new EntityHitResult(caster));
+            AMClientUtil.spawnParticles(CASTER_PARTICLES, living.position(), ArsMagicaApi.spellHelper().getColor(modifiers, context.spellData(), -1), living, living, new EntityHitResult(caster));
         }
     }
 }

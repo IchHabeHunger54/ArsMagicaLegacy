@@ -5,6 +5,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Affinity;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
 public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List<SpellModifier>>> components) {
     public static final int MAX_PARTS = 8;
     public static final SpellGrammar EMPTY = new SpellGrammar(List.of(), List.of());
-    public static final Codec<SpellGrammar> CODEC = AMRegistries.SPELL_PARTS.byNameCodec().listOf(0, MAX_PARTS).fieldOf("parts").xmap(SpellGrammar::of, SpellGrammar::parts).codec();
+    public static final Codec<SpellGrammar> CODEC = AMRegistries.SPELL_PARTS.byNameCodec().listOf(0, MAX_PARTS).xmap(SpellGrammar::of, SpellGrammar::parts);
     public static final StreamCodec<RegistryFriendlyByteBuf, SpellGrammar> STREAM_CODEC = ByteBufCodecs.registry(AMRegistries.Keys.SPELL_PART).apply(ByteBufCodecs.list()).map(SpellGrammar::of, SpellGrammar::parts);
 
     /**
@@ -85,16 +86,11 @@ public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List
         return parts.isEmpty();
     }
 
-    /**
-     * @param registryAccess The {@link RegistryAccess} to use.
-     * @return The combined mana cost of the spell grammar.
-     */
-    public double getManaCost(RegistryAccess registryAccess) {
+    /// @param registries The [HolderLookup.Provider] to use.
+    /// @return The combined mana cost of the spell grammar.
+    public double getManaCost(HolderLookup.Provider registries) {
         return components.stream()
-            .mapToDouble(pair -> pair.getFirst().getData(registryAccess).mana() * pair.getSecond()
-                .stream()
-                .mapToDouble(e -> e.getData(registryAccess).mana())
-                .reduce(1, (a, b) -> a * b))
+            .mapToDouble(pair -> SpellPart.computeManaCost(pair.getFirst(), pair.getSecond(), registries))
             .sum();
     }
 

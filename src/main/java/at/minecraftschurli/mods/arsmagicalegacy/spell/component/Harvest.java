@@ -3,7 +3,6 @@ package at.minecraftschurli.mods.arsmagicalegacy.spell.component;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.plant.GrowthContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.plant.Plant;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -39,12 +38,11 @@ public class Harvest extends SpellComponent.CastBlock {
 
     @Override
     public SpellComponentCastResult castBlock(List<SpellModifier> modifiers, SpellCastContext context, BlockHitResult hitResult) {
-        Spell spell = context.spell();
-        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.pass(spell);
+        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.pass();
         ServerPlayer player = context.caster() instanceof ServerPlayer p ? p : FakePlayerFactory.get(level, GAME_PROFILE);
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
-        if (state.getBlock() instanceof GameMasterBlock && !player.canUseGameMasterBlocks() || player.blockActionRestricted(level, pos, player.gameMode.getGameModeForPlayer())) return SpellComponentCastResult.pass(spell);
+        if (state.getBlock() instanceof GameMasterBlock && !player.canUseGameMasterBlocks() || player.blockActionRestricted(level, pos, player.gameMode.getGameModeForPlayer())) return SpellComponentCastResult.pass();
         for (Plant plant : AMUtil.getPlants(state, level.registryAccess())) {
             Map<ResourceKey<Enchantment>, SpellStat> enchantments = Map.of(Enchantments.FORTUNE, AMSpells.FORTUNE_STAT, Enchantments.SILK_TOUCH, AMSpells.SILK_TOUCH_STAT);
             ItemStack tool = plant.tool()
@@ -59,6 +57,6 @@ public class Harvest extends SpellComponent.CastBlock {
             });
             break;
         }
-        return SpellComponentCastResult.success(spell);
+        return SpellComponentCastResult.success();
     }
 }

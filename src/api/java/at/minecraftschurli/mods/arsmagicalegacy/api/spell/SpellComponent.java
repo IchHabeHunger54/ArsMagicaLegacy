@@ -85,7 +85,7 @@ public abstract non-sealed class SpellComponent extends SpellPart {
 
         @Override
         public SpellComponentCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
-            return context.hitResult() instanceof BlockHitResult blockHitResult ? castBlock(modifiers, context, blockHitResult) : SpellComponentCastResult.pass(context.spell());
+            return context.hitResult() instanceof BlockHitResult blockHitResult ? castBlock(modifiers, context, blockHitResult) : SpellComponentCastResult.pass();
         }
 
         @Override
@@ -119,7 +119,7 @@ public abstract non-sealed class SpellComponent extends SpellPart {
 
         @Override
         public SpellComponentCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
-            return context.hitResult() instanceof EntityHitResult entityHitResult ? castEntity(modifiers, context, entityHitResult) : SpellComponentCastResult.pass(context.spell());
+            return context.hitResult() instanceof EntityHitResult entityHitResult ? castEntity(modifiers, context, entityHitResult) : SpellComponentCastResult.pass();
         }
 
         @Override
@@ -156,7 +156,7 @@ public abstract non-sealed class SpellComponent extends SpellPart {
             return switch (context.hitResult()) {
                 case BlockHitResult blockHitResult -> castBlock(modifiers, context, blockHitResult);
                 case EntityHitResult entityHitResult -> castEntity(modifiers, context, entityHitResult);
-                case null, default -> SpellComponentCastResult.pass(context.spell());
+                case null, default -> SpellComponentCastResult.pass();
             };
         }
 

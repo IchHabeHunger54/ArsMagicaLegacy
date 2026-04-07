@@ -27,6 +27,6 @@ public class CreateWater extends SpellComponent.CastBlock {
                 level.setBlockAndUpdate(offsetPos, Blocks.WATER.defaultBlockState());
             }
         }
-        return SpellComponentCastResult.success(context.spell());
+        return SpellComponentCastResult.success();
     }
 }

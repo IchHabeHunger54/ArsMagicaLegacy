@@ -1,9 +1,10 @@
 package at.minecraftschurli.mods.arsmagicalegacy.client.layer;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMCapabilities;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.MutableSpellFacade;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellShapeGroup;
 import at.minecraftschurli.mods.arsmagicalegacy.client.AMClientConfig;
@@ -42,7 +43,7 @@ public class ShapeGroupsLayer implements GuiLayer {
             item = player.getOffhandItem();
             if (!item.is(AMTags.Items.SHOWS_SPELL_VISUALS) || !item.has(AMDataComponents.SPELL)) return;
         }
-        Spell spell = item.get(AMDataComponents.SPELL);
+        MutableSpellFacade spell = item.getCapability(AMCapabilities.SPELL);
         int x = AMClientConfig.SHAPE_GROUPS_X_ANCHOR.get().getLocation(AMClientConfig.SHAPE_GROUPS_X);
         int y = AMClientConfig.SHAPE_GROUPS_Y_ANCHOR.get().getLocation(AMClientConfig.SHAPE_GROUPS_Y);
         graphics.pose().pushMatrix();

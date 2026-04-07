@@ -27,7 +27,7 @@ public class Ignition extends SpellComponent.CastBoth {
     public SpellComponentCastResult castBlock(List<SpellModifier> modifiers, SpellCastContext context, BlockHitResult hitResult) {
         ItemStack stack = new ItemStack(Items.FLINT_AND_STEEL);
         stack.useOn(new UseOnContext(context.level(), context.caster() instanceof Player player ? player : null, InteractionHand.MAIN_HAND, stack, hitResult));
-        return SpellComponentCastResult.success(context.spell());
+        return SpellComponentCastResult.success();
     }
 
     @Override
@@ -38,6 +38,6 @@ public class Ignition extends SpellComponent.CastBoth {
         } else if (!target.isOnFire() && !target.isInWaterOrRain()) {
             target.setRemainingFireTicks((int) ArsMagicaApi.spellHelper().getModifiedStat(60, AMSpells.DURATION_STAT, modifiers, context));
         }
-        return SpellComponentCastResult.success(context.spell());
+        return SpellComponentCastResult.success();
     }
 }

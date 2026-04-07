@@ -1,7 +1,9 @@
 package at.minecraftschurli.mods.arsmagicalegacy.item;
 
+import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMCapabilities;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.MutableSpellFacade;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.mods.arsmagicalegacy.menu.SpellBookMenu;
 import at.minecraftschurli.mods.arsmagicalegacy.container.SpellBookContainer;
@@ -23,6 +25,7 @@ import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.access.ItemAccess;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.VanillaContainerWrapper;
+import org.jspecify.annotations.Nullable;
 
 import java.util.function.Consumer;
 
@@ -106,5 +109,12 @@ public class SpellBookItem extends Item {
         if (index < 0 || index >= HOTBAR_SLOTS) return ItemStack.EMPTY;
         ItemContainerContents container = stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY);
         return index < container.getSlots() ? container.getStackInSlot(index) : ItemStack.EMPTY;
+    }
+
+    public static @Nullable MutableSpellFacade getSpellCap(ItemStack stack, @Nullable Void ignoredUnused) {
+        if (!(stack.getItem() instanceof SpellBookItem)) return null;
+        ItemStack spellStack = getSelectedSpell(stack);
+        if (spellStack.isEmpty()) return null;
+        return spellStack.getCapability(AMCapabilities.SPELL);
     }
 }

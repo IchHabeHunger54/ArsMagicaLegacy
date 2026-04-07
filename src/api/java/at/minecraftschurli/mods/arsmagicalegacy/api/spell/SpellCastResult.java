@@ -3,20 +3,23 @@ package at.minecraftschurli.mods.arsmagicalegacy.api.spell;
 import net.minecraft.network.chat.Component;
 import org.jspecify.annotations.Nullable;
 
+// TODO rework
 /**
  * Represents the result of a {@link Spell} cast. Holds the {@link Spell} itself, whether the {@link Spell} cast was successful, and an error message if one was set.
  */
 public final class SpellCastResult {
     private boolean success = false;
-    private Spell spell;
+    private SpellFacade spell;
     @Nullable
     private Component message = null;
 
-    /**
-     * @param spell The {@link Spell} to set on the result.
-     */
-    public SpellCastResult(Spell spell) {
+    public SpellCastResult(SpellFacade spell) {
         this.spell = spell;
+    }
+
+    public SpellCastResult(Component message) {
+        this.spell = SpellFacade.EMPTY;
+        this.message = message;
     }
 
     /**
@@ -36,18 +39,11 @@ public final class SpellCastResult {
         return this;
     }
 
-    /**
-     * @return The {@link Spell} of the result.
-     */
-    public Spell getSpell() {
+    public SpellFacade getSpell() {
         return spell;
     }
 
-    /**
-     * @param spell The {@link Spell} to set on the result.
-     * @return This object, for chaining.
-     */
-    public SpellCastResult setSpell(Spell spell) {
+    public SpellCastResult setSpell(SpellFacade spell) {
         this.spell = spell;
         return this;
     }

@@ -1,7 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -22,9 +21,8 @@ public class Rift extends SpellComponent.CastEntity {
 
     @Override
     public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
-        Spell spell = context.spell();
-        if (!(hitResult.getEntity() instanceof LivingEntity entity)) return SpellComponentCastResult.pass(spell);
-        if (!(context.caster() instanceof ServerPlayer player)) return SpellComponentCastResult.pass(spell);
+        if (!(hitResult.getEntity() instanceof LivingEntity entity)) return SpellComponentCastResult.pass();
+        if (!(context.caster() instanceof ServerPlayer player)) return SpellComponentCastResult.pass();
         int entityId = entity.getId();
         int size = (int) modifiers.stream()
             .filter(e -> e.getStats().contains(AMSpells.RANGE_STAT))
@@ -33,6 +31,6 @@ public class Rift extends SpellComponent.CastEntity {
             buf.writeInt(entityId);
             buf.writeInt(size);
         });
-        return SpellComponentCastResult.success(spell);
+        return SpellComponentCastResult.success();
     }
 }

@@ -28,7 +28,7 @@ public final class AltarStairStateMatcher implements IStateMatcher {
 
     @Override
     public BlockState getDisplayedState(long ticks) {
-        AltarMaterial material = AMUtil.getByTick(AMRegistries.altarMaterials(true)
+        AltarMaterial material = AMUtil.getByTick(AMRegistries.altarMaterials(AMRegistries.registryAccess(true))
             .stream()
             .toArray(AltarMaterial[]::new), (int) ticks / 20);
         return material.stair().defaultBlockState().setValue(StairBlock.FACING, direction).setValue(StairBlock.HALF, half);

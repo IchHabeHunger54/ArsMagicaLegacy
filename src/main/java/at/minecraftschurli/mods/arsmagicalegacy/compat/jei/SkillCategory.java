@@ -160,7 +160,7 @@ final class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
     public record Recipe(Holder<Skill> skill, List<SpellIngredient> recipe, Map<Holder<Affinity>, Double> affinityShifts, List<Skill> modifiers) {
         @SuppressWarnings("DataFlowIssue")
         public static Recipe of(Holder<Skill> skill, Set<Holder<Skill>> hiddenModifiers) {
-            Registry<Skill> skills = AMRegistries.skills(true);
+            Registry<Skill> skills = AMRegistries.skills(AMRegistries.registryAccess(true));
             Registry<SpellPart> spellParts = AMRegistries.SPELL_PARTS;
             SpellPart part = spellParts.getValue(skills.getKey(skill.value()));
             SpellPartData data = part.getData(AMClientUtil.level().registryAccess());

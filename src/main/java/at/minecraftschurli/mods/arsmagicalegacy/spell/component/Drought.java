@@ -1,6 +1,5 @@
 package at.minecraftschurli.mods.arsmagicalegacy.spell.component;
 
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -24,22 +23,21 @@ import java.util.Optional;
 public class Drought extends SpellComponent.CastBlock {
     @Override
     public SpellComponentCastResult castBlock(List<SpellModifier> modifiers, SpellCastContext context, BlockHitResult hitResult) {
-        Spell spell = context.spell();
         Level level = context.level();
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
         BlockPos normalPos = pos.offset(hitResult.getDirection().getUnitVec3i());
         if (state.hasProperty(BlockStateProperties.WATERLOGGED) && state.getValue(BlockStateProperties.WATERLOGGED)) {
             level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.WATERLOGGED, false));
-            return SpellComponentCastResult.success(spell);
+            return SpellComponentCastResult.success();
         }
-        if (!(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.pass(spell);
+        if (!(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.pass();
         Optional<RecipeHolder<SpellTransformationRecipe>> optional = serverLevel.recipeAccess().getRecipeFor(AMRecipes.SPELL_TRANSFORMATION_TYPE.get(), new SpellTransformationInput(state, AMSpells.DROUGHT), level);
         if (optional.isPresent()) {
             level.setBlockAndUpdate(pos, optional.get().value().result());
         } else if (level.getBlockState(normalPos).is(Blocks.WATER)) {
             level.setBlockAndUpdate(normalPos, Blocks.AIR.defaultBlockState());
         }
-        return SpellComponentCastResult.success(spell);
+        return SpellComponentCastResult.success();
     }
 }

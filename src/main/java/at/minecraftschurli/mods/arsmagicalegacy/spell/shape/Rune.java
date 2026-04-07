@@ -3,7 +3,6 @@ package at.minecraftschurli.mods.arsmagicalegacy.spell.shape;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SecondarySpellShape;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellModifier;
@@ -36,10 +35,9 @@ public class Rune extends SecondarySpellShape {
 
     @Override
     public SpellCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
-        Spell spell = context.spell();
         Level level = context.level();
-        if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return new SpellCastResult(spell);
-        if (!(context.hitResult() instanceof BlockHitResult blockHitResult)) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_NO_BLOCK);
+        if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return new SpellCastResult(context);
+        if (!(context.hitResult() instanceof BlockHitResult blockHitResult)) return new SpellCastResult(context).setMessage(AMTranslations.SPELL_FAIL_NO_BLOCK);
         LivingEntity caster = context.caster();
         ServerPlayer player = caster instanceof ServerPlayer p ? p : FakePlayerFactory.get(serverLevel, GAME_PROFILE);
         Direction direction = blockHitResult.getDirection();
@@ -49,6 +47,6 @@ public class Rune extends SecondarySpellShape {
         if (level.getBlockEntity(pos) instanceof SpellRuneBlockEntity spellRune) {
             spellRune.setData(context, (int) ArsMagicaApi.spellHelper().getModifiedStat(1, AMSpells.RUNE_POWER_STAT, modifiers, context));
         }
-        return new SpellCastResult(spell).setSuccess();
+        return new SpellCastResult(context).setSuccess();
     }
 }

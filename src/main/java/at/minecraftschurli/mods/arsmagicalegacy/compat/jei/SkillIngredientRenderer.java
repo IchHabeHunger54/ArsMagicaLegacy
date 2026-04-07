@@ -19,6 +19,6 @@ final class SkillIngredientRenderer implements IIngredientRenderer<Skill> {
 
     @Override
     public List<Component> getTooltip(Skill skill, TooltipFlag tooltipFlag) {
-        return List.of(Skill.getName(AMRegistries.skills(true).wrapAsHolder(skill)));
+        return List.of(Skill.getName(AMRegistries.skills(AMRegistries.registryAccess(true)).wrapAsHolder(skill)));
     }
 }

@@ -1,9 +1,10 @@
 package at.minecraftschurli.mods.arsmagicalegacy.init;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMCapabilities;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Affinity;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.MutableSpellFacade;
 import at.minecraftschurli.mods.arsmagicalegacy.item.CrystalPhylacteryItem;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -145,17 +146,20 @@ public interface AMCreativeTabs {
     DeferredHolder<CreativeModeTab, CreativeModeTab> SPELL_PREFABS = CREATIVE_TABS.register("spell_prefabs", () -> CreativeModeTab.builder()
         .title(Component.translatable("itemGroup." + ArsMagicaApi.MOD_ID + ".spell_prefabs"))
         .icon(AMItems.SPELL_PARCHMENT::toStack)
-        .displayItems((display, output) -> {
-            HolderLookup.RegistryLookup<Spell> lookup = display.holders().lookupOrThrow(AMRegistries.Keys.SPELL_PREFAB);
-            lookup.listElements()
-                .sorted(Comparator.comparing(holder -> Objects.requireNonNull(holder.getKey())))
-                .map(Holder::value)
-                .forEach(spell -> {
-                    ItemStack stack = AMItems.SPELL.toStack();
-                    stack.set(AMDataComponents.SPELL, spell);
-                    output.accept(stack);
-                });
-        })
+        .displayItems((display, output) -> display.holders().lookupOrThrow(AMRegistries.Keys.SPELL_PREFAB)
+            .listElements()
+            .sorted(Comparator.comparing(Holder.Reference::key))
+            .map(Holder::value)
+            .forEach(spell -> {
+                ItemStack stack = AMItems.SPELL.toStack();
+                spell.name().ifPresentOrElse(
+                    name -> stack.set(AMDataComponents.SPELL_NAME, name),
+                    () -> stack.remove(AMDataComponents.SPELL_NAME));
+                stack.set(AMDataComponents.SPELL_ICON, spell.icon());
+                stack.set(AMDataComponents.SPELL, spell.spell());
+                stack.set(AMDataComponents.SPELL_DATA, spell.spellData());
+                output.accept(stack);
+            }))
         .build());
 
     @SafeVarargs

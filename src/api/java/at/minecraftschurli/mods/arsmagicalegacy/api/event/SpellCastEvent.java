@@ -1,6 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.api.event;
 
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellFacade;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.bus.api.ICancellableEvent;
@@ -17,7 +17,7 @@ public abstract class SpellCastEvent extends SpellEvent {
     private final double mana;
     private final double burnout;
 
-    public SpellCastEvent(LivingEntity entity, Spell spell, double mana, double burnout) {
+    public SpellCastEvent(LivingEntity entity, SpellFacade spell, double mana, double burnout) {
         super(entity, spell);
         this.mana = mana;
         this.burnout = burnout;
@@ -50,7 +50,7 @@ public abstract class SpellCastEvent extends SpellEvent {
         private boolean awardXp;
         private Component message = Component.empty();
 
-        public Pre(LivingEntity entity, Spell spell, double mana, double burnout, boolean consume, boolean awardXp) {
+        public Pre(LivingEntity entity, SpellFacade spell, double mana, double burnout, boolean consume, boolean awardXp) {
             super(entity, spell, mana, burnout);
             originalConsume = consume;
             originalAwardXp = awardXp;
@@ -147,7 +147,7 @@ public abstract class SpellCastEvent extends SpellEvent {
         private final boolean consume;
         private final boolean awardXp;
 
-        public Post(LivingEntity entity, Spell spell, double mana, double burnout, boolean consume, boolean awardXp) {
+        public Post(LivingEntity entity, SpellFacade spell, double mana, double burnout, boolean consume, boolean awardXp) {
             super(entity, spell, mana, burnout);
             this.consume = consume;
             this.awardXp = awardXp;

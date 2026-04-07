@@ -5,7 +5,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.BurnoutHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.ManaHelper;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -42,32 +41,31 @@ public class Dig extends SpellComponent.CastBlock {
 
     @Override
     public SpellComponentCastResult castBlock(List<SpellModifier> modifiers, SpellCastContext context, BlockHitResult hitResult) {
-        Spell spell = context.spell();
-        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.pass(spell);
+        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.pass();
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
         float hardness = state.getDestroySpeed(level, pos);
-        if (hardness < 0) return SpellComponentCastResult.pass(spell);
+        if (hardness < 0) return SpellComponentCastResult.pass();
         SpellHelper helper = ArsMagicaApi.spellHelper();
         TagKey<Block> incorrectTag = helper.getIncorrectTagForToolTier((int) helper.getModifiedStat(AMServerConfig.DIG_TOOL_TIER.get(), AMSpells.MINING_POWER_STAT, modifiers, context));
-        if (state.requiresCorrectToolForDrops() && state.is(incorrectTag)) return SpellComponentCastResult.pass(spell);
+        if (state.requiresCorrectToolForDrops() && state.is(incorrectTag)) return SpellComponentCastResult.pass();
         LivingEntity caster = context.caster();
         ServerPlayer player = caster instanceof ServerPlayer p ? p : FakePlayerFactory.get(level, GAME_PROFILE);
         Block block = state.getBlock();
-        if (block instanceof GameMasterBlock && !player.canUseGameMasterBlocks() || player.blockActionRestricted(level, pos, player.gameMode.getGameModeForPlayer())) return SpellComponentCastResult.pass(spell);
+        if (block instanceof GameMasterBlock && !player.canUseGameMasterBlocks() || player.blockActionRestricted(level, pos, player.gameMode.getGameModeForPlayer())) return SpellComponentCastResult.pass();
         if (context.consume() && caster != null && !player.isCreative()) {
             double manaCost = hardness * AMServerConfig.DIG_MANA_FACTOR.get();
             ManaHelper manaHelper = ArsMagicaApi.manaHelper();
             BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
-            if (manaHelper.getMana(caster) <= manaCost) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NOT_ENOUGH_MANA);
-            if (burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) <= manaCost) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_BURNED_OUT);
+            if (manaHelper.getMana(caster) <= manaCost) return SpellComponentCastResult.failure(AMTranslations.SPELL_FAIL_NOT_ENOUGH_MANA);
+            if (burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) <= manaCost) return SpellComponentCastResult.failure(AMTranslations.SPELL_FAIL_BURNED_OUT);
             manaHelper.decreaseMana(caster, manaCost);
             burnoutHelper.increaseBurnout(caster, manaCost);
         }
         ItemStack stack = AMUtil.getEnchantedSpell(modifiers, context, Map.of(Enchantments.FORTUNE, AMSpells.FORTUNE_STAT, Enchantments.SILK_TOUCH, AMSpells.SILK_TOUCH_STAT));
         stack.set(DataComponents.TOOL, new Tool(List.of(Tool.Rule.deniesDrops(level.registryAccess().getOrThrow(incorrectTag))), Float.MAX_VALUE, 0, true));
-        if (AMUtil.cancelDestroyBlock(level, pos, state, player, stack)) return SpellComponentCastResult.success(spell);
+        if (AMUtil.cancelDestroyBlock(level, pos, state, player, stack)) return SpellComponentCastResult.success();
         Block.dropResources(state, level, pos, level.getBlockEntity(pos), player, stack);
-        return SpellComponentCastResult.success(spell);
+        return SpellComponentCastResult.success();
     }
 }

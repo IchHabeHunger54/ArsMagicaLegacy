@@ -1,9 +1,10 @@
 package at.minecraftschurli.mods.arsmagicalegacy.slot;
 
+import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMCapabilities;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.MutableSpellFacade;
 import at.minecraftschurli.mods.arsmagicalegacy.blockentity.InscriptionTableBlockEntity;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
 import net.minecraft.core.BlockPos;
@@ -30,8 +31,9 @@ public class InscriptionTableSlot extends PlacePredicateSlot {
     @Override
     public void set(ItemStack stack) {
         super.set(stack);
-        if (stack.has(AMDataComponents.SPELL)) {
-            blockEntity.setMenuData(InscriptionTableBlockEntity.MenuData.fromSpell(stack.get(AMDataComponents.SPELL), blockEntity.getLevel().registryAccess()));
+        MutableSpellFacade capability = stack.getCapability(AMCapabilities.SPELL);
+        if (capability != null) {
+            blockEntity.setMenuData(InscriptionTableBlockEntity.MenuData.fromSpell(capability, blockEntity.getLevel().registryAccess()));
         }
     }
 

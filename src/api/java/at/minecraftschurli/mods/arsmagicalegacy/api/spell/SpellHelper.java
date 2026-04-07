@@ -14,20 +14,21 @@ import java.util.List;
  * Helper for spell-related operations.
  */
 public interface SpellHelper {
+    // TODO possibly replace SpellFacade in cast chain with Spell, shapeGroup index and mutable spell data view
     /**
-     * Casts the given {@link Spell}.
+     * Casts the given {@link SpellFacade}.
      *
-     * @param spell   The {@link Spell} to cast.
-     * @param level   The {@link Level} the {@link Spell} is cast in.
-     * @param caster  The {@link LivingEntity} casting the {@link Spell}.
+     * @param spell   The {@link SpellFacade} to cast.
+     * @param level   The {@link Level} the {@link SpellFacade} is cast in.
+     * @param caster  The {@link LivingEntity} casting the {@link SpellFacade}.
      * @param consume Whether to consume mana and burnout or not.
      * @param awardXp Whether to award xp or not.
      * @return {@code null} if the cast was successful, or an error message if not.
      */
-    SpellCastResult cast(Spell spell, Level level, @Nullable LivingEntity caster, boolean consume, boolean awardXp);
+    SpellCastResult cast(SpellFacade spell, Level level, @Nullable LivingEntity caster, boolean consume, boolean awardXp);
 
     /**
-     * Casts the given {@link Spell}'s primary shape. Note that {@link SpellCastContext#directEntity()} and {@link SpellCastContext#hitResult()} are guaranteed to return null here.
+     * Casts the given {@link MutableSpellFacade}'s primary shape. Note that {@link SpellCastContext#directEntity()} and {@link SpellCastContext#hitResult()} are guaranteed to return null here.
      *
      * @param context The {@link SpellCastContext} to use.
      * @return A {@link SpellCastResult} representing the result of the cast.
@@ -36,7 +37,7 @@ public interface SpellHelper {
     SpellCastResult castPrimary(SpellCastContext context);
 
     /**
-     * Casts the given {@link Spell}'s secondary shape.
+     * Casts the given {@link MutableSpellFacade}'s secondary shape.
      *
      * @param context The {@link SpellCastContext} to use.
      * @return A {@link SpellCastResult} representing the result of the cast.
@@ -45,7 +46,7 @@ public interface SpellHelper {
     SpellCastResult castSecondary(SpellCastContext context);
 
     /**
-     * Casts the given {@link Spell}'s grammar.
+     * Casts the given {@link MutableSpellFacade}'s grammar.
      *
      * @param context The {@link SpellCastContext} to use.
      * @return A {@link SpellCastResult} representing the result of the cast.
@@ -53,7 +54,7 @@ public interface SpellHelper {
     SpellCastResult castGrammar(SpellCastContext context);
 
     /**
-     * If present, casts the given {@link Spell}'s secondary shape. Otherwise, casts the given {@link Spell}'s grammar.
+     * If present, casts the given {@link MutableSpellFacade}'s secondary shape. Otherwise, casts the given {@link MutableSpellFacade}'s grammar.
      *
      * @param context The {@link SpellCastContext} to use.
      * @return A {@link SpellCastResult} representing the result of the cast.
@@ -73,11 +74,11 @@ public interface SpellHelper {
 
     /**
      * @param modifiers       The {@link SpellModifier}s to check.
-     * @param spell           The {@link Spell} to cast.
+     * @param spellData       The {@link Spell} to cast.
      * @param shapeGroupIndex The index of the shape group to query the data components for. Pass a negative to use the grammar's data components instead.
      * @return The color of the {@link Spell}'s visual effects.
      */
-    int getColor(List<SpellModifier> modifiers, Spell spell, int shapeGroupIndex);
+    int getColor(List<SpellModifier> modifiers, SpellDataComponentMap spellData, int shapeGroupIndex);
 
     /**
      * @param part The {@link SpellPart} to query.
@@ -92,7 +93,7 @@ public interface SpellHelper {
      * @param contingency The name of the contingency to trigger the contingency {@link Spell} for.
      * @param spell       The {@link Spell} to cast when the contingency is triggered.
      */
-    void setContingency(LivingEntity entity, Identifier contingency, Spell spell);
+    void setContingency(LivingEntity entity, Identifier contingency, SpellFacade spell);
 
     /**
      * Triggers a contingency.

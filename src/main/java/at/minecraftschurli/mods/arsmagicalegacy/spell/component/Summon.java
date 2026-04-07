@@ -30,25 +30,24 @@ import java.util.List;
 public class Summon extends SpellComponent {
     @Override
     public SpellComponentCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
-        Spell spell = context.spell();
-        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.pass(spell);
+        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.pass();
         LivingEntity caster = context.caster();
-        if (caster == null) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_CASTER);
+        if (caster == null) return SpellComponentCastResult.failure(AMTranslations.SPELL_FAIL_NO_CASTER);
         HitResult hitResult = context.hitResult();
-        if (hitResult == null) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_HIT);
-        EntityType<?> type = spell.dataComponents().grammar().get(AMDataComponents.SPELL_SUMMON.get());
-        if (type == null) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_SUMMON_NO_SELECTION);
+        if (hitResult == null) return SpellComponentCastResult.failure(AMTranslations.SPELL_FAIL_NO_HIT);
+        EntityType<?> type = context.spellData().grammar().get(AMDataComponents.SPELL_SUMMON.get());
+        if (type == null) return SpellComponentCastResult.failure(AMTranslations.SPELL_FAIL_COMPONENT_SUMMON_NO_SELECTION);
         SummonMinionsAttachment attachment = caster.getData(AMAttachments.SUMMON_MINIONS);
-        if (attachment.size() >= ArsMagicaApi.spellHelper().getMaxSummons(caster)) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_SUMMON_TOO_MANY);
-        if (!(type.create(level, EntitySpawnReason.MOB_SUMMONED) instanceof Mob mob)) return SpellComponentCastResult.pass(spell);
+        if (attachment.size() >= ArsMagicaApi.spellHelper().getMaxSummons(caster)) return SpellComponentCastResult.failure(AMTranslations.SPELL_FAIL_COMPONENT_SUMMON_TOO_MANY);
+        if (!(type.create(level, EntitySpawnReason.MOB_SUMMONED) instanceof Mob mob)) return SpellComponentCastResult.pass();
         mob.setPos(hitResult.getLocation());
         EventHooks.finalizeMobSpawn(mob, level, level.getCurrentDifficultyAt(mob.blockPosition()), EntitySpawnReason.MOB_SUMMONED, null);
         if (context.consume() && !(caster instanceof Player player && player.isCreative())) {
             double manaCost = mob.getMaxHealth() * AMServerConfig.SUMMON_MANA_COST.get();
             ManaHelper manaHelper = ArsMagicaApi.manaHelper();
             BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
-            if (manaHelper.getMana(caster) <= manaCost) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NOT_ENOUGH_MANA);
-            if (burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) <= manaCost) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_BURNED_OUT);
+            if (manaHelper.getMana(caster) <= manaCost) return SpellComponentCastResult.failure(AMTranslations.SPELL_FAIL_NOT_ENOUGH_MANA);
+            if (burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) <= manaCost) return SpellComponentCastResult.failure(AMTranslations.SPELL_FAIL_BURNED_OUT);
             manaHelper.decreaseMana(caster, manaCost);
             burnoutHelper.increaseBurnout(caster, manaCost);
         }
@@ -62,7 +61,7 @@ public class Summon extends SpellComponent {
             animal.setOwner(caster);
         }
         level.addFreshEntity(mob);
-        return SpellComponentCastResult.success(spell);
+        return SpellComponentCastResult.success();
     }
 
     @Override

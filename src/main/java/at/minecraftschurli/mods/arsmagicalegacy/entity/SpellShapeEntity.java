@@ -1,7 +1,7 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellFacade;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSpells;
@@ -29,7 +29,7 @@ import java.util.function.Predicate;
 
 public abstract class SpellShapeEntity extends SpellEntity {
     private static final EntityDataAccessor<Boolean> TARGET_NON_SOLID = SynchedEntityData.defineId(SpellShapeEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Spell> SPELL = SynchedEntityData.defineId(SpellShapeEntity.class, AMSpells.DATA_SERIALIZER.get());
+    private static final EntityDataAccessor<SpellFacade.Immutable> SPELL = SynchedEntityData.defineId(SpellShapeEntity.class, AMSpells.DATA_SERIALIZER.get());
     private static final EntityDataAccessor<Boolean> CONSUME = SynchedEntityData.defineId(SpellShapeEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> AWARD_XP = SynchedEntityData.defineId(SpellShapeEntity.class, EntityDataSerializers.BOOLEAN);
     private static final String TARGET_NON_SOLID_KEY = "target_non_solid";
@@ -45,7 +45,7 @@ public abstract class SpellShapeEntity extends SpellEntity {
     protected void defineSynchedData(SynchedEntityData.Builder entityData) {
         super.defineSynchedData(entityData);
         entityData.define(TARGET_NON_SOLID, false)
-            .define(SPELL, Spell.EMPTY)
+            .define(SPELL, SpellFacade.EMPTY)
             .define(CONSUME, true)
             .define(AWARD_XP, true);
     }
@@ -53,7 +53,7 @@ public abstract class SpellShapeEntity extends SpellEntity {
     @Override
     protected void readData(ValueInput tag) {
         entityData.set(TARGET_NON_SOLID, tag.getBooleanOr(TARGET_NON_SOLID_KEY, false));
-        entityData.set(SPELL, tag.read(SPELL_KEY, Spell.CODEC).orElse(Spell.EMPTY));
+        entityData.set(SPELL, tag.read(SPELL_KEY, SpellFacade.Immutable.CODEC).orElse(SpellFacade.EMPTY));
         entityData.set(CONSUME, tag.getBooleanOr(CONSUME_KEY, true));
         entityData.set(AWARD_XP, tag.getBooleanOr(AWARD_XP_KEY, true));
     }
@@ -61,7 +61,7 @@ public abstract class SpellShapeEntity extends SpellEntity {
     @Override
     protected void writeData(ValueOutput tag) {
         tag.putBoolean(TARGET_NON_SOLID_KEY, entityData.get(TARGET_NON_SOLID));
-        tag.store(SPELL_KEY, Spell.CODEC, getSpell());
+        tag.store(SPELL_KEY, SpellFacade.Immutable.CODEC, getSpell());
         tag.putBoolean(CONSUME_KEY, entityData.get(CONSUME));
         tag.putBoolean(AWARD_XP_KEY, entityData.get(AWARD_XP));
     }
@@ -74,12 +74,12 @@ public abstract class SpellShapeEntity extends SpellEntity {
         entityData.set(TARGET_NON_SOLID, targetNonSolid);
     }
 
-    public Spell getSpell() {
+    public SpellFacade.Immutable getSpell() {
         return entityData.get(SPELL);
     }
 
-    public void setSpell(Spell spell) {
-        entityData.set(SPELL, spell);
+    public void setSpell(SpellFacade spell) {
+        entityData.set(SPELL, spell.asImmutable());
         LivingEntity owner = getOwner();
         if (owner != null) {
             owner.getItemInHand(InteractionHand.MAIN_HAND);
@@ -113,7 +113,7 @@ public abstract class SpellShapeEntity extends SpellEntity {
             entity = part.getParent();
         }
         if (!(entity instanceof SpellEntity) && entityPredicate.test(entity) && tryReflect(entity)) {
-            Spell spell = getSpell();
+            SpellFacade spell = getSpell();
             LivingEntity owner = getOwner();
             EntityHitResult hitResult = new EntityHitResult(entity);
             SpellCastResult result = secondary
@@ -124,7 +124,7 @@ public abstract class SpellShapeEntity extends SpellEntity {
     }
 
     protected void castArea(AABB aabb, Predicate<BlockPos> blockPredicate, Predicate<Entity> entityPredicate, boolean secondary) {
-        Spell spell = getSpell();
+        SpellFacade spell = getSpell();
         LivingEntity owner = getOwner();
         for (Entity entity : level().getEntities(this, aabb)) {
             castEntity(entity, entityPredicate, secondary);

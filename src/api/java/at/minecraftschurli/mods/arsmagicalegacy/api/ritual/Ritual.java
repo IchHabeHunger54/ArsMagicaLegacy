@@ -1,6 +1,7 @@
 package at.minecraftschurli.mods.arsmagicalegacy.api.ritual;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
+import com.google.common.base.Preconditions;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -28,6 +29,14 @@ public record Ritual<T>(List<RitualRequirement> requirements, RitualTrigger<T> t
         RitualEffect.CODEC.listOf().fieldOf("effects").forGetter(Ritual::effects)
     ).apply(inst, Ritual::new));
     public static final Codec<Holder<Ritual<?>>> CODEC = RegistryFileCodec.create(AMRegistries.Keys.RITUAL, DIRECT_CODEC);
+
+    public Ritual {
+        Preconditions.checkNotNull(requirements, "requirements cannot be null");
+        Preconditions.checkNotNull(trigger, "trigger cannot be null");
+        Preconditions.checkNotNull(effects, "effects cannot be null");
+        requirements = List.copyOf(requirements);
+        effects = List.copyOf(effects);
+    }
 
     /**
      * Performs the ritual.

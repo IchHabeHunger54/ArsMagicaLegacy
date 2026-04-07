@@ -65,11 +65,11 @@ public class SpellPartSourceArea extends DragArea {
     @Override
     public List<Draggable> getAll() {
         LocalPlayer player = AMClientUtil.player();
-        return player == null ? List.of() : AMRegistries.skills(true)
-            .listElements()
-            .filter(e -> ArsMagicaApi.magicHelper().knows(player, e))
-            .map(Draggable::new)
-            .toList();
+        return player == null ? List.of() : AMRegistries.skills(AMRegistries.registryAccess(true))
+                                            .listElements()
+                                            .filter(e -> ArsMagicaApi.magicHelper().knows(player, e))
+                                            .map(Draggable::new)
+                                            .toList();
     }
 
     @Override

@@ -9,6 +9,8 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import org.jspecify.annotations.Nullable;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -54,7 +56,9 @@ public abstract sealed class SpellPart permits PrimarySpellShape, SecondarySpell
      * @return The spell part's datapack-defined data.
      */
     public SpellPartData getData(RegistryAccess registryAccess) {
-        return AMRegistries.spellPartData(registryAccess).getOptional(AMRegistries.SPELL_PARTS.getKey(this)).orElse(SpellPartData.DEFAULT);
+        Identifier id = Objects.requireNonNull(AMRegistries.SPELL_PARTS.getKey(this));
+        ResourceKey<SpellPartData> key = ResourceKey.create(AMRegistries.Keys.SPELL_PART_DATA, id);
+        return AMRegistries.spellPartData(registryAccess).get(key).map(Holder::value).orElse(SpellPartData.DEFAULT);
     }
 
     /**
@@ -75,5 +79,17 @@ public abstract sealed class SpellPart permits PrimarySpellShape, SecondarySpell
     @Nullable
     public DataComponentType<?> getDataComponentType() {
         return null;
+    }
+
+    /// @param part       The spell part to compute the mana cost of.
+    /// @param modifiers  The modifiers to compute the mana cost with.
+    /// @param registries The {@link HolderLookup.Provider} to use.
+    /// @return The computed mana cost.
+    public static double computeManaCost(SpellPart part, List<SpellModifier> modifiers, HolderLookup.Provider registries) {
+        double modifiersCostFactor = modifiers
+            .stream()
+            .mapToDouble(e -> e.getData(registries).mana())
+            .reduce(1, (a, b) -> a * b);
+        return part.getData(registries).mana() * modifiersCostFactor;
     }
 }

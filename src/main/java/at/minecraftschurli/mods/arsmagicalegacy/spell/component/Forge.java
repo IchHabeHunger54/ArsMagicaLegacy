@@ -2,7 +2,6 @@ package at.minecraftschurli.mods.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.mods.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -36,15 +35,14 @@ import java.util.Optional;
 public class Forge extends SpellComponent.CastBoth {
     @Override
     public SpellComponentCastResult castBlock(List<SpellModifier> modifiers, SpellCastContext context, BlockHitResult hitResult) {
-        Spell spell = context.spell();
         Level level = context.level();
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
-        if (state.isAir()) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_HIT);
-        if (!(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.pass(spell);
+        if (state.isAir()) return SpellComponentCastResult.failure(AMTranslations.SPELL_FAIL_NO_HIT);
+        if (!(level instanceof ServerLevel serverLevel)) return SpellComponentCastResult.pass();
         SingleRecipeInput input = new SingleRecipeInput(new ItemStack(state.getBlock()));
         Optional<RecipeHolder<SmeltingRecipe>> recipe = serverLevel.recipeAccess().getRecipeFor(RecipeType.SMELTING, input, level);
-        if (recipe.isEmpty()) return SpellComponentCastResult.pass(spell);
+        if (recipe.isEmpty()) return SpellComponentCastResult.pass();
         ItemStack stack = recipe.get().value().assemble(input);
         level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
         if (stack.getItem() instanceof BlockItem blockItem) {
@@ -56,19 +54,18 @@ public class Forge extends SpellComponent.CastBoth {
             item.setDefaultPickUpDelay();
             level.addFreshEntity(item);
         }
-        return SpellComponentCastResult.success(spell);
+        return SpellComponentCastResult.success();
     }
 
     @Override
     public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
-        Spell spell = context.spell();
-        if (!AMServerConfig.FORGE_SMELTS_VILLAGERS.get() || !(hitResult.getEntity() instanceof Villager villager)) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_HIT);
-        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.pass(spell);
+        if (!AMServerConfig.FORGE_SMELTS_VILLAGERS.get() || !(hitResult.getEntity() instanceof Villager villager)) return SpellComponentCastResult.failure(AMTranslations.SPELL_FAIL_NO_HIT);
+        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.pass();
         LivingEntity caster = context.caster();
         ItemEntity item = new ItemEntity(level, villager.getX(), villager.getY(), villager.getZ(), new ItemStack(Items.EMERALD));
         item.setDefaultPickUpDelay();
         level.addFreshEntity(item);
         villager.hurtServer(level, caster instanceof Player player ? level.damageSources().playerAttack(player) : caster != null ? level.damageSources().mobAttack(caster) : level.damageSources().onFire(), 5000);
-        return SpellComponentCastResult.success(spell);
+        return SpellComponentCastResult.success();
     }
 }

@@ -2,7 +2,6 @@ package at.minecraftschurli.mods.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.mods.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -30,15 +29,14 @@ public class Storm extends SpellComponent {
 
     @Override
     public SpellComponentCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
-        Spell spell = context.spell();
-        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.pass(spell);
+        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.pass();
         SpellHelper helper = ArsMagicaApi.spellHelper();
         LivingEntity caster = context.caster();
         Entity directEntity = context.directEntity();
         if (!(level.getRainLevel(1f) > 0.9)) {
             Objects.requireNonNull(level.getServer()).setWeatherParameters(0, (int) helper.getModifiedStat(AMServerConfig.STORM_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context), true, true);
         }
-        if (directEntity == null) return SpellComponentCastResult.success(spell);
+        if (directEntity == null) return SpellComponentCastResult.success();
         int range = (int) helper.getModifiedStat(AMServerConfig.STORM_RANGE.get(), AMSpells.RANGE_STAT, modifiers, context);
         RandomSource random = level.getRandom();
         double randomValue = random.nextDouble();
@@ -60,9 +58,9 @@ public class Storm extends SpellComponent {
             }
         } else if (randomValue < AMServerConfig.STORM_LIGHTNING_BOLT_TARGET_CHANCE.get()) {
             List<Entity> entities = level.getEntities(caster, directEntity.getBoundingBox().inflate(range / 2., range / 2., range / 2.));
-            if (entities.isEmpty()) return SpellComponentCastResult.success(spell);
+            if (entities.isEmpty()) return SpellComponentCastResult.success();
             Entity entity = entities.get(random.nextInt(entities.size()));
-            if (!level.canSeeSky(entity.blockPosition())) return SpellComponentCastResult.success(spell);
+            if (!level.canSeeSky(entity.blockPosition())) return SpellComponentCastResult.success();
             if (caster instanceof Player player) {
                 entity.hurtServer(level, level.damageSources().playerAttack(player), 1);
             }
@@ -73,6 +71,6 @@ public class Storm extends SpellComponent {
                 level.addFreshEntity(bolt);
             }
         }
-        return SpellComponentCastResult.success(spell);
+        return SpellComponentCastResult.success();
     }
 }

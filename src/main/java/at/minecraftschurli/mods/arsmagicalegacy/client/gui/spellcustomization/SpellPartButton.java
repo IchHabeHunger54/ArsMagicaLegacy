@@ -4,6 +4,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.client.ArsMagicaClientApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.client.screen.SpellPartCustomizationScreen;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Skill;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.MutableSpellFacade;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.mods.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
@@ -14,6 +15,7 @@ import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.input.InputWithModifiers;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
 import org.jspecify.annotations.Nullable;
@@ -37,18 +39,18 @@ public class SpellPartButton<T> extends Button {
     }
 
     @SuppressWarnings("DataFlowIssue")
-    public static <T> SpellPartButton<T> create(int x, int y, Holder<SpellPart> spellPart, SpellCustomizationScreen screen, int index) {
-        Holder<Skill> skill = AMUtil.skill(spellPart, true);
+    public static <T> SpellPartButton<T> create(int x, int y, Holder<SpellPart> spellPart, HolderLookup.Provider registries, MutableSpellFacade spell, int index) {
+        Holder<Skill> skill = AMUtil.skill(spellPart, registries);
         SpellPartButton<T> button = new SpellPartButton<>(x, y, spellPart, SkillAtlasHolder.getSprite(skill.value()));
         if (spellPart.value().getDataComponentType() != null) {
-            button.valueGetter = type -> (index == -1 ? screen.getSpell().dataComponents().grammar() : screen.getSpell().dataComponents().shapeGroups().get(index)).get(type);
-            button.valueSetter = (type, value) -> screen.setSpell(screen.getSpell().updateDataComponents(components -> components.update(index, map -> {
+            button.valueGetter = type -> (index == -1 ? spell.spellData().grammar() : spell.spellData().shapeGroups().get(index)).get(type);
+            button.valueSetter = (type, value) -> spell.updateSpellData(components -> components.update(index, map -> {
                 if (value == null) {
                     map.remove(type);
                 } else {
                     map.set(type, value);
                 }
-            })));
+            }));
         }
         button.active = ArsMagicaClientApi.spellPartCustomizationScreen(spellPart) != null;
         Component name = Skill.getName(skill);

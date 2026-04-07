@@ -26,6 +26,7 @@ import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -129,16 +130,12 @@ public final class AMUtil {
         return players.size();
     }
 
-    @SuppressWarnings("DataFlowIssue")
-    @Nullable
-    public static Holder<SpellPart> spellPart(Holder<Skill> skill) {
-        return AMRegistries.SPELL_PARTS.get(skill.getKey().identifier()).orElse(null);
+    public static @Nullable Holder<SpellPart> spellPart(Holder<Skill> skill) {
+        return AMRegistries.SPELL_PARTS.get(Objects.requireNonNull(skill.getKey()).identifier()).orElse(null);
     }
 
-    @SuppressWarnings("DataFlowIssue")
-    @Nullable
-    public static Holder<Skill> skill(Holder<SpellPart> part, boolean client) {
-        return AMRegistries.skills(client).get(part.getKey().identifier()).orElse(null);
+    public static @Nullable Holder<Skill> skill(Holder<SpellPart> part, HolderLookup.Provider registries) {
+        return AMRegistries.skills(registries).get(ResourceKey.create(AMRegistries.Keys.SKILL, Objects.requireNonNull(part.getKey()).identifier())).orElse(null);
     }
 
     public static Vec3 bezier(Vec3 start, Vec3 control1, Vec3 control2, Vec3 end, double delta) {
@@ -247,7 +244,7 @@ public final class AMUtil {
         if (hitResult.getType() != HitResult.Type.MISS) {
             to = hitResult.getLocation();
         }
-        HitResult entityHitResult = ProjectileUtil.getEntityHitResult(entity.level(), entity, from, to, entity.getBoundingBox().expandTowards(entity.getDeltaMovement()).inflate(1), e -> true, 0);
+        HitResult entityHitResult = ProjectileUtil.getEntityHitResult(entity.level(), entity, from, to, entity.getBoundingBox().expandTowards(entity.getDeltaMovement()).inflate(1), _ -> true, 0);
         if (entityHitResult != null) {
             hitResult = entityHitResult;
         }

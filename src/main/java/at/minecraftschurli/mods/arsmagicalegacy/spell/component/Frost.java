@@ -22,6 +22,6 @@ public class Frost extends SpellComponent.CastEntity {
     public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
         Entity entity = hitResult.getEntity();
         entity.setData(AMAttachments.FROST, Math.max(entity.getData(AMAttachments.FROST), (int) ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.FROST_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context)));
-        return SpellComponentCastResult.success(context.spell());
+        return SpellComponentCastResult.success();
     }
 }

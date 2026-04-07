@@ -12,7 +12,7 @@ import java.util.List;
 public class Beam extends PrimarySpellShape {
     @Override
     public SpellCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
-        return new SpellCastResult(context.spell()).setMessage(AMTranslations.NOT_YET_IMPLEMENTED);
+        return new SpellCastResult(context).setMessage(AMTranslations.NOT_YET_IMPLEMENTED);
     }
 
     @Override

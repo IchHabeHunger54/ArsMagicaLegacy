@@ -29,7 +29,7 @@ public abstract class SpellPartCastEvent<T extends SpellPart> extends SpellEvent
      */
     @SuppressWarnings("DataFlowIssue")
     public SpellPartCastEvent(T spellPart, List<SpellModifier> modifiers, SpellCastContext context) {
-        super(context.caster(), context.spell());
+        super(context.caster(), context);
         this.spellPart = spellPart;
         this.modifiers = modifiers;
         this.context = context;

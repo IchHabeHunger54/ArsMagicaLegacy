@@ -6,8 +6,11 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.Nullable;
+
+import java.util.Objects;
 
 public class SkillAtlasHolder {
     public static final Identifier ATLAS = ArsMagicaApi.id("textures/atlas/skill.png");
@@ -19,6 +22,7 @@ public class SkillAtlasHolder {
     }
 
     public static TextureAtlasSprite getSprite(Skill skill) {
-        return getSprite(AMRegistries.skills(true).getKey(skill));
+        RegistryAccess registryAccess = Objects.requireNonNull(AMClientUtil.mc().getConnection()).registryAccess();
+        return getSprite(AMRegistries.skills(registryAccess).getKey(skill));
     }
 }

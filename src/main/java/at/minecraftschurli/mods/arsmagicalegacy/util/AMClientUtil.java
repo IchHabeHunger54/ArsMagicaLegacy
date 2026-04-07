@@ -1,6 +1,7 @@
 package at.minecraftschurli.mods.arsmagicalegacy.util;
 
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.MutableSpellFacade;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellFacade;
 import at.minecraftschurli.mods.arsmagicalegacy.client.gui.LineRenderState;
 import at.minecraftschurli.mods.arsmagicalegacy.client.gui.occulus.OcculusScreen;
 import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.SpellCustomizationScreen;
@@ -141,7 +142,7 @@ public final class AMClientUtil {
         mc().setScreen(new OcculusScreen());
     }
 
-    public static void setSpellCustomizationScreen(Spell spell, InteractionHand hand) {
+    public static void setSpellCustomizationScreen(MutableSpellFacade spell, InteractionHand hand) {
         mc().setScreen(new SpellCustomizationScreen(spell, hand));
     }
 
@@ -182,7 +183,7 @@ public final class AMClientUtil {
         ParticleUtil.spawnSpellEntityParticles(entity, range, verticalRange, color, caster);
     }
 
-    public static void spawnSpellEntityParticles(SpellShapeEntity entity, Spell spell, Vec3 position, int color, @Nullable LivingEntity caster) {
+    public static void spawnSpellEntityParticles(SpellShapeEntity entity, SpellFacade spell, Vec3 position, int color, @Nullable LivingEntity caster) {
         ParticleUtil.spawnSpellEntityParticles(entity, spell, position, color, caster);
     }
 

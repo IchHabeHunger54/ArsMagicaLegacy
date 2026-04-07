@@ -3,7 +3,6 @@ package at.minecraftschurli.mods.arsmagicalegacy.spell.component;
 import at.minecraftschurli.mods.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -28,12 +27,11 @@ public class RandomTeleport extends SpellComponent.CastEntity {
 
     @Override
     public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
-        Spell spell = context.spell();
         LivingEntity caster = context.caster();
         Entity entity = hitResult.getEntity();
         Component cancel = AMUtil.cancelTeleport(entity, caster);
-        if (cancel != null) return SpellComponentCastResult.failure(spell, cancel);
-        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.success(spell);
+        if (cancel != null) return SpellComponentCastResult.failure(cancel);
+        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.success();
         RandomSource random = level.getRandom();
         double range = ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.RANDOM_TELEPORT_RANGE.get(), AMSpells.RANGE_STAT, modifiers, context);
         for (int i = 0; i < AMServerConfig.RANDOM_TELEPORT_MAX_TRIES.get(); i++) {
@@ -41,9 +39,9 @@ public class RandomTeleport extends SpellComponent.CastEntity {
             BlockPos pos = BlockPos.containing(vec);
             if (level.getBlockState(pos).isAir() && level.getBlockState(pos.above()).isAir() && level.getBlockState(pos.below()).canOcclude()) {
                 entity.teleportTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
-                return SpellComponentCastResult.success(spell);
+                return SpellComponentCastResult.success();
             }
         }
-        return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_RANDOM_TELEPORT);
+        return SpellComponentCastResult.failure(AMTranslations.SPELL_FAIL_COMPONENT_RANDOM_TELEPORT);
     }
 }

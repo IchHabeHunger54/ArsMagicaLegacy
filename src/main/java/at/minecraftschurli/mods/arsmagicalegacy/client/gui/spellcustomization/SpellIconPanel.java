@@ -11,20 +11,21 @@ import net.neoforged.neoforge.client.gui.widget.ScrollPanel;
 import org.jspecify.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 class SpellIconPanel extends ScrollPanel {
     private static final int ICON_SIZE = 16;
     private static final int SELECTED_COLOR = 0xffffff00;
     private static final int HOVERED_COLOR = 0xffffffff;
-    private final SpellCustomizationScreen screen;
+    private final Consumer<Identifier> consumer;
     private final List<Identifier> icons;
     private final int iconsPerRow;
     @Nullable
     private Identifier selected;
 
-    public SpellIconPanel(int x, int y, int width, int height, SpellCustomizationScreen screen, @Nullable Identifier selected) {
+    public SpellIconPanel(int x, int y, int width, int height, Consumer<Identifier> consumer, @Nullable Identifier selected) {
         super(AMClientUtil.mc(), width, height, y, x, 0);
-        this.screen = screen;
+        this.consumer = consumer;
         this.selected = selected;
         icons = SpellIconAtlasHolder.getIcons()
             .stream()
@@ -72,7 +73,7 @@ class SpellIconPanel extends ScrollPanel {
         Identifier hovered = getHovered(mouseX, mouseY);
         if (hovered == null) return super.clickPanel(mouseX, mouseY, event);
         selected = hovered;
-        screen.setSpell(screen.getSpell().setIcon(selected));
+        consumer.accept(selected);
         return true;
     }
 

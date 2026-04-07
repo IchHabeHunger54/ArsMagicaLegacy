@@ -1,13 +1,23 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity.ai;
 
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPrefab;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.AbstractBoss;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 import org.jspecify.annotations.Nullable;
 
 public class ExecuteBossSpellGoal<T extends AbstractBoss> extends ExecuteSpellGoal<T> {
-    public ExecuteBossSpellGoal(T caster, @Nullable Spell spell, int duration) {
-        super(caster, spell, duration);
+    public ExecuteBossSpellGoal(T caster, int duration) {
+        super(caster, duration);
+    }
+
+    public ExecuteBossSpellGoal(T caster, ResourceKey<SpellPrefab> prefabSpell, int duration) {
+        super(caster, prefabSpell, duration);
+    }
+
+    public ExecuteBossSpellGoal(T caster, Identifier prefabSpellId, int duration) {
+        super(caster, prefabSpellId, duration);
     }
 
     @Override

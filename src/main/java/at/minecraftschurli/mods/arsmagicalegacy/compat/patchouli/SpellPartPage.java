@@ -114,7 +114,7 @@ public final class SpellPartPage implements ICustomComponent {
                     Skill skill = modifiers.get(i);
                     AMClientUtil.blit(graphics, SkillAtlasHolder.getSprite(skill), x, y, 16, 16);
                     if (context.isAreaHovered(mouseX, mouseY, x, y, 16, 16)) {
-                        context.setHoverTooltipComponents(List.of(Skill.getName(AMRegistries.skills(true).wrapAsHolder(skill))));
+                        context.setHoverTooltipComponents(List.of(Skill.getName(AMRegistries.skills(AMRegistries.registryAccess(true)).wrapAsHolder(skill))));
                     }
                 }
             }

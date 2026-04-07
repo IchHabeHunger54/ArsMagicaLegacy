@@ -16,7 +16,7 @@ final class SkillIngredientHelper implements IIngredientHelper<Skill> {
 
     @Override
     public String getDisplayName(Skill skill) {
-        return Skill.getName(AMRegistries.skills(true).wrapAsHolder(skill)).getString();
+        return Skill.getName(AMRegistries.skills(AMRegistries.registryAccess(true)).wrapAsHolder(skill)).getString();
     }
 
     @Override
@@ -27,7 +27,7 @@ final class SkillIngredientHelper implements IIngredientHelper<Skill> {
     @SuppressWarnings("DataFlowIssue")
     @Override
     public Identifier getIdentifier(Skill skill) {
-        return AMRegistries.skills(true).getKey(skill);
+        return AMRegistries.skills(AMRegistries.registryAccess(true)).getKey(skill);
     }
 
     @Override

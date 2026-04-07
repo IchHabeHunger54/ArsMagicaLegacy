@@ -3,7 +3,6 @@ package at.minecraftschurli.mods.arsmagicalegacy.spell.shape;
 import at.minecraftschurli.mods.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SecondarySpellShape;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellHelper;
@@ -25,24 +24,23 @@ public class Wall extends SecondarySpellShape {
     @SuppressWarnings("DataFlowIssue")
     @Override
     public SpellCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
-        Spell spell = context.spell();
         Level level = context.level();
         Entity directEntity = context.directEntity();
-        if (level.isClientSide() || directEntity == null) return new SpellCastResult(spell);
+        if (level.isClientSide() || directEntity == null) return new SpellCastResult(context);
         var wall = AMEntities.WALL.get().create(level, EntitySpawnReason.MOB_SUMMONED);
         wall.setPos(directEntity.getEyePosition());
         wall.setXRot(directEntity.getXRot());
         wall.setYRot(directEntity.getYRot());
         wall.setOwner(context.caster());
-        wall.setSpell(spell);
+        wall.setSpell(context);
         wall.setConsume(context.consume());
         wall.setAwardXp(context.awardXp());
         SpellHelper helper = ArsMagicaApi.spellHelper();
-        wall.setColor(helper.getColor(modifiers, spell, spell.activeShapeGroup()));
+        wall.setColor(helper.getColor(modifiers, context.spellData(), context.activeShapeGroup()));
         wall.setTargetNonSolid(helper.getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, context) > 0);
         wall.setDuration((int) helper.getModifiedStat(AMServerConfig.WALL_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context));
         wall.setRange((float) helper.getModifiedStat(AMServerConfig.WALL_RANGE.get(), AMSpells.RANGE_STAT, modifiers, context));
         level.addFreshEntity(wall);
-        return new SpellCastResult(spell).setSuccess();
+        return new SpellCastResult(context).setSuccess();
     }
 }

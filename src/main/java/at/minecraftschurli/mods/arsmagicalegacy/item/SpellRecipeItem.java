@@ -1,7 +1,9 @@
 package at.minecraftschurli.mods.arsmagicalegacy.item;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMCapabilities;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.MutableSpellFacade;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
@@ -31,10 +33,8 @@ public class SpellRecipeItem extends Item {
 
     @Override
     public Component getName(ItemStack stack) {
-        return stack.getOrDefault(AMDataComponents.SPELL, Spell.EMPTY)
-            .name()
-            .map(e -> e.getString().isEmpty() ? null : e)
-            .orElse(super.getName(stack));
+        Component name = stack.get(AMDataComponents.SPELL_NAME);
+        return name == null || name.getString().isEmpty() ? super.getName(stack) : name;
     }
 
     @Override

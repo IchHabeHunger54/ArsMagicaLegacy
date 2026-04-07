@@ -1,6 +1,5 @@
 package at.minecraftschurli.mods.arsmagicalegacy.spell.component;
 
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -20,8 +19,7 @@ import java.util.List;
 public class Disarm extends SpellComponent.CastEntity {
     @Override
     public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
-        Spell spell = context.spell();
-        if (!(hitResult.getEntity() instanceof LivingEntity entity)) return SpellComponentCastResult.pass(spell);
+        if (!(hitResult.getEntity() instanceof LivingEntity entity)) return SpellComponentCastResult.pass();
         Level level = context.level();
         if (entity instanceof EnderMan enderMan) {
             BlockState state = enderMan.getCarriedBlock();
@@ -33,17 +31,17 @@ public class Disarm extends SpellComponent.CastEntity {
             if (caster != null) {
                 enderMan.setTarget(caster);
             }
-            return SpellComponentCastResult.success(spell);
+            return SpellComponentCastResult.success();
         } else if (!entity.getMainHandItem().isEmpty()) {
             addItemEntity(level, entity, entity.getMainHandItem().copy());
             entity.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-            return SpellComponentCastResult.success(spell);
+            return SpellComponentCastResult.success();
         } else if (!entity.getOffhandItem().isEmpty()) {
             addItemEntity(level, entity, entity.getOffhandItem().copy());
             entity.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
-            return SpellComponentCastResult.success(spell);
+            return SpellComponentCastResult.success();
         }
-        return SpellComponentCastResult.pass(spell);
+        return SpellComponentCastResult.pass();
     }
 
     private static void addItemEntity(Level level, Entity entity, ItemStack stack) {

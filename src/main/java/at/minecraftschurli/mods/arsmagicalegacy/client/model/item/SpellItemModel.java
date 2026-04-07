@@ -1,10 +1,10 @@
 package at.minecraftschurli.mods.arsmagicalegacy.client.model.item;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMCapabilities;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Affinity;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.MutableSpellFacade;
 import at.minecraftschurli.mods.arsmagicalegacy.client.atlas.SpellIconAtlasHolder;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -51,7 +51,7 @@ public final class SpellItemModel implements ItemModel {
             defaultModel.update(output, item, resolver, displayContext, level, owner, seed);
             return;
         }
-        Spell spell = item.get(AMDataComponents.SPELL);
+        MutableSpellFacade spell = item.getCapability(AMCapabilities.SPELL);
         if (spell == null) {
             defaultModel.update(output, item, resolver, displayContext, level, owner, seed);
             return;

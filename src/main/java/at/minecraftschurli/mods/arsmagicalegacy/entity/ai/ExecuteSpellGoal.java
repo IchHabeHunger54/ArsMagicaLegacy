@@ -1,8 +1,13 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity.ai;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCasterEntity;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellFacade;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPrefab;
+import net.minecraft.core.Holder;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,14 +19,26 @@ import org.jspecify.annotations.Nullable;
 public class ExecuteSpellGoal<T extends Mob & SpellCasterEntity> extends Goal {
     protected final T caster;
     @Nullable
-    public final Spell spell;
+    public final SpellFacade spell;
     public final int duration;
     protected int ticks = 0;
 
-    public ExecuteSpellGoal(T caster, @Nullable Spell spell, int duration) {
+    public ExecuteSpellGoal(T caster, @Nullable SpellFacade spell, int duration) {
         this.caster = caster;
         this.spell = spell;
         this.duration = duration;
+    }
+
+    public ExecuteSpellGoal(T caster, int duration) {
+        this(caster, (SpellFacade) null, duration);
+    }
+
+    public ExecuteSpellGoal(T caster, ResourceKey<SpellPrefab> prefabSpell, int duration) {
+        this(caster, getSpellPrefab(caster, prefabSpell), duration);
+    }
+
+    public ExecuteSpellGoal(T caster, Identifier prefabSpellId, int duration) {
+        this(caster, ResourceKey.create(AMRegistries.Keys.SPELL_PREFAB, prefabSpellId), duration);
     }
 
     @Override
@@ -70,7 +87,7 @@ public class ExecuteSpellGoal<T extends Mob & SpellCasterEntity> extends Goal {
                 if (sound != null) {
                     level.playSound(null, caster, sound, SoundSource.HOSTILE, 1f, 0.5f + level.getRandom().nextFloat());
                 }
-                Spell spell = getSpell(caster);
+                SpellFacade spell = getSpell(caster);
                 if (spell != null) {
                     ArsMagicaApi.spellHelper().cast(spell, level, caster, false, false);
                     ticks = 0;
@@ -93,7 +110,19 @@ public class ExecuteSpellGoal<T extends Mob & SpellCasterEntity> extends Goal {
      * @return The spell to be cast.
      */
     @Nullable
-    protected Spell getSpell(T caster) {
+    protected SpellFacade getSpell(T caster) {
         return spell;
+    }
+
+    public static <E extends Mob & SpellCasterEntity> @Nullable SpellFacade getSpellPrefab(E caster, Identifier prefabSpell) {
+        return getSpellPrefab(caster, ResourceKey.create(AMRegistries.Keys.SPELL_PREFAB, prefabSpell));
+    }
+
+    public static <E extends Mob & SpellCasterEntity> @Nullable SpellFacade getSpellPrefab(E caster, ResourceKey<SpellPrefab> prefabSpell) {
+        return caster.registryAccess()
+            .get(prefabSpell)
+            .map(Holder::value)
+            .map(SpellFacade.Immutable::of)
+            .orElse(null);
     }
 }

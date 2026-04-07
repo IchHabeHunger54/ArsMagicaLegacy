@@ -4,9 +4,10 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.client.event.RegisterOcculusTabRenderersEvent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.client.event.RegisterParticleControllersEvent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.client.event.RegisterSpellPartCustomizationScreensEvent;
+import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMCapabilities;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.MutableSpellFacade;
 import at.minecraftschurli.mods.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
 import at.minecraftschurli.mods.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.mods.arsmagicalegacy.client.atlas.SpellIconAtlasHolder;
@@ -332,33 +333,32 @@ final class AMClientEventHandler {
         event.register(AMSpells.SUMMON, SummonCustomizationScreen::new);
     }
 
-    @SuppressWarnings("DataFlowIssue")
     @SubscribeEvent
     private static void clientTickPost(ClientTickEvent.Post event) {
         LocalPlayer player = AMClientUtil.player();
         if (player == null) return;
         InteractionHand hand = InteractionHand.MAIN_HAND;
-        ItemStack stack = player.getItemInHand(hand);
-        if (!stack.has(AMDataComponents.SPELL)) {
-            hand =  InteractionHand.OFF_HAND;
-            stack = player.getItemInHand(hand);
+        MutableSpellFacade capability = player.getItemInHand(hand).getCapability(AMCapabilities.SPELL);
+        if (capability == null) {
+            hand = InteractionHand.OFF_HAND;
+            capability = player.getItemInHand(hand).getCapability(AMCapabilities.SPELL);
         }
-        if (stack.has(AMDataComponents.SPELL)) {
-            Spell originalSpell = stack.get(AMDataComponents.SPELL);
-            Spell spell = originalSpell;
-            while (NEXT_SHAPE_GROUP.consumeClick()) {
-                spell = spell.nextShapeGroup();
-            }
-            while (PREV_SHAPE_GROUP.consumeClick()) {
-                spell = spell.prevShapeGroup();
-            }
-            if (spell != originalSpell) {
-                stack.set(AMDataComponents.SPELL, spell);
-                ClientPacketDistributor.sendToServer(new SetActiveShapeGroupPacket(spell.activeShapeGroup()));
-            }
-            while (SPELL_CUSTOMIZATION.consumeClick()) {
-                AMClientUtil.mc().setScreen(new SpellCustomizationScreen(spell, hand));
-            }
+        if (capability == null) {
+            return;
+        }
+        byte oldIndex = capability.activeShapeGroup();
+        while (NEXT_SHAPE_GROUP.consumeClick()) {
+            capability.nextShapeGroup();
+        }
+        while (PREV_SHAPE_GROUP.consumeClick()) {
+            capability.prevShapeGroup();
+        }
+        byte newIndex = capability.activeShapeGroup();
+        if (oldIndex != newIndex) {
+            ClientPacketDistributor.sendToServer(new SetActiveShapeGroupPacket(newIndex));
+        }
+        while (SPELL_CUSTOMIZATION.consumeClick()) {
+            AMClientUtil.mc().setScreen(new SpellCustomizationScreen(capability, hand));
         }
     }
 

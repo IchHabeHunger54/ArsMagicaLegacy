@@ -2,7 +2,6 @@ package at.minecraftschurli.mods.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.mods.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -34,15 +33,14 @@ public class Light extends SpellComponent.CastBoth {
         if (level.getBlockState(pos).isAir()) {
             level.setBlockAndUpdate(pos, AMBlocks.SPELL_LIGHT.get().defaultBlockState());
         }
-        return SpellComponentCastResult.success(context.spell());
+        return SpellComponentCastResult.success();
     }
 
     @Override
     public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
-        Spell spell = context.spell();
-        if (!(hitResult.getEntity() instanceof LivingEntity living)) return SpellComponentCastResult.pass(spell);
+        if (!(hitResult.getEntity() instanceof LivingEntity living)) return SpellComponentCastResult.pass();
         SpellHelper helper = ArsMagicaApi.spellHelper();
         living.addEffect(new MobEffectInstance(AMMobEffects.ILLUMINATION, (int) helper.getModifiedStat(AMServerConfig.EFFECT_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context)));
-        return SpellComponentCastResult.success(spell);
+        return SpellComponentCastResult.success();
     }
 }

@@ -39,7 +39,7 @@ public final class HiddenSkills {
         if (runtime == null) return;
         IIngredientManager ingredientManager = runtime.getIngredientManager();
         IRecipeManager recipeManager = runtime.getRecipeManager();
-        Registry<Skill> skills = AMRegistries.skills(true);
+        Registry<Skill> skills = AMRegistries.skills(AMRegistries.registryAccess(true));
         if (!VISIBLE_RECIPES.isEmpty()) {
             recipeManager.hideRecipes(SkillCategory.RECIPE_TYPE, VISIBLE_RECIPES);
             VISIBLE_RECIPES.clear();
@@ -104,14 +104,14 @@ public final class HiddenSkills {
     }
 
     private static Stream<Holder.Reference<Skill>> getSkills() {
-        return AMRegistries.skills(true)
+        return AMRegistries.skills(AMRegistries.registryAccess(true))
             .listElements()
             .filter(e -> AMRegistries.SPELL_PARTS.containsKey(e.key().identifier()))
             .sorted(Comparator.comparing(e -> Skill.getName(e).getString()));
     }
 
     private static Stream<Holder<Skill>> getHiddenModifiers(ResourceKey<Skill> skill) {
-        Registry<Skill> skills = AMRegistries.skills(true);
+        Registry<Skill> skills = AMRegistries.skills(AMRegistries.registryAccess(true));
         Registry<SpellPart> spellParts = AMRegistries.SPELL_PARTS;
         SpellPart part = spellParts.getValue(ResourceKey.create(AMRegistries.Keys.SPELL_PART, skill.identifier()));
         return part == null ? Stream.of() : ArsMagicaApi.spellHelper()
@@ -138,7 +138,7 @@ public final class HiddenSkills {
 
     private static SkillCategory.Recipe recipe(Holder<Skill> holder, Collection<ResourceKey<Skill>> hiddenModifiers) {
         return SkillCategory.Recipe.of(holder, hiddenModifiers.stream()
-            .map(AMRegistries.skills(true)::getOrThrow)
+            .map(AMRegistries.skills(AMRegistries.registryAccess(true))::getOrThrow)
             .collect(Collectors.toSet()));
     }
 }

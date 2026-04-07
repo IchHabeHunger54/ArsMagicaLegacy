@@ -4,7 +4,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellDataComponentMap;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.MutableSpellFacade;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellGrammar;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellShapeGroup;
@@ -57,6 +57,7 @@ public class InscriptionTableBlockEntity extends AMBlockEntity<InscriptionTableB
 
     public ItemStack setSpell(ItemStack stack) {
         stack.set(AMDataComponents.SPELL, getMenuData().toSpell());
+        stack.set(AMDataComponents.SPELL_NAME, getMenuData().name().orElse(null));
         return stack;
     }
 
@@ -158,7 +159,7 @@ public class InscriptionTableBlockEntity extends AMBlockEntity<InscriptionTableB
             MenuData::new);
         public static final MenuData EMPTY = new MenuData(Optional.empty(), List.of(), List.of());
 
-        public static MenuData fromSpell(Spell spell, RegistryAccess registryAccess) {
+        public static MenuData fromSpell(MutableSpellFacade spell, RegistryAccess registryAccess) {
             List<List<Holder<Skill>>> groups = spell.shapeGroups()
                 .stream()
                 .map(e -> skills(e.parts(), registryAccess))
@@ -171,7 +172,7 @@ public class InscriptionTableBlockEntity extends AMBlockEntity<InscriptionTableB
                 .map(MenuData::spellParts)
                 .map(SpellShapeGroup::of)
                 .toList();
-            return new Spell(name, Optional.empty(), groups, 0, SpellGrammar.of(spellParts(grammar)), SpellDataComponentMap.EMPTY);
+            return new Spell(groups, SpellGrammar.of(spellParts(grammar)));
         }
 
         private static List<SpellPart> spellParts(List<Holder<Skill>> skills) {

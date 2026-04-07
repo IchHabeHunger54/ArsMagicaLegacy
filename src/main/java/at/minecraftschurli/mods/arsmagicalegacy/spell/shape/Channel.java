@@ -17,7 +17,7 @@ public class Channel extends PrimarySpellShape {
         LivingEntity caster = context.caster();
         return caster != null
             ? ArsMagicaApi.spellHelper().castSecondaryOrGrammar(context.setDirectEntityAndHitResult(caster, new EntityHitResult(caster)))
-            : new SpellCastResult(context.spell()).setMessage(AMTranslations.SPELL_FAIL_NO_CASTER);
+            : new SpellCastResult(context).setMessage(AMTranslations.SPELL_FAIL_NO_CASTER);
     }
 
     @Override

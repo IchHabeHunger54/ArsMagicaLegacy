@@ -1,7 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -23,25 +22,24 @@ import java.util.Objects;
 public class DivineIntervention extends SpellComponent.CastEntity {
     @Override
     public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
-        Spell spell = context.spell();
         Level level = context.level();
         Entity entity = hitResult.getEntity();
         Component cancel = AMUtil.cancelTeleport(entity, context.caster());
-        if (cancel != null) return SpellComponentCastResult.failure(spell, cancel);
+        if (cancel != null) return SpellComponentCastResult.failure(cancel);
         ResourceKey<Level> dimension = level.dimension();
-        if (dimension == Level.NETHER) return SpellComponentCastResult.failure(spell, AMTranslations.NO_TELEPORT_NETHER);
-        if (dimension == Level.OVERWORLD) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_DIVINE_INTERVENTION);
-        if (!(level instanceof ServerLevel server)) return SpellComponentCastResult.pass(spell);
+        if (dimension == Level.NETHER) return SpellComponentCastResult.failure(AMTranslations.NO_TELEPORT_NETHER);
+        if (dimension == Level.OVERWORLD) return SpellComponentCastResult.failure(AMTranslations.SPELL_FAIL_COMPONENT_DIVINE_INTERVENTION);
+        if (!(level instanceof ServerLevel server)) return SpellComponentCastResult.pass();
         TeleportTransition transition;
         if (entity instanceof ServerPlayer player) {
             transition = player.findRespawnPositionAndUseSpawnBlock(false, TeleportTransition.DO_NOTHING);
         } else {
             LevelData.RespawnData respawnData = server.getRespawnData();
             ServerLevel serverLevel = Objects.requireNonNull(server.getServer()).getLevel(respawnData.dimension());
-            if (serverLevel == null) return SpellComponentCastResult.pass(spell);
+            if (serverLevel == null) return SpellComponentCastResult.pass();
             transition = new TeleportTransition(serverLevel, respawnData.pos().getBottomCenter(), entity.getDeltaMovement(), respawnData.yaw(), respawnData.pitch(), TeleportTransition.DO_NOTHING);
         }
         entity.teleport(transition);
-        return SpellComponentCastResult.success(spell);
+        return SpellComponentCastResult.success();
     }
 }

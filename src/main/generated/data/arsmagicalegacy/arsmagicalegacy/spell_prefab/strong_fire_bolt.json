@@ -1,30 +1,17 @@
 {
-  "active_shape_group": 0,
-  "components": {
-    "grammar": {},
-    "shape_groups": [
-      {},
-      {},
-      {},
-      {},
-      {}
-    ]
-  },
-  "grammar": {
-    "parts": [
-      "arsmagicalegacy:fire_damage",
-      "arsmagicalegacy:ignition"
-    ]
-  },
   "icon": "arsmagicalegacy:lightning_orange_3",
   "name": {
     "translate": "spell_prefab.arsmagicalegacy.strong_fire_bolt"
   },
-  "shape_groups": [
-    {
-      "parts": [
+  "spell": {
+    "grammar": [
+      "arsmagicalegacy:fire_damage",
+      "arsmagicalegacy:ignition"
+    ],
+    "shape_groups": [
+      [
         "arsmagicalegacy:projectile"
       ]
-    }
-  ]
+    ]
+  }
 }

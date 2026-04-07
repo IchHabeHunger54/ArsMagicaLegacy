@@ -68,7 +68,7 @@ public class OcculusScreen extends Screen {
         tabs.clear();
         buttons.clear();
         LocalPlayer player = Objects.requireNonNull(AMClientUtil.player());
-        Registry<OcculusTab> registry = AMRegistries.occulusTabs(true);
+        Registry<OcculusTab> registry = AMRegistries.occulusTabs(player.registryAccess());
         List<? extends Holder<OcculusTab>> list = registry
             .listElements()
             .sorted(Comparator.comparingInt(e -> e.value().index()))
@@ -112,7 +112,7 @@ public class OcculusScreen extends Screen {
         if (renderer == null) return;
         if (renderer.hasSkillPointPanel()) {
             LocalPlayer player = Objects.requireNonNull(AMClientUtil.player());
-            List<? extends Holder<SkillPoint>> holders = AMRegistries.skillPoints(true)
+            List<? extends Holder<SkillPoint>> holders = AMRegistries.skillPoints(player.registryAccess())
                 .listElements()
                 .toList();
             List<MutableComponent> components = holders
@@ -161,7 +161,7 @@ public class OcculusScreen extends Screen {
     private void setRenderer(Holder<OcculusTab> occulusTab) {
         OcculusTabRenderer.Factory factory = ArsMagicaClientApi.occulusTabRendererFactory(occulusTab);
         if (factory != null) {
-            renderer = factory.create(occulusTab);
+            renderer = factory.create(occulusTab, minecraft);
         }
     }
 

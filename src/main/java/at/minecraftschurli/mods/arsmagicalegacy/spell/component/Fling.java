@@ -21,6 +21,6 @@ public class Fling extends SpellComponent.CastEntity {
     public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
         Entity entity = hitResult.getEntity();
         entity.setDeltaMovement(entity.getDeltaMovement().add(0, ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.FLING_SPEED.get(), AMSpells.SPEED_STAT, modifiers, context), 0));
-        return SpellComponentCastResult.success(context.spell());
+        return SpellComponentCastResult.success();
     }
 }

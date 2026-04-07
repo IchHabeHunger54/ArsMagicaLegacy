@@ -1,7 +1,7 @@
 package at.minecraftschurli.mods.arsmagicalegacy.blockentity;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.MutableSpellFacade;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMBlockEntities;
@@ -25,9 +25,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class SpellRuneBlockEntity extends AMBlockEntity<SpellRuneBlockEntity.Data> {
-    private Spell spell = Spell.EMPTY;
-    @Nullable
-    private LivingEntity owner;
+    private MutableSpellFacade.@Nullable MutableHolder spell = null;
+    private @Nullable LivingEntity owner;
     private boolean consume;
     private boolean awardXp;
     private int power;
@@ -59,7 +58,7 @@ public class SpellRuneBlockEntity extends AMBlockEntity<SpellRuneBlockEntity.Dat
     }
 
     public void setData(SpellCastContext context, int power) {
-        this.spell = context.spell();
+        this.spell = context.asMutable();
         this.owner = context.caster();
         this.consume = context.consume();
         this.awardXp = context.awardXp();
@@ -67,9 +66,11 @@ public class SpellRuneBlockEntity extends AMBlockEntity<SpellRuneBlockEntity.Dat
     }
 
     public void cast(Level level, BlockPos pos, Entity entity) {
-        SpellCastResult result = ArsMagicaApi.spellHelper().castGrammar(new SpellCastContext(spell, level, owner, null, new EntityHitResult(entity), consume, awardXp));
+        if (spell == null) return;
+        SpellCastContext context = new SpellCastContext(spell, level, owner, null, new EntityHitResult(entity), consume, awardXp);
+        SpellCastResult result = ArsMagicaApi.spellHelper().castGrammar(context);
         if (!result.isSuccess()) return;
-        spell = result.getSpell();
+        spell.setFrom(result.getSpell());
         power--;
         if (power < 1) {
             level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
@@ -78,9 +79,9 @@ public class SpellRuneBlockEntity extends AMBlockEntity<SpellRuneBlockEntity.Dat
         }
     }
 
-    public record Data(Spell spell, Optional<UUID> owner, boolean consume, boolean awardXp, int power) {
+    public record Data(MutableSpellFacade.MutableHolder spell, Optional<UUID> owner, boolean consume, boolean awardXp, int power) {
         public static final Codec<Data> CODEC = RecordCodecBuilder.create(inst -> inst.group(
-            Spell.CODEC.fieldOf("spell").forGetter(Data::spell),
+            MutableSpellFacade.MutableHolder.MAP_CODEC.forGetter(Data::spell),
             UUIDUtil.CODEC.optionalFieldOf("owner").forGetter(Data::owner),
             Codec.BOOL.fieldOf("consume").forGetter(Data::consume),
             Codec.BOOL.fieldOf("award_xp").forGetter(Data::awardXp),

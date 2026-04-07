@@ -1,6 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.api.event;
 
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellFacade;
 import net.minecraft.world.entity.LivingEntity;
 
 /**
@@ -13,7 +13,7 @@ public class BurnoutCostCalculationEvent extends SpellEvent {
     private final double originalBurnout;
     private double burnout;
 
-    public BurnoutCostCalculationEvent(LivingEntity entity, Spell spell, double burnout) {
+    public BurnoutCostCalculationEvent(LivingEntity entity, SpellFacade spell, double burnout) {
         super(entity, spell);
         originalBurnout = burnout;
         this.burnout = burnout;

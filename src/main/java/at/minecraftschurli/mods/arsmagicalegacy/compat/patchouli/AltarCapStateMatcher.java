@@ -21,7 +21,7 @@ public final class AltarCapStateMatcher implements IStateMatcher {
 
     @Override
     public BlockState getDisplayedState(long ticks) {
-        AltarCapMaterial material = AMUtil.getByTick(AMRegistries.altarCapMaterials(true)
+        AltarCapMaterial material = AMUtil.getByTick(AMRegistries.altarCapMaterials(AMRegistries.registryAccess(true))
             .stream()
             .toArray(AltarCapMaterial[]::new), (int) ticks / 20);
         return material.block().defaultBlockState();

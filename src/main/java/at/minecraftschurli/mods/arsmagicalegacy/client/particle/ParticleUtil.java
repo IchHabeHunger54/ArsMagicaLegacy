@@ -6,7 +6,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.client.particle.ControlledPa
 import at.minecraftschurli.mods.arsmagicalegacy.api.client.particle.ParticleSpawner;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Affinity;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellFacade;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.FallingStar;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ManaVortex;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.SpellEntity;
@@ -98,11 +98,11 @@ public final class ParticleUtil {
     }
 
     @SuppressWarnings("DataFlowIssue")
-    public static void spawnSpellEntityParticles(SpellShapeEntity entity, Spell spell, Vec3 position, int color, @Nullable LivingEntity caster) {
+    public static void spawnSpellEntityParticles(SpellShapeEntity entity, SpellFacade spell, Vec3 position, int color, @Nullable LivingEntity caster) {
         SpellEntityKey key = new SpellEntityKey(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()), spell.grammar().primaryAffinity(AMClientUtil.level().registryAccess()));
         SPELL_SHAPE_ENTITY_PARTICLE_SPAWNERS.computeIfAbsent(key, _ -> {
             ParticleSpawner spawner = ParticleSpawnerManager.INSTANCE.get(key.id);
-            return new ParticleSpawner(AMRegistries.affinities(true).getOrThrow(key.affinity).value().particle(),
+            return new ParticleSpawner(AMRegistries.affinities(entity.registryAccess()).getOrThrow(key.affinity).value().particle(),
                 spawner.count(),
                 spawner.minLifetime(),
                 spawner.maxLifetime(),

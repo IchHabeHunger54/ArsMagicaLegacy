@@ -18,6 +18,6 @@ public class Plow extends SpellComponent.CastBlock {
     public SpellComponentCastResult castBlock(List<SpellModifier> modifiers, SpellCastContext context, BlockHitResult hitResult) {
         ItemStack stack = new ItemStack(Items.WOODEN_HOE);
         stack.useOn(new UseOnContext(context.level(), context.caster() instanceof Player player ? player : null, InteractionHand.MAIN_HAND, stack, hitResult));
-        return SpellComponentCastResult.success(context.spell());
+        return SpellComponentCastResult.success();
     }
 }

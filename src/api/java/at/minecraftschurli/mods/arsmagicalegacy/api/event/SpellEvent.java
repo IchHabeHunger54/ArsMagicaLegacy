@@ -1,6 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.api.event;
 
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellFacade;
 import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
 
@@ -9,9 +9,9 @@ import net.neoforged.neoforge.event.entity.living.LivingEvent;
  */
 @SuppressWarnings("unused")
 public abstract class SpellEvent extends LivingEvent {
-    private final Spell spell;
+    private final SpellFacade spell;
 
-    public SpellEvent(LivingEntity entity, Spell spell) {
+    public SpellEvent(LivingEntity entity, SpellFacade spell) {
         super(entity);
         this.spell = spell;
     }
@@ -19,7 +19,7 @@ public abstract class SpellEvent extends LivingEvent {
     /**
      * @return The involved spell.
      */
-    public Spell getSpell() {
+    public SpellFacade getSpell() {
         return spell;
     }
 }

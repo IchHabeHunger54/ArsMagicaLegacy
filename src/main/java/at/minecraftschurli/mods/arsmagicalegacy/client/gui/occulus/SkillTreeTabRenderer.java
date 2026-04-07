@@ -12,6 +12,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.mods.arsmagicalegacy.packet.LearnSkillPacket;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
@@ -38,11 +39,11 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
     @Nullable
     private Skill hoveredSkill;
 
-    public SkillTreeTabRenderer(Holder<OcculusTab> occulusTab) {
-        super(occulusTab);
+    public SkillTreeTabRenderer(Holder<OcculusTab> occulusTab, Minecraft minecraft) {
+        super(occulusTab, minecraft);
         offsetX = Math.max(0, occulusTab.value().startX());
         offsetY = Math.max(0, occulusTab.value().startY());
-        skills = AMRegistries.skills(true)
+        skills = AMRegistries.skills(registryAccess())
             .stream()
             .filter(skill -> skill.tab().getKey() == occulusTab.getKey())
             .toList();
@@ -52,8 +53,8 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
     public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         super.extractRenderState(graphics, mouseX, mouseY, partialTick);
         MagicHelper helper = ArsMagicaApi.magicHelper();
-        Registry<Skill> registry = AMRegistries.skills(true);
         LocalPlayer player = Objects.requireNonNull(AMClientUtil.player());
+        Registry<Skill> registry = AMRegistries.skills(player.registryAccess());
         mouseX += (int) offsetX;
         mouseY += (int) offsetY;
         hoveredSkill = null;
@@ -111,7 +112,7 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
         if (hoveredSkill == null) return;
         MagicHelper helper = ArsMagicaApi.magicHelper();
         LocalPlayer player = Objects.requireNonNull(AMClientUtil.player());
-        Registry<Skill> registry = AMRegistries.skills(true);
+        Registry<Skill> registry = AMRegistries.skills(player.registryAccess());
         Holder<Skill> holder = registry.wrapAsHolder(hoveredSkill);
         graphics.tooltip(AMClientUtil.font(), List.of(
             ClientTooltipComponent.create(Skill.getName(holder).withColor(getColorForSkill(hoveredSkill)).getVisualOrderText()),
@@ -124,8 +125,8 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
         if (event.button() != 0 || !(event.x() > 0) || !(event.x() < TAB_SIZE) || !(event.y() > 0) || !(event.y() < TAB_SIZE))
             return super.mouseClicked(event, doubleClick);
         if (hoveredSkill != null) {
-            Holder<Skill> holder = AMRegistries.skills(true).wrapAsHolder(hoveredSkill);
             LocalPlayer player = Objects.requireNonNull(AMClientUtil.player());
+            Holder<Skill> holder = AMRegistries.skills(player.registryAccess()).wrapAsHolder(hoveredSkill);
             if (ArsMagicaApi.magicHelper().canLearn(player, holder) || player.isCreative()) {
                 ClientPacketDistributor.sendToServer(new LearnSkillPacket(holder));
                 return true;

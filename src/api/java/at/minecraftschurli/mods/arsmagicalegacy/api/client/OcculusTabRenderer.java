@@ -2,12 +2,14 @@ package at.minecraftschurli.mods.arsmagicalegacy.api.client;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.client.event.RegisterOcculusTabRenderersEvent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.OcculusTab;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.AbstractContainerEventHandler;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
 
 import java.util.List;
 
@@ -20,14 +22,17 @@ import java.util.List;
 public abstract class OcculusTabRenderer extends AbstractContainerEventHandler implements Renderable {
     public static final int TAB_SIZE = 196;
     protected final Holder<OcculusTab> occulusTab;
+    protected final Minecraft minecraft;
 
     /**
      * Constructs a new {@link OcculusTabRenderer}.
      *
      * @param occulusTab The {@link Holder} of the {@link OcculusTab} being rendered.
+     * @param minecraft
      */
-    public OcculusTabRenderer(Holder<OcculusTab> occulusTab) {
+    public OcculusTabRenderer(Holder<OcculusTab> occulusTab, Minecraft minecraft) {
         this.occulusTab = occulusTab;
+        this.minecraft = minecraft;
     }
 
     /**
@@ -63,6 +68,18 @@ public abstract class OcculusTabRenderer extends AbstractContainerEventHandler i
         return List.of();
     }
 
+    /// @return The {@link RegistryAccess} to use for this renderer. This is used for looking up registries for rendering, such as the skill registry for the skills.
+    protected final RegistryAccess registryAccess() {
+        if (minecraft.level != null) {
+            return minecraft.level.registryAccess();
+        } else if (minecraft.player != null) { 
+            return minecraft.player.registryAccess();
+        } else if (minecraft.getConnection() != null) {
+            return minecraft.getConnection().registryAccess();
+        }
+        throw new IllegalStateException("Cannot access registry without level or player");
+    }
+
     /**
      * Factory interface used in registering the renderer.
      */
@@ -70,7 +87,8 @@ public abstract class OcculusTabRenderer extends AbstractContainerEventHandler i
     public interface Factory {
         /**
          * @param occulusTab The {@link Holder} of the {@link OcculusTab} being rendered.
+         * @param minecraft
          */
-        OcculusTabRenderer create(Holder<OcculusTab> occulusTab);
+        OcculusTabRenderer create(Holder<OcculusTab> occulusTab, Minecraft minecraft);
     }
 }

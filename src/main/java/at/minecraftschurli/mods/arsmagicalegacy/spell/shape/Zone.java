@@ -3,7 +3,6 @@ package at.minecraftschurli.mods.arsmagicalegacy.spell.shape;
 import at.minecraftschurli.mods.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SecondarySpellShape;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellHelper;
@@ -25,25 +24,24 @@ public class Zone extends SecondarySpellShape {
     @SuppressWarnings("DataFlowIssue")
     @Override
     public SpellCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
-        Spell spell = context.spell();
         Level level = context.level();
         Entity directEntity = context.directEntity();
-        if (level.isClientSide() || directEntity == null) return new SpellCastResult(spell);
+        if (level.isClientSide() || directEntity == null) return new SpellCastResult(context);
         var zone = AMEntities.ZONE.get().create(level, EntitySpawnReason.MOB_SUMMONED);
         zone.setPos(directEntity.getEyePosition());
         zone.setXRot(directEntity.getXRot());
         zone.setYRot(directEntity.getYRot());
         zone.setOwner(context.caster());
-        zone.setSpell(spell);
+        zone.setSpell(context);
         zone.setConsume(context.consume());
         zone.setAwardXp(context.awardXp());
         SpellHelper helper = ArsMagicaApi.spellHelper();
-        zone.setColor(helper.getColor(modifiers, spell, spell.activeShapeGroup()));
+        zone.setColor(helper.getColor(modifiers, context.spellData(), context.activeShapeGroup()));
         zone.setTargetNonSolid(helper.getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, context) > 0);
         zone.setDuration((int) helper.getModifiedStat(AMServerConfig.ZONE_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context));
         zone.setGravity((float) (helper.getModifiedStat(0, AMSpells.GRAVITY_STAT, modifiers, context) * AMServerConfig.ZONE_GRAVITY.get()));
         zone.setRange((float) helper.getModifiedStat(AMServerConfig.ZONE_RANGE.get(), AMSpells.RANGE_STAT, modifiers, context));
         level.addFreshEntity(zone);
-        return new SpellCastResult(spell).setSuccess();
+        return new SpellCastResult(context).setSuccess();
     }
 }

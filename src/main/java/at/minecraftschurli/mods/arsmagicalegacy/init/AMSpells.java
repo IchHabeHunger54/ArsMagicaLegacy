@@ -2,8 +2,8 @@ package at.minecraftschurli.mods.arsmagicalegacy.init;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellFacade;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPart;
@@ -86,7 +86,7 @@ public interface AMSpells {
     DeferredHolder<MapCodec<? extends SpellIngredient>, MapCodec<EtheriumSpellIngredient>> ETHERIUM_SPELL_INGREDIENT = SPELL_INGREDIENTS.register("etherium", () -> EtheriumSpellIngredient.CODEC);
 
     DeferredRegister<EntityDataSerializer<?>> DATA_SERIALIZERS = DeferredRegister.create(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, ArsMagicaApi.MOD_ID);
-    DeferredHolder<EntityDataSerializer<?>, EntityDataSerializer<Spell>> DATA_SERIALIZER = DATA_SERIALIZERS.register("spell", () -> EntityDataSerializer.forValueType(Spell.STREAM_CODEC));
+    DeferredHolder<EntityDataSerializer<?>, EntityDataSerializer<SpellFacade.Immutable>> DATA_SERIALIZER = DATA_SERIALIZERS.register("spell", () -> EntityDataSerializer.forValueType(SpellFacade.Immutable.STREAM_CODEC));
 
     DeferredRegister<SpellPart> SPELL_PARTS = DeferredRegister.create(AMRegistries.Keys.SPELL_PART, ArsMagicaApi.MOD_ID);
     // @formatter:off

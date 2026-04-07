@@ -3,7 +3,6 @@ package at.minecraftschurli.mods.arsmagicalegacy.spell.shape;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.PrimarySpellShape;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellModifier;
@@ -26,9 +25,8 @@ public class Touch extends PrimarySpellShape {
 
     @Override
     public SpellCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
-        Spell spell = context.spell();
         LivingEntity caster = context.caster();
-        if (caster == null) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_NO_CASTER);
+        if (caster == null) return new SpellCastResult(context).setMessage(AMTranslations.SPELL_FAIL_NO_CASTER);
         Vec3 eyePos = caster.getEyePosition();
         boolean targetNonSolid = ArsMagicaApi.spellHelper().getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, context) > 0;
         ClipContext.Block blockContext = targetNonSolid ? ClipContext.Block.OUTLINE : ClipContext.Block.COLLIDER;
@@ -42,7 +40,7 @@ public class Touch extends PrimarySpellShape {
                 ArsMagicaApi.spellHelper().castSecondaryOrGrammar(context.setDirectEntityAndHitResult(caster, result));
             }
         }
-        return new SpellCastResult(spell).setSuccess();
+        return new SpellCastResult(context).setSuccess();
     }
 
     private HitResult getHitResult(Vec3 eyePos, LivingEntity caster, Holder<Attribute> attribute, ClipContext.Block blockContext, ClipContext.Fluid fluidContext) {

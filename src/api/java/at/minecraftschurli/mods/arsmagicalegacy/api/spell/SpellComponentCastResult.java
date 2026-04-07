@@ -5,74 +5,91 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * Represents the result of an individual {@link SpellPart} being cast. The result is then used to accordingly populate a {@link SpellCastResult}.
- * Get an instance via {@link SpellComponentCastResult#success(Spell)}, {@link SpellComponentCastResult#pass(Spell)} or {@link SpellComponentCastResult#failure(Spell, Component)}.
+ * Get an instance via {@link #success()}, {@link #pass()} or {@link #failure(Component)}.
  */
-public final class SpellComponentCastResult {
-    private final Type type;
-    private final Spell spell;
+public sealed interface SpellComponentCastResult {
+    /// A [SpellComponentCastResult] marked as successful. A successful result triggers behavior such as mana consumption or affinity awarding.
+    SpellComponentCastResult SUCCESS = new Success();
+
+    /// A [SpellComponentCastResult] marked as neither successful nor failing. This should be used e.g. when only running code on one side.
+    SpellComponentCastResult PASS = new Pass();
+
+    /// @return Whether the result is considered successful. A successful result triggers behavior such as mana consumption or affinity awarding.
+    boolean isSuccess();
+
+    /// @return Whether the result is considered failing.
+    boolean isFailure();
+
+    /// @return The error message. This will be a non-null value iff [SpellComponentCastResult#isFailure()] returns true.
     @Nullable
-    private final Component message;
+    Component getMessage();
 
-    private SpellComponentCastResult(Type type, Spell spell, @Nullable Component message) {
-        this.type = type;
-        this.spell = spell;
-        this.message = message;
+    static SpellComponentCastResult success() {
+        return SUCCESS;
     }
 
-    /**
-     * @return Whether the result is considered successful. A successful result triggers behavior such as mana consumption or affinity awarding.
-     */
-    public boolean isSuccess() {
-        return type == Type.SUCCESS;
+    static SpellComponentCastResult pass() {
+        return PASS;
     }
 
-    /**
-     * @return Whether the result is considered failing.
-     */
-    public boolean isFailure() {
-        return type == Type.FAILURE;
+    /// @param message The error message to set.
+    /// @return A new [SpellComponentCastResult] marked as failing and with the given error message set.
+    static SpellComponentCastResult failure(Component message) {
+        return new Failure(message);
     }
 
-    /**
-     * @return The {@link Spell} contained in the result.
-     */
-    public Spell getSpell() {
-        return spell;
+    final class Success implements SpellComponentCastResult {
+        private Success() {}
+
+        @Override
+        public boolean isSuccess() {
+            return true;
+        }
+
+        @Override
+        public boolean isFailure() {
+            return false;
+        }
+
+        @Override
+        public @Nullable Component getMessage() {
+            return null;
+        }
     }
 
-    /**
-     * @return The error message. This will be a non-null value iff {@link SpellComponentCastResult#isFailure()} returns true.
-     */
-    @Nullable
-    public Component getMessage() {
-        return message;
+    final class Pass implements SpellComponentCastResult {
+        private Pass() {}
+
+        @Override
+        public boolean isSuccess() {
+            return false;
+        }
+
+        @Override
+        public boolean isFailure() {
+            return false;
+        }
+
+        @Override
+        public @Nullable Component getMessage() {
+            return null;
+        }
     }
 
-    /**
-     * @return A new {@link SpellCastResult} marked as successful. A successful result triggers behavior such as mana consumption or affinity awarding.
-     */
-    public static SpellComponentCastResult success(Spell spell) {
-        return new SpellComponentCastResult(Type.SUCCESS, spell, null);
-    }
+    record Failure(Component message) implements SpellComponentCastResult {
+        @Override
+        public boolean isSuccess() {
+            return false;
+        }
 
-    /**
-     * @return A new {@link SpellCastResult} marked as neither successful nor failing. This should be used e.g. when only running code on one side.
-     */
-    public static SpellComponentCastResult pass(Spell spell) {
-        return new SpellComponentCastResult(Type.PASS, spell, null);
-    }
+        @Override
+        public boolean isFailure() {
+            return true;
+        }
 
-    /**
-     * @param message The error message to set.
-     * @return A new {@link SpellCastResult} marked as failing and with the given error message set.
-     */
-    public static SpellComponentCastResult failure(Spell spell, Component message) {
-        return new SpellComponentCastResult(Type.FAILURE, spell, message);
-    }
-
-    private enum Type {
-        SUCCESS,
-        PASS,
-        FAILURE
+        @Override
+        public Component getMessage() {
+            return message;
+        }
     }
 }

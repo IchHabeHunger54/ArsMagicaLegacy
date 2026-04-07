@@ -3,7 +3,6 @@ package at.minecraftschurli.mods.arsmagicalegacy.spell.shape;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SecondarySpellShape;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellModifier;
@@ -22,11 +21,10 @@ public class Contingency extends SecondarySpellShape {
 
     @Override
     public SpellCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
-        Spell spell = context.spell();
         if (context.hitResult() instanceof EntityHitResult entityHitResult && entityHitResult.getEntity() instanceof LivingEntity living) {
-            ArsMagicaApi.spellHelper().setContingency(living, contingency, spell);
-            return new SpellCastResult(spell).setSuccess();
+            ArsMagicaApi.spellHelper().setContingency(living, contingency, context);
+            return new SpellCastResult(context).setSuccess();
         }
-        return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_NO_ENTITY);
+        return new SpellCastResult(context).setMessage(AMTranslations.SPELL_FAIL_NO_ENTITY);
     }
 }

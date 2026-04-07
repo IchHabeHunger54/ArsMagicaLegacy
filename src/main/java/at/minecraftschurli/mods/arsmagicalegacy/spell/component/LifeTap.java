@@ -4,7 +4,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.ManaHelper;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -23,16 +22,15 @@ public class LifeTap extends SpellComponent.CastEntity {
 
     @Override
     public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
-        Spell spell = context.spell();
-        if (!(hitResult.getEntity() instanceof LivingEntity entity)) return SpellComponentCastResult.pass(spell);
+        if (!(hitResult.getEntity() instanceof LivingEntity entity)) return SpellComponentCastResult.pass();
         LivingEntity caster = context.caster();
-        if (caster == null) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NO_CASTER);
-        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.pass(spell);
+        if (caster == null) return SpellComponentCastResult.failure(AMTranslations.SPELL_FAIL_NO_CASTER);
+        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.pass();
         float damage = (float) ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.LIFE_TAP_DAMAGE.get(), entity.isInvertedHealAndHarm() ? AMSpells.HEALING_STAT : AMSpells.DAMAGE_STAT, modifiers, context);
         if (entity.hurtServer(level, level.damageSources().indirectMagic(caster, context.directEntity()), damage)) {
             ManaHelper helper = ArsMagicaApi.manaHelper();
             helper.increaseMana(caster, damage * helper.getMaxMana(caster) * AMServerConfig.LIFE_TAP_FACTOR.get());
         }
-        return SpellComponentCastResult.success(spell);
+        return SpellComponentCastResult.success();
     }
 }

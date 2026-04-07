@@ -26,7 +26,7 @@ public class AreaOfEffect extends SecondarySpellShape {
 
     @Override
     public SpellCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
-        SpellCastResult result = new SpellCastResult(context.spell());
+        SpellCastResult result = new SpellCastResult(context.delegate());
         Entity directEntity = context.directEntity();
         if (directEntity == null || context.isHitResultNullOrMiss()) return result;
         double range = ArsMagicaApi.spellHelper().getModifiedStat(1, AMSpells.RANGE_STAT, modifiers, context);
@@ -64,7 +64,7 @@ public class AreaOfEffect extends SecondarySpellShape {
         for (Entity entity : context.level().getEntities(null, new AABB(location.subtract(range, range, range), location.add(range, range, range)))) {
             int id = entity.getId();
             if (caster != null && id == caster.getId() || directEntity != null && id == directEntity.getId()) continue;
-            updateResult(result, ArsMagicaApi.spellHelper().castGrammar(context.setSpell(result.getSpell()).setHitResult(new EntityHitResult(entity))));
+            updateResult(result, ArsMagicaApi.spellHelper().castGrammar(context.setHitResult(new EntityHitResult(entity))));
         }
     }
 

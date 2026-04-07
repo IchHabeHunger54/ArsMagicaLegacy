@@ -21,9 +21,10 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.mods.arsmagicalegacy.api.plant.Plant;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ritual.Ritual;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.CrystalPhylacteryContentsSize;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellFacade;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPartData;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPrefab;
 import at.minecraftschurli.mods.arsmagicalegacy.attachment.DryadKillsAttachment;
 import at.minecraftschurli.mods.arsmagicalegacy.attachment.SummonMinionsAttachment;
 import at.minecraftschurli.mods.arsmagicalegacy.block.LiquidEtheriumCauldronBlock;
@@ -34,43 +35,13 @@ import at.minecraftschurli.mods.arsmagicalegacy.command.SkillCommand;
 import at.minecraftschurli.mods.arsmagicalegacy.command.SkillPointCommand;
 import at.minecraftschurli.mods.arsmagicalegacy.compat.patchouli.AMMultiblocks;
 import at.minecraftschurli.mods.arsmagicalegacy.effect.AMMobEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.entity.AirGuardian;
-import at.minecraftschurli.mods.arsmagicalegacy.entity.ArcaneGuardian;
-import at.minecraftschurli.mods.arsmagicalegacy.entity.Dryad;
-import at.minecraftschurli.mods.arsmagicalegacy.entity.EarthGuardian;
-import at.minecraftschurli.mods.arsmagicalegacy.entity.EnderGuardian;
-import at.minecraftschurli.mods.arsmagicalegacy.entity.FireGuardian;
-import at.minecraftschurli.mods.arsmagicalegacy.entity.IceGuardian;
-import at.minecraftschurli.mods.arsmagicalegacy.entity.LifeGuardian;
-import at.minecraftschurli.mods.arsmagicalegacy.entity.LightningGuardian;
-import at.minecraftschurli.mods.arsmagicalegacy.entity.ManaCreeper;
-import at.minecraftschurli.mods.arsmagicalegacy.entity.NatureGuardian;
-import at.minecraftschurli.mods.arsmagicalegacy.entity.WaterGuardian;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMAbilities;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttachments;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMBlockEntities;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMBlocks;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMEntities;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMFluids;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMItems;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMMobEffects;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMRituals;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMSpells;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.*;
+import at.minecraftschurli.mods.arsmagicalegacy.init.*;
 import at.minecraftschurli.mods.arsmagicalegacy.item.CrystalPhylacteryItem;
 import at.minecraftschurli.mods.arsmagicalegacy.item.RuneBagItem;
 import at.minecraftschurli.mods.arsmagicalegacy.item.SpellBookItem;
-import at.minecraftschurli.mods.arsmagicalegacy.packet.ForgetSkillsPacket;
-import at.minecraftschurli.mods.arsmagicalegacy.packet.InscriptionTableCreateSpellPacket;
-import at.minecraftschurli.mods.arsmagicalegacy.packet.InscriptionTableSyncPacket;
-import at.minecraftschurli.mods.arsmagicalegacy.packet.LearnSkillPacket;
-import at.minecraftschurli.mods.arsmagicalegacy.packet.OpenBookInLecternPacket;
-import at.minecraftschurli.mods.arsmagicalegacy.packet.SetActiveShapeGroupPacket;
-import at.minecraftschurli.mods.arsmagicalegacy.packet.SetLecternPagePacket;
-import at.minecraftschurli.mods.arsmagicalegacy.packet.SetSpellRuneOwnerPacket;
-import at.minecraftschurli.mods.arsmagicalegacy.packet.SpellBookScrollPacket;
-import at.minecraftschurli.mods.arsmagicalegacy.packet.SpellCustomizationPacket;
-import at.minecraftschurli.mods.arsmagicalegacy.packet.TakeSpellRecipeFromLecternPacket;
+import at.minecraftschurli.mods.arsmagicalegacy.item.SpellItem;
+import at.minecraftschurli.mods.arsmagicalegacy.packet.*;
 import at.minecraftschurli.mods.arsmagicalegacy.spell.ToolTiers;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import at.minecraftschurli.mods.arsmagicalegacy.util.DispenseBucketBehavior;
@@ -225,7 +196,7 @@ final class AMEventHandler {
         event.dataPackRegistry(AMRegistries.Keys.SKILL, Skill.DIRECT_CODEC, Skill.DIRECT_CODEC);
         event.dataPackRegistry(AMRegistries.Keys.SKILL_POINT, SkillPoint.DIRECT_CODEC, SkillPoint.DIRECT_CODEC);
         event.dataPackRegistry(AMRegistries.Keys.SPELL_PART_DATA, SpellPartData.DIRECT_CODEC, SpellPartData.DIRECT_CODEC);
-        event.dataPackRegistry(AMRegistries.Keys.SPELL_PREFAB, Spell.CODEC, Spell.CODEC);
+        event.dataPackRegistry(AMRegistries.Keys.SPELL_PREFAB, SpellPrefab.DIRECT_CODEC, SpellPrefab.DIRECT_CODEC);
     }
 
     @SubscribeEvent
@@ -278,6 +249,8 @@ final class AMEventHandler {
         event.registerBlockEntity(AMCapabilities.BLOCK_ETHERIUM, AMBlockEntities.OBELISK.get(), (blockEntity, _) -> blockEntity);
         event.registerBlockEntity(AMCapabilities.BLOCK_ETHERIUM, AMBlockEntities.CELESTIAL_PRISM.get(), (blockEntity, _) -> blockEntity);
         event.registerBlockEntity(AMCapabilities.BLOCK_ETHERIUM, AMBlockEntities.BLACK_AUREM.get(), (blockEntity, _) -> blockEntity);
+        event.registerItem(AMCapabilities.SPELL, SpellItem::getSpellCap, AMItems.SPELL);
+        event.registerItem(AMCapabilities.SPELL, SpellBookItem::getSpellCap, AMItems.SPELL_BOOK);
     }
 
     @SubscribeEvent
@@ -589,7 +562,7 @@ final class AMEventHandler {
     private static void spellCastPost(SpellCastEvent.Post event) {
         if (!(event.getEntity() instanceof Player player)) return;
         ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, AMAbilities.SPELL_CAST_EFFECT_EFFECT.get());
-        Spell spell = event.getSpell();
+        SpellFacade spell = event.getSpell();
         Set<SpellPart> spellParts = new HashSet<>(spell.currentShapeGroup().parts());
         spellParts.addAll(spell.grammar().parts());
         Ritual.perform(AMRituals.SPELL_CAST_TRIGGER.get(), player, player.level(), player.position(), spellParts);

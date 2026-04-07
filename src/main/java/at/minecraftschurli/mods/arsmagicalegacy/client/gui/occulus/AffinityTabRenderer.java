@@ -13,11 +13,13 @@ import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.criterion.MinMaxBounds;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
 
@@ -34,8 +36,8 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
     private final RandomSource random = Objects.requireNonNull(AMClientUtil.level()).getRandom();
     private final List<Component> tooltip = new ArrayList<>();
 
-    public AffinityTabRenderer(Holder<OcculusTab> occulusTab) {
-        super(occulusTab);
+    public AffinityTabRenderer(Holder<OcculusTab> occulusTab, Minecraft minecraft) {
+        super(occulusTab, minecraft);
     }
 
     @Override
@@ -45,8 +47,9 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
         LocalPlayer player = AMClientUtil.player();
         if (player == null) return;
         Font font = AMClientUtil.font();
-        Registry<Affinity> affinities = AMRegistries.affinities(true);
-        Registry<Ability> abilities = AMRegistries.abilities(true);
+        RegistryAccess registryAccess = player.registryAccess();
+        Registry<Affinity> affinities = AMRegistries.affinities(registryAccess);
+        Registry<Ability> abilities = AMRegistries.abilities(registryAccess);
         int center = TAB_SIZE / 2 + RADIUS;
         int count = affinities.size() - 1;
         double angleStep = Math.toRadians(360. / count);

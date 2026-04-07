@@ -32,10 +32,10 @@ public class TimeManipulation extends SpellComponent {
 
     @Override
     public SpellComponentCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
-        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.pass(context.spell());
+        if (!(context.level() instanceof ServerLevel level)) return SpellComponentCastResult.pass();
         Holder<WorldClock> clock = clockGetter.apply(level);
-        if (clock == null) return SpellComponentCastResult.failure(context.spell(), failureMessage);
+        if (clock == null) return SpellComponentCastResult.failure(failureMessage);
         level.clockManager().moveToTimeMarker(clock, timeMarker);
-        return SpellComponentCastResult.success(context.spell());
+        return SpellComponentCastResult.success();
     }
 }

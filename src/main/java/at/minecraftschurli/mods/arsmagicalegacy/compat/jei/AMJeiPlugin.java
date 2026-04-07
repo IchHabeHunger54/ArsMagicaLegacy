@@ -42,12 +42,12 @@ public final class AMJeiPlugin implements IModPlugin {
 
     @Override
     public void registerIngredients(IModIngredientRegistration registration) {
-        registration.register(SKILL_TYPE, AMRegistries.skills(true)
+        registration.register(SKILL_TYPE, AMRegistries.skills(AMRegistries.registryAccess(true))
             .listElements()
             .filter(e -> AMRegistries.SPELL_PARTS.containsKey(e.key().identifier()))
             .sorted(Comparator.comparing(e -> Skill.getName(e).getString()))
             .map(Holder::value)
-            .toList(), new SkillIngredientHelper(), new SkillIngredientRenderer(), Skill.CODEC.xmap(Holder::value, AMRegistries.skills(true)::wrapAsHolder));
+            .toList(), new SkillIngredientHelper(), new SkillIngredientRenderer(), Skill.CODEC.xmap(Holder::value, AMRegistries.skills(AMRegistries.registryAccess(true))::wrapAsHolder));
     }
 
     @Override

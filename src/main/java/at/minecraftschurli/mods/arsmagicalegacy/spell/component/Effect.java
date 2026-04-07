@@ -2,7 +2,6 @@ package at.minecraftschurli.mods.arsmagicalegacy.spell.component;
 
 import at.minecraftschurli.mods.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponentCastResult;
@@ -28,8 +27,7 @@ public class Effect extends SpellComponent.CastEntity {
 
     @Override
     public SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult) {
-        Spell spell = context.spell();
-        if (!(hitResult.getEntity() instanceof LivingEntity living)) return SpellComponentCastResult.pass(spell);
+        if (!(hitResult.getEntity() instanceof LivingEntity living)) return SpellComponentCastResult.pass();
         SpellHelper helper = ArsMagicaApi.spellHelper();
         int amplifier = (int) helper.getModifiedStat(0, AMSpells.EFFECT_POWER_STAT, modifiers, context);
         if (!effect.value().isInstantenous()) {
@@ -37,6 +35,6 @@ public class Effect extends SpellComponent.CastEntity {
         } else if (context.level() instanceof ServerLevel level) {
             effect.value().applyInstantenousEffect(level, context.directEntity(), context.caster(), living, amplifier, living.getHealth());
         }
-        return SpellComponentCastResult.success(spell);
+        return SpellComponentCastResult.success();
     }
 }

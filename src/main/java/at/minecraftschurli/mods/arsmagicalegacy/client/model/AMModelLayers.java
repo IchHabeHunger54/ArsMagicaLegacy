@@ -1,4 +1,4 @@
-package at.minecraftschurli.mods.arsmagicalegacy.client.model.entity;
+package at.minecraftschurli.mods.arsmagicalegacy.client.model;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
@@ -10,7 +10,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.resources.Identifier;
 
-public interface AMModels {
+public interface AMModelLayers {
     ModelLayerLocation WITCHWOOD_BOAT = modelLayerLocation("boat/witchwood");
     ModelLayerLocation WITCHWOOD_CHEST_BOAT = modelLayerLocation("chest_boat/witchwood");
     ModelLayerLocation DRYAD = modelLayerLocation("dryad");

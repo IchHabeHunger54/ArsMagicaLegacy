@@ -1,4 +1,4 @@
-package at.minecraftschurli.mods.arsmagicalegacy.client.model.entity;
+package at.minecraftschurli.mods.arsmagicalegacy.client.model;
 
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.ModelEntityRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;

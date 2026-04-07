@@ -3,7 +3,6 @@ package at.minecraftschurli.mods.arsmagicalegacy.entity.ai;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.AbstractBoss;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.AirGuardian;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.Whirlwind;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMDamageSources;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMDamageTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;

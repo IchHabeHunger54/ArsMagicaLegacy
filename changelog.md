@@ -45,6 +45,7 @@
 - Dyed Spell Books can now be undyed at a Cauldron
 - Moved some Affinity Tomes to other biomes or structures
 - Rune Bags can no longer be inserted into Shulker Boxes or similar containers
+- The Spell Book HUD now displays right (instead of left) of the hotbar by default
 
 ## Crystal Phylactery
 

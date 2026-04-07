@@ -23,7 +23,7 @@ public class ThrowRockGoal extends AbstractBossGoal<EarthGuardian> {
     @Override
     public void performTick() {
         super.performTick();
-        boss.level().broadcastEntityEvent(boss, ticks > 2 && ticks < 16 ? (byte) -8 : (byte) -9);
+        boss.setHasRock(ticks > 2 && ticks < 16);
     }
 
     @Override

@@ -53,10 +53,8 @@ public abstract class AbstractBoss extends Monster implements GeoEntity, SpellCa
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(
-            DefaultAnimations.genericLivingController(),
-            new AnimationController<>("Action", test -> test.setAndContinue(test.getDataOrDefault(AMClientUtil.ACTION_DATA_TICKET, Action.IDLE).animation))
-        );
+        controllers.add(DefaultAnimations.genericLivingController());
+        controllers.add(new AnimationController<>("Action", test -> test.setAndContinue(test.getDataOrDefault(AMClientUtil.ACTION_DATA_TICKET, Action.IDLE).animation)));
     }
 
     @Override

@@ -17,8 +17,8 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 
 public class NatureGuardian extends AbstractBoss {
-    public static final byte HAS_SCYTHE_TRUE = (byte) -8;
-    public static final byte HAS_SCYTHE_FALSE = (byte) -9;
+    private static final byte HAS_SCYTHE_TRUE = (byte) -8;
+    private static final byte HAS_SCYTHE_FALSE = (byte) -9;
     private static final String HAS_SCYTHE_KEY = "has_scythe";
     private boolean hasScythe = true;
 

@@ -58,7 +58,7 @@ public class AltarCoreRenderer extends AbstractEtheriumBlockEntityRenderer<Altar
         Level level = blockEntity.getLevel();
         BlockPos lecternPos = blockEntity.getLecternPos();
         SpellIngredient ingredient = blockEntity.getCurrentIngredient();
-        if (!blockEntity.getBlockState().getValue(AltarCoreBlock.FORMED) || level == null || lecternPos == null || ingredient == null) {
+        if (!blockEntity.getBlockState().getValue(AltarCoreBlock.FORMED) || level == null || lecternPos == null) {
             state.disabled = true;
             return;
         }

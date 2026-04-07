@@ -14,5 +14,4 @@
     - Magitech Goggles Overlay
 - To fix
     - Whirlwind Renderer
-    - Spell JEI Subtype Interpreter
     - Disable Player and Life Guardian Summon Drops

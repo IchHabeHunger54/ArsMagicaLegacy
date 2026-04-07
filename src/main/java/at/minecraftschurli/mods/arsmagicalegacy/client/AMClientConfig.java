@@ -74,11 +74,11 @@ public final class AMClientConfig {
             .translation(AMTranslations.CONFIG_KEY + "shape_groups_anchor_y")
             .defineEnum("anchor_y", LayerAnchor.Y.TOP);
         builder.pop();
-        builder.comment("Configuration for the shape groups GUI layer. The size of the layer is 148x22.").push("spell_book");
+        builder.comment("Configuration for the shape groups GUI layer. The size of the layer is 111x17.").push("spell_book");
         SPELL_BOOK_X = builder
             .comment("Horizontal position of the shape groups GUI layer.")
             .translation(AMTranslations.CONFIG_KEY + "spell_book_x")
-            .defineInRange("x", -205, Short.MIN_VALUE, Short.MAX_VALUE);
+            .defineInRange("x", 94, Short.MIN_VALUE, Short.MAX_VALUE);
         SPELL_BOOK_Y = builder
             .comment("Vertical position of the shape groups GUI layer.")
             .translation(AMTranslations.CONFIG_KEY + "spell_book_y")

@@ -16,5 +16,4 @@
     - Whirlwind Renderer and Translation
     - Move Spell Book Overlay to the right
     - Spell JEI Subtype Interpreter
-    - Fix Spell Damage
     - Disable Player and Life Guardian Summon Drops

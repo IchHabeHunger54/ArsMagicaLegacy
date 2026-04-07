@@ -13,8 +13,8 @@
     - Altar Model & BER
     - Magitech Goggles Overlay
 - To fix
-    - Earth Guardian, Ice Guardian and Nature Guardian Invisible Model Parts
     - Whirlwind Renderer and Translation
     - Move Spell Book Overlay to the right
     - Spell JEI Subtype Interpreter
     - Fix Spell Damage
+    - Disable Player and Life Guardian Summon Drops

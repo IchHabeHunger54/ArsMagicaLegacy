@@ -41,6 +41,7 @@ import java.util.List;
 
 public final class AMClientUtil {
     public static final DataTicket<AbstractBoss.Action> ACTION_DATA_TICKET = DataTickets.create("action", new TypeToken<>() {});
+    public static final DataTicket<List<String>> HIDDEN_BONES_DATA_TICKET = DataTickets.create("hidden_bones", new TypeToken<>() {});
 
     private AMClientUtil() {}
 

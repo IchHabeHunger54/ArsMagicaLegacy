@@ -17,10 +17,10 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 
 public class EarthGuardian extends AbstractBoss {
-    public static final byte RENDER_ROCK_TRUE = (byte) -8;
-    public static final byte RENDER_ROCK_FALSE = (byte) -9;
-    private static final String RENDER_ROCK_KEY = "render_rock";
-    public boolean renderRock = false;
+    private static final byte HAS_ROCK_TRUE = (byte) -8;
+    private static final byte HAS_ROCK_FALSE = (byte) -9;
+    private static final String HAS_ROCK_KEY = "has_rock";
+    private boolean hasRock = false;
 
     public EarthGuardian(EntityType<? extends EarthGuardian> type, Level level) {
         super(type, level, AMTags.DamageTypes.EARTH_GUARDIAN_IS_VULNERABLE_TO, AMTags.DamageTypes.EARTH_GUARDIAN_IS_IMMUNE_TO, AMTags.DamageTypes.EARTH_GUARDIAN_IS_HEAL_TO);
@@ -37,13 +37,13 @@ public class EarthGuardian extends AbstractBoss {
     @Override
     protected void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
-        input.child(ArsMagicaApi.MOD_ID).ifPresent(child -> renderRock = child.getBooleanOr(RENDER_ROCK_KEY, true));
+        input.child(ArsMagicaApi.MOD_ID).ifPresent(child -> hasRock = child.getBooleanOr(HAS_ROCK_KEY, true));
     }
 
     @Override
     protected void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
-        output.child(ArsMagicaApi.MOD_ID).putBoolean(RENDER_ROCK_KEY, renderRock);
+        output.child(ArsMagicaApi.MOD_ID).putBoolean(HAS_ROCK_KEY, hasRock);
     }
 
     @Override
@@ -76,11 +76,20 @@ public class EarthGuardian extends AbstractBoss {
 
     @Override
     public void handleEntityEvent(byte id) {
-        if (id == RENDER_ROCK_TRUE) {
-            renderRock = true;
-        } else if (id == RENDER_ROCK_FALSE) {
-            renderRock = false;
+        if (id == HAS_ROCK_TRUE) {
+            hasRock = true;
+        } else if (id == HAS_ROCK_FALSE) {
+            hasRock = false;
         }
         super.handleEntityEvent(id);
+    }
+
+    public boolean hasRock() {
+        return hasRock;
+    }
+
+    public void setHasRock(boolean hasRock) {
+        this.hasRock = hasRock;
+        level().broadcastEntityEvent(this, hasRock ? HAS_ROCK_TRUE : HAS_ROCK_FALSE);
     }
 }

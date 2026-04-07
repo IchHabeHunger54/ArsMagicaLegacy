@@ -118,6 +118,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID, value = Dist.CLIENT)
 final class AMClientEventHandler {
@@ -138,14 +139,7 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerFluidModels(RegisterFluidModelsEvent event) {
-        event.register(
-            new FluidModel.Unbaked(
-                new Material(ArsMagicaApi.id("block/liquid_etherium_still")),
-                new Material(ArsMagicaApi.id("block/liquid_etherium_flowing")),
-                null,
-                null),
-            AMFluids.LIQUID_ETHERIUM::value,
-            AMFluids.FLOWING_LIQUID_ETHERIUM::value);
+        event.register(new FluidModel.Unbaked(new Material(ArsMagicaApi.id("block/liquid_etherium_still")), new Material(ArsMagicaApi.id("block/liquid_etherium_flowing")), null, null), AMFluids.LIQUID_ETHERIUM::value, AMFluids.FLOWING_LIQUID_ETHERIUM::value);
     }
 
     @SubscribeEvent
@@ -174,11 +168,11 @@ final class AMClientEventHandler {
         event.registerEntityRenderer(AMEntities.MANA_VORTEX.get(), NoopRenderer::new);
         BossRenderer.register(event, AMEntities.WATER_GUARDIAN);
         BossRenderer.register(event, AMEntities.FIRE_GUARDIAN);
-        BossRenderer.register(event, AMEntities.EARTH_GUARDIAN);
+        BossRenderer.register(event, AMEntities.EARTH_GUARDIAN, Map.of("rock", boss -> !boss.hasRock()));
         BossRenderer.register(event, AMEntities.AIR_GUARDIAN);
-        BossRenderer.register(event, AMEntities.ICE_GUARDIAN);
+        BossRenderer.register(event, AMEntities.ICE_GUARDIAN, Map.of("left_arm", boss -> boss.getArmCount() < 2, "right_arm", boss -> boss.getArmCount() < 1));
         BossRenderer.register(event, AMEntities.LIGHTNING_GUARDIAN);
-        BossRenderer.register(event, AMEntities.NATURE_GUARDIAN);
+        BossRenderer.register(event, AMEntities.NATURE_GUARDIAN, Map.of("scythe", boss -> !boss.hasScythe()));
         BossRenderer.register(event, AMEntities.LIFE_GUARDIAN);
         BossRenderer.register(event, AMEntities.ARCANE_GUARDIAN);
         BossRenderer.register(event, AMEntities.ENDER_GUARDIAN);

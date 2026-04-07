@@ -1,4 +1,4 @@
-package at.minecraftschurli.mods.arsmagicalegacy.client.extension;
+package at.minecraftschurli.mods.arsmagicalegacy.client;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import net.minecraft.client.Camera;

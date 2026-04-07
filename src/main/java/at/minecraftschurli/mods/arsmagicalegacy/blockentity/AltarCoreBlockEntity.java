@@ -32,7 +32,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.LeverBlock;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.StairBlock;
@@ -319,7 +318,7 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
 
     @Nullable
     public SpellIngredient getCurrentIngredient() {
-        return hasRecipe() ? recipe.get(currentIngredient) : null;
+        return hasRecipe() && recipe.size() > currentIngredient ? recipe.get(currentIngredient) : null;
     }
 
     public int getPower() {

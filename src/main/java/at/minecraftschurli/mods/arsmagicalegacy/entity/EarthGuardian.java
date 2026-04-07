@@ -2,6 +2,9 @@ package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.StompGoal;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.StrikeGoal;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.ThrowRockGoal;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
 import net.minecraft.sounds.SoundEvent;
@@ -66,6 +69,9 @@ public class EarthGuardian extends AbstractBoss {
     @Override
     protected void registerGoals() {
         super.registerGoals();
+        goalSelector.addGoal(1, new StompGoal<>(this));
+        goalSelector.addGoal(1, new StrikeGoal<>(this));
+        goalSelector.addGoal(1, new ThrowRockGoal(this));
     }
 
     @Override

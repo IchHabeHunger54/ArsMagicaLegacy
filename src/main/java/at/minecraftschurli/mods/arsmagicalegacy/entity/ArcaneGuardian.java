@@ -1,6 +1,12 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
+import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
+import at.minecraftschurli.mods.arsmagicalegacy.api.data.JsonDataManager;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.ExecuteBossSpellGoal;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.ExecuteRandomSpellGoal;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.HealGoal;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
 import net.minecraft.sounds.SoundEvent;
@@ -9,6 +15,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
+
+import java.util.List;
 
 public class ArcaneGuardian extends AbstractBoss {
     public ArcaneGuardian(EntityType<? extends ArcaneGuardian> type, Level level) {
@@ -46,5 +54,25 @@ public class ArcaneGuardian extends AbstractBoss {
     @Override
     protected void registerGoals() {
         super.registerGoals();
+        JsonDataManager<Spell> manager = ArsMagicaApi.spellPrefabManager();
+        goalSelector.addGoal(1, new HealGoal<>(this));
+        goalSelector.addGoal(1, new ExecuteRandomSpellGoal<>(this, List.of(
+            manager.get(ArsMagicaApi.id("water_bolt")),
+            manager.get(ArsMagicaApi.id("fire_bolt")),
+            manager.get(ArsMagicaApi.id("earth_bolt")),
+            manager.get(ArsMagicaApi.id("lightning_bolt")),
+            manager.get(ArsMagicaApi.id("ice_bolt")),
+            manager.get(ArsMagicaApi.id("arcane_bolt"))
+        ), 30));
+        goalSelector.addGoal(1, new ExecuteRandomSpellGoal<>(this, List.of(
+            manager.get(ArsMagicaApi.id("strong_water_bolt")),
+            manager.get(ArsMagicaApi.id("strong_fire_bolt")),
+            manager.get(ArsMagicaApi.id("strong_earth_bolt")),
+            manager.get(ArsMagicaApi.id("strong_lightning_bolt")),
+            manager.get(ArsMagicaApi.id("strong_ice_bolt")),
+            manager.get(ArsMagicaApi.id("strong_arcane_bolt"))
+        ), 30));
+        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, manager.get(ArsMagicaApi.id("blink")), 30));
+        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, manager.get(ArsMagicaApi.id("debuff")), 30));
     }
 }

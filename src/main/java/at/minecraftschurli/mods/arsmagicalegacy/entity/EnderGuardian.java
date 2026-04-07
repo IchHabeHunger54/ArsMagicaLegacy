@@ -1,6 +1,14 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
+import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
+import at.minecraftschurli.mods.arsmagicalegacy.api.data.JsonDataManager;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.EnderRushGoal;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.EnderTorrentGoal;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.ExecuteBossSpellGoal;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.OtherworldlyRoarGoal;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.ShadowstepGoal;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
 import net.minecraft.server.level.ServerLevel;
@@ -60,6 +68,13 @@ public class EnderGuardian extends AbstractBoss {
     @Override
     protected void registerGoals() {
         super.registerGoals();
+        JsonDataManager<Spell> manager = ArsMagicaApi.spellPrefabManager();
+        goalSelector.addGoal(1, new EnderRushGoal(this));
+        goalSelector.addGoal(1, new ShadowstepGoal(this));
+        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, manager.get(ArsMagicaApi.id("ender_bolt")), 10));
+        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, manager.get(ArsMagicaApi.id("ender_wave")), 10));
+        goalSelector.addGoal(1, new EnderTorrentGoal(this));
+        goalSelector.addGoal(1, new OtherworldlyRoarGoal(this));
     }
 
     @Override

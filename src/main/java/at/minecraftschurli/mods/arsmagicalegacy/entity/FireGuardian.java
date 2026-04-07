@@ -1,6 +1,12 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
+import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
+import at.minecraftschurli.mods.arsmagicalegacy.api.data.JsonDataManager;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.ExecuteBossSpellGoal;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.FireRainGoal;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.FlamethrowerGoal;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
 import net.minecraft.core.particles.ParticleTypes;
@@ -59,6 +65,12 @@ public class FireGuardian extends AbstractBoss {
     @Override
     protected void registerGoals() {
         super.registerGoals();
+        JsonDataManager<Spell> manager = ArsMagicaApi.spellPrefabManager();
+        goalSelector.addGoal(1, new FireRainGoal(this));
+        goalSelector.addGoal(1, new FlamethrowerGoal(this));
+        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, manager.get(ArsMagicaApi.id("fire_bolt")), 20));
+        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, manager.get(ArsMagicaApi.id("strong_fire_bolt")), 20));
+        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, manager.get(ArsMagicaApi.id("melt_armor")), 20));
     }
 
     @Override

@@ -2,6 +2,9 @@ package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.ExecuteBossSpellGoal;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.HealGoal;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.SummonAlliesGoal;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
 import net.minecraft.core.UUIDUtil;
@@ -94,6 +97,10 @@ public class LifeGuardian extends AbstractBoss {
     @Override
     protected void registerGoals() {
         super.registerGoals();
+        //TODO goalSelector.addGoal(1, new SummonAlliesGoal(this, AMEntities.EARTH_ELEMENTAL.get(), AMEntities.FIRE_ELEMENTAL.get(), AMEntities.MANA_ELEMENTAL.get(), AMEntities.DARKLING.get()));
+        goalSelector.addGoal(1, new SummonAlliesGoal(this, List.of(EntityType.PILLAGER, EntityType.VINDICATOR, EntityType.WITCH)));
+        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, ArsMagicaApi.spellPrefabManager().get(ArsMagicaApi.id("nausea")), 30));
+        goalSelector.addGoal(1, new HealGoal<>(this));
     }
 
     @Override

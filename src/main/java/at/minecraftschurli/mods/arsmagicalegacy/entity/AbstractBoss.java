@@ -1,6 +1,8 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCasterEntity;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.BossNearestAttackableTargetGoal;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.DispelGoal;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import com.geckolib.animatable.GeoEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -21,7 +23,12 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.jspecify.annotations.Nullable;
 
@@ -148,6 +155,17 @@ public abstract class AbstractBoss extends Monster implements GeoEntity, SpellCa
             level().playSound(null, this, sound, SoundSource.HOSTILE, 1f, 0.5f + random.nextFloat() * 0.5f);
         }
         return super.hurtServer(level, source, damage);
+    }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        goalSelector.addGoal(0, new DispelGoal<>(this));
+        goalSelector.addGoal(2, new RandomSwimmingGoal(this, 1, 1));
+        goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8));
+        goalSelector.addGoal(2, new RandomLookAroundGoal(this));
+        targetSelector.addGoal(0, new HurtByTargetGoal(this));
+        targetSelector.addGoal(1, new BossNearestAttackableTargetGoal<>(this, Player.class, 2, true, false, null));
     }
 
     @Nullable

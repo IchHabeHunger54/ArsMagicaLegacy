@@ -2,6 +2,9 @@ package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.SpinGoal;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.StrikeGoal;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.ThrowScytheGoal;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
 import net.minecraft.sounds.SoundEvent;
@@ -66,6 +69,9 @@ public class NatureGuardian extends AbstractBoss {
     @Override
     protected void registerGoals() {
         super.registerGoals();
+        goalSelector.addGoal(1, new SpinGoal<>(this));
+        goalSelector.addGoal(1, new StrikeGoal<>(this));
+        goalSelector.addGoal(1, new ThrowScytheGoal(this));
     }
 
     @Override

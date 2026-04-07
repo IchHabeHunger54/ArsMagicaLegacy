@@ -1,6 +1,8 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.HurricaneGoal;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.WhirlwindGoal;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -23,5 +25,7 @@ public class AirGuardian extends AbstractBoss {
     @Override
     protected void registerGoals() {
         super.registerGoals();
+        goalSelector.addGoal(1, new HurricaneGoal(this));
+        goalSelector.addGoal(1, new WhirlwindGoal(this));
     }
 }

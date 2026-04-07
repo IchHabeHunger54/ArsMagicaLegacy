@@ -221,6 +221,9 @@ public final class AMLanguageProvider extends LanguageProvider {
         entityIdTranslation(AMEntities.ENDER_GUARDIAN);
         addEntityType(AMEntities.WINTERS_GRASP, "Winter's Grasp");
         entityIdTranslation(AMEntities.NATURE_SCYTHE);
+        entityIdTranslation(AMEntities.SHOCKWAVE);
+        entityIdTranslation(AMEntities.THROWN_ROCK);
+        entityIdTranslation(AMEntities.WHIRLWIND);
         effectIdTranslation(AMMobEffects.ASTRAL_DISTORTION);
         effectIdTranslation(AMMobEffects.BURNOUT_REDUCTION);
         effectIdTranslation(AMMobEffects.CLARITY);
@@ -700,7 +703,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("shape_groups_y", "Vertical Position", "Vertical position of the shape groups GUI layer.");
         configTranslation("shape_groups_anchor_x", "Horizontal Anchor", "Horizontal anchor of the shape groups GUI layer.");
         configTranslation("shape_groups_anchor_y", "Vertical Anchor", "Vertical anchor of the shape groups GUI layer.");
-        configTranslation("spell_book", "Spell Book", "Configuration for the spell book GUI layer. The size of the layer is 148x22.");
+        configTranslation("spell_book", "Spell Book", "Configuration for the spell book GUI layer. The size of the layer is 111x17.");
         configTranslation("spell_book_x", "Horizontal Position", "Horizontal position of the spell book GUI layer.");
         configTranslation("spell_book_y", "Vertical Position", "Vertical position of the spell book GUI layer.");
         configTranslation("spell_book_anchor_x", "Horizontal Anchor", "Horizontal anchor of the spell book GUI layer.");

@@ -13,7 +13,6 @@
     - Altar Model & BER
     - Magitech Goggles Overlay
 - To fix
-    - Whirlwind Renderer and Translation
-    - Move Spell Book Overlay to the right
+    - Whirlwind Renderer
     - Spell JEI Subtype Interpreter
     - Disable Player and Life Guardian Summon Drops

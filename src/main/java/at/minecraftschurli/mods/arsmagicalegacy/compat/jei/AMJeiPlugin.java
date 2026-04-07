@@ -12,6 +12,7 @@ import mezz.jei.api.registration.IModIngredientRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
+import mezz.jei.api.runtime.IIngredientManager;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
@@ -63,6 +64,11 @@ public final class AMJeiPlugin implements IModPlugin {
     public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
         runtime = jeiRuntime;
         HiddenSkills.update();
+        IIngredientManager ingredientManager = runtime.getIngredientManager();
+        ingredientManager.removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, ingredientManager.getAllIngredients(VanillaTypes.ITEM_STACK)
+            .stream()
+            .filter(e -> e.is(AMItems.SPELL))
+            .toList());
     }
 
     @Override

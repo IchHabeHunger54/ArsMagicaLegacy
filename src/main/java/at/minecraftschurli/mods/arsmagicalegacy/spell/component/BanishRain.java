@@ -12,6 +12,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.init.AMSpells;
 import net.minecraft.server.level.ServerLevel;
 
 import java.util.List;
+import java.util.Objects;
 
 public class BanishRain extends SpellComponent {
     public BanishRain() {
@@ -23,7 +24,7 @@ public class BanishRain extends SpellComponent {
         Spell spell = context.spell();
         if (context.level() instanceof ServerLevel level) {
             if (level.isRaining()) {
-                level.getServer().setWeatherParameters((int) ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.BANISH_RAIN_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context), 0, false, false);
+                Objects.requireNonNull(level.getServer()).setWeatherParameters((int) ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.BANISH_RAIN_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context), 0, false, false);
                 return SpellComponentCastResult.success(spell);
             }
             return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_BANISH_RAIN);

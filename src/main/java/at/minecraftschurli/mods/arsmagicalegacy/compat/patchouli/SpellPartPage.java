@@ -77,7 +77,11 @@ public final class SpellPartPage implements ICustomComponent {
                     y += SLOT_SIZE;
                 }
                 SpellIngredient ingredient = recipe.get(i);
-                drawItemStack(graphics, context, AMUtil.getByTick(ingredient.asItemStacks(), tick).copyWithCount(ingredient.count()), ingredient.tooltip(), x, y, mouseX, mouseY);
+                ItemStack stack = AMUtil.getByTick(ingredient.asItemStacks(), tick);
+                if (stack == null || stack.isEmpty()) {
+                    continue;
+                }
+                drawItemStack(graphics, context, stack, ingredient.tooltip(), x, y, mouseX, mouseY);
             }
             y += TEXT_BOTTOM_PADDING + SLOT_SIZE;
         }

@@ -18,6 +18,7 @@ import net.minecraft.world.level.storage.LevelData;
 import net.minecraft.world.phys.EntityHitResult;
 
 import java.util.List;
+import java.util.Objects;
 
 public class DivineIntervention extends SpellComponent.CastEntity {
     @Override
@@ -36,7 +37,7 @@ public class DivineIntervention extends SpellComponent.CastEntity {
             transition = player.findRespawnPositionAndUseSpawnBlock(false, TeleportTransition.DO_NOTHING);
         } else {
             LevelData.RespawnData respawnData = server.getRespawnData();
-            ServerLevel serverLevel = server.getServer().getLevel(respawnData.dimension());
+            ServerLevel serverLevel = Objects.requireNonNull(server.getServer()).getLevel(respawnData.dimension());
             if (serverLevel == null) return SpellComponentCastResult.pass(spell);
             transition = new TeleportTransition(serverLevel, respawnData.pos().getBottomCenter(), entity.getDeltaMovement(), respawnData.yaw(), respawnData.pitch(), TeleportTransition.DO_NOTHING);
         }

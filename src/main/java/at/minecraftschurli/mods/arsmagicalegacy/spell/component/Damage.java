@@ -28,6 +28,7 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 
 public class Damage extends SpellComponent.CastEntity {
@@ -54,7 +55,7 @@ public class Damage extends SpellComponent.CastEntity {
             }
             return SpellComponentCastResult.success(spell);
         }
-        if (context.level() instanceof ServerLevel level && !level.getServer().getGameRules().get(GameRules.PVP) && target instanceof Player) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_DAMAGE_PVP);
+        if (context.level() instanceof ServerLevel level && !Objects.requireNonNull(level.getServer()).getGameRules().get(GameRules.PVP) && target instanceof Player) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_DAMAGE_PVP);
         float finalDamage = (float) helper.getModifiedStat(damage, AMSpells.DAMAGE_STAT, modifiers, context);
         ItemStack stack = AMUtil.getEnchantedSpell(modifiers, context, Map.of(Enchantments.LOOTING, AMSpells.FORTUNE_STAT, AMEnchantments.DISMEMBERING, AMSpells.DISMEMBERING_STAT));
         spell = spell.updateDataComponents(map -> map.updateGrammar(grammar -> grammar.set(AMDataComponents.SPELL_DAMAGE.get(), grammar.getOrDefault(AMDataComponents.SPELL_DAMAGE.get(), SpellDamage.EMPTY).setDamage(target, damageType.apply(context.caster()), finalDamage, stack))));

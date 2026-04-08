@@ -1,7 +1,6 @@
 - Test All Spell Parts and Particles
 - Boss Spawn Eggs (needs textures)
 - Change Lightning Guardian Spawn Ritual to Copper Bars (needs Neo changes)
-- Adapt to Timeline/World Clock system (needs Neo changes)
 - Fix Render Pipelines
     - Color Wheel
     - Magitech Goggles Overlay

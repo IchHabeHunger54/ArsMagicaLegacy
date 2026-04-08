@@ -23,16 +23,6 @@ public class LightningRodGoal extends AbstractBossGoal<LightningGuardian> {
     }
 
     @Override
-    public boolean canUse() {
-        return super.canUse();
-    }
-
-    @Override
-    public boolean canContinueToUse() {
-        return super.canContinueToUse();
-    }
-
-    @Override
     public void stop() {
         super.stop();
         startPos = null;

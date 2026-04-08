@@ -3,6 +3,7 @@ package at.minecraftschurli.mods.arsmagicalegacy.entity.ai;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.AbstractBoss;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.LightningGuardian;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
 
@@ -18,8 +19,9 @@ public class StaticGoal extends AbstractBossGoal<LightningGuardian> {
 
     @Override
     public void perform() {
+        if (!(boss.level() instanceof ServerLevel level)) return;
         for (LivingEntity e : boss.level().getEntitiesOfClass(LivingEntity.class, boss.getBoundingBox().inflate(8, 3, 8), e -> !(e instanceof AbstractBoss))) {
-            e.hurt(boss.damageSources().lightningBolt(), 20);
+            e.hurtServer(level, boss.damageSources().lightningBolt(), 20);
         }
     }
 }

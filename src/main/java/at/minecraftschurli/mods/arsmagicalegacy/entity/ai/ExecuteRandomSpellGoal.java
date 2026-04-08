@@ -2,7 +2,7 @@ package at.minecraftschurli.mods.arsmagicalegacy.entity.ai;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.AbstractBoss;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 

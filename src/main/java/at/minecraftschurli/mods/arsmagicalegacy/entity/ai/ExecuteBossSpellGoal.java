@@ -3,7 +3,7 @@ package at.minecraftschurli.mods.arsmagicalegacy.entity.ai;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.AbstractBoss;
 import net.minecraft.sounds.SoundEvent;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class ExecuteBossSpellGoal<T extends AbstractBoss> extends ExecuteSpellGoal<T> {
     public ExecuteBossSpellGoal(T caster, @Nullable Spell spell, int duration) {
@@ -16,6 +16,7 @@ public class ExecuteBossSpellGoal<T extends AbstractBoss> extends ExecuteSpellGo
     }
 
     @Override
+    @Nullable
     protected SoundEvent getAttackSound() {
         return caster.getAttackSound();
     }

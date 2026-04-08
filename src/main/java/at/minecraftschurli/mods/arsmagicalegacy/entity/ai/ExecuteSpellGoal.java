@@ -9,10 +9,11 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class ExecuteSpellGoal<T extends Mob & SpellCasterEntity> extends Goal {
     protected final T caster;
+    @Nullable
     public final Spell spell;
     public final int duration;
     protected int ticks = 0;

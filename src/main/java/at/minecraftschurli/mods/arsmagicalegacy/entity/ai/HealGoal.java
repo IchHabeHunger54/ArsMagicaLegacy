@@ -5,7 +5,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.entity.AbstractBoss;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class HealGoal<T extends AbstractBoss> extends ExecuteBossSpellGoal<T> {
     private static final Identifier SPELL = ArsMagicaApi.id("heal_self");

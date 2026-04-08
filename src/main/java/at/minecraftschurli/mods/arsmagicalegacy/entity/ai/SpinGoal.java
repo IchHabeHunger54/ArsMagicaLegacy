@@ -1,6 +1,7 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity.ai;
 
 import at.minecraftschurli.mods.arsmagicalegacy.entity.AbstractBoss;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 
 public class SpinGoal<T extends AbstractBoss> extends AbstractBossGoal<T> {
@@ -15,8 +16,9 @@ public class SpinGoal<T extends AbstractBoss> extends AbstractBossGoal<T> {
 
     @Override
     public void performTick() {
+        if (!(boss.level() instanceof ServerLevel level)) return;
         for (LivingEntity e : boss.level().getEntitiesOfClass(LivingEntity.class, boss.getBoundingBox().inflate(2, 2, 2), e -> !(e instanceof AbstractBoss))) {
-            e.hurt(boss.damageSources().mobAttack(boss), 4);
+            e.hurtServer(level, boss.damageSources().mobAttack(boss), 4);
         }
     }
 }

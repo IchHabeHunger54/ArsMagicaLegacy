@@ -49,7 +49,7 @@ public record ItemSpellIngredient(Ingredient item, int count) implements SpellIn
             ItemStack item = itemStacks.getFirst();
             return List.of(item.getItemName(), Component.translatable(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, count));
         }
-        List<Component> components = new ArrayList<>(itemStacks.stream().map(e -> e.getItemName()).toList());
+        List<Component> components = new ArrayList<>(itemStacks.stream().map(ItemStack::getItemName).toList());
         components.add(Component.translatable(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, count));
         return components;
     }

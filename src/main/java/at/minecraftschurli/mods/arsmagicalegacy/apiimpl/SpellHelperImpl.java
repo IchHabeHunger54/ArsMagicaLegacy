@@ -73,9 +73,10 @@ final class SpellHelperImpl implements SpellHelper {
         double burnoutCost = 0;
         if (caster != null) {
             if (caster.hasEffect(AMMobEffects.CLARITY)) {
+                caster.removeEffect(AMMobEffects.CLARITY);
+            } else {
                 manaCost = NeoForge.EVENT_BUS.post(new ManaCostCalculationEvent(caster, spell, spell.getManaCost(), burnoutHelper.getBurnout(caster))).getResult();
                 burnoutCost = NeoForge.EVENT_BUS.post(new BurnoutCostCalculationEvent(caster, spell, spell.grammar().getBurnoutCost())).getBurnout();
-                caster.removeEffect(AMMobEffects.CLARITY);
             }
             SpellCastEvent.Pre event = new SpellCastEvent.Pre(caster, spell, manaCost, burnoutCost, consume, awardXp);
             if (event.isCanceled()) return new SpellCastResult(spell).setMessage(event.getCancellationMessage());

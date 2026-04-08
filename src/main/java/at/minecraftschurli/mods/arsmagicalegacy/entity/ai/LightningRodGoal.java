@@ -10,8 +10,10 @@ import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.Nullable;
 
 public class LightningRodGoal extends AbstractBossGoal<LightningGuardian> {
+    @Nullable
     private Vec3 startPos = null;
     private boolean hasBolted = false;
     private boolean hasThrown = false;
@@ -50,7 +52,7 @@ public class LightningRodGoal extends AbstractBossGoal<LightningGuardian> {
         if (!level.isClientSide() && ticks % 20 == 0) {
             level.playSound(null, boss, AMSounds.LIGHTNING_GUARDIAN_LIGHTNING_ROD.value(), SoundSource.HOSTILE, 1.0f, boss.getRandom().nextFloat() * 0.5f + 0.5f);
         }
-        if (ticks <= 10) {
+        if (ticks <= 10 || startPos == null) {
             startPos = new Vec3((float) target.getX(), (float) target.getY(), (float) target.getZ());
         } else if (ticks <= 40) {
             target.teleportTo(startPos.x(), startPos.y() + (ticks - 10) * 0.2, startPos.z());
@@ -76,9 +78,5 @@ public class LightningRodGoal extends AbstractBossGoal<LightningGuardian> {
             bolt.setPos(target.getX(), target.getY(), target.getZ());
             level.addFreshEntity(bolt);
         }
-    }
-
-    @Override
-    public void perform() {
     }
 }

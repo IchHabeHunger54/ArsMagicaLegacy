@@ -44,14 +44,12 @@ public record ItemSpellIngredient(Ingredient item, int count) implements SpellIn
 
     @Override
     public List<Component> tooltip() {
-        List<Item> items = item.items()
-            .map(Holder::value)
-            .toList();
-        if (items.size() == 1) {
-            Item item = items.getFirst();
-            return List.of(item.getName(item.getDefaultInstance()), Component.translatable(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, count));
+        List<ItemStack> itemStacks = asItemStacks();
+        if (itemStacks.size() == 1) {
+            ItemStack item = itemStacks.getFirst();
+            return List.of(item.getItemName(), Component.translatable(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, count));
         }
-        List<Component> components = new ArrayList<>(items.stream().map(e -> e.getName(e.getDefaultInstance())).toList());
+        List<Component> components = new ArrayList<>(itemStacks.stream().map(e -> e.getItemName()).toList());
         components.add(Component.translatable(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, count));
         return components;
     }

@@ -1,4 +1,4 @@
-// 26.1.1	2026-04-03T09:00:07.3211887	vanilla/Patchouli Book Provider
+// 26.1.1	2026-04-09T23:39:54.6737756	vanilla/Patchouli Book Provider
 d14963c006403569ef2a52c30f2a7bf9e630adf5 assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/categories/affinities.json
 d1bc5251356b8f54fbeb5edfea4ea2cb78cea9ed assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/categories/blocks.json
 21663bc37f75df39190a3a4d320fd171f9abec12 assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/categories/bosses.json
@@ -129,7 +129,7 @@ b945a6666d8ea54980dbb37ed49592cc11b41ebe assets/arsmagicalegacy/patchouli_books/
 1e4b6b0925f5b12ed688d8c51ae4a7d7523b76c0 assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/mechanics/crafting_altar.json
 3fce58ec8891bf52816dd9161145ffa9c4fd28d2 assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/mechanics/etherium.json
 937cb94c3f8059d75e584e7a6be593be670f2b06 assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/mechanics/getting_started.json
-db5fe7fca2577ee0fd2ec8cfac38d138774c87ca assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/mechanics/liquid_etherium.json
+4c88648a4c28f244b3443ff094913bd2319ba11a assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/mechanics/liquid_etherium.json
 6863c000c6e68121d190162bb4c5bfc5f841dfc0 assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/mechanics/shape_groups.json
 799de6cae606684a4989e29dc98dbb0b7dc828ee assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/mechanics/silver_spell_parts.json
 a976805e17064dd397e59476a55b341c8c62d628 assets/arsmagicalegacy/patchouli_books/arcane_compendium/en_us/entries/modifiers/bounce.json

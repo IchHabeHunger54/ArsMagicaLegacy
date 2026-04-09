@@ -149,6 +149,16 @@ public interface AMItems {
     DeferredItem<BlockItem>                             WAKEBLOOM                        = ITEMS.registerItem("wakebloom", p -> new PlaceOnWaterBlockItem(AMBlocks.WAKEBLOOM.get(), p));
     DeferredItem<SpawnEggItem>                          DRYAD_SPAWN_EGG                  = ITEMS.registerItem("dryad_spawn_egg", SpawnEggItem::new, p -> p.spawnEgg(AMEntities.DRYAD.get()));
     DeferredItem<SpawnEggItem>                          MANA_CREEPER_SPAWN_EGG           = ITEMS.registerItem("mana_creeper_spawn_egg", SpawnEggItem::new, p -> p.spawnEgg(AMEntities.MANA_CREEPER.get()));
+    DeferredItem<SpawnEggItem>                          WATER_GUARDIAN_SPAWN_EGG         = ITEMS.registerItem("water_guardian_spawn_egg", SpawnEggItem::new, p -> p.spawnEgg(AMEntities.WATER_GUARDIAN.get()));
+    DeferredItem<SpawnEggItem>                          FIRE_GUARDIAN_SPAWN_EGG          = ITEMS.registerItem("fire_guardian_spawn_egg", SpawnEggItem::new, p -> p.spawnEgg(AMEntities.FIRE_GUARDIAN.get()));
+    DeferredItem<SpawnEggItem>                          EARTH_GUARDIAN_SPAWN_EGG         = ITEMS.registerItem("earth_guardian_spawn_egg", SpawnEggItem::new, p -> p.spawnEgg(AMEntities.EARTH_GUARDIAN.get()));
+    DeferredItem<SpawnEggItem>                          AIR_GUARDIAN_SPAWN_EGG           = ITEMS.registerItem("air_guardian_spawn_egg", SpawnEggItem::new, p -> p.spawnEgg(AMEntities.AIR_GUARDIAN.get()));
+    DeferredItem<SpawnEggItem>                          ICE_GUARDIAN_SPAWN_EGG           = ITEMS.registerItem("ice_guardian_spawn_egg", SpawnEggItem::new, p -> p.spawnEgg(AMEntities.ICE_GUARDIAN.get()));
+    DeferredItem<SpawnEggItem>                          LIGHTNING_GUARDIAN_SPAWN_EGG     = ITEMS.registerItem("lightning_guardian_spawn_egg", SpawnEggItem::new, p -> p.spawnEgg(AMEntities.LIGHTNING_GUARDIAN.get()));
+    DeferredItem<SpawnEggItem>                          NATURE_GUARDIAN_SPAWN_EGG        = ITEMS.registerItem("nature_guardian_spawn_egg", SpawnEggItem::new, p -> p.spawnEgg(AMEntities.NATURE_GUARDIAN.get()));
+    DeferredItem<SpawnEggItem>                          LIFE_GUARDIAN_SPAWN_EGG          = ITEMS.registerItem("life_guardian_spawn_egg", SpawnEggItem::new, p -> p.spawnEgg(AMEntities.LIFE_GUARDIAN.get()));
+    DeferredItem<SpawnEggItem>                          ARCANE_GUARDIAN_SPAWN_EGG        = ITEMS.registerItem("arcane_guardian_spawn_egg", SpawnEggItem::new, p -> p.spawnEgg(AMEntities.ARCANE_GUARDIAN.get()));
+    DeferredItem<SpawnEggItem>                          ENDER_GUARDIAN_SPAWN_EGG         = ITEMS.registerItem("ender_guardian_spawn_egg", SpawnEggItem::new, p -> p.spawnEgg(AMEntities.ENDER_GUARDIAN.get()));
     DeferredItem<CrystalPhylacteryItem>                 CRYSTAL_PHYLACTERY               = ITEMS.registerItem("crystal_phylactery", p -> new CrystalPhylacteryItem(p.stacksTo(1)));
     // @formatter:on
 }

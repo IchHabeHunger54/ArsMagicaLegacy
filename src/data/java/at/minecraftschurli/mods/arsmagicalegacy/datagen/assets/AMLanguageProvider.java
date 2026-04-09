@@ -196,6 +196,16 @@ public final class AMLanguageProvider extends LanguageProvider {
         itemIdTranslation(AMItems.WAKEBLOOM);
         itemIdTranslation(AMItems.DRYAD_SPAWN_EGG);
         itemIdTranslation(AMItems.MANA_CREEPER_SPAWN_EGG);
+        itemIdTranslation(AMItems.WATER_GUARDIAN_SPAWN_EGG);
+        itemIdTranslation(AMItems.FIRE_GUARDIAN_SPAWN_EGG);
+        itemIdTranslation(AMItems.EARTH_GUARDIAN_SPAWN_EGG);
+        itemIdTranslation(AMItems.AIR_GUARDIAN_SPAWN_EGG);
+        itemIdTranslation(AMItems.ICE_GUARDIAN_SPAWN_EGG);
+        itemIdTranslation(AMItems.LIGHTNING_GUARDIAN_SPAWN_EGG);
+        itemIdTranslation(AMItems.NATURE_GUARDIAN_SPAWN_EGG);
+        itemIdTranslation(AMItems.LIFE_GUARDIAN_SPAWN_EGG);
+        itemIdTranslation(AMItems.ARCANE_GUARDIAN_SPAWN_EGG);
+        itemIdTranslation(AMItems.ENDER_GUARDIAN_SPAWN_EGG);
         itemIdTranslation(AMItems.CRYSTAL_PHYLACTERY);
         addEntityType(AMEntities.WITCHWOOD_BOAT, "Boat");
         addEntityType(AMEntities.WITCHWOOD_CHEST_BOAT, "Chest Boat");

@@ -123,8 +123,18 @@ public interface AMCreativeTabs {
             output.accept(AMItems.DESERT_NOVA);
             output.accept(AMItems.TARMA_ROOT);
             output.accept(AMItems.WAKEBLOOM);
-            output.accept(AMItems.MANA_CREEPER_SPAWN_EGG);
             output.accept(AMItems.DRYAD_SPAWN_EGG);
+            output.accept(AMItems.MANA_CREEPER_SPAWN_EGG);
+            output.accept(AMItems.WATER_GUARDIAN_SPAWN_EGG);
+            output.accept(AMItems.FIRE_GUARDIAN_SPAWN_EGG);
+            output.accept(AMItems.EARTH_GUARDIAN_SPAWN_EGG);
+            output.accept(AMItems.AIR_GUARDIAN_SPAWN_EGG);
+            output.accept(AMItems.ICE_GUARDIAN_SPAWN_EGG);
+            output.accept(AMItems.LIGHTNING_GUARDIAN_SPAWN_EGG);
+            output.accept(AMItems.NATURE_GUARDIAN_SPAWN_EGG);
+            output.accept(AMItems.LIFE_GUARDIAN_SPAWN_EGG);
+            output.accept(AMItems.ARCANE_GUARDIAN_SPAWN_EGG);
+            output.accept(AMItems.ENDER_GUARDIAN_SPAWN_EGG);
             output.accept(AMItems.CRYSTAL_PHYLACTERY);
             CrystalPhylacteryItem.addToCreativeTab(output::accept);
         })

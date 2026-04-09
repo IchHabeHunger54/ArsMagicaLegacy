@@ -1,4 +1,4 @@
-// 26.1.1	2026-04-03T15:50:51.3284384	vanilla/Model Definitions - arsmagicalegacy
+// 26.1.1	2026-04-09T23:39:54.6682676	vanilla/Model Definitions - arsmagicalegacy
 04e3c603d8be1db1c7bdb4348fd34850a52becf7 assets/arsmagicalegacy/blockstates/altar_core.json
 beb7ab7de7f6ae890282ef38e36400685d083d78 assets/arsmagicalegacy/blockstates/aum.json
 30af4342d085e8fb94bdc195acfdc2f95908074c assets/arsmagicalegacy/blockstates/black_aurem.json
@@ -126,7 +126,7 @@ fd01a25bffbe8b9ed8b7eb4cca82df79b463b998 assets/arsmagicalegacy/items/inscriptio
 2acf51374cc3db40c93815c4675d39e842d1f011 assets/arsmagicalegacy/items/light_blue_rune.json
 e7f5ef7fd92b328a2eed58b0a2110fc2d20e5a37 assets/arsmagicalegacy/items/light_gray_rune.json
 69afa5d87ece32ebf273d9eb629c89bbea7f378c assets/arsmagicalegacy/items/lime_rune.json
-2bf9382dc6c9c969adc8d0ed8176c7a328c025b0 assets/arsmagicalegacy/items/liquid_etherium.json
+2bf9382dc6c9c969adc8d0ed8176c7a328c025b0 assets/arsmagicalegacy/items/liquid_etherium_bucket.json
 c32792368fd6307065b2abe1d47a4b82f6da87c9 assets/arsmagicalegacy/items/magenta_rune.json
 1983076c16c372116f37afbe40257cc7c45b4cbc assets/arsmagicalegacy/items/mage_boots.json
 4db62e7dce347292c0813692571ed6ef2eff90cd assets/arsmagicalegacy/items/mage_chestplate.json

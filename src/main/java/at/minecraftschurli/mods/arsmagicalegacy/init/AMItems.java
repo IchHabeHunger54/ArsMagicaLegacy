@@ -46,7 +46,7 @@ public interface AMItems {
     DeferredItem<SpellItem>                             SPELL                            = ITEMS.registerItem("spell", p -> new SpellItem(p.stacksTo(1).component(AMDataComponents.SPELL, Spell.EMPTY)));
     DeferredItem<SpellRecipeItem>                       SPELL_RECIPE                     = ITEMS.registerItem("spell_recipe", p -> new SpellRecipeItem(p.stacksTo(1).component(AMDataComponents.SPELL, Spell.EMPTY)));
     DeferredItem<HolderDataComponentItem<EtheriumType>> ETHERIUM_PLACEHOLDER             = ITEMS.registerItem("etherium_placeholder", p -> new HolderDataComponentItem<>(p, AMDataComponents.ETHERIUM_TYPE.get()));
-    DeferredItem<BucketItem>                            LIQUID_ETHERIUM_BUCKET           = ITEMS.registerItem("liquid_etherium", p -> new BucketItem(AMFluids.LIQUID_ETHERIUM.get(), p.craftRemainder(Items.BUCKET).stacksTo(1)));
+    DeferredItem<BucketItem>                            LIQUID_ETHERIUM_BUCKET           = ITEMS.registerItem("liquid_etherium_bucket", p -> new BucketItem(AMFluids.LIQUID_ETHERIUM.get(), p.craftRemainder(Items.BUCKET).stacksTo(1)));
     DeferredItem<BlockItem>                             OCCULUS                          = ITEMS.registerSimpleBlockItem(AMBlocks.OCCULUS);
     DeferredItem<BlockItem>                             INSCRIPTION_TABLE                = ITEMS.registerSimpleBlockItem(AMBlocks.INSCRIPTION_TABLE);
     DeferredItem<InscriptionTableUpgradeItem>           INSCRIPTION_TABLE_UPGRADE_TIER_1 = ITEMS.registerItem("inscription_table_upgrade_tier_1", p -> new InscriptionTableUpgradeItem(p, 1));

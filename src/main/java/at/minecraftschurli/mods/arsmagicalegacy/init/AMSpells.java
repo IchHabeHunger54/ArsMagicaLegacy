@@ -165,13 +165,14 @@ public interface AMSpells {
     DeferredHolder<SpellPart, Effect>             WATERY_GRAVE        = register("watery_grave",        () -> new Effect(AMMobEffects.WATERY_GRAVE));
     DeferredHolder<SpellPart, Harvest>            HARVEST             = register("harvest",             () -> new Harvest(false));
     DeferredHolder<SpellPart, Harvest>            REPLANT             = register("replant",             () -> new Harvest(true));
+    DeferredHolder<SpellPart, TimeManipulation>   DAYLIGHT            = register("daylight",            () -> new TimeManipulation(ClockTimeMarkers.DAY, AMTranslations.SPELL_FAIL_COMPONENT_DAYLIGHT));
+    DeferredHolder<SpellPart, TimeManipulation>   MOONRISE            = register("moonrise",            () -> new TimeManipulation(ClockTimeMarkers.NIGHT, AMTranslations.SPELL_FAIL_COMPONENT_MOONRISE));
     DeferredHolder<SpellPart, Attract>            ATTRACT             = register("attract",             Attract::new);
     DeferredHolder<SpellPart, BanishRain>         BANISH_RAIN         = register("banish_rain",         BanishRain::new);
     DeferredHolder<SpellPart, Blink>              BLINK               = register("blink",               Blink::new);
     DeferredHolder<SpellPart, Blizzard>           BLIZZARD            = register("blizzard",            Blizzard::new);
     DeferredHolder<SpellPart, Charm>              CHARM               = register("charm",               Charm::new);
     DeferredHolder<SpellPart, CreateWater>        CREATE_WATER        = register("create_water",        CreateWater::new);
-    DeferredHolder<SpellPart, TimeManipulation>   DAYLIGHT            = register("daylight",            () -> new TimeManipulation(ClockTimeMarkers.DAY, AMTranslations.SPELL_FAIL_COMPONENT_DAYLIGHT));
     DeferredHolder<SpellPart, Dig>                DIG                 = register("dig",                 Dig::new);
     DeferredHolder<SpellPart, Disarm>             DISARM              = register("disarm",              Disarm::new);
     DeferredHolder<SpellPart, Dispel>             DISPEL              = register("dispel",              Dispel::new);
@@ -194,7 +195,6 @@ public interface AMSpells {
     DeferredHolder<SpellPart, ManaBlast>          MANA_BLAST          = register("mana_blast",          ManaBlast::new);
     DeferredHolder<SpellPart, ManaDrain>          MANA_DRAIN          = register("mana_drain",          ManaDrain::new);
     DeferredHolder<SpellPart, MeltArmor>          MELT_ARMOR          = register("melt_armor",          MeltArmor::new);
-    DeferredHolder<SpellPart, TimeManipulation>   MOONRISE            = register("moonrise",            () -> new TimeManipulation(ClockTimeMarkers.NIGHT, AMTranslations.SPELL_FAIL_COMPONENT_MOONRISE));
     DeferredHolder<SpellPart, PlaceBlock>         PLACE_BLOCK         = register("place_block",         PlaceBlock::new);
     DeferredHolder<SpellPart, Plow>               PLOW                = register("plow",                Plow::new);
     DeferredHolder<SpellPart, RandomTeleport>     RANDOM_TELEPORT     = register("random_teleport",     RandomTeleport::new);

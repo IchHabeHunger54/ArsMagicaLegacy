@@ -249,12 +249,12 @@ public final class AMServerConfig {
             .comment("The base value for leveling calculation. XP cost is calculated as multiplier * base ^ (level - 1).")
             .translation(AMTranslations.CONFIG_KEY + "level_base")
             .worldRestart()
-            .defineInRange("base", 1.2, 0, 10000);
+            .defineInRange("base", 1.1, 0, 10000);
         LEVEL_MULTIPLIER = builder
             .comment("The multiplier for leveling calculation. XP cost is calculated as multiplier * base ^ (level - 1).")
             .translation(AMTranslations.CONFIG_KEY + "level_multiplier")
             .worldRestart()
-            .defineInRange("multiplier", 2.4, 0, 10000);
+            .defineInRange("multiplier", 2.5, 0, 10000);
         EXTRA_SKILL_POINTS = builder
             .comment("The extra blue skill points a player gets at level 1, in addition to the one they already get.")
             .translation(AMTranslations.CONFIG_KEY + "extra_skill_points")

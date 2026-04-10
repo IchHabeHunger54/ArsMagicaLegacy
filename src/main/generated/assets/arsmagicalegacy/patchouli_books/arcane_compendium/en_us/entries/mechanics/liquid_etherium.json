@@ -1,6 +1,6 @@
 {
   "category": "arsmagicalegacy:mechanics",
-  "icon": "arsmagicalegacy:liquid_etherium",
+  "icon": "arsmagicalegacy:liquid_etherium_bucket",
   "name": "item.arsmagicalegacy.arcane_compendium.mechanics.liquid_etherium.name",
   "pages": [
     {
@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "arsmagicalegacy:liquid_etherium",
+      "item": "arsmagicalegacy:liquid_etherium_bucket",
       "text": "item.arsmagicalegacy.arcane_compendium.mechanics.liquid_etherium.page1.text"
     },
     {

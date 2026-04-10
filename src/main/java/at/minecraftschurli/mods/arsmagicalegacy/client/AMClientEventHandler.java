@@ -10,7 +10,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
 import at.minecraftschurli.mods.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.mods.arsmagicalegacy.client.atlas.SpellIconAtlasHolder;
-import at.minecraftschurli.mods.arsmagicalegacy.client.extension.LiquidEtheriumClientFluidTypeExtensions;
 import at.minecraftschurli.mods.arsmagicalegacy.client.gui.RiftScreen;
 import at.minecraftschurli.mods.arsmagicalegacy.client.gui.RuneBagScreen;
 import at.minecraftschurli.mods.arsmagicalegacy.client.gui.SpellBookScreen;
@@ -25,9 +24,9 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.co
 import at.minecraftschurli.mods.arsmagicalegacy.client.layer.BarsLayer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.layer.ShapeGroupsLayer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.layer.SpellBookLayer;
+import at.minecraftschurli.mods.arsmagicalegacy.client.model.AMEntityModel;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.AMModelLayers;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.AltarCoreModel;
-import at.minecraftschurli.mods.arsmagicalegacy.client.model.DryadModel;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.item.CrystalPhylacteryItemTintSource;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.item.CrystalPhylacteryRangeSelectItemModelProperty;
 import at.minecraftschurli.mods.arsmagicalegacy.client.model.item.CrystalWrenchActiveItemModelProperty;
@@ -50,9 +49,11 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.block.AltarCoreR
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.block.BlackAuremRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.block.EtheriumBlockEntityRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.block.SpellRuneRenderer;
+import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.BossRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.DryadRenderer;
-import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.EmptyRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.ManaCreeperRenderer;
+import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.SimpleFlatEntityRenderer;
+import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.SimpleModelEntityRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.compat.patchouli.SpellPartPage;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
@@ -75,6 +76,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.renderer.entity.BoatRenderer;
+import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 import net.minecraft.client.resources.model.sprite.AtlasManager;
 import net.minecraft.client.resources.model.sprite.Material;
@@ -116,6 +118,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID, value = Dist.CLIENT)
 final class AMClientEventHandler {
@@ -136,37 +139,48 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerFluidModels(RegisterFluidModelsEvent event) {
-        event.register(
-            new FluidModel.Unbaked(
-                new Material(ArsMagicaApi.id("block/liquid_etherium_still")),
-                new Material(ArsMagicaApi.id("block/liquid_etherium_flowing")),
-                null,
-                null),
-            AMFluids.LIQUID_ETHERIUM::value,
-            AMFluids.FLOWING_LIQUID_ETHERIUM::value);
+        event.register(new FluidModel.Unbaked(new Material(ArsMagicaApi.id("block/liquid_etherium_still")), new Material(ArsMagicaApi.id("block/liquid_etherium_flowing")), null, null), AMFluids.LIQUID_ETHERIUM::value, AMFluids.FLOWING_LIQUID_ETHERIUM::value);
     }
 
     @SubscribeEvent
     private static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(DryadModel.LAYER_LOCATION, DryadModel::createBodyLayer);
         event.registerLayerDefinition(AMModelLayers.WITCHWOOD_BOAT, BoatModel::createBoatModel);
         event.registerLayerDefinition(AMModelLayers.WITCHWOOD_CHEST_BOAT, BoatModel::createChestBoatModel);
+        event.registerLayerDefinition(AMModelLayers.DRYAD, AMModelLayers::createDryadLayer);
+        event.registerLayerDefinition(AMModelLayers.WINTERS_GRASP, AMModelLayers::createWintersGraspLayer);
+        event.registerLayerDefinition(AMModelLayers.NATURE_SCYTHE, AMModelLayers::createNatureScytheLayer);
+        event.registerLayerDefinition(AMModelLayers.THROWN_ROCK, AMModelLayers::createThrownRockLayer);
     }
 
     @SubscribeEvent
     private static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(AMEntities.BLIZZARD.get(), EmptyRenderer::new);
-        event.registerEntityRenderer(AMEntities.DRYAD.get(), DryadRenderer::new);
-        event.registerEntityRenderer(AMEntities.FALLING_STAR.get(), EmptyRenderer::new);
-        event.registerEntityRenderer(AMEntities.FIRE_RAIN.get(), EmptyRenderer::new);
-        event.registerEntityRenderer(AMEntities.MANA_CREEPER.get(), ManaCreeperRenderer::new);
-        event.registerEntityRenderer(AMEntities.MANA_VORTEX.get(), EmptyRenderer::new);
-        event.registerEntityRenderer(AMEntities.PROJECTILE.get(), EmptyRenderer::new);
-        event.registerEntityRenderer(AMEntities.WALL.get(), EmptyRenderer::new);
-        event.registerEntityRenderer(AMEntities.WAVE.get(), EmptyRenderer::new);
         event.registerEntityRenderer(AMEntities.WITCHWOOD_BOAT.get(), context -> new BoatRenderer(context, AMModelLayers.WITCHWOOD_BOAT));
         event.registerEntityRenderer(AMEntities.WITCHWOOD_CHEST_BOAT.get(), context -> new BoatRenderer(context, AMModelLayers.WITCHWOOD_CHEST_BOAT));
-        event.registerEntityRenderer(AMEntities.ZONE.get(), EmptyRenderer::new);
+        event.registerEntityRenderer(AMEntities.BLIZZARD.get(), NoopRenderer::new);
+        event.registerEntityRenderer(AMEntities.FALLING_STAR.get(), NoopRenderer::new);
+        event.registerEntityRenderer(AMEntities.FIRE_RAIN.get(), NoopRenderer::new);
+        event.registerEntityRenderer(AMEntities.PROJECTILE.get(), NoopRenderer::new);
+        event.registerEntityRenderer(AMEntities.WALL.get(), NoopRenderer::new);
+        event.registerEntityRenderer(AMEntities.WAVE.get(), NoopRenderer::new);
+        event.registerEntityRenderer(AMEntities.ZONE.get(), NoopRenderer::new);
+        event.registerEntityRenderer(AMEntities.DRYAD.get(), DryadRenderer::new);
+        event.registerEntityRenderer(AMEntities.MANA_CREEPER.get(), ManaCreeperRenderer::new);
+        event.registerEntityRenderer(AMEntities.MANA_VORTEX.get(), NoopRenderer::new);
+        BossRenderer.register(event, AMEntities.WATER_GUARDIAN);
+        BossRenderer.register(event, AMEntities.FIRE_GUARDIAN);
+        BossRenderer.register(event, AMEntities.EARTH_GUARDIAN, Map.of("rock", boss -> !boss.hasRock()));
+        BossRenderer.register(event, AMEntities.AIR_GUARDIAN);
+        BossRenderer.register(event, AMEntities.ICE_GUARDIAN, Map.of("left_arm", boss -> boss.getArmCount() < 2, "right_arm", boss -> boss.getArmCount() < 1));
+        BossRenderer.register(event, AMEntities.LIGHTNING_GUARDIAN);
+        BossRenderer.register(event, AMEntities.NATURE_GUARDIAN, Map.of("scythe", boss -> !boss.hasScythe()));
+        BossRenderer.register(event, AMEntities.LIFE_GUARDIAN);
+        BossRenderer.register(event, AMEntities.ARCANE_GUARDIAN);
+        BossRenderer.register(event, AMEntities.ENDER_GUARDIAN);
+        event.registerEntityRenderer(AMEntities.WINTERS_GRASP.get(), context -> new SimpleModelEntityRenderer<>(context, AMModelLayers.WINTERS_GRASP, AMEntityModel::new, AMModelLayers.WINTERS_GRASP_TEXTURE));
+        event.registerEntityRenderer(AMEntities.NATURE_SCYTHE.get(), context -> new SimpleModelEntityRenderer<>(context, AMModelLayers.NATURE_SCYTHE, AMEntityModel::new, AMModelLayers.NATURE_SCYTHE_TEXTURE));
+        event.registerEntityRenderer(AMEntities.THROWN_ROCK.get(), context -> new SimpleModelEntityRenderer<>(context, AMModelLayers.THROWN_ROCK, AMEntityModel::new, AMModelLayers.THROWN_ROCK_TEXTURE));
+        event.registerEntityRenderer(AMEntities.SHOCKWAVE.get(), NoopRenderer::new);
+        event.registerEntityRenderer(AMEntities.WHIRLWIND.get(), context -> new SimpleFlatEntityRenderer<>(context, AMModelLayers.WHIRLWIND));
         event.registerBlockEntityRenderer(AMBlockEntities.ALTAR_CORE.get(), AltarCoreRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.BLACK_AUREM.get(), BlackAuremRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.CELESTIAL_PRISM.get(), EtheriumBlockEntityRenderer::new);

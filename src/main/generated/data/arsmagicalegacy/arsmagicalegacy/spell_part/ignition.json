@@ -14,9 +14,10 @@
       "count": 1,
       "item": {
         "neoforge:ingredient_type": "neoforge:components",
-        "components": {},
-        "items": "minecraft:flint_and_steel",
-        "strict": true
+        "components": {
+          "minecraft:damage": 0
+        },
+        "items": "minecraft:flint_and_steel"
       }
     }
   ]

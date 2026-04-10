@@ -50,6 +50,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Util;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -119,6 +120,11 @@ public final class AMModelProvider extends AbstractModelProvider {
     @Override
     protected Stream<? extends Holder<Block>> getKnownBlocks() {
         return super.getKnownBlocks().filter(h -> !h.is(AMBlocks.INSCRIPTION_TABLE.getKey()));
+    }
+
+    @Override
+    protected Stream<? extends Holder<Item>> getKnownItems() {
+        return super.getKnownItems().filter(h -> !h.is(AMItems.WINTERS_GRASP.getKey()) && !h.is(AMItems.NATURE_SCYTHE.getKey()));
     }
 
     @Override
@@ -299,6 +305,16 @@ public final class AMModelProvider extends AbstractModelProvider {
         basicItem(itemModels, AMItems.WITCHWOOD_CHEST_BOAT);
         basicItem(itemModels, AMItems.DRYAD_SPAWN_EGG);
         basicItem(itemModels, AMItems.MANA_CREEPER_SPAWN_EGG);
+        basicItem(itemModels, AMItems.WATER_GUARDIAN_SPAWN_EGG);
+        basicItem(itemModels, AMItems.FIRE_GUARDIAN_SPAWN_EGG);
+        basicItem(itemModels, AMItems.EARTH_GUARDIAN_SPAWN_EGG);
+        basicItem(itemModels, AMItems.AIR_GUARDIAN_SPAWN_EGG);
+        basicItem(itemModels, AMItems.ICE_GUARDIAN_SPAWN_EGG);
+        basicItem(itemModels, AMItems.LIGHTNING_GUARDIAN_SPAWN_EGG);
+        basicItem(itemModels, AMItems.NATURE_GUARDIAN_SPAWN_EGG);
+        basicItem(itemModels, AMItems.LIFE_GUARDIAN_SPAWN_EGG);
+        basicItem(itemModels, AMItems.ARCANE_GUARDIAN_SPAWN_EGG);
+        basicItem(itemModels, AMItems.ENDER_GUARDIAN_SPAWN_EGG);
         CrystalPhylacteryItem item = AMItems.CRYSTAL_PHYLACTERY.get();
         Material baseTexture = TextureMapping.getItemTexture(item);
         Identifier modelLocation = ModelLocationUtils.getModelLocation(item);

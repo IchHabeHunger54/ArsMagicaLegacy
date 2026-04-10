@@ -18,6 +18,7 @@ import net.minecraft.world.level.portal.TeleportTransition;
 import net.minecraft.world.phys.EntityHitResult;
 
 import java.util.List;
+import java.util.Objects;
 
 public class EnderIntervention extends SpellComponent.CastEntity {
     @Override
@@ -31,7 +32,7 @@ public class EnderIntervention extends SpellComponent.CastEntity {
         if (dimension == Level.NETHER) return SpellComponentCastResult.failure(spell, AMTranslations.NO_TELEPORT_NETHER);
         if (dimension == Level.OVERWORLD) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_ENDER_INTERVENTION);
         if (!(level instanceof ServerLevel server)) return SpellComponentCastResult.pass(spell);
-        ServerLevel end = server.getServer().getLevel(Level.END);
+        ServerLevel end = Objects.requireNonNull(server.getServer()).getLevel(Level.END);
         if (end != null) {
             BlockPos pos = ServerLevel.END_SPAWN_POINT;
             EndPlatformFeature.createEndPlatform(end, pos.below(), true);

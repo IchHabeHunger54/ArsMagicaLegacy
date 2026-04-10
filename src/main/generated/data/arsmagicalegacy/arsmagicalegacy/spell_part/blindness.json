@@ -19,8 +19,7 @@
             "potion": "minecraft:night_vision"
           }
         },
-        "items": "minecraft:potion",
-        "strict": true
+        "items": "minecraft:potion"
       }
     },
     {
@@ -33,8 +32,7 @@
             "potion": "minecraft:weakness"
           }
         },
-        "items": "minecraft:potion",
-        "strict": true
+        "items": "minecraft:potion"
       }
     }
   ]

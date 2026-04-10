@@ -7,6 +7,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.magic.MagicHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.ManaHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.api.plant.Plant;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ritual.Ritual;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPartData;
 import net.minecraft.resources.Identifier;
@@ -107,6 +108,13 @@ public abstract class ArsMagicaApi {
         return INSTANCE.get().getSpellPartDataManager();
     }
 
+    /**
+     * @return The {@link JsonDataManager} for {@link Spell} prefabs.
+     */
+    public static JsonDataManager<Spell> spellPrefabManager() {
+        return INSTANCE.get().getSpellPrefabManager();
+    }
+
     @Internal
     protected abstract ItemStackTemplate getBook();
 
@@ -133,4 +141,7 @@ public abstract class ArsMagicaApi {
 
     @Internal
     protected abstract JsonDataManager<SpellPartData> getSpellPartDataManager();
+
+    @Internal
+    protected abstract JsonDataManager<Spell> getSpellPrefabManager();
 }

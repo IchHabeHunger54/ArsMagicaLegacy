@@ -21,7 +21,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -59,7 +58,7 @@ public class AltarCoreRenderer extends AbstractEtheriumBlockEntityRenderer<Altar
         Level level = blockEntity.getLevel();
         BlockPos lecternPos = blockEntity.getLecternPos();
         SpellIngredient ingredient = blockEntity.getCurrentIngredient();
-        if (!blockEntity.getBlockState().getValue(AltarCoreBlock.FORMED) || level == null || lecternPos == null || ingredient == null) {
+        if (!blockEntity.getBlockState().getValue(AltarCoreBlock.FORMED) || level == null || lecternPos == null) {
             state.disabled = true;
             return;
         }
@@ -73,7 +72,7 @@ public class AltarCoreRenderer extends AbstractEtheriumBlockEntityRenderer<Altar
         state.translateX = lecternPos.getX() - pos.getX() + 0.5;
         state.translateY = lecternPos.getY() - pos.getY() + 1.5;
         state.translateZ = lecternPos.getZ() - pos.getZ() + 0.5;
-        List<Component> components = blockEntity.hasRecipe() ? ingredient.tooltip() : List.of(AMTranslations.ALTAR_CORE_LOW_POWER);
+        List<Component> components = blockEntity.hasRecipe() && ingredient != null ? ingredient.tooltip() : List.of(AMTranslations.ALTAR_CORE_LOW_POWER);
         int lineHeight = font.lineHeight + 1;
         float offset = lineHeight * (components.size() - 1.5f);
         state.strings.clear();
@@ -84,11 +83,7 @@ public class AltarCoreRenderer extends AbstractEtheriumBlockEntityRenderer<Altar
         state.light = LevelRenderer.getLightCoords(level, lecternPos.above());
         state.backgroundColor = (int) (AMClientUtil.mc().options.getBackgroundOpacity(0.25f) * 255) << 24;
         state.rotation = Axis.YP.rotationDegrees(level.getGameTime() % 360 + partialTicks);
-        ItemStack stack = AMUtil.getByTick(ingredient.asItemStacks(), Objects.requireNonNull(AMClientUtil.player()).tickCount / 20);
-        if (stack == null || stack.isEmpty()) {
-            return;
-        }
-        itemModelResolver.updateForTopItem(state.item, blockEntity.hasRecipe() ? stack.copyWithCount(1) : BARRIER.create(), ItemDisplayContext.FIXED, level, null, (int) pos.asLong());
+        itemModelResolver.updateForTopItem(state.item, blockEntity.hasRecipe() && ingredient != null ? AMUtil.getByTick(ingredient.asItemStacks(), Objects.requireNonNull(AMClientUtil.player()).tickCount / 20).copyWithCount(1) : BARRIER.create(), ItemDisplayContext.FIXED, level, null, (int) pos.asLong());
     }
 
     @Override

@@ -9,52 +9,45 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jspecify.annotations.Nullable;
 
-import java.util.Optional;
-
-public abstract class SpellEntity extends Entity implements TraceableEntity {
+public abstract class SpellEntity extends AbstractOwnableEntity {
     private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(SpellEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DURATION = SynchedEntityData.defineId(SpellEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Optional<EntityReference<LivingEntity>>> OWNER = SynchedEntityData.defineId(SpellEntity.class, EntityDataSerializers.OPTIONAL_LIVING_ENTITY_REFERENCE);
     private static final String COLOR_KEY = "color";
     private static final String DURATION_KEY = "duration";
-    private static final String OWNER_KEY = "owner";
 
-    public SpellEntity(EntityType<?> entityType, Level level) {
-        super(entityType, level);
+    public SpellEntity(EntityType<? extends SpellEntity> type, Level level) {
+        super(type, level);
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        builder.define(COLOR, -1)
-            .define(DURATION, 72000)
-            .define(OWNER, Optional.empty());
+    protected void defineSynchedData(SynchedEntityData.Builder entityData) {
+        super.defineSynchedData(entityData);
+        entityData.define(COLOR, -1)
+            .define(DURATION, 72000);
     }
 
     @Override
     protected void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
         input.child(ArsMagicaApi.MOD_ID).ifPresent(tag -> {
             entityData.set(COLOR, tag.getIntOr(COLOR_KEY, -1));
             entityData.set(DURATION, tag.getIntOr(DURATION_KEY, 72000));
-            entityData.set(OWNER, Optional.ofNullable(EntityReference.readWithOldOwnerConversion(input, OWNER_KEY, this.level())));
             readData(tag);
         });
     }
 
     @Override
     protected void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
         ValueOutput tag = output.child(ArsMagicaApi.MOD_ID);
         tag.putInt(COLOR_KEY, entityData.get(COLOR));
         tag.putInt(DURATION_KEY, entityData.get(DURATION));
-        EntityReference.store(entityData.get(OWNER).orElse(null), tag, OWNER_KEY);
         writeData(tag);
     }
 
@@ -76,16 +69,6 @@ public abstract class SpellEntity extends Entity implements TraceableEntity {
 
     public void setDuration(int duration) {
         entityData.set(DURATION, duration);
-    }
-
-    public void setOwner(@Nullable LivingEntity owner) {
-        entityData.set(OWNER, owner == null ? Optional.empty() : Optional.of(EntityReference.of(owner)));
-    }
-
-    @Override
-    @Nullable
-    public LivingEntity getOwner() {
-        return EntityReference.getLivingEntity(entityData.get(OWNER).orElse(null), level());
     }
 
     @Override

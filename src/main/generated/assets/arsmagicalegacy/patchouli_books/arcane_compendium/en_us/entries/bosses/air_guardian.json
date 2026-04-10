@@ -1,6 +1,6 @@
 {
   "category": "arsmagicalegacy:bosses",
-  "icon": "arsmagicalegacy:mana_creeper_spawn_egg",
+  "icon": "arsmagicalegacy:air_guardian_spawn_egg",
   "name": "item.arsmagicalegacy.arcane_compendium.bosses.air_guardian.name",
   "pages": [
     {
@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:entity",
-      "entity": "arsmagicalegacy:mana_creeper",
+      "entity": "arsmagicalegacy:air_guardian",
       "text": "Recommended magic level: 30"
     },
     {

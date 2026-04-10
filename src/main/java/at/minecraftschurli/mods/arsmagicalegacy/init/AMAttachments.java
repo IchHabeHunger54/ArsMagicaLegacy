@@ -24,7 +24,7 @@ import java.util.function.Supplier;
 
 public interface AMAttachments {
     DeferredRegister<AttachmentType<?>> ATTACHMENTS = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, ArsMagicaApi.MOD_ID);
-    DeferredHolder<AttachmentType<?>, AttachmentType<MagicAttachment>> MAGIC = ATTACHMENTS.register("magic", () -> AttachmentType.builder(() -> MagicAttachment.DEFAULT).serialize(MagicAttachment.CODEC.fieldOf("magic")).sync(new MagicAttachmentSyncHandler()).build());
+    DeferredHolder<AttachmentType<?>, AttachmentType<MagicAttachment>> MAGIC = ATTACHMENTS.register("magic", () -> AttachmentType.builder(() -> MagicAttachment.DEFAULT).serialize(MagicAttachment.CODEC.fieldOf("magic")).sync(new MagicAttachmentSyncHandler()).copyOnDeath().build());
     // @formatter:off
     DeferredHolder<AttachmentType<?>, AttachmentType<Double>>                   BURNOUT          = register("burnout",          () -> 0.,                            Codec.DOUBLE,                ByteBufCodecs.DOUBLE);
     DeferredHolder<AttachmentType<?>, AttachmentType<Integer>>                  COMPENDIUM_TIMER = register("compendium_timer", () -> 0,                             Codec.INT,                   ByteBufCodecs.INT);

@@ -15,14 +15,14 @@ public class Wall extends SpellShapeEntity {
     private static final EntityDataAccessor<Float> RANGE = SynchedEntityData.defineId(Wall.class, EntityDataSerializers.FLOAT);
     private static final String RANGE_KEY = "range";
 
-    public Wall(EntityType<?> entityType, Level level) {
-        super(entityType, level);
+    public Wall(EntityType<? extends Wall> type, Level level) {
+        super(type, level);
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(RANGE, 1f);
+    protected void defineSynchedData(SynchedEntityData.Builder entityData) {
+        super.defineSynchedData(entityData);
+        entityData.define(RANGE, 1f);
     }
 
     @Override

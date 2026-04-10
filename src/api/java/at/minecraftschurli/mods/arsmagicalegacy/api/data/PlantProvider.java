@@ -33,7 +33,7 @@ public abstract class PlantProvider extends AbstractDataProvider<Plant, PlantBui
      * @param allStates  A {@link RuleTest} for all states of the plant.
      * @return The new {@link PlantBuilder}.
      */
-    public PlantBuilder builder(String name, GrowthType growthType, RuleTest allStates) {
+    public final PlantBuilder builder(String name, GrowthType growthType, RuleTest allStates) {
         PlantBuilder builder = new PlantBuilder(Identifier.fromNamespaceAndPath(modId, name), growthType, allStates);
         add(builder);
         return builder;

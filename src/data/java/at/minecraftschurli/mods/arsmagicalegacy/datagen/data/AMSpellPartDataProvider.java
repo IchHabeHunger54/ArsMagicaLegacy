@@ -19,7 +19,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
@@ -130,7 +129,7 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.ORANGE_RUNE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.RED_RUNE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.DUSTS_VINTEUM)), 1))
-            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, new ItemStackTemplate(Items.FLINT_AND_STEEL)), 1));
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.FLINT_AND_STEEL), 1));
         builder(AMSpells.FROST_DAMAGE, 25f)
             .affinity(affinities.getOrThrow(AMMagic.ICE), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.CYAN_RUNE), 1))
@@ -159,12 +158,12 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
             .affinity(affinities.getOrThrow(AMMagic.LIFE), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.YELLOW_RUNE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(Items.GOLDEN_APPLE), 1))
-            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, new ItemStackTemplate(Items.SHIELD)), 1));
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.SHIELD), 1));
         builder(AMSpells.BLINDNESS, 40f)
             .affinity(affinities.getOrThrow(AMMagic.ENDER), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.BLACK_RUNE), 1))
-            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, DataComponents.POTION_CONTENTS, new PotionContents(Potions.NIGHT_VISION), Items.POTION), 1))
-            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, DataComponents.POTION_CONTENTS, new PotionContents(Potions.WEAKNESS), Items.POTION), 1));
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.POTION_CONTENTS, new PotionContents(Potions.NIGHT_VISION), Items.POTION), 1))
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.POTION_CONTENTS, new PotionContents(Potions.WEAKNESS), Items.POTION), 1));
         builder(AMSpells.HASTE, 30f)
             .affinity(affinities.getOrThrow(AMMagic.LIGHTNING), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.YELLOW_RUNE), 1))
@@ -179,7 +178,7 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
             .affinity(affinities.getOrThrow(AMMagic.ARCANE), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.WHITE_RUNE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_CHIMERITE)), 1))
-            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, DataComponents.POTION_CONTENTS, new PotionContents(Potions.INVISIBILITY), Items.POTION), 1));
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.POTION_CONTENTS, new PotionContents(Potions.INVISIBILITY), Items.POTION), 1));
         builder(AMSpells.JUMP_BOOST, 30f)
             .affinity(affinities.getOrThrow(AMMagic.AIR), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.LIME_RUNE), 1))
@@ -201,7 +200,7 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
         builder(AMSpells.RESISTANCE, 50f)
             .affinity(affinities.getOrThrow(AMMagic.EARTH), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.BROWN_RUNE), 1))
-            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, new ItemStackTemplate(Items.SHIELD)), 1));
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.SHIELD), 1));
         builder(AMSpells.SLOWNESS, 30f)
             .affinity(affinities.getOrThrow(AMMagic.ICE), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.GREEN_RUNE), 1))
@@ -269,7 +268,7 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
             .affinity(affinities.getOrThrow(AMMagic.WATER), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.BLUE_RUNE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(items.getOrThrow(ItemTags.FISHES)), 1))
-            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, new ItemStackTemplate(Items.FISHING_ROD)), 1));
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.FISHING_ROD), 1));
         builder(AMSpells.TEMPORAL_ANCHOR, 50f)
             .affinity(affinities.getOrThrow(AMMagic.ARCANE), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.YELLOW_RUNE), 1))
@@ -284,7 +283,7 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
             .affinity(affinities.getOrThrow(AMMagic.WATER), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.BLUE_RUNE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.STONES)), 1))
-            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, new ItemStackTemplate(Items.LEATHER_BOOTS)), 1));
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.LEATHER_BOOTS), 1));
         builder(AMSpells.ATTRACT, 5f)
             .affinity(affinities.getOrThrow(AMMagic.NATURE), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.GREEN_RUNE), 1))
@@ -317,13 +316,15 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
         builder(AMSpells.DIG, 5f)
             .affinity(affinities.getOrThrow(AMMagic.EARTH), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.BROWN_RUNE), 1))
-            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, new ItemStackTemplate(Items.IRON_AXE)), 1))
-            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, new ItemStackTemplate(Items.IRON_PICKAXE)), 1))
-            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, new ItemStackTemplate(Items.IRON_SHOVEL)), 1));
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.IRON_AXE), 1))
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.IRON_PICKAXE), 1))
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.IRON_SHOVEL), 1))
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.IRON_HOE), 1));
         builder(AMSpells.DISARM, 60f)
             .affinity(affinities.getOrThrow(AMMagic.ARCANE), 0.002f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.PURPLE_RUNE), 1))
-            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, new ItemStackTemplate(Items.IRON_SWORD)), 1));
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.IRON_SPEAR), 1))
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.IRON_SWORD), 1));
         builder(AMSpells.DISPEL, 60f)
             .affinity(affinities.getOrThrow(AMMagic.ARCANE), 0.002f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.MAGENTA_RUNE), 1))
@@ -375,7 +376,7 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
         builder(AMSpells.HARVEST, 5f)
             .affinity(affinities.getOrThrow(AMMagic.NATURE), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.GREEN_RUNE), 1))
-            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, new ItemStackTemplate(Items.SHEARS)), 1));
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.SHEARS), 1));
         builder(AMSpells.HEAL, 60f)
             .affinity(affinities.getOrThrow(AMMagic.LIFE), 0.002f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.PINK_RUNE), 1))
@@ -383,7 +384,7 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
         builder(AMSpells.IGNITION, 80f)
             .affinity(affinities.getOrThrow(AMMagic.FIRE), 0.002f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.ORANGE_RUNE), 1))
-            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, new ItemStackTemplate(Items.FLINT_AND_STEEL)), 1));
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.FLINT_AND_STEEL), 1));
         builder(AMSpells.KNOCKBACK, 80f)
             .affinity(affinities.getOrThrow(AMMagic.WATER), 0.002f)
             .affinity(affinities.getOrThrow(AMMagic.EARTH), 0.002f)
@@ -429,7 +430,7 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
         builder(AMSpells.PLOW, 5f)
             .affinity(affinities.getOrThrow(AMMagic.EARTH), 0.001f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.GREEN_RUNE), 1))
-            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, new ItemStackTemplate(Items.IRON_HOE)), 1));
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.IRON_HOE), 1));
         builder(AMSpells.RANDOM_TELEPORT, 80f)
             .affinity(affinities.getOrThrow(AMMagic.ENDER), 0.002f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.PURPLE_RUNE), 1))
@@ -472,7 +473,7 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
         builder(AMSpells.DAMAGE, 1.25f)
             .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.FIRE), AMItems.AFFINITY_ESSENCE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(Items.COPPER_INGOT), 1))
-            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, DataComponents.POTION_CONTENTS, new PotionContents(Potions.HARMING), Items.POTION), 1));
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.POTION_CONTENTS, new PotionContents(Potions.HARMING), Items.POTION), 1));
         builder(AMSpells.DISMEMBERING, 1.25f)
             .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.ICE), AMItems.AFFINITY_ESSENCE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.BONES)), 1))
@@ -494,7 +495,7 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
         builder(AMSpells.HEALING, 1.25f)
             .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.LIFE), AMItems.AFFINITY_ESSENCE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(Items.EGG), 1))
-            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, DataComponents.POTION_CONTENTS, new PotionContents(Potions.HEALING), Items.POTION), 1));
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.POTION_CONTENTS, new PotionContents(Potions.HEALING), Items.POTION), 1));
         builder(AMSpells.LUNAR, 1f)
             .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.NATURE), AMItems.AFFINITY_ESSENCE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_MOONSTONE)), 1))
@@ -532,12 +533,12 @@ public final class AMSpellPartDataProvider extends SpellPartDataProvider {
             .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.WATER), AMItems.AFFINITY_ESSENCE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.CERUBLOSSOM.get()), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(Items.POPPY), 1))
-            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, DataComponents.POTION_CONTENTS, new PotionContents(Potions.WATER), Items.POTION), 1));
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.POTION_CONTENTS, new PotionContents(Potions.WATER), Items.POTION), 1));
         builder(AMSpells.VELOCITY, 1.25f)
             .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.LIGHTNING), AMItems.AFFINITY_ESSENCE), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.FEATHERS)), 1))
             .ingredient(new ItemSpellIngredient(Ingredient.of(items.getOrThrow(ItemTags.BOATS)), 1))
-            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(true, DataComponents.POTION_CONTENTS, new PotionContents(Potions.SWIFTNESS), Items.POTION), 1));
+            .ingredient(new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.POTION_CONTENTS, new PotionContents(Potions.SWIFTNESS), Items.POTION), 1));
         builder(AMSpells.COLOR, 1.0f)
             .ingredient(new ItemSpellIngredient(Ingredient.of(AMItems.CHIMERITE.get()), 1));
     }

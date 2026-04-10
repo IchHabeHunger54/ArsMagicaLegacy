@@ -4,6 +4,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.common.ModConfigSpec;
+import org.jspecify.annotations.Nullable;
 
 public final class AMServerConfig {
     public static final ModConfigSpec.ConfigValue<String> MAGIC_ADVANCEMENT;
@@ -248,12 +249,12 @@ public final class AMServerConfig {
             .comment("The base value for leveling calculation. XP cost is calculated as multiplier * base ^ (level - 1).")
             .translation(AMTranslations.CONFIG_KEY + "level_base")
             .worldRestart()
-            .defineInRange("base", 1.2, 0, 10000);
+            .defineInRange("base", 1.1, 0, 10000);
         LEVEL_MULTIPLIER = builder
             .comment("The multiplier for leveling calculation. XP cost is calculated as multiplier * base ^ (level - 1).")
             .translation(AMTranslations.CONFIG_KEY + "level_multiplier")
             .worldRestart()
-            .defineInRange("multiplier", 2.4, 0, 10000);
+            .defineInRange("multiplier", 2.5, 0, 10000);
         EXTRA_SKILL_POINTS = builder
             .comment("The extra blue skill points a player gets at level 1, in addition to the one they already get.")
             .translation(AMTranslations.CONFIG_KEY + "extra_skill_points")
@@ -564,7 +565,8 @@ public final class AMServerConfig {
         SPEC = builder.build();
     }
 
-    private static boolean isValidIdentifierOrEmpty(Object o) {
+    private static boolean isValidIdentifierOrEmpty(@Nullable Object o) {
+        if (o == null) return false;
         String s = o.toString();
         if (s.isEmpty()) return true;
         if (!s.contains(":")) return Identifier.isValidPath(s);

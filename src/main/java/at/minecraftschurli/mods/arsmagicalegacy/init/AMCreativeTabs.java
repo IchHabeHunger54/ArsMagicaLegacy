@@ -15,6 +15,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
@@ -22,7 +23,7 @@ import java.util.function.BiConsumer;
 public interface AMCreativeTabs {
     DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ArsMagicaApi.MOD_ID);
     DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN = CREATIVE_TABS.register("main", () -> CreativeModeTab.builder()
-        .title(Component.translatable("itemGroup." + ArsMagicaApi.MOD_ID))
+        .title(Component.translatable("itemGroup." + ArsMagicaApi.MOD_ID + ".main"))
         .icon(ArsMagicaApi.book()::create)
         .displayItems((display, output) -> {
             output.accept(AMItems.LIQUID_ETHERIUM_BUCKET);
@@ -122,11 +123,36 @@ public interface AMCreativeTabs {
             output.accept(AMItems.DESERT_NOVA);
             output.accept(AMItems.TARMA_ROOT);
             output.accept(AMItems.WAKEBLOOM);
-            output.accept(AMItems.MANA_CREEPER_SPAWN_EGG);
             output.accept(AMItems.DRYAD_SPAWN_EGG);
+            output.accept(AMItems.MANA_CREEPER_SPAWN_EGG);
+            output.accept(AMItems.WATER_GUARDIAN_SPAWN_EGG);
+            output.accept(AMItems.FIRE_GUARDIAN_SPAWN_EGG);
+            output.accept(AMItems.EARTH_GUARDIAN_SPAWN_EGG);
+            output.accept(AMItems.AIR_GUARDIAN_SPAWN_EGG);
+            output.accept(AMItems.ICE_GUARDIAN_SPAWN_EGG);
+            output.accept(AMItems.LIGHTNING_GUARDIAN_SPAWN_EGG);
+            output.accept(AMItems.NATURE_GUARDIAN_SPAWN_EGG);
+            output.accept(AMItems.LIFE_GUARDIAN_SPAWN_EGG);
+            output.accept(AMItems.ARCANE_GUARDIAN_SPAWN_EGG);
+            output.accept(AMItems.ENDER_GUARDIAN_SPAWN_EGG);
             output.accept(AMItems.CRYSTAL_PHYLACTERY);
             CrystalPhylacteryItem.addToCreativeTab(output::accept);
         })
+        .build());
+    DeferredHolder<CreativeModeTab, CreativeModeTab> SPELL_PREFABS = CREATIVE_TABS.register("spell_prefabs", () -> CreativeModeTab.builder()
+        .title(Component.translatable("itemGroup." + ArsMagicaApi.MOD_ID + ".spell_prefabs"))
+        .icon(AMItems.SPELL_PARCHMENT::toStack)
+        .displayItems((display, output) -> ArsMagicaApi.spellPrefabManager()
+            .getAll()
+            .entrySet()
+            .stream()
+            .sorted(Map.Entry.comparingByKey())
+            .map(Map.Entry::getValue)
+            .forEach(spell -> {
+                ItemStack stack = AMItems.SPELL.toStack();
+                stack.set(AMDataComponents.SPELL, spell);
+                output.accept(stack);
+            }))
         .build());
 
     @SafeVarargs

@@ -129,12 +129,12 @@ public interface AMSpells {
     DeferredHolder<SpellPart, Contingency>  CONTINGENCY_FIRE   = register("contingency_fire",   () -> new Contingency(CONTINGENCY_FIRE_ID));
     DeferredHolder<SpellPart, Contingency>  CONTINGENCY_HEALTH = register("contingency_health", () -> new Contingency(CONTINGENCY_HEALTH_ID));
 
-    DeferredHolder<SpellPart, Damage>             DROWNING_DAMAGE     = register("drowning_damage",     () -> new Damage(AMDamageSources.SPELL_DROWNING));
-    DeferredHolder<SpellPart, Damage>             FIRE_DAMAGE         = register("fire_damage",         () -> new Damage(AMDamageSources.SPELL_FIRE));
-    DeferredHolder<SpellPart, Damage>             FROST_DAMAGE        = register("frost_damage",        () -> new Damage(AMDamageSources.SPELL_FROST));
-    DeferredHolder<SpellPart, Damage>             LIGHTNING_DAMAGE    = register("lightning_damage",    () -> new Damage(AMDamageSources.SPELL_LIGHTNING));
-    DeferredHolder<SpellPart, Damage>             MAGIC_DAMAGE        = register("magic_damage",        () -> new Damage(AMDamageSources.SPELL_MAGIC));
-    DeferredHolder<SpellPart, Damage>             PHYSICAL_DAMAGE     = register("physical_damage",     () -> new Damage(caster -> caster instanceof Player ? AMDamageSources.SPELL_PHYSICAL_PLAYER : AMDamageSources.SPELL_PHYSICAL));
+    DeferredHolder<SpellPart, Damage>             DROWNING_DAMAGE     = register("drowning_damage",     () -> new Damage(AMDamageTypes.SPELL_DROWNING));
+    DeferredHolder<SpellPart, Damage>             FIRE_DAMAGE         = register("fire_damage",         () -> new Damage(AMDamageTypes.SPELL_FIRE));
+    DeferredHolder<SpellPart, Damage>             FROST_DAMAGE        = register("frost_damage",        () -> new Damage(AMDamageTypes.SPELL_FROST));
+    DeferredHolder<SpellPart, Damage>             LIGHTNING_DAMAGE    = register("lightning_damage",    () -> new Damage(AMDamageTypes.SPELL_LIGHTNING));
+    DeferredHolder<SpellPart, Damage>             MAGIC_DAMAGE        = register("magic_damage",        () -> new Damage(AMDamageTypes.SPELL_MAGIC));
+    DeferredHolder<SpellPart, Damage>             PHYSICAL_DAMAGE     = register("physical_damage",     () -> new Damage(caster -> caster instanceof Player ? AMDamageTypes.SPELL_PHYSICAL_PLAYER : AMDamageTypes.SPELL_PHYSICAL));
     DeferredHolder<SpellPart, Effect>             ABSORPTION          = register("absorption",          () -> new Effect(MobEffects.ABSORPTION));
     DeferredHolder<SpellPart, Effect>             BLINDNESS           = register("blindness",           () -> new Effect(MobEffects.BLINDNESS));
     DeferredHolder<SpellPart, Effect>             HASTE               = register("haste",               () -> new Effect(MobEffects.HASTE));

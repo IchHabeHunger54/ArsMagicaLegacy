@@ -14,9 +14,21 @@
       "count": 1,
       "item": {
         "neoforge:ingredient_type": "neoforge:components",
-        "components": {},
-        "items": "minecraft:iron_sword",
-        "strict": true
+        "components": {
+          "minecraft:damage": 0
+        },
+        "items": "minecraft:iron_spear"
+      }
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
+      "item": {
+        "neoforge:ingredient_type": "neoforge:components",
+        "components": {
+          "minecraft:damage": 0
+        },
+        "items": "minecraft:iron_sword"
       }
     }
   ]

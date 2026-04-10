@@ -21,6 +21,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Blocks;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Storm extends SpellComponent {
     public Storm() {
@@ -35,7 +36,7 @@ public class Storm extends SpellComponent {
         LivingEntity caster = context.caster();
         Entity directEntity = context.directEntity();
         if (!(level.getRainLevel(1f) > 0.9)) {
-            level.getServer().setWeatherParameters(0, (int) helper.getModifiedStat(AMServerConfig.STORM_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context), true, true);
+            Objects.requireNonNull(level.getServer()).setWeatherParameters(0, (int) helper.getModifiedStat(AMServerConfig.STORM_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context), true, true);
         }
         if (directEntity == null) return SpellComponentCastResult.success(spell);
         int range = (int) helper.getModifiedStat(AMServerConfig.STORM_RANGE.get(), AMSpells.RANGE_STAT, modifiers, context);

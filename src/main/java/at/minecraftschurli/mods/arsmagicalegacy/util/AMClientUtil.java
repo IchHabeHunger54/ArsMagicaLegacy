@@ -6,14 +6,22 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.gui.occulus.OcculusScreen
 import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.SpellCustomizationScreen;
 import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellrecipe.SpellRecipeScreen;
 import at.minecraftschurli.mods.arsmagicalegacy.client.particle.ParticleUtil;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.AbstractBoss;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.FallingStar;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ManaVortex;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.SpellEntity;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.SpellShapeEntity;
+import com.geckolib.constant.DataTickets;
+import com.geckolib.constant.dataticket.DataTicket;
+import com.google.common.reflect.TypeToken;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.render.TextureSetup;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -32,6 +40,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public final class AMClientUtil {
+    public static final DataTicket<AbstractBoss.Action> ACTION_DATA_TICKET = DataTickets.create("action", new TypeToken<>() {});
+    public static final DataTicket<List<String>> HIDDEN_BONES_DATA_TICKET = DataTickets.create("hidden_bones", new TypeToken<>() {});
+
     private AMClientUtil() {}
 
     public static Minecraft mc() {
@@ -236,5 +247,13 @@ public final class AMClientUtil {
             lineWidth,
             graphics.peekScissorStack()
         ));
+    }
+
+    public static void addCube(PartDefinition pd, String name, int texU, int texV, float originX, float originY, float originZ, float sizeX, float sizeY, float sizeZ, float offsetX, float offsetY, float offsetZ) {
+        pd.addOrReplaceChild(name, CubeListBuilder.create().texOffs(texU, texV).addBox(originX, originY, originZ, sizeX, sizeY, sizeZ, CubeDeformation.NONE), PartPose.offset(offsetX, offsetY, offsetZ));
+    }
+
+    public static void addCube(PartDefinition pd, String name, int texU, int texV, float originX, float originY, float originZ, float sizeX, float sizeY, float sizeZ, float offsetX, float offsetY, float offsetZ, float rotationX, float rotationY, float rotationZ) {
+        pd.addOrReplaceChild(name, CubeListBuilder.create().texOffs(texU, texV).addBox(originX, originY, originZ, sizeX, sizeY, sizeZ, CubeDeformation.NONE), PartPose.offsetAndRotation(offsetX, offsetY, offsetZ, AMUtil.wrapToRadians(rotationX), AMUtil.wrapToRadians(rotationY), AMUtil.wrapToRadians(rotationZ)));
     }
 }

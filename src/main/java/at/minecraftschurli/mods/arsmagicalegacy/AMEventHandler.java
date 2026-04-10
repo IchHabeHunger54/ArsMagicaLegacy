@@ -78,7 +78,6 @@ import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.core.cauldron.CauldronInteractions;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;
@@ -114,6 +113,7 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.AddServerReloadListenersEvent;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
+import net.neoforged.neoforge.event.RegisterCauldronInteractionEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.VanillaGameEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
@@ -154,14 +154,13 @@ final class AMEventHandler {
     private static void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             registerFlammability();
-            registerCauldronInteractions();
             DispenserBlock.registerBehavior(AMItems.LIQUID_ETHERIUM_BUCKET, DispenseBucketBehavior.INSTANCE);
             DispenserBlock.registerBehavior(AMItems.WITCHWOOD_BOAT, new BoatDispenseItemBehavior(AMEntities.WITCHWOOD_BOAT.get()));
             DispenserBlock.registerBehavior(AMItems.WITCHWOOD_CHEST_BOAT, new BoatDispenseItemBehavior(AMEntities.WITCHWOOD_CHEST_BOAT.get()));
             AMMultiblocks.init();
         });
     }
-    
+
     private static void registerFlammability() {
         FireBlock fire = (FireBlock) Blocks.FIRE;
         fire.setFlammable(AMBlocks.WITCHWOOD_LOG.get(), 5, 5);
@@ -180,18 +179,19 @@ final class AMEventHandler {
         fire.setFlammable(AMBlocks.TARMA_ROOT.get(), 60, 100);
         fire.setFlammable(AMBlocks.WAKEBLOOM.get(), 60, 100);
     }
-    
-    private static void registerCauldronInteractions() {
+
+    @SubscribeEvent
+    private static void registerCauldronInteractions(RegisterCauldronInteractionEvent.Dispatcher event) {
+        event.register(LiquidEtheriumCauldronBlock.CAULDRON_INTERACTIONS_ID, LiquidEtheriumCauldronBlock.CAULDRON_INTERACTIONS);
+    }
+
+    @SubscribeEvent
+    private static void registerCauldronInteractions(RegisterCauldronInteractionEvent.Interaction event) {
         LiquidEtheriumCauldronBlock.CAULDRON_INTERACTIONS.put(Items.BUCKET, LiquidEtheriumCauldronBlock::fillBucket);
         LiquidEtheriumCauldronBlock.CAULDRON_INTERACTIONS.put(Items.LAVA_BUCKET, CauldronInteractions::fillLavaInteraction);
         LiquidEtheriumCauldronBlock.CAULDRON_INTERACTIONS.put(Items.WATER_BUCKET, CauldronInteractions::fillWaterInteraction);
         LiquidEtheriumCauldronBlock.CAULDRON_INTERACTIONS.put(Items.POWDER_SNOW_BUCKET, CauldronInteractions::fillPowderSnowInteraction);
-        CauldronInteraction fillLiquidEtheriumInteraction = LiquidEtheriumCauldronBlock::emptyBucket;
-        CauldronInteractions.EMPTY.put(AMItems.LIQUID_ETHERIUM_BUCKET.get(), fillLiquidEtheriumInteraction);
-        CauldronInteractions.WATER.put(AMItems.LIQUID_ETHERIUM_BUCKET.get(), fillLiquidEtheriumInteraction);
-        CauldronInteractions.LAVA.put(AMItems.LIQUID_ETHERIUM_BUCKET.get(), fillLiquidEtheriumInteraction);
-        CauldronInteractions.POWDER_SNOW.put(AMItems.LIQUID_ETHERIUM_BUCKET.get(), fillLiquidEtheriumInteraction);
-        LiquidEtheriumCauldronBlock.CAULDRON_INTERACTIONS.put(AMItems.LIQUID_ETHERIUM_BUCKET.get(), fillLiquidEtheriumInteraction);
+        event.registerToAll(AMItems.LIQUID_ETHERIUM_BUCKET.get(), LiquidEtheriumCauldronBlock::emptyBucket);
     }
 
     @SubscribeEvent

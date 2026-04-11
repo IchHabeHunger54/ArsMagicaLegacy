@@ -25,6 +25,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -203,7 +204,8 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
             level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
         }
         SpellHelper helper = ArsMagicaApi.spellHelper();
-        recipe = helper.getFlatRecipe(spell).size() <= power ? helper.getRecipe(spell) : null;
+        RegistryAccess registryAccess = level.registryAccess();
+        recipe = helper.getFlatRecipe(spell, registryAccess).size() <= power ? helper.getRecipe(spell, registryAccess) : null;
         if (recipe == null) {
             currentIngredient = 0;
         }

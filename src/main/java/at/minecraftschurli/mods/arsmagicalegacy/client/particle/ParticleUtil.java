@@ -11,6 +11,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.entity.FallingStar;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ManaVortex;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.SpellEntity;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.SpellShapeEntity;
+import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -98,7 +99,7 @@ public final class ParticleUtil {
 
     @SuppressWarnings("DataFlowIssue")
     public static void spawnSpellEntityParticles(SpellShapeEntity entity, Spell spell, Vec3 position, int color, @Nullable LivingEntity caster) {
-        SpellEntityKey key = new SpellEntityKey(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()), spell.grammar().primaryAffinity());
+        SpellEntityKey key = new SpellEntityKey(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()), spell.grammar().primaryAffinity(AMClientUtil.level().registryAccess()));
         SPELL_SHAPE_ENTITY_PARTICLE_SPAWNERS.computeIfAbsent(key, _ -> {
             ParticleSpawner spawner = ParticleSpawnerManager.INSTANCE.get(key.id);
             return new ParticleSpawner(AMRegistries.affinities(true).getOrThrow(key.affinity).value().particle(),

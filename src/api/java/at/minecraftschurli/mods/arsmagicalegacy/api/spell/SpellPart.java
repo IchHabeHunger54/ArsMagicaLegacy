@@ -1,8 +1,12 @@
 package at.minecraftschurli.mods.arsmagicalegacy.api.spell;
 
-import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Set;
@@ -46,11 +50,23 @@ public abstract sealed class SpellPart permits PrimarySpellShape, SecondarySpell
     public abstract Set<SpellStat> getStats();
 
     /**
+     * @param registryAccess The {@link RegistryAccess} to use.
      * @return The spell part's datapack-defined data.
      */
-    @SuppressWarnings("DataFlowIssue")
-    public SpellPartData getData() {
-        return ArsMagicaApi.spellPartDataManager().getOrDefault(AMRegistries.SPELL_PARTS.getKey(this), SpellPartData.DEFAULT);
+    public SpellPartData getData(RegistryAccess registryAccess) {
+        return AMRegistries.spellPartData(registryAccess).getOptional(AMRegistries.SPELL_PARTS.getKey(this)).orElse(SpellPartData.DEFAULT);
+    }
+
+    /**
+     * @param registries The {@link HolderLookup.Provider} to use.
+     * @return The spell part's datapack-defined data.
+     */
+    public SpellPartData getData(HolderLookup.Provider registries) {
+        Identifier key = AMRegistries.SPELL_PARTS.getKey(this);
+        return key == null ? SpellPartData.DEFAULT : registries.lookupOrThrow(AMRegistries.Keys.SPELL_PART_DATA)
+            .get(ResourceKey.create(AMRegistries.Keys.SPELL_PART_DATA, key))
+            .map(Holder::value)
+            .orElse(SpellPartData.DEFAULT);
     }
 
     /**

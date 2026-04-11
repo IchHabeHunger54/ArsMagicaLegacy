@@ -15,6 +15,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.PageButton;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -25,6 +26,7 @@ import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class SpellRecipeScreen extends Screen {
@@ -49,8 +51,9 @@ public class SpellRecipeScreen extends Screen {
         this.playTurnSound = playTurnSound;
         this.startPage = startPage;
         this.lecternPos = lecternPos;
+        RegistryAccess registryAccess = Objects.requireNonNull(AMClientUtil.level()).registryAccess();
         Spell spell = stack.getOrDefault(AMDataComponents.SPELL, Spell.EMPTY);
-        pages.add(new IngredientsPage(ArsMagicaApi.spellHelper().getFlatRecipe(spell)));
+        pages.add(new IngredientsPage(ArsMagicaApi.spellHelper().getFlatRecipe(spell, registryAccess)));
         List<SpellShapeGroup> shapeGroups = spell.shapeGroups();
         for (int i = 0; i < shapeGroups.size(); i++) {
             SpellShapeGroup shapeGroup = shapeGroups.get(i);
@@ -59,7 +62,7 @@ public class SpellRecipeScreen extends Screen {
             }
         }
         pages.add(new PartsPage(spell.grammar().parts(), AMTranslations.SPELL_RECIPE_GRAMMAR));
-        pages.add(new AffinityPage(spell.grammar().affinityShifts()));
+        pages.add(new AffinityPage(spell.grammar().affinityShifts(registryAccess)));
     }
 
     @Override

@@ -22,7 +22,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMMagicProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMPlantProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMRecipeProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMRitualProvider;
-import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMSpellPartDataProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMSpellPrefabProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMTagsProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMToolTierProvider;
@@ -62,14 +61,15 @@ public final class AMDatagen {
                 .add(Registries.CONFIGURED_FEATURE, AMWorldgenProvider::addConfiguredFeatures)
                 .add(Registries.PLACED_FEATURE, AMWorldgenProvider::addPlacedFeatures)
                 .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, AMWorldgenProvider::addBiomeModifiers)
+                .add(AMRegistries.Keys.ABILITY, AMAbilityProvider::addAbilities)
+                .add(AMRegistries.Keys.ETHERIUM_TYPE, AMEtheriumTypeProvider::addEtheriumTypes)
                 .add(AMRegistries.Keys.AFFINITY, AMMagicProvider::addAffinities)
                 .add(AMRegistries.Keys.ALTAR_CAP_MATERIAL, AMMagicProvider::addAltarCapMaterials)
                 .add(AMRegistries.Keys.ALTAR_MATERIAL, AMMagicProvider::addAltarMaterials)
                 .add(AMRegistries.Keys.OCCULUS_TAB, AMMagicProvider::addOcculusTabs)
                 .add(AMRegistries.Keys.SKILL_POINT, AMMagicProvider::addSkillPoints)
                 .add(AMRegistries.Keys.SKILL, AMMagicProvider::addSkills)
-                .add(AMRegistries.Keys.ABILITY, AMAbilityProvider::addAbilities)
-                .add(AMRegistries.Keys.ETHERIUM_TYPE, AMEtheriumTypeProvider::addEtheriumTypes),
+                .add(AMRegistries.Keys.SPELL_PART_DATA, AMMagicProvider::addSpellPartData),
             Set.of(ArsMagicaApi.MOD_ID))
         ).getRegistryProvider();
 
@@ -88,7 +88,6 @@ public final class AMDatagen {
         pack.addProvider(wrap(AMPlantProvider::new, lookupProvider));
         pack.addProvider(wrap(AMRecipeProvider.Runner::new, lookupProvider));
         pack.addProvider(wrap(AMRitualProvider::new, lookupProvider));
-        pack.addProvider(wrap(AMSpellPartDataProvider::new, lookupProvider));
         pack.addProvider(wrap(AMSpellPrefabProvider::new, lookupProvider));
         pack.addProvider(wrap(AMToolTierProvider::new, lookupProvider));
         pack.addProvider(wrap(AMModelProvider::new, lookupProvider));

@@ -2,32 +2,53 @@ package at.minecraftschurli.mods.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
+import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
+import at.minecraftschurli.mods.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.AltarCapMaterial;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.AltarMaterial;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.SkillPoint;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPartData;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMBlocks;
+import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
+import at.minecraftschurli.mods.arsmagicalegacy.init.AMEtheriumTypes;
+import at.minecraftschurli.mods.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMParticles;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSpells;
+import at.minecraftschurli.mods.arsmagicalegacy.spell.EtheriumSpellIngredient;
+import at.minecraftschurli.mods.arsmagicalegacy.spell.ItemSpellIngredient;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderOwner;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StairBlock;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public final class AMMagicProvider {
@@ -285,12 +306,519 @@ public final class AMMagicProvider {
         // @formatter:on
     }
 
+    public static void addSpellPartData(BootstrapContext<SpellPartData> bootstrap) {
+        HolderGetter<Affinity> affinities = bootstrap.lookup(AMRegistries.Keys.AFFINITY);
+        HolderGetter<EtheriumType> etheriumTypes = bootstrap.lookup(AMRegistries.Keys.ETHERIUM_TYPE);
+        HolderGetter<Item> items = bootstrap.lookup(Registries.ITEM);
+        addSpellPartData(bootstrap, AMSpells.AREA_OF_EFFECT, 2f,
+            new ItemSpellIngredient(Ingredient.of(Items.TNT), 1), 
+            new EtheriumSpellIngredient(1));
+        addSpellPartData(bootstrap, AMSpells.BEAM, 1f, 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_TOPAZ)), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.AUM.get()), 1), 
+            new EtheriumSpellIngredient(etheriumTypes.getOrThrow(AMEtheriumTypes.LIGHT), 2500));
+        addSpellPartData(bootstrap, AMSpells.CHAIN, 1f, 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_TOPAZ)), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.AUM.get()), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.STRINGS)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.LEAD), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.TRIPWIRE_HOOK), 1), 
+            new EtheriumSpellIngredient(etheriumTypes.getOrThrow(AMEtheriumTypes.LIGHT), 2500));
+        addSpellPartData(bootstrap, AMSpells.CHANNEL, 0.5f, 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.DUSTS_VINTEUM)), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.CERUBLOSSOM.get()), 1));
+        addSpellPartData(bootstrap, AMSpells.CONTINGENCY_DAMAGE, 10f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.LIGHTNING), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_MOONSTONE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.CLOCK), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.TARMA_ROOT.get()), 1), 
+            new EtheriumSpellIngredient(5000));
+        addSpellPartData(bootstrap, AMSpells.CONTINGENCY_DEATH, 10f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.ENDER), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_TOPAZ)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.CLOCK), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.TARMA_ROOT.get()), 1), 
+            new EtheriumSpellIngredient(etheriumTypes.getOrThrow(AMEtheriumTypes.DARK), 5000));
+        addSpellPartData(bootstrap, AMSpells.CONTINGENCY_FALL, 10f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.AIR), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.DUSTS_VINTEUM)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.CLOCK), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.TARMA_ROOT.get()), 1), 
+            new EtheriumSpellIngredient(5000));
+        addSpellPartData(bootstrap, AMSpells.CONTINGENCY_FIRE, 10f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.FIRE), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_SUNSTONE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.CLOCK), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.TARMA_ROOT.get()), 1), 
+            new EtheriumSpellIngredient(5000));
+        addSpellPartData(bootstrap, AMSpells.CONTINGENCY_HEALTH, 10f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.LIFE), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_CHIMERITE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.CLOCK), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.TARMA_ROOT.get()), 1), 
+            new EtheriumSpellIngredient(etheriumTypes.getOrThrow(AMEtheriumTypes.LIGHT), 5000));
+        addSpellPartData(bootstrap, AMSpells.PROJECTILE, 1f, 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.DUSTS_VINTEUM)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.ARROW), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.SNOWBALL), 1));
+        addSpellPartData(bootstrap, AMSpells.RUNE, 2f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.BLACK_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.BLUE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.GREEN_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.RED_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.WHITE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.YELLOW_RUNE), 1));
+        addSpellPartData(bootstrap, AMSpells.SELF, 0.5f, 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.DUSTS_VINTEUM)), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.AUM.get()), 1));
+        addSpellPartData(bootstrap, AMSpells.TOUCH, 1f, 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.DUSTS_VINTEUM)), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.FEATHERS)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.CLAY_BALL), 1));
+        addSpellPartData(bootstrap, AMSpells.WALL, 2.5f, 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.DUSTS_VINTEUM)), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.FENCES_WOODEN)), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.MAGIC_WALL.get()), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(ItemTags.WALLS)), 1), 
+            new EtheriumSpellIngredient(2500));
+        addSpellPartData(bootstrap, AMSpells.WAVE, 2.5f, 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.DUSTS_VINTEUM)), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.MAGIC_WALL.get()), 1), 
+            new EtheriumSpellIngredient(2500));
+        addSpellPartData(bootstrap, AMSpells.ZONE, 2.5f, 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_MOONSTONE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_SUNSTONE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.TARMA_ROOT.get()), 1), 
+            new EtheriumSpellIngredient(2500));
+        addSpellPartData(bootstrap, AMSpells.DROWNING_DAMAGE, 25f, 
+            affinities.getOrThrow(AMMagic.WATER), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.BLACK_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.BLUE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_TOPAZ)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.WATER_BUCKET), 1));
+        addSpellPartData(bootstrap, AMSpells.FIRE_DAMAGE, 25f, 
+            affinities.getOrThrow(AMMagic.FIRE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.ORANGE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.RED_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.DUSTS_VINTEUM)), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.FLINT_AND_STEEL), 1));
+        addSpellPartData(bootstrap, AMSpells.FROST_DAMAGE, 25f, 
+            affinities.getOrThrow(AMMagic.ICE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.CYAN_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.LIGHT_BLUE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_TOPAZ)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.ICE), 1));
+        addSpellPartData(bootstrap, AMSpells.LIGHTNING_DAMAGE, 25f, 
+            affinities.getOrThrow(AMMagic.LIGHTNING), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.WHITE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.YELLOW_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_CHIMERITE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.LIGHTNING_ROD), 1));
+        addSpellPartData(bootstrap, AMSpells.MAGIC_DAMAGE, 25f, 
+            affinities.getOrThrow(AMMagic.ARCANE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.MAGENTA_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.PURPLE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_CHIMERITE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.BOOK), 1));
+        addSpellPartData(bootstrap, AMSpells.PHYSICAL_DAMAGE, 25f, 
+            affinities.getOrThrow(AMMagic.EARTH), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.RED_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.YELLOW_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.DUSTS_VINTEUM)), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.INGOTS_IRON)), 1));
+        addSpellPartData(bootstrap, AMSpells.ABSORPTION, 50f, 
+            affinities.getOrThrow(AMMagic.LIFE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.YELLOW_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.GOLDEN_APPLE), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.SHIELD), 1));
+        addSpellPartData(bootstrap, AMSpells.BLINDNESS, 40f, 
+            affinities.getOrThrow(AMMagic.ENDER), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.BLACK_RUNE), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.POTION_CONTENTS, new PotionContents(Potions.NIGHT_VISION), Items.POTION), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.POTION_CONTENTS, new PotionContents(Potions.WEAKNESS), Items.POTION), 1));
+        addSpellPartData(bootstrap, AMSpells.HASTE, 30f, 
+            affinities.getOrThrow(AMMagic.LIGHTNING), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.YELLOW_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.DUSTS_GLOWSTONE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.DUSTS_REDSTONE)), 1));
+        addSpellPartData(bootstrap, AMSpells.HEALTH_BOOST, 50f, 
+            affinities.getOrThrow(AMMagic.LIFE), 0.001f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.LIFE), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.LIGHT_BLUE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.ENCHANTED_GOLDEN_APPLE), 1));
+        addSpellPartData(bootstrap, AMSpells.INVISIBILITY, 40f, 
+            affinities.getOrThrow(AMMagic.ARCANE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.WHITE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_CHIMERITE)), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.POTION_CONTENTS, new PotionContents(Potions.INVISIBILITY), Items.POTION), 1));
+        addSpellPartData(bootstrap, AMSpells.JUMP_BOOST, 30f, 
+            affinities.getOrThrow(AMMagic.AIR), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.LIME_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.TARMA_ROOT.get()), 1));
+        addSpellPartData(bootstrap, AMSpells.LEVITATION, 40f, 
+            affinities.getOrThrow(AMMagic.AIR), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.MAGENTA_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.POPPED_CHORUS_FRUIT), 1));
+        addSpellPartData(bootstrap, AMSpells.NIGHT_VISION, 30f, 
+            affinities.getOrThrow(AMMagic.ENDER), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.BLUE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.GOLDEN_CARROT), 1));
+        addSpellPartData(bootstrap, AMSpells.NAUSEA, 200f, 
+            affinities.getOrThrow(AMMagic.LIFE), 0.0001f);
+        addSpellPartData(bootstrap, AMSpells.REGENERATION, 30f, 
+            affinities.getOrThrow(AMMagic.LIFE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.PINK_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.GHAST_TEAR), 1));
+        addSpellPartData(bootstrap, AMSpells.RESISTANCE, 50f, 
+            affinities.getOrThrow(AMMagic.EARTH), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.BROWN_RUNE), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.SHIELD), 1));
+        addSpellPartData(bootstrap, AMSpells.SLOWNESS, 30f, 
+            affinities.getOrThrow(AMMagic.ICE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.GREEN_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.SLIME_BALLS)), 1));
+        addSpellPartData(bootstrap, AMSpells.SLOW_FALLING, 30f, 
+            affinities.getOrThrow(AMMagic.AIR), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.WHITE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.PHANTOM_MEMBRANE), 1));
+        addSpellPartData(bootstrap, AMSpells.SWIFTNESS, 40f, 
+            affinities.getOrThrow(AMMagic.AIR), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.YELLOW_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.DUSTS_REDSTONE)), 1));
+        addSpellPartData(bootstrap, AMSpells.WATER_BREATHING, 40f, 
+            affinities.getOrThrow(AMMagic.WATER), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.BLUE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.WAKEBLOOM.get()), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.PUFFERFISH), 1));
+        addSpellPartData(bootstrap, AMSpells.ASTRAL_DISTORTION, 40f, 
+            affinities.getOrThrow(AMMagic.ENDER), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.PURPLE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.ENDER_PEARLS)), 1));
+        addSpellPartData(bootstrap, AMSpells.ENTANGLE, 40f, 
+            affinities.getOrThrow(AMMagic.NATURE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.LIME_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.SLIME_BALLS)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.VINE), 1));
+        addSpellPartData(bootstrap, AMSpells.FLIGHT, 50f, 
+            affinities.getOrThrow(AMMagic.AIR), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.WHITE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.NETHER_STARS)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.GHAST_TEAR), 1));
+        addSpellPartData(bootstrap, AMSpells.FROST, 40f, 
+            affinities.getOrThrow(AMMagic.ICE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.LIGHT_BLUE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.POWDER_SNOW_BUCKET), 1));
+        addSpellPartData(bootstrap, AMSpells.FURY, 50f, 
+            affinities.getOrThrow(AMMagic.LIGHTNING), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.ORANGE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.RODS_BLAZE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.TROPICAL_FISH), 1));
+        addSpellPartData(bootstrap, AMSpells.GRAVITY_WELL, 40f, 
+            affinities.getOrThrow(AMMagic.EARTH), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.GRAY_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.STONES)), 1));
+        addSpellPartData(bootstrap, AMSpells.REFLECT, 50f, 
+            affinities.getOrThrow(AMMagic.ARCANE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.LIGHT_GRAY_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.RODS_BLAZE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.GLASS_BLOCKS)), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.WITCHWOOD_LOGS)), 1));
+        addSpellPartData(bootstrap, AMSpells.SCRAMBLE_SYNAPSES, 3000f, 
+            affinities.getOrThrow(AMMagic.LIGHTNING), 0.0001f);
+        addSpellPartData(bootstrap, AMSpells.SHRINK, 30f, 
+            affinities.getOrThrow(AMMagic.ARCANE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.BONES)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.BROWN_MUSHROOM), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.SPIDER_EYE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.STONE_BUTTON), 1));
+        addSpellPartData(bootstrap, AMSpells.SILENCE, 50f, 
+            affinities.getOrThrow(AMMagic.ARCANE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.BROWN_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(ItemTags.WOOL)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.JUKEBOX), 1));
+        addSpellPartData(bootstrap, AMSpells.SWIFT_SWIM, 40f, 
+            affinities.getOrThrow(AMMagic.WATER), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.BLUE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(ItemTags.FISHES)), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.FISHING_ROD), 1));
+        addSpellPartData(bootstrap, AMSpells.TEMPORAL_ANCHOR, 50f, 
+            affinities.getOrThrow(AMMagic.ARCANE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.YELLOW_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.NETHER_STARS)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.CLOCK), 1));
+        addSpellPartData(bootstrap, AMSpells.TRUE_SIGHT, 30f, 
+            affinities.getOrThrow(AMMagic.ARCANE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.WHITE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_CHIMERITE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.GLASS_BLOCKS)), 1));
+        addSpellPartData(bootstrap, AMSpells.WATERY_GRAVE, 40f, 
+            affinities.getOrThrow(AMMagic.WATER), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.BLUE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.STONES)), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.LEATHER_BOOTS), 1));
+        addSpellPartData(bootstrap, AMSpells.ATTRACT, 5f, 
+            affinities.getOrThrow(AMMagic.NATURE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.GREEN_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.INGOTS_IRON)), 1));
+        addSpellPartData(bootstrap, AMSpells.BANISH_RAIN, 200f, 
+            affinities.getOrThrow(AMMagic.WATER), 0.005f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.BLUE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.COPPER_INGOT), 1));
+        addSpellPartData(bootstrap, AMSpells.BLINK, 80f, 
+            affinities.getOrThrow(AMMagic.ENDER), 0.002f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.BLACK_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.ENDER_PEARLS)), 1));
+        addSpellPartData(bootstrap, AMSpells.BLIZZARD, 1000f, 
+            affinities.getOrThrow(AMMagic.ICE), 0.01f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.ICE), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_TOPAZ)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.ICE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.PACKED_ICE), 1));
+        addSpellPartData(bootstrap, AMSpells.CHARM, 60f, 
+            affinities.getOrThrow(AMMagic.LIFE), 0.002f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.RED_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.WHEAT), 1));
+        addSpellPartData(bootstrap, AMSpells.CREATE_WATER, 5f, 
+            affinities.getOrThrow(AMMagic.WATER), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.BLUE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.WATER_BUCKET), 1));
+        addSpellPartData(bootstrap, AMSpells.DAYLIGHT, 2000f, 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_SUNSTONE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.CLOCK), 1));
+        addSpellPartData(bootstrap, AMSpells.DIG, 5f, 
+            affinities.getOrThrow(AMMagic.EARTH), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.BROWN_RUNE), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.IRON_AXE), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.IRON_PICKAXE), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.IRON_SHOVEL), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.IRON_HOE), 1));
+        addSpellPartData(bootstrap, AMSpells.DISARM, 60f, 
+            affinities.getOrThrow(AMMagic.ARCANE), 0.002f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.PURPLE_RUNE), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.IRON_SPEAR), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.IRON_SWORD), 1));
+        addSpellPartData(bootstrap, AMSpells.DISPEL, 60f, 
+            affinities.getOrThrow(AMMagic.ARCANE), 0.002f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.MAGENTA_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.MILK_BUCKET), 1));
+        addSpellPartData(bootstrap, AMSpells.DIVINE_INTERVENTION, 200f, 
+            affinities.getOrThrow(AMMagic.ENDER), 0.005f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.LIME_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.ENDER_PEARLS)), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(ItemTags.BEDS)), 1));
+        addSpellPartData(bootstrap, AMSpells.DROUGHT, 5f, 
+            affinities.getOrThrow(AMMagic.FIRE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.ORANGE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.DEAD_BUSH), 1));
+        addSpellPartData(bootstrap, AMSpells.ENDER_INTERVENTION, 200f, 
+            affinities.getOrThrow(AMMagic.ENDER), 0.005f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.PURPLE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.ENDER_PEARLS)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.ENDER_EYE), 1));
+        addSpellPartData(bootstrap, AMSpells.EXPLOSION, 100f, 
+            affinities.getOrThrow(AMMagic.FIRE), 0.002f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.GRAY_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.FIRE_CHARGE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.TNT), 1));
+        addSpellPartData(bootstrap, AMSpells.FALLING_STAR, 1000f, 
+            affinities.getOrThrow(AMMagic.ARCANE), 0.01f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.ARCANE), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.DUSTS_ARCANE_ASH)), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.END_STONES)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.LAVA_BUCKET), 1));
+        addSpellPartData(bootstrap, AMSpells.FIRE_RAIN, 1000f, 
+            affinities.getOrThrow(AMMagic.FIRE), 0.01f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.FIRE), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.DUSTS_ARCANE_ASH)), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.NETHERRACKS)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.LAVA_BUCKET), 1));
+        addSpellPartData(bootstrap, AMSpells.FLING, 80f, 
+            affinities.getOrThrow(AMMagic.AIR), 0.002f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.WHITE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.PISTON), 1));
+        addSpellPartData(bootstrap, AMSpells.FORGE, 80f, 
+            affinities.getOrThrow(AMMagic.FIRE), 0.002f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.ORANGE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.FURNACE), 1));
+        addSpellPartData(bootstrap, AMSpells.GROW, 5f, 
+            affinities.getOrThrow(AMMagic.NATURE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.GREEN_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.BONE_MEAL), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.WITCHWOOD_LOGS)), 1));
+        addSpellPartData(bootstrap, AMSpells.HARVEST, 5f, 
+            affinities.getOrThrow(AMMagic.NATURE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.GREEN_RUNE), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.SHEARS), 1));
+        addSpellPartData(bootstrap, AMSpells.HEAL, 60f, 
+            affinities.getOrThrow(AMMagic.LIFE), 0.002f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.PINK_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.DUSTS_GLOWSTONE)), 1));
+        addSpellPartData(bootstrap, AMSpells.IGNITION, 80f, 
+            affinities.getOrThrow(AMMagic.FIRE), 0.002f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.ORANGE_RUNE), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.FLINT_AND_STEEL), 1));
+        addSpellPartData(bootstrap, AMSpells.KNOCKBACK, 80f, 
+            affinities.getOrThrow(AMMagic.AIR), 0.002f,
+            new ItemSpellIngredient(Ingredient.of(AMItems.YELLOW_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.PISTON), 1));
+        addSpellPartData(bootstrap, AMSpells.LIFE_DRAIN, 5f, 
+            affinities.getOrThrow(AMMagic.LIFE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.MAGENTA_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_SUNSTONE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.AUM.get()), 1));
+        addSpellPartData(bootstrap, AMSpells.LIFE_TAP, 5f, 
+            affinities.getOrThrow(AMMagic.LIFE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.PINK_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.AUM.get()), 1));
+        addSpellPartData(bootstrap, AMSpells.LIGHT, 60f, 
+            affinities.getOrThrow(AMMagic.LIGHTNING), 0.002f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.YELLOW_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.VINTEUM_TORCH.get()), 1));
+        addSpellPartData(bootstrap, AMSpells.MANA_BLAST, 0f, 
+            affinities.getOrThrow(AMMagic.ENDER), 0.001f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.ENDER), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_CHIMERITE)), 1));
+        addSpellPartData(bootstrap, AMSpells.MANA_DRAIN, 5f, 
+            affinities.getOrThrow(AMMagic.ARCANE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.CYAN_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_MOONSTONE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.CERUBLOSSOM.get()), 1));
+        addSpellPartData(bootstrap, AMSpells.MELT_ARMOR, 200f, 
+            affinities.getOrThrow(AMMagic.FIRE), 0.0001f);
+        addSpellPartData(bootstrap, AMSpells.MOONRISE, 2000f, 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_MOONSTONE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.CLOCK), 1));
+        addSpellPartData(bootstrap, AMSpells.PLACE_BLOCK, 5f, 
+            affinities.getOrThrow(AMMagic.EARTH), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.LIGHT_GRAY_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.CHESTS_WOODEN)), 1));
+        addSpellPartData(bootstrap, AMSpells.REPLANT, 5f, 
+            affinities.getOrThrow(AMMagic.NATURE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.GREEN_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.WHEAT_SEEDS), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.WITCHWOOD_SAPLING.get()), 1));
+        addSpellPartData(bootstrap, AMSpells.PLOW, 5f, 
+            affinities.getOrThrow(AMMagic.EARTH), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.GREEN_RUNE), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.IRON_HOE), 1));
+        addSpellPartData(bootstrap, AMSpells.RANDOM_TELEPORT, 80f, 
+            affinities.getOrThrow(AMMagic.ENDER), 0.002f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.PURPLE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.ENDER_PEARLS)), 1));
+        addSpellPartData(bootstrap, AMSpells.RECALL, 80f, 
+            affinities.getOrThrow(AMMagic.ARCANE), 0.002f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.LIME_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.MAP), 1));
+        addSpellPartData(bootstrap, AMSpells.REPEL, 5f, 
+            affinities.getOrThrow(AMMagic.NATURE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.WHITE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.DUSTS_PURIFIED_VINTEUM)), 1));
+        addSpellPartData(bootstrap, AMSpells.RIFT, 80f, 
+            affinities.getOrThrow(AMMagic.ENDER), 0.002f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.PURPLE_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.ENDER_CHEST), 1));
+        addSpellPartData(bootstrap, AMSpells.STORM, 200f, 
+            affinities.getOrThrow(AMMagic.LIGHTNING), 0.005f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.YELLOW_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.LIGHTNING_ROD), 1));
+        addSpellPartData(bootstrap, AMSpells.SUMMON, 80f, 
+            affinities.getOrThrow(AMMagic.LIFE), 0.002f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.GRAY_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_CHIMERITE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.DUSTS_PURIFIED_VINTEUM)), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.CERUBLOSSOM.get()), 1), 
+            new EtheriumSpellIngredient(etheriumTypes.getOrThrow(AMEtheriumTypes.DARK), 2500));
+        addSpellPartData(bootstrap, AMSpells.TRANSPLACE, 80f, 
+            affinities.getOrThrow(AMMagic.ENDER), 0.002f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.BLACK_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.ENDER_EYE), 1));
+        addSpellPartData(bootstrap, AMSpells.WIZARDS_AUTUMN, 5f, 
+            affinities.getOrThrow(AMMagic.NATURE), 0.001f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.GREEN_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.RODS_WOODEN)), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.WITCHWOOD_SAPLING.get()), 1));
+        addSpellPartData(bootstrap, AMSpells.BOUNCE, 1.25f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.WATER), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.SLIME_BALLS)), 1));
+        addSpellPartData(bootstrap, AMSpells.DAMAGE, 1.25f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.FIRE), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.COPPER_INGOT), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.POTION_CONTENTS, new PotionContents(Potions.HARMING), Items.POTION), 1));
+        addSpellPartData(bootstrap, AMSpells.DISMEMBERING, 1.25f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.ICE), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.BONES)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.WITHER_SKELETON_SKULL), 1));
+        addSpellPartData(bootstrap, AMSpells.DURATION, 1.25f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.AIR), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.SLIME_BALLS)), 1));
+        addSpellPartData(bootstrap, AMSpells.EFFECT_POWER, 1.25f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.ARCANE), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.CROPS_NETHER_WART)), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.DUSTS_GLOWSTONE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.DUSTS_REDSTONE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.GUNPOWDERS)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.GLASS_BOTTLE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.SPIDER_EYE), 1));
+        addSpellPartData(bootstrap, AMSpells.GRAVITY, 1.25f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.EARTH), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.COMPASS), 1));
+        addSpellPartData(bootstrap, AMSpells.HEALING, 1.25f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.LIFE), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.EGG), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.POTION_CONTENTS, new PotionContents(Potions.HEALING), Items.POTION), 1));
+        addSpellPartData(bootstrap, AMSpells.LUNAR, 1f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.NATURE), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_MOONSTONE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.CLOCK), 1));
+        addSpellPartData(bootstrap, AMSpells.MINING_POWER, 1.25f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.EARTH), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.GEMS_DIAMOND)), 1));
+        addSpellPartData(bootstrap, AMSpells.PIERCING, 1.25f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.WATER), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.ARROW), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.SNOWBALL), 1));
+        addSpellPartData(bootstrap, AMSpells.PROSPERITY, 1.25f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.ICE), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.INGOTS_GOLD)), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.GEMS_EMERALD)), 1));
+        addSpellPartData(bootstrap, AMSpells.RANGE, 1.25f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.AIR), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.DUSTS_REDSTONE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.ARROW), 1));
+        addSpellPartData(bootstrap, AMSpells.RUNE_POWER, 1.25f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.ARCANE), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.BLACK_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.MAGENTA_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.PINK_RUNE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.WHITE_RUNE), 1));
+        addSpellPartData(bootstrap, AMSpells.SILK_TOUCH, 1.25f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.EARTH), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_CHIMERITE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.FEATHERS)), 1));
+        addSpellPartData(bootstrap, AMSpells.SOLAR, 1f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.NATURE), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(AMTags.Items.GEMS_SUNSTONE)), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.CLOCK), 1));
+        addSpellPartData(bootstrap, AMSpells.TARGET_NON_SOLID, 1.25f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.WATER), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(AMItems.CERUBLOSSOM.get()), 1), 
+            new ItemSpellIngredient(Ingredient.of(Items.POPPY), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.POTION_CONTENTS, new PotionContents(Potions.WATER), Items.POTION), 1));
+        addSpellPartData(bootstrap, AMSpells.VELOCITY, 1.25f, 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, AMDataComponents.AFFINITY, affinities.getOrThrow(AMMagic.LIGHTNING), AMItems.AFFINITY_ESSENCE), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.FEATHERS)), 1), 
+            new ItemSpellIngredient(Ingredient.of(items.getOrThrow(ItemTags.BOATS)), 1), 
+            new ItemSpellIngredient(DataComponentIngredient.of(false, DataComponents.POTION_CONTENTS, new PotionContents(Potions.SWIFTNESS), Items.POTION), 1));
+        addSpellPartData(bootstrap, AMSpells.COLOR, 1.0f, 
+            new ItemSpellIngredient(Ingredient.of(AMItems.CHIMERITE.get()), 1));
+    }
+
     private static void addHiddenSkill(BootstrapContext<Skill> bootstrap, ResourceKey<Skill> key, ResourceKey<OcculusTab> tab, int x, int y) {
         bootstrap.register(key, new Skill(List.of(), Optional.empty(), bootstrap.lookup(AMRegistries.Keys.OCCULUS_TAB).getOrThrow(tab), x, y, true));
     }
 
     private static void addHiddenSkill(BootstrapContext<Skill> bootstrap, DeferredHolder<SpellPart, ?> part, ResourceKey<OcculusTab> tab, int x, int y) {
-        addHiddenSkill(bootstrap, fromPart(part), tab, x, y);
+        addHiddenSkill(bootstrap, skillFromPart(part), tab, x, y);
     }
 
     @SafeVarargs
@@ -306,12 +834,25 @@ public final class AMMagicProvider {
 
     @SafeVarargs
     private static Holder<Skill> addSkill(BootstrapContext<Skill> bootstrap, DeferredHolder<SpellPart, ?> part, ResourceKey<SkillPoint> point, ResourceKey<OcculusTab> tab, int x, int y, Holder<Skill>... parents) {
-        return addSkill(bootstrap, fromPart(part), point, tab, x, y, parents);
+        return addSkill(bootstrap, skillFromPart(part), point, tab, x, y, parents);
+    }
+
+    private static void addSpellPartData(BootstrapContext<SpellPartData> bootstrap, DeferredHolder<SpellPart, ?> part, double mana, SpellIngredient... ingredients) {
+        bootstrap.register(spellPartDataFromPart(part), new SpellPartData(mana, Optional.empty(), Map.of(), Arrays.asList(ingredients)));
+    }
+
+    private static void addSpellPartData(BootstrapContext<SpellPartData> bootstrap, DeferredHolder<SpellPart, ?> part, double mana, Holder<Affinity> affinity, double affinityShift, SpellIngredient... ingredients) {
+        bootstrap.register(spellPartDataFromPart(part), new SpellPartData(mana, Optional.empty(), Map.of(affinity, affinityShift), Arrays.asList(ingredients)));
     }
 
     @SuppressWarnings("DataFlowIssue")
-    private static ResourceKey<Skill> fromPart(DeferredHolder<SpellPart, ?> part) {
+    private static ResourceKey<Skill> skillFromPart(DeferredHolder<SpellPart, ?> part) {
         return ResourceKey.create(AMRegistries.Keys.SKILL, AMRegistries.SPELL_PARTS.getKey(part.get()));
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    private static ResourceKey<SpellPartData> spellPartDataFromPart(DeferredHolder<SpellPart, ?> part) {
+        return ResourceKey.create(AMRegistries.Keys.SPELL_PART_DATA, AMRegistries.SPELL_PARTS.getKey(part.get()));
     }
 
     private static void addAltarCapMaterial(BootstrapContext<AltarCapMaterial> bootstrap, String name, Block block, int power) {

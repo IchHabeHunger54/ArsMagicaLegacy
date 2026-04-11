@@ -1,8 +1,6 @@
 {
   "affinity_shifts": {
-    "arsmagicalegacy:air": 0.0020000000949949026,
-    "arsmagicalegacy:earth": 0.0020000000949949026,
-    "arsmagicalegacy:water": 0.0020000000949949026
+    "arsmagicalegacy:air": 0.0020000000949949026
   },
   "mana": 80.0,
   "recipe": [

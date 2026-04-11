@@ -2,6 +2,7 @@ package at.minecraftschurli.mods.arsmagicalegacy.api.spell;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
 import com.mojang.serialization.Codec;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -87,17 +88,18 @@ public record SpellShapeGroup(List<SpellPart> parts, @Nullable PrimarySpellShape
     }
 
     /**
+     * @param registryAccess The {@link RegistryAccess} to use.
      * @return The combined mana cost of the spell shape group.
      */
-    public double getManaCost() {
+    public double getManaCost(RegistryAccess registryAccess) {
         if (primaryShape == null) return 0;
-        double cost = primaryShape.getData().mana() * primaryModifiers
+        double cost = primaryShape.getData(registryAccess).mana() * primaryModifiers
             .stream()
-            .mapToDouble(e -> e.getData().mana())
+            .mapToDouble(e -> e.getData(registryAccess).mana())
             .reduce(1, (a, b) -> a * b);
-        return secondaryShape == null ? cost : cost + secondaryShape.getData().mana() * secondaryModifiers
+        return secondaryShape == null ? cost : cost + secondaryShape.getData(registryAccess).mana() * secondaryModifiers
             .stream()
-            .mapToDouble(e -> e.getData().mana())
+            .mapToDouble(e -> e.getData(registryAccess).mana())
             .reduce(1, (a, b) -> a * b);
     }
 }

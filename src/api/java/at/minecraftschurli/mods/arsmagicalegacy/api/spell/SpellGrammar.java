@@ -5,6 +5,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Affinity;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -85,30 +86,36 @@ public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List
     }
 
     /**
+     * @param registryAccess The {@link RegistryAccess} to use.
      * @return The combined mana cost of the spell grammar.
      */
-    public double getManaCost() {
+    public double getManaCost(RegistryAccess registryAccess) {
         return components.stream()
-            .mapToDouble(pair -> pair.getFirst().getData().mana() * pair.getSecond().stream().mapToDouble(e -> e.getData().mana()).reduce(1, (a, b) -> a * b))
+            .mapToDouble(pair -> pair.getFirst().getData(registryAccess).mana() * pair.getSecond()
+                .stream()
+                .mapToDouble(e -> e.getData(registryAccess).mana())
+                .reduce(1, (a, b) -> a * b))
             .sum();
     }
 
     /**
+     * @param registryAccess The {@link RegistryAccess} to use.
      * @return The combined burnout cost of the spell grammar.
      */
-    public double getBurnoutCost() {
+    public double getBurnoutCost(RegistryAccess registryAccess) {
         return components.stream()
-            .mapToDouble(pair -> pair.getFirst().getData().burnoutOrGenerated())
+            .mapToDouble(pair -> pair.getFirst().getData(registryAccess).burnoutOrGenerated())
             .sum();
     }
 
     /**
+     * @param registryAccess The {@link RegistryAccess} to use.
      * @return A {@link Map} of combined {@link Affinity} shifts of the spell grammar.
      */
-    public Map<Holder<Affinity>, Double> affinityShifts() {
+    public Map<Holder<Affinity>, Double> affinityShifts(RegistryAccess registryAccess) {
         return components.stream()
             .map(Pair::getFirst)
-            .map(SpellPart::getData)
+            .map(part -> part.getData(registryAccess))
             .map(SpellPartData::affinityShifts)
             .map(Map::entrySet)
             .flatMap(Set::stream)
@@ -116,10 +123,11 @@ public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List
     }
 
     /**
+     * @param registryAccess The {@link RegistryAccess} to use.
      * @return The key of the primary {@link Affinity} of the spell grammar.
      */
-    public ResourceKey<Affinity> primaryAffinity() {
-        return affinityShifts().entrySet()
+    public ResourceKey<Affinity> primaryAffinity(RegistryAccess registryAccess) {
+        return affinityShifts(registryAccess).entrySet()
             .stream()
             .max(Comparator.comparingDouble(Map.Entry::getValue))
             .map(Map.Entry::getKey)

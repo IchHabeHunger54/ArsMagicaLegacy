@@ -56,7 +56,7 @@ public final class SpellItemModel implements ItemModel {
             defaultModel.update(output, item, resolver, displayContext, level, owner, seed);
             return;
         }
-        ResourceKey<Affinity> affinity = spell.grammar().primaryAffinity();
+        ResourceKey<Affinity> affinity = spell.grammar().primaryAffinity(Objects.requireNonNull(AMClientUtil.level()).registryAccess());
         if (isHand(displayContext)) {
             Minecraft.getInstance()
                 .getModelManager()

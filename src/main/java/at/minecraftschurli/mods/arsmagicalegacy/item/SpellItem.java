@@ -88,7 +88,8 @@ public class SpellItem extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, context, display, builder, tooltipFlag);
         Spell spell = stack.get(AMDataComponents.SPELL);
-        builder.accept(spell == null || spell.isMalformed() ? AMTranslations.SPELL_INVALID : Component.translatable(AMTranslations.SPELL_MANA_COST_KEY, spell.getManaCost()));
+        Level level = context.level();
+        builder.accept(level == null || spell == null || spell.isMalformed() ? AMTranslations.SPELL_INVALID : Component.translatable(AMTranslations.SPELL_MANA_COST_KEY, spell.getManaCost(level.registryAccess())));
     }
 
     @Override
@@ -103,7 +104,7 @@ public class SpellItem extends Item {
 
     private void onSuccess(Level level, LivingEntity entity, ItemStack stack, Spell spell) {
         stack.set(AMDataComponents.SPELL, spell);
-        Affinity affinity = AMRegistries.affinities(level.registryAccess()).getValue(spell.grammar().primaryAffinity());
+        Affinity affinity = AMRegistries.affinities(level.registryAccess()).getValue(spell.grammar().primaryAffinity(level.registryAccess()));
         if (affinity == null) return;
         Optional<Holder<SoundEvent>> optional = spell.isContinuous() ? affinity.loopSound() : affinity.castSound();
         optional.ifPresent(sound -> level.playSeededSound(null, entity, sound, SoundSource.PLAYERS, 1f, 1f, level.getRandom().nextLong()));

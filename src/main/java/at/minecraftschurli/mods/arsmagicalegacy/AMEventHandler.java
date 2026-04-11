@@ -22,6 +22,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ritual.Ritual;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPartData;
 import at.minecraftschurli.mods.arsmagicalegacy.attachment.DryadKillsAttachment;
 import at.minecraftschurli.mods.arsmagicalegacy.attachment.SummonMinionsAttachment;
 import at.minecraftschurli.mods.arsmagicalegacy.block.LiquidEtheriumCauldronBlock;
@@ -221,13 +222,13 @@ final class AMEventHandler {
         event.dataPackRegistry(AMRegistries.Keys.OCCULUS_TAB, OcculusTab.DIRECT_CODEC, OcculusTab.DIRECT_CODEC);
         event.dataPackRegistry(AMRegistries.Keys.SKILL, Skill.DIRECT_CODEC, Skill.DIRECT_CODEC);
         event.dataPackRegistry(AMRegistries.Keys.SKILL_POINT, SkillPoint.DIRECT_CODEC, SkillPoint.DIRECT_CODEC);
+        event.dataPackRegistry(AMRegistries.Keys.SPELL_PART_DATA, SpellPartData.DIRECT_CODEC, SpellPartData.DIRECT_CODEC);
     }
 
     @SubscribeEvent
     private static void addReloadListener(AddServerReloadListenersEvent event) {
         addListener(event, ArsMagicaApi.plantManager());
         addListener(event, ArsMagicaApi.ritualManager());
-        addListener(event, ArsMagicaApi.spellPartDataManager());
         addListener(event, ArsMagicaApi.spellPrefabManager());
         event.addListener(ToolTiers.ID, ToolTiers.INSTANCE);
     }

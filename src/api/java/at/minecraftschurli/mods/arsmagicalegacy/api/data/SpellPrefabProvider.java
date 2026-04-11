@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * Data provider for {@link Spell} prefabs. Override {@link SpellPrefabProvider#generate(HolderLookup.Provider)} to generate your entries,
- * and use {@link SpellPrefabProvider#builder(String, Identifier, List, List[])} or {@link SpellPrefabProvider#builder(String, Component, Identifier, List, List[])} to create a new {@link SpellPartDataBuilder}.
+ * and use {@link SpellPrefabProvider#builder(String, Identifier, List, List[])} or {@link SpellPrefabProvider#builder(String, Component, Identifier, List, List[])} to create a new {@link SpellPrefabBuilder}.
  */
 public abstract class SpellPrefabProvider extends AbstractDataProvider<Spell, SpellPrefabBuilder> {
     /**

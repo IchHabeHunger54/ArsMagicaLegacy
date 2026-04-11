@@ -25,7 +25,7 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     private static final SpellHelper SPELL_HELPER = new SpellHelperImpl();
     private static final AMDataManager<Plant> PLANT_MANAGER = new AMDataManager<>(id("plant"), Plant.CODEC);
     private static final AMDataManager<Ritual<?>> RITUAL_MANAGER = new AMDataManager<>(id("ritual"), Ritual.CODEC);
-    private static final AMDataManager<SpellPartData> SPELL_PART_DATA_MANAGER = new AMDataManager<>(id("spell_part"), SpellPartData.CODEC);
+    private static final AMDataManager<SpellPartData> SPELL_PART_DATA_MANAGER = new AMDataManager<>(id("spell_part"), SpellPartData.DIRECT_CODEC);
     private static final AMDataManager<Spell> SPELL_PREFAB_DATA_MANAGER = new AMDataManager<>(id("spell_prefab"), Spell.CODEC);
 
     @SuppressWarnings("DataFlowIssue")

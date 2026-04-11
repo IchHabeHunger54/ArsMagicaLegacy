@@ -2,6 +2,7 @@ package at.minecraftschurli.mods.arsmagicalegacy.api.spell;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
@@ -141,9 +142,10 @@ public record Spell(Optional<Component> name, Optional<Identifier> icon, List<Sp
     }
 
     /**
+     * @param registryAccess The {@link RegistryAccess} to use.
      * @return The combined mana cost of the spell.
      */
-    public double getManaCost() {
-        return currentShapeGroup().getManaCost() * grammar.getManaCost();
+    public double getManaCost(RegistryAccess registryAccess) {
+        return currentShapeGroup().getManaCost(registryAccess) * grammar.getManaCost(registryAccess);
     }
 }

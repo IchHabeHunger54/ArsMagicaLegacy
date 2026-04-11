@@ -126,7 +126,7 @@ public final class SpellPartPage implements ICustomComponent {
         HolderLookup.RegistryLookup<SpellPart> spellParts = registries.lookupOrThrow(AMRegistries.Keys.SPELL_PART);
         HolderLookup.RegistryLookup<Skill> skills = registries.lookupOrThrow(AMRegistries.Keys.SKILL);
         SpellPart spellPart = spellParts.getOrThrow(ResourceKey.create(AMRegistries.Keys.SPELL_PART, Identifier.parse(unaryOperator.apply(IVariable.wrap(part, registries)).asString()))).value();
-        SpellPartData data = spellPart.getData();
+        SpellPartData data = spellPart.getData(registries);
         recipe = data.recipe();
         affinityShifts = data.affinityShifts();
         modifierHolders = ArsMagicaApi.spellHelper()

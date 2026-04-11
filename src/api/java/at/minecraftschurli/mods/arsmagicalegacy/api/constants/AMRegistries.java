@@ -16,6 +16,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.ritual.RitualRequirement;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ritual.RitualTrigger;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPartData;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -185,6 +186,22 @@ public interface AMRegistries {
     }
 
     /**
+     * @param registryAccess The {@link RegistryAccess} to use.
+     * @return The registry for {@link SpellPartData}s.
+     */
+    static Registry<SpellPartData> spellPartData(RegistryAccess registryAccess) {
+        return registryAccess.lookupOrThrow(Keys.SPELL_PART_DATA);
+    }
+
+    /**
+     * @param client True if this is called from a client context, false if this is called from a server context.
+     * @return The registry for {@link SpellPartData}s.
+     */
+    static Registry<SpellPartData> spellPartData(boolean client) {
+        return spellPartData(registryAccess(client));
+    }
+
+    /**
      * Returns the correct {@link RegistryAccess} for the current side.
      * Note that during scenarios such as world loading, this may be unreliable, use more reliable sources there, e.g. {@link Level#registryAccess()}.
      *
@@ -217,6 +234,7 @@ public interface AMRegistries {
         ResourceKey<Registry<OcculusTab>>       OCCULUS_TAB        = createKey("occulus_tab");
         ResourceKey<Registry<Skill>>            SKILL              = createKey("skill");
         ResourceKey<Registry<SkillPoint>>       SKILL_POINT        = createKey("skill_point");
+        ResourceKey<Registry<SpellPartData>>    SPELL_PART_DATA    = createKey("spell_part_data");
         // @formatter:on
 
         private static <T> ResourceKey<Registry<T>> createKey(String path) {

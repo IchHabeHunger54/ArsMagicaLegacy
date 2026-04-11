@@ -163,7 +163,7 @@ final class SkillCategory implements IRecipeCategory<SkillCategory.Recipe> {
             Registry<Skill> skills = AMRegistries.skills(true);
             Registry<SpellPart> spellParts = AMRegistries.SPELL_PARTS;
             SpellPart part = spellParts.getValue(skills.getKey(skill.value()));
-            SpellPartData data = part.getData();
+            SpellPartData data = part.getData(AMClientUtil.level().registryAccess());
             return new Recipe(skill, data.recipe(), data.affinityShifts(), ArsMagicaApi.spellHelper()
                 .getModifiers(part)
                 .stream()

@@ -41,6 +41,7 @@ import com.google.common.collect.Sets;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -69,14 +70,15 @@ final class SpellHelperImpl implements SpellHelper {
         if (caster != null && caster.hasEffect(AMMobEffects.SILENCE)) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_SILENCED);
         ManaHelper manaHelper = ArsMagicaApi.manaHelper();
         BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
+        RegistryAccess registryAccess = level.registryAccess();
         double manaCost = 0;
         double burnoutCost = 0;
         if (caster != null) {
             if (caster.hasEffect(AMMobEffects.CLARITY)) {
                 caster.removeEffect(AMMobEffects.CLARITY);
             } else {
-                manaCost = NeoForge.EVENT_BUS.post(new ManaCostCalculationEvent(caster, spell, spell.getManaCost(), burnoutHelper.getBurnout(caster))).getResult();
-                burnoutCost = NeoForge.EVENT_BUS.post(new BurnoutCostCalculationEvent(caster, spell, spell.grammar().getBurnoutCost())).getBurnout();
+                manaCost = NeoForge.EVENT_BUS.post(new ManaCostCalculationEvent(caster, spell, spell.getManaCost(registryAccess), burnoutHelper.getBurnout(caster))).getResult();
+                burnoutCost = NeoForge.EVENT_BUS.post(new BurnoutCostCalculationEvent(caster, spell, spell.grammar().getBurnoutCost(registryAccess))).getBurnout();
             }
             SpellCastEvent.Pre event = new SpellCastEvent.Pre(caster, spell, manaCost, burnoutCost, consume, awardXp);
             if (event.isCanceled()) return new SpellCastResult(spell).setMessage(event.getCancellationMessage());
@@ -98,12 +100,12 @@ final class SpellHelperImpl implements SpellHelper {
                 Registry<Skill> registry = AMRegistries.skills(player.registryAccess());
                 boolean affinityGains = registry.containsKey(AMMagic.AFFINITY_GAINS_BOOST) && helper.knows(player, registry.getOrThrow(AMMagic.AFFINITY_GAINS_BOOST));
                 boolean continuous = spell.isContinuous();
-                Map<Holder<Affinity>, Double> affinityShifts = spell.grammar().affinityShifts();
+                Map<Holder<Affinity>, Double> affinityShifts = spell.grammar().affinityShifts(registryAccess);
                 if (continuous) {
-                    affinityShifts.replaceAll((k, v) -> v * AMServerConfig.CONTINUOUS_MODIFIER.get());
+                    affinityShifts.replaceAll((_, v) -> v * AMServerConfig.CONTINUOUS_MODIFIER.get());
                 }
                 if (affinityGains) {
-                    affinityShifts.replaceAll((k, v) -> v * AMServerConfig.AFFINITY_GAINS_MODIFIER.get());
+                    affinityShifts.replaceAll((_, v) -> v * AMServerConfig.AFFINITY_GAINS_MODIFIER.get());
                 }
                 helper.applyAffinityShift(player, affinityShifts);
                 double xp = AMServerConfig.AFFINITY_TO_XP_RATIO.get() * affinityShifts.size();
@@ -249,20 +251,20 @@ final class SpellHelperImpl implements SpellHelper {
     }
 
     @Override
-    public List<SpellIngredient> getRecipe(Spell spell) {
+    public List<SpellIngredient> getRecipe(Spell spell, RegistryAccess registryAccess) {
         List<SpellIngredient> list = new ArrayList<>();
         list.add(new ItemSpellIngredient(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(AMTags.Items.SPELLCRAFTING_START)), 1));
         spell.shapeGroups()
             .stream()
             .map(SpellShapeGroup::parts)
             .flatMap(List::stream)
-            .map(SpellPart::getData)
+            .map(part -> part.getData(registryAccess))
             .map(SpellPartData::recipe)
             .forEach(list::addAll);
         spell.grammar()
             .parts()
             .stream()
-            .map(SpellPart::getData)
+            .map(part -> part.getData(registryAccess))
             .map(SpellPartData::recipe)
             .forEach(list::addAll);
         list.add(new ItemSpellIngredient(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(AMTags.Items.SPELLCRAFTING_END)), 1));
@@ -271,9 +273,9 @@ final class SpellHelperImpl implements SpellHelper {
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public List<SpellIngredient> getFlatRecipe(Spell spell) {
+    public List<SpellIngredient> getFlatRecipe(Spell spell, RegistryAccess registryAccess) {
         List<SpellIngredient> result = new ArrayList<>();
-        for (SpellIngredient ingredient : getRecipe(spell)) {
+        for (SpellIngredient ingredient : getRecipe(spell, registryAccess)) {
             Optional<SpellIngredient> optional = result.stream().filter(e -> e.canCombine(ingredient)).findAny();
             if (optional.isPresent()) {
                 SpellIngredient previous = optional.get();

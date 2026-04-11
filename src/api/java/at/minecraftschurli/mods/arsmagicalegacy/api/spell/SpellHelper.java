@@ -1,5 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.api.spell;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
@@ -121,18 +122,20 @@ public interface SpellHelper {
     /**
      * Calculates a {@link Spell}'s recipe.
      *
-     * @param spell The {@link Spell} to calculate the recipe for.
+     * @param spell          The {@link Spell} to calculate the recipe for.
+     * @param registryAccess The {@link RegistryAccess} to use.
      * @return The recipe for the {@link Spell}.
      */
-    List<SpellIngredient> getRecipe(Spell spell);
+    List<SpellIngredient> getRecipe(Spell spell, RegistryAccess registryAccess);
 
     /**
      * Calculates a {@link Spell}'s recipe and combines the ingredients where possible.
      *
-     * @param spell The {@link Spell} to calculate the recipe for.
+     * @param spell          The {@link Spell} to calculate the recipe for.
+     * @param registryAccess The {@link RegistryAccess} to use.
      * @return The recipe for the {@link Spell}.
      */
-    List<SpellIngredient> getFlatRecipe(Spell spell);
+    List<SpellIngredient> getFlatRecipe(Spell spell, RegistryAccess registryAccess);
 
     /**
      * On the client, spawns particles for the given {@link SpellPart}. On the server, does nothing.

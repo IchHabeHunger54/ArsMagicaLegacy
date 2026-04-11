@@ -79,7 +79,7 @@ public interface AMBlocks {
     // @formatter:off
     DeferredBlock<AirBlock>                    SPELL_LIGHT                 = register("spell_light",                 AirBlock::new, copyProperties(Blocks.AIR, p -> p.lightLevel(_ -> 15)));
     DeferredBlock<SpellRuneBlock>              SPELL_RUNE                  = register("spell_rune",                  SpellRuneBlock::new, copyProperties(Blocks.AIR, BlockBehaviour.Properties::noOcclusion));
-    DeferredBlock<LiquidBlock>                 LIQUID_ETHERIUM             = register("liquid_etherium",             p -> new LiquidBlock(AMFluids.LIQUID_ETHERIUM.get(), p), properties(p -> p.replaceable().noCollision().strength(100).pushReaction(PushReaction.DESTROY).noLootTable().liquid().sound(SoundType.EMPTY).lightLevel(_ -> 5)));
+    DeferredBlock<LiquidBlock>                 LIQUID_ETHERIUM             = register("liquid_etherium",             p -> new LiquidBlock(AMFluids.LIQUID_ETHERIUM.get(), p), properties(p -> p.mapColor(MapColor.CLAY).replaceable().noCollision().strength(100).pushReaction(PushReaction.DESTROY).noLootTable().liquid().sound(SoundType.EMPTY).lightLevel(_ -> 5)));
     DeferredBlock<LiquidEtheriumCauldronBlock> LIQUID_ETHERIUM_CAULDRON    = register("liquid_etherium_cauldron",    LiquidEtheriumCauldronBlock::new, copyProperties(Blocks.CAULDRON, p-> p.lightLevel(_ -> 5)));
     DeferredBlock<OcculusBlock>                OCCULUS                     = register("occulus",                     OcculusBlock::new, properties(p -> p.strength(3, 5)));
     DeferredBlock<InscriptionTableBlock>       INSCRIPTION_TABLE           = register("inscription_table",           InscriptionTableBlock::new, properties(p -> p.strength(2).lightLevel(_ -> 1).noOcclusion()));

@@ -1,6 +1,6 @@
 # General
 
-- Updated to 26.1
+- Updated to 26.1.2
 - Rewrote most of the mod from the ground up for more overall stability going forward
 - Many systems now use datapacks instead of in-code solutions
 - Updated many textures, credit to the amazing @MoonlitLamps for their texture work 

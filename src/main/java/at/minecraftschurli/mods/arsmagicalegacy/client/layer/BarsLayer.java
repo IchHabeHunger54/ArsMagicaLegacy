@@ -24,7 +24,7 @@ public class BarsLayer implements GuiLayer {
     public void render(GuiGraphicsExtractor graphics, DeltaTracker deltaTracker) {
         if (AMClientUtil.mc().options.hideGui) return;
         Player player = AMClientUtil.player();
-        if (player == null) return;
+        if (player == null || player.isSpectator()) return;
         MagicHelper magicHelper = ArsMagicaApi.magicHelper();
         if (!magicHelper.knowsMagic(player)) return;
         ManaHelper manaHelper = ArsMagicaApi.manaHelper();

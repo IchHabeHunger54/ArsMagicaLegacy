@@ -24,7 +24,7 @@ public class SpellBookLayer implements GuiLayer {
     public void render(GuiGraphicsExtractor graphics, DeltaTracker deltaTracker) {
         if (AMClientUtil.mc().options.hideGui) return;
         Player player = AMClientUtil.player();
-        if (player == null) return;
+        if (player == null || player.isSpectator()) return;
         ItemStack item = player.getMainHandItem();
         if (!item.is(AMItems.SPELL_BOOK)) {
             item = player.getOffhandItem();

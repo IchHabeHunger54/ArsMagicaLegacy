@@ -1,8 +1,8 @@
 package at.minecraftschurli.mods.arsmagicalegacy.compat.jei;
 
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.CrystalPhylacteryContentsSize;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.mods.arsmagicalegacy.item.CrystalPhylacteryItem;
-import at.minecraftschurli.mods.arsmagicalegacy.util.CrystalPhylacteryContentsSize;
 import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
 import net.minecraft.world.entity.EntityType;

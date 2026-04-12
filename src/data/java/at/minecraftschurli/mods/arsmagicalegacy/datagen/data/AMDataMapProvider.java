@@ -2,9 +2,9 @@ package at.minecraftschurli.mods.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.mods.arsmagicalegacy.api.etherium.ObeliskFuel;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.CrystalPhylacteryContentsSize;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMItems;
-import at.minecraftschurli.mods.arsmagicalegacy.util.CrystalPhylacteryContentsSize;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.EntityType;

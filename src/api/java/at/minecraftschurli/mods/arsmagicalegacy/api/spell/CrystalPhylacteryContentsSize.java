@@ -1,4 +1,4 @@
-package at.minecraftschurli.mods.arsmagicalegacy.util;
+package at.minecraftschurli.mods.arsmagicalegacy.api.spell;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import com.mojang.serialization.Codec;
@@ -10,6 +10,13 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.attributes.DefaultAttributes;
 import net.neoforged.neoforge.registries.datamaps.DataMapType;
 
+/**
+ * Represents a size override for an {@link EntityType} when stored in a crystal phylactery.
+ * If an {@link EntityType} is not in the {@link #DATA_MAP}, its max HP is used.
+ * If the {@link #size} is 0, the crystal phylactery will not support the {@link EntityType} at all.
+ *
+ * @param size The size, i.e. the amount of kills needed, of the {@link EntityType} in a crystal phylactery.
+ */
 @SuppressWarnings("deprecation")
 public record CrystalPhylacteryContentsSize(int size) {
     public static final Codec<CrystalPhylacteryContentsSize> CODEC = ExtraCodecs.NON_NEGATIVE_INT.xmap(CrystalPhylacteryContentsSize::new, CrystalPhylacteryContentsSize::size);
@@ -17,6 +24,10 @@ public record CrystalPhylacteryContentsSize(int size) {
         .synced(CODEC, true)
         .build();
 
+    /**
+     * @param type The {@link EntityType} to query.
+     * @return The size of the {@link EntityType} in a crystal phylactery.
+     */
     @SuppressWarnings("unchecked")
     public static int get(EntityType<?> type) {
         CrystalPhylacteryContentsSize data = type.builtInRegistryHolder().getData(DATA_MAP);
@@ -24,6 +35,10 @@ public record CrystalPhylacteryContentsSize(int size) {
         return DefaultAttributes.hasSupplier(type) ? (int) DefaultAttributes.getSupplier((EntityType<? extends LivingEntity>) type).getBaseValue(Attributes.MAX_HEALTH) : 0;
     }
 
+    /**
+     * @param type The {@link EntityType} to query.
+     * @return Whether a size override for the given {@link EntityType} exists.
+     */
     public static boolean has(EntityType<?> type) {
         return type.builtInRegistryHolder().getData(DATA_MAP) != null;
     }

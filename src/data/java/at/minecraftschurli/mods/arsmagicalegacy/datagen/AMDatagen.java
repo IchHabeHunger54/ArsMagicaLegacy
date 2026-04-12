@@ -67,9 +67,12 @@ public final class AMDatagen {
                 .add(AMRegistries.Keys.ALTAR_CAP_MATERIAL, AMMagicProvider::addAltarCapMaterials)
                 .add(AMRegistries.Keys.ALTAR_MATERIAL, AMMagicProvider::addAltarMaterials)
                 .add(AMRegistries.Keys.OCCULUS_TAB, AMMagicProvider::addOcculusTabs)
+                .add(AMRegistries.Keys.PLANT, AMPlantProvider::addPlants)
+                .add(AMRegistries.Keys.RITUAL, AMRitualProvider::addRituals)
                 .add(AMRegistries.Keys.SKILL_POINT, AMMagicProvider::addSkillPoints)
                 .add(AMRegistries.Keys.SKILL, AMMagicProvider::addSkills)
-                .add(AMRegistries.Keys.SPELL_PART_DATA, AMMagicProvider::addSpellPartData),
+                .add(AMRegistries.Keys.SPELL_PART_DATA, AMMagicProvider::addSpellPartData)
+                .add(AMRegistries.Keys.SPELL_PREFAB, AMSpellPrefabProvider::addSpellPrefabs),
             Set.of(ArsMagicaApi.MOD_ID))
         ).getRegistryProvider();
 
@@ -85,10 +88,7 @@ public final class AMDatagen {
         pack.addProvider(wrap(AMDataMapProvider::new, lookupProvider));
         pack.addProvider(wrap(AMGlobalLootModifierProvider::new, lookupProvider));
         pack.addProvider(wrap(AMLootTableProvider::new, lookupProvider));
-        pack.addProvider(wrap(AMPlantProvider::new, lookupProvider));
         pack.addProvider(wrap(AMRecipeProvider.Runner::new, lookupProvider));
-        pack.addProvider(wrap(AMRitualProvider::new, lookupProvider));
-        pack.addProvider(wrap(AMSpellPrefabProvider::new, lookupProvider));
         pack.addProvider(wrap(AMToolTierProvider::new, lookupProvider));
         pack.addProvider(wrap(AMModelProvider::new, lookupProvider));
         pack.addProvider(AMEquipmentAssetProvider::new);

@@ -1,18 +1,20 @@
-package at.minecraftschurli.mods.arsmagicalegacy.api.data;
+package at.minecraftschurli.mods.arsmagicalegacy.api.client.particle;
 
-import at.minecraftschurli.mods.arsmagicalegacy.api.client.particle.ParticleController;
-import at.minecraftschurli.mods.arsmagicalegacy.api.client.particle.ParticleSpawner;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.conditions.ICondition;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Builder class for {@link ParticleSpawner}, for use in {@link ParticleSpawnerProvider}. Get an instance via {@link ParticleSpawnerProvider#builder(Identifier, ParticleOptions, int, int)}.
  */
-public class ParticleSpawnerBuilder extends AbstractDataProvider.Builder<ParticleSpawner> {
+public class ParticleSpawnerBuilder {
+    public final Identifier id;
+    private final List<ICondition> conditions = new ArrayList<>();
     private final ParticleOptions particle;
     private final int count;
     private final int minLifetime;
@@ -22,10 +24,10 @@ public class ParticleSpawnerBuilder extends AbstractDataProvider.Builder<Particl
     private Vec3 maxOffset = Vec3.ZERO;
     private Vec3 minSpeed = Vec3.ZERO;
     private Vec3 maxSpeed = Vec3.ZERO;
-    private float gravity = 0f;
-    private float scale = 1f;
+    private float gravity = 0;
+    private float scale = 1;
     private int color = -1;
-    private float alpha = 1f;
+    private float alpha = 1;
 
     /**
      * @param id          The id of the {@link ParticleSpawner} being built.
@@ -35,7 +37,7 @@ public class ParticleSpawnerBuilder extends AbstractDataProvider.Builder<Particl
      * @param maxLifetime The max lifetime of the particles.
      */
     public ParticleSpawnerBuilder(Identifier id, ParticleOptions particle, int count, int minLifetime, int maxLifetime) {
-        super(id);
+        this.id = id;
         this.particle = particle;
         this.count = count;
         this.minLifetime = minLifetime;
@@ -173,7 +175,25 @@ public class ParticleSpawnerBuilder extends AbstractDataProvider.Builder<Particl
         return this;
     }
 
-    @Override
+    /**
+     * @param condition The {@link ICondition} to add.
+     * @return This builder, for chaining.
+     */
+    public ParticleSpawnerBuilder addCondition(ICondition condition) {
+        conditions.add(condition);
+        return this;
+    }
+
+    /**
+     * @return All {@link ICondition} in the builder.
+     */
+    public List<ICondition> getConditions() {
+        return Collections.unmodifiableList(conditions);
+    }
+
+    /**
+     * @return The built {@link ParticleSpawner}.
+     */
     public ParticleSpawner build() {
         return new ParticleSpawner(particle, count, minLifetime, maxLifetime, minOffset, maxOffset, minSpeed, maxSpeed, gravity, scale, color, alpha, controllers);
     }

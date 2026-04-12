@@ -1,8 +1,8 @@
 package at.minecraftschurli.mods.arsmagicalegacy.datagen.assets;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.mods.arsmagicalegacy.api.data.ParticleSpawnerBuilder;
-import at.minecraftschurli.mods.arsmagicalegacy.api.data.ParticleSpawnerProvider;
+import at.minecraftschurli.mods.arsmagicalegacy.api.client.particle.ParticleSpawnerBuilder;
+import at.minecraftschurli.mods.arsmagicalegacy.api.client.particle.ParticleSpawnerProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.client.particle.ParticleUtil;
 import at.minecraftschurli.mods.arsmagicalegacy.client.particle.controller.ApproachEntityController;
 import at.minecraftschurli.mods.arsmagicalegacy.client.particle.controller.ArcToEntityController;

@@ -1,7 +1,7 @@
 package at.minecraftschurli.mods.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.mods.arsmagicalegacy.api.data.ToolTierProvider;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.ToolTierProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;

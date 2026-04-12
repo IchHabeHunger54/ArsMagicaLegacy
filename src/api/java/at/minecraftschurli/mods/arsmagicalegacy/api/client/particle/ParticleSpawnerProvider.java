@@ -1,11 +1,12 @@
-package at.minecraftschurli.mods.arsmagicalegacy.api.data;
+package at.minecraftschurli.mods.arsmagicalegacy.api.client.particle;
 
+import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
@@ -23,33 +24,23 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Abstract superclass for most data providers this mod adds.
- *
- * @param <T> The type of the objects being generated.
- * @param <B> The builder type to use.
+ * Data provider for {@link ParticleSpawner}s. Override {@link ParticleSpawnerProvider#generate(HolderLookup.Provider)} to generate your entries,
+ * and use {@link ParticleSpawnerProvider#builder(Identifier, ParticleOptions, int, int)} or {@link ParticleSpawnerProvider#builder(Identifier, ParticleOptions, int, int, int)} to create a new {@link ParticleSpawnerBuilder}.
  */
-public abstract class AbstractDataProvider<T, B extends AbstractDataProvider.Builder<T>> implements DataProvider {
+public abstract class ParticleSpawnerProvider implements DataProvider {
     private static final String EXCEPTION_MESSAGE = "Failed to encode %s: %s";
     private final PackOutput.PathProvider pathProvider;
     private final CompletableFuture<HolderLookup.Provider> lookupProvider;
-    protected final String modId;
-    protected final String name;
-    private final Codec<T> codec;
-    private final List<B> builders = new ArrayList<>();
+    private final String modId;
+    private final List<ParticleSpawnerBuilder> builders = new ArrayList<>();
 
     /**
-     * @param target         The {@link net.minecraft.data.PackOutput.Target} to use.
-     * @param folder         The folder location to use, relative to {@code assets/} or {@code data/}.
-     * @param name           The name of the provider, for use in {@link AbstractDataProvider#getName()}.
-     * @param codec          The {@link Codec} to use.
      * @param output         The {@link PackOutput} to use. Get this from {@link GatherDataEvent}.
      * @param lookupProvider The lookup {@link CompletableFuture} to use. Get this from {@link GatherDataEvent}.
      * @param modId          Your mod id.
      */
-    public AbstractDataProvider(PackOutput.Target target, String folder, String name, Codec<T> codec, PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, String modId) {
-        this.name = name;
-        this.codec = codec;
-        this.pathProvider = output.createPathProvider(target, folder);
+    public ParticleSpawnerProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, String modId) {
+        this.pathProvider = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, ArsMagicaApi.MOD_ID + "/particle_spawners");
         this.lookupProvider = lookupProvider;
         this.modId = modId;
     }
@@ -65,7 +56,7 @@ public abstract class AbstractDataProvider<T, B extends AbstractDataProvider.Bui
                 Path path = pathProvider.json(builder.id);
                 return CompletableFuture
                     .supplyAsync(() -> {
-                        JsonObject json = codec.encodeStart(ops, builder.build()).getOrThrow(message -> new RuntimeException(EXCEPTION_MESSAGE.formatted(path, message))).getAsJsonObject();
+                        JsonObject json = ParticleSpawner.CODEC.encodeStart(ops, builder.build()).getOrThrow(message -> new RuntimeException(EXCEPTION_MESSAGE.formatted(path, message))).getAsJsonObject();
                         List<ICondition> conditions = builder.getConditions();
                         if (!conditions.isEmpty()) {
                             json.add(ConditionalOps.DEFAULT_CONDITIONS_KEY, ICondition.LIST_CODEC.encodeStart(ops, conditions).getOrThrow(message -> new RuntimeException(EXCEPTION_MESSAGE.formatted(path, message))));
@@ -79,14 +70,7 @@ public abstract class AbstractDataProvider<T, B extends AbstractDataProvider.Bui
 
     @Override
     public String getName() {
-        return name + ": " + modId;
-    }
-
-    /**
-     * @param builder The builder to add.
-     */
-    public void add(B builder) {
-        builders.add(builder);
+        return "Particle Spawners: " + modId;
     }
 
     /**
@@ -97,42 +81,33 @@ public abstract class AbstractDataProvider<T, B extends AbstractDataProvider.Bui
     public abstract void generate(HolderLookup.Provider provider);
 
     /**
-     * Abstract superclass for all data builders this mod adds.
+     * Creates and adds a new {@link ParticleSpawnerBuilder}.
      *
-     * @param <T> The type of the objects being built.
+     * @param id          The id of the {@link ParticleSpawner}.
+     * @param particle    The spawned particles' {@link ParticleOptions}.
+     * @param count       The spawned particle count.
+     * @param minLifetime The min lifetime of the spawned particles.
+     * @param maxLifetime The max lifetime of the spawned particles.
+     * @return The new {@link ParticleSpawnerBuilder}.
      */
-    public static abstract class Builder<T> {
-        public final Identifier id;
-        private final List<ICondition> conditions = new ArrayList<>();
+    public ParticleSpawnerBuilder builder(Identifier id, ParticleOptions particle, int count, int minLifetime, int maxLifetime) {
+        ParticleSpawnerBuilder builder = new ParticleSpawnerBuilder(id, particle, count, minLifetime, maxLifetime);
+        builders.add(builder);
+        return builder;
+    }
 
-        /**
-         * @param id The id of the object being built.
-         */
-        public Builder(Identifier id) {
-            this.id = id;
-        }
-
-        /**
-         * Adds a {@link ICondition} to the builder.
-         *
-         * @param condition The {@link ICondition} to add.
-         * @return This builder, for chaining.
-         */
-        public Builder<T> addCondition(ICondition condition) {
-            conditions.add(condition);
-            return this;
-        }
-
-        /**
-         * @return All {@link ICondition} in the builder.
-         */
-        public List<ICondition> getConditions() {
-            return Collections.unmodifiableList(conditions);
-        }
-
-        /**
-         * @return The built object.
-         */
-        public abstract T build();
+    /**
+     * Creates and adds a new {@link ParticleSpawnerBuilder}.
+     *
+     * @param id       The id of the {@link ParticleSpawner}.
+     * @param particle The spawned particles' {@link ParticleOptions}.
+     * @param count    The spawned particle count.
+     * @param lifetime The lifetime of the spawned particles.
+     * @return The new {@link ParticleSpawnerBuilder}.
+     */
+    public ParticleSpawnerBuilder builder(Identifier id, ParticleOptions particle, int count, int lifetime) {
+        ParticleSpawnerBuilder builder = new ParticleSpawnerBuilder(id, particle, count, lifetime);
+        builders.add(builder);
+        return builder;
     }
 }

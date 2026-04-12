@@ -1,4 +1,4 @@
-package at.minecraftschurli.mods.arsmagicalegacy.api.data;
+package at.minecraftschurli.mods.arsmagicalegacy.api.spell;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import com.google.gson.JsonObject;
@@ -39,7 +39,7 @@ public abstract class ToolTierProvider implements DataProvider {
 
     @Override
     public CompletableFuture<?> run(CachedOutput output) {
-        return lookupProvider.thenCompose(provider -> {
+        return lookupProvider.thenCompose(_ -> {
             generate();
             JsonObject json = new JsonObject();
             for (Int2ObjectMap.Entry<Identifier> entry : contents.int2ObjectEntrySet()) {

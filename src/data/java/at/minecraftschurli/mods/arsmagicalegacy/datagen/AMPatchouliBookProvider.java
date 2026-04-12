@@ -8,7 +8,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.mods.arsmagicalegacy.compat.patchouli.AMMultiblocks;
 import at.minecraftschurli.mods.arsmagicalegacy.compat.patchouli.SpellPartPage;
-import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMAbilityProvider;
+import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMMagicProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMCreativeTabs;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMEntities;
@@ -386,8 +386,8 @@ public final class AMPatchouliBookProvider extends PatchouliBookProvider {
             .lookupOrThrow(AMRegistries.Keys.ABILITY)
             .listElements()
             .sorted(Comparator.comparing(e -> e.key().identifier(), Identifier::compareNamespaced))
-            .sorted(Comparator.comparing(e -> AMAbilityProvider.PATCHOULI_ABILITY_DATA.get(e.getKey()).bounds().min().orElse(0.)))
-            .collect(Collectors.groupingBy(e -> AMAbilityProvider.PATCHOULI_ABILITY_DATA.get(e.getKey()).affinity()));
+            .sorted(Comparator.comparing(e -> AMMagicProvider.PATCHOULI_ABILITY_DATA.get(e.getKey()).bounds().min().orElse(0.)))
+            .collect(Collectors.groupingBy(e -> AMMagicProvider.PATCHOULI_ABILITY_DATA.get(e.getKey()).affinity()));
         for (Holder<Affinity> affinity : affinityRegistry.listElements().toList()) {
             ResourceKey<Affinity> key = affinity.getKey();
             Identifier id = key.identifier();

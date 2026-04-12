@@ -9,20 +9,14 @@ import at.minecraftschurli.mods.arsmagicalegacy.datagen.assets.AMParticleDescrip
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.assets.AMParticleSpawnerProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.assets.AMSoundDefinitionProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.assets.AMSpriteSourceProvider;
-import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMAbilityProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMAdvancementProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMCuriosProvider;
-import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMDamageTypeProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMDataMapProvider;
-import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMEnchantmentProvider;
-import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMEtheriumTypeProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMGlobalLootModifierProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMLootTableProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMMagicProvider;
-import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMPlantProvider;
+import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMDatapackBuiltinEntriesProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMRecipeProvider;
-import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMRitualProvider;
-import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMSpellPrefabProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMTagsProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMToolTierProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMWorldgenProvider;
@@ -56,23 +50,23 @@ public final class AMDatagen {
             DatapackBuiltinEntriesProvider::new,
             lookupProvider,
             new RegistrySetBuilder()
-                .add(Registries.DAMAGE_TYPE, AMDamageTypeProvider::addDamageTypes)
-                .add(Registries.ENCHANTMENT, AMEnchantmentProvider::addEnchantments)
+                .add(Registries.DAMAGE_TYPE, AMDatapackBuiltinEntriesProvider::addDamageTypes)
+                .add(Registries.ENCHANTMENT, AMDatapackBuiltinEntriesProvider::addEnchantments)
+                .add(AMRegistries.Keys.ALTAR_CAP_MATERIAL, AMDatapackBuiltinEntriesProvider::addAltarCapMaterials)
+                .add(AMRegistries.Keys.ALTAR_MATERIAL, AMDatapackBuiltinEntriesProvider::addAltarMaterials)
+                .add(AMRegistries.Keys.ETHERIUM_TYPE, AMDatapackBuiltinEntriesProvider::addEtheriumTypes)
+                .add(AMRegistries.Keys.PLANT, AMDatapackBuiltinEntriesProvider::addPlants)
                 .add(Registries.CONFIGURED_FEATURE, AMWorldgenProvider::addConfiguredFeatures)
                 .add(Registries.PLACED_FEATURE, AMWorldgenProvider::addPlacedFeatures)
                 .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, AMWorldgenProvider::addBiomeModifiers)
-                .add(AMRegistries.Keys.ABILITY, AMAbilityProvider::addAbilities)
-                .add(AMRegistries.Keys.ETHERIUM_TYPE, AMEtheriumTypeProvider::addEtheriumTypes)
                 .add(AMRegistries.Keys.AFFINITY, AMMagicProvider::addAffinities)
-                .add(AMRegistries.Keys.ALTAR_CAP_MATERIAL, AMMagicProvider::addAltarCapMaterials)
-                .add(AMRegistries.Keys.ALTAR_MATERIAL, AMMagicProvider::addAltarMaterials)
+                .add(AMRegistries.Keys.ABILITY, AMMagicProvider::addAbilities)
                 .add(AMRegistries.Keys.OCCULUS_TAB, AMMagicProvider::addOcculusTabs)
-                .add(AMRegistries.Keys.PLANT, AMPlantProvider::addPlants)
-                .add(AMRegistries.Keys.RITUAL, AMRitualProvider::addRituals)
                 .add(AMRegistries.Keys.SKILL_POINT, AMMagicProvider::addSkillPoints)
                 .add(AMRegistries.Keys.SKILL, AMMagicProvider::addSkills)
                 .add(AMRegistries.Keys.SPELL_PART_DATA, AMMagicProvider::addSpellPartData)
-                .add(AMRegistries.Keys.SPELL_PREFAB, AMSpellPrefabProvider::addSpellPrefabs),
+                .add(AMRegistries.Keys.SPELL_PREFAB, AMMagicProvider::addSpellPrefabs)
+                .add(AMRegistries.Keys.RITUAL, AMMagicProvider::addRituals),
             Set.of(ArsMagicaApi.MOD_ID))
         ).getRegistryProvider();
 

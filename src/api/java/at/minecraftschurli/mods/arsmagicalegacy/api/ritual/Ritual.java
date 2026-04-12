@@ -1,9 +1,11 @@
 package at.minecraftschurli.mods.arsmagicalegacy.api.ritual;
 
-import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.Holder;
+import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -20,11 +22,12 @@ import java.util.List;
  * @param <T>          The trigger context type.
  */
 public record Ritual<T>(List<RitualRequirement> requirements, RitualTrigger<T> trigger, List<RitualEffect> effects) {
-    public static final Codec<Ritual<?>> CODEC = RecordCodecBuilder.create(inst -> inst.group(
+    public static final Codec<Ritual<?>> DIRECT_CODEC = RecordCodecBuilder.create(inst -> inst.group(
         RitualRequirement.CODEC.listOf().fieldOf("requirements").forGetter(Ritual::requirements),
         RitualTrigger.CODEC.fieldOf("trigger").forGetter(Ritual::trigger),
         RitualEffect.CODEC.listOf().fieldOf("effects").forGetter(Ritual::effects)
     ).apply(inst, Ritual::new));
+    public static final Codec<Holder<Ritual<?>>> CODEC = RegistryFileCodec.create(AMRegistries.Keys.RITUAL, DIRECT_CODEC);
 
     /**
      * Performs the ritual.
@@ -55,10 +58,9 @@ public record Ritual<T>(List<RitualRequirement> requirements, RitualTrigger<T> t
      */
     @SuppressWarnings("unchecked")
     public static <T> void perform(MapCodec<? extends T> codec, @Nullable Player player, Level level, Vec3 vec, T context) {
-        ArsMagicaApi.ritualManager()
-            .getAll()
-            .values()
-            .stream()
+        AMRegistries.rituals(level.registryAccess())
+            .listElements()
+            .map(Holder::value)
             .filter(e -> e.trigger().codec() == codec)
             .map(e -> (Ritual<T>) e)
             .forEach(e -> e.perform(player, level, vec, context));

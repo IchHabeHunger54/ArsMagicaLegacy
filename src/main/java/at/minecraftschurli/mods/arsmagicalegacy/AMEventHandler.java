@@ -6,7 +6,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.ability.AbilityHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMCapabilities;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
-import at.minecraftschurli.mods.arsmagicalegacy.api.data.JsonDataManager;
 import at.minecraftschurli.mods.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.mods.arsmagicalegacy.api.etherium.ObeliskFuel;
 import at.minecraftschurli.mods.arsmagicalegacy.api.event.ManaCostCalculationEvent;
@@ -19,6 +18,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.magic.ManaHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.SkillPoint;
+import at.minecraftschurli.mods.arsmagicalegacy.api.plant.Plant;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ritual.Ritual;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPart;
@@ -220,6 +220,8 @@ final class AMEventHandler {
         event.dataPackRegistry(AMRegistries.Keys.ALTAR_MATERIAL, AltarMaterial.DIRECT_CODEC, AltarMaterial.DIRECT_CODEC);
         event.dataPackRegistry(AMRegistries.Keys.ETHERIUM_TYPE, EtheriumType.DIRECT_CODEC, EtheriumType.DIRECT_CODEC);
         event.dataPackRegistry(AMRegistries.Keys.OCCULUS_TAB, OcculusTab.DIRECT_CODEC, OcculusTab.DIRECT_CODEC);
+        event.dataPackRegistry(AMRegistries.Keys.PLANT, Plant.DIRECT_CODEC, Plant.DIRECT_CODEC);
+        event.dataPackRegistry(AMRegistries.Keys.RITUAL, Ritual.DIRECT_CODEC, Ritual.DIRECT_CODEC);
         event.dataPackRegistry(AMRegistries.Keys.SKILL, Skill.DIRECT_CODEC, Skill.DIRECT_CODEC);
         event.dataPackRegistry(AMRegistries.Keys.SKILL_POINT, SkillPoint.DIRECT_CODEC, SkillPoint.DIRECT_CODEC);
         event.dataPackRegistry(AMRegistries.Keys.SPELL_PART_DATA, SpellPartData.DIRECT_CODEC, SpellPartData.DIRECT_CODEC);
@@ -228,13 +230,7 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void addReloadListener(AddServerReloadListenersEvent event) {
-        addListener(event, ArsMagicaApi.plantManager());
-        addListener(event, ArsMagicaApi.ritualManager());
         event.addListener(ToolTiers.ID, ToolTiers.INSTANCE);
-    }
-
-    private static <T> void addListener(AddServerReloadListenersEvent event, JsonDataManager<T> manager) {
-        event.addListener(manager.id(), manager);
     }
 
     @SubscribeEvent

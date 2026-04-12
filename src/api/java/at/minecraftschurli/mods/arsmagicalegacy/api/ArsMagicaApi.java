@@ -1,12 +1,9 @@
 package at.minecraftschurli.mods.arsmagicalegacy.api;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ability.AbilityHelper;
-import at.minecraftschurli.mods.arsmagicalegacy.api.data.JsonDataManager;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.BurnoutHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.MagicHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.ManaHelper;
-import at.minecraftschurli.mods.arsmagicalegacy.api.plant.Plant;
-import at.minecraftschurli.mods.arsmagicalegacy.api.ritual.Ritual;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellHelper;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
@@ -85,20 +82,6 @@ public abstract class ArsMagicaApi {
         return INSTANCE.get().getSpellHelper();
     }
 
-    /**
-     * @return The {@link JsonDataManager} for {@link Plant}s.
-     */
-    public static JsonDataManager<Plant> plantManager() {
-        return INSTANCE.get().getPlantManager();
-    }
-
-    /**
-     * @return The {@link JsonDataManager} for {@link Ritual}s.
-     */
-    public static JsonDataManager<Ritual<?>> ritualManager() {
-        return INSTANCE.get().getRitualManager();
-    }
-
     @Internal
     protected abstract ItemStackTemplate getBook();
 
@@ -116,10 +99,4 @@ public abstract class ArsMagicaApi {
 
     @Internal
     protected abstract SpellHelper getSpellHelper();
-
-    @Internal
-    protected abstract JsonDataManager<Plant> getPlantManager();
-
-    @Internal
-    protected abstract JsonDataManager<Ritual<?>> getRitualManager();
 }

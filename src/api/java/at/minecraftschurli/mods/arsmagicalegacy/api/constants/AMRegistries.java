@@ -11,6 +11,8 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.mods.arsmagicalegacy.api.plant.GrowthType;
+import at.minecraftschurli.mods.arsmagicalegacy.api.plant.Plant;
+import at.minecraftschurli.mods.arsmagicalegacy.api.ritual.Ritual;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ritual.RitualEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ritual.RitualRequirement;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ritual.RitualTrigger;
@@ -156,6 +158,38 @@ public interface AMRegistries {
 
     /**
      * @param registryAccess The {@link RegistryAccess} to use.
+     * @return The registry for {@link Plant}s.
+     */
+    static Registry<Plant> plants(RegistryAccess registryAccess) {
+        return registryAccess.lookupOrThrow(Keys.PLANT);
+    }
+
+    /**
+     * @param client True if this is called from a client context, false if this is called from a server context.
+     * @return The registry for {@link Plant}s.
+     */
+    static Registry<Plant> plants(boolean client) {
+        return plants(registryAccess(client));
+    }
+
+    /**
+     * @param registryAccess The {@link RegistryAccess} to use.
+     * @return The registry for {@link Ritual}s.
+     */
+    static Registry<Ritual<?>> rituals(RegistryAccess registryAccess) {
+        return registryAccess.lookupOrThrow(Keys.RITUAL);
+    }
+
+    /**
+     * @param client True if this is called from a client context, false if this is called from a server context.
+     * @return The registry for {@link Ritual}s.
+     */
+    static Registry<Ritual<?>> rituals(boolean client) {
+        return rituals(registryAccess(client));
+    }
+
+    /**
+     * @param registryAccess The {@link RegistryAccess} to use.
      * @return The registry for {@link Skill}s.
      */
     static Registry<Skill> skills(RegistryAccess registryAccess) {
@@ -249,6 +283,8 @@ public interface AMRegistries {
         ResourceKey<Registry<AltarMaterial>>    ALTAR_MATERIAL     = createKey("altar_material");
         ResourceKey<Registry<EtheriumType>>     ETHERIUM_TYPE      = createKey("etherium_type");
         ResourceKey<Registry<OcculusTab>>       OCCULUS_TAB        = createKey("occulus_tab");
+        ResourceKey<Registry<Plant>>            PLANT              = createKey("plant");
+        ResourceKey<Registry<Ritual<?>>>        RITUAL             = createKey("ritual");
         ResourceKey<Registry<Skill>>            SKILL              = createKey("skill");
         ResourceKey<Registry<SkillPoint>>       SKILL_POINT        = createKey("skill_point");
         ResourceKey<Registry<SpellPartData>>    SPELL_PART_DATA    = createKey("spell_part_data");

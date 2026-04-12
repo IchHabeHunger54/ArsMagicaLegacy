@@ -22,7 +22,7 @@ public abstract class PlantProvider extends AbstractDataProvider<Plant, PlantBui
      * @param modId          Your mod id.
      */
     public PlantProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, String modId) {
-        super(PackOutput.Target.DATA_PACK, ArsMagicaApi.MOD_ID + "/plant", "Plant", Plant.CODEC, output, lookupProvider, modId);
+        super(PackOutput.Target.DATA_PACK, ArsMagicaApi.MOD_ID + "/plant", "Plant", Plant.DIRECT_CODEC, output, lookupProvider, modId);
     }
 
     /**

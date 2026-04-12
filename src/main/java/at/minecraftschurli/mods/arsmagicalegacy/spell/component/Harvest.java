@@ -45,7 +45,7 @@ public class Harvest extends SpellComponent.CastBlock {
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
         if (state.getBlock() instanceof GameMasterBlock && !player.canUseGameMasterBlocks() || player.blockActionRestricted(level, pos, player.gameMode.getGameModeForPlayer())) return SpellComponentCastResult.pass(spell);
-        for (Plant plant : AMUtil.getPlants(state)) {
+        for (Plant plant : AMUtil.getPlants(state, level.registryAccess())) {
             Map<ResourceKey<Enchantment>, SpellStat> enchantments = Map.of(Enchantments.FORTUNE, AMSpells.FORTUNE_STAT, Enchantments.SILK_TOUCH, AMSpells.SILK_TOUCH_STAT);
             ItemStack tool = plant.tool()
                 .map(itemStackTemplate -> AMUtil.getEnchanted(itemStackTemplate.create(), modifiers, context, enchantments))

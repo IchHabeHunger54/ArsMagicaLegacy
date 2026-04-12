@@ -21,7 +21,7 @@ public abstract class RitualProvider extends AbstractDataProvider<Ritual<?>, Rit
      * @param modId          Your mod id.
      */
     public RitualProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, String modId) {
-        super(PackOutput.Target.DATA_PACK, ArsMagicaApi.MOD_ID + "/ritual", "Ritual", Ritual.CODEC, output, lookupProvider, modId);
+        super(PackOutput.Target.DATA_PACK, ArsMagicaApi.MOD_ID + "/ritual", "Ritual", Ritual.DIRECT_CODEC, output, lookupProvider, modId);
     }
 
     /**

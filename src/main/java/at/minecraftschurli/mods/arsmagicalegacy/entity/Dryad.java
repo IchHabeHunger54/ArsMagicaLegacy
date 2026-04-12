@@ -79,7 +79,7 @@ public class Dryad extends PathfinderMob {
         for (BlockPos pos : list) {
             BlockState state = level().getBlockState(pos);
             boolean grown = false;
-            for (Plant plant : AMUtil.getPlants(state)) {
+            for (Plant plant : AMUtil.getPlants(state, registryAccess())) {
                 GrowthContext context = plant.createContext(player, level, pos, state, ItemStack.EMPTY);
                 if (plant.growthType().canGrow(context)) {
                     plant.growthType().grow(context);

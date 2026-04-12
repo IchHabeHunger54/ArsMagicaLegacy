@@ -2,14 +2,10 @@ package at.minecraftschurli.mods.arsmagicalegacy.apiimpl;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ability.AbilityHelper;
-import at.minecraftschurli.mods.arsmagicalegacy.api.data.JsonDataManager;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.BurnoutHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.MagicHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.ManaHelper;
-import at.minecraftschurli.mods.arsmagicalegacy.api.plant.Plant;
-import at.minecraftschurli.mods.arsmagicalegacy.api.ritual.Ritual;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellHelper;
-import at.minecraftschurli.mods.arsmagicalegacy.util.AMDataManager;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStackTemplate;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -21,8 +17,6 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     private static final MagicHelper MAGIC_HELPER = new MagicHelperImpl();
     private static final ManaHelper MANA_HELPER = new ManaHelperImpl();
     private static final SpellHelper SPELL_HELPER = new SpellHelperImpl();
-    private static final AMDataManager<Plant> PLANT_MANAGER = new AMDataManager<>(id("plant"), Plant.CODEC);
-    private static final AMDataManager<Ritual<?>> RITUAL_MANAGER = new AMDataManager<>(id("ritual"), Ritual.CODEC);
 
     @SuppressWarnings("DataFlowIssue")
     @Override
@@ -53,15 +47,5 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     @Override
     protected SpellHelper getSpellHelper() {
         return SPELL_HELPER;
-    }
-
-    @Override
-    protected JsonDataManager<Plant> getPlantManager() {
-        return PLANT_MANAGER;
-    }
-
-    @Override
-    protected JsonDataManager<Ritual<?>> getRitualManager() {
-        return RITUAL_MANAGER;
     }
 }

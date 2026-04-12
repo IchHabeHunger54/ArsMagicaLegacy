@@ -28,6 +28,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -253,11 +254,10 @@ public final class AMUtil {
         return hitResult;
     }
 
-    public static List<Plant> getPlants(BlockState state) {
-        return ArsMagicaApi.plantManager()
-            .getAll()
-            .values()
-            .stream()
+    public static List<Plant> getPlants(BlockState state, RegistryAccess registryAccess) {
+        return AMRegistries.plants(registryAccess)
+            .listElements()
+            .map(Holder::value)
             .filter(plant -> doRuleTest(plant.allStates(), state))
             .toList();
     }

@@ -481,7 +481,7 @@ final class AMEventHandler {
             }
             Ritual.perform(AMRituals.KILL_ENTITY_TRIGGER.get(), player, level, entity.position(), entity);
         }
-        if (!(level instanceof ServerLevel serverLevel)) return;
+        if (!(level instanceof ServerLevel serverLevel) || !entity.hasData(AMAttachments.SUMMON_OWNER)) return;
         UUID uuid = entity.getData(AMAttachments.SUMMON_OWNER);
         if (uuid.equals(Util.NIL_UUID)) return;
         Entity owner = serverLevel.getEntity(uuid);
@@ -491,7 +491,8 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void livingExperienceDrop(LivingExperienceDropEvent event) {
-        if (event.getEntity().hasData(AMAttachments.SUMMON_OWNER)) {
+        LivingEntity entity = event.getEntity();
+        if (entity.hasData(AMAttachments.SUMMON_OWNER) && !entity.getData(AMAttachments.SUMMON_OWNER).equals(Util.NIL_UUID)) {
             event.setCanceled(true);
         }
     }

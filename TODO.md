@@ -1,16 +1,14 @@
 - Test All Spell Parts and Particles
-- Boss Spawn Eggs (needs textures)
+- Add hints for where to drop skills in the Inscription Table
 - Change Lightning Guardian Spawn Ritual to Copper Bars (needs Neo changes)
 - Fix Render Pipelines
     - Color Wheel
     - Magitech Goggles Overlay
     - Occulus Affinity Tab Lines
-- Cauldron Interactions (needs Neo changes, worked around)
 - Flammables (needs Neo changes, worked around)
 - Add Compat Recipes
 - Test With Sodium/Embeddium/Iris
     - Altar Model & BER
-    - Magitech Goggles Overlay
 - To fix
     - Whirlwind Renderer
     - Disable Player and Life Guardian Summon Drops

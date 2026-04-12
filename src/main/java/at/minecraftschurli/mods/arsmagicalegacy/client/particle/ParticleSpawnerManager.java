@@ -2,24 +2,35 @@ package at.minecraftschurli.mods.arsmagicalegacy.client.particle;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.client.particle.ParticleSpawner;
-import at.minecraftschurli.mods.arsmagicalegacy.util.AMDataManager;
+import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
+import org.jspecify.annotations.Nullable;
 
+import java.util.HashMap;
 import java.util.Map;
 
-public final class ParticleSpawnerManager extends AMDataManager<ParticleSpawner> {
+public final class ParticleSpawnerManager extends SimpleJsonResourceReloadListener<ParticleSpawner> {
     public static final Identifier ID = ArsMagicaApi.id("particle_spawners");
     public static final ParticleSpawnerManager INSTANCE = new ParticleSpawnerManager();
+    private final Map<Identifier, ParticleSpawner> values = new HashMap<>();
 
     private ParticleSpawnerManager() {
-        super(ID, ParticleSpawner.CODEC);
+        super(ParticleSpawner.CODEC, FileToIdConverter.registry(ResourceKey.createRegistryKey(ID)));
     }
 
     @Override
     protected void apply(Map<Identifier, ParticleSpawner> map, ResourceManager resourceManager, ProfilerFiller profiler) {
         ParticleUtil.clearParticleSpawnerCache();
-        super.apply(map, resourceManager, profiler);
+        values.clear();
+        values.putAll(map);
+    }
+
+    @Nullable
+    public ParticleSpawner get(Identifier id) {
+        return values.get(id);
     }
 }

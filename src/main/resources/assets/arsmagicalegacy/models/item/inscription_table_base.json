@@ -1,5 +1,6 @@
 {
   "textures": {
+    "particle": "arsmagicalegacy:block/inscription_table_base",
     "base": "arsmagicalegacy:block/inscription_table_base",
     "side": "arsmagicalegacy:block/inscription_table_side",
     "top": "arsmagicalegacy:block/inscription_table_top",

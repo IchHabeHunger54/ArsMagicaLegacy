@@ -59,7 +59,7 @@ final class MagicHelperImpl implements MagicHelper {
         }
         player.setData(AMAttachments.MAGIC, data.setLevel(level));
         List<? extends Holder<SkillPoint>> skillPoints = AMRegistries.skillPoints(player.registryAccess()).listElements().toList();
-        for (int i = oldLevel; i <= level; i++) {
+        for (int i = oldLevel + 1; i <= level; i++) {
             for (Holder<SkillPoint> holder : skillPoints) {
                 SkillPoint skillPoint = holder.value();
                 int minEarnLevel = skillPoint.minEarnLevel();

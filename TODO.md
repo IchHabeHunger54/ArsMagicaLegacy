@@ -12,5 +12,4 @@
 - To fix
     - Whirlwind Renderer
     - Disable Player and Life Guardian Summon Drops
-    - Fix Spell Recipes only loading contents after joining singleplayer once
     - Fix Altar not resetting recipes properly when taking the Spell Recipe out of the lectern

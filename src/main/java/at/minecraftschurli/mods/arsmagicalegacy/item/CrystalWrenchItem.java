@@ -30,6 +30,7 @@ public class CrystalWrenchItem extends Item {
         BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
         BlockEntity blockEntity = state.getBlock() instanceof EtheriumHandlerBlock block ? block.getBlockEntity(level, pos, state) : level.getBlockEntity(pos);
+        if (blockEntity == null) return super.useOn(context);
         EtheriumHandler handler = level.getCapability(AMCapabilities.BLOCK_ETHERIUM, blockEntity.getBlockPos(), null);
         if (handler == null) return super.useOn(context);
         if (handler.canHaveConnectedPositions() && stack.has(AMDataComponents.STORED_POSITIONS)) {

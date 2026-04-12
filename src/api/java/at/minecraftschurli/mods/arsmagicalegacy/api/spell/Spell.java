@@ -1,7 +1,9 @@
 package at.minecraftschurli.mods.arsmagicalegacy.api.spell;
 
+import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -9,6 +11,7 @@ import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.util.ExtraCodecs;
 
 import java.util.List;
@@ -36,6 +39,7 @@ public record Spell(Optional<Component> name, Optional<Identifier> icon, List<Sp
         SpellGrammar.CODEC.fieldOf("grammar").forGetter(Spell::grammar),
         SpellDataComponentMap.CODEC.fieldOf("components").forGetter(Spell::dataComponents)
     ).apply(inst, Spell::new));
+    public static final Codec<Holder<Spell>> PREFAB_CODEC = RegistryFileCodec.create(AMRegistries.Keys.SPELL_PREFAB, CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, Spell> STREAM_CODEC = StreamCodec.composite(
         ComponentSerialization.STREAM_CODEC.apply(ByteBufCodecs::optional), Spell::name,
         Identifier.STREAM_CODEC.apply(ByteBufCodecs::optional), Spell::icon,

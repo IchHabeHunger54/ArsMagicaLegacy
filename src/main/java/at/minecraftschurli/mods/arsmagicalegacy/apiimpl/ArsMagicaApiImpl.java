@@ -8,9 +8,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.magic.MagicHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.ManaHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.api.plant.Plant;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ritual.Ritual;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellHelper;
-import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPartData;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMDataManager;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStackTemplate;
@@ -25,8 +23,6 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     private static final SpellHelper SPELL_HELPER = new SpellHelperImpl();
     private static final AMDataManager<Plant> PLANT_MANAGER = new AMDataManager<>(id("plant"), Plant.CODEC);
     private static final AMDataManager<Ritual<?>> RITUAL_MANAGER = new AMDataManager<>(id("ritual"), Ritual.CODEC);
-    private static final AMDataManager<SpellPartData> SPELL_PART_DATA_MANAGER = new AMDataManager<>(id("spell_part"), SpellPartData.DIRECT_CODEC);
-    private static final AMDataManager<Spell> SPELL_PREFAB_DATA_MANAGER = new AMDataManager<>(id("spell_prefab"), Spell.CODEC);
 
     @SuppressWarnings("DataFlowIssue")
     @Override
@@ -67,15 +63,5 @@ public final class ArsMagicaApiImpl extends ArsMagicaApi {
     @Override
     protected JsonDataManager<Ritual<?>> getRitualManager() {
         return RITUAL_MANAGER;
-    }
-
-    @Override
-    protected JsonDataManager<SpellPartData> getSpellPartDataManager() {
-        return SPELL_PART_DATA_MANAGER;
-    }
-
-    @Override
-    protected JsonDataManager<Spell> getSpellPrefabManager() {
-        return SPELL_PREFAB_DATA_MANAGER;
     }
 }

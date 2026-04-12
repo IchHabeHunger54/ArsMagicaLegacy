@@ -3,8 +3,10 @@ package at.minecraftschurli.mods.arsmagicalegacy.init;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Affinity;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.item.CrystalPhylacteryItem;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -15,7 +17,8 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.Map;
+import java.util.Comparator;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
@@ -142,17 +145,17 @@ public interface AMCreativeTabs {
     DeferredHolder<CreativeModeTab, CreativeModeTab> SPELL_PREFABS = CREATIVE_TABS.register("spell_prefabs", () -> CreativeModeTab.builder()
         .title(Component.translatable("itemGroup." + ArsMagicaApi.MOD_ID + ".spell_prefabs"))
         .icon(AMItems.SPELL_PARCHMENT::toStack)
-        .displayItems((display, output) -> ArsMagicaApi.spellPrefabManager()
-            .getAll()
-            .entrySet()
-            .stream()
-            .sorted(Map.Entry.comparingByKey())
-            .map(Map.Entry::getValue)
-            .forEach(spell -> {
-                ItemStack stack = AMItems.SPELL.toStack();
-                stack.set(AMDataComponents.SPELL, spell);
-                output.accept(stack);
-            }))
+        .displayItems((display, output) -> {
+            HolderLookup.RegistryLookup<Spell> lookup = display.holders().lookupOrThrow(AMRegistries.Keys.SPELL_PREFAB);
+            lookup.listElements()
+                .sorted(Comparator.comparing(holder -> Objects.requireNonNull(holder.getKey())))
+                .map(Holder::value)
+                .forEach(spell -> {
+                    ItemStack stack = AMItems.SPELL.toStack();
+                    stack.set(AMDataComponents.SPELL, spell);
+                    output.accept(stack);
+                });
+        })
         .build());
 
     @SafeVarargs

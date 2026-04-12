@@ -14,6 +14,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.plant.GrowthType;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ritual.RitualEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ritual.RitualRequirement;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ritual.RitualTrigger;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPartData;
@@ -202,6 +203,22 @@ public interface AMRegistries {
     }
 
     /**
+     * @param registryAccess The {@link RegistryAccess} to use.
+     * @return The registry for {@link Spell} prefabs.
+     */
+    static Registry<Spell> spellPrefabs(RegistryAccess registryAccess) {
+        return registryAccess.lookupOrThrow(Keys.SPELL_PREFAB);
+    }
+
+    /**
+     * @param client True if this is called from a client context, false if this is called from a server context.
+     * @return The registry for {@link Spell} prefabs.
+     */
+    static Registry<Spell> spellPrefabs(boolean client) {
+        return spellPrefabs(registryAccess(client));
+    }
+
+    /**
      * Returns the correct {@link RegistryAccess} for the current side.
      * Note that during scenarios such as world loading, this may be unreliable, use more reliable sources there, e.g. {@link Level#registryAccess()}.
      *
@@ -235,6 +252,7 @@ public interface AMRegistries {
         ResourceKey<Registry<Skill>>            SKILL              = createKey("skill");
         ResourceKey<Registry<SkillPoint>>       SKILL_POINT        = createKey("skill_point");
         ResourceKey<Registry<SpellPartData>>    SPELL_PART_DATA    = createKey("spell_part_data");
+        ResourceKey<Registry<Spell>>            SPELL_PREFAB       = createKey("spell_prefab");
         // @formatter:on
 
         private static <T> ResourceKey<Registry<T>> createKey(String path) {

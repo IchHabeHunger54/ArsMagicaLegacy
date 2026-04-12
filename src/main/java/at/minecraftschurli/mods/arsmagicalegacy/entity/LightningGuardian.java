@@ -1,14 +1,15 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
-import at.minecraftschurli.mods.arsmagicalegacy.api.data.JsonDataManager;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.ExecuteBossSpellGoal;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.LightningRodGoal;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.StaticGoal;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
+import net.minecraft.core.Registry;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -52,14 +53,14 @@ public class LightningGuardian extends AbstractBoss {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        JsonDataManager<Spell> manager = ArsMagicaApi.spellPrefabManager();
+        Registry<Spell> registry = registryAccess().lookupOrThrow(AMRegistries.Keys.SPELL_PREFAB);
         goalSelector.addGoal(1, new LightningRodGoal(this));
         goalSelector.addGoal(1, new StaticGoal(this));
-        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, manager.get(ArsMagicaApi.id("lightning_bolt")), 10));
-        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, manager.get(ArsMagicaApi.id("strong_lightning_bolt")), 10));
-        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, manager.get(ArsMagicaApi.id("area_lightning")), 10));
-        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, manager.get(ArsMagicaApi.id("lightning_rune")), 10));
-        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, manager.get(ArsMagicaApi.id("scramble_synapses")), 10));
+        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, registry.getValue(ArsMagicaApi.id("lightning_bolt")), 10));
+        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, registry.getValue(ArsMagicaApi.id("strong_lightning_bolt")), 10));
+        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, registry.getValue(ArsMagicaApi.id("area_lightning")), 10));
+        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, registry.getValue(ArsMagicaApi.id("lightning_rune")), 10));
+        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, registry.getValue(ArsMagicaApi.id("scramble_synapses")), 10));
     }
 
     @Override

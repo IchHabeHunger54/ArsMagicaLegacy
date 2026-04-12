@@ -223,13 +223,13 @@ final class AMEventHandler {
         event.dataPackRegistry(AMRegistries.Keys.SKILL, Skill.DIRECT_CODEC, Skill.DIRECT_CODEC);
         event.dataPackRegistry(AMRegistries.Keys.SKILL_POINT, SkillPoint.DIRECT_CODEC, SkillPoint.DIRECT_CODEC);
         event.dataPackRegistry(AMRegistries.Keys.SPELL_PART_DATA, SpellPartData.DIRECT_CODEC, SpellPartData.DIRECT_CODEC);
+        event.dataPackRegistry(AMRegistries.Keys.SPELL_PREFAB, Spell.CODEC, Spell.CODEC);
     }
 
     @SubscribeEvent
     private static void addReloadListener(AddServerReloadListenersEvent event) {
         addListener(event, ArsMagicaApi.plantManager());
         addListener(event, ArsMagicaApi.ritualManager());
-        addListener(event, ArsMagicaApi.spellPrefabManager());
         event.addListener(ToolTiers.ID, ToolTiers.INSTANCE);
     }
 

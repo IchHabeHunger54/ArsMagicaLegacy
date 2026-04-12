@@ -1,14 +1,15 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
-import at.minecraftschurli.mods.arsmagicalegacy.api.data.JsonDataManager;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.ExecuteBossSpellGoal;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.ExecuteRandomSpellGoal;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.HealGoal;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
+import net.minecraft.core.Registry;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -51,28 +52,29 @@ public class ArcaneGuardian extends AbstractBoss {
         return AMSounds.ARCANE_GUARDIAN_HURT.get();
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        JsonDataManager<Spell> manager = ArsMagicaApi.spellPrefabManager();
+        Registry<Spell> registry = registryAccess().lookupOrThrow(AMRegistries.Keys.SPELL_PREFAB);
         goalSelector.addGoal(1, new HealGoal<>(this));
         goalSelector.addGoal(1, new ExecuteRandomSpellGoal<>(this, List.of(
-            manager.get(ArsMagicaApi.id("water_bolt")),
-            manager.get(ArsMagicaApi.id("fire_bolt")),
-            manager.get(ArsMagicaApi.id("earth_bolt")),
-            manager.get(ArsMagicaApi.id("lightning_bolt")),
-            manager.get(ArsMagicaApi.id("ice_bolt")),
-            manager.get(ArsMagicaApi.id("arcane_bolt"))
+            registry.getValue(ArsMagicaApi.id("water_bolt")),
+            registry.getValue(ArsMagicaApi.id("fire_bolt")),
+            registry.getValue(ArsMagicaApi.id("earth_bolt")),
+            registry.getValue(ArsMagicaApi.id("lightning_bolt")),
+            registry.getValue(ArsMagicaApi.id("ice_bolt")),
+            registry.getValue(ArsMagicaApi.id("arcane_bolt"))
         ), 30));
         goalSelector.addGoal(1, new ExecuteRandomSpellGoal<>(this, List.of(
-            manager.get(ArsMagicaApi.id("strong_water_bolt")),
-            manager.get(ArsMagicaApi.id("strong_fire_bolt")),
-            manager.get(ArsMagicaApi.id("strong_earth_bolt")),
-            manager.get(ArsMagicaApi.id("strong_lightning_bolt")),
-            manager.get(ArsMagicaApi.id("strong_ice_bolt")),
-            manager.get(ArsMagicaApi.id("strong_arcane_bolt"))
+            registry.getValue(ArsMagicaApi.id("strong_water_bolt")),
+            registry.getValue(ArsMagicaApi.id("strong_fire_bolt")),
+            registry.getValue(ArsMagicaApi.id("strong_earth_bolt")),
+            registry.getValue(ArsMagicaApi.id("strong_lightning_bolt")),
+            registry.getValue(ArsMagicaApi.id("strong_ice_bolt")),
+            registry.getValue(ArsMagicaApi.id("strong_arcane_bolt"))
         ), 30));
-        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, manager.get(ArsMagicaApi.id("blink")), 30));
-        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, manager.get(ArsMagicaApi.id("debuff")), 30));
+        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, registry.getValue(ArsMagicaApi.id("blink")), 30));
+        goalSelector.addGoal(1, new ExecuteBossSpellGoal<>(this, registry.getValue(ArsMagicaApi.id("debuff")), 30));
     }
 }

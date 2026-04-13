@@ -308,6 +308,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTags.Items.INSCRIPTION_TABLE_BOOKS, "Inscription Table Books");
         add(AMTags.Items.OCCULUS_FORGET_ALL, "Occulus Forgetting Items");
         add(AMTags.Items.RUNES, "Runes");
+        add(AMTags.Items.SHOWS_BARS_LAYER, "Shows Bars Layer");
         add(AMTags.Items.SHOWS_SPELL_VISUALS, "Shows Spell Visuals");
         add(AMTags.Items.SPELLCRAFTING_START, "Spellcrafting Start Items");
         add(AMTags.Items.SPELLCRAFTING_END, "Spellcrafting End Items");

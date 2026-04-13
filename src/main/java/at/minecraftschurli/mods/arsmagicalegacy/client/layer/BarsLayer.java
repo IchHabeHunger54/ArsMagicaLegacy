@@ -1,6 +1,7 @@
 package at.minecraftschurli.mods.arsmagicalegacy.client.layer;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.BurnoutHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.MagicHelper;
@@ -13,6 +14,8 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.neoforged.neoforge.client.gui.GuiLayer;
 
 public class BarsLayer implements GuiLayer {
@@ -27,24 +30,29 @@ public class BarsLayer implements GuiLayer {
         if (player == null || player.isSpectator()) return;
         MagicHelper magicHelper = ArsMagicaApi.magicHelper();
         if (!magicHelper.knowsMagic(player)) return;
-        ManaHelper manaHelper = ArsMagicaApi.manaHelper();
-        BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
-        int level = magicHelper.getLevel(player);
-        double xp = magicHelper.getXp(player);
-        double xpForNextLevel = magicHelper.getXpForNextLevel(level);
-        double mana = manaHelper.getMana(player);
-        double maxMana = manaHelper.getMaxMana(player);
-        double burnout = burnoutHelper.getBurnout(player);
-        double maxBurnout = burnoutHelper.getMaxBurnout(player);
-        int x = AMClientConfig.BARS_X_ANCHOR.get().getLocation(AMClientConfig.BARS_X);
-        int y = AMClientConfig.BARS_Y_ANCHOR.get().getLocation(AMClientConfig.BARS_Y);
-        boolean renderLevelAtTop = AMClientConfig.RENDER_LEVEL_AT_TOP.getAsBoolean();
-        String text = String.valueOf(level);
-        Font font = AMClientUtil.font();
-        renderOutlineText(graphics, font, Component.literal(text), x + (WIDTH - font.width(text)) / 2, renderLevelAtTop ? y : y + 30, 0xff7777ff);
-        renderBar(graphics, font, x, renderLevelAtTop ? y + 10 : y + 20, xp, xpForNextLevel, AMTranslations.BARS_VALUE_XP_KEY, 0xff7777ff);
-        renderBar(graphics, font, x, renderLevelAtTop ? y + 20 : y, mana, maxMana, AMTranslations.BARS_VALUE_MANA_KEY, 0xff99ffff);
-        renderBar(graphics, font, x, renderLevelAtTop ? y + 30 : y + 10, burnout, maxBurnout, AMTranslations.BARS_VALUE_BURNOUT_KEY, 0xff880000);
+        ItemStackTemplate book = ArsMagicaApi.book();
+        for (ItemStack stack : player.getInventory()) {
+            if (!stack.is(AMTags.Items.SHOWS_BARS_LAYER) && !ItemStack.isSameItemSameComponents(stack, book)) continue;
+            ManaHelper manaHelper = ArsMagicaApi.manaHelper();
+            BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
+            int level = magicHelper.getLevel(player);
+            double xp = magicHelper.getXp(player);
+            double xpForNextLevel = magicHelper.getXpForNextLevel(level);
+            double mana = manaHelper.getMana(player);
+            double maxMana = manaHelper.getMaxMana(player);
+            double burnout = burnoutHelper.getBurnout(player);
+            double maxBurnout = burnoutHelper.getMaxBurnout(player);
+            int x = AMClientConfig.BARS_X_ANCHOR.get().getLocation(AMClientConfig.BARS_X);
+            int y = AMClientConfig.BARS_Y_ANCHOR.get().getLocation(AMClientConfig.BARS_Y);
+            boolean renderLevelAtTop = AMClientConfig.RENDER_LEVEL_AT_TOP.getAsBoolean();
+            String text = String.valueOf(level);
+            Font font = AMClientUtil.font();
+            renderOutlineText(graphics, font, Component.literal(text), x + (WIDTH - font.width(text)) / 2, renderLevelAtTop ? y : y + 30, 0xff7777ff);
+            renderBar(graphics, font, x, renderLevelAtTop ? y + 10 : y + 20, xp, xpForNextLevel, AMTranslations.BARS_VALUE_XP_KEY, 0xff7777ff);
+            renderBar(graphics, font, x, renderLevelAtTop ? y + 20 : y, mana, maxMana, AMTranslations.BARS_VALUE_MANA_KEY, 0xff99ffff);
+            renderBar(graphics, font, x, renderLevelAtTop ? y + 30 : y + 10, burnout, maxBurnout, AMTranslations.BARS_VALUE_BURNOUT_KEY, 0xff880000);
+            break;
+        }
     }
 
     private static void renderBar(GuiGraphicsExtractor graphics, Font font, int x, int y, double value, double maxValue, String translationKey, int color) {

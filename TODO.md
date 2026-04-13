@@ -1,6 +1,8 @@
 - Test All Spell Parts and Particles
 - Add hints for where to drop skills in the Inscription Table
-- Hide the bars if no mod items are in inventory
+- Apply Mana Regeneration to entities swimming in Liquid Etherium
+- Rework Mana Reduction into Burnout Reduction
+- Boss bars
 - Change Lightning Guardian Spawn Ritual to Copper Bars (needs Neo changes)
 - Fix Render Pipelines
     - Color Wheel

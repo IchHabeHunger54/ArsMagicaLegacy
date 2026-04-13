@@ -270,7 +270,6 @@ public final class AMPatchouliBookProvider extends PatchouliBookProvider {
             .addSimpleTextPage("Occasionally, you will find special creepers in the world that are blue instead of green. These creepers are called Mana Creepers. They are just as dangerous as normal creepers, but in addition, after they explode, they create a Mana Vortex that saps your mana for a while.")
             .addEntityPage(AMEntities.MANA_CREEPER.getId()).setText("Mana creepers drop $(l:blocks/ores#vinteum)Vinteum Dust$() instead of gunpowder when killed.").build()
             .build()
-            // TODO spawn eggs
             .addSubCategory("bosses", "Bosses", "", new ItemStackTemplate(AMItems.WATER_GUARDIAN_SPAWN_EGG.get()))
             .addEntry("water_guardian", "Water Guardian", new ItemStackTemplate(AMItems.WATER_GUARDIAN_SPAWN_EGG.get()))
             .addSimpleTextPage("The Water Guardian is a unique being. This trickster will create copies of itself, attacking from ambush if you are fooled by the decoy. If you come too close, it will begin to spin and use its tentacles to damage you. If you keep your distance, it will attack you with water projectiles.")

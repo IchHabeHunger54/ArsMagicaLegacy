@@ -48,7 +48,7 @@ public class Disarm extends SpellComponent.CastEntity {
 
     private static void addItemEntity(Level level, Entity entity, ItemStack stack) {
         ItemEntity item = new ItemEntity(level, entity.getX(), entity.getY(), entity.getZ(), stack);
-        item.setDefaultPickUpDelay();
+        item.setPickUpDelay(40);
         level.addFreshEntity(item);
     }
 }

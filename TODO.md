@@ -14,7 +14,6 @@
     - Whirlwind Renderer
     - Disable Player and Life Guardian Summon Drops
     - Altar not resetting recipes properly when taking the Spell Recipe out of the lectern
-    - Pickup delay in Disarm
     - Invisible text in compendium
     - Talents doing literally anything
     - Spells not boosting the primary affinities

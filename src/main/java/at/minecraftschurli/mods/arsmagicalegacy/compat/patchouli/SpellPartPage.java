@@ -91,7 +91,7 @@ public final class SpellPartPage implements ICustomComponent {
             y += font.lineHeight + TEXT_BOTTOM_PADDING;
             for (Holder<Affinity> affinity : affinityShifts.keySet().stream().sorted(COMPARATOR).toList()) {
                 drawItemStack(graphics, context, AMUtil.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinity), List.of(Affinity.getName(affinity)), x - 9, y, mouseX, mouseY);
-                graphics.text(font, String.valueOf(Math.round(affinityShifts.get(affinity) * 1000) / 1000.), x + 9, y + font.lineHeight / 2, affinity.value().color(), false);
+                graphics.text(font, String.valueOf(Math.round(affinityShifts.get(affinity) * 1000) / 1000.), x + 9, y + font.lineHeight / 2, 0xff000000 | affinity.value().color(), false);
                 y += SLOT_SIZE - TEXT_BOTTOM_PADDING;
             }
             y += TEXT_BOTTOM_PADDING;
@@ -146,6 +146,6 @@ public final class SpellPartPage implements ICustomComponent {
     }
 
     private static void drawCentered(GuiGraphicsExtractor graphics, Font font, Component component, int y) {
-        graphics.text(font, component, (int) ((WIDTH - font.getSplitter().stringWidth(component.getString())) / 2), y, 0x404040, false);
+        graphics.text(font, component, (int) ((WIDTH - font.getSplitter().stringWidth(component.getString())) / 2), y, 0xff404040, false);
     }
 }

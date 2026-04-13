@@ -30,7 +30,7 @@ public class EnderIntervention extends SpellComponent.CastEntity {
         if (cancel != null) return SpellComponentCastResult.failure(spell, cancel);
         ResourceKey<Level> dimension = level.dimension();
         if (dimension == Level.NETHER) return SpellComponentCastResult.failure(spell, AMTranslations.NO_TELEPORT_NETHER);
-        if (dimension == Level.OVERWORLD) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_ENDER_INTERVENTION);
+        if (dimension == Level.END) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_ENDER_INTERVENTION);
         if (!(level instanceof ServerLevel server)) return SpellComponentCastResult.pass(spell);
         ServerLevel end = Objects.requireNonNull(server.getServer()).getLevel(Level.END);
         if (end != null) {

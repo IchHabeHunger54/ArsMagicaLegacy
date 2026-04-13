@@ -1,5 +1,6 @@
 - Test All Spell Parts and Particles
 - Add hints for where to drop skills in the Inscription Table
+- Hide the bars if no mod items are in inventory
 - Change Lightning Guardian Spawn Ritual to Copper Bars (needs Neo changes)
 - Fix Render Pipelines
     - Color Wheel
@@ -12,4 +13,8 @@
 - To fix
     - Whirlwind Renderer
     - Disable Player and Life Guardian Summon Drops
-    - Fix Altar not resetting recipes properly when taking the Spell Recipe out of the lectern
+    - Altar not resetting recipes properly when taking the Spell Recipe out of the lectern
+    - Pickup delay in Disarm
+    - Invisible text in compendium
+    - Talents doing literally anything
+    - Spells not boosting the primary affinities

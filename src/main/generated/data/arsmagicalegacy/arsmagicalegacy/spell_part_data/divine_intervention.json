@@ -12,6 +12,11 @@
     {
       "type": "arsmagicalegacy:item",
       "count": 1,
+      "item": "minecraft:dragon_breath"
+    },
+    {
+      "type": "arsmagicalegacy:item",
+      "count": 1,
       "item": "#c:ender_pearls"
     },
     {

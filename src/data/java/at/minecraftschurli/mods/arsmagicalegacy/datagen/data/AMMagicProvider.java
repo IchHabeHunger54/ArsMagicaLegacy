@@ -637,6 +637,7 @@ public final class AMMagicProvider {
         spellPartData(bootstrap, AMSpells.DIVINE_INTERVENTION, 200f,
             affinities.getOrThrow(AMMagic.ENDER), 0.005f,
             new ItemSpellIngredient(Ingredient.of(AMItems.LIME_RUNE), 1),
+            new ItemSpellIngredient(Ingredient.of(Items.DRAGON_BREATH), 1),
             new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.ENDER_PEARLS)), 1),
             new ItemSpellIngredient(Ingredient.of(items.getOrThrow(ItemTags.BEDS)), 1));
         spellPartData(bootstrap, AMSpells.DROUGHT, 5f,
@@ -646,6 +647,7 @@ public final class AMMagicProvider {
         spellPartData(bootstrap, AMSpells.ENDER_INTERVENTION, 200f,
             affinities.getOrThrow(AMMagic.ENDER), 0.005f,
             new ItemSpellIngredient(Ingredient.of(AMItems.PURPLE_RUNE), 1),
+            new ItemSpellIngredient(Ingredient.of(Items.DRAGON_BREATH), 1),
             new ItemSpellIngredient(Ingredient.of(items.getOrThrow(Tags.Items.ENDER_PEARLS)), 1),
             new ItemSpellIngredient(Ingredient.of(Items.ENDER_EYE), 1));
         spellPartData(bootstrap, AMSpells.EXPLOSION, 100f,

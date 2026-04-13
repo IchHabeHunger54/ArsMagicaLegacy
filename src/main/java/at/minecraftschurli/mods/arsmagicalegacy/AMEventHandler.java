@@ -51,15 +51,18 @@ import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMBlocks;
+import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMEntities;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMFluids;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMItems;
+import at.minecraftschurli.mods.arsmagicalegacy.init.AMMagic;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMMobEffects;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMRituals;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.mods.arsmagicalegacy.item.CrystalPhylacteryItem;
 import at.minecraftschurli.mods.arsmagicalegacy.item.RuneBagItem;
 import at.minecraftschurli.mods.arsmagicalegacy.item.SpellBookItem;
+import at.minecraftschurli.mods.arsmagicalegacy.item.SpellItem;
 import at.minecraftschurli.mods.arsmagicalegacy.packet.ForgetSkillsPacket;
 import at.minecraftschurli.mods.arsmagicalegacy.packet.InscriptionTableCreateSpellPacket;
 import at.minecraftschurli.mods.arsmagicalegacy.packet.InscriptionTableSyncPacket;
@@ -80,6 +83,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.cauldron.CauldronInteractions;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Util;
@@ -95,6 +99,7 @@ import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
@@ -127,6 +132,7 @@ import net.neoforged.neoforge.event.entity.living.EnderManAngerEvent;
 import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
@@ -144,6 +150,7 @@ import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -494,6 +501,22 @@ final class AMEventHandler {
         LivingEntity entity = event.getEntity();
         if (entity.hasData(AMAttachments.SUMMON_OWNER) && !entity.getData(AMAttachments.SUMMON_OWNER).equals(Util.NIL_UUID)) {
             event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    private static void livingUseItemStart(LivingEntityUseItemEvent.Start event) {
+        ItemStack item = event.getItem();
+        if (item.has(AMDataComponents.SPELL) && !Objects.requireNonNull(item.get(AMDataComponents.SPELL)).isEmpty() && event.getEntity() instanceof Player player && ArsMagicaApi.magicHelper().knows(player, AMRegistries.skills(player.registryAccess()).getOrThrow(AMMagic.SPELL_MOTION))) {
+            item.set(DataComponents.USE_EFFECTS, SpellItem.SPELL_MOTION_USE_EFFECTS);
+        }
+    }
+
+    @SubscribeEvent
+    private static void livingUseItemStop(LivingEntityUseItemEvent.Stop event) {
+        ItemStack item = event.getItem();
+        if (item.has(DataComponents.USE_EFFECTS) && item.has(AMDataComponents.SPELL) && !Objects.requireNonNull(item.get(AMDataComponents.SPELL)).isEmpty()) {
+            item.remove(DataComponents.USE_EFFECTS);
         }
     }
 

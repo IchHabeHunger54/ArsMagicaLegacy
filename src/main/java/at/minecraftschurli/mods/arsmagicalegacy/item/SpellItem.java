@@ -21,6 +21,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.component.UseEffects;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;
@@ -29,6 +30,8 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 public class SpellItem extends Item {
+    public static final UseEffects SPELL_MOTION_USE_EFFECTS = new UseEffects(false, true, 1);
+
     public SpellItem(Properties properties) {
         super(properties);
     }

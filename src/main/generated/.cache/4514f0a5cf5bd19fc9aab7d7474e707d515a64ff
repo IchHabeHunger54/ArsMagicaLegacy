@@ -1,4 +1,4 @@
-// 26.1.2	2026-04-12T00:35:42.2590005	vanilla/Tags for minecraft:item mod id arsmagicalegacy
+// 26.1.2	2026-04-14T01:00:51.5921906	vanilla/Tags for minecraft:item mod id arsmagicalegacy
 2e0ada6a835e8b0f902f82a72452d5602a6064e5 data/arsmagicalegacy/tags/item/arcane_compendium_books.json
 c4dd173177d64629d95c113ecc569a6ff6a78016 data/arsmagicalegacy/tags/item/inscription_table_books.json
 23e87de731409e520ca6ab442c9e3172dd91c0a5 data/arsmagicalegacy/tags/item/occulus_forget_all.json
@@ -6,6 +6,7 @@ c4dd173177d64629d95c113ecc569a6ff6a78016 data/arsmagicalegacy/tags/item/inscript
 09af43a7a9cb6962a8d5e9b378368f12aeddbd79 data/arsmagicalegacy/tags/item/repair_items/mage_armor.json
 5bdec09b994618c5b29cb41d725eacd5825072cb data/arsmagicalegacy/tags/item/repair_items/magitech_goggles.json
 a39e73ce83524529d509355b75cfd2efc567b472 data/arsmagicalegacy/tags/item/runes.json
+18088430cdaa01124c9e1b72e03f645177d581f6 data/arsmagicalegacy/tags/item/shows_bars_layer.json
 709c9130cd6e371b692b25a9ea62e8ce81c9052b data/arsmagicalegacy/tags/item/shows_spell_visuals.json
 3172b3316d9e9bc7f03efe84082a0da0bbe360d4 data/arsmagicalegacy/tags/item/spellcrafting_end.json
 09af43a7a9cb6962a8d5e9b378368f12aeddbd79 data/arsmagicalegacy/tags/item/spellcrafting_start.json

@@ -112,6 +112,9 @@ public final class AMServerConfig {
     public static final ModConfigSpec.DoubleValue ZONE_RANGE;
     public static final ModConfigSpec.DoubleValue ZONE_HEIGHT;
     public static final ModConfigSpec.IntValue ZONE_TICK_INTERVAL;
+    public static final ModConfigSpec.DoubleValue MANA_REGENERATION_1_MULTIPLIER;
+    public static final ModConfigSpec.DoubleValue MANA_REGENERATION_2_MULTIPLIER;
+    public static final ModConfigSpec.DoubleValue MANA_REGENERATION_3_MULTIPLIER;
     static final ModConfigSpec SPEC;
 
     static {
@@ -561,6 +564,20 @@ public final class AMServerConfig {
             .comment("The tick interval used by the Zone shape.")
             .translation(AMTranslations.CONFIG_KEY + "zone_tick_interval")
             .defineInRange("zone_tick_interval", 5, 1, 100);
+        builder.pop();
+        builder.comment("Configuration of various talent-specific values.").push("talents");
+        MANA_REGENERATION_1_MULTIPLIER = builder
+            .comment("The multiplier to mana regeneration used by the Mana Regeneration 1 talent.")
+            .translation(AMTranslations.CONFIG_KEY + "mana_regeneration_1_multiplier")
+            .defineInRange("mana_regeneration_1_multiplier", 1.05, 1, 10);
+        MANA_REGENERATION_2_MULTIPLIER = builder
+            .comment("The multiplier to mana regeneration used by the Mana Regeneration 2 talent.")
+            .translation(AMTranslations.CONFIG_KEY + "mana_regeneration_2_multiplier")
+            .defineInRange("mana_regeneration_2_multiplier", 1.1, 1, 10);
+        MANA_REGENERATION_3_MULTIPLIER = builder
+            .comment("The multiplier to mana regeneration used by the Mana Regeneration 3 talent.")
+            .translation(AMTranslations.CONFIG_KEY + "mana_regeneration_3_multiplier")
+            .defineInRange("mana_regeneration_3_multiplier", 1.15, 1, 10);
         builder.pop();
         SPEC = builder.build();
     }

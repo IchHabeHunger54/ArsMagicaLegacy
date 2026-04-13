@@ -274,6 +274,7 @@ final class MagicHelperImpl implements MagicHelper {
             double major = shift * AMServerConfig.MAJOR_OPPOSITE_MULTIPLIER.get();
             double minor = shift * AMServerConfig.MINOR_OPPOSITE_MULTIPLIER.get();
             double adjacent = shift * AMServerConfig.ADJACENT_MULTIPLIER.get();
+            data = addAffinityDepth(data, affinity, shift);
             data = addAffinityDepth(data, value.directOpposite(), -direct);
             for (Holder<Affinity> holder : value.majorOpposites()) {
                 data = addAffinityDepth(data, holder, -major);

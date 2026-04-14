@@ -5,8 +5,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
-import at.minecraftschurli.mods.arsmagicalegacy.api.event.BurnoutCostCalculationEvent;
-import at.minecraftschurli.mods.arsmagicalegacy.api.event.ManaCostCalculationEvent;
+import at.minecraftschurli.mods.arsmagicalegacy.api.event.ManaBurnoutCostEvent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.event.SpellCastEvent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.event.SpellPartCastEvent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Affinity;
@@ -78,22 +77,27 @@ final class SpellHelperImpl implements SpellHelper {
             if (caster.hasEffect(AMMobEffects.CLARITY)) {
                 caster.removeEffect(AMMobEffects.CLARITY);
             } else {
-                manaCost = NeoForge.EVENT_BUS.post(new ManaCostCalculationEvent(caster, spell, spell.getManaCost(registryAccess), burnoutHelper.getBurnout(caster))).getResult();
-                burnoutCost = NeoForge.EVENT_BUS.post(new BurnoutCostCalculationEvent(caster, spell, spell.grammar().getBurnoutCost(registryAccess))).getBurnout();
+                double mana = spell.getManaCost(registryAccess);
+                double burnout = spell.grammar().getBurnoutCost(registryAccess);
+                System.out.println("Mana: " + mana + ", burnout: " + burnout);
+                ManaBurnoutCostEvent event = NeoForge.EVENT_BUS.post(new ManaBurnoutCostEvent(caster, spell, mana, burnout));
+                manaCost = event.getMana();
+                burnoutCost = event.getBurnout();
             }
             SpellCastEvent.Pre event = new SpellCastEvent.Pre(caster, spell, manaCost, burnoutCost, consume, awardXp);
             if (event.isCanceled()) return new SpellCastResult(spell).setMessage(event.getCancellationMessage());
             consume = event.isConsume();
             awardXp = event.isAwardXp();
             if (consume && !(caster instanceof Player player && player.isCreative())) {
-                if (manaHelper.getMana(caster) < manaCost) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_NOT_ENOUGH_MANA);
-                if (burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) < burnoutCost) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_BURNED_OUT);
+                double mana = manaHelper.getMana(caster);
+                if (mana < manaCost) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_NOT_ENOUGH_MANA);
+                if (mana < manaCost + burnoutHelper.getBurnout(caster)) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_BURNED_OUT);
             }
         }
         SpellCastResult result = castPrimary(new SpellCastContext(spell, level, caster, consume, awardXp));
         if (result.isSuccess()) {
             if (consume && caster != null && !(caster instanceof Player player && player.isCreative())) {
-                manaHelper.decreaseMana(caster, manaCost);
+                manaHelper.decreaseMana(caster, manaCost + burnoutCost);
                 burnoutHelper.increaseBurnout(caster, burnoutCost);
             }
             if (awardXp && caster instanceof Player player) {

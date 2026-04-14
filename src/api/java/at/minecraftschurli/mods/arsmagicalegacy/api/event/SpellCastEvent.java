@@ -24,14 +24,14 @@ public abstract class SpellCastEvent extends SpellEvent {
     }
 
     /**
-     * @return The mana cost of the spell. Final by this point, to modify, use {@link ManaCostCalculationEvent}.
+     * @return The mana cost of the spell. Final by this point, to modify, use {@link ManaBurnoutCostEvent}.
      */
     public double getMana() {
         return mana;
     }
 
     /**
-     * @return The burnout cost of the spell. Final by this point, to modify, use {@link BurnoutCostCalculationEvent}.
+     * @return The burnout cost of the spell. Final by this point, to modify, use {@link ManaBurnoutCostEvent}.
      */
     public double getBurnout() {
         return burnout;

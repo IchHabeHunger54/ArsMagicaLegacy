@@ -4,15 +4,14 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ability.Ability;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ability.AbilityEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ability.EventTriggeredAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.api.event.BurnoutCostCalculationEvent;
-import at.minecraftschurli.mods.arsmagicalegacy.api.event.ManaCostCalculationEvent;
+import at.minecraftschurli.mods.arsmagicalegacy.api.event.ManaBurnoutCostEvent;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.player.Player;
 
-public record BurnoutCostModifierAbilityEffect(double min, double max) implements EventTriggeredAbilityEffect<BurnoutCostCalculationEvent> {
+public record BurnoutCostModifierAbilityEffect(double min, double max) implements EventTriggeredAbilityEffect<ManaBurnoutCostEvent> {
     public static final MapCodec<BurnoutCostModifierAbilityEffect> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
         Codec.DOUBLE.fieldOf("min").forGetter(BurnoutCostModifierAbilityEffect::min),
         Codec.DOUBLE.fieldOf("max").forGetter(BurnoutCostModifierAbilityEffect::max)
@@ -24,7 +23,7 @@ public record BurnoutCostModifierAbilityEffect(double min, double max) implement
     }
 
     @Override
-    public void apply(BurnoutCostCalculationEvent event, Player player, Holder<Ability> ability) {
+    public void apply(ManaBurnoutCostEvent event, Player player, Holder<Ability> ability) {
         event.setBurnout(event.getBurnout() * ArsMagicaApi.abilityHelper().scaleToDepth(player, ability.value(), min, max));
     }
 }

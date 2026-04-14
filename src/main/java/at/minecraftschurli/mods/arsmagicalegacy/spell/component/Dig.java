@@ -56,12 +56,13 @@ public class Dig extends SpellComponent.CastBlock {
         Block block = state.getBlock();
         if (block instanceof GameMasterBlock && !player.canUseGameMasterBlocks() || player.blockActionRestricted(level, pos, player.gameMode.getGameModeForPlayer())) return SpellComponentCastResult.pass(spell);
         if (context.consume() && caster != null && !player.isCreative()) {
-            double manaCost = hardness * AMServerConfig.DIG_MANA_FACTOR.get();
             ManaHelper manaHelper = ArsMagicaApi.manaHelper();
             BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
-            if (manaHelper.getMana(caster) <= manaCost) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NOT_ENOUGH_MANA);
-            if (burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) <= manaCost) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_BURNED_OUT);
-            manaHelper.decreaseMana(caster, manaCost);
+            double manaCost = hardness * AMServerConfig.DIG_MANA_FACTOR.get();
+            double mana = manaHelper.getMana(caster);
+            if (mana <= manaCost) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NOT_ENOUGH_MANA);
+            if (mana <= manaCost + burnoutHelper.getBurnout(caster)) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_BURNED_OUT);
+            manaHelper.decreaseMana(caster, manaCost + manaCost * helper.getManaToBurnoutRatio());
             burnoutHelper.increaseBurnout(caster, manaCost);
         }
         ItemStack stack = AMUtil.getEnchantedSpell(modifiers, context, Map.of(Enchantments.FORTUNE, AMSpells.FORTUNE_STAT, Enchantments.SILK_TOUCH, AMSpells.SILK_TOUCH_STAT));

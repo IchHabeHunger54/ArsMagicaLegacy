@@ -3,10 +3,6 @@ package at.minecraftschurli.mods.arsmagicalegacy.api.event;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import net.minecraft.world.entity.LivingEntity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.DoubleUnaryOperator;
-
 /**
  * Event that fires when mana cost is retrieved.
  * <p>
@@ -16,14 +12,13 @@ import java.util.function.DoubleUnaryOperator;
  * This event is not cancelable. This event is fired on the main event bus.
  */
 @SuppressWarnings("unused")
-public class ManaCostCalculationEvent extends SpellEvent {
+public class ManaBurnoutCostEvent extends SpellEvent {
     private final double originalMana;
     private final double originalBurnout;
-    private final List<DoubleUnaryOperator> modifiers = new ArrayList<>();
     private double mana;
     private double burnout;
 
-    public ManaCostCalculationEvent(LivingEntity entity, Spell spell, double mana, double burnout) {
+    public ManaBurnoutCostEvent(LivingEntity entity, Spell spell, double mana, double burnout) {
         super(entity, spell);
         originalMana = mana;
         originalBurnout = burnout;
@@ -75,25 +70,5 @@ public class ManaCostCalculationEvent extends SpellEvent {
      */
     public void setBurnout(double burnout) {
         this.burnout = burnout;
-    }
-
-    /**
-     * Adds a modifier. Modifiers will be applied after the regular calculation (mana + burnout).
-     *
-     * @param modifier A {@link DoubleUnaryOperator} to be applied after the regular calculation.
-     */
-    public void addModifier(DoubleUnaryOperator modifier) {
-        modifiers.add(modifier);
-    }
-
-    /**
-     * @return The final result after applying all modifiers.
-     */
-    public double getResult() {
-        double result = mana + burnout;
-        for (DoubleUnaryOperator modifier : modifiers) {
-            result = modifier.applyAsDouble(result);
-        }
-        return result;
     }
 }

@@ -9,7 +9,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.mods.arsmagicalegacy.api.etherium.ObeliskFuel;
-import at.minecraftschurli.mods.arsmagicalegacy.api.event.BurnoutCostCalculationEvent;
+import at.minecraftschurli.mods.arsmagicalegacy.api.event.ManaBurnoutCostEvent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.event.SpellCastEvent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Affinity;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.AltarCapMaterial;
@@ -610,7 +610,7 @@ final class AMEventHandler {
     }
 
     @SubscribeEvent
-    private static void burnoutCostCalculation(BurnoutCostCalculationEvent event) {
+    private static void manaBurnoutCost(ManaBurnoutCostEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
         ArsMagicaApi.abilityHelper().triggerEventEffect(event, player, AMAbilities.BURNOUT_COST_MODIFIER_EFFECT.get());
     }

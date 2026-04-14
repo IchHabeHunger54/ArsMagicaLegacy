@@ -9,6 +9,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellComponentCastResult;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.mods.arsmagicalegacy.attachment.SummonMinionsAttachment;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttachments;
@@ -39,17 +40,19 @@ public class Summon extends SpellComponent {
         EntityType<?> type = spell.dataComponents().grammar().get(AMDataComponents.SPELL_SUMMON.get());
         if (type == null) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_SUMMON_NO_SELECTION);
         SummonMinionsAttachment attachment = caster.getData(AMAttachments.SUMMON_MINIONS);
-        if (attachment.size() >= ArsMagicaApi.spellHelper().getMaxSummons(caster)) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_SUMMON_TOO_MANY);
+        SpellHelper helper = ArsMagicaApi.spellHelper();
+        if (attachment.size() >= helper.getMaxSummons(caster)) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_COMPONENT_SUMMON_TOO_MANY);
         if (!(type.create(level, EntitySpawnReason.MOB_SUMMONED) instanceof Mob mob)) return SpellComponentCastResult.pass(spell);
         mob.setPos(hitResult.getLocation());
         EventHooks.finalizeMobSpawn(mob, level, level.getCurrentDifficultyAt(mob.blockPosition()), EntitySpawnReason.MOB_SUMMONED, null);
         if (context.consume() && !(caster instanceof Player player && player.isCreative())) {
-            double manaCost = mob.getMaxHealth() * AMServerConfig.SUMMON_MANA_COST.get();
             ManaHelper manaHelper = ArsMagicaApi.manaHelper();
             BurnoutHelper burnoutHelper = ArsMagicaApi.burnoutHelper();
-            if (manaHelper.getMana(caster) <= manaCost) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NOT_ENOUGH_MANA);
-            if (burnoutHelper.getMaxBurnout(caster) - burnoutHelper.getBurnout(caster) <= manaCost) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_BURNED_OUT);
-            manaHelper.decreaseMana(caster, manaCost);
+            double manaCost = mob.getMaxHealth() * AMServerConfig.SUMMON_MANA_COST.get();
+            double mana = manaHelper.getMana(caster);
+            if (mana <= manaCost) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_NOT_ENOUGH_MANA);
+            if (mana <= manaCost + burnoutHelper.getBurnout(caster)) return SpellComponentCastResult.failure(spell, AMTranslations.SPELL_FAIL_BURNED_OUT);
+            manaHelper.decreaseMana(caster, manaCost + manaCost * helper.getManaToBurnoutRatio());
             burnoutHelper.increaseBurnout(caster, manaCost);
         }
         for (EquipmentSlot slot : EquipmentSlot.values()) {

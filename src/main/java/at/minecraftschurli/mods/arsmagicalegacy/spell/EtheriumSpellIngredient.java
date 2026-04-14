@@ -41,7 +41,7 @@ public record EtheriumSpellIngredient(Optional<Holder<EtheriumType>> etheriumTyp
     }
 
     @Override
-    public List<Component> tooltip() {
+    public List<Component> tooltip(@Nullable Level level) {
         return List.of(etheriumType.<Component>map(EtheriumType::getName).orElse(AMTranslations.ANY_ETHERIUM), Component.translatable(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, count));
     }
 

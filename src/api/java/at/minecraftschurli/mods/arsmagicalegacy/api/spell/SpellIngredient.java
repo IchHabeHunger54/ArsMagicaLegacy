@@ -29,9 +29,10 @@ public interface SpellIngredient {
     int count();
 
     /**
+     * @param level The {@link Level} that the tooltip will be displayed in.
      * @return A list of tooltip {@link Component}s for the spell ingredient.
      */
-    List<Component> tooltip();
+    List<Component> tooltip(@Nullable Level level);
 
     /**
      * @param other The other ingredient to combine with.

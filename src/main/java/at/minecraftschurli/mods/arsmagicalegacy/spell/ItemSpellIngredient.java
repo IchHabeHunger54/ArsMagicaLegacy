@@ -4,6 +4,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSpells;
+import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -28,6 +29,7 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 @SuppressWarnings("deprecation")
@@ -43,15 +45,13 @@ public record ItemSpellIngredient(Ingredient item, int count) implements SpellIn
     }
 
     @Override
-    public List<Component> tooltip() {
+    public List<Component> tooltip(@Nullable Level level) {
         List<ItemStack> itemStacks = asItemStacks();
-        if (itemStacks.size() == 1) {
-            ItemStack item = itemStacks.getFirst();
-            return List.of(item.getItemName(), Component.translatable(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, count));
-        }
-        List<Component> components = new ArrayList<>(itemStacks.stream().map(ItemStack::getItemName).toList());
-        components.add(Component.translatable(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, count));
-        return components;
+        Component countComponent = Component.translatable(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, count);
+        if (itemStacks.isEmpty()) return List.of(countComponent);
+        if (itemStacks.size() != 1 && level != null) return List.of(Objects.requireNonNull(AMUtil.getByTick(new ArrayList<>(itemStacks.stream().map(ItemStack::getItemName).toList()), (int) (level.getGameTime() / 20))), countComponent);
+        ItemStack item = itemStacks.getFirst();
+        return List.of(item.getItemName(), countComponent);
     }
 
     @Override

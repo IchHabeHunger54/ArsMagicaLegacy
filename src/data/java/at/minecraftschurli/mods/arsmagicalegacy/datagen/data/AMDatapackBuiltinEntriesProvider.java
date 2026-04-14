@@ -167,7 +167,10 @@ public final class AMDatapackBuiltinEntriesProvider {
             Blocks.BEETROOTS.defaultBlockState().setValue(BlockStateProperties.AGE_3, 3),
             Blocks.BEETROOTS.defaultBlockState()
         ))), new BlockMatchTest(Blocks.BEETROOTS), Items.BEETROOT_SEEDS, Items.BEETROOT);
-        plant(bootstrap, "cactus", new UpwardsGrowthType(1, 4, Blocks.CACTUS_FLOWER, Blocks.CACTUS, false), new BlockMatchTest(Blocks.CACTUS), Items.CACTUS, Items.CACTUS);
+        plant(bootstrap, "cactus", new UpwardsGrowthType(1, 4, Blocks.CACTUS_FLOWER, Blocks.CACTUS, false), new CompositeMatchTest(List.of(
+            new BlockMatchTest(Blocks.CACTUS),
+            new BlockMatchTest(Blocks.CACTUS_FLOWER)
+        )), Items.CACTUS, Items.CACTUS);
         plant(bootstrap, "carrots", new CropGrowthType(List.of(new HarvestState(
             Blocks.CARROTS.defaultBlockState().setValue(BlockStateProperties.AGE_7, 7),
             Blocks.CARROTS.defaultBlockState()

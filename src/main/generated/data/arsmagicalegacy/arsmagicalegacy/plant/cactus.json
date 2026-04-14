@@ -1,7 +1,16 @@
 {
   "all_states": {
-    "block": "minecraft:cactus",
-    "predicate_type": "minecraft:block_match"
+    "predicate_type": "arsmagicalegacy:composite",
+    "rule_tests": [
+      {
+        "block": "minecraft:cactus",
+        "predicate_type": "minecraft:block_match"
+      },
+      {
+        "block": "minecraft:cactus_flower",
+        "predicate_type": "minecraft:block_match"
+      }
+    ]
   },
   "crop": {
     "id": "minecraft:cactus"

@@ -16,4 +16,4 @@
     - Whirlwind Renderer
     - Disable Player and Life Guardian Summon Drops
     - Altar not resetting recipes properly when taking the Spell Recipe out of the lectern
-    - Talents doing literally anything
+    - Touch as a whole

@@ -323,6 +323,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTags.DamageTypes.AFFECTED_BY_FALL_DAMAGE_ABILITY, "Affected by the Fall Damage Ability");
         add(AMTags.DamageTypes.AFFECTED_BY_FEATHER_FALLING_ABILITY, "Affected by the Feather Falling Ability");
         add(AMTags.DamageTypes.AFFECTED_BY_MAGIC_DAMAGE_ABILITY, "Affected by the Magic Damage Ability");
+        add(AMTags.DamageTypes.BYPASSES_SHIELD_OVERLOAD, "Bypasses Shield Overload");
         add(AMTags.DamageTypes.IS_SPELL, "Spell Damage");
         add(AMTags.DamageTypes.WATER_GUARDIAN_IS_VULNERABLE_TO, "Is vulnerability of the Water Guardian");
         add(AMTags.DamageTypes.WATER_GUARDIAN_IS_IMMUNE_TO, "Is immunity of the Water Guardian");
@@ -679,7 +680,6 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("storm_lightning_bolt_chance", "Storm Lightning Bolt Chance", "The chance for the Storm component to summon a lightning bolt somewhere in range.");
         configTranslation("storm_lightning_bolt_target_chance", "Storm Lightning Bolt Target Chance", "The chance for the Storm component to summon a target-seeking lightning bolt somewhere in range.");
         configTranslation("summon_count", "Summon Count", "The amount of summons a player can have at the same time.");
-        configTranslation("summon_extra_count", "Summon Extra Count", "The amount of additional summons a player can have at the same time when they have the Extra Summons talent.");
         configTranslation("summon_mana_cost", "Summon Mana Cost", "The amount of mana, multiplied by the summons's health, that is consumed when using the Summon component.");
         configTranslation("wizards_autumn_range", "Wizard's Autumn Range", "The range used by the Wizard's Autumn component. May be amplified by spell modifiers.");
         configTranslation("shapes", "Shapes", "Configuration of various shape-specific values.");
@@ -702,9 +702,11 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("zone_tick_interval", "Zone Tick Interval", "The tick interval used by the Zone shape.");
         configTranslation("talents", "Talents", "Configuration of various talent-specific values.");
         configTranslation("augmented_casting_multiplier", "Augmented Casting Multiplier", "The multiplier to various stats used by the Augmented Casting talent.");
+        configTranslation("extra_summons_count", "Extra Summons Count", "The amount of additional summons a player can have at the same time when they have the Extra Summons talent.");
         configTranslation("mana_regeneration_1_multiplier", "Mana Regeneration 1 Multiplier", "The multiplier to mana regeneration used by the Mana Regeneration 1 talent.");
         configTranslation("mana_regeneration_2_multiplier", "Mana Regeneration 2 Multiplier", "The multiplier to mana regeneration used by the Mana Regeneration 2 talent.");
         configTranslation("mana_regeneration_3_multiplier", "Mana Regeneration 3 Multiplier", "The multiplier to mana regeneration used by the Mana Regeneration 3 talent.");
+        configTranslation("shield_overload_multiplier", "Shield Overload Multiplier", "If the player is at full mana and has the Shield Overload talent, the multiplier to incoming damage that will be applied.");
         configTranslation("crystal_phylactery_model_quality", "Crystal Phylactery Model Quality", "The 'quality' value of the algorithm that calculates the crystal phylactery colors. Lower value means more accurate results and more calculation cost, however lower values have diminishing returns.");
         configTranslation("gui_layers", "GUI Layers", "Configuration for the various GUI layers in this mod.");
         configTranslation("bars", "Mana/Burnout/Level Bars", "Configuration for the mana, burnout and level bars. The size of the layer is 80x40.");

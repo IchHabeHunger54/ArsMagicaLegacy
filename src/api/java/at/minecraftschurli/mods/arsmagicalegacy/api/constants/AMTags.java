@@ -104,6 +104,7 @@ public interface AMTags {
         TagKey<DamageType> AFFECTED_BY_FALL_DAMAGE_ABILITY = tag("affected_by_fall_damage_ability");
         TagKey<DamageType> AFFECTED_BY_FEATHER_FALLING_ABILITY = tag("affected_by_feather_falling_ability");
         TagKey<DamageType> AFFECTED_BY_MAGIC_DAMAGE_ABILITY = tag("affected_by_magic_damage_ability");
+        TagKey<DamageType> BYPASSES_SHIELD_OVERLOAD = tag("bypasses_shield_overload");
         TagKey<DamageType> IS_SPELL = tag("is_spell");
         TagKey<DamageType> WATER_GUARDIAN_IS_VULNERABLE_TO = tag("is_vulnerable_to/water_guardian");
         TagKey<DamageType> WATER_GUARDIAN_IS_IMMUNE_TO = tag("is_immune_to/water_guardian");

@@ -5,6 +5,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.ability.Ability;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ability.AbilityHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMCapabilities;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
+import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.etherium.EtheriumType;
 import at.minecraftschurli.mods.arsmagicalegacy.api.etherium.ObeliskFuel;
@@ -88,6 +89,7 @@ import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Util;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -117,6 +119,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.common.damagesource.DamageContainer;
 import net.neoforged.neoforge.event.AddServerReloadListenersEvent;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.RegisterCauldronInteractionEvent;
@@ -426,12 +429,16 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void livingIncomingDamage(LivingIncomingDamageEvent event) {
-        if (!(event.getSource().getEntity() instanceof LivingEntity source)) return;
         LivingEntity entity = event.getEntity();
-        if (entity.level() instanceof ServerLevel serverLevel) {
-            AMUtil.setMinionTargets(serverLevel, source, entity);
+        DamageSource source = event.getSource();
+        if (!source.is(AMTags.DamageTypes.BYPASSES_SHIELD_OVERLOAD) && entity instanceof Player player && ArsMagicaApi.magicHelper().knows(player, player.registryAccess().getOrThrow(AMMagic.SHIELD_OVERLOAD))) {
+            event.addReductionModifier(DamageContainer.Reduction.INNATE_RESISTANCE, (_, damage) -> damage * (float) AMServerConfig.SHIELD_OVERLOAD_MULTIPLIER.getAsDouble());
         }
-        if (!(source instanceof Player player)) return;
+        if (!(source.getEntity() instanceof LivingEntity living)) return;
+        if (entity.level() instanceof ServerLevel serverLevel) {
+            AMUtil.setMinionTargets(serverLevel, living, entity);
+        }
+        if (!(living instanceof Player player)) return;
         AbilityHelper abilityHelper = ArsMagicaApi.abilityHelper();
         if (!entity.fireImmune()) {
             abilityHelper.getActiveAbilitiesWithEffect(player, AMAbilities.FIRE_PUNCH_EFFECT.get()).forEach(pair -> entity.setRemainingFireTicks(Math.max(entity.getRemainingFireTicks(), (int) pair.getSecond()

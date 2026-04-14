@@ -249,7 +249,7 @@ final class SpellHelperImpl implements SpellHelper {
 
     @Override
     public int getMaxSummons(LivingEntity entity) {
-        return AMServerConfig.SUMMON_COUNT.get() + (entity instanceof Player player && ArsMagicaApi.magicHelper().knows(player, entity.registryAccess().holderOrThrow(AMMagic.EXTRA_SUMMONS)) ? AMServerConfig.SUMMON_EXTRA_COUNT.get() : 0);
+        return AMServerConfig.SUMMON_COUNT.get() + (entity instanceof Player player && ArsMagicaApi.magicHelper().knows(player, entity.registryAccess().holderOrThrow(AMMagic.EXTRA_SUMMONS)) ? AMServerConfig.EXTRA_SUMMONS_COUNT.get() : 0);
     }
 
     @Override

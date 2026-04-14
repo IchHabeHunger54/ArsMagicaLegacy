@@ -92,7 +92,6 @@ public final class AMServerConfig {
     public static final ModConfigSpec.DoubleValue STORM_LIGHTNING_BOLT_CHANCE;
     public static final ModConfigSpec.DoubleValue STORM_LIGHTNING_BOLT_TARGET_CHANCE;
     public static final ModConfigSpec.IntValue SUMMON_COUNT;
-    public static final ModConfigSpec.IntValue SUMMON_EXTRA_COUNT;
     public static final ModConfigSpec.DoubleValue SUMMON_MANA_COST;
     public static final ModConfigSpec.DoubleValue WIZARDS_AUTUMN_RANGE;
     public static final ModConfigSpec.DoubleValue PROJECTILE_DURATION;
@@ -113,9 +112,11 @@ public final class AMServerConfig {
     public static final ModConfigSpec.DoubleValue ZONE_HEIGHT;
     public static final ModConfigSpec.IntValue ZONE_TICK_INTERVAL;
     public static final ModConfigSpec.DoubleValue AUGMENTED_CASTING_MULTIPLIER;
+    public static final ModConfigSpec.IntValue EXTRA_SUMMONS_COUNT;
     public static final ModConfigSpec.DoubleValue MANA_REGENERATION_1_MULTIPLIER;
     public static final ModConfigSpec.DoubleValue MANA_REGENERATION_2_MULTIPLIER;
     public static final ModConfigSpec.DoubleValue MANA_REGENERATION_3_MULTIPLIER;
+    public static final ModConfigSpec.DoubleValue SHIELD_OVERLOAD_MULTIPLIER;
     static final ModConfigSpec SPEC;
 
     static {
@@ -483,10 +484,6 @@ public final class AMServerConfig {
             .comment("The amount of summons a player can have at the same time.")
             .translation(AMTranslations.CONFIG_KEY + "summon_count")
             .defineInRange("summon_count", 1, 1, 1000000);
-        SUMMON_EXTRA_COUNT = builder
-            .comment("The amount of additional summons a player can have at the same time when they have the Extra Summons talent.")
-            .translation(AMTranslations.CONFIG_KEY + "summon_extra_count")
-            .defineInRange("summon_extra_count", 1, 1, 1000000);
         SUMMON_MANA_COST = builder
             .comment("The amount of mana, multiplied by the summons's health, that is consumed when using the Summon component.")
             .translation(AMTranslations.CONFIG_KEY + "summon_mana_cost")
@@ -571,6 +568,10 @@ public final class AMServerConfig {
             .comment("The multiplier to various stats used by the Augmented Casting talent.")
             .translation(AMTranslations.CONFIG_KEY + "augmented_casting_multiplier")
             .defineInRange("augmented_casting_multiplier", 1.5, 1, 8);
+        EXTRA_SUMMONS_COUNT = builder
+            .comment("The amount of additional summons a player can have at the same time when they have the Extra Summons talent.")
+            .translation(AMTranslations.CONFIG_KEY + "extra_summons_count")
+            .defineInRange("extra_summons_count", 1, 1, 1000000);
         MANA_REGENERATION_1_MULTIPLIER = builder
             .comment("The multiplier to mana regeneration used by the Mana Regeneration 1 talent.")
             .translation(AMTranslations.CONFIG_KEY + "mana_regeneration_1_multiplier")
@@ -583,6 +584,10 @@ public final class AMServerConfig {
             .comment("The multiplier to mana regeneration used by the Mana Regeneration 3 talent.")
             .translation(AMTranslations.CONFIG_KEY + "mana_regeneration_3_multiplier")
             .defineInRange("mana_regeneration_3_multiplier", 1.15, 1, 10);
+        SHIELD_OVERLOAD_MULTIPLIER = builder
+            .comment("If the player is at full mana and has the Shield Overload talent, the multiplier to incoming damage that will be applied.")
+            .translation(AMTranslations.CONFIG_KEY + "shield_overload_multiplier")
+            .defineInRange("shield_overload_multiplier", 0.95, 1, 10);
         builder.pop();
         SPEC = builder.build();
     }

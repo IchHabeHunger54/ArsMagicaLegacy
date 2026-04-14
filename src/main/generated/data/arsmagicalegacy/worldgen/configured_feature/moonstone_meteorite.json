@@ -4,17 +4,11 @@
     "base_state": {
       "Name": "minecraft:stone"
     },
-    "fluid_state": {
-      "Name": "arsmagicalegacy:liquid_etherium",
-      "Properties": {
-        "level": "0"
-      }
-    },
-    "height": 5,
+    "height": 3,
     "rare_chance": 0.1,
     "rare_state": {
       "Name": "arsmagicalegacy:moonstone_ore"
     },
-    "width": 7
+    "width": 5
   }
 }

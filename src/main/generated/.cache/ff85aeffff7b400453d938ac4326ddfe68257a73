@@ -1,4 +1,4 @@
-// 26.1.2	2026-04-14T23:12:51.9561502	vanilla/Registries
+// 26.1.2	2026-04-15T01:13:10.4071032	vanilla/Registries
 9750b004179a33bed6457219d5bcfefbb6b729a3 data/arsmagicalegacy/arsmagicalegacy/ability/burnout_reduction.json
 a2824e8666445c39ca58da47aedf77d31da43cec data/arsmagicalegacy/arsmagicalegacy/ability/clarity.json
 e221ec748729376e856802165a575f146ae31065 data/arsmagicalegacy/arsmagicalegacy/ability/enderman_pumpkin.json
@@ -449,7 +449,7 @@ aaf79376aadb41b12859517b02cd4a421187fdba data/arsmagicalegacy/worldgen/configure
 48f8fae1e92ecc3f664303d2aa56a3a60ef773c0 data/arsmagicalegacy/worldgen/configured_feature/chimerite_ore.json
 21698d2c30c5d9f13d994c97b43f224dfd31b487 data/arsmagicalegacy/worldgen/configured_feature/desert_nova.json
 28f0f26aa036e95732e75730513c2fe3d48bea63 data/arsmagicalegacy/worldgen/configured_feature/liquid_etherium_lake.json
-abe12721476513accf111da396d2d2cac7520dd6 data/arsmagicalegacy/worldgen/configured_feature/moonstone_meteorite.json
+44f498865e0919fd995c101ac050e64e558b09a7 data/arsmagicalegacy/worldgen/configured_feature/moonstone_meteorite.json
 a2f263841725b80ed19e3605f27de4ef82f73c1e data/arsmagicalegacy/worldgen/configured_feature/sunstone_ore.json
 489c8358d29bdfc05371078e958eb50430acd651 data/arsmagicalegacy/worldgen/configured_feature/tarma_root.json
 1251393362b542a684896a212663b287dde5a392 data/arsmagicalegacy/worldgen/configured_feature/topaz_ore.json

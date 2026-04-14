@@ -62,9 +62,8 @@ public final class AMWorldgenProvider {
         register(bootstrap, AMWorldgen.MOONSTONE_METEORITE_CONFIGURED_FEATURE, AMWorldgen.METEORITE.get(), new MeteoriteFeature.Configuration(
             Blocks.STONE.defaultBlockState(),
             AMBlocks.MOONSTONE_ORE.get().defaultBlockState(),
-            AMBlocks.LIQUID_ETHERIUM.get().defaultBlockState(),
-            7,
             5,
+            3,
             0.1f));
         register(bootstrap, AMWorldgen.SUNSTONE_ORE_CONFIGURED_FEATURE, AMWorldgen.SUNSTONE_ORE.get(), new OreConfiguration(
             List.of(OreConfiguration.target(new TagMatchTest(BlockTags.BASE_STONE_NETHER), AMBlocks.SUNSTONE_ORE.get().defaultBlockState())),

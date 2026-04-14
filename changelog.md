@@ -15,7 +15,7 @@
 
 - Renamed Liquid Essence to Liquid Etherium
 - Now generates in lakes in plains-like biomes, in addition to the centers of Moonstone meteorites
-- Moonstone meteorites have been made rarer to compensate for Liquid Etherium now also generating in lakes
+- Moonstone meteorites have been made rarer and no longer contain Liquid Etherium, to compensate for Liquid Etherium now generating in lakes
 - Can now be used to create the Arcane Compendium by placing a book in a nearby item frame, similar to old Ars Magica
 - Now has underwater fog
 - Now can be placed in Cauldrons

@@ -35,11 +35,9 @@ public class MeteoriteFeature extends Feature<MeteoriteFeature.Configuration> {
             int x = random.nextInt(config.width());
             int y = random.nextInt(config.width());
             int z = random.nextInt(config.width());
-            float f = (float) (x + y + z) * 0.333F + 0.5F;
+            float f = (float) (x + y + z) * 0.333f + 0.5f;
             for (BlockPos pos : BlockPos.betweenClosed(origin.offset(-x, -y, -z), origin.offset(x, y, z))) {
-                if (pos.distSqr(origin) <= f * (0.95 + level.getRandom().nextDouble() * 0.1)) {
-                    level.setBlock(pos, config.fluidState(), Block.UPDATE_CLIENTS);
-                } else if (pos.distSqr(origin) <= f * f) {
+                if (pos.distSqr(origin) <= f * f) {
                     level.setBlock(pos, random.nextDouble() < config.rareChance() ? config.rareState() : config.baseState(), Block.UPDATE_CLIENTS);
                 }
             }
@@ -48,11 +46,10 @@ public class MeteoriteFeature extends Feature<MeteoriteFeature.Configuration> {
         return true;
     }
 
-    public record Configuration(BlockState baseState, BlockState rareState, BlockState fluidState, int width, int height, float rareChance) implements FeatureConfiguration {
+    public record Configuration(BlockState baseState, BlockState rareState, int width, int height, float rareChance) implements FeatureConfiguration {
         public static final Codec<Configuration> CODEC = RecordCodecBuilder.create(inst -> inst.group(
             BlockState.CODEC.fieldOf("base_state").forGetter(Configuration::baseState),
             BlockState.CODEC.fieldOf("rare_state").forGetter(Configuration::rareState),
-            BlockState.CODEC.fieldOf("fluid_state").forGetter(Configuration::fluidState),
             Codec.intRange(1, 64).fieldOf("width").forGetter(Configuration::width),
             Codec.intRange(1, 64).fieldOf("height").forGetter(Configuration::height),
             Codec.floatRange(0f, 1f).fieldOf("rare_chance").forGetter(Configuration::rareChance)

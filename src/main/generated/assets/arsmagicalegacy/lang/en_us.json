@@ -173,6 +173,8 @@
   "arsmagicalegacy.configuration.attract_range.tooltip": "The range of the Attract component. May be amplified by spell modifiers.",
   "arsmagicalegacy.configuration.attract_speed": "Attract Speed",
   "arsmagicalegacy.configuration.attract_speed.tooltip": "The speed of the Attract component. May be amplified by spell modifiers.",
+  "arsmagicalegacy.configuration.augmented_casting_multiplier": "Augmented Casting Multiplier",
+  "arsmagicalegacy.configuration.augmented_casting_multiplier.tooltip": "The multiplier to various stats used by the Augmented Casting talent.",
   "arsmagicalegacy.configuration.banish_rain_duration": "Banish Rain Duration",
   "arsmagicalegacy.configuration.banish_rain_duration.tooltip": "The duration used by the Banish Rain component. May be amplified by spell modifiers.",
   "arsmagicalegacy.configuration.bars": "Mana/Burnout/Level Bars",

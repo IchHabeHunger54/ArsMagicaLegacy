@@ -112,6 +112,7 @@ public final class AMServerConfig {
     public static final ModConfigSpec.DoubleValue ZONE_RANGE;
     public static final ModConfigSpec.DoubleValue ZONE_HEIGHT;
     public static final ModConfigSpec.IntValue ZONE_TICK_INTERVAL;
+    public static final ModConfigSpec.DoubleValue AUGMENTED_CASTING_MULTIPLIER;
     public static final ModConfigSpec.DoubleValue MANA_REGENERATION_1_MULTIPLIER;
     public static final ModConfigSpec.DoubleValue MANA_REGENERATION_2_MULTIPLIER;
     public static final ModConfigSpec.DoubleValue MANA_REGENERATION_3_MULTIPLIER;
@@ -566,6 +567,10 @@ public final class AMServerConfig {
             .defineInRange("zone_tick_interval", 5, 1, 100);
         builder.pop();
         builder.comment("Configuration of various talent-specific values.").push("talents");
+        AUGMENTED_CASTING_MULTIPLIER = builder
+            .comment("The multiplier to various stats used by the Augmented Casting talent.")
+            .translation(AMTranslations.CONFIG_KEY + "augmented_casting_multiplier")
+            .defineInRange("augmented_casting_multiplier", 1.5, 1, 8);
         MANA_REGENERATION_1_MULTIPLIER = builder
             .comment("The multiplier to mana regeneration used by the Mana Regeneration 1 talent.")
             .translation(AMTranslations.CONFIG_KEY + "mana_regeneration_1_multiplier")

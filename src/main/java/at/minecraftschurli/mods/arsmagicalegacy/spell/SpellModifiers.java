@@ -11,6 +11,8 @@ import net.minecraft.world.timeline.Timeline;
 import net.minecraft.world.timeline.Timelines;
 
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public final class SpellModifiers {
     private static final double LUNAR_MULTIPLIER = 1.625;
@@ -20,23 +22,11 @@ public final class SpellModifiers {
     }
 
     public static Map<SpellStat, SpellStatModifier> lunarStatModifiers() {
-        return Map.of(
-            AMSpells.DAMAGE_STAT, (_, modified, context) -> modified + lunarMultiplier(context),
-            AMSpells.DURATION_STAT, (_, modified, context) -> modified + modified * lunarMultiplier(context),
-            AMSpells.HEALING_STAT, (_, modified, context) -> modified + modified * lunarMultiplier(context),
-            AMSpells.PIERCING_STAT, (_, modified, context) -> modified + lunarMultiplier(context),
-            AMSpells.RANGE_STAT, (_, modified, context) -> modified + modified * lunarMultiplier(context),
-            AMSpells.SPEED_STAT, (_, modified, context) -> modified + modified * lunarMultiplier(context));
+        return SpellStat.genericModifiers(SpellModifiers::lunarMultiplier);
     }
 
     public static Map<SpellStat, SpellStatModifier> solarStatModifiers() {
-        return Map.of(
-            AMSpells.DAMAGE_STAT, (_, modified, context) -> modified + solarMultiplier(context),
-            AMSpells.DURATION_STAT, (_, modified, context) -> modified + modified * solarMultiplier(context),
-            AMSpells.HEALING_STAT, (_, modified, context) -> modified + modified * solarMultiplier(context),
-            AMSpells.PIERCING_STAT, (_, modified, context) -> modified + solarMultiplier(context),
-            AMSpells.RANGE_STAT, (_, modified, context) -> modified + modified * solarMultiplier(context),
-            AMSpells.SPEED_STAT, (_, modified, context) -> modified + modified * solarMultiplier(context));
+        return SpellStat.genericModifiers(SpellModifiers::solarMultiplier);
     }
 
     private static double lunarMultiplier(SpellCastContext context) {

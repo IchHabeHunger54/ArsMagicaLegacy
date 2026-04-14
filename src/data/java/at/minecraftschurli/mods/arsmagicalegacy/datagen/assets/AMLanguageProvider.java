@@ -701,6 +701,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("zone_height", "Zone Height", "The height used by the Zone shape.");
         configTranslation("zone_tick_interval", "Zone Tick Interval", "The tick interval used by the Zone shape.");
         configTranslation("talents", "Talents", "Configuration of various talent-specific values.");
+        configTranslation("augmented_casting_multiplier", "Augmented Casting Multiplier", "The multiplier to various stats used by the Augmented Casting talent.");
         configTranslation("mana_regeneration_1_multiplier", "Mana Regeneration 1 Multiplier", "The multiplier to mana regeneration used by the Mana Regeneration 1 talent.");
         configTranslation("mana_regeneration_2_multiplier", "Mana Regeneration 2 Multiplier", "The multiplier to mana regeneration used by the Mana Regeneration 2 talent.");
         configTranslation("mana_regeneration_3_multiplier", "Mana Regeneration 3 Multiplier", "The multiplier to mana regeneration used by the Mana Regeneration 3 talent.");

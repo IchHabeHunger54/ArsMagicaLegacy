@@ -28,6 +28,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPartData;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellShapeGroup;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellStat;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellStatModifier;
 import at.minecraftschurli.mods.arsmagicalegacy.attachment.ContingencyAttachment;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttachments;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
@@ -200,6 +201,12 @@ final class SpellHelperImpl implements SpellHelper {
         for (SpellModifier modifier : modifiers) {
             if (modifier.getStats().contains(stat)) {
                 modified = modifier.getModifier(stat).modify(base, modified, context);
+            }
+        }
+        if (context.caster() instanceof Player player && ArsMagicaApi.magicHelper().knows(player, player.registryAccess().getOrThrow(AMMagic.AUGMENTED_CASTING))) {
+            Map<SpellStat, SpellStatModifier> stats = SpellStat.genericModifiers(_ -> 1.5);
+            if (stats.containsKey(stat)) {
+                modified = stats.get(stat).modify(base, modified, context);
             }
         }
         return modified;

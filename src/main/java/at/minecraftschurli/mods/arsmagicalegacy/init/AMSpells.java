@@ -91,19 +91,19 @@ public interface AMSpells {
     DeferredRegister<SpellPart> SPELL_PARTS = DeferredRegister.create(AMRegistries.Keys.SPELL_PART, ArsMagicaApi.MOD_ID);
     // @formatter:off
     SpellStat BOUNCE_STAT           = new SpellStat(ArsMagicaApi.id("bounce"));
-    SpellStat DAMAGE_STAT           = new SpellStat(ArsMagicaApi.id("damage"));
+    SpellStat DAMAGE_STAT           = new SpellStat(ArsMagicaApi.id("damage"), SpellStatModifier::add);
     SpellStat DISMEMBERING_STAT     = new SpellStat(ArsMagicaApi.id("dismembering"));
-    SpellStat DURATION_STAT         = new SpellStat(ArsMagicaApi.id("duration"));
+    SpellStat DURATION_STAT         = new SpellStat(ArsMagicaApi.id("duration"), SpellStatModifier::addMultipliedBase);
     SpellStat EFFECT_POWER_STAT     = new SpellStat(ArsMagicaApi.id("effect_power"));
     SpellStat FORTUNE_STAT          = new SpellStat(ArsMagicaApi.id("fortune"));
     SpellStat GRAVITY_STAT          = new SpellStat(ArsMagicaApi.id("gravity"));
-    SpellStat HEALING_STAT          = new SpellStat(ArsMagicaApi.id("healing"));
+    SpellStat HEALING_STAT          = new SpellStat(ArsMagicaApi.id("healing"), SpellStatModifier::addMultipliedBase);
     SpellStat MINING_POWER_STAT     = new SpellStat(ArsMagicaApi.id("mining_power"));
-    SpellStat PIERCING_STAT         = new SpellStat(ArsMagicaApi.id("piercing"));
-    SpellStat RANGE_STAT            = new SpellStat(ArsMagicaApi.id("range"));
+    SpellStat PIERCING_STAT         = new SpellStat(ArsMagicaApi.id("piercing"), SpellStatModifier::add);
+    SpellStat RANGE_STAT            = new SpellStat(ArsMagicaApi.id("range"), SpellStatModifier::addMultipliedBase);
     SpellStat RUNE_POWER_STAT       = new SpellStat(ArsMagicaApi.id("rune_power"));
     SpellStat SILK_TOUCH_STAT       = new SpellStat(ArsMagicaApi.id("silk_touch"));
-    SpellStat SPEED_STAT            = new SpellStat(ArsMagicaApi.id("speed"));
+    SpellStat SPEED_STAT            = new SpellStat(ArsMagicaApi.id("speed"), SpellStatModifier::addMultipliedBase);
     SpellStat TARGET_NON_SOLID_STAT = new SpellStat(ArsMagicaApi.id("target_non_solid"));
 
     Identifier CONTINGENCY_DAMAGE_ID = ArsMagicaApi.id("damage");

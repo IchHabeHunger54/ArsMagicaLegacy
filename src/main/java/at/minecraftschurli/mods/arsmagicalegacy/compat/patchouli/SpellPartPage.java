@@ -81,7 +81,7 @@ public final class SpellPartPage implements ICustomComponent {
                 if (stack == null || stack.isEmpty()) {
                     continue;
                 }
-                drawItemStack(graphics, context, stack, ingredient.tooltip(), x, y, mouseX, mouseY);
+                drawItemStack(graphics, context, stack, ingredient.tooltip(AMClientUtil.level()), x, y, mouseX, mouseY);
             }
             y += TEXT_BOTTOM_PADDING + SLOT_SIZE;
         }

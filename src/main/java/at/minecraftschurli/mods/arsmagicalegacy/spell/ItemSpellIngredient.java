@@ -49,9 +49,8 @@ public record ItemSpellIngredient(Ingredient item, int count) implements SpellIn
         List<ItemStack> itemStacks = asItemStacks();
         Component countComponent = Component.translatable(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, count);
         if (itemStacks.isEmpty()) return List.of(countComponent);
-        if (itemStacks.size() != 1 && level != null) return List.of(Objects.requireNonNull(AMUtil.getByTick(new ArrayList<>(itemStacks.stream().map(ItemStack::getItemName).toList()), (int) (level.getGameTime() / 20))), countComponent);
-        ItemStack item = itemStacks.getFirst();
-        return List.of(item.getItemName(), countComponent);
+        if (itemStacks.size() == 1 || level == null) return List.of(itemStacks.getFirst().getItemName(), countComponent);
+        return List.of(Objects.requireNonNull(AMUtil.getByTick(new ArrayList<>(itemStacks.stream().map(ItemStack::getItemName).toList()), (int) (level.getGameTime() / 20))), countComponent);
     }
 
     @Override

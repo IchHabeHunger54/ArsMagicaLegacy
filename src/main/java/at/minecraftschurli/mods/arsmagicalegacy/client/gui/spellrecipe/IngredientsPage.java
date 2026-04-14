@@ -23,7 +23,7 @@ class IngredientsPage extends Page<SpellIngredient> {
 
     @Override
     public void extractElement(SpellIngredient element, int index, GuiGraphicsExtractor graphics, int x, int y) {
-        ItemStack stack = AMUtil.getByTick(element.asItemStacks(), Objects.requireNonNull(AMClientUtil.player()).tickCount / 20);
+        ItemStack stack = AMUtil.getByTick(element.asItemStacks(), (int) (Objects.requireNonNull(AMClientUtil.level()).getGameTime() / 20));
         if (stack == null || stack.isEmpty()) {
             return;
         }
@@ -34,6 +34,6 @@ class IngredientsPage extends Page<SpellIngredient> {
 
     @Override
     public List<Component> getElementTooltip(SpellIngredient element) {
-        return element.tooltip();
+        return element.tooltip(AMClientUtil.level());
     }
 }

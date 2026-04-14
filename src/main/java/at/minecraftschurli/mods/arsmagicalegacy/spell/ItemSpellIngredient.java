@@ -4,7 +4,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellIngredient;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSpells;
-import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -12,14 +11,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.context.ContextMap;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.phys.AABB;
@@ -30,9 +26,9 @@ import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jspecify.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 @SuppressWarnings("deprecation")
 public record ItemSpellIngredient(Ingredient item, int count) implements SpellIngredient {
@@ -48,19 +44,14 @@ public record ItemSpellIngredient(Ingredient item, int count) implements SpellIn
 
     @Override
     public List<Component> tooltip() {
-        return Stream.concat(switch (this.item.display()) {
-            case SlotDisplay.TagSlotDisplay(TagKey<Item> tag) ->
-                Stream.of(AMUtil.getTagName(tag));
-            case SlotDisplay.ItemStackSlotDisplay(ItemStackTemplate stack) -> Stream.of(stack.create().getItemName());
-            default -> {
-                List<ItemStack> itemStacks = asItemStacks();
-                if (itemStacks.size() == 1) {
-                    ItemStack item = itemStacks.getFirst();
-                    yield Stream.of(item.getItemName());
-                }
-                yield itemStacks.stream().map(ItemStack::getItemName);
-            }
-        }, Stream.of(Component.translatable(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, count))).toList();
+        List<ItemStack> itemStacks = asItemStacks();
+        if (itemStacks.size() == 1) {
+            ItemStack item = itemStacks.getFirst();
+            return List.of(item.getItemName(), Component.translatable(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, count));
+        }
+        List<Component> components = new ArrayList<>(itemStacks.stream().map(ItemStack::getItemName).toList());
+        components.add(Component.translatable(AMTranslations.SPELL_INGREDIENT_COUNT_KEY, count));
+        return components;
     }
 
     @Override

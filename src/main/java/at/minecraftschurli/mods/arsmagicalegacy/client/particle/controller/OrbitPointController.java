@@ -47,7 +47,7 @@ public record OrbitPointController(boolean stopOtherControllers, boolean killOnF
     @Override
     public void tick(ParticleControllerInstance instance) {
         Vec3 target = followTarget ? instance.getTargetOrFinish().position() : instance.getLocationOrFinish();
-        if (target == null) return;
+        if (target == null || !instance.hasContext(ANGLE_KEY) || !instance.hasContext(DISTANCE_KEY) || !instance.hasContext(CLOCKWISE_KEY)) return;
         double angle = instance.getContext(ANGLE_KEY);
         double distance = instance.getContext(DISTANCE_KEY);
         angle += instance.getContext(CLOCKWISE_KEY) ? minSpeed : -minSpeed + 360;

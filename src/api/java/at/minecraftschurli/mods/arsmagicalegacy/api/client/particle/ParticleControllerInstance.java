@@ -82,6 +82,14 @@ public final class ParticleControllerInstance {
     }
 
     /**
+     * @param key The key of the context value to check.
+     * @return Whether the instance contains a context value by the given key.
+     */
+    public boolean hasContext(String key) {
+        return context.containsKey(key);
+    }
+
+    /**
      * @param key The key of the context value to get.
      * @return The associated context value.
      * @param <T> The type of the context value.

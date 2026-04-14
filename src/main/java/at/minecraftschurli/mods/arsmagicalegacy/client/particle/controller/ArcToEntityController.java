@@ -31,7 +31,7 @@ public record ArcToEntityController(boolean stopOtherControllers, boolean killOn
     @Override
     public void tick(ParticleControllerInstance instance) {
         Entity target = instance.getTargetOrFinish();
-        if (target == null) return;
+        if (target == null || !instance.hasContext(DELTA_KEY)) return;
         double delta = (double) instance.getContext(DELTA_KEY) + speed;
         if (delta >= 1) {
             instance.finish();

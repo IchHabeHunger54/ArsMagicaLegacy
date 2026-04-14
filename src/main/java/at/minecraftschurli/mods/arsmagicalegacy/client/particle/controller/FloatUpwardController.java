@@ -38,7 +38,7 @@ public record FloatUpwardController(boolean stopOtherControllers, boolean killOn
         ControlledParticle particle = instance.particle;
         if (particle.y() > particle.level().getMaxY()) {
             instance.finish();
-        } else {
+        } else if (instance.hasContext(SPEED_KEY)) {
             particle.move(particle.random().nextDouble() * jitter - jitter / 2, instance.getContext(SPEED_KEY), particle.random().nextDouble() * jitter - jitter / 2);
         }
     }

@@ -9,11 +9,14 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.ApiStatus;
 
 /**
  * Holds all {@link TagKey}s added by Ars Magica: Legacy.
  */
+@ApiStatus.NonExtendable
 public interface AMTags {
+    @ApiStatus.NonExtendable
     interface Blocks {
         TagKey<Block> ORES_CHIMERITE = cTag("ores/chimerite");
         TagKey<Block> ORES_TOPAZ = cTag("ores/topaz");
@@ -44,6 +47,7 @@ public interface AMTags {
         }
     }
 
+    @ApiStatus.NonExtendable
     interface Items {
         TagKey<Item> ORES_CHIMERITE = cTag("ores/chimerite");
         TagKey<Item> ORES_TOPAZ = cTag("ores/topaz");
@@ -85,6 +89,7 @@ public interface AMTags {
         }
     }
 
+    @ApiStatus.NonExtendable
     interface EntityTypes {
         TagKey<EntityType<?>> BLACK_AUREM_IMMUNE = tag("black_aurem_immune");
         TagKey<EntityType<?>> AFFECTED_BY_ENDER_THORNS_ABILITY = tag("affected_by_ender_thorns_ability");
@@ -98,6 +103,7 @@ public interface AMTags {
         }
     }
 
+    @ApiStatus.NonExtendable
     interface DamageTypes {
         TagKey<DamageType> AFFECTED_BY_FIRE_RESISTANCE_ABILITY = tag("affected_by_fire_resistance_ability");
         TagKey<DamageType> AFFECTED_BY_RESISTANCE_ABILITY = tag("affected_by_resistance_ability");
@@ -142,6 +148,7 @@ public interface AMTags {
         }
     }
 
+    @ApiStatus.NonExtendable
     interface Biomes {
         TagKey<Biome> CAN_SUMMON_WATER_GUARDIAN = tag("can_summon_water_guardian");
 

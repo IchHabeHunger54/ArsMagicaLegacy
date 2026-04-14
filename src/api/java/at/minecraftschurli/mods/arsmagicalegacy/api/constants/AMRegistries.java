@@ -26,10 +26,12 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.registries.RegistryBuilder;
+import org.jetbrains.annotations.ApiStatus;
 
 /**
  * Holds all registries added by the mod, including getters for the datapack registries.
  */
+@ApiStatus.NonExtendable
 public interface AMRegistries {
     /**
      * The registry for {@link AbilityEffect}s.
@@ -266,6 +268,7 @@ public interface AMRegistries {
     /**
      * Holds all registry keys used by the mod.
      */
+    @ApiStatus.NonExtendable
     interface Keys {
         // @formatter:off
         // Static registries

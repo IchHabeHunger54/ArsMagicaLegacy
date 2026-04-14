@@ -6,10 +6,12 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.ApiStatus;
 
 /**
  * Represents a render state for the Magitech Goggles overlay. Also contains methods for extracting and submitting.
  */
+@ApiStatus.NonExtendable
 public interface MagitechGogglesOverlayRenderState {
     /**
      * Clears the internal state of the render state.

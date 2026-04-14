@@ -4,12 +4,12 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.ApiStatus.NonExtendable;
+import org.jetbrains.annotations.ApiStatus;
 
 /**
  * Accessor interface for a particle controlled by a {@link ParticleControllerInstance}.
  */
-@NonExtendable
+@ApiStatus.NonExtendable
 public interface ControlledParticle {
     /**
      * @return Whether the particle is removed.

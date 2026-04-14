@@ -42,6 +42,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -71,6 +72,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jspecify.annotations.Nullable;
@@ -347,5 +349,9 @@ public final class AMUtil {
 
     public static float wrapToRadians(float degrees) {
         return (float) Math.toRadians(Mth.wrapDegrees(degrees));
+    }
+
+    public static <T> MutableComponent getTagName(TagKey<T> tag) {
+        return Component.translatableWithFallback(Tags.getTagTranslationKey(tag), "#" + tag.location());
     }
 }

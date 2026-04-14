@@ -13,6 +13,7 @@ plugins {
 helper.withApiSourceSet()
 helper.withDataGenSourceSet()
 helper.withTestSourceSet()
+helper.withJarJar()
 
 helper.accessTransformers.add("META-INF/accesstransformer.cfg")
 

@@ -86,7 +86,11 @@ public record ItemSpellIngredient(Ingredient item, int count) implements SpellIn
 
     @Override
     public List<ItemStack> asItemStacks() {
-        List<ItemStack> list = item.display().resolveForStacks(ContextMap.EMPTY);
+        List<ItemStack> list = item.display()
+            .resolveForStacks(ContextMap.EMPTY)
+            .stream()
+            .map(e -> e.copyWithCount(count))
+            .toList();
         return !list.isEmpty() ? list : item.items()
             .map(Holder::value)
             .map(e -> new ItemStack(e, count))

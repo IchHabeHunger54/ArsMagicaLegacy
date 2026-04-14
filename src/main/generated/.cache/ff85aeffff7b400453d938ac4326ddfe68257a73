@@ -1,4 +1,5 @@
-// 26.1.2	2026-04-14T00:15:47.9346432	vanilla/Registries
+// 26.1.2	2026-04-14T03:30:53.9223835	vanilla/Registries
+9750b004179a33bed6457219d5bcfefbb6b729a3 data/arsmagicalegacy/arsmagicalegacy/ability/burnout_reduction.json
 a2824e8666445c39ca58da47aedf77d31da43cec data/arsmagicalegacy/arsmagicalegacy/ability/clarity.json
 e221ec748729376e856802165a575f146ae31065 data/arsmagicalegacy/arsmagicalegacy/ability/enderman_pumpkin.json
 80053ef4569c59dfc7254f1dd3facffd80d41722 data/arsmagicalegacy/arsmagicalegacy/ability/ender_thorns.json
@@ -13,7 +14,6 @@ b1ea830f75f9e3866a58156b443feac90e2fb928 data/arsmagicalegacy/arsmagicalegacy/ab
 11bc51f1312a80029ef577758165753c666dda7a data/arsmagicalegacy/arsmagicalegacy/ability/jump_boost.json
 e05573b4f622e23b25cade649fabb6eeb657cdee data/arsmagicalegacy/arsmagicalegacy/ability/light_health_reduction.json
 9d42b2377a273cb8ddf97a8b06ad7d63cccfb681 data/arsmagicalegacy/arsmagicalegacy/ability/magic_damage.json
-34c33b5e511a160551b2c17dadabb85f82b64ac7 data/arsmagicalegacy/arsmagicalegacy/ability/mana_reduction.json
 dfee53abd8369601d5eb8fb416dbbe94e1630f1b data/arsmagicalegacy/arsmagicalegacy/ability/nausea.json
 e85922cfe515c744238c9a5f5ada5439bb189581 data/arsmagicalegacy/arsmagicalegacy/ability/nether_damage_nature.json
 6c6c8cbd166242131da68bdead81d03b4f1b4785 data/arsmagicalegacy/arsmagicalegacy/ability/nether_damage_water.json

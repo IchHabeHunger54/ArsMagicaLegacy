@@ -1,4 +1,7 @@
 {
+  "ability.arsmagicalegacy.burnout_reduction": "Burnout Reduction",
+  "ability.arsmagicalegacy.burnout_reduction.description": "After using arcane spells for some time, your spells cause you to burn out less. As you delve deeper, you notice the burnout generation becoming lower and lower.$(br2)Affinity: Arcane$(br)Range: 1 - 100 %%",
+  "ability.arsmagicalegacy.burnout_reduction.name": "Burnout Reduction",
   "ability.arsmagicalegacy.clarity": "Clarity",
   "ability.arsmagicalegacy.clarity.description": "Becoming one with the arcane, you have a chance of receiving the Clarity effect upon casting, which allows you to cast your next spell for free.$(br2)Affinity: Arcane$(br)Range: 100 %%",
   "ability.arsmagicalegacy.clarity.name": "Clarity",
@@ -41,9 +44,6 @@
   "ability.arsmagicalegacy.magic_damage": "Magic Damage",
   "ability.arsmagicalegacy.magic_damage.description": "Having fun with arcane magic has made you vulnerable against the very thing you use. You will receive more damage from magic sources.$(br2)Affinity: Arcane$(br)Range: 50 - 100 %%",
   "ability.arsmagicalegacy.magic_damage.name": "Magic Damage",
-  "ability.arsmagicalegacy.mana_reduction": "Mana Reduction",
-  "ability.arsmagicalegacy.mana_reduction.description": "After using arcane spells for some time, your spells' mana requirements goes down. As you delve deeper, you notice the mana cost getting lower and lower.$(br2)Affinity: Arcane$(br)Range: 1 - 100 %%",
-  "ability.arsmagicalegacy.mana_reduction.name": "Mana Reduction",
   "ability.arsmagicalegacy.nausea": "Nausea",
   "ability.arsmagicalegacy.nausea.description": "Having fun with life magic has made you less suitable for killing. You will receive a nausea effect when killing a non-undead enemy.$(br2)Affinity: Life$(br)Range: 50 - 100 %%",
   "ability.arsmagicalegacy.nausea.name": "Nausea",

@@ -12,7 +12,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.ability.FrostWalkerAbilityEffect
 import at.minecraftschurli.mods.arsmagicalegacy.ability.JumpBoostAbilityEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.ability.KillEffectAbilityEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.ability.LightHealthModifierAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.ability.ManaCostModifierAbilityEffect;
+import at.minecraftschurli.mods.arsmagicalegacy.ability.BurnoutCostModifierAbilityEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.ability.NetherDamageAbilityEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.ability.SpellCastEffectAbilityEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.ability.ThornsAbilityEffect;
@@ -42,7 +42,7 @@ public interface AMAbilities {
     DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<JumpBoostAbilityEffect>>           JUMP_BOOST_EFFECT            = ABILITY_EFFECTS.register("jump_boost",            () -> JumpBoostAbilityEffect.CODEC);
     DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<KillEffectAbilityEffect>>          KILL_EFFECT_EFFECT           = ABILITY_EFFECTS.register("kill_effect",           () -> KillEffectAbilityEffect.CODEC);
     DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<LightHealthModifierAbilityEffect>> LIGHT_HEALTH_MODIFIER_EFFECT = ABILITY_EFFECTS.register("light_health_modifier", () -> LightHealthModifierAbilityEffect.CODEC);
-    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<ManaCostModifierAbilityEffect>>    MANA_COST_MODIFIER_EFFECT    = ABILITY_EFFECTS.register("mana_cost_modifier",    () -> ManaCostModifierAbilityEffect.CODEC);
+    DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<BurnoutCostModifierAbilityEffect>> BURNOUT_COST_MODIFIER_EFFECT = ABILITY_EFFECTS.register("burnout_cost_modifier", () -> BurnoutCostModifierAbilityEffect.CODEC);
     DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<NetherDamageAbilityEffect>>        NETHER_DAMAGE_EFFECT         = ABILITY_EFFECTS.register("nether_damage",         () -> NetherDamageAbilityEffect.CODEC);
     DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<SpellCastEffectAbilityEffect>>     SPELL_CAST_EFFECT_EFFECT     = ABILITY_EFFECTS.register("spell_cast_effect",     () -> SpellCastEffectAbilityEffect.CODEC);
     DeferredHolder<MapCodec<? extends AbilityEffect>, MapCodec<ThornsAbilityEffect>>              THORNS_EFFECT                = ABILITY_EFFECTS.register("thorns",                () -> ThornsAbilityEffect.CODEC);
@@ -73,7 +73,7 @@ public interface AMAbilities {
     ResourceKey<Ability> SMITE                  = key("smite");
     ResourceKey<Ability> REGENERATION           = key("regeneration");
     ResourceKey<Ability> NAUSEA                 = key("nausea");
-    ResourceKey<Ability> MANA_REDUCTION         = key("mana_reduction");
+    ResourceKey<Ability> BURNOUT_REDUCTION      = key("burnout_reduction");
     ResourceKey<Ability> CLARITY                = key("clarity");
     ResourceKey<Ability> MAGIC_DAMAGE           = key("magic_damage");
     ResourceKey<Ability> POISON_RESISTANCE      = key("poison_resistance");

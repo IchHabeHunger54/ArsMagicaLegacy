@@ -13,8 +13,8 @@
     },
     {
       "type": "patchouli:text",
-      "text": "ability.arsmagicalegacy.mana_reduction.description",
-      "title": "ability.arsmagicalegacy.mana_reduction.name"
+      "text": "ability.arsmagicalegacy.burnout_reduction.description",
+      "title": "ability.arsmagicalegacy.burnout_reduction.name"
     },
     {
       "type": "patchouli:text",

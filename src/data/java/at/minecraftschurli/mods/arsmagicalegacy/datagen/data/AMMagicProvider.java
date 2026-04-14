@@ -12,7 +12,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.ability.FrostWalkerAbilityEffect
 import at.minecraftschurli.mods.arsmagicalegacy.ability.JumpBoostAbilityEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.ability.KillEffectAbilityEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.ability.LightHealthModifierAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.ability.ManaCostModifierAbilityEffect;
+import at.minecraftschurli.mods.arsmagicalegacy.ability.BurnoutCostModifierAbilityEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.ability.NetherDamageAbilityEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.ability.SpellCastEffectAbilityEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.ability.ThornsAbilityEffect;
@@ -187,7 +187,7 @@ public final class AMMagicProvider {
         ability(bootstrap, AMAbilities.SMITE,                  AMMagic.LIFE,      MinMaxBounds.Doubles.between(0.01, 1), new ExtraDamageAbilityEffect(0, 4, Optional.of(entityTypes.getOrThrow(AMTags.EntityTypes.AFFECTED_BY_SMITE_ABILITY))));
         ability(bootstrap, AMAbilities.REGENERATION,           AMMagic.LIFE,      MinMaxBounds.Doubles.atLeast(1), new EffectAbilityEffect(MobEffects.REGENERATION, 10, 0, false));
         ability(bootstrap, AMAbilities.NAUSEA,                 AMMagic.LIFE,      MinMaxBounds.Doubles.between(0.5, 1), true, new KillEffectAbilityEffect(MobEffects.NAUSEA, 0, 600, 0, false, Optional.of(entityTypes.getOrThrow(AMTags.EntityTypes.AFFECTED_BY_NAUSEA_ABILITY))));
-        ability(bootstrap, AMAbilities.MANA_REDUCTION,         AMMagic.ARCANE,    MinMaxBounds.Doubles.between(0.01, 1), new ManaCostModifierAbilityEffect(1, 0.5));
+        ability(bootstrap, AMAbilities.BURNOUT_REDUCTION,      AMMagic.ARCANE,    MinMaxBounds.Doubles.between(0.01, 1), new BurnoutCostModifierAbilityEffect(1, 0.5));
         ability(bootstrap, AMAbilities.CLARITY,                AMMagic.ARCANE,    MinMaxBounds.Doubles.atLeast(1), new SpellCastEffectAbilityEffect(AMMobEffects.CLARITY, 1200, 0, true, 0.5));
         ability(bootstrap, AMAbilities.MAGIC_DAMAGE,           AMMagic.ARCANE,    MinMaxBounds.Doubles.between(0.5, 1), true, new DamageModifierAbilityEffect(damageTypes.getOrThrow(AMTags.DamageTypes.AFFECTED_BY_MAGIC_DAMAGE_ABILITY), 1, 1.5));
         ability(bootstrap, AMAbilities.POISON_RESISTANCE,      AMMagic.ENDER,     MinMaxBounds.Doubles.between(0.5, 1),  new EffectResistanceAbilityEffect(List.of(MobEffects.POISON)));

@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.LightningRodBlock;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.RailShape;
+import net.neoforged.neoforge.common.Tags;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -245,9 +246,8 @@ public final class AMMultiblocks {
             '2', goldInlayNorthEast,
             '3', goldInlaySouthWest,
             '4', goldInlayNorthWest,
-            // TODO 26.1 copper bars
-            '0', api.strictBlockMatcher(Blocks.IRON_BARS),
-            'I', api.strictBlockMatcher(Blocks.IRON_BARS),
+            '0', api.tagMatcher(Tags.Blocks.BARS_COPPER),
+            'I', api.tagMatcher(Tags.Blocks.BARS_COPPER),
             'R', api.propertyMatcher(Blocks.LIGHTNING_ROD.defaultBlockState(), LightningRodBlock.FACING, LightningRodBlock.WATERLOGGED)
         ).setSymmetrical(true));
         api.registerMultiblock(LIFE_GUARDIAN_SPAWN_RITUAL, api.makeMultiblock(

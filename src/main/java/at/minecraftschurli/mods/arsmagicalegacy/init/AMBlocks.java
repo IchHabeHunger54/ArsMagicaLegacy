@@ -168,8 +168,6 @@ public interface AMBlocks {
      * @return The created {@link FlowerPotBlock}.
      */
     private static Supplier<FlowerPotBlock> flowerPot(DeferredBlock<?> flower, BlockBehaviour.Properties properties) {
-        Supplier<FlowerPotBlock> flowerPot = () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, flower, properties);
-        ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(flower.getId(), flowerPot);
-        return flowerPot;
+        return () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, flower, properties);
     }
 }

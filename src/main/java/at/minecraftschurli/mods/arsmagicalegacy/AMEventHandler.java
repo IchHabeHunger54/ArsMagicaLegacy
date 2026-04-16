@@ -109,6 +109,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.FireBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -168,6 +169,12 @@ final class AMEventHandler {
             DispenserBlock.registerBehavior(AMItems.LIQUID_ETHERIUM_BUCKET, DispenseBucketBehavior.INSTANCE);
             DispenserBlock.registerBehavior(AMItems.WITCHWOOD_BOAT, new BoatDispenseItemBehavior(AMEntities.WITCHWOOD_BOAT.get()));
             DispenserBlock.registerBehavior(AMItems.WITCHWOOD_CHEST_BOAT, new BoatDispenseItemBehavior(AMEntities.WITCHWOOD_CHEST_BOAT.get()));
+            FlowerPotBlock flowerPot = (FlowerPotBlock) Blocks.FLOWER_POT;
+            flowerPot.addPlant(AMBlocks.AUM.getId(), AMBlocks.POTTED_AUM);
+            flowerPot.addPlant(AMBlocks.CERUBLOSSOM.getId(), AMBlocks.POTTED_CERUBLOSSOM);
+            flowerPot.addPlant(AMBlocks.DESERT_NOVA.getId(), AMBlocks.POTTED_DESERT_NOVA);
+            flowerPot.addPlant(AMBlocks.TARMA_ROOT.getId(), AMBlocks.POTTED_TARMA_ROOT);
+            flowerPot.addPlant(AMBlocks.WAKEBLOOM.getId(), AMBlocks.POTTED_WAKEBLOOM);
             AMMultiblocks.init();
         });
     }

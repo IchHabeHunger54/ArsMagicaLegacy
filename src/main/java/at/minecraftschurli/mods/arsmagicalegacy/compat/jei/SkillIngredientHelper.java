@@ -39,4 +39,9 @@ final class SkillIngredientHelper implements IIngredientHelper<Skill> {
     public String getErrorInfo(@Nullable Skill skill) {
         return skill == null ? "Unknown skill" : skill.toString();
     }
+
+    @Override
+    public boolean isValidIngredient(Skill skill) {
+        return AMRegistries.skills(true).getKey(skill) != null;
+    }
 }

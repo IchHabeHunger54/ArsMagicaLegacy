@@ -66,7 +66,6 @@ public final class ArsMagicaLegacy {
         AMRecipes.RECIPE_TYPES.register(bus);
         AMAttachments.ATTACHMENTS.register(bus);
         AMSpells.DATA_SERIALIZERS.register(bus);
-        AMLoot.GLOBAL_LOOT_MODIFIERS.register(bus);
         AMAbilities.ABILITY_EFFECTS.register(bus);
         AMGrowthTypes.GROWTH_TYPES.register(bus);
         AMRituals.RITUAL_EFFECTS.register(bus);

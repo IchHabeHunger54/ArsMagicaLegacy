@@ -66,6 +66,6 @@ public final class AMGlobalLootModifierProvider extends GlobalLootModifierProvid
     }
 
     private void addModifier(ResourceKey<LootTable> table, String modifier, Identifier identifier) {
-        add(modifier, new AddTableLootModifier(new LootItemCondition[]{LootTableIdCondition.builder(table.identifier()).build()}, ResourceKey.create(table.registryKey(), identifier)));
+        add(modifier, new AddTableLootModifier(new LootItemCondition[]{LootTableIdCondition.builder(table.identifier()).build()}, 1000, ResourceKey.create(table.registryKey(), identifier)));
     }
 }

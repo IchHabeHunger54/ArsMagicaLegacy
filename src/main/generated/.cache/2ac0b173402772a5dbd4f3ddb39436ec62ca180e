@@ -1,4 +1,4 @@
-// 26.1.2	2026-04-12T00:35:42.263006	vanilla/Global Loot Modifiers : arsmagicalegacy
+// 26.1.2	2026-04-20T22:32:17.6351829	vanilla/Global Loot Modifiers : arsmagicalegacy
 8b6797ea660d36935b6298efe0ab76ceda6da7d6 data/arsmagicalegacy/loot_modifiers/chests/abandoned_mineshaft.json
 1c049a4c6b0145bc02bff821fa13091400e5e2ad data/arsmagicalegacy/loot_modifiers/chests/ancient_city.json
 4ed953017e6c73119c8301f6ea712d4f81003384 data/arsmagicalegacy/loot_modifiers/chests/ancient_city_ice_box.json
@@ -26,4 +26,3 @@ deb8a18e77e0cf7d2dfba060ff32750a11234de0 data/arsmagicalegacy/loot_modifiers/ent
 368d3546ef8ab662b979f542ecc3e3f023345c4d data/arsmagicalegacy/loot_modifiers/entities/skeleton.json
 96cc41f9e0589b3e8d5fbb0c4b131885cf785e62 data/arsmagicalegacy/loot_modifiers/entities/wither_skeleton.json
 4ecb39a4e4e788e61a9a5b59329e37bea993641d data/arsmagicalegacy/loot_modifiers/entities/zombie.json
-d079b72a57dc10e14335fe246a4f8447345e4d1a data/neoforge/loot_modifiers/global_loot_modifiers.json

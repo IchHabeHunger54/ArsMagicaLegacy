@@ -1,5 +1,7 @@
 - Test All Spell Parts and Particles
 - Add hints for where to drop skills in the Inscription Table
+- Reduce sound volumes
+- Disable particles in effect components
 - Apply Mana Regeneration to entities swimming in Liquid Etherium (needs Neo changes)
 - Boss bars
 - Change Lightning Guardian Spawn Ritual to Copper Bars (needs Neo changes)
@@ -13,5 +15,6 @@
     - Altar Model & BER
 - To fix
     - Whirlwind Renderer
+    - Celestial Prism duping when breaking
     - Disable Player and Life Guardian Summon Drops
     - Altar not resetting recipes properly when taking the Spell Recipe out of the lectern

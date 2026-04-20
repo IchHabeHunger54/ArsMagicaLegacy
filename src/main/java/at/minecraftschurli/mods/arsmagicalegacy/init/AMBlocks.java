@@ -160,13 +160,6 @@ public interface AMBlocks {
         return () -> operator.apply(BlockBehaviour.Properties.ofFullCopy(block));
     }
 
-    /**
-     * Creates a {@link FlowerPotBlock} and registers it to the flower pot conversion map.
-     *
-     * @param flower     The flower to use.
-     * @param properties The {@link Block.Properties} to use.
-     * @return The created {@link FlowerPotBlock}.
-     */
     private static Supplier<FlowerPotBlock> flowerPot(DeferredBlock<?> flower, BlockBehaviour.Properties properties) {
         return () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, flower, properties);
     }

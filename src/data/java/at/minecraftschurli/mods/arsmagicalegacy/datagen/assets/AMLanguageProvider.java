@@ -106,7 +106,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.ARCANE.identifier(), "Arcane Affinity Essence");
         itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, AMMagic.ENDER.identifier(), "Ender Affinity Essence");
         itemIdTranslation(AMItems.AFFINITY_ESSENCE);
-        itemWithVariantTranslation(AMItems.AFFINITY_TOME, Affinity.NONE.identifier(), "Affinity Tome");
+        itemWithVariantTranslation(AMItems.AFFINITY_TOME, Affinity.NONE.identifier(), "None Affinity Tome");
         itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.WATER.identifier(), "Water Affinity Tome");
         itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.FIRE.identifier(), "Fire Affinity Tome");
         itemWithVariantTranslation(AMItems.AFFINITY_TOME, AMMagic.EARTH.identifier(), "Earth Affinity Tome");
@@ -638,6 +638,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("components", "Components", "Configuration of various component-specific values.");
         configTranslation("damage_damage", "Damage Damage", "The damage of damage-based components, in half hearts. May be amplified by spell modifiers.");
         configTranslation("effect_duration", "Effect Duration", "The duration of effect-based components, in ticks. May be amplified by spell modifiers.");
+        configTranslation("effect_particles", "Effect Particles", "Whether to show effect particles for effect-based components.");
         configTranslation("attract_range", "Attract Range", "The range of the Attract component. May be amplified by spell modifiers.");
         configTranslation("attract_speed", "Attract Speed", "The speed of the Attract component. May be amplified by spell modifiers.");
         configTranslation("banish_rain_duration", "Banish Rain Duration", "The duration used by the Banish Rain component. May be amplified by spell modifiers.");

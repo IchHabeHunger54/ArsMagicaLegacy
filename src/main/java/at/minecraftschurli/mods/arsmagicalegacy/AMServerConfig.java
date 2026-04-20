@@ -50,6 +50,7 @@ public final class AMServerConfig {
     public static final ModConfigSpec.DoubleValue AFFINITY_TOME_REDUCTION;
     public static final ModConfigSpec.DoubleValue DAMAGE_DAMAGE;
     public static final ModConfigSpec.DoubleValue EFFECT_DURATION;
+    public static final ModConfigSpec.BooleanValue EFFECT_PARTICLES;
     public static final ModConfigSpec.DoubleValue ATTRACT_RANGE;
     public static final ModConfigSpec.DoubleValue ATTRACT_SPEED;
     public static final ModConfigSpec.DoubleValue BANISH_RAIN_DURATION;
@@ -316,6 +317,10 @@ public final class AMServerConfig {
             .comment("The duration of effect-based components, in ticks. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "effect_duration")
             .defineInRange("effect_duration", 600., 1, Short.MAX_VALUE);
+        EFFECT_PARTICLES = builder
+            .comment("Whether to show effect particles for effect-based components.")
+            .translation(AMTranslations.CONFIG_KEY + "effect_particles")
+            .define("effect_particles", false);
         ATTRACT_RANGE = builder
             .comment("The range of the Attract component. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "attract_range")

@@ -33,7 +33,7 @@ public class Effect extends SpellComponent.CastEntity {
         SpellHelper helper = ArsMagicaApi.spellHelper();
         int amplifier = (int) helper.getModifiedStat(0, AMSpells.EFFECT_POWER_STAT, modifiers, context);
         if (!effect.value().isInstantenous()) {
-            living.addEffect(new MobEffectInstance(effect, (int) helper.getModifiedStat(AMServerConfig.EFFECT_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context), amplifier));
+            living.addEffect(new MobEffectInstance(effect, (int) helper.getModifiedStat(AMServerConfig.EFFECT_DURATION.get(), AMSpells.DURATION_STAT, modifiers, context), amplifier, false, AMServerConfig.EFFECT_PARTICLES.get()));
         } else if (context.level() instanceof ServerLevel level) {
             effect.value().applyInstantenousEffect(level, context.directEntity(), context.caster(), living, amplifier, living.getHealth());
         }

@@ -592,7 +592,7 @@ public final class AMServerConfig {
         SHIELD_OVERLOAD_MULTIPLIER = builder
             .comment("If the player is at full mana and has the Shield Overload talent, the multiplier to incoming damage that will be applied.")
             .translation(AMTranslations.CONFIG_KEY + "shield_overload_multiplier")
-            .defineInRange("shield_overload_multiplier", 0.95, 1, 10);
+            .defineInRange("shield_overload_multiplier", 0.95, 0, 1);
         builder.pop();
         SPEC = builder.build();
     }

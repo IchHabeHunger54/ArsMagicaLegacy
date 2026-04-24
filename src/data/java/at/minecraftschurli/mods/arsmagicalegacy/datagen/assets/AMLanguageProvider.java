@@ -727,6 +727,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("spell_book_y", "Vertical Position", "Vertical position of the spell book GUI layer.");
         configTranslation("spell_book_anchor_x", "Horizontal Anchor", "Horizontal anchor of the spell book GUI layer.");
         configTranslation("spell_book_anchor_y", "Vertical Anchor", "Vertical anchor of the spell book GUI layer.");
+        add("enchantment", "dismembering", "Dismembering");
         add("affinity", "none", "None");
         add("affinity", "water", "Water");
         add("affinity", "fire", "Fire");

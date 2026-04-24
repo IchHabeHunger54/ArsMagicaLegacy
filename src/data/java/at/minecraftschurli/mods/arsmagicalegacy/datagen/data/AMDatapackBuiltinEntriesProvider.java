@@ -24,13 +24,12 @@ import at.minecraftschurli.mods.arsmagicalegacy.plant.UpwardsGrowthType;
 import at.minecraftschurli.mods.arsmagicalegacy.worldgen.BlockStatePropertyMatchTest;
 import at.minecraftschurli.mods.arsmagicalegacy.worldgen.CompositeMatchTest;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageEffects;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -67,7 +66,7 @@ public final class AMDatapackBuiltinEntriesProvider {
 
     public static void addEnchantments(BootstrapContext<Enchantment> bootstrap) {
         bootstrap.register(AMEnchantments.DISMEMBERING, Enchantment.enchantment(
-            Enchantment.definition(bootstrap.lookup(Registries.ITEM).getOrThrow(ItemTags.SHARP_WEAPON_ENCHANTABLE), 2, 3, Enchantment.dynamicCost(15, 9), Enchantment.dynamicCost(65, 9), 4, EquipmentSlotGroup.MAINHAND)
+            Enchantment.definition(HolderSet.empty(), 2, 3, Enchantment.dynamicCost(15, 9), Enchantment.dynamicCost(65, 9), 4, EquipmentSlotGroup.MAINHAND)
         ).build(AMEnchantments.DISMEMBERING.identifier()));
     }
 

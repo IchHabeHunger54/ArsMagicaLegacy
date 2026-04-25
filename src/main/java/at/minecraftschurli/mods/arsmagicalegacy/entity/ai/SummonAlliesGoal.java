@@ -2,16 +2,19 @@ package at.minecraftschurli.mods.arsmagicalegacy.entity.ai;
 
 import at.minecraftschurli.mods.arsmagicalegacy.entity.AbstractBoss;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.LifeGuardian;
+import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttachments;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.event.EventHooks;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class SummonAlliesGoal extends AbstractBossGoal<LifeGuardian> {
@@ -36,11 +39,15 @@ public class SummonAlliesGoal extends AbstractBossGoal<LifeGuardian> {
             }
             entity.teleportTo(boss.getX() + level.getRandom().nextDouble() * 2 - 1, boss.getY(), boss.getZ() + level.getRandom().nextDouble() * 2 - 1);
             EventHooks.finalizeMobSpawn(entity, serverLevel, serverLevel.getCurrentDifficultyAt(entity.blockPosition()), EntitySpawnReason.MOB_SUMMONED, null);
+            for (EquipmentSlot slot : EquipmentSlot.values()) {
+                entity.setDropChance(slot, 0);
+            }
             int amplifier = (int) Math.abs(2 * boss.getHealth() / boss.getMaxHealth() - 2);
             entity.addEffect(new MobEffectInstance(MobEffects.SPEED, -1, amplifier));
             entity.addEffect(new MobEffectInstance(MobEffects.STRENGTH, -1, amplifier));
             entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, -1, amplifier));
             entity.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, -1, amplifier));
+            entity.setData(AMAttachments.SUMMON_OWNER, boss.getUUID());
             level.addFreshEntity(entity);
             boss.minions.add(entity);
         }

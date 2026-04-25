@@ -12,6 +12,4 @@
     - Altar Model & BER
 - To fix
     - Whirlwind Renderer
-    - Celestial Prism duping when breaking
-    - Disable Player and Life Guardian Summon Drops
     - Altar not resetting recipes properly when taking the Spell Recipe out of the lectern

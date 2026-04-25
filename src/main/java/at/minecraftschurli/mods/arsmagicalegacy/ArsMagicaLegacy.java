@@ -62,6 +62,7 @@ public final class ArsMagicaLegacy {
         AMWorldgen.RULE_TESTS.register(bus);
         AMLoot.LOOT_CONDITIONS.register(bus);
         AMLoot.NUMBER_PROVIDERS.register(bus);
+        AMLoot.GLOBAL_LOOT_MODIFIERS.register(bus);
         AMRecipes.RECIPE_SERIALIZERS.register(bus);
         AMRecipes.RECIPE_TYPES.register(bus);
         AMAttachments.ATTACHMENTS.register(bus);

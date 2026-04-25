@@ -1,6 +1,9 @@
 package at.minecraftschurli.mods.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.mods.arsmagicalegacy.loot.AddConditionsModifier;
+import at.minecraftschurli.mods.arsmagicalegacy.loot.HasContextKeyCondition;
+import at.minecraftschurli.mods.arsmagicalegacy.loot.IsSummonCondition;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
@@ -8,11 +11,14 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.InvertedLootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
 import net.neoforged.neoforge.common.loot.AddTableLootModifier;
 import net.neoforged.neoforge.common.loot.LootTableIdCondition;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -23,6 +29,10 @@ public final class AMGlobalLootModifierProvider extends GlobalLootModifierProvid
 
     @Override
     protected void start() {
+        add("disable_summon_drops", new AddConditionsModifier(
+            new LootItemCondition[0],
+            1000,
+             new InvertedLootItemCondition(IsSummonCondition.INSTANCE)));
         addDismemberingModifier(EntityType.CREEPER);
         addDismemberingModifier(EntityType.PIGLIN);
         addDismemberingModifier(EntityType.SKELETON);
@@ -57,7 +67,7 @@ public final class AMGlobalLootModifierProvider extends GlobalLootModifierProvid
         if (optional.isEmpty()) return;
         ResourceKey<LootTable> table = optional.get();
         String path = table.identifier().getPath();
-        addModifier(table, path,  ArsMagicaApi.id(path.replace("entities/", "entities/modify/")).withSuffix("_dismembering"));
+        addModifier(table, path, ArsMagicaApi.id(path.replace("entities/", "entities/modify/")).withSuffix("_dismembering"));
     }
 
     private void addTomeModifier(ResourceKey<LootTable> table) {

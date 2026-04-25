@@ -1,13 +1,14 @@
 - Test All Spell Parts and Particles
+- Fix inlays (needs Neo changes)
+- Apply Mana Regeneration to entities swimming in Liquid Etherium (needs Neo changes)
+- Flammables (needs Neo changes, worked around)
 - Add hints for where to drop skills in the Inscription Table
 - Reduce sound volumes
-- Apply Mana Regeneration to entities swimming in Liquid Etherium (needs Neo changes)
 - Boss bars
 - Fix Render Pipelines
     - Color Wheel
     - Magitech Goggles Overlay
     - Occulus Affinity Tab Lines
-- Flammables (needs Neo changes, worked around)
 - Add Compat Recipes
 - Test With Sodium/Embeddium/Iris
     - Altar Model & BER

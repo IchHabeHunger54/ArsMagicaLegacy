@@ -12,6 +12,7 @@ public class RedstoneInlayBlock extends InlayBlock {
         super(properties);
     }
 
+/* TODO inlays
     @Override
     public float getRailMaxSpeed(BlockState state, Level level, BlockPos pos, AbstractMinecart cart) {
         float speed = super.getRailMaxSpeed(state, level, pos, cart) * AMServerConfig.REDSTONE_INLAY_SPEED_MULTIPLIER.get().floatValue();
@@ -21,4 +22,5 @@ public class RedstoneInlayBlock extends InlayBlock {
         cart.setDeltaMovement(Math.signum(x) * Math.max(Math.abs(x) * speed, speed), deltaMovement.y(), Math.signum(z) * Math.max(Math.abs(z) * speed, speed));
         return speed;
     }
+*/
 }

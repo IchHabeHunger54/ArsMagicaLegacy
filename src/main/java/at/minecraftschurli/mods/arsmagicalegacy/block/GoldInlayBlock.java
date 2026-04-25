@@ -13,6 +13,7 @@ public class GoldInlayBlock extends InlayBlock {
         super(properties);
     }
 
+/* TODO inlays
     @Override
     public float getRailMaxSpeed(BlockState state, Level level, BlockPos pos, AbstractMinecart cart) {
         if (cart.getDeltaMovement().horizontalDistance() > 0.01) {
@@ -28,4 +29,5 @@ public class GoldInlayBlock extends InlayBlock {
         }
         return super.getRailMaxSpeed(state, level, pos, cart);
     }
+*/
 }

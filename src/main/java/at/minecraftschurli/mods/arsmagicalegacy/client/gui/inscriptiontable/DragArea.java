@@ -1,5 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.client.gui.inscriptiontable;
 
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Renderable;
 import org.jspecify.annotations.Nullable;
 
@@ -22,6 +23,8 @@ public abstract class DragArea implements Renderable {
     public abstract Draggable elementAt(int mouseX, int mouseY);
 
     public abstract List<Draggable> getAll();
+
+    public abstract void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick);
 
     public boolean isHovered(int mouseX, int mouseY) {
         return mouseX >= x && mouseX < x + width && mouseY >= y && mouseY < y + height;

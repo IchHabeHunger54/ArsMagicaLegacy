@@ -30,6 +30,7 @@
 ## Inscription Table
 
 - Added a Clear button
+- Added a visual for where skills can be dragged when picked up
 - Spell Recipes can now be changed afterwards by placing them back into the table
 - Applied upgrades now show visually on the item if the block is broken, or middle-clicked in creative
 

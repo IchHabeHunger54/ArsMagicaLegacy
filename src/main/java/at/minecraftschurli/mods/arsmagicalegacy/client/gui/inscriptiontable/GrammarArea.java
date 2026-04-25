@@ -1,15 +1,20 @@
 package at.minecraftschurli.mods.arsmagicalegacy.client.gui.inscriptiontable;
 
+import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.mods.arsmagicalegacy.blockentity.InscriptionTableBlockEntity;
+import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.Nullable;
 
 public class GrammarArea extends DragTargetArea {
+    private static final Identifier BACKGROUND = ArsMagicaApi.id("textures/gui/inscription_table/grammar.png");
     private static final int X_PADDING = 4;
+    public boolean darken = false;
 
     public GrammarArea(int x, int y, int width, int height, Runnable onDrop) {
         super(x, y, width, height, 8, onDrop);
@@ -21,6 +26,14 @@ public class GrammarArea extends DragTargetArea {
         if (mouseX < x + X_PADDING || mouseX >= x + maxSize * Draggable.SIZE + X_PADDING || mouseY < y || mouseY >= y + Draggable.SIZE) return null;
         int index = (mouseX - x - X_PADDING) / Draggable.SIZE;
         return contents.size() > index ? contents.get(index) : null;
+    }
+
+    @Override
+    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        AMClientUtil.blit(graphics, BACKGROUND, x - 3, y - 3, width + 6, height + 6);
+        if (darken) {
+            graphics.fill(x - 3, y - 3, x + width + 6, y + height + 6, 0x7f000000);
+        }
     }
 
     @Override

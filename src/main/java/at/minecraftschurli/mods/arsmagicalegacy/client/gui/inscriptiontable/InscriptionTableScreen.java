@@ -36,7 +36,6 @@ import java.util.Optional;
 
 public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionTableMenu> {
     private static final Identifier BACKGROUND = ArsMagicaApi.id("textures/gui/inscription_table/background.png");
-    private static final Identifier SHAPE_GROUP = ArsMagicaApi.id("textures/gui/inscription_table/shape_group.png");
     private static final Identifier SLOT = ArsMagicaApi.id("textures/gui/inscription_table/slot.png");
     private final List<DragArea> dragAreas = new ArrayList<>();
     private final List<ShapeGroupArea> shapeGroupAreas = new ArrayList<>();
@@ -61,11 +60,12 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         super.extractBackground(graphics, mouseX, mouseY, partialTick);
         updateCachedData();
         AMClientUtil.blitFull(graphics, BACKGROUND, leftPos, topPos, imageWidth, imageHeight);
+        if (dragged != null) {
+            graphics.fill(leftPos, topPos, leftPos + 220, topPos + 165, 0x7f000000);
+        }
         AMClientUtil.blit(graphics, SLOT, leftPos + 101, topPos + 73, 18, 18);
-        for (int i = 0; i < Spell.MAX_SHAPE_GROUPS; i++) {
-            AMClientUtil.blit(graphics, SHAPE_GROUP, leftPos + 20 + i * ShapeGroupArea.WIDTH, topPos + 107, ShapeGroupArea.WIDTH, ShapeGroupArea.HEIGHT);
-            if (i < menu.getShapeGroups() && !shapeGroupAreas.get(i).locked) continue;
-            graphics.fill(leftPos + 20 + i * ShapeGroupArea.WIDTH, topPos + 107, leftPos + 20 + (i + 1) * ShapeGroupArea.WIDTH, topPos + 107 + ShapeGroupArea.HEIGHT, 0x7f000000);
+        for (DragArea dragArea : dragAreas) {
+            dragArea.extractBackground(graphics, mouseX, mouseY, partialTick);
         }
     }
 
@@ -76,8 +76,10 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         shapeGroupAreas.clear();
         dragAreas.clear();
         grammarArea = new GrammarArea(leftPos + 42, topPos + 144, 136, 16, this::onDrop);
-        for (int i = 0; i < menu.getShapeGroups(); i++) {
-            shapeGroupAreas.add(new ShapeGroupArea(leftPos + 20 + i * ShapeGroupArea.WIDTH, topPos + 107, this::onDrop));
+        for (int i = 0; i < Spell.MAX_SHAPE_GROUPS; i++) {
+            ShapeGroupArea area = new ShapeGroupArea(leftPos + 20 + i * ShapeGroupArea.WIDTH, topPos + 107, this::onDrop);
+            area.locked = i >= menu.getShapeGroups();
+            shapeGroupAreas.add(area);
         }
         sourceArea = new SpellPartSourceArea(leftPos + 42, topPos + 6, 136, 48, this);
         dragAreas.add(sourceArea);
@@ -137,7 +139,7 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         Draggable skill = getHoveredSkill(x, y);
         if (area == null || skill == null || !area.canPick(skill, x, y)) return super.mouseDragged(event, dx, dy);
         area.pick(skill, x, y);
-        dragged = skill;
+        setDragged(skill);
         return true;
     }
 
@@ -149,10 +151,10 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
         DragArea area = getHoveredArea(x, y);
         if (area != null && area.canDrop(dragged, x, y)) {
             area.drop(dragged, x, y);
-            dragged = null;
+            setDragged(null);
             return true;
         }
-        dragged = null;
+        setDragged(null);
         return super.mouseReleased(event);
     }
 
@@ -201,6 +203,14 @@ public class InscriptionTableScreen extends AbstractContainerScreen<InscriptionT
 
     public List<ShapeGroupArea> getShapeGroupAreas() {
         return shapeGroupAreas;
+    }
+
+    private void setDragged(@Nullable Draggable dragged) {
+        this.dragged = dragged;
+        if (grammarArea != null) {
+            grammarArea.darken = dragged != null && !grammarArea.canDrop(dragged, grammarArea.x, grammarArea.y);
+        }
+        shapeGroupAreas.forEach(area -> area.darken = dragged != null && !area.canDrop(dragged, area.x, area.y));
     }
 
     private void sync() {

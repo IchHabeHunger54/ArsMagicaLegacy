@@ -11,6 +11,7 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 public class SpellPartSourceArea extends DragArea {
+    private static final Identifier BACKGROUND = ArsMagicaApi.id("textures/gui/inscription_table/source.png");
     private static final int X_PADDING = 4;
     private static final int ROWS = 3;
     private static final int COLUMNS = 8;
@@ -70,6 +72,11 @@ public class SpellPartSourceArea extends DragArea {
             .filter(e -> ArsMagicaApi.magicHelper().knows(player, e))
             .map(Draggable::new)
             .toList();
+    }
+
+    @Override
+    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        AMClientUtil.blit(graphics, BACKGROUND, x - 3, y - 3, width + 6, height + 6);
     }
 
     @Override

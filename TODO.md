@@ -1,8 +1,6 @@
-- Test All Spell Parts and Particles
 - Fix inlays (needs Neo changes)
 - Apply Mana Regeneration to entities swimming in Liquid Etherium (needs Neo changes)
 - Flammables (needs Neo changes, worked around)
-- Add hints for where to drop skills in the Inscription Table
 - Reduce sound volumes
 - Boss bars
 - Fix Render Pipelines

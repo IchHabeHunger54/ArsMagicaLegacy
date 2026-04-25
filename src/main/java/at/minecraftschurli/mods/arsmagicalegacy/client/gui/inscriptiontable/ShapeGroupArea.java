@@ -1,15 +1,19 @@
 package at.minecraftschurli.mods.arsmagicalegacy.client.gui.inscriptiontable;
 
+import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPart;
+import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
 public class ShapeGroupArea extends DragTargetArea {
+    private static final Identifier BACKGROUND = ArsMagicaApi.id("textures/gui/inscription_table/shape_group.png");
     public static final int ROWS = 2;
     public static final int COLUMNS = 2;
     public static final int X_PADDING = 2;
@@ -17,6 +21,7 @@ public class ShapeGroupArea extends DragTargetArea {
     public static final int WIDTH = 36;
     public static final int HEIGHT = 34;
     public boolean locked;
+    public boolean darken = false;
 
     public ShapeGroupArea(int x, int y, Runnable onDrop) {
         super(x, y, WIDTH, HEIGHT, ROWS * COLUMNS, onDrop);
@@ -34,6 +39,14 @@ public class ShapeGroupArea extends DragTargetArea {
         index += mouseX / Draggable.SIZE;
         index += mouseY / Draggable.SIZE * COLUMNS;
         return contents.size() > index ? contents.get(index) : null;
+    }
+
+    @Override
+    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        AMClientUtil.blit(graphics, BACKGROUND, x, y, width, height);
+        if (locked || darken) {
+            graphics.fill(x, y, x + width, y + height, 0x7f000000);
+        }
     }
 
     @Override

@@ -2,7 +2,6 @@ package at.minecraftschurli.mods.arsmagicalegacy.datagen.data;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.loot.AddConditionsModifier;
-import at.minecraftschurli.mods.arsmagicalegacy.loot.HasContextKeyCondition;
 import at.minecraftschurli.mods.arsmagicalegacy.loot.IsSummonCondition;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -11,14 +10,12 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.InvertedLootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
 import net.neoforged.neoforge.common.loot.AddTableLootModifier;
 import net.neoforged.neoforge.common.loot.LootTableIdCondition;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 

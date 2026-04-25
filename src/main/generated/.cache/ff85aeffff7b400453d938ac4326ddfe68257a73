@@ -1,4 +1,4 @@
-// 26.1.2	2026-04-24T21:05:36.4251471	vanilla/Registries
+// 26.1.2	2026-04-25T22:11:12.0541774	vanilla/Registries
 9750b004179a33bed6457219d5bcfefbb6b729a3 data/arsmagicalegacy/arsmagicalegacy/ability/burnout_reduction.json
 a2824e8666445c39ca58da47aedf77d31da43cec data/arsmagicalegacy/arsmagicalegacy/ability/clarity.json
 e221ec748729376e856802165a575f146ae31065 data/arsmagicalegacy/arsmagicalegacy/ability/enderman_pumpkin.json
@@ -431,7 +431,7 @@ f5fcdab1a21b2f34da2fd2653821587061f9f8e9 data/arsmagicalegacy/damage_type/spell_
 4b4b2ff422d23e4cb6282f664d89dad7ac8ff8e6 data/arsmagicalegacy/damage_type/spell_physical_player.json
 1e71e7d6c3b4bf6cf12bcd570d4e2fa0e8f86c2a data/arsmagicalegacy/damage_type/thrown_rock.json
 43e480351c4090ce3bd0bb34e8ca673112c349b4 data/arsmagicalegacy/damage_type/whirlwind.json
-b224d4ea92916081264cc9449acbffb98a5c17eb data/arsmagicalegacy/enchantment/dismembering.json
+da43f5a7e4bf3b2774c4e06d1ce3078a2edf464f data/arsmagicalegacy/enchantment/dismembering.json
 1af933e6bdd63d767911d99a51dcb9903a7bc92b data/arsmagicalegacy/neoforge/biome_modifier/forest.json
 7e9fee72574aad1a066045f796730f51e2c850d7 data/arsmagicalegacy/neoforge/biome_modifier/jungle_or_swamp.json
 55f48c168b51e8c2c0d0f81401be2282396b3ad9 data/arsmagicalegacy/neoforge/biome_modifier/mountain.json

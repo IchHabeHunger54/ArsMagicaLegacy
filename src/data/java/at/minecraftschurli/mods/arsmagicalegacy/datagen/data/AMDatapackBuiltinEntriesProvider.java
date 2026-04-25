@@ -66,7 +66,7 @@ public final class AMDatapackBuiltinEntriesProvider {
 
     public static void addEnchantments(BootstrapContext<Enchantment> bootstrap) {
         bootstrap.register(AMEnchantments.DISMEMBERING, Enchantment.enchantment(
-            Enchantment.definition(HolderSet.empty(), 2, 3, Enchantment.dynamicCost(15, 9), Enchantment.dynamicCost(65, 9), 4, EquipmentSlotGroup.MAINHAND)
+            Enchantment.definition(HolderSet.empty(), 1, 1, Enchantment.constantCost(0), Enchantment.constantCost(0), 0)
         ).build(AMEnchantments.DISMEMBERING.identifier()));
     }
 

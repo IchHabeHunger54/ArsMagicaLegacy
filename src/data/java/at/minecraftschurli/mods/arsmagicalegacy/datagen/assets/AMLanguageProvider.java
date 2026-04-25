@@ -728,6 +728,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("spell_book_anchor_x", "Horizontal Anchor", "Horizontal anchor of the spell book GUI layer.");
         configTranslation("spell_book_anchor_y", "Vertical Anchor", "Vertical anchor of the spell book GUI layer.");
         add("enchantment", "dismembering", "Dismembering");
+        add("enchantment", "dismembering.desc", "Adds a drop chance for heads for certain mobs.");
         add("affinity", "none", "None");
         add("affinity", "water", "Water");
         add("affinity", "fire", "Fire");
@@ -916,12 +917,12 @@ public final class AMLanguageProvider extends LanguageProvider {
         add(AMTranslations.SPELL_RECIPE_INGREDIENTS_KEY, "Ingredients");
         add(AMTranslations.SPELL_RECIPE_SHAPE_GROUP_KEY, "Shape Group %s");
         add(AMTranslations.TIER_KEY, "Tier: %s");
+        add("config.jade.plugin_" + ArsMagicaApi.MOD_ID + ".altar", "Altar");
+        add("config.jade.plugin_" + ArsMagicaApi.MOD_ID + ".etherium", "Etherium");
+        add("config.jade.plugin_" + ArsMagicaApi.MOD_ID + ".tier", "Tier");
         add("key.category", "main", "Ars Magica: Legacy");
-        add("config.jade.plugin_arsmagicalegacy.altar", "Altar");
-        add("config.jade.plugin_arsmagicalegacy.etherium", "Etherium");
-        add("config.jade.plugin_arsmagicalegacy.tier", "Tier");
-        add("itemGroup." + ArsMagicaApi.MOD_ID + ".main", "Ars Magica: Legacy");
-        add("itemGroup." + ArsMagicaApi.MOD_ID + ".spell_prefabs", "Ars Magica: Legacy - Spell Prefabs");
+        add("itemGroup", "main", "Ars Magica: Legacy");
+        add("itemGroup", "spell_prefabs", "Ars Magica: Legacy - Spell Prefabs");
         add("potion.potency.5", "VI");
         add("potion.potency.6", "VII");
         add("potion.potency.7", "VIII");

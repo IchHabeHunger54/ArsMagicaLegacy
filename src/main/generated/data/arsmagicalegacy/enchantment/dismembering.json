@@ -1,20 +1,18 @@
 {
-  "anvil_cost": 4,
+  "anvil_cost": 0,
   "description": {
     "translate": "enchantment.arsmagicalegacy.dismembering"
   },
   "max_cost": {
-    "base": 65,
-    "per_level_above_first": 9
+    "base": 0,
+    "per_level_above_first": 0
   },
-  "max_level": 3,
+  "max_level": 1,
   "min_cost": {
-    "base": 15,
-    "per_level_above_first": 9
+    "base": 0,
+    "per_level_above_first": 0
   },
-  "slots": [
-    "mainhand"
-  ],
+  "slots": [],
   "supported_items": [],
-  "weight": 2
+  "weight": 1
 }

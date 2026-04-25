@@ -70,18 +70,16 @@ public class ObeliskBlock extends EtheriumGeneratorBlock {
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         Part part = state.getValue(PART);
-        BlockPos pos0 = switch (part) {
+        destroy(level, player, switch (part) {
             case UPPER -> pos.below();
             case MIDDLE -> pos.above();
             case LOWER -> pos.above(2);
-        };
-        BlockPos pos1 = switch (part) {
+        });
+        destroy(level, player, switch (part) {
             case UPPER -> pos.below(2);
             case MIDDLE -> pos.below();
             case LOWER -> pos.above();
-        };
-        destroy(level, player, pos0);
-        destroy(level, player, pos1);
+        });
         return super.playerWillDestroy(level, pos, state, player);
     }
 

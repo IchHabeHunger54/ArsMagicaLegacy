@@ -56,14 +56,13 @@ public class CelestialPrismBlock extends EtheriumGeneratorBlock {
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         BlockPos otherPos = state.getValue(PART) == Part.LOWER ? pos.above() : pos.below();
-        BlockState otherState = level.getBlockState(pos);
-        if (otherState.is(this)) {
-            level.removeBlock(otherPos, false);
-            spawnDestroyParticles(level, player, otherPos, otherState);
-            level.gameEvent(GameEvent.BLOCK_DESTROY, otherPos, GameEvent.Context.of(player, otherState));
-            if (!level.isClientSide()) {
-                dropResources(otherState, level, otherPos, level.getBlockEntity(otherPos));
-            }
+        BlockState otherState = level.getBlockState(otherPos);
+        if (!otherState.is(this)) return super.playerWillDestroy(level, pos, state, player);
+        level.removeBlock(otherPos, false);
+        spawnDestroyParticles(level, player, otherPos, otherState);
+        level.gameEvent(GameEvent.BLOCK_DESTROY, otherPos, GameEvent.Context.of(player, otherState));
+        if (!level.isClientSide()) {
+            dropResources(otherState, level, otherPos, level.getBlockEntity(otherPos));
         }
         return super.playerWillDestroy(level, pos, state, player);
     }

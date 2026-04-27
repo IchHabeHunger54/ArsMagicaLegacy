@@ -22,6 +22,7 @@ public record IsSummonCondition() implements LootItemCondition {
 
     @Override
     public boolean test(LootContext lootContext) {
+        if (!lootContext.hasParameter(LootContextParams.THIS_ENTITY)) return true;
         Entity entity = lootContext.getParameter(LootContextParams.THIS_ENTITY);
         return entity.hasData(AMAttachments.SUMMON_OWNER) && !entity.getData(AMAttachments.SUMMON_OWNER).equals(Util.NIL_UUID);
     }

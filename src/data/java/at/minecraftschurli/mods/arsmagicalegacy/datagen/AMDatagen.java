@@ -12,10 +12,10 @@ import at.minecraftschurli.mods.arsmagicalegacy.datagen.assets.AMSpriteSourcePro
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMAdvancementProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMCuriosProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMDataMapProvider;
+import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMDatapackBuiltinEntriesProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMGlobalLootModifierProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMLootTableProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMMagicProvider;
-import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMDatapackBuiltinEntriesProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMRecipeProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMTagsProvider;
 import at.minecraftschurli.mods.arsmagicalegacy.datagen.data.AMToolTierProvider;
@@ -78,6 +78,7 @@ public final class AMDatagen {
         pack.addProvider(wrap(AMTagsProvider.Enchantments::new, lookupProvider));
         pack.addProvider(wrap(AMTagsProvider.Biomes::new, lookupProvider));
         pack.addProvider(wrap(AMAdvancementProvider::new, lookupProvider));
+        pack.addProvider(wrap(AMCompatDataProvider::new, lookupProvider));
         pack.addProvider(wrap(AMCuriosProvider::new, lookupProvider));
         pack.addProvider(wrap(AMDataMapProvider::new, lookupProvider));
         pack.addProvider(wrap(AMGlobalLootModifierProvider::new, lookupProvider));

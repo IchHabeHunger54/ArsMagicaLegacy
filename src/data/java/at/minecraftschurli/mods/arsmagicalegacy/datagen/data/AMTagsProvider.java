@@ -148,7 +148,7 @@ public final class AMTagsProvider {
             tag(ItemTags.CHEST_ARMOR).add(AMItems.MAGE_CHESTPLATE.get(), AMItems.BATTLEMAGE_CHESTPLATE.get());
             tag(ItemTags.LEG_ARMOR).add(AMItems.MAGE_LEGGINGS.get(), AMItems.BATTLEMAGE_LEGGINGS.get());
             tag(ItemTags.FOOT_ARMOR).add(AMItems.MAGE_BOOTS.get(), AMItems.BATTLEMAGE_BOOTS.get());
-            tag(ItemTags.BOOKSHELF_BOOKS).add(AMItems.SPELL_BOOK.get());
+            tag(ItemTags.BOOKSHELF_BOOKS).add(AMItems.SPELL_BOOK.get(), AMItems.AFFINITY_TOME.get());
             tag(ItemTags.LECTERN_BOOKS).add(AMItems.SPELL_RECIPE.get());
             tag(ItemTags.CAULDRON_CAN_REMOVE_DYE).add(AMItems.SPELL_BOOK.get());
             tag(AMTags.Items.ARCANE_COMPENDIUM_BOOKS).add(net.minecraft.world.item.Items.BOOK);

@@ -54,6 +54,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.DryadRend
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.ManaCreeperRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.SimpleFlatEntityRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.SimpleModelEntityRenderer;
+import at.minecraftschurli.mods.arsmagicalegacy.compat.curios.AMCuriosHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.compat.patchouli.SpellPartPage;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMBlockEntities;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
@@ -89,6 +90,7 @@ import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.AddClientReloadListenersEvent;
@@ -130,6 +132,9 @@ final class AMClientEventHandler {
     @SubscribeEvent
     private static void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> PatchouliAPI.get().registerTemplateAsBuiltin(SpellPartPage.ID, () -> new ByteArrayInputStream(SpellPartPage.TEMPLATE.getBytes(StandardCharsets.UTF_8))));
+        if (ModList.get().isLoaded("curios")) {
+            AMCuriosHelper.registerMagitechGogglesRenderer();
+        }
     }
 
     @SubscribeEvent

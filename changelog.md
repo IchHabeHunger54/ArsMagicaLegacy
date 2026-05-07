@@ -63,6 +63,7 @@
 - Are no longer unbreakable
 - Can be repaired using Topaz
 - Now have visual indicators for etherium connections
+- Now visually display on the player when in a Curios slot
 
 # Skills & Spell Parts
 

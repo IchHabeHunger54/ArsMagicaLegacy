@@ -1,8 +1,10 @@
 package at.minecraftschurli.mods.arsmagicalegacy.compat.curios;
 
+import at.minecraftschurli.mods.arsmagicalegacy.init.AMItems;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.client.ICurioRenderer;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 
@@ -22,5 +24,9 @@ public final class AMCuriosHelper {
                     return false;
                 }))
             .orElse(false);
+    }
+
+    public static void registerMagitechGogglesRenderer() {
+        ICurioRenderer.register(AMItems.MAGITECH_GOGGLES.get(), MagitechGogglesCurioRenderer::new);
     }
 }

@@ -3,7 +3,6 @@
 - Flammables (needs Neo changes, worked around)
 - Reduce sound volumes
 - Boss bars
-- Magitech Goggles Curios Layer
 - Fix Render Pipelines
     - Color Wheel
     - Magitech Goggles Overlay

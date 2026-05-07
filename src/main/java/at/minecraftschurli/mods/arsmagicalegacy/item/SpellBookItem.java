@@ -5,6 +5,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.mods.arsmagicalegacy.menu.SpellBookMenu;
 import at.minecraftschurli.mods.arsmagicalegacy.container.SpellBookContainer;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -67,9 +68,9 @@ public class SpellBookItem extends Item {
         super.appendHoverText(stack, context, display, builder, tooltipFlag);
         ItemStack spell = getSelectedSpell(stack);
         if (spell.isEmpty()) {
-            builder.accept(AMTranslations.SPELL_BOOK_NO_SPELL_SELECTED);
+            builder.accept(AMTranslations.SPELL_BOOK_NO_SPELL_SELECTED.copy().withStyle(ChatFormatting.GRAY));
         } else {
-            builder.accept(Component.translatable(AMTranslations.SPELL_BOOK_SELECTED_SPELL_KEY, spell.getHoverName()));
+            builder.accept(Component.translatable(AMTranslations.SPELL_BOOK_SELECTED_SPELL_KEY, spell.getHoverName()).withStyle(ChatFormatting.GRAY));
             spell.getItem().appendHoverText(spell, context, display, builder, tooltipFlag);
         }
     }

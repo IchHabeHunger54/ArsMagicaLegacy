@@ -8,6 +8,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastResult;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
@@ -92,7 +93,7 @@ public class SpellItem extends Item {
         super.appendHoverText(stack, context, display, builder, tooltipFlag);
         Spell spell = stack.get(AMDataComponents.SPELL);
         Level level = context.level();
-        builder.accept(level == null || spell == null || spell.isMalformed() ? AMTranslations.SPELL_INVALID : Component.translatable(AMTranslations.SPELL_MANA_COST_KEY, spell.getManaCost(level.registryAccess())));
+        builder.accept((level == null || spell == null || spell.isMalformed() ? AMTranslations.SPELL_INVALID.copy() : Component.translatable(AMTranslations.SPELL_MANA_COST_KEY, spell.getManaCost(level.registryAccess()))).withStyle(ChatFormatting.GRAY));
     }
 
     @Override

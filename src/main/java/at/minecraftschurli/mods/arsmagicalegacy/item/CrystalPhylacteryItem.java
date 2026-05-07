@@ -47,14 +47,10 @@ public class CrystalPhylacteryItem extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
         Contents contents = stack.get(AMDataComponents.CRYSTAL_PHYLACTERY_CONTENTS);
         if (contents == null || contents.amount == 0) {
-            builder.accept(AMTranslations.CRYSTAL_PHYLACTERY_EMPTY);
+            builder.accept(AMTranslations.CRYSTAL_PHYLACTERY_EMPTY.copy().withStyle(ChatFormatting.GRAY));
         } else {
             EntityType<?> type = contents.type;
-            MutableComponent component = Component.translatable(AMTranslations.CRYSTAL_PHYLACTERY_KEY, type.getDescription(), contents.amount, CrystalPhylacteryContentsSize.get(type));
-            if (isFull(stack)) {
-                component.withStyle(ChatFormatting.GOLD);
-            }
-            builder.accept(component);
+            builder.accept(Component.translatable(AMTranslations.CRYSTAL_PHYLACTERY_KEY, type.getDescription(), contents.amount, CrystalPhylacteryContentsSize.get(type)).withStyle(isFull(stack) ? ChatFormatting.GOLD : ChatFormatting.GRAY));
         }
     }
 

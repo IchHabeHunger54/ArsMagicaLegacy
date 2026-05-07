@@ -14,6 +14,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellPart;
 import at.minecraftschurli.mods.arsmagicalegacy.client.particle.AMParticle;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.MagitechGogglesOverlayRenderStateImpl;
+import at.minecraftschurli.mods.arsmagicalegacy.compat.curios.AMCuriosHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
@@ -26,6 +27,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.ModLoader;
 import org.jspecify.annotations.Nullable;
 import top.theillusivec4.curios.api.CuriosApi;
@@ -64,20 +66,7 @@ public final class ArsMagicaClientApiImpl extends ArsMagicaClientApi {
     @Override
     protected boolean doShouldRenderMagitechGogglesOutline() {
         LocalPlayer player = AMClientUtil.player();
-        return player != null && (player.getItemBySlot(EquipmentSlot.HEAD).is(AMItems.MAGITECH_GOGGLES)
-            || AMUtil.ifModLoaded("curios", () -> CuriosApi.getCuriosInventory(player)
-                .map(ICuriosItemHandler::getCurios)
-                .map(map -> map.values()
-                    .stream()
-                    .map(ICurioStacksHandler::getStacks)
-                    .anyMatch(items -> {
-                        for (int i = 0; i < items.getSlots(); i++) {
-                            if (items.getStackInSlot(i).is(AMItems.MAGITECH_GOGGLES)) return true;
-                        }
-                        return false;
-                    }))
-                .orElse(false))
-            .orElse(false));
+        return player != null && (player.getItemBySlot(EquipmentSlot.HEAD).is(AMItems.MAGITECH_GOGGLES) || ModList.get().isLoaded("curios") && AMCuriosHelper.hasItemEquipped(player, AMItems.MAGITECH_GOGGLES.get()));
     }
 
     @Override

@@ -73,7 +73,6 @@ public final class AMLanguageProvider extends LanguageProvider {
         blockIdTranslation(AMBlocks.IRON_INLAY);
         blockIdTranslation(AMBlocks.GOLD_INLAY);
         blockIdTranslation(AMBlocks.VINTEUM_TORCH);
-        addBlock(AMBlocks.VINTEUM_WALL_TORCH, idTranslation(AMBlocks.VINTEUM_TORCH.getId().getPath()));
         itemIdTranslation(AMItems.VINTEUM_TORCH);
         itemIdTranslation(AMItems.SPELL_PARCHMENT);
         itemIdTranslation(AMItems.SPELL_BOOK);
@@ -177,8 +176,6 @@ public final class AMLanguageProvider extends LanguageProvider {
         blockIdTranslation(AMBlocks.WITCHWOOD_PRESSURE_PLATE);
         blockIdTranslation(AMBlocks.WITCHWOOD_SIGN);
         blockIdTranslation(AMBlocks.WITCHWOOD_HANGING_SIGN);
-        addBlock(AMBlocks.WITCHWOOD_WALL_SIGN, idTranslation(AMBlocks.WITCHWOOD_SIGN.getId().getPath()));
-        addBlock(AMBlocks.WITCHWOOD_WALL_HANGING_SIGN, idTranslation(AMBlocks.WITCHWOOD_HANGING_SIGN.getId().getPath()));
         itemIdTranslation(AMItems.WITCHWOOD_SIGN);
         itemIdTranslation(AMItems.WITCHWOOD_HANGING_SIGN);
         itemIdTranslation(AMItems.WITCHWOOD_BOAT);

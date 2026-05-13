@@ -3,10 +3,12 @@ package at.minecraftschurli.mods.arsmagicalegacy.api.client.screen;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
@@ -47,8 +49,9 @@ public abstract class AbstractContainerSpellPartCustomizationScreen<T> extends A
     protected void init() {
         super.init();
         leftPos = (width - imageWidth) / 2;
-        topPos = (height - imageHeight) / 2;
+        topPos = (height - imageHeight) / 2 - 12;
         addSlots();
+        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, _ -> onClose()).bounds(width / 2 - 100, topPos + imageHeight + 4, 200, 20).build());
     }
 
     @Override

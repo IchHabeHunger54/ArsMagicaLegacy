@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.UUID;
@@ -24,7 +25,8 @@ public record SetSpellRuneOwnerPacket(BlockPos pos, UUID uuid) implements Custom
     }
 
     public void handle(IPayloadContext context) {
-        if (context.player().level().getBlockEntity(pos) instanceof SpellRuneBlockEntity spellRune) {
+        Level level = context.player().level();
+        if (level.isLoaded(pos) && level.getBlockEntity(pos) instanceof SpellRuneBlockEntity spellRune) {
             spellRune.setOwner(uuid);
         }
     }

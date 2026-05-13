@@ -24,8 +24,8 @@ public record LecternSyncPacket(BlockPos pos, ItemStack stack) implements Custom
     }
 
     public void handle(IPayloadContext context) {
-        Level level = AMClientUtil.level();
-        if (level != null && level.getBlockEntity(pos) instanceof LecternBlockEntity lectern) {
+        Level level = context.player().level();
+        if (level.isLoaded(pos) && level.getBlockEntity(pos) instanceof LecternBlockEntity lectern) {
             lectern.setBook(stack);
         }
     }

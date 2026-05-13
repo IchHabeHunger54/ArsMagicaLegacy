@@ -125,6 +125,7 @@ public abstract class AbstractBoss extends Monster implements GeoEntity, SpellCa
 
     @Override
     public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+        if (source.typeHolder().is(DamageTypes.GENERIC_KILL)) return super.hurtServer(level, source, damage);
         if (source.getEntity() instanceof AbstractBoss) return false;
         if (source.is(DamageTypes.IN_WALL)) {
             if (!level().isClientSide()) {
@@ -148,10 +149,7 @@ public abstract class AbstractBoss extends Monster implements GeoEntity, SpellCa
         if (source.is(isVulnerableTo)) {
             damage *= 2;
         }
-        SoundEvent sound = getHurtSound(source);
-        if (sound != null) {
-            level().playSound(null, this, sound, SoundSource.HOSTILE, 1f, 0.5f + random.nextFloat() * 0.5f);
-        }
+        level().playSound(null, this, getHurtSound(source), SoundSource.HOSTILE, 1f, 0.5f + random.nextFloat() * 0.5f);
         return super.hurtServer(level, source, damage);
     }
 

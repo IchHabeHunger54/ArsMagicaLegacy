@@ -52,7 +52,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.block.SpellRuneR
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.BossRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.DryadRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.ManaCreeperRenderer;
-import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.SimpleFlatEntityRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.entity.SimpleModelEntityRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.compat.curios.AMCuriosHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.compat.patchouli.SpellPartPage;
@@ -185,7 +184,7 @@ final class AMClientEventHandler {
         event.registerEntityRenderer(AMEntities.NATURE_SCYTHE.get(), context -> new SimpleModelEntityRenderer<>(context, AMModelLayers.NATURE_SCYTHE, AMEntityModel::new, AMModelLayers.NATURE_SCYTHE_TEXTURE));
         event.registerEntityRenderer(AMEntities.THROWN_ROCK.get(), context -> new SimpleModelEntityRenderer<>(context, AMModelLayers.THROWN_ROCK, AMEntityModel::new, AMModelLayers.THROWN_ROCK_TEXTURE));
         event.registerEntityRenderer(AMEntities.SHOCKWAVE.get(), NoopRenderer::new);
-        event.registerEntityRenderer(AMEntities.WHIRLWIND.get(), context -> new SimpleFlatEntityRenderer<>(context, AMModelLayers.WHIRLWIND));
+        event.registerEntityRenderer(AMEntities.WHIRLWIND.get(), NoopRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.ALTAR_CORE.get(), AltarCoreRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.BLACK_AUREM.get(), BlackAuremRenderer::new);
         event.registerBlockEntityRenderer(AMBlockEntities.CELESTIAL_PRISM.get(), EtheriumBlockEntityRenderer::new);

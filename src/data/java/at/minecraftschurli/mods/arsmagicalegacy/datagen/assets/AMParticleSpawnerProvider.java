@@ -15,6 +15,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.particle.controller.MoveI
 import at.minecraftschurli.mods.arsmagicalegacy.client.particle.controller.OrbitPointController;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.FallingStar;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ManaVortex;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.Whirlwind;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMParticles;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.mods.arsmagicalegacy.spell.component.Heal;
@@ -46,6 +47,8 @@ public final class AMParticleSpawnerProvider extends ParticleSpawnerProvider {
             .speed(-0.1, 0.1, -0.1, 0.1, -0.1, 0.1)
             .color(0x3d3dcc)
             .controller(new FadeOutController(false, true, 0.05f));
+        builder(Whirlwind.PARTICLES, AMParticles.WIND.get(), 1, 10)
+            .scale(10f);
         builder(AMSpells.ABSORPTION.getId(), AMParticles.STARDUST.get(), 25, 20)
             .offset(-0.5, 0.5, -1.5, -0.5, -0.5, 0.5)
             .color(0x007fff)

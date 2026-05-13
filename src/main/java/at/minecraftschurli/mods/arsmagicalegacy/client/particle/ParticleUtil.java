@@ -11,6 +11,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.entity.FallingStar;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ManaVortex;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.SpellEntity;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.SpellShapeEntity;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.Whirlwind;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -88,6 +89,10 @@ public final class ParticleUtil {
         } else if (duration <= 5) {
             spawnParticles(ManaVortex.PARTICLES_DEATH, entity.position(), -1, null, entity, null);
         }
+    }
+
+    public static void spawnWhirlwindParticles(Whirlwind entity) {
+        spawnParticles(Whirlwind.PARTICLES, entity.position(), -1, null, entity, null);
     }
 
     public static void spawnSpellEntityParticles(SpellEntity entity, double range, double verticalRange, int color, @Nullable LivingEntity caster) {

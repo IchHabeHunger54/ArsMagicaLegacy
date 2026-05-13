@@ -11,6 +11,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.entity.FallingStar;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ManaVortex;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.SpellEntity;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.SpellShapeEntity;
+import at.minecraftschurli.mods.arsmagicalegacy.entity.Whirlwind;
 import com.geckolib.constant.DataTickets;
 import com.geckolib.constant.dataticket.DataTicket;
 import com.google.common.reflect.TypeToken;
@@ -176,6 +177,10 @@ public final class AMClientUtil {
 
     public static void spawnManaVortexParticles(ManaVortex entity) {
         ParticleUtil.spawnManaVortexParticles(entity);
+    }
+
+    public static void spawnWhirlwindParticles(Whirlwind entity) {
+        ParticleUtil.spawnWhirlwindParticles(entity);
     }
 
     public static void spawnSpellEntityParticles(SpellEntity entity, double range, double verticalRange, int color, @Nullable LivingEntity caster) {

@@ -1,7 +1,11 @@
 package at.minecraftschurli.mods.arsmagicalegacy.entity;
 
+import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMDamageTypes;
+import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -13,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Whirlwind extends AbstractOwnableEntity {
+    public static final Identifier PARTICLES = ArsMagicaApi.id("whirlwind");
     private final Map<Player, Integer> cooldowns = new HashMap<>();
 
     public Whirlwind(EntityType<? extends Whirlwind> type, Level level) {
@@ -27,7 +32,9 @@ public class Whirlwind extends AbstractOwnableEntity {
     @Override
     public void tick() {
         super.tick();
-        if (!level().isClientSide() && tickCount > 140) {
+        if (level().isClientSide()) {
+            AMClientUtil.spawnWhirlwindParticles(this);
+        } else if (tickCount > 140) {
             remove(RemovalReason.KILLED);
         }
         cooldowns.replaceAll((_, v) -> Math.max(v - 1, 0));
@@ -38,8 +45,8 @@ public class Whirlwind extends AbstractOwnableEntity {
     public void playerTouch(Player player) {
         super.playerTouch(player);
         if (!(level() instanceof ServerLevel level) || player.isCreative()) return;
-        Integer cd = cooldowns.get(player);
-        if (cd == null || cd <= 0) {
+        Integer cooldown = cooldowns.get(player);
+        if (cooldown == null || cooldown <= 0) {
             if (random.nextInt(100) < 10) {
                 int slot = player.getInventory().getNonEquipmentItems().size() + random.nextInt(4);
                 ItemStack stack = player.getInventory().getItem(slot).copy();
@@ -51,7 +58,7 @@ public class Whirlwind extends AbstractOwnableEntity {
                 }
             }
             player.hurtServer(level, damageSource(AMDamageTypes.WHIRLWIND), 6);
-            player.setDeltaMovement(getDeltaMovement().x() + random.nextFloat() * 0.2f, getDeltaMovement().y() + 0.8, getDeltaMovement().z() + random.nextFloat() * 0.2f);
+            player.setDeltaMovement(getDeltaMovement().x() + random.nextFloat() * 0.2f, getDeltaMovement().y() + 0.2 + random.nextFloat() * 0.2, getDeltaMovement().z() + random.nextFloat() * 0.2f);
             player.fallDistance = 0f;
             cooldowns.put(player, 20);
         }

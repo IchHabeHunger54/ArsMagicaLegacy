@@ -1,4 +1,4 @@
-// 26.1.2	2026-04-12T00:35:42.2560007	vanilla/Particle Spawners: arsmagicalegacy
+// 26.1.2	2026-05-13T20:10:45.2854592	vanilla/Particle Spawners: arsmagicalegacy
 e4969cfd4d822ac668d9d33209b58f951fed2627 assets/arsmagicalegacy/arsmagicalegacy/particle_spawners/absorption.json
 e591995933c88633610f2b834f35d2f7cb54a485 assets/arsmagicalegacy/arsmagicalegacy/particle_spawners/arcane_compendium_conversion.json
 b8d04eb2b39eb1fd7a952629851e679b0fc0bedf assets/arsmagicalegacy/arsmagicalegacy/particle_spawners/arcane_compendium_conversion_finish.json
@@ -70,4 +70,5 @@ dc415778378000075988c9dfb24e2bcffd56d935 assets/arsmagicalegacy/arsmagicalegacy/
 e38327175b60a09f683df1c1e79e4ed769495eec assets/arsmagicalegacy/arsmagicalegacy/particle_spawners/watery_grave.json
 36646e35e9438a47ee4562aca1dbbfb5cec41183 assets/arsmagicalegacy/arsmagicalegacy/particle_spawners/water_breathing.json
 e2c4d63e12eb5fa79ffd26a826cba00bc2abf943 assets/arsmagicalegacy/arsmagicalegacy/particle_spawners/wave.json
+7acf0c0bc48e349f0a4b89b63613b5b7c3c0e2c7 assets/arsmagicalegacy/arsmagicalegacy/particle_spawners/whirlwind.json
 c94b043293e60153f540ea1e8b3ed1b81d9ae86b assets/arsmagicalegacy/arsmagicalegacy/particle_spawners/zone.json

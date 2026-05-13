@@ -2,7 +2,6 @@
 - Apply Mana Regeneration to entities swimming in Liquid Etherium (needs Neo changes)
 - Reduce sound volumes
 - Boss bars
-- Fix Whirlwind renderer
 - Fix Render Pipelines
     - Color Wheel
     - Magitech Goggles Overlay

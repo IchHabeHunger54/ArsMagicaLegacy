@@ -1,8 +1,8 @@
 - Fix inlays (needs Neo changes)
 - Apply Mana Regeneration to entities swimming in Liquid Etherium (needs Neo changes)
-- Flammables (needs Neo changes, worked around)
 - Reduce sound volumes
 - Boss bars
+- Fix Whirlwind renderer
 - Fix Render Pipelines
     - Color Wheel
     - Magitech Goggles Overlay
@@ -10,6 +10,3 @@
 - Add Compat Recipes
 - Test With Sodium/Embeddium/Iris
     - Altar Model & BER
-- To fix
-    - Whirlwind Renderer
-    - Altar not resetting recipes properly when taking the Spell Recipe out of the lectern

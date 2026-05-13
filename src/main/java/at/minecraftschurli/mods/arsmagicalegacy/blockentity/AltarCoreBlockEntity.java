@@ -17,6 +17,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
+import at.minecraftschurli.mods.arsmagicalegacy.packet.LecternSyncPacket;
 import at.minecraftschurli.mods.arsmagicalegacy.spell.EtheriumSpellIngredient;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.Codec;
@@ -27,9 +28,11 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -48,6 +51,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.model.data.ModelData;
 import net.neoforged.neoforge.model.data.ModelProperty;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jspecify.annotations.Nullable;
 
 import java.util.HashMap;
@@ -139,6 +143,8 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
                 level.setBlockAndUpdate(pos, state.setValue(AltarCoreBlock.FORMED, multiblock));
             }
             requestModelDataUpdate();
+        } else {
+            checkRecipe();
         }
         if (!state.getValue(AltarCoreBlock.FORMED) || spell.isEmpty() || recipe == null) return;
         if (currentIngredient >= recipe.size()) {
@@ -193,24 +199,29 @@ public class AltarCoreBlockEntity extends AMBlockEntity<AltarCoreBlockEntity.Dat
             }
         }
         if (lecternPos == null || leverPos == null || material == null || capMaterial == null || direction == null) return false;
-        if (!level.getBlockState(lecternPos).is(Blocks.LECTERN) || !(level.getBlockEntity(lecternPos) instanceof LecternBlockEntity lectern)) return false;
-        if (!level.getBlockState(leverPos).is(Blocks.LEVER)) return false;
+        if (!level.getBlockState(lecternPos).is(Blocks.LECTERN) || !level.getBlockState(leverPos).is(Blocks.LEVER)) return false;
         if (pattern.matches(level, getBlockPos().relative(direction, 2).relative(direction.getClockWise(), 2).below(4), Direction.UP, direction) == null) return false;
         camo = material.block().defaultBlockState();
         power = material.power() + capMaterial.power();
-        if (!level.isClientSide()) {
-            ItemStack stack = lectern.getBook();
-            spell = stack.has(AMDataComponents.SPELL) ? stack.get(AMDataComponents.SPELL) : Spell.EMPTY;
-            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
+        checkRecipe();
+        setChanged();
+        return true;
+    }
+
+    private void checkRecipe() {
+        if (lecternPos == null || !(level.getBlockEntity(lecternPos) instanceof LecternBlockEntity lectern)) return;
+        ItemStack stack = lectern.getBook();
+        if (level instanceof ServerLevel serverLevel) {
+            PacketDistributor.sendToPlayersTrackingChunk(serverLevel, ChunkPos.containing(lecternPos), new LecternSyncPacket(lecternPos, stack));
         }
+        spell = stack.has(AMDataComponents.SPELL) ? stack.get(AMDataComponents.SPELL) : Spell.EMPTY;
         SpellHelper helper = ArsMagicaApi.spellHelper();
         RegistryAccess registryAccess = level.registryAccess();
         recipe = helper.getFlatRecipe(spell, registryAccess).size() <= power ? helper.getRecipe(spell, registryAccess) : null;
-        if (recipe == null) {
+        if (recipe == null || spell.isEmpty()) {
             currentIngredient = 0;
         }
         setChanged();
-        return true;
     }
 
     @Override

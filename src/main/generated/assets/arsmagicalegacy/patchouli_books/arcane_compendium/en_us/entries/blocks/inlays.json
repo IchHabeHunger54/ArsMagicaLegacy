@@ -10,17 +10,11 @@
     {
       "type": "patchouli:crafting",
       "recipe": "arsmagicalegacy:redstone_inlay",
-      "text": "item.arsmagicalegacy.arcane_compendium.blocks.inlays.page1.text"
+      "recipe2": "arsmagicalegacy:iron_inlay"
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "arsmagicalegacy:iron_inlay",
-      "text": "item.arsmagicalegacy.arcane_compendium.blocks.inlays.page2.text"
-    },
-    {
-      "type": "patchouli:crafting",
-      "recipe": "arsmagicalegacy:gold_inlay",
-      "text": "item.arsmagicalegacy.arcane_compendium.blocks.inlays.page3.text"
+      "recipe": "arsmagicalegacy:gold_inlay"
     }
   ]
 }

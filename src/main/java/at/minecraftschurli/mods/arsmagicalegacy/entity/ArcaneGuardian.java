@@ -11,6 +11,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
 import net.minecraft.core.Registry;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -21,7 +22,7 @@ import java.util.List;
 
 public class ArcaneGuardian extends AbstractBoss {
     public ArcaneGuardian(EntityType<? extends ArcaneGuardian> type, Level level) {
-        super(type, level, AMTags.DamageTypes.ARCANE_GUARDIAN_IS_VULNERABLE_TO, AMTags.DamageTypes.ARCANE_GUARDIAN_IS_IMMUNE_TO, AMTags.DamageTypes.ARCANE_GUARDIAN_IS_HEAL_TO);
+        super(type, level, BossEvent.BossBarColor.PINK, AMTags.DamageTypes.ARCANE_GUARDIAN_IS_VULNERABLE_TO, AMTags.DamageTypes.ARCANE_GUARDIAN_IS_IMMUNE_TO, AMTags.DamageTypes.ARCANE_GUARDIAN_IS_HEAL_TO);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

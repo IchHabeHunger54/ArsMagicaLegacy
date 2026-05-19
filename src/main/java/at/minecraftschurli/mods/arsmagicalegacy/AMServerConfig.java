@@ -20,6 +20,8 @@ public final class AMServerConfig {
     public static final ModConfigSpec.IntValue ARCANE_COMPENDIUM_CONVERSION_DURATION;
     public static final ModConfigSpec.IntValue ARCANE_COMPENDIUM_CONVERSION_HORIZONTAL_RANGE;
     public static final ModConfigSpec.IntValue ARCANE_COMPENDIUM_CONVERSION_VERTICAL_RANGE;
+    public static final ModConfigSpec.DoubleValue BOSS_PLAYER_CHECK_DISTANCE;
+    public static final ModConfigSpec.IntValue BOSS_PLAYER_CHECK_INTERVAL;
     public static final ModConfigSpec.IntValue DRYAD_GROW_INTERVAL;
     public static final ModConfigSpec.DoubleValue DRYAD_GROW_CHANCE;
     public static final ModConfigSpec.IntValue DRYAD_GROW_RADIUS;
@@ -179,6 +181,14 @@ public final class AMServerConfig {
             .defineInRange("arcane_compendium_conversion_vertical_range", 2, 1, 16);
         builder.pop();
         builder.comment("Configuration for the various entities.").push("entities");
+        BOSS_PLAYER_CHECK_DISTANCE = builder
+            .comment("The distance from a boss within which the boss bar will be shown.")
+            .translation(AMTranslations.CONFIG_KEY + "boss_player_check_distance")
+            .defineInRange("boss_player_check_distance", 32., 1, 128);
+        BOSS_PLAYER_CHECK_INTERVAL = builder
+            .comment("The time in ticks between the boss checking for players in its range to show the boss bar to.")
+            .translation(AMTranslations.CONFIG_KEY + "boss_player_check_interval")
+            .defineInRange("boss_player_check_interval", 20, 1, 1200);
         DRYAD_GROW_INTERVAL = builder
             .comment("The time in ticks between a Dryad growing nearby plants.")
             .translation(AMTranslations.CONFIG_KEY + "dryad_grow_interval")

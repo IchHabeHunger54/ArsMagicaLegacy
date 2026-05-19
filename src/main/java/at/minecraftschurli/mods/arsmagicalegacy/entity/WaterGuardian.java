@@ -17,6 +17,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
@@ -45,7 +46,7 @@ public class WaterGuardian extends AbstractBoss {
     private WaterGuardian clone2 = null;
 
     public WaterGuardian(EntityType<? extends WaterGuardian> type, Level level) {
-        super(type, level, AMTags.DamageTypes.WATER_GUARDIAN_IS_VULNERABLE_TO, AMTags.DamageTypes.WATER_GUARDIAN_IS_IMMUNE_TO, AMTags.DamageTypes.WATER_GUARDIAN_IS_HEAL_TO);
+        super(type, level, BossEvent.BossBarColor.BLUE, AMTags.DamageTypes.WATER_GUARDIAN_IS_VULNERABLE_TO, AMTags.DamageTypes.WATER_GUARDIAN_IS_IMMUNE_TO, AMTags.DamageTypes.WATER_GUARDIAN_IS_HEAL_TO);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

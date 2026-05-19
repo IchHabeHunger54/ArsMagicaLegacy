@@ -78,6 +78,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.packet.SpellCustomizationPacket;
 import at.minecraftschurli.mods.arsmagicalegacy.packet.TakeSpellRecipeFromLecternPacket;
 import at.minecraftschurli.mods.arsmagicalegacy.spell.ToolTiers;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
+import at.minecraftschurli.mods.arsmagicalegacy.util.BossBar;
 import at.minecraftschurli.mods.arsmagicalegacy.util.DispenseBucketBehavior;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.commands.CommandBuildContext;
@@ -147,6 +148,7 @@ import net.neoforged.neoforge.event.entity.player.AdvancementEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.fluids.RegisterCauldronFluidContentEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -391,6 +393,13 @@ final class AMEventHandler {
             }
         }
         entity.setData(AMAttachments.SUMMON_MINIONS, attachment);
+    }
+
+    @SubscribeEvent
+    private static void levelTickPost(LevelTickEvent.Post event) {
+        if (event.getLevel() instanceof ServerLevel level) {
+            BossBar.tickAll(level);
+        }
     }
 
     @SubscribeEvent

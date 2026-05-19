@@ -8,6 +8,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.ThrowScytheGoal;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMAttributes;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSounds;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -23,7 +24,7 @@ public class NatureGuardian extends AbstractBoss {
     private boolean hasScythe = true;
 
     public NatureGuardian(EntityType<? extends NatureGuardian> type, Level level) {
-        super(type, level, AMTags.DamageTypes.NATURE_GUARDIAN_IS_VULNERABLE_TO, AMTags.DamageTypes.NATURE_GUARDIAN_IS_IMMUNE_TO, AMTags.DamageTypes.NATURE_GUARDIAN_IS_HEAL_TO);
+        super(type, level, BossEvent.BossBarColor.GREEN, AMTags.DamageTypes.NATURE_GUARDIAN_IS_VULNERABLE_TO, AMTags.DamageTypes.NATURE_GUARDIAN_IS_IMMUNE_TO, AMTags.DamageTypes.NATURE_GUARDIAN_IS_HEAL_TO);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

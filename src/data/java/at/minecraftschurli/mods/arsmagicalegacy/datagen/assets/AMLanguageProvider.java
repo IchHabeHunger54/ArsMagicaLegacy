@@ -600,6 +600,8 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("arcane_compendium_conversion_horizontal_range", "Arcane Compendium Conversion Horizontal Range", "The horizontal range of the Arcane Compendium conversion.");
         configTranslation("arcane_compendium_conversion_vertical_range", "Arcane Compendium Conversion Vertical Range", "The vertical range of the Arcane Compendium conversion.");
         configTranslation("entities", "Entities", "Configuration for the various entities.");
+        configTranslation("boss_player_check_distance", "Boss Player Check Distance", "The distance from a boss within which the boss bar will be shown.");
+        configTranslation("boss_player_check_interval", "Boss Player Check Interval", "The time in ticks between the boss checking for players in its range to show the boss bar to.");
         configTranslation("dryad_grow_interval", "Dryad Grow Interval", "The time in ticks between a Dryad growing nearby plants.");
         configTranslation("dryad_grow_chance", "Dryad Grow Chance", "The chance of a Dryad growing nearby plants successfully.");
         configTranslation("dryad_grow_radius", "Dryad Grow Radius", "The radius of a Dryad's growing effect.");

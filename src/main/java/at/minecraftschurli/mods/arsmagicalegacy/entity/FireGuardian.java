@@ -14,6 +14,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -27,7 +28,7 @@ import java.util.Objects;
 
 public class FireGuardian extends AbstractBoss {
     public FireGuardian(EntityType<? extends FireGuardian> type, Level level) {
-        super(type, level, AMTags.DamageTypes.FIRE_GUARDIAN_IS_VULNERABLE_TO, AMTags.DamageTypes.FIRE_GUARDIAN_IS_IMMUNE_TO, AMTags.DamageTypes.FIRE_GUARDIAN_IS_HEAL_TO);
+        super(type, level, BossEvent.BossBarColor.RED, AMTags.DamageTypes.FIRE_GUARDIAN_IS_VULNERABLE_TO, AMTags.DamageTypes.FIRE_GUARDIAN_IS_IMMUNE_TO, AMTags.DamageTypes.FIRE_GUARDIAN_IS_HEAL_TO);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

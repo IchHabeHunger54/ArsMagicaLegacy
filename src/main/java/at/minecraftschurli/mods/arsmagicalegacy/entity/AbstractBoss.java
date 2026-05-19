@@ -4,6 +4,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCasterEntity;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.BossNearestAttackableTargetGoal;
 import at.minecraftschurli.mods.arsmagicalegacy.entity.ai.DispelGoal;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
+import at.minecraftschurli.mods.arsmagicalegacy.util.BossBar;
 import com.geckolib.animatable.GeoEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
 import com.geckolib.animatable.manager.AnimatableManager;
@@ -16,6 +17,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -36,12 +38,16 @@ public abstract class AbstractBoss extends Monster implements GeoEntity, SpellCa
     protected final TagKey<DamageType> isVulnerableTo;
     protected final TagKey<DamageType> isImmuneTo;
     protected final TagKey<DamageType> isHealTo;
+    private final BossEvent.BossBarColor color;
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private int ticksInAction = 0;
     private Action action = Action.IDLE;
+    @Nullable
+    private BossBar bossBar;
 
-    protected AbstractBoss(EntityType<? extends AbstractBoss> type, Level level, TagKey<DamageType> isVulnerableTo, TagKey<DamageType> isImmuneTo, TagKey<DamageType> isHealTo) {
+    protected AbstractBoss(EntityType<? extends AbstractBoss> type, Level level, BossEvent.BossBarColor color, TagKey<DamageType> isVulnerableTo, TagKey<DamageType> isImmuneTo, TagKey<DamageType> isHealTo) {
         super(type, level);
+        this.color = color;
         this.isVulnerableTo = isVulnerableTo;
         this.isImmuneTo = isImmuneTo;
         this.isHealTo = isHealTo;
@@ -109,6 +115,9 @@ public abstract class AbstractBoss extends Monster implements GeoEntity, SpellCa
     @Override
     public void aiStep() {
         super.aiStep();
+        if (bossBar == null && level() instanceof ServerLevel server) {
+            BossBar.getList(server).add(new BossBar(server, this, color));
+        }
         ticksInAction++;
     }
 

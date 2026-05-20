@@ -150,6 +150,7 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.RegisterCauldronFluidContentEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
@@ -341,7 +342,7 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void registerCauldronFluidContent(RegisterCauldronFluidContentEvent event) {
-        event.register(AMBlocks.LIQUID_ETHERIUM_CAULDRON.get(), AMFluids.LIQUID_ETHERIUM.get(), 1000, null);
+        event.register(AMBlocks.LIQUID_ETHERIUM_CAULDRON.get(), AMFluids.LIQUID_ETHERIUM.get(), FluidType.BUCKET_VOLUME, null);
     }
 
     @SubscribeEvent

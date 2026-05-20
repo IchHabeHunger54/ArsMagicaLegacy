@@ -5,6 +5,5 @@
     - Color Wheel
     - Magitech Goggles Overlay
     - Occulus Affinity Tab Lines
-- Add Compat Recipes
 - Test With Sodium/Embeddium/Iris
     - Altar Model & BER

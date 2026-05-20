@@ -78,7 +78,7 @@ public final class AMDatagen {
         pack.addProvider(wrap(AMTagsProvider.Enchantments::new, lookupProvider));
         pack.addProvider(wrap(AMTagsProvider.Biomes::new, lookupProvider));
         pack.addProvider(wrap(AMAdvancementProvider::new, lookupProvider));
-        //pack.addProvider(wrap(AMCompatDataProvider::new, lookupProvider));
+        pack.addProvider(wrap(AMCompatDataProvider::new, lookupProvider));
         pack.addProvider(wrap(AMCuriosProvider::new, lookupProvider));
         pack.addProvider(wrap(AMDataMapProvider::new, lookupProvider));
         pack.addProvider(wrap(AMGlobalLootModifierProvider::new, lookupProvider));

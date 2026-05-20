@@ -143,7 +143,7 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerFluidModels(RegisterFluidModelsEvent event) {
-        event.register(new FluidModel.Unbaked(new Material(ArsMagicaApi.id("block/liquid_etherium_still")), new Material(ArsMagicaApi.id("block/liquid_etherium_flowing")), null, null), AMFluids.LIQUID_ETHERIUM::value, AMFluids.FLOWING_LIQUID_ETHERIUM::value);
+        event.register(new FluidModel.Unbaked(new Material(ArsMagicaApi.id("block/liquid_etherium_still")), new Material(ArsMagicaApi.id("block/liquid_etherium_flowing")), null, null), AMFluids.LIQUID_ETHERIUM, AMFluids.FLOWING_LIQUID_ETHERIUM);
     }
 
     @SubscribeEvent

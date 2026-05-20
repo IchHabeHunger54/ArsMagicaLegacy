@@ -9,17 +9,13 @@ import net.minecraft.world.phys.EntityHitResult;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Represents a spell component. Components are part of the {@link SpellGrammar}.
- * <p>
- * Extend this class directly for target-independent effects, e.g. time or weather components. Extend one of the inner subclasses for target-dependent effects instead.
- */
+/// Represents a spell component. Components are part of the [SpellGrammar].
+///
+/// Extend this class directly for target-independent effects, e.g. time or weather components. Extend one of the inner subclasses for target-dependent effects instead.
 public abstract non-sealed class SpellComponent extends SpellPart {
     private final Set<SpellStat> stats;
 
-    /**
-     * @param stats A vararg of {@link SpellStat}s used by the component.
-     */
+    /// @param stats A vararg of [SpellStat]s used by the component.
     public SpellComponent(SpellStat... stats) {
         this.stats = Sets.newHashSet(stats);
         this.stats.add(SpellStat.COLOR);
@@ -50,21 +46,17 @@ public abstract non-sealed class SpellComponent extends SpellPart {
         return stats;
     }
 
-    /**
-     * Casts the part.
-     *
-     * @param modifiers The {@link SpellModifier}s to consider.
-     * @param context   The {@link SpellCastContext} to use.
-     * @return A {@link SpellComponentCastResult} representing the result of the cast.
-     */
+    /// Casts the part.
+    ///
+    /// @param modifiers The [SpellModifier]s to consider.
+    /// @param context   The [SpellCastContext] to use.
+    /// @return A [SpellComponentCastResult] representing the result of the cast.
     public abstract SpellComponentCastResult cast(List<SpellModifier> modifiers, SpellCastContext context);
 
-    /**
-     * Spawns particles for the part. May only be called on the client.
-     *
-     * @param modifiers The {@link SpellModifier}s to consider.
-     * @param context   The {@link SpellCastContext} to use.
-     */
+    /// Spawns particles for the part. May only be called on the client.
+    ///
+    /// @param modifiers The [SpellModifier]s to consider.
+    /// @param context   The [SpellCastContext] to use.
     @SuppressWarnings("DataFlowIssue")
     public void spawnParticles(List<SpellModifier> modifiers, SpellCastContext context) {
         if (!context.isHitResultNullOrMiss()) {
@@ -72,13 +64,9 @@ public abstract non-sealed class SpellComponent extends SpellPart {
         }
     }
 
-    /**
-     * Represents a spell component that only affects blocks.
-     */
+    /// Represents a spell component that only affects blocks.
     public static abstract class CastBlock extends SpellComponent {
-        /**
-         * @param stats A vararg of {@link SpellStat}s used by the component.
-         */
+        /// @param stats A vararg of [SpellStat]s used by the component.
         public CastBlock(SpellStat... stats) {
             super(stats);
         }
@@ -95,24 +83,18 @@ public abstract non-sealed class SpellComponent extends SpellPart {
             }
         }
 
-        /**
-         * Casts this part on a block.
-         *
-         * @param modifiers The {@link SpellModifier}s to consider.
-         * @param context   The {@link SpellCastContext} to use.
-         * @param hitResult The {@link BlockHitResult} of the spell cast. This is provided for convenience and will be the cast version of {@link SpellCastContext#hitResult()}.
-         * @return A {@link SpellComponentCastResult} representing the result of the cast.
-         */
+        /// Casts this part on a block.
+        ///
+        /// @param modifiers The [SpellModifier]s to consider.
+        /// @param context   The [SpellCastContext] to use.
+        /// @param hitResult The [BlockHitResult] of the spell cast. This is provided for convenience and will be the cast version of [SpellCastContext#hitResult()].
+        /// @return A [SpellComponentCastResult] representing the result of the cast.
         public abstract SpellComponentCastResult castBlock(List<SpellModifier> modifiers, SpellCastContext context, BlockHitResult hitResult);
     }
 
-    /**
-     * Represents a spell component that only affects entities.
-     */
+    /// Represents a spell component that only affects entities.
     public static abstract class CastEntity extends SpellComponent {
-        /**
-         * @param stats A vararg of {@link SpellStat}s used by the component.
-         */
+        /// @param stats A vararg of [SpellStat]s used by the component.
         public CastEntity(SpellStat... stats) {
             super(stats);
         }
@@ -129,24 +111,18 @@ public abstract non-sealed class SpellComponent extends SpellPart {
             }
         }
 
-        /**
-         * Casts this part on an entity.
-         *
-         * @param modifiers The {@link SpellModifier}s to consider.
-         * @param context   The {@link SpellCastContext} to use.
-         * @param hitResult The {@link EntityHitResult} of the spell cast. This is provided for convenience and will be the cast version of {@link SpellCastContext#hitResult()}.
-         * @return A {@link SpellComponentCastResult} representing the result of the cast.
-         */
+        /// Casts this part on an entity.
+        ///
+        /// @param modifiers The [SpellModifier]s to consider.
+        /// @param context   The [SpellCastContext] to use.
+        /// @param hitResult The [EntityHitResult] of the spell cast. This is provided for convenience and will be the cast version of [SpellCastContext#hitResult()].
+        /// @return A [SpellComponentCastResult] representing the result of the cast.
         public abstract SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult);
     }
 
-    /**
-     * Represents a spell component that affects both blocks and entities, with distinct effects on each.
-     */
+    /// Represents a spell component that affects both blocks and entities, with distinct effects on each.
     public static abstract class CastBoth extends SpellComponent {
-        /**
-         * @param stats A vararg of {@link SpellStat}s used by the component.
-         */
+        /// @param stats A vararg of [SpellStat]s used by the component.
         public CastBoth(SpellStat... stats) {
             super(stats);
         }
@@ -160,24 +136,20 @@ public abstract non-sealed class SpellComponent extends SpellPart {
             };
         }
 
-        /**
-         * Casts this part on a block.
-         *
-         * @param modifiers The {@link SpellModifier}s to consider.
-         * @param context   The {@link SpellCastContext} to use.
-         * @param hitResult The {@link BlockHitResult} of the spell cast. This is provided for convenience and will be the cast version of {@link SpellCastContext#hitResult()}.
-         * @return A {@link SpellComponentCastResult} representing the result of the cast.
-         */
+        /// Casts this part on a block.
+        ///
+        /// @param modifiers The [SpellModifier]s to consider.
+        /// @param context   The [SpellCastContext] to use.
+        /// @param hitResult The [BlockHitResult] of the spell cast. This is provided for convenience and will be the cast version of [SpellCastContext#hitResult()].
+        /// @return A [SpellComponentCastResult] representing the result of the cast.
         public abstract SpellComponentCastResult castBlock(List<SpellModifier> modifiers, SpellCastContext context, BlockHitResult hitResult);
 
-        /**
-         * Casts this part on an entity.
-         *
-         * @param modifiers The {@link SpellModifier}s to consider.
-         * @param context   The {@link SpellCastContext} to use.
-         * @param hitResult The {@link EntityHitResult} of the spell cast. This is provided for convenience and will be the cast version of {@link SpellCastContext#hitResult()}.
-         * @return A {@link SpellComponentCastResult} representing the result of the cast.
-         */
+        /// Casts this part on an entity.
+        ///
+        /// @param modifiers The [SpellModifier]s to consider.
+        /// @param context   The [SpellCastContext] to use.
+        /// @param hitResult The [EntityHitResult] of the spell cast. This is provided for convenience and will be the cast version of [SpellCastContext#hitResult()].
+        /// @return A [SpellComponentCastResult] representing the result of the cast.
         public abstract SpellComponentCastResult castEntity(List<SpellModifier> modifiers, SpellCastContext context, EntityHitResult hitResult);
     }
 }

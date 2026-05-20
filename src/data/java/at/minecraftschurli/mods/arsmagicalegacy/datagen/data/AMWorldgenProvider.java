@@ -174,30 +174,26 @@ public final class AMWorldgenProvider {
         ));
     }
 
-    /**
-     * Registers a {@link ConfiguredFeature}.
-     *
-     * @param bootstrap The {@link BootstrapContext} to use.
-     * @param key       The {@link ResourceKey} to use.
-     * @param feature   The registered {@link Feature} type to use.
-     * @param config    The {@link FeatureConfiguration} to use.
-     * @param <F>       The exact type of the {@link Feature}.
-     * @param <C>       The exact type of the {@link FeatureConfiguration}.
-     */
+    /// Registers a [ConfiguredFeature].
+    ///
+    /// @param bootstrap The [BootstrapContext] to use.
+    /// @param key       The [ResourceKey] to use.
+    /// @param feature   The registered [Feature] type to use.
+    /// @param config    The [FeatureConfiguration] to use.
+    /// @param <F>       The exact type of the [Feature].
+    /// @param <C>       The exact type of the [FeatureConfiguration].
     private static <F extends Feature<C>, C extends FeatureConfiguration> void register(BootstrapContext<ConfiguredFeature<?, ?>> bootstrap, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, C config) {
         bootstrap.register(key, new ConfiguredFeature<>(feature, config));
     }
 
-    /**
-     * Registers a {@link ConfiguredFeature} for an ore.
-     *
-     * @param bootstrap                The {@link BootstrapContext} to use.
-     * @param key                      The {@link ResourceKey} to use.
-     * @param ore                      The ore block to place.
-     * @param deepslateOre             The deepslate ore block to place.
-     * @param veinSize                 The ore vein size.
-     * @param airExposureDiscardChance The chance that a vein will be discarded if it touches air.
-     */
+    /// Registers a [ConfiguredFeature] for an ore.
+    ///
+    /// @param bootstrap                The [BootstrapContext] to use.
+    /// @param key                      The [ResourceKey] to use.
+    /// @param ore                      The ore block to place.
+    /// @param deepslateOre             The deepslate ore block to place.
+    /// @param veinSize                 The ore vein size.
+    /// @param airExposureDiscardChance The chance that a vein will be discarded if it touches air.
     private static void registerOre(BootstrapContext<ConfiguredFeature<?, ?>> bootstrap, ResourceKey<ConfiguredFeature<?, ?>> key, DeferredBlock<?> ore, DeferredBlock<?> deepslateOre, int veinSize, float airExposureDiscardChance) {
         register(bootstrap, key, Feature.ORE, new OreConfiguration(
             List.of(OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), ore.get().defaultBlockState()), OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), deepslateOre.get().defaultBlockState())),
@@ -206,64 +202,54 @@ public final class AMWorldgenProvider {
         ));
     }
 
-    /**
-     * Registers a {@link ConfiguredFeature} for a flower.
-     *
-     * @param bootstrap The {@link BootstrapContext} to use.
-     * @param key       The {@link ResourceKey} to use.
-     * @param flower    The flower to place.
-     */
+    /// Registers a [ConfiguredFeature] for a flower.
+    ///
+    /// @param bootstrap The [BootstrapContext] to use.
+    /// @param key       The [ResourceKey] to use.
+    /// @param flower    The flower to place.
     private static void registerFlower(BootstrapContext<ConfiguredFeature<?, ?>> bootstrap, ResourceKey<ConfiguredFeature<?, ?>> key, DeferredBlock<?> flower) {
         register(bootstrap, key, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(flower.get())));
     }
 
-    /**
-     * Registers a {@link PlacedFeature}.
-     *
-     * @param bootstrap         The {@link BootstrapContext} to use.
-     * @param key               The {@link ResourceKey} to use.
-     * @param configuredFeature The {@link ConfiguredFeature} to use as a base.
-     * @param modifiers         The {@link PlacementModifier}s to apply to the {@link PlacedFeature}.
-     */
+    /// Registers a [PlacedFeature].
+    ///
+    /// @param bootstrap         The [BootstrapContext] to use.
+    /// @param key               The [ResourceKey] to use.
+    /// @param configuredFeature The [ConfiguredFeature] to use as a base.
+    /// @param modifiers         The [PlacementModifier]s to apply to the [PlacedFeature].
     private static void register(BootstrapContext<PlacedFeature> bootstrap, ResourceKey<PlacedFeature> key, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, List<PlacementModifier> modifiers) {
         bootstrap.register(key, new PlacedFeature(bootstrap.lookup(Registries.CONFIGURED_FEATURE).getOrThrow(configuredFeature), modifiers));
     }
 
-    /**
-     * Registers a {@link PlacedFeature} for an ore.
-     *
-     * @param bootstrap            The {@link BootstrapContext} to use.
-     * @param key                  The {@link ResourceKey} to use.
-     * @param configuredFeature    The {@link ConfiguredFeature} to use as a base.
-     * @param veinCount            How common veins should be.
-     * @param heightRangePlacement The height range distribution to use.
-     */
+    /// Registers a [PlacedFeature] for an ore.
+    ///
+    /// @param bootstrap            The [BootstrapContext] to use.
+    /// @param key                  The [ResourceKey] to use.
+    /// @param configuredFeature    The [ConfiguredFeature] to use as a base.
+    /// @param veinCount            How common veins should be.
+    /// @param heightRangePlacement The height range distribution to use.
     private static void registerOre(BootstrapContext<PlacedFeature> bootstrap, ResourceKey<PlacedFeature> key, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, int veinCount, HeightRangePlacement heightRangePlacement) {
         register(bootstrap, key, configuredFeature, List.of(CountPlacement.of(veinCount), InSquarePlacement.spread(), heightRangePlacement, BiomeFilter.biome()));
     }
 
-    /**
-     * Registers a {@link PlacedFeature} for a flower.
-     *
-     * @param bootstrap         The {@link BootstrapContext} to use.
-     * @param key               The {@link ResourceKey} to use.
-     * @param configuredFeature The {@link ConfiguredFeature} to use as a base.
-     * @param rarity            How rare patches should be.
-     * @param count             The amount of placement tries.
-     */
+    /// Registers a [PlacedFeature] for a flower.
+    ///
+    /// @param bootstrap         The [BootstrapContext] to use.
+    /// @param key               The [ResourceKey] to use.
+    /// @param configuredFeature The [ConfiguredFeature] to use as a base.
+    /// @param rarity            How rare patches should be.
+    /// @param count             The amount of placement tries.
     private static void registerFlower(BootstrapContext<PlacedFeature> bootstrap, ResourceKey<PlacedFeature> key, ResourceKey<ConfiguredFeature<?, ?>> configuredFeature, int rarity, int count) {
         register(bootstrap, key, configuredFeature, List.of(RarityFilter.onAverageOnceEvery(rarity), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), CountPlacement.of(count), RandomOffsetPlacement.ofTriangle(6, 2), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)));
     }
 
-    /**
-     * Registers a {@link BiomeModifiers.AddFeaturesBiomeModifier}.
-     *
-     * @param bootstrap The {@link BootstrapContext} to use.
-     * @param key       The {@link ResourceKey} to use.
-     * @param biomes    A {@link HolderSet} of biomes where the features will be added.
-     * @param step      The generation step to use.
-     * @param features  The keys of the features to generate.
-     */
+    /// Registers a [BiomeModifiers.AddFeaturesBiomeModifier].
+    ///
+    /// @param bootstrap The [BootstrapContext] to use.
+    /// @param key       The [ResourceKey] to use.
+    /// @param biomes    A [HolderSet] of biomes where the features will be added.
+    /// @param step      The generation step to use.
+    /// @param features  The keys of the features to generate.
     @SafeVarargs
     private static void register(BootstrapContext<BiomeModifier> bootstrap, ResourceKey<BiomeModifier> key, HolderSet<Biome> biomes, GenerationStep.Decoration step, ResourceKey<PlacedFeature>... features) {
         bootstrap.register(key, new BiomeModifiers.AddFeaturesBiomeModifier(biomes, HolderSets.direct(bootstrap, Registries.PLACED_FEATURE, features), step));

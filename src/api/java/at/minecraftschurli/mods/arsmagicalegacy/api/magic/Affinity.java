@@ -19,19 +19,17 @@ import net.minecraft.util.Util;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Represents an affinity.
- *
- * @param directOpposite The direct opposite affinity. When shifting into an affinity, one will also shift away by a large amount from the direct opposite.
- * @param majorOpposites The major opposite affinities. When shifting into an affinity, one will also shift away by a moderate amount from the major opposites.
- * @param minorOpposites The minor opposite affinities. When shifting into an affinity, one will also shift away by a small amount from the minor opposites.
- * @param adjacents      The adjacent affinities. When shifting into an affinity, one will also shift towards the adjacents by a small amount.
- * @param color          The color of the affinity.
- * @param index          The index of the affinity when displaying in the occulus. The built-in affinities use int values 1-10, use floating point values to insert your affinities between them. Use values &lt; 0 to not display the affinity in the occulus.
- * @param castSound      The {@link SoundEvent} to use for casting {@link Spell}s with the affinity.
- * @param loopSound      The {@link SoundEvent} to use for casting continuous {@link Spell}s with the affinity.
- * @param particle       The {@link ParticleOptions} to associate with the affinity.
- */
+/// Represents an affinity.
+///
+/// @param directOpposite The direct opposite affinity. When shifting into an affinity, one will also shift away by a large amount from the direct opposite.
+/// @param majorOpposites The major opposite affinities. When shifting into an affinity, one will also shift away by a moderate amount from the major opposites.
+/// @param minorOpposites The minor opposite affinities. When shifting into an affinity, one will also shift away by a small amount from the minor opposites.
+/// @param adjacents      The adjacent affinities. When shifting into an affinity, one will also shift towards the adjacents by a small amount.
+/// @param color          The color of the affinity.
+/// @param index          The index of the affinity when displaying in the occulus. The built-in affinities use int values 1-10, use floating point values to insert your affinities between them. Use values < 0 to not display the affinity in the occulus.
+/// @param castSound      The [SoundEvent] to use for casting [Spell]s with the affinity.
+/// @param loopSound      The [SoundEvent] to use for casting continuous [Spell]s with the affinity.
+/// @param particle       The [ParticleOptions] to associate with the affinity.
 public record Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> majorOpposites, List<Holder<Affinity>> minorOpposites, List<Holder<Affinity>> adjacents, int color, double index, Optional<Holder<SoundEvent>> castSound, Optional<Holder<SoundEvent>> loopSound, ParticleOptions particle) {
     public static final Codec<Affinity> DIRECT_CODEC = Util.make(() -> {
         Codec<Holder<Affinity>> codec = Codec.lazyInitialized(() -> Affinity.CODEC);
@@ -50,25 +48,21 @@ public record Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> m
     public static final Codec<Holder<Affinity>> CODEC = RegistryFileCodec.create(AMRegistries.Keys.AFFINITY, DIRECT_CODEC);
     public static final ResourceKey<Affinity> NONE = ResourceKey.create(AMRegistries.Keys.AFFINITY, ArsMagicaApi.id("none"));
 
-    /**
-     * @param directOpposite The direct opposite affinity.
-     * @param majorOpposites The major opposite affinities.
-     * @param minorOpposites The minor opposite affinities.
-     * @param adjacents      The adjacent affinities.
-     * @param color          The color of the affinity.
-     * @param index          The index of the affinity when displaying in the occulus.
-     * @param castSound      The {@link SoundEvent} to use for casting spells with the affinity.
-     * @param loopSound      The {@link SoundEvent} to use for casting continuous spells with the affinity.
-     * @param particle       The {@link ParticleOptions} to associate with the affinity.
-     */
+    /// @param directOpposite The direct opposite affinity.
+    /// @param majorOpposites The major opposite affinities.
+    /// @param minorOpposites The minor opposite affinities.
+    /// @param adjacents      The adjacent affinities.
+    /// @param color          The color of the affinity.
+    /// @param index          The index of the affinity when displaying in the occulus.
+    /// @param castSound      The [SoundEvent] to use for casting spells with the affinity.
+    /// @param loopSound      The [SoundEvent] to use for casting continuous spells with the affinity.
+    /// @param particle       The [ParticleOptions] to associate with the affinity.
     public Affinity(Holder<Affinity> directOpposite, List<Holder<Affinity>> majorOpposites, List<Holder<Affinity>> minorOpposites, List<Holder<Affinity>> adjacents, int color, double index, Holder<SoundEvent> castSound, Holder<SoundEvent> loopSound, ParticleOptions particle) {
         this(directOpposite, majorOpposites, minorOpposites, adjacents, color, index, Optional.of(castSound), Optional.of(loopSound), particle);
     }
 
-    /**
-     * @param holder The affinity {@link Holder} to query.
-     * @return The display name of the given affinity.
-     */
+    /// @param holder The affinity [Holder] to query.
+    /// @return The display name of the given affinity.
     @SuppressWarnings("DataFlowIssue")
     public static MutableComponent getName(Holder<Affinity> holder) {
         return Component.translatable(Util.makeDescriptionId("affinity", holder.getKey().identifier()));

@@ -28,246 +28,178 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 import org.jetbrains.annotations.ApiStatus;
 
-/**
- * Holds all registries added by the mod, including getters for the datapack registries.
- */
+/// Holds all registries added by the mod, including getters for the datapack registries.
 @ApiStatus.NonExtendable
 public interface AMRegistries {
-    /**
-     * The registry for {@link AbilityEffect}s.
-     */
+    /// The registry for [AbilityEffect]s.
     Registry<MapCodec<? extends AbilityEffect>> ABILITY_EFFECTS = new RegistryBuilder<>(Keys.ABILITY_EFFECT).sync(true).create();
-    /**
-     * The registry for {@link GrowthType}s.
-     */
+    /// The registry for [GrowthType]s.
     Registry<MapCodec<? extends GrowthType>> GROWTH_TYPES = new RegistryBuilder<>(Keys.GROWTH_TYPE).sync(true).create();
-    /**
-     * The registry for {@link RitualEffect}s.
-     */
+    /// The registry for [RitualEffect]s.
     Registry<MapCodec<? extends RitualEffect>> RITUAL_EFFECTS = new RegistryBuilder<>(Keys.RITUAL_EFFECT).sync(true).create();
-    /**
-     * The registry for {@link RitualRequirement}s.
-     */
+    /// The registry for [RitualRequirement]s.
     Registry<MapCodec<? extends RitualRequirement>> RITUAL_REQUIREMENTS = new RegistryBuilder<>(Keys.RITUAL_REQUIREMENT).sync(true).create();
-    /**
-     * The registry for {@link RitualTrigger}s.
-     */
+    /// The registry for [RitualTrigger]s.
     Registry<MapCodec<? extends RitualTrigger<?>>> RITUAL_TRIGGERS = new RegistryBuilder<>(Keys.RITUAL_TRIGGER).sync(true).create();
-    /**
-     * The registry for {@link SpellIngredient}s.
-     */
+    /// The registry for [SpellIngredient]s.
     Registry<MapCodec<? extends SpellIngredient>> SPELL_INGREDIENTS = new RegistryBuilder<>(Keys.SPELL_INGREDIENT).sync(true).create();
-    /**
-     * The registry for {@link SpellPart}s.
-     */
+    /// The registry for [SpellPart]s.
     Registry<SpellPart> SPELL_PARTS = new RegistryBuilder<>(Keys.SPELL_PART).sync(true).create();
 
-    /**
-     * @param registryAccess The {@link RegistryAccess} to use.
-     * @return The registry for {@link Ability}s.
-     */
+    /// @param registryAccess The [RegistryAccess] to use.
+    /// @return The registry for [Ability]s.
     static Registry<Ability> abilities(RegistryAccess registryAccess) {
         return registryAccess.lookupOrThrow(Keys.ABILITY);
     }
 
-    /**
-     * @param client True if this is called from a client context, false if this is called from a server context.
-     * @return The registry for {@link Ability}s.
-     */
+    /// @param client True if this is called from a client context, false if this is called from a server context.
+    /// @return The registry for [Ability]s.
     static Registry<Ability> abilities(boolean client) {
         return abilities(registryAccess(client));
     }
 
-    /**
-     * @param registryAccess The {@link RegistryAccess} to use.
-     * @return The registry for {@link Affinity}s.
-     */
+    /// @param registryAccess The [RegistryAccess] to use.
+    /// @return The registry for [Affinity]s.
     static Registry<Affinity> affinities(RegistryAccess registryAccess) {
         return registryAccess.lookupOrThrow(Keys.AFFINITY);
     }
 
-    /**
-     * @param client True if this is called from a client context, false if this is called from a server context.
-     * @return The registry for {@link Affinity}s.
-     */
+    /// @param client True if this is called from a client context, false if this is called from a server context.
+    /// @return The registry for [Affinity]s.
     static Registry<Affinity> affinities(boolean client) {
         return affinities(registryAccess(client));
     }
 
-    /**
-     * @param registryAccess The {@link RegistryAccess} to use.
-     * @return The registry for {@link AltarCapMaterial}s.
-     */
+    /// @param registryAccess The [RegistryAccess] to use.
+    /// @return The registry for [AltarCapMaterial]s.
     static Registry<AltarCapMaterial> altarCapMaterials(RegistryAccess registryAccess) {
         return registryAccess.lookupOrThrow(Keys.ALTAR_CAP_MATERIAL);
     }
 
-    /**
-     * @param client True if this is called from a client context, false if this is called from a server context.
-     * @return The registry for {@link AltarCapMaterial}s.
-     */
+    /// @param client True if this is called from a client context, false if this is called from a server context.
+    /// @return The registry for [AltarCapMaterial]s.
     static Registry<AltarCapMaterial> altarCapMaterials(boolean client) {
         return altarCapMaterials(registryAccess(client));
     }
 
-    /**
-     * @param registryAccess The {@link RegistryAccess} to use.
-     * @return The registry for {@link AltarMaterial}s.
-     */
+    /// @param registryAccess The [RegistryAccess] to use.
+    /// @return The registry for [AltarMaterial]s.
     static Registry<AltarMaterial> altarMaterials(RegistryAccess registryAccess) {
         return registryAccess.lookupOrThrow(Keys.ALTAR_MATERIAL);
     }
 
-    /**
-     * @param client True if this is called from a client context, false if this is called from a server context.
-     * @return The registry for {@link AltarMaterial}s.
-     */
+    /// @param client True if this is called from a client context, false if this is called from a server context.
+    /// @return The registry for [AltarMaterial]s.
     static Registry<AltarMaterial> altarMaterials(boolean client) {
         return altarMaterials(registryAccess(client));
     }
 
-    /**
-     * @param registryAccess The {@link RegistryAccess} to use.
-     * @return The registry for {@link EtheriumType}s.
-     */
+    /// @param registryAccess The [RegistryAccess] to use.
+    /// @return The registry for [EtheriumType]s.
     static Registry<EtheriumType> etheriumTypes(RegistryAccess registryAccess) {
         return registryAccess.lookupOrThrow(Keys.ETHERIUM_TYPE);
     }
 
-    /**
-     * @param client True if this is called from a client context, false if this is called from a server context.
-     * @return The registry for {@link EtheriumType}s.
-     */
+    /// @param client True if this is called from a client context, false if this is called from a server context.
+    /// @return The registry for [EtheriumType]s.
     static Registry<EtheriumType> etheriumTypes(boolean client) {
         return etheriumTypes(registryAccess(client));
     }
 
-    /**
-     * @param registryAccess The {@link RegistryAccess} to use.
-     * @return The registry for {@link OcculusTab}s.
-     */
+    /// @param registryAccess The [RegistryAccess] to use.
+    /// @return The registry for [OcculusTab]s.
     static Registry<OcculusTab> occulusTabs(RegistryAccess registryAccess) {
         return registryAccess.lookupOrThrow(Keys.OCCULUS_TAB);
     }
 
-    /**
-     * @param client True if this is called from a client context, false if this is called from a server context.
-     * @return The registry for {@link OcculusTab}s.
-     */
+    /// @param client True if this is called from a client context, false if this is called from a server context.
+    /// @return The registry for [OcculusTab]s.
     static Registry<OcculusTab> occulusTabs(boolean client) {
         return occulusTabs(registryAccess(client));
     }
 
-    /**
-     * @param registryAccess The {@link RegistryAccess} to use.
-     * @return The registry for {@link Plant}s.
-     */
+    /// @param registryAccess The [RegistryAccess] to use.
+    /// @return The registry for [Plant]s.
     static Registry<Plant> plants(RegistryAccess registryAccess) {
         return registryAccess.lookupOrThrow(Keys.PLANT);
     }
 
-    /**
-     * @param client True if this is called from a client context, false if this is called from a server context.
-     * @return The registry for {@link Plant}s.
-     */
+    /// @param client True if this is called from a client context, false if this is called from a server context.
+    /// @return The registry for [Plant]s.
     static Registry<Plant> plants(boolean client) {
         return plants(registryAccess(client));
     }
 
-    /**
-     * @param registryAccess The {@link RegistryAccess} to use.
-     * @return The registry for {@link Ritual}s.
-     */
+    /// @param registryAccess The [RegistryAccess] to use.
+    /// @return The registry for [Ritual]s.
     static Registry<Ritual<?>> rituals(RegistryAccess registryAccess) {
         return registryAccess.lookupOrThrow(Keys.RITUAL);
     }
 
-    /**
-     * @param client True if this is called from a client context, false if this is called from a server context.
-     * @return The registry for {@link Ritual}s.
-     */
+    /// @param client True if this is called from a client context, false if this is called from a server context.
+    /// @return The registry for [Ritual]s.
     static Registry<Ritual<?>> rituals(boolean client) {
         return rituals(registryAccess(client));
     }
 
-    /**
-     * @param registryAccess The {@link RegistryAccess} to use.
-     * @return The registry for {@link Skill}s.
-     */
+    /// @param registryAccess The [RegistryAccess] to use.
+    /// @return The registry for [Skill]s.
     static Registry<Skill> skills(RegistryAccess registryAccess) {
         return registryAccess.lookupOrThrow(Keys.SKILL);
     }
 
-    /**
-     * @param client True if this is called from a client context, false if this is called from a server context.
-     * @return The registry for {@link Skill}s.
-     */
+    /// @param client True if this is called from a client context, false if this is called from a server context.
+    /// @return The registry for [Skill]s.
     static Registry<Skill> skills(boolean client) {
         return skills(registryAccess(client));
     }
 
-    /**
-     * @param registryAccess The {@link RegistryAccess} to use.
-     * @return The registry for {@link SkillPoint}s.
-     */
+    /// @param registryAccess The [RegistryAccess] to use.
+    /// @return The registry for [SkillPoint]s.
     static Registry<SkillPoint> skillPoints(RegistryAccess registryAccess) {
         return registryAccess.lookupOrThrow(Keys.SKILL_POINT);
     }
 
-    /**
-     * @param client True if this is called from a client context, false if this is called from a server context.
-     * @return The registry for {@link SkillPoint}s.
-     */
+    /// @param client True if this is called from a client context, false if this is called from a server context.
+    /// @return The registry for [SkillPoint]s.
     static Registry<SkillPoint> skillPoints(boolean client) {
         return skillPoints(registryAccess(client));
     }
 
-    /**
-     * @param registryAccess The {@link RegistryAccess} to use.
-     * @return The registry for {@link SpellPartData}s.
-     */
+    /// @param registryAccess The [RegistryAccess] to use.
+    /// @return The registry for [SpellPartData]s.
     static Registry<SpellPartData> spellPartData(RegistryAccess registryAccess) {
         return registryAccess.lookupOrThrow(Keys.SPELL_PART_DATA);
     }
 
-    /**
-     * @param client True if this is called from a client context, false if this is called from a server context.
-     * @return The registry for {@link SpellPartData}s.
-     */
+    /// @param client True if this is called from a client context, false if this is called from a server context.
+    /// @return The registry for [SpellPartData]s.
     static Registry<SpellPartData> spellPartData(boolean client) {
         return spellPartData(registryAccess(client));
     }
 
-    /**
-     * @param registryAccess The {@link RegistryAccess} to use.
-     * @return The registry for {@link Spell} prefabs.
-     */
+    /// @param registryAccess The [RegistryAccess] to use.
+    /// @return The registry for [Spell] prefabs.
     static Registry<Spell> spellPrefabs(RegistryAccess registryAccess) {
         return registryAccess.lookupOrThrow(Keys.SPELL_PREFAB);
     }
 
-    /**
-     * @param client True if this is called from a client context, false if this is called from a server context.
-     * @return The registry for {@link Spell} prefabs.
-     */
+    /// @param client True if this is called from a client context, false if this is called from a server context.
+    /// @return The registry for [Spell] prefabs.
     static Registry<Spell> spellPrefabs(boolean client) {
         return spellPrefabs(registryAccess(client));
     }
 
-    /**
-     * Returns the correct {@link RegistryAccess} for the current side.
-     * Note that during scenarios such as world loading, this may be unreliable, use more reliable sources there, e.g. {@link Level#registryAccess()}.
-     *
-     * @param client True if this is called from a client context, false if this is called from a server context.
-     * @return The correct {@link RegistryAccess} for the current side.
-     */
+    /// Returns the correct [RegistryAccess] for the current side.
+    /// Note that during scenarios such as world loading, this may be unreliable, use more reliable sources there, e.g. [Level#registryAccess()].
+    ///
+    /// @param client True if this is called from a client context, false if this is called from a server context.
+    /// @return The correct [RegistryAccess] for the current side.
     static RegistryAccess registryAccess(boolean client) {
         return client ? ClientRegistryAccess.get() : ServerRegistryAccess.get();
     }
 
-    /**
-     * Holds all registry keys used by the mod.
-     */
+    /// Holds all registry keys used by the mod.
     @ApiStatus.NonExtendable
     interface Keys {
         // @formatter:off

@@ -8,12 +8,10 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.world.level.block.Block;
 
-/**
- * Represents an altar's cap material.
- *
- * @param block The {@link Block} of the cap material.
- * @param power The power of the material.
- */
+/// Represents an altar's cap material.
+///
+/// @param block The [Block] of the cap material.
+/// @param power The power of the material.
 public record AltarCapMaterial(Block block, int power) {
     public static final Codec<AltarCapMaterial> DIRECT_CODEC = RecordCodecBuilder.create(inst -> inst.group(
         BuiltInRegistries.BLOCK.byNameCodec().fieldOf("block").forGetter(AltarCapMaterial::block),

@@ -16,47 +16,37 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.SequencedSet;
 
-/**
- * Simple implementation of an etherium generator, as used by the three generators in the base mod (Obelisk, Celestial Prism and Black Aurem).
- */
+/// Simple implementation of an etherium generator, as used by the three generators in the base mod (Obelisk, Celestial Prism and Black Aurem).
 public abstract class EtheriumGeneratorBlockEntity extends BlockEntity implements EtheriumHandler {
     private static final String ETHERIUM_KEY = "etherium";
     private static final SequencedSet<BlockPos> POSITIONS = Collections.unmodifiableSequencedSet(new LinkedHashSet<>());
     protected final ResourceKey<EtheriumType> etheriumType;
     protected int etherium = 0;
 
-    /**
-     * @param type         The registered {@link BlockEntityType}.
-     * @param pos          The {@link BlockPos}, as supplied by {@link net.minecraft.world.level.block.EntityBlock#newBlockEntity(BlockPos, BlockState)}.
-     * @param state        The {@link BlockState}, as supplied by {@link net.minecraft.world.level.block.EntityBlock#newBlockEntity(BlockPos, BlockState)}.
-     * @param etheriumType The {@link EtheriumType} of the generator.
-     */
+    /// @param type         The registered [BlockEntityType].
+    /// @param pos          The [BlockPos], as supplied by [net.minecraft.world.level.block.EntityBlock#newBlockEntity(BlockPos, BlockState)].
+    /// @param state        The [BlockState], as supplied by [net.minecraft.world.level.block.EntityBlock#newBlockEntity(BlockPos, BlockState)].
+    /// @param etheriumType The [EtheriumType] of the generator.
     public EtheriumGeneratorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, ResourceKey<EtheriumType> etheriumType) {
         super(type, pos, state);
         this.etheriumType = etheriumType;
     }
 
-    /**
-     * Ticks the block entity.
-     *
-     * @param level The {@link Level}.
-     * @param pos   The {@link BlockPos}.
-     * @param state The {@link BlockState}.
-     */
+    /// Ticks the block entity.
+    ///
+    /// @param level The [Level].
+    /// @param pos   The [BlockPos].
+    /// @param state The [BlockState].
     public abstract void tick(Level level, BlockPos pos, BlockState state);
 
-    /**
-     * @return The max etherium amount that can be stored. Usually resolved from a config value or similar.
-     */
+    /// @return The max etherium amount that can be stored. Usually resolved from a config value or similar.
     public abstract int getMaxAmount();
 
-    /**
-     * Returns the tier of the generator at the given position.
-     *
-     * @param level The {@link Level} the generator is in.
-     * @param pos   The {@link BlockPos} at which the check should place.
-     * @return The tier of the generator.
-     */
+    /// Returns the tier of the generator at the given position.
+    ///
+    /// @param level The [Level] the generator is in.
+    /// @param pos   The [BlockPos] at which the check should place.
+    /// @return The tier of the generator.
     public abstract int getTier(Level level, BlockPos pos);
 
     @Override

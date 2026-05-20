@@ -23,10 +23,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Data provider for {@link ParticleSpawner}s. Override {@link ParticleSpawnerProvider#generate(HolderLookup.Provider)} to generate your entries,
- * and use {@link ParticleSpawnerProvider#builder(Identifier, ParticleOptions, int, int)} or {@link ParticleSpawnerProvider#builder(Identifier, ParticleOptions, int, int, int)} to create a new {@link ParticleSpawnerBuilder}.
- */
+/// Data provider for [ParticleSpawner]s. Override [ParticleSpawnerProvider#generate(HolderLookup.Provider)] to generate your entries,
+/// and use [ParticleSpawnerProvider#builder(Identifier, ParticleOptions, int, int)] or [ParticleSpawnerProvider#builder(Identifier, ParticleOptions, int, int, int)] to create a new [ParticleSpawnerBuilder].
 public abstract class ParticleSpawnerProvider implements DataProvider {
     private static final String EXCEPTION_MESSAGE = "Failed to encode %s: %s";
     private final PackOutput.PathProvider pathProvider;
@@ -34,11 +32,9 @@ public abstract class ParticleSpawnerProvider implements DataProvider {
     private final String modId;
     private final List<ParticleSpawnerBuilder> builders = new ArrayList<>();
 
-    /**
-     * @param output         The {@link PackOutput} to use. Get this from {@link GatherDataEvent}.
-     * @param lookupProvider The lookup {@link CompletableFuture} to use. Get this from {@link GatherDataEvent}.
-     * @param modId          Your mod id.
-     */
+    /// @param output         The [PackOutput] to use. Get this from [GatherDataEvent].
+    /// @param lookupProvider The lookup [CompletableFuture] to use. Get this from [GatherDataEvent].
+    /// @param modId          Your mod id.
     public ParticleSpawnerProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, String modId) {
         this.pathProvider = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, ArsMagicaApi.MOD_ID + "/particle_spawners");
         this.lookupProvider = lookupProvider;
@@ -73,38 +69,32 @@ public abstract class ParticleSpawnerProvider implements DataProvider {
         return "Particle Spawners: " + modId;
     }
 
-    /**
-     * Override this to generate your objects.
-     *
-     * @param provider The {@link HolderLookup.Provider} provided by the system. Use this to perform registry lookups if needed.
-     */
+    /// Override this to generate your objects.
+    ///
+    /// @param provider The [HolderLookup.Provider] provided by the system. Use this to perform registry lookups if needed.
     public abstract void generate(HolderLookup.Provider provider);
 
-    /**
-     * Creates and adds a new {@link ParticleSpawnerBuilder}.
-     *
-     * @param id          The id of the {@link ParticleSpawner}.
-     * @param particle    The spawned particles' {@link ParticleOptions}.
-     * @param count       The spawned particle count.
-     * @param minLifetime The min lifetime of the spawned particles.
-     * @param maxLifetime The max lifetime of the spawned particles.
-     * @return The new {@link ParticleSpawnerBuilder}.
-     */
+    /// Creates and adds a new [ParticleSpawnerBuilder].
+    ///
+    /// @param id          The id of the [ParticleSpawner].
+    /// @param particle    The spawned particles' [ParticleOptions].
+    /// @param count       The spawned particle count.
+    /// @param minLifetime The min lifetime of the spawned particles.
+    /// @param maxLifetime The max lifetime of the spawned particles.
+    /// @return The new [ParticleSpawnerBuilder].
     public ParticleSpawnerBuilder builder(Identifier id, ParticleOptions particle, int count, int minLifetime, int maxLifetime) {
         ParticleSpawnerBuilder builder = new ParticleSpawnerBuilder(id, particle, count, minLifetime, maxLifetime);
         builders.add(builder);
         return builder;
     }
 
-    /**
-     * Creates and adds a new {@link ParticleSpawnerBuilder}.
-     *
-     * @param id       The id of the {@link ParticleSpawner}.
-     * @param particle The spawned particles' {@link ParticleOptions}.
-     * @param count    The spawned particle count.
-     * @param lifetime The lifetime of the spawned particles.
-     * @return The new {@link ParticleSpawnerBuilder}.
-     */
+    /// Creates and adds a new [ParticleSpawnerBuilder].
+    ///
+    /// @param id       The id of the [ParticleSpawner].
+    /// @param particle The spawned particles' [ParticleOptions].
+    /// @param count    The spawned particle count.
+    /// @param lifetime The lifetime of the spawned particles.
+    /// @return The new [ParticleSpawnerBuilder].
     public ParticleSpawnerBuilder builder(Identifier id, ParticleOptions particle, int count, int lifetime) {
         ParticleSpawnerBuilder builder = new ParticleSpawnerBuilder(id, particle, count, lifetime);
         builders.add(builder);

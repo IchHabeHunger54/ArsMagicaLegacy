@@ -4,14 +4,12 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.world.level.block.state.BlockState;
 
-/**
- * Represents the harvesting transition of a tall plant, used by some {@link GrowthType}s.
- *
- * @param lowerFrom The old lower {@link BlockState}.
- * @param upperFrom The old upper {@link BlockState}.
- * @param lowerTo   The new lower {@link BlockState}.
- * @param upperTo   The new upper {@link BlockState}.
- */
+/// Represents the harvesting transition of a tall plant, used by some [GrowthType]s.
+///
+/// @param lowerFrom The old lower [BlockState].
+/// @param upperFrom The old upper [BlockState].
+/// @param lowerTo   The new lower [BlockState].
+/// @param upperTo   The new upper [BlockState].
 public record TallHarvestState(BlockState lowerFrom, BlockState upperFrom, BlockState lowerTo, BlockState upperTo) {
     public static final Codec<TallHarvestState> CODEC = RecordCodecBuilder.create(inst -> inst.group(
         BlockState.CODEC.fieldOf("lower_from").forGetter(TallHarvestState::lowerFrom),

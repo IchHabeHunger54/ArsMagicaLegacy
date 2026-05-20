@@ -4,9 +4,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
 
-/**
- * The base class for all events involving a spell.
- */
+/// The base class for all events involving a spell.
 @SuppressWarnings("unused")
 public abstract class SpellEvent extends LivingEvent {
     private final Spell spell;
@@ -16,9 +14,7 @@ public abstract class SpellEvent extends LivingEvent {
         this.spell = spell;
     }
 
-    /**
-     * @return The involved spell.
-     */
+    /// @return The involved spell.
     public Spell getSpell() {
         return spell;
     }

@@ -8,42 +8,30 @@ import net.minecraft.world.item.ItemStack;
 import java.util.List;
 import java.util.function.Function;
 
-/**
- * Holds a {@link Plant}'s growth logic.
- */
+/// Holds a [Plant]'s growth logic.
 public interface GrowthType {
     Codec<GrowthType> CODEC = Codec.lazyInitialized(() -> AMRegistries.GROWTH_TYPES.byNameCodec().dispatch(GrowthType::codec, Function.identity()));
 
-    /**
-     * @return The registered {@link MapCodec}.
-     */
+    /// @return The registered [MapCodec].
     MapCodec<? extends GrowthType> codec();
 
-    /**
-     * @param context The {@link GrowthContext} to use.
-     * @return Whether the plant can currently be grown or not.
-     */
+    /// @param context The [GrowthContext] to use.
+    /// @return Whether the plant can currently be grown or not.
     boolean canGrow(GrowthContext context);
 
-    /**
-     * Grows the plant, if possible.
-     *
-     * @param context The {@link GrowthContext} to use.
-     */
+    /// Grows the plant, if possible.
+    ///
+    /// @param context The [GrowthContext] to use.
     void grow(GrowthContext context);
 
-    /**
-     * @param context The {@link GrowthContext} to use.
-     * @return Whether the plant can currently be harvested or not.
-     */
+    /// @param context The [GrowthContext] to use.
+    /// @return Whether the plant can currently be harvested or not.
     boolean canHarvest(GrowthContext context);
 
-    /**
-     * Harvests the plant, if possible.
-     *
-     * @param context The {@link GrowthContext} to use.
-     * @param replant Whether the plant should be replanted or not, if possible.
-     * @return A list of {@link ItemStack}, representing the drops of the plant.
-     */
+    /// Harvests the plant, if possible.
+    ///
+    /// @param context The [GrowthContext] to use.
+    /// @param replant Whether the plant should be replanted or not, if possible.
+    /// @return A list of [ItemStack], representing the drops of the plant.
     List<ItemStack> harvest(GrowthContext context, boolean replant);
 }

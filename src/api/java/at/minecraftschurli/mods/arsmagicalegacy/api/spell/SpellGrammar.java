@@ -19,32 +19,26 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
- * Represents a spell's grammar. All fields are immutable by contract.
- *
- * @param parts      A {@link List} of all parts. Used mainly for serialization, use {@link SpellGrammar#components} for gameplay.
- * @param components A view of {@link SpellGrammar#parts} that lists the parts as {@link SpellComponent}s with their associated {@link SpellModifier}s.
- */
+/// Represents a spell's grammar. All fields are immutable by contract.
+///
+/// @param parts      A [List] of all parts. Used mainly for serialization, use [SpellGrammar#components] for gameplay.
+/// @param components A view of [SpellGrammar#parts] that lists the parts as [SpellComponent]s with their associated [SpellModifier]s.
 public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List<SpellModifier>>> components) {
     public static final int MAX_PARTS = 8;
     public static final SpellGrammar EMPTY = new SpellGrammar(List.of(), List.of());
     public static final Codec<SpellGrammar> CODEC = AMRegistries.SPELL_PARTS.byNameCodec().listOf(0, MAX_PARTS).fieldOf("parts").xmap(SpellGrammar::of, SpellGrammar::parts).codec();
     public static final StreamCodec<RegistryFriendlyByteBuf, SpellGrammar> STREAM_CODEC = ByteBufCodecs.registry(AMRegistries.Keys.SPELL_PART).apply(ByteBufCodecs.list()).map(SpellGrammar::of, SpellGrammar::parts);
 
-    /**
-     * @deprecated Use {@link SpellGrammar#of(List)} instead.
-     */
+    /// @deprecated Use [SpellGrammar#of(List)] instead.
     @SuppressWarnings("DeprecatedIsStillUsed")
     @Deprecated
     public SpellGrammar {
     }
 
-    /**
-     * Validates the given {@link List} of {@link SpellPart}s and constructs a {@link SpellGrammar} from it.
-     *
-     * @param parts The {@link List} of {@link SpellPart}s.
-     * @return A new {@link SpellGrammar}, or {@link SpellGrammar#EMPTY} if validation failed.
-     */
+    /// Validates the given [List] of [SpellPart]s and constructs a [SpellGrammar] from it.
+    ///
+    /// @param parts The [List] of [SpellPart]s.
+    /// @return A new [SpellGrammar], or [SpellGrammar#EMPTY] if validation failed.
     public static SpellGrammar of(List<SpellPart> parts) {
         if (parts.isEmpty() || !parts.getFirst().isComponent()) return EMPTY;
         if (parts.size() > MAX_PARTS) {
@@ -78,17 +72,13 @@ public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List
         return parts.hashCode();
     }
 
-    /**
-     * @return Whether the spell grammar is considered empty.
-     */
+    /// @return Whether the spell grammar is considered empty.
     public boolean isEmpty() {
         return parts.isEmpty();
     }
 
-    /**
-     * @param registryAccess The {@link RegistryAccess} to use.
-     * @return The combined mana cost of the spell grammar.
-     */
+    /// @param registryAccess The [RegistryAccess] to use.
+    /// @return The combined mana cost of the spell grammar.
     public double getManaCost(RegistryAccess registryAccess) {
         return components.stream()
             .mapToDouble(pair -> pair.getFirst().getData(registryAccess).mana() * pair.getSecond()
@@ -98,20 +88,16 @@ public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List
             .sum();
     }
 
-    /**
-     * @param registryAccess The {@link RegistryAccess} to use.
-     * @return The combined burnout cost of the spell grammar.
-     */
+    /// @param registryAccess The [RegistryAccess] to use.
+    /// @return The combined burnout cost of the spell grammar.
     public double getBurnoutCost(RegistryAccess registryAccess) {
         return components.stream()
             .mapToDouble(pair -> pair.getFirst().getData(registryAccess).burnoutOrGenerated())
             .sum();
     }
 
-    /**
-     * @param registryAccess The {@link RegistryAccess} to use.
-     * @return A {@link Map} of combined {@link Affinity} shifts of the spell grammar.
-     */
+    /// @param registryAccess The [RegistryAccess] to use.
+    /// @return A [Map] of combined [Affinity] shifts of the spell grammar.
     public Map<Holder<Affinity>, Double> affinityShifts(RegistryAccess registryAccess) {
         return components.stream()
             .map(Pair::getFirst)
@@ -122,10 +108,8 @@ public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, Double::sum));
     }
 
-    /**
-     * @param registryAccess The {@link RegistryAccess} to use.
-     * @return The key of the primary {@link Affinity} of the spell grammar.
-     */
+    /// @param registryAccess The [RegistryAccess] to use.
+    /// @return The key of the primary [Affinity] of the spell grammar.
     public ResourceKey<Affinity> primaryAffinity(RegistryAccess registryAccess) {
         return affinityShifts(registryAccess).entrySet()
             .stream()

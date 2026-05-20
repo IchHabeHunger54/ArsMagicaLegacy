@@ -5,11 +5,9 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-/**
- * Variant of {@link GrowthType} that uses a default implementation for growing.
- * The default implementation will check for an instance of {@link BonemealableBlock},
- * and otherwise check for any of the built-in age properties.
- */
+/// Variant of [GrowthType] that uses a default implementation for growing.
+/// The default implementation will check for an instance of [BonemealableBlock],
+/// and otherwise check for any of the built-in age properties.
 public interface BonemealableGrowthType extends GrowthType {
     @Override
     default boolean canGrow(GrowthContext context) {
@@ -30,10 +28,8 @@ public interface BonemealableGrowthType extends GrowthType {
         }
     }
 
-    /**
-     * @param context The {@link GrowthContext} to use.
-     * @return Whether the plant has an age property that is not full, i.e., can still grow.
-     */
+    /// @param context The [GrowthContext] to use.
+    /// @return Whether the plant has an age property that is not full, i.e., can still grow.
     default boolean hasNonFullAge(GrowthContext context) {
         BlockState state = context.state();
         return state.hasProperty(BlockStateProperties.AGE_1) && state.getValue(BlockStateProperties.AGE_1) < 1
@@ -46,11 +42,9 @@ public interface BonemealableGrowthType extends GrowthType {
             || state.hasProperty(BlockStateProperties.AGE_25) && state.getValue(BlockStateProperties.AGE_25) < 25;
     }
 
-    /**
-     * Helper method for increasing a plant's age property (if it has one) by one.
-     *
-     * @param context The {@link GrowthContext} to use.
-     */
+    /// Helper method for increasing a plant's age property (if it has one) by one.
+    ///
+    /// @param context The [GrowthContext] to use.
     default void increaseAge(GrowthContext context) {
         ServerLevel level = context.level();
         BlockState state = context.state();

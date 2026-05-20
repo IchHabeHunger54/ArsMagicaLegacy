@@ -13,11 +13,9 @@ import net.minecraft.resources.Identifier;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * Represents a particle controller, as serialized from a {@link ParticleSpawner}. To make a tickable instance, see {@link ParticleControllerInstance}.
- * <p>
- * Register {@link ParticleController}s during {@link RegisterParticleControllersEvent}, using the {@link ParticleController.Type} record.
- */
+/// Represents a particle controller, as serialized from a [ParticleSpawner]. To make a tickable instance, see [ParticleControllerInstance].
+///
+/// Register [ParticleController]s during [RegisterParticleControllersEvent], using the [ParticleController.Type] record.
 public interface ParticleController {
     Codec<ParticleController> CODEC = Identifier.CODEC.comapFlatMap(
         id -> Optional.ofNullable(ArsMagicaClientApi.particleController(id))
@@ -26,54 +24,40 @@ public interface ParticleController {
         ParticleController.Type::id
     ).dispatch(controller -> Objects.requireNonNull(ArsMagicaClientApi.particleController(controller.id())), ParticleController.Type::codec);
 
-    /**
-     * @param instance The {@link RecordCodecBuilder.Instance} to use.
-     * @return A codec builder with the base fields for every controller set. Call {@link Products.P3#and(App)} to add further fields.
-     * @param <T> The exact type of the controller.
-     */
+    /// @param instance The [RecordCodecBuilder.Instance] to use.
+    /// @return A codec builder with the base fields for every controller set. Call [Products.P3#and(App)] to add further fields.
+    /// @param <T> The exact type of the controller.
     static <T extends ParticleController> Products.P2<RecordCodecBuilder.Mu<T>, Boolean, Boolean> baseFields(RecordCodecBuilder.Instance<T> instance) {
         return instance.group(
             Codec.BOOL.optionalFieldOf("stop_other_controllers", false).forGetter(ParticleController::stopOtherControllers),
             Codec.BOOL.optionalFieldOf("kill_on_finish", false).forGetter(ParticleController::killOnFinish));
     }
 
-    /**
-     * Ticks the given {@link ParticleControllerInstance}.
-     *
-     * @param instance The {@link ParticleControllerInstance} to tick.
-     */
+    /// Ticks the given [ParticleControllerInstance].
+    ///
+    /// @param instance The [ParticleControllerInstance] to tick.
     void tick(ParticleControllerInstance instance);
 
-    /**
-     * Ticks the given {@link ParticleControllerInstance} on its first tick. Override this for special behavior on first tick.
-     *
-     * @param instance The {@link ParticleControllerInstance} to tick.
-     */
+    /// Ticks the given [ParticleControllerInstance] on its first tick. Override this for special behavior on first tick.
+    ///
+    /// @param instance The [ParticleControllerInstance] to tick.
     default void tickFirst(ParticleControllerInstance instance) {
         tick(instance);
     }
 
-    /**
-     * @return The registered id of the controller.
-     */
+    /// @return The registered id of the controller.
     Identifier id();
 
-    /**
-     * @return Whether all further controllers are stopped when this controller is run.
-     */
+    /// @return Whether all further controllers are stopped when this controller is run.
     boolean stopOtherControllers();
 
-    /**
-     * @return Whether the particle should be removed after this controller has finished.
-     */
+    /// @return Whether the particle should be removed after this controller has finished.
     boolean killOnFinish();
 
-    /**
-     * The registered type of a {@link ParticleController}.
-     *
-     * @param id    The id of the controller.
-     * @param codec The {@link MapCodec} of the controller.
-     */
+    /// The registered type of a [ParticleController].
+    ///
+    /// @param id    The id of the controller.
+    /// @param codec The [MapCodec] of the controller.
     record Type(Identifier id, MapCodec<? extends ParticleController> codec) {
     }
 }

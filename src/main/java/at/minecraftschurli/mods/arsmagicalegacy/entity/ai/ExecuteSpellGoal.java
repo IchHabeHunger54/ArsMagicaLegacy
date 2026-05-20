@@ -80,18 +80,14 @@ public class ExecuteSpellGoal<T extends Mob & SpellCasterEntity> extends Goal {
         }
     }
 
-    /**
-     * @return The attack sound to play for this goal.
-     */
+    /// @return The attack sound to play for this goal.
     @Nullable
     protected SoundEvent getAttackSound() {
         return null;
     }
 
-    /**
-     * @param caster The entity casting the spell.
-     * @return The spell to be cast.
-     */
+    /// @param caster The entity casting the spell.
+    /// @return The spell to be cast.
     @Nullable
     protected Spell getSpell(T caster) {
         return spell;

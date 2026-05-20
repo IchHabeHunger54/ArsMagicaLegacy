@@ -328,22 +328,18 @@ public final class AMModelProvider extends AbstractModelProvider {
         itemModels.itemModelOutput.accept(item, ItemModelUtils.rangeSelect(new CrystalPhylacteryRangeSelectItemModelProperty(), ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, ModelTemplates.FLAT_ITEM)), entries));
     }
 
-    /**
-     * Adds a flat item model.
-     *
-     * @param itemModels The item model generators.
-     * @param item       The item to add the model for.
-     */
+    /// Adds a flat item model.
+    ///
+    /// @param itemModels The item model generators.
+    /// @param item       The item to add the model for.
     private void basicItem(ItemModelGenerators itemModels, DeferredItem<?> item) {
         itemModels.generateFlatItem(item.get(), ModelTemplates.FLAT_ITEM);
     }
 
-    /**
-     * Adds a flat item model and flat variant item models for an item with variants.
-     *
-     * @param item     The item to add the models for.
-     * @param variants The variants to add models for.
-     */
+    /// Adds a flat item model and flat variant item models for an item with variants.
+    ///
+    /// @param item     The item to add the models for.
+    /// @param variants The variants to add models for.
     private void itemWithVariants(ItemModelGenerators itemModels, DeferredItem<?> item, ItemModel.Unbaked model, ModelTemplate template, List<? extends ResourceKey<?>> variants) {
         itemModels.itemModelOutput.accept(item.get(), model);
         for (ResourceKey<?> variant : variants) {

@@ -3,11 +3,9 @@ package at.minecraftschurli.mods.arsmagicalegacy.api.event;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
-/**
- * Event that fires when the player's magic level changes.
- * <p>
- * This event is not cancelable. This event is fired on the main event bus.
- */
+/// Event that fires when the player's magic level changes.
+///
+/// This event is not cancelable. This event is fired on the main event bus.
 @SuppressWarnings("unused")
 public class LevelChangeEvent extends PlayerEvent {
     private final int oldLevel;
@@ -19,16 +17,12 @@ public class LevelChangeEvent extends PlayerEvent {
         this.newLevel = newLevel;
     }
 
-    /**
-     * @return The old level of the player.
-     */
+    /// @return The old level of the player.
     public int getOldLevel() {
         return oldLevel;
     }
 
-    /**
-     * @return The new level of the player.
-     */
+    /// @return The new level of the player.
     public int getNewLevel() {
         return newLevel;
     }

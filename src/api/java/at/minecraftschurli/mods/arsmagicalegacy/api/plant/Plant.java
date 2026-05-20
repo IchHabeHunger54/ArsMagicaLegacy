@@ -15,15 +15,13 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 
 import java.util.Optional;
 
-/**
- * Represents a plant. Plants are used by certain mod mechanics, such as the Harvest component or Dryads growing certain crops.
- *
- * @param growthType The {@link GrowthType} to use. This dictates most of the plant's logic.
- * @param seed       The seed {@link ItemStack} to use. This is used e.g. for replanting.
- * @param crop       The crop {@link ItemStack} to use. This is used e.g. for harvest bonuses.
- * @param tool       The tool {@link ItemStack} to use when harvesting.
- * @param allStates  A {@link RuleTest} for all states of the plant.
- */
+/// Represents a plant. Plants are used by certain mod mechanics, such as the Harvest component or Dryads growing certain crops.
+///
+/// @param growthType The [GrowthType] to use. This dictates most of the plant's logic.
+/// @param seed       The seed [ItemStack] to use. This is used e.g. for replanting.
+/// @param crop       The crop [ItemStack] to use. This is used e.g. for harvest bonuses.
+/// @param tool       The tool [ItemStack] to use when harvesting.
+/// @param allStates  A [RuleTest] for all states of the plant.
 public record Plant(GrowthType growthType, RuleTest allStates, Optional<ItemStackTemplate> seed, Optional<ItemStackTemplate> crop, Optional<ItemStackTemplate> tool) {
     public static final Codec<Plant> DIRECT_CODEC = RecordCodecBuilder.create(inst -> inst.group(
         GrowthType.CODEC.fieldOf("growth_type").forGetter(Plant::growthType),
@@ -34,14 +32,12 @@ public record Plant(GrowthType growthType, RuleTest allStates, Optional<ItemStac
     ).apply(inst, Plant::new));
     public static final Codec<Holder<Plant>> CODEC = RegistryFileCodec.create(AMRegistries.Keys.PLANT, DIRECT_CODEC);
 
-    /**
-     * @param player The {@link ServerPlayer} to use.
-     * @param level  The {@link ServerLevel} to use.
-     * @param pos    The {@link BlockPos} to use.
-     * @param state  The {@link BlockState} to use.
-     * @param tool   The {@link ItemStack} to use.
-     * @return A new {@link GrowthContext}.
-     */
+    /// @param player The [ServerPlayer] to use.
+    /// @param level  The [ServerLevel] to use.
+    /// @param pos    The [BlockPos] to use.
+    /// @param state  The [BlockState] to use.
+    /// @param tool   The [ItemStack] to use.
+    /// @return A new [GrowthContext].
     public GrowthContext createContext(ServerPlayer player, ServerLevel level, BlockPos pos, BlockState state, ItemStack tool) {
         return new GrowthContext(this, player, level, pos, state, tool);
     }

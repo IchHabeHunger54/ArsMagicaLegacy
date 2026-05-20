@@ -18,16 +18,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.UnaryOperator;
 
-/**
- * Represents a spell.
- *
- * @param name             The name of the spell.
- * @param icon             The icon of the spell.
- * @param shapeGroups      The {@link SpellShapeGroup}s of the spell. Immutable by contract.
- * @param activeShapeGroup The index of the currently active {@link SpellShapeGroup}. Immutable by contract.
- * @param grammar          The {@link SpellGrammar} of the spell. Immutable by contract.
- * @param dataComponents   The data components of the spell. To modify, call {@link Spell#updateDataComponents(UnaryOperator)}.
- */
+/// Represents a spell.
+///
+/// @param name             The name of the spell.
+/// @param icon             The icon of the spell.
+/// @param shapeGroups      The [SpellShapeGroup]s of the spell. Immutable by contract.
+/// @param activeShapeGroup The index of the currently active [SpellShapeGroup]. Immutable by contract.
+/// @param grammar          The [SpellGrammar] of the spell. Immutable by contract.
+/// @param dataComponents   The data components of the spell. To modify, call [Spell#updateDataComponents(UnaryOperator)].
 public record Spell(Optional<Component> name, Optional<Identifier> icon, List<SpellShapeGroup> shapeGroups, int activeShapeGroup, SpellGrammar grammar, SpellDataComponentMap dataComponents) {
     public static final int MAX_SHAPE_GROUPS = 5;
     public static final Spell EMPTY = new Spell(Optional.empty(), Optional.empty(), List.of(SpellShapeGroup.EMPTY), 0, SpellGrammar.EMPTY, SpellDataComponentMap.EMPTY);
@@ -49,39 +47,29 @@ public record Spell(Optional<Component> name, Optional<Identifier> icon, List<Sp
         SpellDataComponentMap.STREAM_CODEC, Spell::dataComponents,
         Spell::new);
 
-    /**
-     * @param name The new name to set.
-     * @return A new spell with the new name set.
-     */
+    /// @param name The new name to set.
+    /// @return A new spell with the new name set.
     public Spell setName(Component name) {
         return new Spell(Optional.of(name), icon, shapeGroups, activeShapeGroup, grammar, dataComponents);
     }
 
-    /**
-     * @return A new spell with no name set.
-     */
+    /// @return A new spell with no name set.
     public Spell clearName() {
         return new Spell(Optional.empty(), icon, shapeGroups, activeShapeGroup, grammar, dataComponents);
     }
 
-    /**
-     * @param icon The new icon to set.
-     * @return A new spell with the new icon set.
-     */
+    /// @param icon The new icon to set.
+    /// @return A new spell with the new icon set.
     public Spell setIcon(Identifier icon) {
         return new Spell(name, Optional.of(icon), shapeGroups, activeShapeGroup, grammar, dataComponents);
     }
 
-    /**
-     * @return A new spell with no icon set.
-     */
+    /// @return A new spell with no icon set.
     public Spell clearIcon() {
         return new Spell(name, Optional.empty(), shapeGroups, activeShapeGroup, grammar, dataComponents);
     }
 
-    /**
-     * @return The spell, with the next shape group set as active.
-     */
+    /// @return The spell, with the next shape group set as active.
     public Spell nextShapeGroup() {
         Spell spell = this;
         do {
@@ -90,9 +78,7 @@ public record Spell(Optional<Component> name, Optional<Identifier> icon, List<Sp
         return spell;
     }
 
-    /**
-     * @return The spell, with the previous shape group set as active.
-     */
+    /// @return The spell, with the previous shape group set as active.
     public Spell prevShapeGroup() {
         Spell spell = this;
         do {
@@ -101,54 +87,40 @@ public record Spell(Optional<Component> name, Optional<Identifier> icon, List<Sp
         return spell;
     }
 
-    /**
-     * @param activeShapeGroup The active shape group index to set.
-     * @return The spell, with the given shape group index set as active.
-     */
+    /// @param activeShapeGroup The active shape group index to set.
+    /// @return The spell, with the given shape group index set as active.
     public Spell setActiveShapeGroup(int activeShapeGroup) {
         return new Spell(name, icon, shapeGroups, activeShapeGroup, grammar, dataComponents);
     }
 
-    /**
-     * @param operator The modifications to apply to the data components.
-     * @return A new spell with the modifications to the data components applied.
-     */
+    /// @param operator The modifications to apply to the data components.
+    /// @return A new spell with the modifications to the data components applied.
     public Spell updateDataComponents(UnaryOperator<SpellDataComponentMap> operator) {
         return new Spell(name, icon, shapeGroups, activeShapeGroup, grammar, operator.apply(dataComponents));
     }
 
-    /**
-     * @return The currently active {@link SpellShapeGroup}.
-     */
+    /// @return The currently active [SpellShapeGroup].
     public SpellShapeGroup currentShapeGroup() {
         return shapeGroups.get(activeShapeGroup);
     }
 
-    /**
-     * @return Whether the spell is considered empty.
-     */
+    /// @return Whether the spell is considered empty.
     public boolean isEmpty() {
         return grammar.isEmpty() || shapeGroups.isEmpty() || shapeGroups.stream().allMatch(SpellShapeGroup::isEmpty);
     }
 
-    /**
-     * @return Whether the spell is continuous, i.e., can be cast by holding down the spell.
-     */
+    /// @return Whether the spell is continuous, i.e., can be cast by holding down the spell.
     public boolean isContinuous() {
         return currentShapeGroup().isContinuous();
     }
 
-    /**
-     * @return Whether the spell is malformed, i.e., does not fulfill basic requirements to the spell's structure.
-     */
+    /// @return Whether the spell is malformed, i.e., does not fulfill basic requirements to the spell's structure.
     public boolean isMalformed() {
         return currentShapeGroup().primaryShape() == null || grammar.components().isEmpty();
     }
 
-    /**
-     * @param registryAccess The {@link RegistryAccess} to use.
-     * @return The combined mana cost of the spell.
-     */
+    /// @param registryAccess The [RegistryAccess] to use.
+    /// @return The combined mana cost of the spell.
     public double getManaCost(RegistryAccess registryAccess) {
         return currentShapeGroup().getManaCost(registryAccess) * grammar.getManaCost(registryAccess);
     }

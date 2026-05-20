@@ -10,50 +10,40 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.function.Function;
 
-/**
- * Represents a ritual trigger. The triggers are to be called from code, and may have trigger-specific conditions.
- *
- * @param <T> The object considered the context of the trigger.
- */
+/// Represents a ritual trigger. The triggers are to be called from code, and may have trigger-specific conditions.
+///
+/// @param <T> The object considered the context of the trigger.
 public interface RitualTrigger<T> {
     Codec<RitualTrigger<?>> CODEC = Codec.lazyInitialized(() -> AMRegistries.RITUAL_TRIGGERS.byNameCodec().dispatch(RitualTrigger::codec, Function.identity()));
 
-    /**
-     * @return The registered {@link MapCodec}.
-     */
+    /// @return The registered [MapCodec].
     MapCodec<? extends RitualTrigger<T>> codec();
 
-    /**
-     * @param player  The {@link Player} triggering the ritual.
-     * @param level   The {@link Level} the ritual is triggered in.
-     * @param vec     The {@link Vec3} the ritual is triggered at.
-     * @param context The context object.
-     * @return Whether the requirement should actually be triggered or not.
-     */
+    /// @param player  The [Player] triggering the ritual.
+    /// @param level   The [Level] the ritual is triggered in.
+    /// @param vec     The [Vec3] the ritual is triggered at.
+    /// @param context The context object.
+    /// @return Whether the requirement should actually be triggered or not.
     boolean test(@Nullable Player player, Level level, Vec3 vec, T context);
 
-    /**
-     * Consumes the trigger, if applicable and the ritual was successful. For example, the dropped item tick ritual trigger consumes the dropped items here.
-     *
-     * @param player  The {@link Player} triggering the ritual.
-     * @param level   The {@link Level} the ritual is triggered in.
-     * @param vec     The {@link Vec3} the ritual is triggered at.
-     * @param context The context object.
-     */
+    /// Consumes the trigger, if applicable and the ritual was successful. For example, the dropped item tick ritual trigger consumes the dropped items here.
+    ///
+    /// @param player  The [Player] triggering the ritual.
+    /// @param level   The [Level] the ritual is triggered in.
+    /// @param vec     The [Vec3] the ritual is triggered at.
+    /// @param context The context object.
     default void consume(@Nullable Player player, Level level, Vec3 vec, T context) {
     }
 
-    /**
-     * Adjusts the position of the ritual checks. For example, the set block ritual trigger uses this to apply a position offset.
-     * <p>
-     * This runs after {@link RitualTrigger#test(Player, Level, Vec3, Object)} and before all other ritual methods, including {@link RitualTrigger#consume(Player, Level, Vec3, Object)}.
-     *
-     * @param player  The {@link Player} triggering the ritual.
-     * @param level   The {@link Level} the ritual is triggered in.
-     * @param vec     The {@link Vec3} the ritual is triggered at.
-     * @param context The context object.
-     * @return The adjusted ritual position.
-     */
+    /// Adjusts the position of the ritual checks. For example, the set block ritual trigger uses this to apply a position offset.
+    ///
+    /// This runs after [RitualTrigger#test(Player, Level, Vec3, Object)] and before all other ritual methods, including [RitualTrigger#consume(Player, Level, Vec3, Object)].
+    ///
+    /// @param player  The [Player] triggering the ritual.
+    /// @param level   The [Level] the ritual is triggered in.
+    /// @param vec     The [Vec3] the ritual is triggered at.
+    /// @param context The context object.
+    /// @return The adjusted ritual position.
     default Vec3 adjustPosition(@Nullable Player player, Level level, Vec3 vec, T context) {
         return vec;
     }

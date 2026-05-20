@@ -3,15 +3,11 @@ package at.minecraftschurli.mods.arsmagicalegacy.api.spell;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Represents a spell modifier. Spell modifiers cannot be cast, instead they are queried for their presence by other spell parts.
- */
+/// Represents a spell modifier. Spell modifiers cannot be cast, instead they are queried for their presence by other spell parts.
 public non-sealed class SpellModifier extends SpellPart {
     protected final Map<SpellStat, SpellStatModifier> modifiers;
 
-    /**
-     * @param modifiers A map of {@link SpellStat}s and {@link SpellStatModifier}s that this modifier represents.
-     */
+    /// @param modifiers A map of [SpellStat]s and [SpellStatModifier]s that this modifier represents.
     public SpellModifier(Map<SpellStat, SpellStatModifier> modifiers) {
         this.modifiers = modifiers;
     }
@@ -41,10 +37,8 @@ public non-sealed class SpellModifier extends SpellPart {
         return modifiers.keySet();
     }
 
-    /**
-     * @param stat The {@link SpellStat} to test for.
-     * @return The associated {@link SpellStatModifier}.
-     */
+    /// @param stat The [SpellStat] to test for.
+    /// @return The associated [SpellStatModifier].
     public SpellStatModifier getModifier(SpellStat stat) {
         return modifiers.get(stat);
     }

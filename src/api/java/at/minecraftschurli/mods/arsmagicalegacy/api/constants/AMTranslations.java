@@ -4,9 +4,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.ApiStatus;
 
-/**
- * Holds all translation keys and constant {@link Component}s used by Ars Magica: Legacy.
- */
+/// Holds all translation keys and constant [Component]s used by Ars Magica: Legacy.
 @ApiStatus.NonExtendable
 public interface AMTranslations {
     // @formatter:off

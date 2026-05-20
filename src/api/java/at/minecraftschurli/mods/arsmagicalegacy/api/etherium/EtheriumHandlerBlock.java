@@ -6,19 +6,15 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;
 
-/**
- * Represents a block that has an {@link EtheriumHandler} {@link BlockEntity} attached. Methods in this class mainly serve selection purposes.
- */
+/// Represents a block that has an [EtheriumHandler] [BlockEntity] attached. Methods in this class mainly serve selection purposes.
 public interface EtheriumHandlerBlock {
-    /**
-     * Returns the {@link BlockEntity} at the given position. If this is a block larger than 1x1x1,
-     * this should return the {@link BlockEntity} that actually controls the logic. If an actual block entity is not present, null should be returned.
-     *
-     * @param level The {@link Level} to use.
-     * @param pos   The {@link BlockPos} to use.
-     * @param state The {@link BlockState} to use.
-     * @return The {@link BlockEntity} at the given position.
-     */
+    /// Returns the [BlockEntity] at the given position. If this is a block larger than 1x1x1,
+    /// this should return the [BlockEntity] that actually controls the logic. If an actual block entity is not present, null should be returned.
+    ///
+    /// @param level The [Level] to use.
+    /// @param pos   The [BlockPos] to use.
+    /// @param state The [BlockState] to use.
+    /// @return The [BlockEntity] at the given position.
     @Nullable
     BlockEntity getBlockEntity(Level level, BlockPos pos, BlockState state);
 }

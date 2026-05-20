@@ -7,9 +7,7 @@ import net.neoforged.neoforge.capabilities.BlockCapability;
 import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.annotations.Nullable;
 
-/**
- * Holds the capabilities added by Ars Magica: Legacy.
- */
+/// Holds the capabilities added by Ars Magica: Legacy.
 @ApiStatus.NonExtendable
 public interface AMCapabilities {
     BlockCapability<EtheriumHandler, @Nullable Direction> BLOCK_ETHERIUM = BlockCapability.createSided(ArsMagicaApi.id("etherium"), EtheriumHandler.class);

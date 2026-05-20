@@ -13,14 +13,12 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
-/**
- * Represents a ritual. A ritual can be triggered, in which case it performs the ritual effect.
- *
- * @param requirements The passive requirements of the ritual.
- * @param trigger      The active trigger of the ritual. May itself contain requirements.
- * @param effects      The effects to perform when the ritual is successfully triggered.
- * @param <T>          The trigger context type.
- */
+/// Represents a ritual. A ritual can be triggered, in which case it performs the ritual effect.
+///
+/// @param requirements The passive requirements of the ritual.
+/// @param trigger      The active trigger of the ritual. May itself contain requirements.
+/// @param effects      The effects to perform when the ritual is successfully triggered.
+/// @param <T>          The trigger context type.
 public record Ritual<T>(List<RitualRequirement> requirements, RitualTrigger<T> trigger, List<RitualEffect> effects) {
     public static final Codec<Ritual<?>> DIRECT_CODEC = RecordCodecBuilder.create(inst -> inst.group(
         RitualRequirement.CODEC.listOf().fieldOf("requirements").forGetter(Ritual::requirements),
@@ -29,14 +27,12 @@ public record Ritual<T>(List<RitualRequirement> requirements, RitualTrigger<T> t
     ).apply(inst, Ritual::new));
     public static final Codec<Holder<Ritual<?>>> CODEC = RegistryFileCodec.create(AMRegistries.Keys.RITUAL, DIRECT_CODEC);
 
-    /**
-     * Performs the ritual.
-     *
-     * @param player  The {@link Player} triggering the ritual.
-     * @param level   The {@link Level} the ritual is triggered in.
-     * @param vec     The {@link Vec3} the ritual is triggered at.
-     * @param context The trigger context to use.
-     */
+    /// Performs the ritual.
+    ///
+    /// @param player  The [Player] triggering the ritual.
+    /// @param level   The [Level] the ritual is triggered in.
+    /// @param vec     The [Vec3] the ritual is triggered at.
+    /// @param context The trigger context to use.
     public void perform(@Nullable Player player, Level level, Vec3 vec, T context) {
         if (!trigger.test(player, level, vec, context)) return;
         Vec3 adjustedVec = trigger.adjustPosition(player, level, vec, context);
@@ -47,15 +43,13 @@ public record Ritual<T>(List<RitualRequirement> requirements, RitualTrigger<T> t
         }
     }
 
-    /**
-     * Performs all rituals of the given codec type.
-     * @param codec   The {@link MapCodec} to check.
-     * @param player  The {@link Player} triggering the rituals.
-     * @param level   The {@link Level} the rituals are triggered in.
-     * @param vec     The {@link Vec3} the rituals are triggered at.
-     * @param context The trigger context to use.
-     * @param <T>     The trigger context type.
-     */
+    /// Performs all rituals of the given codec type.
+    /// @param codec   The [MapCodec] to check.
+    /// @param player  The [Player] triggering the rituals.
+    /// @param level   The [Level] the rituals are triggered in.
+    /// @param vec     The [Vec3] the rituals are triggered at.
+    /// @param context The trigger context to use.
+    /// @param <T>     The trigger context type.
     @SuppressWarnings("unchecked")
     public static <T> void perform(MapCodec<? extends T> codec, @Nullable Player player, Level level, Vec3 vec, T context) {
         AMRegistries.rituals(level.registryAccess())

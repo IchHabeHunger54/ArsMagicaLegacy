@@ -579,48 +579,42 @@ public final class AMRecipeProvider extends RecipeProvider {
         return ResourceKey.create(Registries.RECIPE, ArsMagicaApi.id(name));
     }
 
-    /**
-     * Adds smelting recipes for the given {@link Ingredient}s.
-     *
-     * @param output      The {@link RecipeOutput} to use.
-     * @param ingredients A list of {@link Ingredient}s.
-     * @param result      The result item to use.
-     * @param experience  The experience to award for this recipe.
-     * @param cookingTime The time this recipe takes.
-     * @param group       The crafting book group to use.
-     */
+    /// Adds smelting recipes for the given [Ingredient]s.
+    ///
+    /// @param output      The [RecipeOutput] to use.
+    /// @param ingredients A list of [Ingredient]s.
+    /// @param result      The result item to use.
+    /// @param experience  The experience to award for this recipe.
+    /// @param cookingTime The time this recipe takes.
+    /// @param group       The crafting book group to use.
     @SuppressWarnings("SameParameterValue")
     private void oreSmelting(RecipeOutput output, List<ItemLike> ingredients, ItemLike result, float experience, int cookingTime, String group) {
         oreCooking(output, SmeltingRecipe::new, ingredients, result, experience, cookingTime, group, "_from_smelting");
     }
 
-    /**
-     * Adds blasting recipes for the given {@link Ingredient}s.
-     *
-     * @param output      The {@link RecipeOutput} to use.
-     * @param ingredients A list of {@link Ingredient}s.
-     * @param result      The result item to use.
-     * @param experience  The experience to award for this recipe.
-     * @param cookingTime The time this recipe takes.
-     * @param group       The crafting book group to use.
-     */
+    /// Adds blasting recipes for the given [Ingredient]s.
+    ///
+    /// @param output      The [RecipeOutput] to use.
+    /// @param ingredients A list of [Ingredient]s.
+    /// @param result      The result item to use.
+    /// @param experience  The experience to award for this recipe.
+    /// @param cookingTime The time this recipe takes.
+    /// @param group       The crafting book group to use.
     @SuppressWarnings("SameParameterValue")
     private void oreBlasting(RecipeOutput output, List<ItemLike> ingredients, ItemLike result, float experience, int cookingTime, String group) {
         oreCooking(output, BlastingRecipe::new, ingredients, result, experience, cookingTime, group, "_from_blasting");
     }
 
-    /**
-     * Adds generic cooking recipes for the given {@link Ingredient}s.
-     *
-     * @param output        The {@link RecipeOutput} to use.
-     * @param recipeFactory The {@link AbstractCookingRecipe.Factory} to use.
-     * @param ingredients   A list of {@link Ingredient}s.
-     * @param result        The result item to use.
-     * @param experience    The experience to award for this recipe.
-     * @param cookingTime   The time this recipe takes.
-     * @param group         The crafting book group to use.
-     * @param suffix        The suffix to append to the recipe name.
-     */
+    /// Adds generic cooking recipes for the given [Ingredient]s.
+    ///
+    /// @param output        The [RecipeOutput] to use.
+    /// @param recipeFactory The [AbstractCookingRecipe.Factory] to use.
+    /// @param ingredients   A list of [Ingredient]s.
+    /// @param result        The result item to use.
+    /// @param experience    The experience to award for this recipe.
+    /// @param cookingTime   The time this recipe takes.
+    /// @param group         The crafting book group to use.
+    /// @param suffix        The suffix to append to the recipe name.
     private <T extends AbstractCookingRecipe> void oreCooking(RecipeOutput output, AbstractCookingRecipe.Factory<T> recipeFactory, List<ItemLike> ingredients, ItemLike result, float experience, int cookingTime, String group, String suffix) {
         for (ItemLike item : ingredients) {
             SimpleCookingRecipeBuilder.generic(Ingredient.of(item), RecipeCategory.MISC, CookingBookCategory.MISC, result, experience, cookingTime, recipeFactory)
@@ -630,15 +624,13 @@ public final class AMRecipeProvider extends RecipeProvider {
         }
     }
 
-    /**
-     * Creates a block -> item and an item -> block recipe.
-     *
-     * @param output      The {@link RecipeOutput} to use.
-     * @param unpacked    The item to use.
-     * @param unpackedTag The item's associated tag to use.
-     * @param packed      The block to use.
-     * @param packedTag   The block's associated tag to use.
-     */
+    /// Creates a block -> item and an item -> block recipe.
+    ///
+    /// @param output      The [RecipeOutput] to use.
+    /// @param unpacked    The item to use.
+    /// @param unpackedTag The item's associated tag to use.
+    /// @param packed      The block to use.
+    /// @param packedTag   The block's associated tag to use.
     private void nineBlockStorageRecipes(RecipeOutput output, ItemLike unpacked, TagKey<Item> unpackedTag, ItemLike packed, TagKey<Item> packedTag) {
         ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, unpacked, 9)
             .requires(packedTag)
@@ -653,14 +645,12 @@ public final class AMRecipeProvider extends RecipeProvider {
             .save(output, id(getSimpleRecipeName(packed)));
     }
 
-    /**
-     * Creates an 1 item -> 1 item recipe.
-     *
-     * @param output     The {@link RecipeOutput} to use.
-     * @param result     The result item to use.
-     * @param ingredient The {@link Ingredient} to use.
-     * @param group      The crafting book group to use.
-     */
+    /// Creates an 1 item -> 1 item recipe.
+    ///
+    /// @param output     The [RecipeOutput] to use.
+    /// @param result     The result item to use.
+    /// @param ingredient The [Ingredient] to use.
+    /// @param group      The crafting book group to use.
     private void oneToOneConversion(RecipeOutput output, ItemLike result, ItemLike ingredient, @Nullable String group) {
         ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, result, 1)
             .requires(ingredient)

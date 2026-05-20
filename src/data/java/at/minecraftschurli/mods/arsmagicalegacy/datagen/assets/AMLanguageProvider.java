@@ -936,80 +936,64 @@ public final class AMLanguageProvider extends LanguageProvider {
         }
     }
 
-    /**
-     * Adds a cached translation, for use prior to this provider running.
-     *
-     * @param key         The translation key to use.
-     * @param translation The translation to use.
-     */
+    /// Adds a cached translation, for use prior to this provider running.
+    ///
+    /// @param key         The translation key to use.
+    /// @param translation The translation to use.
     public void addCached(String key, String translation) {
         cached.put(key, translation);
     }
 
-    /**
-     * Adds a block translation that matches the block id.
-     *
-     * @param block The block to generate the translation for.
-     */
+    /// Adds a block translation that matches the block id.
+    ///
+    /// @param block The block to generate the translation for.
     private void blockIdTranslation(DeferredBlock<?> block) {
         addBlock(block, idTranslation(block.getId().getPath()));
     }
 
-    /**
-     * Adds an item translation that matches the item id.
-     *
-     * @param item The item to generate the translation for.
-     */
+    /// Adds an item translation that matches the item id.
+    ///
+    /// @param item The item to generate the translation for.
     private void itemIdTranslation(DeferredItem<?> item) {
         addItem(item, idTranslation(item.getId().getPath()));
     }
 
-    /**
-     * Adds an item with variants appended to the regular translation key.
-     *
-     * @param item        The item to generate the translation for.
-     * @param variant     The variant to use.
-     * @param translation The translation to add.
-     */
+    /// Adds an item with variants appended to the regular translation key.
+    ///
+    /// @param item        The item to generate the translation for.
+    /// @param variant     The variant to use.
+    /// @param translation The translation to add.
     @SuppressWarnings("SameParameterValue")
     private void itemWithVariantTranslation(DeferredItem<?> item, Identifier variant, String translation) {
         add(Util.makeDescriptionId(item.get().getDescriptionId(), variant), translation);
     }
 
-    /**
-     * Adds an entity translation that matches the entity id.
-     *
-     * @param entity The entity to generate the translation for.
-     */
+    /// Adds an entity translation that matches the entity id.
+    ///
+    /// @param entity The entity to generate the translation for.
     private void entityIdTranslation(DeferredHolder<EntityType<?>, ?> entity) {
         addEntityType(entity, idTranslation(entity.getKey().identifier().getPath()));
     }
 
-    /**
-     * Adds an attribute translation that matches the attribute id.
-     *
-     * @param attribute The attribute to generate the translation for.
-     */
+    /// Adds an attribute translation that matches the attribute id.
+    ///
+    /// @param attribute The attribute to generate the translation for.
     @SuppressWarnings("DataFlowIssue")
     private void attributeIdTranslation(Holder<Attribute> attribute) {
         add(Util.makeDescriptionId("attribute", attribute.getKey().identifier()), idTranslation(attribute.getKey().identifier().getPath()));
     }
 
-    /**
-     * Adds an effect translation that matches the effect id.
-     *
-     * @param effect The effect to generate the translation for.
-     */
+    /// Adds an effect translation that matches the effect id.
+    ///
+    /// @param effect The effect to generate the translation for.
     @SuppressWarnings("DataFlowIssue")
     private void effectIdTranslation(Holder<MobEffect> effect) {
         add(effect.value(), idTranslation(effect.getKey().identifier().getPath()));
     }
 
-    /**
-     * Adds a potion translation that matches the potion id. Also covers splash potion, lingering potion and tipped arrow translations.
-     *
-     * @param potion The potion to generate the translation for.
-     */
+    /// Adds a potion translation that matches the potion id. Also covers splash potion, lingering potion and tipped arrow translations.
+    ///
+    /// @param potion The potion to generate the translation for.
     @SuppressWarnings("DataFlowIssue")
     private void potionIdTranslation(Holder<Potion> potion) {
         String path = potion.getKey().identifier().getPath();
@@ -1019,92 +1003,76 @@ public final class AMLanguageProvider extends LanguageProvider {
         add("item.minecraft.tipped_arrow.effect." + path, "Arrow of " + idTranslation(path));
     }
 
-    /**
-     * Adds an advancement translation.
-     *
-     * @param name        The name of the advancement to generate the translation for.
-     * @param title       The translation of the advancement's title.
-     * @param description The translation of the advancement's description.
-     */
+    /// Adds an advancement translation.
+    ///
+    /// @param name        The name of the advancement to generate the translation for.
+    /// @param title       The translation of the advancement's title.
+    /// @param description The translation of the advancement's description.
     private void advancementTranslation(String name, String title, String description) {
         add("advancements." + ArsMagicaApi.MOD_ID + "." + name + ".title", title);
         add("advancements." + ArsMagicaApi.MOD_ID + "." + name + ".description", description);
     }
 
-    /**
-     * Adds a config translation.
-     *
-     * @param name        The name of the config value to generate the translation for.
-     * @param translation The translation of the config value.
-     * @param tooltip     The translation of the config value's tooltip.
-     */
+    /// Adds a config translation.
+    ///
+    /// @param name        The name of the config value to generate the translation for.
+    /// @param translation The translation of the config value.
+    /// @param tooltip     The translation of the config value's tooltip.
     private void configTranslation(String name, String translation, String tooltip) {
         add(AMTranslations.CONFIG_KEY + name, translation);
         add(AMTranslations.CONFIG_KEY + name + ".tooltip", tooltip);
     }
 
-    /**
-     * Adds a subtitle translation.
-     *
-     * @param sound       The sound to add the translation for.
-     * @param translation The translation to use.
-     */
+    /// Adds a subtitle translation.
+    ///
+    /// @param sound       The sound to add the translation for.
+    /// @param translation The translation to use.
     private void subtitleTranslation(DeferredHolder<SoundEvent, SoundEvent> sound, String translation) {
         add(Util.makeDescriptionId("subtitle", sound.getKey().identifier()), translation);
     }
 
-    /**
-     * Adds a skill translation, including its compendium description.
-     *
-     * @param skill          The skill id.
-     * @param name           The skill name.
-     * @param description    The skill description.
-     * @param compendiumType The compendium category ("shapes", "components" or "modifiers") this skill is in
-     * @param compendiumText The description in the compendium.
-     */
+    /// Adds a skill translation, including its compendium description.
+    ///
+    /// @param skill          The skill id.
+    /// @param name           The skill name.
+    /// @param description    The skill description.
+    /// @param compendiumType The compendium category ("shapes", "components" or "modifiers") this skill is in
+    /// @param compendiumText The description in the compendium.
     private void skillTranslation(Identifier skill, String name, String description, String compendiumType, String compendiumText) {
         add(Util.makeDescriptionId("skill", skill) + ".name", name);
         add(Util.makeDescriptionId("skill", skill) + ".description", description);
         arcaneCompendiumTranslation(compendiumType + "." + skill.getPath() + ".page0.text", compendiumText);
     }
 
-    /**
-     * Adds an ability translation, including its compendium description.
-     *
-     * @param ability        The ability resource key.
-     * @param name           The ability name.
-     * @param description    The ability description.
-     */
+    /// Adds an ability translation, including its compendium description.
+    ///
+    /// @param ability        The ability resource key.
+    /// @param name           The ability name.
+    /// @param description    The ability description.
     private void abilityTranslation(ResourceKey<Ability> ability, String name, String description) {
         add(Util.makeDescriptionId("ability", ability.identifier()), name);
         add(Util.makeDescriptionId("ability", ability.identifier()) + ".name", name);
         add(Util.makeDescriptionId("ability", ability.identifier()) + ".description", description);
     }
 
-    /**
-     * Adds an arcane compendium entry translation.
-     *
-     * @param compendiumEntry The compendium entry to add the translation for.
-     * @param translation     The translation to use.
-     */
+    /// Adds an arcane compendium entry translation.
+    ///
+    /// @param compendiumEntry The compendium entry to add the translation for.
+    /// @param translation     The translation to use.
     private void arcaneCompendiumTranslation(String compendiumEntry, String translation) {
         add("item", "arcane_compendium." + compendiumEntry, translation);
     }
 
-    /**
-     * Adds a translation with the key format "[type].arsmagicalegacy.[name]".
-     * @param type        The type part of the key.
-     * @param name        The name part of the key.
-     * @param translation The translation to add.
-     */
+    /// Adds a translation with the key format "[type].arsmagicalegacy.[name]".
+    /// @param type        The type part of the key.
+    /// @param name        The name part of the key.
+    /// @param translation The translation to add.
     private void add(String type, String name, String translation) {
         add(Util.makeDescriptionId(type, ArsMagicaApi.id(name)), translation);
     }
 
-    /**
-     * @param id A string of format "word_word_word".
-     * @return A string of format "Word Word Word".
-     */
+    /// @param id A string of format "word\_word\_word".
+    /// @return A string of format "Word Word Word".
     private static String idTranslation(String id) {
         StringBuilder result = new StringBuilder();
         for (String string : id.split("_")) {

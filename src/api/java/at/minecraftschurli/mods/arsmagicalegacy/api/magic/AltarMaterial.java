@@ -12,13 +12,11 @@ import net.minecraft.world.level.block.StairBlock;
 
 import java.util.function.Function;
 
-/**
- * Represents an altar's material.
- *
- * @param block The {@link Block} of the material.
- * @param stair The {@link StairBlock} of the material.
- * @param power The power of the material.
- */
+/// Represents an altar's material.
+///
+/// @param block The [Block] of the material.
+/// @param stair The [StairBlock] of the material.
+/// @param power The power of the material.
 public record AltarMaterial(Block block, StairBlock stair, int power) {
     public static final Codec<AltarMaterial> DIRECT_CODEC = RecordCodecBuilder.create(inst -> inst.group(
         BuiltInRegistries.BLOCK.byNameCodec().fieldOf("block").forGetter(AltarMaterial::block),

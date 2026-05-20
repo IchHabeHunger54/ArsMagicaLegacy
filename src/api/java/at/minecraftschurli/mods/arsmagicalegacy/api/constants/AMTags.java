@@ -11,9 +11,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.ApiStatus;
 
-/**
- * Holds all {@link TagKey}s added by Ars Magica: Legacy.
- */
+/// Holds all [TagKey]s added by Ars Magica: Legacy.
 @ApiStatus.NonExtendable
 public interface AMTags {
     @ApiStatus.NonExtendable

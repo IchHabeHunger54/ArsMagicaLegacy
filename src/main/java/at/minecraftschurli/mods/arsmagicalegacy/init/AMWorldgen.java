@@ -77,26 +77,20 @@ public interface AMWorldgen {
     DeferredHolder<RuleTestType<?>, RuleTestType<CompositeMatchTest>>          COMPOSITE            = RULE_TESTS.register("composite",            () -> () -> CompositeMatchTest.CODEC);
     // @formatter:on
 
-    /**
-     * @param name The name of the {@link ResourceKey}.
-     * @return A {@link ResourceKey} for a {@link ConfiguredFeature}.
-     */
+    /// @param name The name of the [ResourceKey].
+    /// @return A [ResourceKey] for a [ConfiguredFeature].
     private static ResourceKey<ConfiguredFeature<?, ?>> configuredFeature(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ArsMagicaApi.id(name));
     }
 
-    /**
-     * @param name The name of the {@link ResourceKey}.
-     * @return A {@link ResourceKey} for a {@link PlacedFeature}.
-     */
+    /// @param name The name of the [ResourceKey].
+    /// @return A [ResourceKey] for a [PlacedFeature].
     private static ResourceKey<PlacedFeature> placedFeature(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, ArsMagicaApi.id(name));
     }
 
-    /**
-     * @param name The name of the {@link ResourceKey}.
-     * @return A {@link ResourceKey} for a {@link BiomeModifier}.
-     */
+    /// @param name The name of the [ResourceKey].
+    /// @return A [ResourceKey] for a [BiomeModifier].
     private static ResourceKey<BiomeModifier> biomeModifier(String name) {
         return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ArsMagicaApi.id(name));
     }

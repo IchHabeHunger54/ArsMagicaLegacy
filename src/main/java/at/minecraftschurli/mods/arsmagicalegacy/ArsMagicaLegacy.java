@@ -35,11 +35,9 @@ public final class ArsMagicaLegacy {
         register(bus);
     }
 
-    /**
-     * Registers the {@link DeferredRegister}s.
-     *
-     * @param bus The {@link IEventBus} to use.
-     */
+    /// Registers the [DeferredRegister]s.
+    ///
+    /// @param bus The [IEventBus] to use.
     private void register(IEventBus bus) {
         AMBlocks.BLOCKS.register(bus);
         AMBlocks.BLOCKS.addAlias(ArsMagicaApi.id("witchwood"), AMBlocks.WITCHWOOD_WOOD.getId());

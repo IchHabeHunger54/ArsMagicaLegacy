@@ -381,9 +381,7 @@ final class AMClientEventHandler {
         event.setCanceled(true);
     }
 
-    /**
-     * Adapted from ItemInHandRenderer#renderArmWithItem and ItemInHandRenderer#renderPlayerArm
-     */
+    /// Adapted from ItemInHandRenderer#renderArmWithItem and ItemInHandRenderer#renderPlayerArm
     @SubscribeEvent
     private static void renderHand(RenderHandEvent event) {
         if (!(AMClientUtil.player() instanceof LocalPlayer player) || player.isInvisible() || !ArsMagicaApi.magicHelper().knowsMagic(player)) return;

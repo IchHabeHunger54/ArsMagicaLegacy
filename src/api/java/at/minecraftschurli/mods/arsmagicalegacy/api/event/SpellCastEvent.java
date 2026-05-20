@@ -5,13 +5,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.bus.api.ICancellableEvent;
 
-/**
- * Event that is fired when a spell is cast. Has {@link Pre} and {@link Post} sub events.
- * <p>
- * In order to perform additional functionality when a particular spell part is cast, use {@link SpellPartCastEvent}.
- * <p>
- * This event is not cancelable. This event is fired on the main event bus.
- */
+/// Event that is fired when a spell is cast. Has [Pre] and [Post] sub events.
+///
+/// In order to perform additional functionality when a particular spell part is cast, use [SpellPartCastEvent].
+///
+/// This event is not cancelable. This event is fired on the main event bus.
 @SuppressWarnings("unused")
 public abstract class SpellCastEvent extends SpellEvent {
     private final double mana;
@@ -23,26 +21,20 @@ public abstract class SpellCastEvent extends SpellEvent {
         this.burnout = burnout;
     }
 
-    /**
-     * @return The mana cost of the spell. Final by this point, to modify, use {@link ManaBurnoutCostEvent}.
-     */
+    /// @return The mana cost of the spell. Final by this point, to modify, use [ManaBurnoutCostEvent].
     public double getMana() {
         return mana;
     }
 
-    /**
-     * @return The burnout cost of the spell. Final by this point, to modify, use {@link ManaBurnoutCostEvent}.
-     */
+    /// @return The burnout cost of the spell. Final by this point, to modify, use [ManaBurnoutCostEvent].
     public double getBurnout() {
         return burnout;
     }
 
-    /**
-     * Fired immediately before the spell is cast. Use this event to modify
-     * whether to consume mana and burnout, and whether to award magic xp.
-     * <p>
-     * This event is cancelable. If the event is canceled, the spell will not be cast.
-     */
+    /// Fired immediately before the spell is cast. Use this event to modify
+    /// whether to consume mana and burnout, and whether to award magic xp.
+    ///
+    /// This event is cancelable. If the event is canceled, the spell will not be cast.
     public static class Pre extends SpellCastEvent implements ICancellableEvent {
         private final boolean originalConsume;
         private final boolean originalAwardXp;
@@ -58,91 +50,69 @@ public abstract class SpellCastEvent extends SpellEvent {
             this.awardXp = awardXp;
         }
 
-        /**
-         * @return Whether to consume mana and burnout.
-         */
+        /// @return Whether to consume mana and burnout.
         public boolean isOriginalConsume() {
             return originalConsume;
         }
 
-        /**
-         * @return Whether to award magic xp.
-         */
+        /// @return Whether to award magic xp.
         public boolean isOriginalAwardXp() {
             return originalAwardXp;
         }
 
-        /**
-         * @return Whether to consume mana and burnout. Potentially modified.
-         */
+        /// @return Whether to consume mana and burnout. Potentially modified.
         public boolean isConsume() {
             return consume;
         }
 
-        /**
-         * Modify whether to consume mana and burnout.
-         *
-         * @param consume Whether to consume mana and burnout.
-         */
+        /// Modify whether to consume mana and burnout.
+        ///
+        /// @param consume Whether to consume mana and burnout.
         public void setConsume(boolean consume) {
             this.consume = consume;
         }
 
-        /**
-         * @return Whether to award magic xp. Potentially modified.
-         */
+        /// @return Whether to award magic xp. Potentially modified.
         public boolean isAwardXp() {
             return awardXp;
         }
 
-        /**
-         * Modify whether to award magic xp.
-         *
-         * @param awardXp Whether to award magic xp.
-         */
+        /// Modify whether to award magic xp.
+        ///
+        /// @param awardXp Whether to award magic xp.
         public void setAwardXp(boolean awardXp) {
             this.awardXp = awardXp;
         }
 
-        /**
-         * @deprecated Use {@link Pre#setCanceled(Component)} to cancel, and {@link Pre#setUncanceled()} to uncancel.
-         */
+        /// @deprecated Use [Pre#setCanceled(Component)] to cancel, and [Pre#setUncanceled()] to uncancel.
         @Deprecated
         @Override
         public void setCanceled(boolean canceled) {
             ICancellableEvent.super.setCanceled(canceled);
         }
 
-        /**
-         * Mark the event as canceled.
-         *
-         * @param message The cancellation reason. This will be displayed to the player as a status message.
-         */
+        /// Mark the event as canceled.
+        ///
+        /// @param message The cancellation reason. This will be displayed to the player as a status message.
         public void setCanceled(Component message) {
             ICancellableEvent.super.setCanceled(true);
             this.message = message;
         }
 
-        /**
-         * Mark the event as uncanceled.
-         */
+        /// Mark the event as uncanceled.
         public void setUncanceled() {
             ICancellableEvent.super.setCanceled(false);
             this.message = Component.empty();
         }
 
-        /**
-         * @return The cancellation reason. This will be displayed to the player as a status message.
-         */
+        /// @return The cancellation reason. This will be displayed to the player as a status message.
         public Component getCancellationMessage() {
             return message;
         }
     }
 
-    /**
-     * Fired after the spell is cast, mana and burnout have been modified (if applicable),
-     * and magic xp has been awarded (if applicable).
-     */
+    /// Fired after the spell is cast, mana and burnout have been modified (if applicable),
+    /// and magic xp has been awarded (if applicable).
     public static class Post extends SpellCastEvent {
         private final boolean consume;
         private final boolean awardXp;
@@ -153,16 +123,12 @@ public abstract class SpellCastEvent extends SpellEvent {
             this.awardXp = awardXp;
         }
 
-        /**
-         * @return Whether to consume mana and burnout.
-         */
+        /// @return Whether to consume mana and burnout.
         public boolean isConsume() {
             return consume;
         }
 
-        /**
-         * @return Whether to award magic xp.
-         */
+        /// @return Whether to award magic xp.
         public boolean isAwardXp() {
             return awardXp;
         }

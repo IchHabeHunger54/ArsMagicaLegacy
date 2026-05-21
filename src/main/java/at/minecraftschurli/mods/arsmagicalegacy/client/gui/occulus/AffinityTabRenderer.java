@@ -56,7 +56,7 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
             .toList();
         for (int i = 0; i < list.size(); i++) {
             Holder<Affinity> affinity = list.get(i);
-            int color = affinity.value().color();
+            int color = 0xff000000 | affinity.value().color();
             double depth = ArsMagicaApi.magicHelper().getAffinityDepth(player, affinity);
             double angle = angleStep * i;
             double cosAngle = Math.cos(angle);

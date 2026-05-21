@@ -107,9 +107,12 @@ The assets are taken from various sources, each under different licenses:
         - All files in the `affinity_tome` subfolder
         - All files in the `infinity_orb` subfolder
         - All files in the `spell` subfolder
+        - `affinity_essence.png`
+        - `affinity_tome.png`
         - `arcane_compendium.png`
         - `chimerite.png`
         - `etherium_placeholder.png`
+        - `infinity_orb.png`
         - `moonstone.png`
         - `sunstone.png`
         - `topaz.png`

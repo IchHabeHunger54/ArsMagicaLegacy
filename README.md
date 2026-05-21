@@ -107,6 +107,7 @@ The assets are taken from various sources, each under different licenses:
         - All files in the `affinity_tome` subfolder
         - All files in the `infinity_orb` subfolder
         - All files in the `spell` subfolder
+        - All files starting with `inscription_table_`
         - `affinity_essence.png`
         - `affinity_tome.png`
         - `arcane_compendium.png`

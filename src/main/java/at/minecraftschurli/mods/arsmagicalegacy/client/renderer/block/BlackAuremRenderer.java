@@ -1,9 +1,9 @@
 package at.minecraftschurli.mods.arsmagicalegacy.client.renderer.block;
 
 import at.minecraftschurli.mods.arsmagicalegacy.blockentity.BlackAuremBlockEntity;
-import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.TextureAtlasSpriteRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -13,8 +13,10 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.jspecify.annotations.NullUnmarked;
@@ -59,7 +61,7 @@ public class BlackAuremRenderer extends AbstractEtheriumBlockEntityRenderer<Blac
         poseStack.translate(0.5, 0.5, 0.5);
         poseStack.mulPose(state.quaternion);
         poseStack.mulPose(state.rotation);
-        submitNodeCollector.submitCustomGeometry(poseStack, RenderTypes.translucentMovingBlock(), new TextureAtlasSpriteRenderer(state.sprite, state.lightCoords));
+        submitNodeCollector.submitCustomGeometry(poseStack, RenderTypes.translucentMovingBlock(), new Renderer(state.sprite, state.lightCoords));
         poseStack.popPose();
     }
 
@@ -68,5 +70,16 @@ public class BlackAuremRenderer extends AbstractEtheriumBlockEntityRenderer<Blac
         public Quaternionf quaternion = new Quaternionf();
         public Quaternionf rotation;
         public TextureAtlasSprite sprite;
+    }
+
+    private record Renderer(TextureAtlasSprite sprite, int light) implements SubmitNodeCollector.CustomGeometryRenderer {
+        @Override
+        public void render(PoseStack.Pose pose, VertexConsumer buffer) {
+            Matrix4f m = pose.pose();
+            buffer.addVertex(m, -1, -1, 0).setColor(1f, 1f, 1f, 1f).setUv(sprite.getU1(), sprite.getV1()).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, 0, 1, 0);
+            buffer.addVertex(m, -1, 1, 0).setColor(1f, 1f, 1f, 1f).setUv(sprite.getU1(), sprite.getV0()).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, 0, 1, 0);
+            buffer.addVertex(m, 1, 1, 0).setColor(1f, 1f, 1f, 1f).setUv(sprite.getU0(), sprite.getV0()).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, 0, 1, 0);
+            buffer.addVertex(m, 1, -1, 0).setColor(1f, 1f, 1f, 1f).setUv(sprite.getU0(), sprite.getV1()).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, 0, 1, 0);
+        }
     }
 }

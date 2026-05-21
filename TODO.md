@@ -3,7 +3,6 @@
 - Reduce sound volumes
 - Fix Render Pipelines
     - Color Wheel
-    - Magitech Goggles Overlay
     - Occulus Affinity Tab Lines
 - Test With Sodium/Embeddium/Iris
     - Altar Model & BER

@@ -55,6 +55,7 @@ public class AltarCoreRenderer extends AbstractEtheriumBlockEntityRenderer<Altar
     @Override
     public void extractRenderState(AltarCoreBlockEntity blockEntity, State state, float partialTicks, Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
         state.disabled = false;
+        state.itemDisabled = false;
         Level level = blockEntity.getLevel();
         BlockPos lecternPos = blockEntity.getLecternPos();
         SpellIngredient ingredient = blockEntity.getCurrentIngredient();
@@ -62,12 +63,12 @@ public class AltarCoreRenderer extends AbstractEtheriumBlockEntityRenderer<Altar
             state.disabled = true;
             return;
         }
+        super.extractRenderState(blockEntity, state, partialTicks, cameraPosition, breakProgress);
         BlockState lectern = level.getBlockState(lecternPos);
         if (!lectern.is(Blocks.LECTERN) || !lectern.getValue(LecternBlock.HAS_BOOK)) {
-            state.disabled = true;
+            state.itemDisabled = true;
             return;
         }
-        super.extractRenderState(blockEntity, state, partialTicks, cameraPosition, breakProgress);
         BlockPos pos = blockEntity.getBlockPos();
         state.translateX = lecternPos.getX() - pos.getX() + 0.5;
         state.translateY = lecternPos.getY() - pos.getY() + 1.5;
@@ -90,6 +91,7 @@ public class AltarCoreRenderer extends AbstractEtheriumBlockEntityRenderer<Altar
     public void submit(State state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
         if (state.disabled) return;
         super.submit(state, poseStack, submitNodeCollector, camera);
+        if (state.itemDisabled) return;
         poseStack.pushPose();
         poseStack.translate(state.translateX, state.translateY, state.translateZ);
         poseStack.pushPose();
@@ -118,6 +120,7 @@ public class AltarCoreRenderer extends AbstractEtheriumBlockEntityRenderer<Altar
     @NullUnmarked
     public static class State extends AbstractEtheriumBlockEntityRenderer.RenderState {
         public boolean disabled = false;
+        public boolean itemDisabled = false;
         public double translateX;
         public double translateY;
         public double translateZ;

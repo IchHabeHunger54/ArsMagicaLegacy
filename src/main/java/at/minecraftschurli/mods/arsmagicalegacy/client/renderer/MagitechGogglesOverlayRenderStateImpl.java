@@ -3,12 +3,14 @@ package at.minecraftschurli.mods.arsmagicalegacy.client.renderer;
 import at.minecraftschurli.mods.arsmagicalegacy.api.client.MagitechGogglesOverlayRenderState;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMCapabilities;
 import at.minecraftschurli.mods.arsmagicalegacy.api.etherium.EtheriumHandler;
+import at.minecraftschurli.mods.arsmagicalegacy.client.AMRenderTypes;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -53,7 +55,7 @@ public class MagitechGogglesOverlayRenderStateImpl implements MagitechGogglesOve
     @SuppressWarnings("SuspiciousNameCombination")
     @Override
     public void extractLine(BlockPos pos1, BlockPos pos2, float lineWidth, int color) {
-        Vec3 vec3 = pos2.getCenter().subtract(pos1.getCenter());
+        Vec3 vec3 = Vec3.atLowerCornerOf(pos2).subtract(Vec3.atLowerCornerOf(pos1));
         Vector3f vec = vec3.toVector3f().normalize();
         float halfWidth = lineWidth / 2;
         lines.add(Pair.of(
@@ -103,17 +105,18 @@ public class MagitechGogglesOverlayRenderStateImpl implements MagitechGogglesOve
 
     @Override
     public void submit(PoseStack stack, SubmitNodeCollector collector) {
-        /* TODO render pipeline
+        stack.pushPose();
+        stack.translate(0.5, 0.5, 0.5);
         for (Pair<CubeRenderState, Quaternionf> line : lines) {
             stack.pushPose();
             stack.mulPose(line.getSecond());
-            collector.submitCustomGeometry(stack, AMRenderTypes.OUTLINE, new Renderer(line.getFirst()));
+            collector.submitCustomGeometry(stack, AMRenderTypes.MAGITECH_GOGGLES, new Renderer(line.getFirst()));
             stack.popPose();
         }
+        stack.popPose();
         for (CubeRenderState box : boxes) {
-            collector.submitCustomGeometry(stack, AMRenderTypes.OUTLINE, new Renderer(box));
+            collector.submitCustomGeometry(stack, AMRenderTypes.MAGITECH_GOGGLES, new Renderer(box));
         }
-        */
     }
 
     private record CubeRenderState(float minX, float minY, float minZ, float maxX, float maxY, float maxZ, int red, int green, int blue, int alpha) {

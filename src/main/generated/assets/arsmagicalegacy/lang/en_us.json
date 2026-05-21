@@ -915,7 +915,7 @@
   "item.arsmagicalegacy.arcane_compendium.items.mage_armor.name": "Mage Armor",
   "item.arsmagicalegacy.arcane_compendium.items.mage_armor.page0.text": "Mages tend to prefer a special set of armor that has low durability, but repairs itself using mana. More wealthy mages use Battlemage Armor, which is a bit more durable and more protective.",
   "item.arsmagicalegacy.arcane_compendium.items.magitech_goggles.name": "Magitech Goggles",
-  "item.arsmagicalegacy.arcane_compendium.items.magitech_goggles.page0.text": "The Magitech Goggles are a fancy piece of armor that can be equipped in the helmet slot, or the head slot if Curios is installed. When wearing the Goggles, $(l:mechanics/etherium)Etherium$() connections used to become visible to you, however this ability has since been lost to time.",
+  "item.arsmagicalegacy.arcane_compendium.items.magitech_goggles.page0.text": "The Magitech Goggles are a fancy piece of armor that can be equipped in the helmet slot, or the head slot if Curios is installed. When wearing the Goggles, $(l:mechanics/etherium)Etherium$() connections will become visible to you.",
   "item.arsmagicalegacy.arcane_compendium.items.mana_food.name": "Mana Food",
   "item.arsmagicalegacy.arcane_compendium.items.mana_food.page0.text": "The Mana Martini (shaken, not stirred) will give you burnout reduction, while the Mana Cake improves your mana regeneration. But is it a lie?",
   "item.arsmagicalegacy.arcane_compendium.items.name": "Items",

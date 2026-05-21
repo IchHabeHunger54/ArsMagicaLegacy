@@ -14,7 +14,7 @@ public interface MagitechGogglesOverlayRenderState {
     /// Clears the internal state of the render state.
     void clear();
 
-    /// Extracts the render state from the given [BlockEntity]. This requires the [BlockEntity] to expose the [AMCapabilities#BLOCK\_ETHERIUM] capability.
+    /// Extracts the render state from the given [BlockEntity]. This requires the [BlockEntity] to expose the [AMCapabilities#BLOCK_ETHERIUM] capability.
     ///
     /// @param blockEntity The [BlockEntity] to extract from.
     void extract(BlockEntity blockEntity);

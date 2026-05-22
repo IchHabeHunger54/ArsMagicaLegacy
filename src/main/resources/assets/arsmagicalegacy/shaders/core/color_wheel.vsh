@@ -1,4 +1,4 @@
-#version 150
+#version 330
 
 in vec3 Position;
 in vec4 Color;
@@ -11,7 +11,6 @@ out vec2 texCoord;
 
 void main() {
     gl_Position = ProjMat * ModelViewMat * vec4(Position, 1.0);
-
     vertexColor = Color;
     texCoord = Position.xy;
 }

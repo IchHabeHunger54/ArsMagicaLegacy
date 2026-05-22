@@ -92,7 +92,7 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
                 textX = (int) (anchorX - width / 2);
                 textY = (int) (anchorY < center ? anchorY - height : anchorY + 17);
             }
-            graphics.text(font, text, textX, textY, 0xff000000 | color, false);
+            graphics.text(font, text, textX, textY, color, false);
             int stackX = (int) (textX + width / 2 - 8);
             int stackY = textY - 17;
             AMClientUtil.renderItem(graphics, font, AMUtil.set(AMItems.AFFINITY_ESSENCE.toStack(), AMDataComponents.AFFINITY.get(), affinity), stackX, stackY);

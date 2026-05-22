@@ -21,6 +21,8 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.Re
 import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.SpellCustomizationScreen;
 import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.SummonCustomizationScreen;
 import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.color.ColorCustomizationScreen;
+import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.color.ColorWheelPictureInPictureRenderer;
+import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.color.ColorWheelRenderState;
 import at.minecraftschurli.mods.arsmagicalegacy.client.layer.BarsLayer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.layer.ShapeGroupsLayer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.layer.SpellBookLayer;
@@ -107,6 +109,7 @@ import net.neoforged.neoforge.client.event.RegisterItemModelsEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.event.RegisterPictureInPictureRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterRangeSelectItemModelPropertyEvent;
 import net.neoforged.neoforge.client.event.RegisterTextureAtlasesEvent;
 import net.neoforged.neoforge.client.event.RenderHandEvent;
@@ -239,16 +242,10 @@ final class AMClientEventHandler {
         event.register(ArsMagicaApi.id("data_component_overrides"), DataComponentOverridesModel.Unbaked.MAP_CODEC);
     }
 
-/* TODO render pipeline
     @SubscribeEvent
-    private static void registerShaders(RegisterShadersEvent event) {
-        try {
-            event.registerShader(new ShaderInstance(event.getResourceProvider(), ArsMagicaApi.id("color_wheel"), DefaultVertexFormat.POSITION), ColorWheelShader::setInstance);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    private static void registerPictureInPictureRenderers(RegisterPictureInPictureRenderersEvent event) {
+        event.register(ColorWheelRenderState.class, ColorWheelPictureInPictureRenderer::new);
     }
-*/
 
     @SubscribeEvent
     private static void registerKeyMappings(RegisterKeyMappingsEvent event) {

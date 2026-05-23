@@ -6,6 +6,7 @@ import com.mojang.blaze3d.pipeline.ColorTargetState;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.blaze3d.vertex.VertexFormatElement;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.rendertype.RenderSetup;
 import net.minecraft.client.renderer.rendertype.RenderType;
@@ -23,11 +24,12 @@ public final class AMRenderTypes {
         .sortOnUpload()
         .createRenderSetup());
     private static final Identifier COLOR_WHEEL_ID = ArsMagicaApi.id("color_wheel");
-    public static final RenderPipeline COLOR_WHEEL_PIPELINE = RenderPipeline.builder(RenderPipelines.GUI_SNIPPET)
+    public static final RenderPipeline COLOR_WHEEL_PIPELINE = RenderPipeline.builder(RenderPipelines.MATRICES_PROJECTION_SNIPPET)
+        .withLocation(COLOR_WHEEL_ID)
         .withVertexShader(ArsMagicaApi.id("core/color_wheel"))
         .withFragmentShader(ArsMagicaApi.id("core/color_wheel"))
         .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
-        .withVertexFormat(DefaultVertexFormat.EMPTY, VertexFormat.Mode.QUADS)
+        .withVertexFormat(DefaultVertexFormat.POSITION_TEX, VertexFormat.Mode.QUADS)
         .build();
     public static final RenderType COLOR_WHEEL = RenderType.create(COLOR_WHEEL_ID.toString(), RenderSetup.builder(COLOR_WHEEL_PIPELINE).createRenderSetup());
 

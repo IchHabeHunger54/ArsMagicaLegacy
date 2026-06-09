@@ -117,7 +117,6 @@ import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsE
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.client.settings.KeyModifier;
-import org.lwjgl.glfw.GLFW;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.io.ByteArrayInputStream;
@@ -127,9 +126,9 @@ import java.util.Map;
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID, value = Dist.CLIENT)
 final class AMClientEventHandler {
     private static final KeyMapping.Category KEY_CATEGORY = new KeyMapping.Category(ArsMagicaApi.id("main"));
-    private static final KeyMapping NEXT_SHAPE_GROUP = new KeyMapping(AMTranslations.KEY_NEXT_SHAPE_GROUP_KEY, KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_PERIOD, KEY_CATEGORY);
-    private static final KeyMapping PREV_SHAPE_GROUP = new KeyMapping(AMTranslations.KEY_PREV_SHAPE_GROUP_KEY, KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_COMMA, KEY_CATEGORY);
-    private static final KeyMapping SPELL_CUSTOMIZATION = new KeyMapping(AMTranslations.KEY_SPELL_CUSTOMIZATION_KEY, KeyConflictContext.IN_GAME, KeyModifier.SHIFT, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, KEY_CATEGORY);
+    private static final KeyMapping NEXT_SHAPE_GROUP = new KeyMapping(AMTranslations.KEY_NEXT_SHAPE_GROUP_KEY, KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, InputConstants.KEY_PERIOD, KEY_CATEGORY);
+    private static final KeyMapping PREV_SHAPE_GROUP = new KeyMapping(AMTranslations.KEY_PREV_SHAPE_GROUP_KEY, KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, InputConstants.KEY_COMMA, KEY_CATEGORY);
+    private static final KeyMapping SPELL_CUSTOMIZATION = new KeyMapping(AMTranslations.KEY_SPELL_CUSTOMIZATION_KEY, KeyConflictContext.IN_GAME, KeyModifier.SHIFT, InputConstants.Type.KEYSYM, InputConstants.KEY_C, KEY_CATEGORY);
 
     @SubscribeEvent
     private static void clientSetup(FMLClientSetupEvent event) {

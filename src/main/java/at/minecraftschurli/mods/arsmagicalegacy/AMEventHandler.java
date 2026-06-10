@@ -79,7 +79,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.packet.TakeSpellRecipeFromLecter
 import at.minecraftschurli.mods.arsmagicalegacy.spell.ToolTiers;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import at.minecraftschurli.mods.arsmagicalegacy.util.BossBar;
-import at.minecraftschurli.mods.arsmagicalegacy.util.DispenseBucketBehavior;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
@@ -156,6 +155,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
+import net.neoforged.neoforge.transfer.fluid.DispenseFluidContainer;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -170,7 +170,7 @@ final class AMEventHandler {
     private static void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             registerFlammability();
-            DispenserBlock.registerBehavior(AMItems.LIQUID_ETHERIUM_BUCKET, DispenseBucketBehavior.INSTANCE);
+            DispenserBlock.registerBehavior(AMItems.LIQUID_ETHERIUM_BUCKET, DispenseFluidContainer.getInstance());
             DispenserBlock.registerBehavior(AMItems.WITCHWOOD_BOAT, new BoatDispenseItemBehavior(AMEntities.WITCHWOOD_BOAT.get()));
             DispenserBlock.registerBehavior(AMItems.WITCHWOOD_CHEST_BOAT, new BoatDispenseItemBehavior(AMEntities.WITCHWOOD_CHEST_BOAT.get()));
             FlowerPotBlock flowerPot = (FlowerPotBlock) Blocks.FLOWER_POT;

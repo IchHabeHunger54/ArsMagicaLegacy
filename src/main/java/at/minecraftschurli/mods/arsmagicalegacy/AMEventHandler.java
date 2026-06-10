@@ -209,10 +209,10 @@ final class AMEventHandler {
 
     @SubscribeEvent
     private static void registerCauldronInteractions(RegisterCauldronInteractionEvent.Interaction event) {
-        LiquidEtheriumCauldronBlock.CAULDRON_INTERACTIONS.put(Items.BUCKET, LiquidEtheriumCauldronBlock::fillBucket);
-        LiquidEtheriumCauldronBlock.CAULDRON_INTERACTIONS.put(Items.LAVA_BUCKET, CauldronInteractions::fillLavaInteraction);
-        LiquidEtheriumCauldronBlock.CAULDRON_INTERACTIONS.put(Items.WATER_BUCKET, CauldronInteractions::fillWaterInteraction);
-        LiquidEtheriumCauldronBlock.CAULDRON_INTERACTIONS.put(Items.POWDER_SNOW_BUCKET, CauldronInteractions::fillPowderSnowInteraction);
+        event.register(LiquidEtheriumCauldronBlock.CAULDRON_INTERACTIONS_ID, Items.BUCKET, LiquidEtheriumCauldronBlock::fillBucket);
+        event.register(LiquidEtheriumCauldronBlock.CAULDRON_INTERACTIONS_ID, Items.LAVA_BUCKET, CauldronInteractions::fillLavaInteraction);
+        event.register(LiquidEtheriumCauldronBlock.CAULDRON_INTERACTIONS_ID, Items.WATER_BUCKET, CauldronInteractions::fillWaterInteraction);
+        event.register(LiquidEtheriumCauldronBlock.CAULDRON_INTERACTIONS_ID, Items.POWDER_SNOW_BUCKET, CauldronInteractions::fillPowderSnowInteraction);
         event.registerToAll(AMItems.LIQUID_ETHERIUM_BUCKET.get(), LiquidEtheriumCauldronBlock::emptyBucket);
     }
 

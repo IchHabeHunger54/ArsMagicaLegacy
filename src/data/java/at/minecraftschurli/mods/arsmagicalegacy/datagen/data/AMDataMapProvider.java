@@ -38,7 +38,6 @@ public final class AMDataMapProvider extends DataMapProvider {
         builder(CrystalPhylacteryContentsSize.DATA_MAP)
             .add(AMTags.EntityTypes.SUMMONING_NOT_SUPPORTED, new CrystalPhylacteryContentsSize(0), false)
             .add(EntityType.DONKEY.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(20), false)
-            .add(EntityType.GIANT.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(0), false)
             .add(EntityType.HORSE.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(20), false)
             .add(EntityType.LLAMA.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(20), false)
             .add(EntityType.MAGMA_CUBE.builtInRegistryHolder(), new CrystalPhylacteryContentsSize(16), false)

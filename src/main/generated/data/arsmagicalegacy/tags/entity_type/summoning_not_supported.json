@@ -8,6 +8,10 @@
     "minecraft:mannequin",
     "minecraft:player",
     "minecraft:warden",
-    "minecraft:creaking"
+    "minecraft:creaking",
+    {
+      "id": "bibliocraft:fancy_armor_stand",
+      "required": false
+    }
   ]
 }

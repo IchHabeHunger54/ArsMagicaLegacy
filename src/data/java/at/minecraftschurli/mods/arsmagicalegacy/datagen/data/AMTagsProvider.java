@@ -15,11 +15,13 @@ import net.minecraft.data.tags.DamageTypeTagsProvider;
 import net.minecraft.data.tags.EnchantmentTagsProvider;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.data.tags.FluidTagsProvider;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagEntry;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
@@ -190,7 +192,8 @@ public final class AMTagsProvider {
             tag(AMTags.EntityTypes.ENDER_GUARDIAN_SACRIFICES).add(EntityType.ENDERMAN);
             tag(AMTags.EntityTypes.SUMMONING_NOT_SUPPORTED)
                 .addTags(Tags.EntityTypes.BOSSES, Tags.EntityTypes.CAPTURING_NOT_SUPPORTED)
-                .add(EntityType.ARMOR_STAND, EntityType.GIANT, EntityType.ILLUSIONER, EntityType.MANNEQUIN, EntityType.PLAYER, EntityType.WARDEN, EntityType.CREAKING);
+                .add(EntityType.ARMOR_STAND, EntityType.GIANT, EntityType.ILLUSIONER, EntityType.MANNEQUIN, EntityType.PLAYER, EntityType.WARDEN, EntityType.CREAKING)
+                .add(TagEntry.optionalElement(Identifier.fromNamespaceAndPath("bibliocraft", "fancy_armor_stand")));
         }
     }
 

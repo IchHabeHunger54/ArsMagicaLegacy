@@ -4,5 +4,7 @@
 - Fix Render Pipelines
     - Color Wheel
     - Occulus Affinity Tab Lines
+    - Beam
+    - Chain
 - Test With Sodium/Embeddium/Iris
     - Altar Model & BER

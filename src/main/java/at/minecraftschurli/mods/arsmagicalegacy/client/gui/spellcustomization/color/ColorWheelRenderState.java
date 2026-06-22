@@ -6,6 +6,6 @@ import org.jspecify.annotations.Nullable;
 
 public record ColorWheelRenderState(int x0, int x1, int y0, int y1, float scale, @Nullable ScreenRectangle scissorArea, @Nullable ScreenRectangle bounds, float brightness) implements PictureInPictureRenderState {
     public ColorWheelRenderState(int x, int y, int width, int height, @Nullable ScreenRectangle scissorArea, float brightness) {
-        this(x, x + width, y, y + height, 1, scissorArea, PictureInPictureRenderState.getBounds(x, y, x + width, y + height, scissorArea), brightness);
+        this(x, x + width, y, y + height, width, scissorArea, PictureInPictureRenderState.getBounds(x, y, x + width, y + height, scissorArea), brightness);
     }
 }

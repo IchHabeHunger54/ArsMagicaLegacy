@@ -1,10 +1,16 @@
 package at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.color;
 
+import at.minecraftschurli.mods.arsmagicalegacy.client.AMRenderTypes;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.render.TextureSetup;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.state.gui.BlitRenderState;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.phys.Vec2;
 import org.apache.commons.lang3.function.TriConsumer;
+import org.joml.Matrix3x2f;
+import org.joml.Matrix3x2fc;
 import org.jspecify.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
@@ -19,9 +25,35 @@ class ColorWheel extends ColorPickerWidget {
     @Override
     protected void extractWidgetRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         if (isFocused()) {
-            graphics.submitPictureInPictureRenderState(new ColorWheelRenderState(getX() - 1, getY() - 1, getX() + width + 1, getY() + height + 1, graphics.peekScissorStack(), -1));
+            graphics.submitGuiElementRenderState(new BlitRenderState(AMRenderTypes.COLOR_WHEEL_PIPELINE,
+                TextureSetup.noTexture(),
+                new Matrix3x2f(graphics.pose()),
+                getX() - 1,
+                getY() - 1,
+                getX() + width + 1,
+                getY() + height + 1,
+                -1f,
+                1f,
+                -1,
+                1f,
+                ARGB.colorFromFloat(brightness, 0, 0, 0),
+                graphics.peekScissorStack()
+            ));
         }
-        graphics.submitPictureInPictureRenderState(new ColorWheelRenderState(getX(), getY(), getX() + width, getY() + height, graphics.peekScissorStack(), brightness));
+        graphics.submitGuiElementRenderState(new BlitRenderState(AMRenderTypes.COLOR_WHEEL_PIPELINE,
+            TextureSetup.noTexture(),
+            new Matrix3x2f(graphics.pose()),
+            getX(),
+            getY(),
+            getX() + width,
+            getY() + height,
+            -1f,
+            1f,
+            -1,
+            1f,
+            ARGB.colorFromFloat(brightness, 1, 0, 0),
+            graphics.peekScissorStack()
+        ));
         renderIndicator(graphics, (int) (getX() + radius + radius * saturation * Math.cos(hue * Math.TAU)), (int) (getY() + radius + radius * saturation * Math.sin(hue * Math.TAU)));
     }
 

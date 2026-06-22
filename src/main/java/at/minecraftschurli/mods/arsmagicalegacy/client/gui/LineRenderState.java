@@ -49,8 +49,8 @@ public record LineRenderState(
 
     @Override
     public void buildVertices(VertexConsumer vertexConsumer) {
-        vertexConsumer.addVertexWith2DPose(pose, x0, y0).setNormal(1, 1, 0).setColor(color).setLineWidth(2);
-        vertexConsumer.addVertexWith2DPose(pose, x1, y1).setNormal(1, 1, 0).setColor(color).setLineWidth(2);
+        vertexConsumer.addVertexWith2DPose(pose, x0, y0).setNormal(0, 0, -1).setColor(color).setLineWidth(2);
+        vertexConsumer.addVertexWith2DPose(pose, x1, y1).setNormal(0, 0, -1).setColor(color).setLineWidth(2);
     }
 
     private static @Nullable ScreenRectangle getBounds(int x0, int y0, int x1, int y1, Matrix3x2f pose, @Nullable ScreenRectangle scissorArea) {

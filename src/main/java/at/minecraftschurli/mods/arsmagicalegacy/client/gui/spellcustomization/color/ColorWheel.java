@@ -1,6 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.color;
 
-import at.minecraftschurli.mods.arsmagicalegacy.client.AMRenderTypes;
+import at.minecraftschurli.mods.arsmagicalegacy.client.AMRenderPipelines;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.render.TextureSetup;
 import net.minecraft.client.input.KeyEvent;
@@ -78,6 +78,6 @@ class ColorWheel extends ColorPickerWidget {
     }
 
     private void extractColorWheel(GuiGraphicsExtractor graphics, int x0, int y0, int x1, int y1, float brightness, boolean outline) {
-        graphics.submitGuiElementRenderState(new BlitRenderState(AMRenderTypes.COLOR_WHEEL_PIPELINE, TextureSetup.noTexture(), new Matrix3x2f(graphics.pose()), x0, y0, x1, y1, -1, 1, -1, 1, ARGB.colorFromFloat(brightness, outline ? 1 : 0, 0, 0), graphics.peekScissorStack()));
+        graphics.submitGuiElementRenderState(new BlitRenderState(AMRenderPipelines.COLOR_WHEEL, TextureSetup.noTexture(), new Matrix3x2f(graphics.pose()), x0, y0, x1, y1, -1, 1, -1, 1, ARGB.colorFromFloat(brightness, outline ? 1 : 0, 0, 0), graphics.peekScissorStack()));
     }
 }

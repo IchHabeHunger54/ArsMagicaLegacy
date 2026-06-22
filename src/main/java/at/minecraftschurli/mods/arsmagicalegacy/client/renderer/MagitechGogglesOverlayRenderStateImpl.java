@@ -3,14 +3,13 @@ package at.minecraftschurli.mods.arsmagicalegacy.client.renderer;
 import at.minecraftschurli.mods.arsmagicalegacy.api.client.MagitechGogglesOverlayRenderState;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMCapabilities;
 import at.minecraftschurli.mods.arsmagicalegacy.api.etherium.EtheriumHandler;
-import at.minecraftschurli.mods.arsmagicalegacy.client.AMRenderTypes;
+import at.minecraftschurli.mods.arsmagicalegacy.client.AMRenderPipelines;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -110,12 +109,12 @@ public class MagitechGogglesOverlayRenderStateImpl implements MagitechGogglesOve
         for (Pair<CubeRenderState, Quaternionf> line : lines) {
             stack.pushPose();
             stack.mulPose(line.getSecond());
-            collector.submitCustomGeometry(stack, AMRenderTypes.MAGITECH_GOGGLES, new Renderer(line.getFirst()));
+            collector.submitCustomGeometry(stack, AMRenderPipelines.MAGITECH_GOGGLES_TYPE, new Renderer(line.getFirst()));
             stack.popPose();
         }
         stack.popPose();
         for (CubeRenderState box : boxes) {
-            collector.submitCustomGeometry(stack, AMRenderTypes.MAGITECH_GOGGLES, new Renderer(box));
+            collector.submitCustomGeometry(stack, AMRenderPipelines.MAGITECH_GOGGLES_TYPE, new Renderer(box));
         }
     }
 

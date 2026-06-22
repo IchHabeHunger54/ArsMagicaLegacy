@@ -241,7 +241,8 @@ final class AMClientEventHandler {
 
     @SubscribeEvent
     private static void registerRenderPipelines(RegisterRenderPipelinesEvent event) {
-        event.registerPipeline(AMRenderTypes.COLOR_WHEEL_PIPELINE);
+        event.registerPipeline(AMRenderPipelines.MAGITECH_GOGGLES);
+        event.registerPipeline(AMRenderPipelines.COLOR_WHEEL);
     }
 
     @SubscribeEvent

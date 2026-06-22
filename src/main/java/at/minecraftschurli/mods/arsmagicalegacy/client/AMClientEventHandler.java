@@ -21,8 +21,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.Re
 import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.SpellCustomizationScreen;
 import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.SummonCustomizationScreen;
 import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.color.ColorCustomizationScreen;
-import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.color.ColorWheelPictureInPictureRenderer;
-import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.color.ColorWheelRenderState;
 import at.minecraftschurli.mods.arsmagicalegacy.client.layer.BarsLayer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.layer.ShapeGroupsLayer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.layer.SpellBookLayer;
@@ -109,8 +107,8 @@ import net.neoforged.neoforge.client.event.RegisterItemModelsEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
-import net.neoforged.neoforge.client.event.RegisterPictureInPictureRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterRangeSelectItemModelPropertyEvent;
+import net.neoforged.neoforge.client.event.RegisterRenderPipelinesEvent;
 import net.neoforged.neoforge.client.event.RegisterTextureAtlasesEvent;
 import net.neoforged.neoforge.client.event.RenderHandEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
@@ -242,8 +240,8 @@ final class AMClientEventHandler {
     }
 
     @SubscribeEvent
-    private static void registerPictureInPictureRenderers(RegisterPictureInPictureRenderersEvent event) {
-        event.register(ColorWheelRenderState.class, ColorWheelPictureInPictureRenderer::new);
+    private static void registerRenderPipelines(RegisterRenderPipelinesEvent event) {
+        event.registerPipeline(AMRenderTypes.COLOR_WHEEL_PIPELINE);
     }
 
     @SubscribeEvent

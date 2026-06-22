@@ -23,6 +23,6 @@ class BrightnessSlider extends ColorPickerWidget {
         }
         int[] rgb = AMClientUtil.hsbToRgb(hue, saturation, 1);
         graphics.fillGradient(getX(), getY(), getX() + width, getY() + height, 0xff << 24 | rgb[0] << 16 | rgb[1] << 8 | rgb[2], 0xff000000);
-        renderIndicator(graphics, getX() + width / 2, (int) (getY() + Math.clamp(1 - brightness, 0, 1) * height));
+        extractIndicator(graphics, getX() + width / 2, (int) (getY() + Math.clamp(1 - brightness, 0, 1) * height));
     }
 }

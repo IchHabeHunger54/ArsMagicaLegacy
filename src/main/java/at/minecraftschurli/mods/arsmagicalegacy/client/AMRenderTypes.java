@@ -31,7 +31,6 @@ public final class AMRenderTypes {
         .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
         .withVertexFormat(DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS)
         .build();
-    public static final RenderType COLOR_WHEEL = RenderType.create(COLOR_WHEEL_ID.toString(), RenderSetup.builder(COLOR_WHEEL_PIPELINE).createRenderSetup());
 
     private AMRenderTypes() {}
 }

@@ -43,7 +43,7 @@ abstract class ColorPickerWidget extends AbstractWidget {
     }
 
     protected void setHovered(MouseButtonEvent event) {
-        float[] hovered = getHovered(event);
+        float @Nullable [] hovered = getHovered(event);
         if (hovered != null) {
             setValue(hovered[0], hovered[1], hovered[2]);
             onChange();
@@ -54,7 +54,7 @@ abstract class ColorPickerWidget extends AbstractWidget {
         onChange.accept(hue, saturation, brightness);
     }
 
-    protected void renderIndicator(GuiGraphicsExtractor graphics, int x, int y) {
+    protected void extractIndicator(GuiGraphicsExtractor graphics, int x, int y) {
         int[] rgb = AMClientUtil.hsbToRgb(hue, saturation, brightness);
         int color = rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114 > 186 ? 0xff000000 : 0xffffffff;
         graphics.fill(x - 1, y - 1, x + 1, y + 1, color);

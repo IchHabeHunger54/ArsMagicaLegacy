@@ -10,7 +10,6 @@ import net.minecraft.util.ARGB;
 import net.minecraft.world.phys.Vec2;
 import org.apache.commons.lang3.function.TriConsumer;
 import org.joml.Matrix3x2f;
-import org.joml.Matrix3x2fc;
 import org.jspecify.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
@@ -25,36 +24,10 @@ class ColorWheel extends ColorPickerWidget {
     @Override
     protected void extractWidgetRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         if (isFocused()) {
-            graphics.submitGuiElementRenderState(new BlitRenderState(AMRenderTypes.COLOR_WHEEL_PIPELINE,
-                TextureSetup.noTexture(),
-                new Matrix3x2f(graphics.pose()),
-                getX() - 1,
-                getY() - 1,
-                getX() + width + 1,
-                getY() + height + 1,
-                -1f,
-                1f,
-                -1,
-                1f,
-                ARGB.colorFromFloat(brightness, 0, 0, 0),
-                graphics.peekScissorStack()
-            ));
+            extractColorWheel(graphics, getX() - 1, getY() - 1, getX() + width + 1, getY() + height + 1, brightness, true);
         }
-        graphics.submitGuiElementRenderState(new BlitRenderState(AMRenderTypes.COLOR_WHEEL_PIPELINE,
-            TextureSetup.noTexture(),
-            new Matrix3x2f(graphics.pose()),
-            getX(),
-            getY(),
-            getX() + width,
-            getY() + height,
-            -1f,
-            1f,
-            -1,
-            1f,
-            ARGB.colorFromFloat(brightness, 1, 0, 0),
-            graphics.peekScissorStack()
-        ));
-        renderIndicator(graphics, (int) (getX() + radius + radius * saturation * Math.cos(hue * Math.TAU)), (int) (getY() + radius + radius * saturation * Math.sin(hue * Math.TAU)));
+        extractColorWheel(graphics, getX(), getY(), getX() + width, getY() + height, brightness, false);
+        extractIndicator(graphics, (int) (getX() + radius + radius * saturation * Math.cos(hue * Math.TAU)), (int) (getY() + radius + radius * saturation * Math.sin(hue * Math.TAU)));
     }
 
     @Override
@@ -102,5 +75,9 @@ class ColorWheel extends ColorPickerWidget {
 
     private Vec2 getMouseRelative(double mouseX, double mouseY) {
         return new Vec2((float) mouseX - getX() - radius, (float) mouseY - getY() - radius);
+    }
+
+    private void extractColorWheel(GuiGraphicsExtractor graphics, int x0, int y0, int x1, int y1, float brightness, boolean outline) {
+        graphics.submitGuiElementRenderState(new BlitRenderState(AMRenderTypes.COLOR_WHEEL_PIPELINE, TextureSetup.noTexture(), new Matrix3x2f(graphics.pose()), x0, y0, x1, y1, -1, 1, -1, 1, ARGB.colorFromFloat(brightness, outline ? 1 : 0, 0, 0), graphics.peekScissorStack()));
     }
 }

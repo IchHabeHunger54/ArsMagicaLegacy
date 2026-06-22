@@ -79,7 +79,6 @@ final class SpellHelperImpl implements SpellHelper {
             } else {
                 double mana = spell.getManaCost(registryAccess);
                 double burnout = spell.grammar().getBurnoutCost(registryAccess);
-                System.out.println("Mana: " + mana + ", burnout: " + burnout);
                 ManaBurnoutCostEvent event = NeoForge.EVENT_BUS.post(new ManaBurnoutCostEvent(caster, spell, mana, burnout));
                 manaCost = event.getMana();
                 burnoutCost = event.getBurnout();

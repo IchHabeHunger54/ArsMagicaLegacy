@@ -168,6 +168,14 @@ tasks.javadoc {
     source = sourceSets.api.get().allJava
 }
 
+runs {
+    named("client") {
+        renderDoc {
+            enabled = true
+        }
+    }
+}
+
 helper.publication.pom {
     organization {
         name = "Minecraftschurli Mods"

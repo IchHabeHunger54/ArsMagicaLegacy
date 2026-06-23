@@ -25,8 +25,8 @@ public final class AMRenderPipelines {
     private static final Identifier COLOR_WHEEL_ID = ArsMagicaApi.id("color_wheel");
     public static final RenderPipeline COLOR_WHEEL = RenderPipeline.builder(RenderPipelines.MATRICES_PROJECTION_SNIPPET)
         .withLocation(COLOR_WHEEL_ID)
-        .withVertexShader(ArsMagicaApi.id("core/color_wheel"))
-        .withFragmentShader(ArsMagicaApi.id("core/color_wheel"))
+        .withVertexShader(ArsMagicaApi.id("color_wheel"))
+        .withFragmentShader(ArsMagicaApi.id("color_wheel"))
         .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
         .withVertexFormat(DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS)
         .build();

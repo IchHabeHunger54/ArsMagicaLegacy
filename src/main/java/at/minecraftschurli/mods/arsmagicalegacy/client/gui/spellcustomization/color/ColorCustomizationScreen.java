@@ -100,7 +100,7 @@ public class ColorCustomizationScreen extends AbstractSpellPartCustomizationScre
 
     @Override
     public boolean keyPressed(KeyEvent event) {
-        return editBox != null && editBox.active ? editBox.keyPressed(event) : super.keyPressed(event);
+        return editBox != null && editBox.isFocused() ? editBox.keyPressed(event) : super.keyPressed(event);
     }
 
     private void setColorRgb(int rgb) {

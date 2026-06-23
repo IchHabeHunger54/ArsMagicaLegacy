@@ -2,8 +2,6 @@
 - Apply Mana Regeneration to entities swimming in Liquid Etherium (needs Neo changes)
 - Reduce sound volumes
 - Fix Render Pipelines
-    - Color Wheel
-    - Occulus Affinity Tab Lines
     - Beam
     - Chain
 - Test With Sodium/Embeddium/Iris

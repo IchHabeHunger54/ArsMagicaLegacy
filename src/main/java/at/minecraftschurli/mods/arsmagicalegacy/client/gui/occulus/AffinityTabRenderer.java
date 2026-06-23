@@ -70,14 +70,13 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
             float endX = (float) (cosAngle * (RADIUS + depth * DISTANCE)) + center;
             float endY = (float) (sinAngle * (RADIUS + depth * DISTANCE)) + center;
             if (depth >= 0.01) {
-                float displace = (Math.abs(startX1 - startX2) + Math.abs(startY1 - startY2)) * 2;
+                float displace = (Math.abs(startX1 - startX2) + Math.abs(startY1 - startY2)) * (float) depth;
                 renderFractalLine(graphics, startX1, startY1, endX, endY, color, displace, 1 - FRACTAL);
                 renderFractalLine(graphics, startX2, startY2, endX, endY, color, displace, 1 - FRACTAL);
                 renderFractalLine(graphics, startX1, startY1, endX, endY, color, displace, 1 + FRACTAL);
                 renderFractalLine(graphics, startX2, startY2, endX, endY, color, displace, 1 + FRACTAL);
             } else {
-                AMClientUtil.renderLine(graphics, startX1, startY1, endX, endY, color, 2);
-                AMClientUtil.renderLine(graphics, startX2, startY2, endX, endY, color, 2);
+                SkillTreeTabRenderer.fillLine(graphics, startX1, startY1, startX2, startY2, color, color, 0.25f);
             }
             String text = percent(depth);
             double width = font.width(text);
@@ -129,7 +128,7 @@ public class AffinityTabRenderer extends OcculusTabRenderer {
 
     private void renderFractalLine(GuiGraphicsExtractor graphics, float startX, float startY, float endX, float endY, int color, float displace, float fractal) {
         if (displace < fractal) {
-            AMClientUtil.renderLine(graphics, startX, startY, endX, endY, color, 2);
+            SkillTreeTabRenderer.fillLine(graphics, startX, startY, endX, endY, color, color, 0.25f);
             return;
         }
         float x = (startX + endX) / 2 + (random.nextFloat() - 0.5f) * displace;

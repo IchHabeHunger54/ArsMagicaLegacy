@@ -9,20 +9,24 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.magic.OcculusTab;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.SkillPoint;
 import at.minecraftschurli.mods.arsmagicalegacy.client.atlas.SkillAtlasHolder;
+import at.minecraftschurli.mods.arsmagicalegacy.client.gui.ColoredFloatRectangleRenderState;
 import at.minecraftschurli.mods.arsmagicalegacy.packet.LearnSkillPacket;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.render.TextureSetup;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.phys.Vec2;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
+import org.joml.Matrix3x2f;
 import org.joml.Matrix3x2fStack;
 import org.jspecify.annotations.Nullable;
 
@@ -140,6 +144,17 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
         offsetX = Math.clamp(offsetX - dx, 0, occulusTab.value().width() - TAB_SIZE);
         offsetY = Math.clamp(offsetY - dy, 0, occulusTab.value().height() - TAB_SIZE);
         return true;
+    }
+
+    public static void fillLine(GuiGraphicsExtractor graphics, float startX, float startY, float endX, float endY, int startColor, int endColor, float lineWidth) {
+        Matrix3x2fStack stack = graphics.pose();
+        stack.pushMatrix();
+        stack.translate(startX, startY);
+        Vec2 vec = new Vec2(endX - startX, endY - startY);
+        float angle = (float) Math.acos(new Vec2(0, 1).dot(vec.normalized()));
+        stack.rotate(vec.x > 0 ? -angle : angle);
+        graphics.submitGuiElementRenderState(new ColoredFloatRectangleRenderState(RenderPipelines.GUI, TextureSetup.noTexture(), new Matrix3x2f(graphics.pose()), -lineWidth / 2f, 0, lineWidth / 2f, vec.length(), startColor, endColor, graphics.peekScissorStack()));
+        stack.popMatrix();
     }
 
     private static int getColorForSkill(Skill skill) {

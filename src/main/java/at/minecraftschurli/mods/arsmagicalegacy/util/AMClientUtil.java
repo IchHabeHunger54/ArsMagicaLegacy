@@ -1,7 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.util;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
-import at.minecraftschurli.mods.arsmagicalegacy.client.gui.LineRenderState;
 import at.minecraftschurli.mods.arsmagicalegacy.client.gui.occulus.OcculusScreen;
 import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellcustomization.SpellCustomizationScreen;
 import at.minecraftschurli.mods.arsmagicalegacy.client.gui.spellrecipe.SpellRecipeScreen;
@@ -18,7 +17,6 @@ import com.google.common.reflect.TypeToken;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.render.TextureSetup;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -34,7 +32,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Matrix3x2fStack;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Arrays;
@@ -237,21 +237,6 @@ public final class AMClientUtil {
 
     public static void blit(GuiGraphicsExtractor graphics, TextureAtlasSprite sprite, int x, int y, int width, int height, int color) {
         graphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, x, y, width, height, color);
-    }
-
-    public static void renderLine(GuiGraphicsExtractor graphics, float startX, float startY, float endX, float endY, int color, int lineWidth) {
-        graphics.submitGuiElementRenderState(new LineRenderState(
-            RenderPipelines.LINES,
-            TextureSetup.noTexture(),
-            graphics.pose(),
-            startX,
-            startY,
-            endX,
-            endY,
-            color,
-            lineWidth,
-            graphics.peekScissorStack()
-        ));
     }
 
     public static void addCube(PartDefinition pd, String name, int texU, int texV, float originX, float originY, float originZ, float sizeX, float sizeY, float sizeZ, float offsetX, float offsetY, float offsetZ) {

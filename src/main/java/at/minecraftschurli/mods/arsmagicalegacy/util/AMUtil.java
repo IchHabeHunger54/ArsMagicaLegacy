@@ -255,6 +255,11 @@ public final class AMUtil {
         return hitResult;
     }
 
+    public static HitResult getHitResult(LivingEntity caster, double length, ClipContext.Block blockContext, ClipContext.Fluid fluidContext) {
+        Vec3 eyePos = caster.getEyePosition();
+        return AMUtil.getHitResult(eyePos, eyePos.add(caster.getLookAngle().scale(length)), caster, blockContext, fluidContext);
+    }
+
     public static List<Plant> getPlants(BlockState state, RegistryAccess registryAccess) {
         return AMRegistries.plants(registryAccess)
             .listElements()

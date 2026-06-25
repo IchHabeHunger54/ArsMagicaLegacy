@@ -51,7 +51,7 @@ public class SpellCustomizationScreen extends Screen {
         for (int i = 0; i < spell.shapeGroups().size(); i++) {
             SpellShapeGroup shapeGroup = spell.shapeGroups().get(i);
             for (int j = 0; j < shapeGroup.parts().size(); j++) {
-                addRenderableWidget(SpellPartButton.create(leftPos + i * ShapeGroupArea.WIDTH + j % 2 * SpellPartButton.SIZE + 2, topPos + 100 + j / 2 * SpellPartButton.SIZE + 1, AMRegistries.SPELL_PARTS.wrapAsHolder(shapeGroup.parts().get(j)), this, j));
+                addRenderableWidget(SpellPartButton.create(leftPos + i * ShapeGroupArea.WIDTH + j % 2 * SpellPartButton.SIZE + 2, topPos + 100 + j / 2 * SpellPartButton.SIZE + 1, AMRegistries.SPELL_PARTS.wrapAsHolder(shapeGroup.parts().get(j)), this, i));
             }
         }
         for (int i = 0; i < spell.grammar().parts().size(); i++) {

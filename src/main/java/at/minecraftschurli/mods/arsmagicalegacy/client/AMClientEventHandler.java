@@ -6,7 +6,10 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.client.event.RegisterParticl
 import at.minecraftschurli.mods.arsmagicalegacy.api.client.event.RegisterSpellPartCustomizationScreensEvent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.PrimarySpellShape;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellHelper;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellShapeGroup;
 import at.minecraftschurli.mods.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
 import at.minecraftschurli.mods.arsmagicalegacy.client.atlas.SkillAtlasHolder;
 import at.minecraftschurli.mods.arsmagicalegacy.client.atlas.SpellIconAtlasHolder;
@@ -45,6 +48,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.particle.controller.Leave
 import at.minecraftschurli.mods.arsmagicalegacy.client.particle.controller.MoveInKnockbackDirectionController;
 import at.minecraftschurli.mods.arsmagicalegacy.client.particle.controller.MoveInViewDirectionController;
 import at.minecraftschurli.mods.arsmagicalegacy.client.particle.controller.OrbitPointController;
+import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.BeamRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.block.AltarCoreRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.block.BlackAuremRenderer;
 import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.block.EtheriumBlockEntityRenderer;
@@ -87,6 +91,7 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
@@ -111,6 +116,7 @@ import net.neoforged.neoforge.client.event.RegisterRangeSelectItemModelPropertyE
 import net.neoforged.neoforge.client.event.RegisterRenderPipelinesEvent;
 import net.neoforged.neoforge.client.event.RegisterTextureAtlasesEvent;
 import net.neoforged.neoforge.client.event.RenderHandEvent;
+import net.neoforged.neoforge.client.event.SubmitCustomGeometryEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
@@ -120,6 +126,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.Objects;
 
 @EventBusSubscriber(modid = ArsMagicaApi.MOD_ID, value = Dist.CLIENT)
 final class AMClientEventHandler {
@@ -407,5 +414,29 @@ final class AMClientEventHandler {
             avatarRenderer.renderLeftHand(stack, submitNodeCollector, lightCoords, skinTexture, player.isModelPartShown(PlayerModelPart.LEFT_SLEEVE), player);
         }
         stack.popPose();
+    }
+
+    @SubscribeEvent
+    private static void submitCustomGeometry(SubmitCustomGeometryEvent event) {
+        PoseStack stack = event.getPoseStack();
+        SubmitNodeCollector collector = event.getSubmitNodeCollector();
+        Player player = Objects.requireNonNull(AMClientUtil.player());
+        Level level = Objects.requireNonNull(AMClientUtil.level());
+        int distance = AMClientUtil.mc().options.getEffectiveRenderDistance() * 8;
+        SpellHelper helper = ArsMagicaApi.spellHelper();
+        for (Player p : level.players()) {
+            if (player.distanceTo(p) > distance || !p.isUsingItem()) continue;
+            Spell spell = p.getUseItem().get(AMDataComponents.SPELL);
+            if (spell == null || spell.isEmpty()) continue;
+            SpellShapeGroup shapeGroup = spell.currentShapeGroup();
+            PrimarySpellShape shape = shapeGroup.primaryShape();
+            stack.pushPose();
+            stack.translate(p.position().subtract(event.getLevelRenderState().cameraRenderState.pos));
+            stack.translate(-0.5, 0, -0.5);
+            if (shape == AMSpells.BEAM.get()) {
+                BeamRenderer.submit(stack, collector, 0xff000000 | helper.getColor(shapeGroup.primaryModifiers(), spell, spell.activeShapeGroup()));
+            }
+            stack.popPose();
+        }
     }
 }

@@ -2,29 +2,81 @@ package at.minecraftschurli.mods.arsmagicalegacy.client.renderer;
 
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BeaconRenderer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.ARGB;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+/// Adapted from [BeaconRenderer]
 public final class BeamRenderer {
     private static final Identifier BEAM_LOCATION = Identifier.withDefaultNamespace("textures/entity/beacon/beacon_beam.png");
+    private static final float BEAM_RADIUS = 0.2f;
+    private static final float GLOW_RADIUS = 0.25f;
 
     private BeamRenderer() {}
 
-    public static void submit(PoseStack stack, SubmitNodeCollector collector, Vec3 from, Vec3 to, int color, float partialTick) {
+    public static void submit(PoseStack stack, SubmitNodeCollector collector, Vec3 from, Vec3 to, float yRot, float xRot, int color, float partialTick) {
         Level level = AMClientUtil.level();
-        double dx = to.x - from.x;
-        double dy = to.y - from.y;
-        double dz = to.z - from.z;
+        float animationTime = level != null ? Math.floorMod(level.getGameTime(), 40) + partialTick : 0f;
+        float vOffset = Mth.frac(-animationTime * 0.2f - Mth.floor(-animationTime * 0.1f)) - 1;
+        float height = (float) from.distanceTo(to);
         stack.pushPose();
-        stack.mulPose(Axis.YP.rotationDegrees((float) Math.toDegrees(Mth.atan2(dz, dx)) + 90));
-        stack.mulPose(Axis.XP.rotationDegrees((float) Math.toDegrees(-Mth.atan2(dy, Math.sqrt(dx * dx + dz * dz))) + 90));
-        stack.translate(-0.5, 0, -0.5);
-        BeaconRenderer.submitBeaconBeam(stack, collector, BEAM_LOCATION, 1f, level != null ? Math.floorMod(level.getGameTime(), 40) + partialTick : 0f, 0, Mth.ceil(from.distanceTo(to)), color, 0.2f, 0.25f);
+        stack.mulPose(Axis.YP.rotationDegrees(-yRot));
+        stack.mulPose(Axis.XP.rotationDegrees(xRot + 90));
+        stack.pushPose();
+        stack.mulPose(Axis.YP.rotationDegrees(animationTime * 2.25f - 45f));
+        float wnx = 0f;
+        float wnz = BEAM_RADIUS;
+        float enx = BEAM_RADIUS;
+        float enz = 0f;
+        float wsx = -BEAM_RADIUS;
+        float wsz = 0f;
+        float esx = 0f;
+        float esz = -BEAM_RADIUS;
+        submit(stack, collector, false, color, height, wnx, wnz, enx, enz, wsx, wsz, esx, esz, vOffset, height * (0.5f / BEAM_RADIUS) + vOffset);
         stack.popPose();
+        wnx = -GLOW_RADIUS;
+        wnz = -GLOW_RADIUS;
+        enx = GLOW_RADIUS;
+        enz = -GLOW_RADIUS;
+        wsx = -GLOW_RADIUS;
+        wsz = GLOW_RADIUS;
+        esx = GLOW_RADIUS;
+        esz = GLOW_RADIUS;
+        submit(stack, collector, true, ARGB.color(32, color), height, wnx, wnz, enx, enz, wsx, wsz, esx, esz, vOffset, height + vOffset);
+        stack.popPose();
+    }
+
+    private static void submit(PoseStack stack, SubmitNodeCollector collector, boolean translucent, int color, float height, float wnx, float wnz, float enx, float enz, float wsx, float wsz, float esx, float esz, float v0, float v1) {
+        collector.submitCustomGeometry(stack, RenderTypes.beaconBeam(BEAM_LOCATION, translucent), (pose, builder) -> {
+            renderQuad(pose, builder, color, height, wnx, wnz, enx, enz, v0, v1);
+            renderQuad(pose, builder, color, height, esx, esz, wsx, wsz, v0, v1);
+            renderQuad(pose, builder, color, height, enx, enz, esx, esz, v0, v1);
+            renderQuad(pose, builder, color, height, wsx, wsz, wnx, wnz, v0, v1);
+        });
+    }
+
+    private static void renderQuad(PoseStack.Pose pose, VertexConsumer builder, int color, float height, float x0, float z0, float x1, float z1, float v0, float v1) {
+        addVertex(pose, builder, color, x0, height, z0, 1f, v0);
+        addVertex(pose, builder, color, x0, 0f, z0, 1f, v1);
+        addVertex(pose, builder, color, x1, 0f, z1, 0f, v1);
+        addVertex(pose, builder, color, x1, height, z1, 0f, v0);
+    }
+
+    private static void addVertex(PoseStack.Pose pose, VertexConsumer builder, int color, float x, float y, float z, float u, float v) {
+        builder.addVertex(pose, x, y, z)
+            .setColor(color)
+            .setUv(u, v)
+            .setOverlay(OverlayTexture.NO_OVERLAY)
+            .setLight(LightCoordsUtil.FULL_BRIGHT)
+            .setNormal(pose, 0f, 1f, 0f);
     }
 }

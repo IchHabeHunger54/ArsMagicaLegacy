@@ -95,6 +95,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
@@ -428,6 +429,7 @@ final class AMClientEventHandler {
         Minecraft mc = AMClientUtil.mc();
         Options options = mc.options;
         int distance = options.getEffectiveRenderDistance() * 8;
+        boolean firstPerson = options.getCameraType().isFirstPerson();
         float partialTick = mc.getDeltaTracker().getGameTimeDeltaTicks();
         SpellHelper helper = ArsMagicaApi.spellHelper();
         for (Player p : level.players()) {
@@ -438,11 +440,10 @@ final class AMClientEventHandler {
             PrimarySpellShape shape = shapeGroup.primaryShape();
             stack.pushPose();
             stack.translate(p.getEyePosition().subtract(event.getLevelRenderState().cameraRenderState.pos));
-            if (p == player && options.getCameraType().isFirstPerson()) {
-                stack.translate(0, -0.5, 0);
-            }
+            Vec3 from = p.getEyePosition();
+            Vec3 to = AMUtil.getHitResult(p, spell, 64).getLocation();
             if (shape == AMSpells.BEAM.get()) {
-                BeamRenderer.submit(stack, collector, p.getEyePosition(), AMUtil.getHitResult(p, spell, 64).getLocation(), 0xff000000 | helper.getColor(shapeGroup.primaryModifiers(), spell, spell.activeShapeGroup()), partialTick);
+                BeamRenderer.submit(stack, collector, from, to, p.getViewYRot(partialTick), p.getViewXRot(partialTick), 0xff000000 | helper.getColor(shapeGroup.primaryModifiers(), spell, spell.activeShapeGroup()), partialTick);
             }
             stack.popPose();
         }

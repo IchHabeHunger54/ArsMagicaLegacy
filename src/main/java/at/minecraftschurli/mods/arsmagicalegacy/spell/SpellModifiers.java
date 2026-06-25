@@ -3,7 +3,6 @@ package at.minecraftschurli.mods.arsmagicalegacy.spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellStat;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellStatModifier;
-import at.minecraftschurli.mods.arsmagicalegacy.init.AMSpells;
 import net.minecraft.world.clock.ClockManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.MoonPhase;
@@ -11,8 +10,6 @@ import net.minecraft.world.timeline.Timeline;
 import net.minecraft.world.timeline.Timelines;
 
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public final class SpellModifiers {
     private static final double LUNAR_MULTIPLIER = 1.625;

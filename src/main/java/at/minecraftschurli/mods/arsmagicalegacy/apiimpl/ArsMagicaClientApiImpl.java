@@ -17,7 +17,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.client.renderer.MagitechGogglesO
 import at.minecraftschurli.mods.arsmagicalegacy.compat.curios.AMCuriosHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
-import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
@@ -30,9 +29,6 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.ModLoader;
 import org.jspecify.annotations.Nullable;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
-import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 
 import java.util.HashMap;
 import java.util.List;

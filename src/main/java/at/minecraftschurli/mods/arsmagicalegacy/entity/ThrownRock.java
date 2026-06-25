@@ -8,7 +8,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -32,7 +31,7 @@ public class ThrownRock extends AbstractOwnableEntity {
         }
         Vec3 oldPos = position();
         Vec3 newPos = position().add(getDeltaMovement());
-        HitResult hit = AMUtil.getHitResult(oldPos, newPos, this, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE);
+        HitResult hit = AMUtil.getHitResult(oldPos, newPos, this, false);
         if (hit.getType() != HitResult.Type.MISS) {
             newPos = hit.getLocation();
         }

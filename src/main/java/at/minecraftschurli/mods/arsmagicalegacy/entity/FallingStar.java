@@ -17,7 +17,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -71,7 +70,7 @@ public class FallingStar extends SpellEntity {
             if (level.isClientSide()) {
                 AMClientUtil.spawnFallingStarParticles(this, false);
             }
-            HitResult result = AMUtil.getHitResult(position(), position().add(0, 0.01, 0), this, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE);
+            HitResult result = AMUtil.getHitResult(position(), position().add(0, 0.01, 0), this, false);
             if (result.getType() == HitResult.Type.MISS) return;
             if (result.getType() == HitResult.Type.BLOCK) {
                 Vec3 vec = result.getLocation();

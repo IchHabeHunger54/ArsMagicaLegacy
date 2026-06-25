@@ -13,7 +13,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -64,7 +63,7 @@ public class WintersGrasp extends AbstractOwnableEntity {
         } else if (tickCount > 50) {
             setHasHit();
         }
-        HitResult result = AMUtil.getHitResult(position(), position().add(getDeltaMovement()), this, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE);
+        HitResult result = AMUtil.getHitResult(position(), position().add(getDeltaMovement()), this, false);
         if (result.getType() == HitResult.Type.ENTITY) {
             Entity entity = ((EntityHitResult) result).getEntity();
             while (entity instanceof PartEntity<?> part) {

@@ -10,7 +10,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellModifier;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.ClipContext;
 
 import java.util.List;
 
@@ -20,11 +19,9 @@ public class Beam extends PrimarySpellShape {
         Spell spell = context.spell();
         LivingEntity caster = context.caster();
         if (caster == null) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_NO_CASTER);
-        boolean targetNonSolid = ArsMagicaApi.spellHelper().getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, context) > 0;
-        ClipContext.Block blockContext = targetNonSolid ? ClipContext.Block.OUTLINE : ClipContext.Block.COLLIDER;
-        ClipContext.Fluid fluidContext = targetNonSolid ? ClipContext.Fluid.ANY : ClipContext.Fluid.NONE;
         double range = 64;
-        return ArsMagicaApi.spellHelper().castSecondaryOrGrammar(context.setDirectEntityAndHitResult(caster, AMUtil.getHitResult(caster, range, blockContext, fluidContext)));
+        boolean targetNonSolid = ArsMagicaApi.spellHelper().getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, context) > 0;
+        return ArsMagicaApi.spellHelper().castSecondaryOrGrammar(context.setDirectEntityAndHitResult(caster, AMUtil.getHitResult(caster, range, targetNonSolid)));
     }
 
     @Override

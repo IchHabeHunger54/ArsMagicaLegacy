@@ -71,7 +71,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jspecify.annotations.Nullable;
@@ -243,8 +242,8 @@ public final class AMUtil {
         return getEnchanted(AMItems.SPELL.toStack(), modifiers, context, enchantments);
     }
 
-    public static HitResult getHitResult(Vec3 from, Vec3 to, Entity entity, ClipContext.Block blockContext, ClipContext.Fluid fluidContext) {
-        HitResult hitResult = entity.level().clip(new ClipContext(from, to, blockContext, fluidContext, entity));
+    public static HitResult getHitResult(Vec3 from, Vec3 to, Entity entity, boolean targetNonSolid) {
+        HitResult hitResult = entity.level().clip(new ClipContext(from, to, targetNonSolid ? ClipContext.Block.OUTLINE : ClipContext.Block.COLLIDER, targetNonSolid ? ClipContext.Fluid.ANY : ClipContext.Fluid.NONE, entity));
         if (hitResult.getType() != HitResult.Type.MISS) {
             to = hitResult.getLocation();
         }
@@ -255,9 +254,9 @@ public final class AMUtil {
         return hitResult;
     }
 
-    public static HitResult getHitResult(LivingEntity caster, double length, ClipContext.Block blockContext, ClipContext.Fluid fluidContext) {
-        Vec3 eyePos = caster.getEyePosition();
-        return AMUtil.getHitResult(eyePos, eyePos.add(caster.getLookAngle().scale(length)), caster, blockContext, fluidContext);
+    public static HitResult getHitResult(Entity entity, double length, boolean targetNonSolid) {
+        Vec3 eyePos = entity.getEyePosition();
+        return getHitResult(eyePos, eyePos.add(entity.getLookAngle().scale(length)), entity, targetNonSolid);
     }
 
     public static List<Plant> getPlants(BlockState state, RegistryAccess registryAccess) {

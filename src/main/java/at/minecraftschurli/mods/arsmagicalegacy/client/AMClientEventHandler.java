@@ -74,6 +74,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.minecraft.client.CameraType;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
@@ -429,21 +430,27 @@ final class AMClientEventHandler {
         Minecraft mc = AMClientUtil.mc();
         Options options = mc.options;
         int distance = options.getEffectiveRenderDistance() * 8;
-        boolean firstPerson = options.getCameraType().isFirstPerson();
+        CameraType cameraType = options.getCameraType();
         float partialTick = mc.getDeltaTracker().getGameTimeDeltaTicks();
         SpellHelper helper = ArsMagicaApi.spellHelper();
         for (Player p : level.players()) {
-            if (player.distanceTo(p) > distance || !p.isUsingItem()) continue;
+            boolean local = p.getUUID().equals(player.getUUID());
+            if (local && cameraType == CameraType.THIRD_PERSON_BACK || player.distanceTo(p) > distance || !p.isUsingItem()) continue;
             Spell spell = p.getUseItem().get(AMDataComponents.SPELL);
             if (spell == null || spell.isEmpty()) continue;
             SpellShapeGroup shapeGroup = spell.currentShapeGroup();
             PrimarySpellShape shape = shapeGroup.primaryShape();
-            stack.pushPose();
-            stack.translate(p.getEyePosition().subtract(event.getLevelRenderState().cameraRenderState.pos));
+            if (shape != AMSpells.BEAM.get() && shape != AMSpells.CHAIN.get()) continue;
             Vec3 from = p.getEyePosition();
             Vec3 to = AMUtil.getHitResult(p, spell, 64).getLocation();
+            float xRot = p.getViewXRot(partialTick);
+            float yRot = p.getViewYRot(partialTick);
+            stack.pushPose();
+            stack.translate(p.getEyePosition().subtract(event.getLevelRenderState().cameraRenderState.pos));
+            stack.mulPose(Axis.YP.rotationDegrees(-yRot));
+            stack.mulPose(Axis.XP.rotationDegrees(xRot + 90));
             if (shape == AMSpells.BEAM.get()) {
-                BeamRenderer.submit(stack, collector, from, to, p.getViewYRot(partialTick), p.getViewXRot(partialTick), 0xff000000 | helper.getColor(shapeGroup.primaryModifiers(), spell, spell.activeShapeGroup()), partialTick);
+                BeamRenderer.submit(stack, collector, (float) from.distanceTo(to), 0xff000000 | helper.getColor(shapeGroup.primaryModifiers(), spell, spell.activeShapeGroup()), partialTick);
             }
             stack.popPose();
         }

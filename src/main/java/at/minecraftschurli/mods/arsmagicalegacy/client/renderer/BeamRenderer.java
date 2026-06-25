@@ -23,14 +23,10 @@ public final class BeamRenderer {
 
     private BeamRenderer() {}
 
-    public static void submit(PoseStack stack, SubmitNodeCollector collector, Vec3 from, Vec3 to, float yRot, float xRot, int color, float partialTick) {
+    public static void submit(PoseStack stack, SubmitNodeCollector collector, float height, int color, float partialTick) {
         Level level = AMClientUtil.level();
-        float animationTime = level != null ? Math.floorMod(level.getGameTime(), 40) + partialTick : 0f;
-        float vOffset = Mth.frac(-animationTime * 0.2f - Mth.floor(-animationTime * 0.1f)) - 1;
-        float height = (float) from.distanceTo(to);
-        stack.pushPose();
-        stack.mulPose(Axis.YP.rotationDegrees(-yRot));
-        stack.mulPose(Axis.XP.rotationDegrees(xRot + 90));
+        float animationTime = level != null ? -Math.floorMod(level.getGameTime(), 40) - partialTick : 0f;
+        float vOffset = Mth.frac(animationTime * 0.2f - Mth.floor(animationTime * 0.1f)) - 1;
         stack.pushPose();
         stack.mulPose(Axis.YP.rotationDegrees(animationTime * 2.25f - 45f));
         float wnx = 0f;
@@ -52,7 +48,6 @@ public final class BeamRenderer {
         esx = GLOW_RADIUS;
         esz = GLOW_RADIUS;
         submit(stack, collector, true, ARGB.color(32, color), height, wnx, wnz, enx, enz, wsx, wsz, esx, esz, vOffset, height + vOffset);
-        stack.popPose();
     }
 
     private static void submit(PoseStack stack, SubmitNodeCollector collector, boolean translucent, int color, float height, float wnx, float wnz, float enx, float enz, float wsx, float wsz, float esx, float esz, float v0, float v1) {

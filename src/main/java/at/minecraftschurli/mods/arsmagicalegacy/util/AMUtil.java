@@ -7,6 +7,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Skill;
 import at.minecraftschurli.mods.arsmagicalegacy.api.plant.Plant;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellModifier;
@@ -17,6 +18,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.init.AMBlocks;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMMobEffects;
+import at.minecraftschurli.mods.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.mods.arsmagicalegacy.item.SpellRecipeItem;
 import at.minecraftschurli.mods.arsmagicalegacy.packet.OpenBookInLecternPacket;
 import com.mojang.brigadier.context.CommandContext;
@@ -257,6 +259,16 @@ public final class AMUtil {
     public static HitResult getHitResult(Entity entity, double length, boolean targetNonSolid) {
         Vec3 eyePos = entity.getEyePosition();
         return getHitResult(eyePos, eyePos.add(entity.getLookAngle().scale(length)), entity, targetNonSolid);
+    }
+
+    public static HitResult getHitResult(Entity entity, List<SpellModifier> modifiers, SpellCastContext context, double baseRange) {
+        return getHitResult(entity,
+            ArsMagicaApi.spellHelper().getModifiedStat(baseRange, AMSpells.RANGE_STAT, modifiers, context),
+            ArsMagicaApi.spellHelper().getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, context) > 0);
+    }
+
+    public static HitResult getHitResult(LivingEntity entity, Spell spell, double baseRange) {
+        return getHitResult(entity, spell.currentShapeGroup().primaryModifiers(), new SpellCastContext(spell, entity.level(), entity, false, false), baseRange);
     }
 
     public static List<Plant> getPlants(BlockState state, RegistryAccess registryAccess) {

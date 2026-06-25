@@ -70,10 +70,13 @@ import at.minecraftschurli.mods.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.mods.arsmagicalegacy.packet.SetActiveShapeGroupPacket;
 import at.minecraftschurli.mods.arsmagicalegacy.packet.SpellBookScrollPacket;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
+import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.Options;
 import net.minecraft.client.model.object.boat.BoatModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;
@@ -422,7 +425,10 @@ final class AMClientEventHandler {
         SubmitNodeCollector collector = event.getSubmitNodeCollector();
         Player player = Objects.requireNonNull(AMClientUtil.player());
         Level level = Objects.requireNonNull(AMClientUtil.level());
-        int distance = AMClientUtil.mc().options.getEffectiveRenderDistance() * 8;
+        Minecraft mc = AMClientUtil.mc();
+        Options options = mc.options;
+        int distance = options.getEffectiveRenderDistance() * 8;
+        float partialTick = mc.getDeltaTracker().getGameTimeDeltaTicks();
         SpellHelper helper = ArsMagicaApi.spellHelper();
         for (Player p : level.players()) {
             if (player.distanceTo(p) > distance || !p.isUsingItem()) continue;
@@ -431,10 +437,12 @@ final class AMClientEventHandler {
             SpellShapeGroup shapeGroup = spell.currentShapeGroup();
             PrimarySpellShape shape = shapeGroup.primaryShape();
             stack.pushPose();
-            stack.translate(p.position().subtract(event.getLevelRenderState().cameraRenderState.pos));
-            stack.translate(-0.5, 0, -0.5);
+            stack.translate(p.getEyePosition().subtract(event.getLevelRenderState().cameraRenderState.pos));
+            if (p == player && options.getCameraType().isFirstPerson()) {
+                stack.translate(0, -0.5, 0);
+            }
             if (shape == AMSpells.BEAM.get()) {
-                BeamRenderer.submit(stack, collector, 0xff000000 | helper.getColor(shapeGroup.primaryModifiers(), spell, spell.activeShapeGroup()));
+                BeamRenderer.submit(stack, collector, p.getEyePosition(), AMUtil.getHitResult(p, spell, 64).getLocation(), 0xff000000 | helper.getColor(shapeGroup.primaryModifiers(), spell, spell.activeShapeGroup()), partialTick);
             }
             stack.popPose();
         }

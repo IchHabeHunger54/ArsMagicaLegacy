@@ -450,13 +450,13 @@ final class AMClientEventHandler {
             HitResult hitResult = AMUtil.getHitResult(p, spell, isBeam ? 64 : 16, partialTick);
             stack.pushPose();
             stack.translate(event.getLevelRenderState().cameraRenderState.pos.scale(-1));
-            BeamRenderer.submit(stack, collector, p, hitResult.getLocation(), color, partialTick);
+            BeamRenderer.submit(stack, collector, true, p, hitResult.getLocation(), color, partialTick);
             if (isChain && hitResult instanceof EntityHitResult ehr) {
                 List<Entity> list = Chain.getEntities(ehr.getEntity(), shapeGroup.primaryModifiers(), new SpellCastContext(spell, p.level(), p, null, hitResult, false, false), p);
                 for (int i = 1; i < list.size(); i++) {
                     Entity prev = list.get(i - 1);
                     Entity current = list.get(i);
-                    BeamRenderer.submit(stack, collector, prev, current.getEyePosition(partialTick), color, partialTick);
+                    BeamRenderer.submit(stack, collector, false, prev, current.getEyePosition(partialTick), color, partialTick);
                 }
             }
             stack.popPose();

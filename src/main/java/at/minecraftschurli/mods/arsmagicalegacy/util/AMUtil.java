@@ -66,6 +66,7 @@ import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
@@ -249,26 +250,27 @@ public final class AMUtil {
         if (hitResult.getType() != HitResult.Type.MISS) {
             to = hitResult.getLocation();
         }
-        HitResult entityHitResult = ProjectileUtil.getEntityHitResult(entity.level(), entity, from, to, entity.getBoundingBox().expandTowards(entity.getDeltaMovement()).inflate(1), e -> true, 0);
+        HitResult entityHitResult = ProjectileUtil.getEntityHitResult(entity.level(), entity, from, to, new AABB(from, to), _ -> true, 0);
         if (entityHitResult != null) {
             hitResult = entityHitResult;
         }
         return hitResult;
     }
 
-    public static HitResult getHitResult(Entity entity, double length, boolean targetNonSolid) {
-        Vec3 eyePos = entity.getEyePosition();
-        return getHitResult(eyePos, eyePos.add(entity.getLookAngle().scale(length)), entity, targetNonSolid);
+    public static HitResult getHitResult(Entity entity, double length, boolean targetNonSolid, float partialTick) {
+        Vec3 eyePos = entity.getEyePosition(partialTick);
+        return getHitResult(eyePos, eyePos.add(entity.getHeadLookAngle().scale(length)), entity, targetNonSolid);
     }
 
-    public static HitResult getHitResult(Entity entity, List<SpellModifier> modifiers, SpellCastContext context, double baseRange) {
+    public static HitResult getHitResult(Entity entity, List<SpellModifier> modifiers, SpellCastContext context, double baseRange, float partialTick) {
         return getHitResult(entity,
             ArsMagicaApi.spellHelper().getModifiedStat(baseRange, AMSpells.RANGE_STAT, modifiers, context),
-            ArsMagicaApi.spellHelper().getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, context) > 0);
+            ArsMagicaApi.spellHelper().getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, context) > 0,
+            partialTick);
     }
 
-    public static HitResult getHitResult(LivingEntity entity, Spell spell, double baseRange) {
-        return getHitResult(entity, spell.currentShapeGroup().primaryModifiers(), new SpellCastContext(spell, entity.level(), entity, false, false), baseRange);
+    public static HitResult getHitResult(LivingEntity entity, Spell spell, double baseRange, float partialTick) {
+        return getHitResult(entity, spell.currentShapeGroup().primaryModifiers(), new SpellCastContext(spell, entity.level(), entity, false, false), baseRange, partialTick);
     }
 
     public static List<Plant> getPlants(BlockState state, RegistryAccess registryAccess) {

@@ -26,11 +26,11 @@ public class Touch extends PrimarySpellShape {
         LivingEntity caster = context.caster();
         if (caster == null) return new SpellCastResult(spell).setMessage(AMTranslations.SPELL_FAIL_NO_CASTER);
         boolean targetNonSolid = ArsMagicaApi.spellHelper().getModifiedStat(0, AMSpells.TARGET_NON_SOLID_STAT, modifiers, context) > 0;
-        HitResult result = AMUtil.getHitResult(caster, caster.getAttributeValue(Attributes.ENTITY_INTERACTION_RANGE), targetNonSolid);
+        HitResult result = AMUtil.getHitResult(caster, caster.getAttributeValue(Attributes.ENTITY_INTERACTION_RANGE), targetNonSolid, 0);
         if (result.getType() == HitResult.Type.ENTITY) {
             return ArsMagicaApi.spellHelper().castSecondaryOrGrammar(context.setDirectEntityAndHitResult(caster, result));
         } else {
-            result = AMUtil.getHitResult(caster, caster.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE), targetNonSolid);
+            result = AMUtil.getHitResult(caster, caster.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE), targetNonSolid, 0);
             if (result.getType() == HitResult.Type.BLOCK) {
                 return ArsMagicaApi.spellHelper().castSecondaryOrGrammar(context.setDirectEntityAndHitResult(caster, result));
             }

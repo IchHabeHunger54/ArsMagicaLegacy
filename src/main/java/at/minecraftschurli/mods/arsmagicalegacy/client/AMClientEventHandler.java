@@ -8,6 +8,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.PrimarySpellShape;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellHelper;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellShapeGroup;
 import at.minecraftschurli.mods.arsmagicalegacy.apiimpl.ArsMagicaClientApiImpl;
@@ -69,6 +70,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.init.AMParticles;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMSpells;
 import at.minecraftschurli.mods.arsmagicalegacy.packet.SetActiveShapeGroupPacket;
 import at.minecraftschurli.mods.arsmagicalegacy.packet.SpellBookScrollPacket;
+import at.minecraftschurli.mods.arsmagicalegacy.spell.shape.Chain;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import com.mojang.blaze3d.platform.InputConstants;
@@ -91,12 +93,13 @@ import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
@@ -130,6 +133,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -426,31 +430,34 @@ final class AMClientEventHandler {
         PoseStack stack = event.getPoseStack();
         SubmitNodeCollector collector = event.getSubmitNodeCollector();
         Player player = Objects.requireNonNull(AMClientUtil.player());
-        Level level = Objects.requireNonNull(AMClientUtil.level());
         Minecraft mc = AMClientUtil.mc();
         Options options = mc.options;
         int distance = options.getEffectiveRenderDistance() * 8;
         CameraType cameraType = options.getCameraType();
         float partialTick = mc.getDeltaTracker().getGameTimeDeltaTicks();
         SpellHelper helper = ArsMagicaApi.spellHelper();
-        for (Player p : level.players()) {
-            boolean local = p.getUUID().equals(player.getUUID());
-            if (local && cameraType == CameraType.THIRD_PERSON_BACK || player.distanceTo(p) > distance || !p.isUsingItem()) continue;
+        for (Player p : Objects.requireNonNull(AMClientUtil.level()).players()) {
+            boolean isLocalPlayer = p.getUUID().equals(player.getUUID());
+            if (isLocalPlayer && cameraType == CameraType.THIRD_PERSON_BACK || player.distanceTo(p) > distance || !p.isUsingItem()) continue;
             Spell spell = p.getUseItem().get(AMDataComponents.SPELL);
             if (spell == null || spell.isEmpty()) continue;
             SpellShapeGroup shapeGroup = spell.currentShapeGroup();
             PrimarySpellShape shape = shapeGroup.primaryShape();
-            if (shape != AMSpells.BEAM.get() && shape != AMSpells.CHAIN.get()) continue;
-            Vec3 from = p.getEyePosition();
-            Vec3 to = AMUtil.getHitResult(p, spell, 64).getLocation();
-            float xRot = p.getViewXRot(partialTick);
-            float yRot = p.getViewYRot(partialTick);
+            boolean isBeam = shape == AMSpells.BEAM.get();
+            boolean isChain = shape == AMSpells.CHAIN.get();
+            if (!isBeam && !isChain) continue;
+            int color = 0xff000000 | helper.getColor(shapeGroup.primaryModifiers(), spell, spell.activeShapeGroup());
+            HitResult hitResult = AMUtil.getHitResult(p, spell, isBeam ? 64 : 16, partialTick);
             stack.pushPose();
-            stack.translate(p.getEyePosition().subtract(event.getLevelRenderState().cameraRenderState.pos));
-            stack.mulPose(Axis.YP.rotationDegrees(-yRot));
-            stack.mulPose(Axis.XP.rotationDegrees(xRot + 90));
-            if (shape == AMSpells.BEAM.get()) {
-                BeamRenderer.submit(stack, collector, (float) from.distanceTo(to), 0xff000000 | helper.getColor(shapeGroup.primaryModifiers(), spell, spell.activeShapeGroup()), partialTick);
+            stack.translate(event.getLevelRenderState().cameraRenderState.pos.scale(-1));
+            BeamRenderer.submit(stack, collector, p, hitResult.getLocation(), color, partialTick);
+            if (isChain && hitResult instanceof EntityHitResult ehr) {
+                List<Entity> list = Chain.getEntities(ehr.getEntity(), shapeGroup.primaryModifiers(), new SpellCastContext(spell, p.level(), p, null, hitResult, false, false), p);
+                for (int i = 1; i < list.size(); i++) {
+                    Entity prev = list.get(i - 1);
+                    Entity current = list.get(i);
+                    BeamRenderer.submit(stack, collector, prev, current.getEyePosition(partialTick), color, partialTick);
+                }
             }
             stack.popPose();
         }

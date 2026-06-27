@@ -1,5 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.client.renderer;
 
+import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -22,9 +23,9 @@ import java.util.Objects;
 
 /// Adapted from [BeaconRenderer]
 public final class BeamRenderer {
-    private static final Identifier BEAM_LOCATION = Identifier.withDefaultNamespace("textures/entity/beacon/beacon_beam.png");
-    private static final float BEAM_RADIUS = 0.02f;
-    private static final float GLOW_RADIUS = 0.04f;
+    private static final Identifier CORE_TEXTURE = ArsMagicaApi.id("textures/misc/beam_core.png");
+    private static final Identifier GLOW_TEXTURE = ArsMagicaApi.id("textures/misc/beam_glow.png");
+    private static final Identifier MAIN_TEXTURE = ArsMagicaApi.id("textures/misc/beam_main.png");
 
     private BeamRenderer() {}
 
@@ -39,22 +40,24 @@ public final class BeamRenderer {
         float xRot = firstPerson ? entity.getViewXRot(partialTick) + 90 : Mth.wrapDegrees((float) Math.toDegrees(-Math.atan2(target.y - origin.y, Math.sqrt(xd * xd + zd * zd))) + 90);
         float yRot = firstPerson ? entity.getViewYRot(partialTick) : Mth.wrapDegrees((float) Math.toDegrees(Math.atan2(zd, xd)) - 90);
         float height = (float) target.distanceTo(origin);
-        float animationTime = level != null ? -Math.floorMod(level.getGameTime(), 40) - partialTick : 0f;
-        float vOffset = Mth.frac(animationTime * 0.2f - Mth.floor(animationTime * 0.1f)) - 1;
+        float time = level != null ? -Math.floorMod(level.getGameTime(), 40) - partialTick : 0f;
+        float vOffset = 1 - Mth.frac((time * 0.2f - Mth.floor(time * 0.1f)) * 4);
+        float glowVOffset = 1 - Mth.frac((time * 0.2f - Mth.floor(time * 0.1f)) * 3);
         stack.pushPose();
         stack.translate(origin);
         stack.mulPose(Axis.YP.rotationDegrees(-yRot));
         stack.mulPose(Axis.XP.rotationDegrees(xRot));
-        submit(stack, collector, true, GLOW_RADIUS, height, vOffset, height + vOffset, ARGB.color(32, color));
+        submit(stack, collector, GLOW_TEXTURE, 0.07f * (0.9f + 0.1f * Mth.sin(time * 0.99f) * Mth.sin(time * 0.3f) * Mth.sin(time * 0.1f)), height, glowVOffset, height + glowVOffset, ARGB.color(32, color));
         stack.pushPose();
-        stack.mulPose(Axis.YP.rotationDegrees(animationTime * 2.25f - 45f));
-        submit(stack, collector, false, BEAM_RADIUS, height, vOffset, height * (0.5f / BEAM_RADIUS) + vOffset, color);
+        stack.mulPose(Axis.YP.rotationDegrees(time * 2.25f - 45f));
+        submit(stack, collector, MAIN_TEXTURE, 0.02f, height, vOffset, height * 25f + vOffset, color);
+        submit(stack, collector, CORE_TEXTURE, 0.01f, height, vOffset, height * 50f + vOffset, color);
         stack.popPose();
         stack.popPose();
     }
 
     @SuppressWarnings("UnnecessaryLocalVariable")
-    private static void submit(PoseStack stack, SubmitNodeCollector collector, boolean translucent, float radius, float height, float v0, float v1, int color) {
+    private static void submit(PoseStack stack, SubmitNodeCollector collector, Identifier texture, float radius, float height, float v0, float v1, int color) {
         float wnx = -radius;
         float wnz = -radius;
         float enx = -radius;
@@ -63,7 +66,7 @@ public final class BeamRenderer {
         float wsz = -radius;
         float esx = radius;
         float esz = radius;
-        collector.submitCustomGeometry(stack, RenderTypes.beaconBeam(BEAM_LOCATION, translucent), (pose, builder) -> {
+        collector.submitCustomGeometry(stack, RenderTypes.beaconBeam(texture, true), (pose, builder) -> {
             renderQuad(pose, builder, color, height, wnx, wnz, enx, enz, v0, v1);
             renderQuad(pose, builder, color, height, esx, esz, wsx, wsz, v0, v1);
             renderQuad(pose, builder, color, height, enx, enz, esx, esz, v0, v1);

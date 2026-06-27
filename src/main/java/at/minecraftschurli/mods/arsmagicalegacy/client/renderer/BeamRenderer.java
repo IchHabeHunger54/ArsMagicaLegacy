@@ -24,7 +24,7 @@ import java.util.Objects;
 public final class BeamRenderer {
     private static final Identifier BEAM_LOCATION = Identifier.withDefaultNamespace("textures/entity/beacon/beacon_beam.png");
     private static final float BEAM_RADIUS = 0.02f;
-    private static final float GLOW_RADIUS = 0.07f;
+    private static final float GLOW_RADIUS = 0.04f;
 
     private BeamRenderer() {}
 
@@ -38,14 +38,6 @@ public final class BeamRenderer {
         double zd = target.z - origin.z;
         float xRot = firstPerson ? entity.getViewXRot(partialTick) + 90 : Mth.wrapDegrees((float) Math.toDegrees(-Math.atan2(target.y - origin.y, Math.sqrt(xd * xd + zd * zd))) + 90);
         float yRot = firstPerson ? entity.getViewYRot(partialTick) : Mth.wrapDegrees((float) Math.toDegrees(Math.atan2(zd, xd)) - 90);
-        float x = 0;
-        float y = 0;
-        float z = 0;
-        if (firstPerson) {
-            float fov = (options.fov().get() - 30) / 80f;
-        } else if (caster) {
-
-        }
         float height = (float) target.distanceTo(origin);
         float animationTime = level != null ? -Math.floorMod(level.getGameTime(), 40) - partialTick : 0f;
         float vOffset = Mth.frac(animationTime * 0.2f - Mth.floor(animationTime * 0.1f)) - 1;
@@ -53,7 +45,6 @@ public final class BeamRenderer {
         stack.translate(origin);
         stack.mulPose(Axis.YP.rotationDegrees(-yRot));
         stack.mulPose(Axis.XP.rotationDegrees(xRot));
-        stack.translate(x, y, z);
         submit(stack, collector, true, GLOW_RADIUS, height, vOffset, height + vOffset, ARGB.color(32, color));
         stack.pushPose();
         stack.mulPose(Axis.YP.rotationDegrees(animationTime * 2.25f - 45f));
@@ -81,10 +72,14 @@ public final class BeamRenderer {
     }
 
     private static void renderQuad(PoseStack.Pose pose, VertexConsumer builder, int color, float height, float x0, float z0, float x1, float z1, float v0, float v1) {
-        addVertex(pose, builder, color, x0, height, z0, 1f, v0);
-        addVertex(pose, builder, color, x0, 0f, z0, 1f, v1);
-        addVertex(pose, builder, color, x1, 0f, z1, 0f, v1);
-        addVertex(pose, builder, color, x1, height, z1, 0f, v0);
+        addVertex(pose, builder, color, x0, height, z0, 1, v1);
+        addVertex(pose, builder, color, x1, height, z1, 0, v1);
+        addVertex(pose, builder, color, x1, 0, z1, 0, v0);
+        addVertex(pose, builder, color, x0, 0, z0, 1, v0);
+        addVertex(pose, builder, color, x0, 0, z0, 1, v0);
+        addVertex(pose, builder, color, x1, 0, z1, 0, v0);
+        addVertex(pose, builder, color, x1, height, z1, 0, v1);
+        addVertex(pose, builder, color, x0, height, z0, 1, v1);
     }
 
     private static void addVertex(PoseStack.Pose pose, VertexConsumer builder, int color, float x, float y, float z, float u, float v) {

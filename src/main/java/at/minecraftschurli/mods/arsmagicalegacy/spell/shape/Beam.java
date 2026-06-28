@@ -1,5 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.spell.shape;
 
+import at.minecraftschurli.mods.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.PrimarySpellShape;
@@ -22,7 +23,7 @@ public class Beam extends PrimarySpellShape {
         LivingEntity caster = context.caster();
         return caster == null
             ? new SpellCastResult(context.spell()).setMessage(AMTranslations.SPELL_FAIL_NO_CASTER)
-            : ArsMagicaApi.spellHelper().castSecondaryOrGrammar(context.setDirectEntityAndHitResult(caster, AMUtil.getHitResult(caster, modifiers, context, 64, 0)));
+            : ArsMagicaApi.spellHelper().castSecondaryOrGrammar(context.setDirectEntityAndHitResult(caster, AMUtil.getHitResult(caster, modifiers, context, AMServerConfig.BEAM_RANGE.get(), 0)));
     }
 
     @Override

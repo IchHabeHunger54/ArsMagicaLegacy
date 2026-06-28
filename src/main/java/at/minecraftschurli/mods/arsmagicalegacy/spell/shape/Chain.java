@@ -1,5 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.spell.shape;
 
+import at.minecraftschurli.mods.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.PrimarySpellShape;
@@ -31,7 +32,7 @@ public class Chain extends PrimarySpellShape {
     public SpellCastResult cast(List<SpellModifier> modifiers, SpellCastContext context) {
         LivingEntity caster = context.caster();
         if (caster == null) return new SpellCastResult(context.spell()).setMessage(AMTranslations.SPELL_FAIL_NO_CASTER);
-        context = context.setDirectEntityAndHitResult(caster, AMUtil.getHitResult(caster, modifiers, context, 64, 0));
+        context = context.setDirectEntityAndHitResult(caster, AMUtil.getHitResult(caster, modifiers, context, AMServerConfig.CHAIN_RANGE.get(), 0));
         HitResult hitResult = context.hitResult();
         SpellHelper helper = ArsMagicaApi.spellHelper();
         if (hitResult instanceof BlockHitResult) return helper.castSecondaryOrGrammar(context);
@@ -57,13 +58,13 @@ public class Chain extends PrimarySpellShape {
     }
 
     public static List<Entity> getEntities(Entity initial, List<SpellModifier> modifiers, SpellCastContext context, LivingEntity caster) {
-        double range = ArsMagicaApi.spellHelper().getModifiedStat(4, AMSpells.RANGE_STAT, modifiers, context);
+        double range = ArsMagicaApi.spellHelper().getModifiedStat(AMServerConfig.CHAIN_EXTRA_TARGETS_RANGE.get(), AMSpells.RANGE_STAT, modifiers, context);
         List<Entity> list = new ArrayList<>();
         Entity current = initial;
         Entity next = null;
         Entity otherNext = null;
         Predicate<Entity> predicate = e -> !list.contains(e) && !caster.getUUID().equals(e.getUUID()) && !(e instanceof LivingEntity living && living.isDeadOrDying());
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < AMServerConfig.CHAIN_EXTRA_TARGETS.get(); i++) {
             EntityType<?> currentType = current.getType();
             for (Entity e : initial.level().getEntities(current, new AABB(current.position().subtract(range), current.position().add(range)), predicate)) {
                 double distance = e.distanceTo(current);

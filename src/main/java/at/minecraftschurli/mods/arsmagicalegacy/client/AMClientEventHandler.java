@@ -1,5 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.client;
 
+import at.minecraftschurli.mods.arsmagicalegacy.AMServerConfig;
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
 import at.minecraftschurli.mods.arsmagicalegacy.api.client.event.RegisterOcculusTabRenderersEvent;
 import at.minecraftschurli.mods.arsmagicalegacy.api.client.event.RegisterParticleControllersEvent;
@@ -447,7 +448,7 @@ final class AMClientEventHandler {
             boolean isChain = shape == AMSpells.CHAIN.get();
             if (!isBeam && !isChain) continue;
             int color = 0xff000000 | helper.getColor(shapeGroup.primaryModifiers(), spell, spell.activeShapeGroup());
-            HitResult hitResult = AMUtil.getHitResult(p, spell, isBeam ? 64 : 16, partialTick);
+            HitResult hitResult = AMUtil.getHitResult(p, spell, isBeam ? AMServerConfig.BEAM_RANGE.get() : AMServerConfig.CHAIN_RANGE.get(), partialTick);
             stack.pushPose();
             stack.translate(event.getLevelRenderState().cameraRenderState.pos.scale(-1));
             BeamRenderer.submit(stack, collector, true, p, hitResult.getLocation(), color, partialTick);

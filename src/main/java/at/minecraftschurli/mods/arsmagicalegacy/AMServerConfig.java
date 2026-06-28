@@ -97,6 +97,10 @@ public final class AMServerConfig {
     public static final ModConfigSpec.IntValue SUMMON_COUNT;
     public static final ModConfigSpec.DoubleValue SUMMON_MANA_COST;
     public static final ModConfigSpec.DoubleValue WIZARDS_AUTUMN_RANGE;
+    public static final ModConfigSpec.DoubleValue BEAM_RANGE;
+    public static final ModConfigSpec.DoubleValue CHAIN_RANGE;
+    public static final ModConfigSpec.IntValue CHAIN_EXTRA_TARGETS;
+    public static final ModConfigSpec.DoubleValue CHAIN_EXTRA_TARGETS_RANGE;
     public static final ModConfigSpec.DoubleValue PROJECTILE_DURATION;
     public static final ModConfigSpec.DoubleValue PROJECTILE_GRAVITY;
     public static final ModConfigSpec.DoubleValue PROJECTILE_SPEED;
@@ -509,6 +513,22 @@ public final class AMServerConfig {
             .defineInRange("wizards_autumn_range", 2., 1, 64);
         builder.pop();
         builder.comment("Configuration of various shape-specific values.").push("shapes");
+        BEAM_RANGE = builder
+            .comment("The range used by the Beam shape.")
+            .translation(AMTranslations.CONFIG_KEY + "beam_range")
+            .defineInRange("beam_range", 64., 1, 256);
+        CHAIN_RANGE = builder
+            .comment("The range used by the Chain shape.")
+            .translation(AMTranslations.CONFIG_KEY + "chain_range")
+            .defineInRange("chain_range", 16., 1, 256);
+        CHAIN_EXTRA_TARGETS = builder
+            .comment("The amount of extra targets the Chain shape can hit.")
+            .translation(AMTranslations.CONFIG_KEY + "chain_extra_targets")
+            .defineInRange("chain_extra_targets", 4, 1, 16);
+        CHAIN_EXTRA_TARGETS_RANGE = builder
+            .comment("The range used by the Chain shape when seeking extra targets. May be amplified by spell modifiers.")
+            .translation(AMTranslations.CONFIG_KEY + "chain_extra_targets_range")
+            .defineInRange("chain_extra_targets_range", 4., 1, 64);
         PROJECTILE_DURATION = builder
             .comment("The duration used by the Projectile shape. May be amplified by spell modifiers.")
             .translation(AMTranslations.CONFIG_KEY + "projectile_duration")

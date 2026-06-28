@@ -6,6 +6,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMRegistries;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTags;
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.magic.Skill;
+import at.minecraftschurli.mods.arsmagicalegacy.api.plant.GrowthContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.plant.Plant;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.SpellCastContext;
@@ -72,24 +73,22 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntFunction;
-import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collector;
 
@@ -245,6 +244,24 @@ public final class AMUtil {
         return getEnchanted(AMItems.SPELL.toStack(), modifiers, context, enchantments);
     }
 
+    public static List<BlockPos> getHangingColumn(GrowthContext context, Block head, Block body) {
+        ServerLevel level = context.level();
+        BlockPos originalPos = context.pos();
+        List<BlockPos> list = new ArrayList<>();
+        list.add(originalPos);
+        BlockPos pos = originalPos.above();
+        while (is(level.getBlockState(pos), head, body)) {
+            list.addFirst(pos);
+            pos = pos.above();
+        }
+        pos = originalPos.below();
+        while (is(level.getBlockState(pos), head, body)) {
+            list.add(pos);
+            pos = pos.below();
+        }
+        return list;
+    }
+
     public static HitResult getHitResult(Vec3 from, Vec3 to, Entity entity, boolean targetNonSolid) {
         HitResult hitResult = entity.level().clip(new ClipContext(from, to, targetNonSolid ? ClipContext.Block.OUTLINE : ClipContext.Block.COLLIDER, targetNonSolid ? ClipContext.Fluid.ANY : ClipContext.Fluid.NONE, entity));
         if (hitResult.getType() != HitResult.Type.MISS) {
@@ -308,8 +325,8 @@ public final class AMUtil {
         return false;
     }
 
-    public static <T> Optional<T> ifModLoaded(String modId, Supplier<T> supplier) {
-        return ModList.get().isLoaded(modId) ? Optional.of(supplier.get()) : Optional.empty();
+    public static boolean is(BlockState state, Block... blocks) {
+        return Arrays.stream(blocks).anyMatch(state::is);
     }
 
     public static VoxelShape joinShapes(VoxelShape first, VoxelShape... others) {

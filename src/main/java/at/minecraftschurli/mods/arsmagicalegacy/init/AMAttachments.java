@@ -18,6 +18,7 @@ import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import org.jspecify.annotations.Nullable;
 
 import java.util.UUID;
 import java.util.function.Supplier;
@@ -38,11 +39,11 @@ public interface AMAttachments {
     DeferredHolder<AttachmentType<?>, AttachmentType<TemporalAnchorAttachment>> TEMPORAL_ANCHOR  = register("temporal_anchor",  () -> null,                          TemporalAnchorAttachment.CODEC);
     // @formatter:on
 
-    private static <T> DeferredHolder<AttachmentType<?>, AttachmentType<T>> register(String name, Supplier<T> defaultValueSupplier, Codec<T> codec) {
+    private static <T> DeferredHolder<AttachmentType<?>, AttachmentType<T>> register(String name, Supplier<@Nullable T> defaultValueSupplier, Codec<T> codec) {
         return ATTACHMENTS.register(name, () -> AttachmentType.builder(defaultValueSupplier).serialize(codec.fieldOf(name)).copyOnDeath().build());
     }
 
-    private static <T> DeferredHolder<AttachmentType<?>, AttachmentType<T>> register(String name, Supplier<T> defaultValueSupplier, Codec<T> codec, StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec) {
+    private static <T> DeferredHolder<AttachmentType<?>, AttachmentType<T>> register(String name, Supplier<@Nullable T> defaultValueSupplier, Codec<T> codec, StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec) {
         return ATTACHMENTS.register(name, () -> AttachmentType.builder(defaultValueSupplier).serialize(codec.fieldOf(name)).sync(streamCodec).copyOnDeath().build());
     }
 }

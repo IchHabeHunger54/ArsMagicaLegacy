@@ -10,6 +10,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.TriPredicate;
 
+import java.util.Objects;
+
 public final class AltarStateMatcher implements IStateMatcher {
     private final TriPredicate<BlockGetter, BlockPos, BlockState> predicate;
 
@@ -24,7 +26,7 @@ public final class AltarStateMatcher implements IStateMatcher {
         AltarMaterial material = AMUtil.getByTick(AMRegistries.altarMaterials(true)
             .stream()
             .toArray(AltarMaterial[]::new), (int) ticks / 20);
-        return material.block().defaultBlockState();
+        return Objects.requireNonNull(material).block().defaultBlockState();
     }
 
     @Override

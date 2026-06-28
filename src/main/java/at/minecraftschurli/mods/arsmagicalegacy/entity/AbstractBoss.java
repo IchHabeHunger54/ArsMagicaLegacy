@@ -42,8 +42,6 @@ public abstract class AbstractBoss extends Monster implements GeoEntity, SpellCa
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private int ticksInAction = 0;
     private Action action = Action.IDLE;
-    @Nullable
-    private BossBar bossBar;
 
     protected AbstractBoss(EntityType<? extends AbstractBoss> type, Level level, BossEvent.BossBarColor color, TagKey<DamageType> isVulnerableTo, TagKey<DamageType> isImmuneTo, TagKey<DamageType> isHealTo) {
         super(type, level);
@@ -115,7 +113,7 @@ public abstract class AbstractBoss extends Monster implements GeoEntity, SpellCa
     @Override
     public void aiStep() {
         super.aiStep();
-        if (bossBar == null && level() instanceof ServerLevel server) {
+        if (level() instanceof ServerLevel server) {
             BossBar.getList(server).add(new BossBar(server, this, color));
         }
         ticksInAction++;

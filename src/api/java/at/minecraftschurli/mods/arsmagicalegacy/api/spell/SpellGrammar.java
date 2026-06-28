@@ -64,7 +64,7 @@ public record SpellGrammar(List<SpellPart> parts, List<Pair<SpellComponent, List
 
     @Override
     public boolean equals(Object o) {
-        return this == o || o != null && getClass() == o.getClass() && parts.equals(((SpellGrammar) o).parts);
+        return this == o || getClass() == o.getClass() && parts.equals(((SpellGrammar) o).parts);
     }
 
     @Override

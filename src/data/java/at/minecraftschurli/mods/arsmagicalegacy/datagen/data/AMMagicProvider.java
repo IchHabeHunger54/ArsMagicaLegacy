@@ -116,6 +116,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 public final class AMMagicProvider {
@@ -1047,11 +1048,11 @@ public final class AMMagicProvider {
     }
 
     private static ResourceKey<Skill> skillFromPart(DeferredHolder<SpellPart, ?> part) {
-        return ResourceKey.create(AMRegistries.Keys.SKILL, AMRegistries.SPELL_PARTS.getKey(part.get()));
+        return ResourceKey.create(AMRegistries.Keys.SKILL, Objects.requireNonNull(AMRegistries.SPELL_PARTS.getKey(part.get())));
     }
 
     private static ResourceKey<SpellPartData> dataFromPart(DeferredHolder<SpellPart, ?> part) {
-        return ResourceKey.create(AMRegistries.Keys.SPELL_PART_DATA, AMRegistries.SPELL_PARTS.getKey(part.get()));
+        return ResourceKey.create(AMRegistries.Keys.SPELL_PART_DATA, Objects.requireNonNull(AMRegistries.SPELL_PARTS.getKey(part.get())));
     }
 
     private static void spellPrefab(BootstrapContext<Spell> bootstrap, String name, String icon, List<SpellPart> grammar, List<SpellPart> shapeGroup) {

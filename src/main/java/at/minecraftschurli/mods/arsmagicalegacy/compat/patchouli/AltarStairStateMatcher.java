@@ -13,6 +13,8 @@ import net.minecraft.world.level.block.state.properties.Half;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.TriPredicate;
 
+import java.util.Objects;
+
 public final class AltarStairStateMatcher implements IStateMatcher {
     private final Direction direction;
     private final Half half;
@@ -31,7 +33,7 @@ public final class AltarStairStateMatcher implements IStateMatcher {
         AltarMaterial material = AMUtil.getByTick(AMRegistries.altarMaterials(true)
             .stream()
             .toArray(AltarMaterial[]::new), (int) ticks / 20);
-        return material.stair().defaultBlockState().setValue(StairBlock.FACING, direction).setValue(StairBlock.HALF, half);
+        return Objects.requireNonNull(material).stair().defaultBlockState().setValue(StairBlock.FACING, direction).setValue(StairBlock.HALF, half);
     }
 
     @Override

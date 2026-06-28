@@ -5,6 +5,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.api.plant.GrowthContext;
 import at.minecraftschurli.mods.arsmagicalegacy.api.plant.GrowthType;
 import at.minecraftschurli.mods.arsmagicalegacy.api.plant.Plant;
 import at.minecraftschurli.mods.arsmagicalegacy.api.plant.ReplantableGrowthType;
+import at.minecraftschurli.mods.arsmagicalegacy.util.AMUtil;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
@@ -22,7 +23,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public record HangingBushGrowthType(List<BlockState> harvestStates, int minHeight, int maxHeight, Block head, Block body) implements BonemealableGrowthType, ReplantableGrowthType {
@@ -33,10 +33,6 @@ public record HangingBushGrowthType(List<BlockState> harvestStates, int minHeigh
         BuiltInRegistries.BLOCK.byNameCodec().fieldOf("head").forGetter(HangingBushGrowthType::head),
         BuiltInRegistries.BLOCK.byNameCodec().fieldOf("body").forGetter(HangingBushGrowthType::body)
     ).apply(inst, HangingBushGrowthType::new));
-
-    public HangingBushGrowthType(List<BlockState> harvestStates, int minHeight, int maxHeight, Block block) {
-        this(harvestStates, minHeight, maxHeight, block, block);
-    }
 
     @Override
     public MapCodec<? extends GrowthType> codec() {
@@ -49,7 +45,7 @@ public record HangingBushGrowthType(List<BlockState> harvestStates, int minHeigh
         ServerPlayer player = context.player();
         ServerLevel level = context.level();
         ItemStack tool = context.tool();
-        List<BlockPos> column = getColumn(context);
+        List<BlockPos> column = AMUtil.getHangingColumn(context, head, body);
         for (BlockPos pos : column) {
             if (BonemealableGrowthType.super.canGrow(new GrowthContext(plant, player, level, pos, level.getBlockState(pos), tool))) return true;
         }
@@ -65,7 +61,7 @@ public record HangingBushGrowthType(List<BlockState> harvestStates, int minHeigh
         ServerLevel level = context.level();
         ItemStack tool = context.tool();
         boolean bonemealed = false;
-        List<BlockPos> column = getColumn(context);
+        List<BlockPos> column = AMUtil.getHangingColumn(context, head, body);
         for (BlockPos pos : column) {
             BlockState current = level.getBlockState(pos);
             if (BonemealableGrowthType.super.canGrow(new GrowthContext(plant, player, level, pos, current, tool)) && current.getBlock() instanceof BonemealableBlock block) {
@@ -74,7 +70,7 @@ public record HangingBushGrowthType(List<BlockState> harvestStates, int minHeigh
             }
         }
         if (bonemealed) return;
-        BlockPos last = getColumn(context).getLast();
+        BlockPos last = AMUtil.getHangingColumn(context, head, body).getLast();
         level.setBlockAndUpdate(last, body.defaultBlockState());
         level.setBlockAndUpdate(last.below(), head.defaultBlockState());
     }
@@ -82,7 +78,7 @@ public record HangingBushGrowthType(List<BlockState> harvestStates, int minHeigh
     @Override
     public boolean canHarvest(GrowthContext context) {
         ServerLevel level = context.level();
-        return getColumn(context).stream().anyMatch(pos -> {
+        return AMUtil.getHangingColumn(context, head, body).stream().anyMatch(pos -> {
             BlockState state = level.getBlockState(pos);
             return harvestStates.stream().anyMatch(e -> e == state);
         });
@@ -90,7 +86,7 @@ public record HangingBushGrowthType(List<BlockState> harvestStates, int minHeigh
 
     @Override
     public List<ItemStack> harvest(GrowthContext context) {
-        List<BlockPos> column = getColumn(context);
+        List<BlockPos> column = AMUtil.getHangingColumn(context, head, body);
         ServerLevel level = context.level();
         ServerPlayer player = context.player();
         ItemStack tool = context.tool();
@@ -113,27 +109,5 @@ public record HangingBushGrowthType(List<BlockState> harvestStates, int minHeigh
 
     @Override
     public void replant(GrowthContext context) {
-    }
-
-    private List<BlockPos> getColumn(GrowthContext context) {
-        ServerLevel level = context.level();
-        BlockPos originalPos = context.pos();
-        List<BlockPos> list = new ArrayList<>();
-        list.add(originalPos);
-        BlockPos pos = originalPos.above();
-        while (isHeadOrBody(level.getBlockState(pos))) {
-            list.addFirst(pos);
-            pos = pos.above();
-        }
-        pos = originalPos.below();
-        while (isHeadOrBody(level.getBlockState(pos))) {
-            list.add(pos);
-            pos = pos.below();
-        }
-        return list;
-    }
-
-    private boolean isHeadOrBody(BlockState state) {
-        return state.is(head) || state.is(body);
     }
 }

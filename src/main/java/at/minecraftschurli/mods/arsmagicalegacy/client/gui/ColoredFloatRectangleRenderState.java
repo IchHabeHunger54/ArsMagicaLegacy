@@ -21,7 +21,8 @@ public record ColoredFloatRectangleRenderState(RenderPipeline pipeline, TextureS
         vertexConsumer.addVertexWith2DPose(pose(), x1(), y0()).setColor(col1());
     }
 
-    private static @Nullable ScreenRectangle getBounds(int x0, int y0, int x1, int y1, Matrix3x2fc pose, @Nullable ScreenRectangle scissorArea) {
+    @Nullable
+    private static ScreenRectangle getBounds(int x0, int y0, int x1, int y1, Matrix3x2fc pose, @Nullable ScreenRectangle scissorArea) {
         ScreenRectangle bounds = new ScreenRectangle(x0, y0, x1 - x0, y1 - y0).transformMaxBounds(pose);
         return scissorArea != null ? scissorArea.intersection(bounds) : bounds;
     }

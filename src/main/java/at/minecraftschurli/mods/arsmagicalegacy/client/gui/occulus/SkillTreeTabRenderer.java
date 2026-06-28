@@ -76,14 +76,7 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
                 boolean knowsParent = helper.knows(player, holder);
                 int startColor = knowsParent && knowsSkill ? 0xffffffff : knowsParent ? getColorForSkill(parent) : 0xff000000;
                 int endColor = knowsParent && knowsSkill ? 0xffffffff : knowsParent ? getColorForSkill(skill) : 0xff000000;
-                stack.pushMatrix();
-                stack.translate(startX, startY);
-                Vec2 vec = new Vec2(endX - startX, endY - startY);
-                float angle = (float) Math.acos(new Vec2(0, 1).dot(vec.normalized()));
-                stack.rotate(vec.x > 0 ? -angle : angle);
-                stack.translate(-0.5f, 0);
-                graphics.fillGradient(0, 0, 1, (int) vec.length(), startColor, endColor);
-                stack.popMatrix();
+                fillLine(graphics, startX, startY, endX, endY, startColor, endColor, 1);
             }
         }
         float tick = 0.75f + ((player.tickCount % 80) >= 40 ? (player.tickCount % 40) / 80f - 0.25f : 0.25f - (player.tickCount % 40) / 80f);
@@ -153,7 +146,8 @@ public class SkillTreeTabRenderer extends OcculusTabRenderer {
         Vec2 vec = new Vec2(endX - startX, endY - startY);
         float angle = (float) Math.acos(new Vec2(0, 1).dot(vec.normalized()));
         stack.rotate(vec.x > 0 ? -angle : angle);
-        graphics.submitGuiElementRenderState(new ColoredFloatRectangleRenderState(RenderPipelines.GUI, TextureSetup.noTexture(), new Matrix3x2f(graphics.pose()), -lineWidth / 2f, 0, lineWidth / 2f, vec.length(), startColor, endColor, graphics.peekScissorStack()));
+        stack.translate(-lineWidth / 2f, 0);
+        graphics.submitGuiElementRenderState(new ColoredFloatRectangleRenderState(RenderPipelines.GUI, TextureSetup.noTexture(), new Matrix3x2f(stack), 0, 0, lineWidth, vec.length(), startColor, endColor, graphics.peekScissorStack()));
         stack.popMatrix();
     }
 

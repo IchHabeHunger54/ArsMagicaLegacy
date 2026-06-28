@@ -11,7 +11,7 @@ import org.jspecify.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-/// Represents a spell's shape group. One spell may have up to [Spell#MAX\_SHAPE\_GROUPS] different shape groups. All fields are immutable by contract.
+/// Represents a spell's shape group. One spell may have up to [Spell#MAX_SHAPE_GROUPS] different shape groups. All fields are immutable by contract.
 ///
 /// @param parts              A [List] of all parts. Used mainly for serialization, use the other fields for gameplay.
 /// @param primaryShape       The [PrimarySpellShape] of the shape group.
@@ -59,7 +59,7 @@ public record SpellShapeGroup(List<SpellPart> parts, @Nullable PrimarySpellShape
 
     @Override
     public boolean equals(Object o) {
-        return this == o || o != null && getClass() == o.getClass() && parts.equals(((SpellShapeGroup) o).parts);
+        return this == o || getClass() == o.getClass() && parts.equals(((SpellShapeGroup) o).parts);
     }
 
     @Override

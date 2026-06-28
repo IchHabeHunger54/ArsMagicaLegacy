@@ -410,7 +410,7 @@ final class AMEventHandler {
         if (entity instanceof ItemEntity itemEntity) {
             Ritual.perform(AMRituals.DROPPED_ITEM_TRIGGER.get(), itemEntity.getOwner() instanceof Player player ? player : null, level, itemEntity.position(), itemEntity);
         }
-        if (entity instanceof ItemFrame itemFrame && (itemFrame.hasData(AMAttachments.COMPENDIUM_TIMER) || level.getGameTime() % AMServerConfig.ARCANE_COMPENDIUM_CONVERSION_DURATION.getAsInt() == 0)) {
+        if (entity instanceof ItemFrame itemFrame && (itemFrame.hasData(AMAttachments.COMPENDIUM_TIMER) || level.getGameTime() % AMServerConfig.ARCANE_COMPENDIUM_CONVERSION_CHECK_INTERVAL.getAsInt() == 0)) {
             AMUtil.doCompendiumConversion(itemFrame);
         }
         if (entity instanceof LivingEntity living) {

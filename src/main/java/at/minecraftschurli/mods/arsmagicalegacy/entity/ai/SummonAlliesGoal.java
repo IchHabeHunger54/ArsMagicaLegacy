@@ -14,7 +14,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.event.EventHooks;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class SummonAlliesGoal extends AbstractBossGoal<LifeGuardian> {

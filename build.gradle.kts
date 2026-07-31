@@ -3,6 +3,7 @@ import com.github.minecraftschurlimods.helperplugin.localGradleProperty
 import com.github.minecraftschurlimods.helperplugin.moddependencies.ModDependency
 import com.github.minecraftschurlimods.helperplugin.sourceSets
 import com.github.minecraftschurlimods.helperplugin.version
+import org.apache.tools.ant.taskdefs.condition.Os
 
 plugins {
     idea
@@ -171,7 +172,7 @@ tasks.javadoc {
 runs {
     named("client") {
         renderDoc {
-            enabled = true
+            enabled = Os.isFamily(Os.FAMILY_WINDOWS)
         }
     }
 }

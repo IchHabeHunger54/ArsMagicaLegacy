@@ -683,6 +683,10 @@ public final class AMLanguageProvider extends LanguageProvider {
         configTranslation("summon_mana_cost", "Summon Mana Cost", "The amount of mana, multiplied by the summons's health, that is consumed when using the Summon component.");
         configTranslation("wizards_autumn_range", "Wizard's Autumn Range", "The range used by the Wizard's Autumn component. May be amplified by spell modifiers.");
         configTranslation("shapes", "Shapes", "Configuration of various shape-specific values.");
+        configTranslation("beam_range", "Beam Range", "The range used by the Beam shape.");
+        configTranslation("chain_range", "Chain Range", "The range used by the Chain shape.");
+        configTranslation("chain_extra_targets", "Chain Extra Targets", "The amount of extra targets the Chain shape can hit.");
+        configTranslation("chain_extra_targets_range", "Chain Extra Targets Range", "The range used by the Chain shape when seeking extra targets. May be amplified by spell modifiers.");
         configTranslation("projectile_duration", "Projectile Duration", "The duration used by the Projectile shape. May be amplified by spell modifiers.");
         configTranslation("projectile_gravity", "Projectile Gravity", "If a Gravity modifier is present on the Projectile, by how much gravity will be increased.");
         configTranslation("projectile_speed", "Projectile Speed", "The speed used by the Projectile shape. May be amplified by spell modifiers.");

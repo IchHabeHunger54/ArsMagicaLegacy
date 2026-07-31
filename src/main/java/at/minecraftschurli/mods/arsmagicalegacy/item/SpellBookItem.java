@@ -2,9 +2,9 @@ package at.minecraftschurli.mods.arsmagicalegacy.item;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.constants.AMTranslations;
 import at.minecraftschurli.mods.arsmagicalegacy.api.spell.Spell;
+import at.minecraftschurli.mods.arsmagicalegacy.container.SpellBookContainer;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMDataComponents;
 import at.minecraftschurli.mods.arsmagicalegacy.menu.SpellBookMenu;
-import at.minecraftschurli.mods.arsmagicalegacy.container.SpellBookContainer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;

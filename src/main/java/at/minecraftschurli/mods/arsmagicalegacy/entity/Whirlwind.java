@@ -5,7 +5,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.init.AMDamageTypes;
 import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;

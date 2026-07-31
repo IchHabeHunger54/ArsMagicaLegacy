@@ -207,7 +207,7 @@ final class SpellHelperImpl implements SpellHelper {
             }
         }
         if (context.caster() instanceof Player player && ArsMagicaApi.magicHelper().knows(player, player.registryAccess().getOrThrow(AMMagic.AUGMENTED_CASTING))) {
-            Map<SpellStat, SpellStatModifier> stats = SpellStat.genericModifiers(_ -> 1.5);
+            Map<SpellStat, SpellStatModifier> stats = SpellStat.genericModifiers(_ -> AMServerConfig.AUGMENTED_CASTING_MULTIPLIER.get());
             if (stats.containsKey(stat)) {
                 modified = stats.get(stat).modify(base, modified, context);
             }

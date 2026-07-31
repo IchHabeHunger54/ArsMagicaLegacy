@@ -1,10 +1,10 @@
 package at.minecraftschurli.mods.arsmagicalegacy.menu;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
+import at.minecraftschurli.mods.arsmagicalegacy.container.SpellBookContainer;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMItems;
 import at.minecraftschurli.mods.arsmagicalegacy.init.AMMenus;
 import at.minecraftschurli.mods.arsmagicalegacy.item.SpellBookItem;
-import at.minecraftschurli.mods.arsmagicalegacy.container.SpellBookContainer;
 import at.minecraftschurli.mods.arsmagicalegacy.slot.PlacePredicateSlot;
 import at.minecraftschurli.mods.arsmagicalegacy.slot.ViewSlot;
 import at.minecraftschurli.mods.arsmagicalegacy.util.QuickMoveStack;

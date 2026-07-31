@@ -26,10 +26,6 @@ public record HangingGrowthType(int minHeight, int maxHeight, Block head, Block 
         BuiltInRegistries.BLOCK.byNameCodec().fieldOf("body").forGetter(HangingGrowthType::body)
     ).apply(inst, HangingGrowthType::new));
 
-    public HangingGrowthType(int minHeight, int maxHeight, Block block) {
-        this(minHeight, maxHeight, block, block);
-    }
-
     @Override
     public MapCodec<? extends GrowthType> codec() {
         return CODEC;
@@ -37,7 +33,7 @@ public record HangingGrowthType(int minHeight, int maxHeight, Block head, Block 
 
     @Override
     public boolean canGrow(GrowthContext context) {
-        List<BlockPos> column = getColumn(context);
+        List<BlockPos> column = AMUtil.getHangingColumn(context, head, body);
         if (maxHeight > 0 && column.size() >= maxHeight) return false;
         ServerLevel level = context.level();
         BlockPos last = column.getLast();
@@ -51,7 +47,7 @@ public record HangingGrowthType(int minHeight, int maxHeight, Block head, Block 
         if (state.getBlock() instanceof BonemealableBlock block) {
             block.performBonemeal(level, level.getRandom(), context.pos(), state);
         } else {
-            BlockPos last = getColumn(context).getLast();
+            BlockPos last = AMUtil.getHangingColumn(context, head, body).getLast();
             level.setBlockAndUpdate(last, body.defaultBlockState());
             level.setBlockAndUpdate(last.below(), head.defaultBlockState());
         }
@@ -59,12 +55,12 @@ public record HangingGrowthType(int minHeight, int maxHeight, Block head, Block 
 
     @Override
     public boolean canHarvest(GrowthContext context) {
-        return getColumn(context).size() > minHeight;
+        return AMUtil.getHangingColumn(context, head, body).size() > minHeight;
     }
 
     @Override
     public List<ItemStack> harvest(GrowthContext context) {
-        List<BlockPos> column = getColumn(context);
+        List<BlockPos> column = AMUtil.getHangingColumn(context, head, body);
         List<ItemStack> drops = new ArrayList<>();
         ServerLevel level = context.level();
         while (column.size() > minHeight) {
@@ -82,27 +78,5 @@ public record HangingGrowthType(int minHeight, int maxHeight, Block head, Block 
 
     @Override
     public void replant(GrowthContext context) {
-    }
-
-    private List<BlockPos> getColumn(GrowthContext context) {
-        ServerLevel level = context.level();
-        BlockPos originalPos = context.pos();
-        List<BlockPos> list = new ArrayList<>();
-        list.add(originalPos);
-        BlockPos pos = originalPos.above();
-        while (isHeadOrBody(level.getBlockState(pos))) {
-            list.addFirst(pos);
-            pos = pos.above();
-        }
-        pos = originalPos.below();
-        while (isHeadOrBody(level.getBlockState(pos))) {
-            list.add(pos);
-            pos = pos.below();
-        }
-        return list;
-    }
-
-    private boolean isHeadOrBody(BlockState state) {
-        return state.is(head) || state.is(body);
     }
 }

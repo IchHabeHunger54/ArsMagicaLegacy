@@ -1,13 +1,5 @@
 package at.minecraftschurli.mods.arsmagicalegacy.block;
 
-import at.minecraftschurli.mods.arsmagicalegacy.AMServerConfig;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Vec3i;
-import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
-
 public class GoldInlayBlock extends InlayBlock {
     public GoldInlayBlock(Properties properties) {
         super(properties);

@@ -1,6 +1,7 @@
 package at.minecraftschurli.mods.arsmagicalegacy.init;
 
 import at.minecraftschurli.mods.arsmagicalegacy.ability.AttributeAbilityEffect;
+import at.minecraftschurli.mods.arsmagicalegacy.ability.BurnoutCostModifierAbilityEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.ability.DamageModifierAbilityEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.ability.EffectAbilityEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.ability.EffectResistanceAbilityEffect;
@@ -12,7 +13,6 @@ import at.minecraftschurli.mods.arsmagicalegacy.ability.FrostWalkerAbilityEffect
 import at.minecraftschurli.mods.arsmagicalegacy.ability.JumpBoostAbilityEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.ability.KillEffectAbilityEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.ability.LightHealthModifierAbilityEffect;
-import at.minecraftschurli.mods.arsmagicalegacy.ability.BurnoutCostModifierAbilityEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.ability.NetherDamageAbilityEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.ability.SpellCastEffectAbilityEffect;
 import at.minecraftschurli.mods.arsmagicalegacy.ability.ThornsAbilityEffect;

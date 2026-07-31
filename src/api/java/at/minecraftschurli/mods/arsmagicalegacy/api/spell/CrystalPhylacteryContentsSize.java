@@ -11,7 +11,7 @@ import net.minecraft.world.entity.ai.attributes.DefaultAttributes;
 import net.neoforged.neoforge.registries.datamaps.DataMapType;
 
 /// Represents a size override for an [EntityType] when stored in a crystal phylactery.
-/// If an [EntityType] is not in the [#DATA\_MAP], its max HP is used.
+/// If an [EntityType] is not in the [#DATA_MAP], its max HP is used.
 /// If the [#size] is 0, the crystal phylactery will not support the [EntityType] at all.
 ///
 /// @param size The size, i.e. the amount of kills needed, of the [EntityType] in a crystal phylactery.

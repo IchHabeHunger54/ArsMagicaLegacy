@@ -32,9 +32,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Matrix3x2fStack;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Arrays;

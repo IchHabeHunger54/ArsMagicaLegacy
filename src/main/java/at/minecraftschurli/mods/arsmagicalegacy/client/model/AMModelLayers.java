@@ -20,7 +20,6 @@ public interface AMModelLayers {
     Identifier WINTERS_GRASP_TEXTURE = ArsMagicaApi.id("textures/entity/ice_guardian.png");
     Identifier NATURE_SCYTHE_TEXTURE = ArsMagicaApi.id("textures/entity/nature_guardian.png");
     Identifier THROWN_ROCK_TEXTURE = ArsMagicaApi.id("textures/entity/earth_guardian.png");
-    Identifier WHIRLWIND = ArsMagicaApi.id("whirlwind");
 
     private static ModelLayerLocation modelLayerLocation(String path) {
         return new ModelLayerLocation(ArsMagicaApi.id(path), "main");

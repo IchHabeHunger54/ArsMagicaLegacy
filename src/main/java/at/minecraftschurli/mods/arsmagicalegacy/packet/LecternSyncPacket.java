@@ -1,7 +1,6 @@
 package at.minecraftschurli.mods.arsmagicalegacy.packet;
 
 import at.minecraftschurli.mods.arsmagicalegacy.api.ArsMagicaApi;
-import at.minecraftschurli.mods.arsmagicalegacy.util.AMClientUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;

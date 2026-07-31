@@ -34,13 +34,6 @@
 - Spell Recipes can now be changed afterwards by placing them back into the table
 - Applied upgrades now show visually on the item if the block is broken, or middle-clicked in creative
 
-## Inlays
-
-- Now each have an extra functionality, ported over from Ars Magica 2
-- Redstone Inlays act as even stronger powered rails, with the potential to derail minecarts entirely if not handled carefully
-- Iron Inlays reverse the directions of minecarts that touch them
-- Gold Inlays attempt to teleport minecarts to the next Gold Inlay in 8 blocks range
-
 # Items
 
 - Dyed Spell Books can now be undyed at a Cauldron

@@ -15,7 +15,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -129,10 +128,8 @@ public abstract class SpellShapeEntity extends SpellEntity {
         for (Entity entity : level().getEntities(this, aabb)) {
             castEntity(entity, entityPredicate, secondary);
         }
-        ClipContext.Block blockContext = getTargetNonSolid() ? ClipContext.Block.OUTLINE : ClipContext.Block.COLLIDER;
-        ClipContext.Fluid fluidContext = getTargetNonSolid() ? ClipContext.Fluid.ANY : ClipContext.Fluid.NONE;
         BlockPos.betweenClosedStream(aabb).filter(blockPredicate).forEach(pos -> {
-            HitResult hitResult = AMUtil.getHitResult(position(), position().add(getDeltaMovement()), this, blockContext, fluidContext);
+            HitResult hitResult = AMUtil.getHitResult(position(), position().add(getDeltaMovement()), this, getTargetNonSolid());
             SpellCastResult result = secondary
                 ? ArsMagicaApi.spellHelper().castSecondaryOrGrammar(new SpellCastContext(spell, level(), owner, this, hitResult, getConsume(), getAwardXp()))
                 : ArsMagicaApi.spellHelper().castGrammar(new SpellCastContext(spell, level(), owner, this, hitResult, getConsume(), getAwardXp()));

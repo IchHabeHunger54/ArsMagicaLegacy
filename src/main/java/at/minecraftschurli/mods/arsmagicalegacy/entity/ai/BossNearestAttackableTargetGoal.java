@@ -8,18 +8,6 @@ import net.minecraft.world.phys.AABB;
 import org.jspecify.annotations.Nullable;
 
 public class BossNearestAttackableTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
-    public BossNearestAttackableTargetGoal(Mob mob, Class<T> targetType, boolean mustSee) {
-        super(mob, targetType, mustSee);
-    }
-
-    public BossNearestAttackableTargetGoal(Mob mob, Class<T> targetType, boolean mustSee, TargetingConditions.Selector selector) {
-        super(mob, targetType, mustSee, selector);
-    }
-
-    public BossNearestAttackableTargetGoal(Mob mob, Class<T> targetType, boolean mustSee, boolean pMustReach) {
-        super(mob, targetType, mustSee, pMustReach);
-    }
-
     public BossNearestAttackableTargetGoal(Mob mob, Class<T> targetType, int pRandomInterval, boolean mustSee, boolean mustReach, TargetingConditions.@Nullable Selector selector) {
         super(mob, targetType, pRandomInterval, mustSee, mustReach, selector);
     }

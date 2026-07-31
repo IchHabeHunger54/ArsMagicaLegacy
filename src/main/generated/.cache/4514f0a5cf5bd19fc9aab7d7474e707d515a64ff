@@ -1,4 +1,4 @@
-// 26.1.2	2026-05-07T00:41:15.5358016	vanilla/Tags for minecraft:item mod id arsmagicalegacy
+// 26.1.2	2026-07-31T13:27:23.003850932	vanilla/Tags for minecraft:item mod id arsmagicalegacy
 2e0ada6a835e8b0f902f82a72452d5602a6064e5 data/arsmagicalegacy/tags/item/arcane_compendium_books.json
 c4dd173177d64629d95c113ecc569a6ff6a78016 data/arsmagicalegacy/tags/item/inscription_table_books.json
 23e87de731409e520ca6ab442c9e3172dd91c0a5 data/arsmagicalegacy/tags/item/occulus_forget_all.json
@@ -11,14 +11,13 @@ a39e73ce83524529d509355b75cfd2efc567b472 data/arsmagicalegacy/tags/item/runes.js
 3172b3316d9e9bc7f03efe84082a0da0bbe360d4 data/arsmagicalegacy/tags/item/spellcrafting_end.json
 09af43a7a9cb6962a8d5e9b378368f12aeddbd79 data/arsmagicalegacy/tags/item/spellcrafting_start.json
 a18e9a425491ad483e0fe788d33e206bec2cab4f data/arsmagicalegacy/tags/item/witchwood_logs.json
-a0b375c98ae151eb3539b82b5d8156b2e68f85e2 data/curios/tags/item/head.json
 2b474bddac72d2e3d1b77a944dae997433c251d3 data/c/tags/item/dusts.json
 e46d2848fb8306c4399c2c45c6da8992ce815b98 data/c/tags/item/dusts/arcane_ash.json
 a0db303737f01768da20a014bb01858549331f0a data/c/tags/item/dusts/arcane_compound.json
 1d0eecda30f363a8510e676ee89b4270cf39125b data/c/tags/item/dusts/purified_vinteum.json
 7fcd32eacf9a02dc1b26ab6b609517b78238e1b9 data/c/tags/item/dusts/vinteum.json
-75597f58eaad48b98e64ba095c0e13b1573e0f4e data/c/tags/item/fences/wooden.json
 4509a6dbe8b8c6353fbe06cefd812efe1dca2727 data/c/tags/item/fence_gates/wooden.json
+75597f58eaad48b98e64ba095c0e13b1573e0f4e data/c/tags/item/fences/wooden.json
 50be428dc4cb81185d16cb3b017471b0e27b6d95 data/c/tags/item/gems.json
 d498a45e33548db20878c11a7e960e316d6a1df0 data/c/tags/item/gems/chimerite.json
 488d0bdfa28de16b2566d3bab85ea861e7506b3c data/c/tags/item/gems/moonstone.json
@@ -36,18 +35,21 @@ a5efaf624ecc4e7aa79239bfda857f660c06c552 data/c/tags/item/storage_blocks/chimeri
 44a23cc79dc5ba635c2c0cab92dcdf6d05104734 data/c/tags/item/storage_blocks/sunstone.json
 76df3f25234406bbe4c797c04449e8b9683eefcd data/c/tags/item/storage_blocks/topaz.json
 1b98676a20688653887cd8966162861777356e7e data/c/tags/item/storage_blocks/vinteum.json
+7b55d13e6224c0822d909adaa4f164ae752311ad data/curios/tags/item/belt.json
+535dca8e2eba941bd2f4661d30cb7b2118612ba6 data/curios/tags/item/charm.json
+5a15c895111e53283cee6ea728310ba1a434b2c5 data/curios/tags/item/head.json
 86bc66d8aaea025789c3353a18f546524f385111 data/minecraft/tags/item/boats.json
 08289cf9d6ce7ee9c225150e53ad52657225f72f data/minecraft/tags/item/bookshelf_books.json
 ce7e623a6f12d8b17d7997ce4107e1c3bc75e458 data/minecraft/tags/item/cauldron_can_remove_dye.json
-b1b8bbe5b3546c8258b996bed5cdc41dd06ca991 data/minecraft/tags/item/chest_armor.json
+3ecf03dc3c1d88d40102b86fe31e38b7b1efb779 data/minecraft/tags/item/chest_armor.json
 2eb4009f3bc010aa7dd9772aefc04def9bc1d95e data/minecraft/tags/item/chest_boats.json
 4509a6dbe8b8c6353fbe06cefd812efe1dca2727 data/minecraft/tags/item/fence_gates.json
-8bf6253c0bb7e7984676a1c6776335efa0003571 data/minecraft/tags/item/foot_armor.json
+0d28e5d1e63c6995741bdaa426f9baa2a37b0669 data/minecraft/tags/item/foot_armor.json
 d9eb014cca9e9eb1edefc2e7b423dacb98df705a data/minecraft/tags/item/hanging_signs.json
-d30908f75408ceb9b382335e883aa7534e992c08 data/minecraft/tags/item/head_armor.json
+53647319d1a240c5ebcfc4479f7c8f9dbbda5ae0 data/minecraft/tags/item/head_armor.json
 cd4ee8afe25cbc17263f3bcd49ba4402450d4b66 data/minecraft/tags/item/leaves.json
 dd339a82f6a267df22cce143dbc4859a4ea30176 data/minecraft/tags/item/lectern_books.json
-a37fd41d75620571fe3ac382272f79d918b44bde data/minecraft/tags/item/leg_armor.json
+4c53931787b7d28ee20946bb540e689bd113a9d3 data/minecraft/tags/item/leg_armor.json
 cc20d8d43b66ef761c1f2d6f55740085c58a35f3 data/minecraft/tags/item/logs.json
 638b279febd41d749f4abb6380caa1aeb19c0d00 data/minecraft/tags/item/planks.json
 4242f5f38b4aee529af292876318046e24ae09c3 data/minecraft/tags/item/rails.json

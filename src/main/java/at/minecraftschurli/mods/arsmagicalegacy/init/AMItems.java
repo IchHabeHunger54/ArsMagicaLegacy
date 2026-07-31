@@ -79,8 +79,16 @@ public interface AMItems {
     DeferredItem<Item>                                  MANA_CAKE                        = ITEMS.registerSimpleItem("mana_cake", p -> p.component(DataComponents.CONSUMABLE, Consumable.builder().onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(AMMobEffects.MANA_REGENERATION, 600))).build()).food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6f).alwaysEdible().build()));
     DeferredItem<Item>                                  MANA_MARTINI                     = ITEMS.registerSimpleItem("mana_martini", p -> p.component(DataComponents.CONSUMABLE, Consumable.builder().onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(AMMobEffects.BURNOUT_REDUCTION, 300))).hasConsumeParticles(false).animation(ItemUseAnimation.DRINK).sound(SoundEvents.GENERIC_DRINK).build()).usingConvertsTo(Items.GLASS_BOTTLE));
     DeferredItem<InfinityOrbItem>                       INFINITY_ORB                     = ITEMS.registerItem("infinity_orb", InfinityOrbItem::new);
+    DeferredItem<Item>                                  WATER_ORBS                       = ITEMS.registerItem("water_orbs", Item::new);
+    DeferredItem<Item>                                  FIRE_ANTENNA                     = ITEMS.registerItem("fire_antenna", Item::new);
+    DeferredItem<Item>                                  EARTH_ARMOR                      = ITEMS.registerItem("earth_armor", Item::new);
+    DeferredItem<Item>                                  AIR_SLED                         = ITEMS.registerItem("air_sled", Item::new);
     DeferredItem<WintersGraspItem>                      WINTERS_GRASP                    = ITEMS.registerItem("winters_grasp", p -> new WintersGraspItem(p.stacksTo(1)));
+    DeferredItem<Item>                                  LIGHTNING_CHARM                  = ITEMS.registerItem("lightning_charm", Item::new);
     DeferredItem<NatureScytheItem>                      NATURE_SCYTHE                    = ITEMS.registerItem("nature_scythe", p -> new NatureScytheItem(p.stacksTo(1)));
+    DeferredItem<Item>                                  LIFE_SHIELD                      = ITEMS.registerItem("life_shield", Item::new);
+    DeferredItem<Item>                                  ARCANE_SPELL_BOOK                = ITEMS.registerItem("arcane_spell_book", Item::new);
+    DeferredItem<Item>                                  ENDER_BOOTS                      = ITEMS.registerItem("ender_boots", Item::new);
     DeferredItem<HolderDataComponentItem<Affinity>>     AFFINITY_ESSENCE                 = ITEMS.registerItem("affinity_essence", p -> new HolderDataComponentItem<>(p, AMDataComponents.AFFINITY.get()));
     DeferredItem<AffinityTomeItem>                      AFFINITY_TOME                    = ITEMS.registerItem("affinity_tome", AffinityTomeItem::new);
     DeferredItem<Item>                                  BLANK_RUNE                       = ITEMS.registerSimpleItem("blank_rune");

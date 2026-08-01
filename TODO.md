@@ -5,12 +5,14 @@
     - Water breathing
     - Disable being pushed in water
     - Custom model
-  - Fire Antenna
-    - Enable swimming in lava
-    - Enable underlava vision
+  - Fire Antennae
     - Fire resistance
+    - Enable swimming in lava
     - Custom model
   - Earth Armor
+    - 16 armor points
+    - Extra attack damage - TODO check amount in 1.10
+    - Repairs itself using mana - lower durability requires more mana to heal
     - Custom model
   - Air Sled
     - Right-click item to place
@@ -20,14 +22,15 @@
   - Lightning Charm
     - Activate in inventory if Curios is not present
     - Config option to still activate in inventory if Curios is present
-    - ???
+    - Item magnet in a 16 block radius
   - Life Shield
     - Activate in inventory if Curios is not present
     - Config option to still activate in inventory if Curios is present
-    - Extra Health
+    - Extra Health - TODO check amount in 1.10
   - Arcane Spell Book
     - Like regular spell book
-    - ???
+    - Boosts spell stats - TODO check amount in 1.10
+    - Reduces mana costs - TODO check amount in 1.10
   - Ender Boots
     - Flip gravity when jumping
 - Reduce sound volumes

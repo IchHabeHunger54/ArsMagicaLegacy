@@ -1,5 +1,35 @@
 - Fix inlays (needs Neo changes)
 - Apply Mana Regeneration to entities swimming in Liquid Etherium (needs Neo changes)
+- Boss Drops
+  - Water Orbs
+    - Water breathing
+    - Disable being pushed in water
+    - Custom model
+  - Fire Antenna
+    - Enable swimming in lava
+    - Enable underlava vision
+    - Fire resistance
+    - Custom model
+  - Earth Armor
+    - Custom model
+  - Air Sled
+    - Right-click item to place
+    - Right-click to mount
+    - Creative-like flight
+    - Shift-right-click to break
+  - Lightning Charm
+    - Activate in inventory if Curios is not present
+    - Config option to still activate in inventory if Curios is present
+    - ???
+  - Life Shield
+    - Activate in inventory if Curios is not present
+    - Config option to still activate in inventory if Curios is present
+    - Extra Health
+  - Arcane Spell Book
+    - Like regular spell book
+    - ???
+  - Ender Boots
+    - Flip gravity when jumping
 - Reduce sound volumes
 - Fix Render Pipelines
     - Beam

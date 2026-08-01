@@ -268,7 +268,7 @@ public final class AMModelProvider extends AbstractModelProvider {
             ItemModelUtils.plainModel(itemModels.createFlatItemModel(AMItems.INFINITY_ORB.get(), ModelTemplates.FLAT_ITEM))
         ), ModelTemplates.FLAT_ITEM, AMMagic.SKILL_POINTS);
         basicItem(itemModels, AMItems.WATER_ORBS);
-        basicItem(itemModels, AMItems.FIRE_ANTENNA);
+        basicItem(itemModels, AMItems.FIRE_ANTENNAE);
         basicItem(itemModels, AMItems.EARTH_ARMOR);
         basicItem(itemModels, AMItems.AIR_SLED);
         basicItem(itemModels, AMItems.WINTERS_GRASP);

@@ -92,7 +92,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         itemWithVariantTranslation(AMItems.INFINITY_ORB, AMMagic.RED_POINT.identifier(), "Red Infinity Orb");
         itemIdTranslation(AMItems.INFINITY_ORB);
         itemIdTranslation(AMItems.WATER_ORBS);
-        itemIdTranslation(AMItems.FIRE_ANTENNA);
+        itemIdTranslation(AMItems.FIRE_ANTENNAE);
         itemIdTranslation(AMItems.EARTH_ARMOR);
         itemIdTranslation(AMItems.AIR_SLED);
         addItem(AMItems.WINTERS_GRASP, "Winter's Grasp");

@@ -2,8 +2,8 @@ package at.minecraftschurli.mods.arsmagicalegacy.item;
 
 import net.minecraft.world.item.Item;
 
-public class FireAntennaItem extends Item {
-    public FireAntennaItem(Properties properties) {
+public class FireAntennaeItem extends Item {
+    public FireAntennaeItem(Properties properties) {
         super(properties);
     }
 }

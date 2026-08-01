@@ -1,4 +1,4 @@
-// 26.1.2	2026-07-31T13:18:25.593976339	vanilla/Model Definitions - arsmagicalegacy
+// 26.1.2	2026-08-01T15:23:12.297100148	vanilla/Model Definitions - arsmagicalegacy
 04e3c603d8be1db1c7bdb4348fd34850a52becf7 assets/arsmagicalegacy/blockstates/altar_core.json
 beb7ab7de7f6ae890282ef38e36400685d083d78 assets/arsmagicalegacy/blockstates/aum.json
 30af4342d085e8fb94bdc195acfdc2f95908074c assets/arsmagicalegacy/blockstates/black_aurem.json
@@ -119,7 +119,7 @@ f4578d14e7644d0768742d2e160d6525f8ba4c21 assets/arsmagicalegacy/items/chimerite_
 ef04661d9ca4841a4e8dc45320f7c2ce71ee2dd5 assets/arsmagicalegacy/items/ender_boots.json
 fe36a15beb4c6c1da5e455384782c25c8681f65b assets/arsmagicalegacy/items/ender_guardian_spawn_egg.json
 bd015472e37787717d92625722680ea29b1c9d9e assets/arsmagicalegacy/items/etherium_placeholder.json
-69696000b70ca1615e61eb833e33d33e8316484d assets/arsmagicalegacy/items/fire_antenna.json
+4d9eda1d333600b82acdda3359d701e69fa9f004 assets/arsmagicalegacy/items/fire_antennae.json
 87fb3c052900a8704d717ab698c175c7a8f48796 assets/arsmagicalegacy/items/fire_guardian_spawn_egg.json
 d359adaa407aa81d0399bf8b78f111555bea23ad assets/arsmagicalegacy/items/gold_inlay.json
 54a11e48f94ed4e161066eea75921a31a4ec07d3 assets/arsmagicalegacy/items/gray_rune.json
@@ -383,7 +383,7 @@ f514883600b627f33d7c0671228c262948aac5da assets/arsmagicalegacy/models/item/drya
 0d087ef8959357c3e642a1496805e9447179a4aa assets/arsmagicalegacy/models/item/ender_boots.json
 08e2eaf8a5465d45795a62030474c2ab0ac4d112 assets/arsmagicalegacy/models/item/ender_guardian_spawn_egg.json
 3c357128f66121146e6c67dff38e370592823f14 assets/arsmagicalegacy/models/item/etherium_placeholder.json
-1d460180cd4fbeb8cdb6ca0a09fdaeddcecb92ee assets/arsmagicalegacy/models/item/fire_antenna.json
+dbb899cda9323ead60ae240399279e6d6a4ddf03 assets/arsmagicalegacy/models/item/fire_antennae.json
 61dade2bc79dff8e2f0b3aacf6435f0ee5a10461 assets/arsmagicalegacy/models/item/fire_guardian_spawn_egg.json
 18d4246fda3363738c85b64260317fe6cb19374a assets/arsmagicalegacy/models/item/gold_inlay.json
 1ee0b234c539257428ef980254c2dea028ed3a94 assets/arsmagicalegacy/models/item/gray_rune.json

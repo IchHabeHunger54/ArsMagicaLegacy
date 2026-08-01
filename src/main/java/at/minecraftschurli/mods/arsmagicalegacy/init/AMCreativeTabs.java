@@ -61,7 +61,7 @@ public interface AMCreativeTabs {
             output.accept(AMItems.MANA_MARTINI);
             acceptVariants(display, output, AMItems.INFINITY_ORB, AMRegistries.Keys.SKILL_POINT, (stack, holder) -> stack.set(AMDataComponents.SKILL_POINT, holder));
             output.accept(AMItems.WATER_ORBS);
-            output.accept(AMItems.FIRE_ANTENNA);
+            output.accept(AMItems.FIRE_ANTENNAE);
             output.accept(AMItems.EARTH_ARMOR);
             output.accept(AMItems.AIR_SLED);
             output.accept(AMItems.WINTERS_GRASP);

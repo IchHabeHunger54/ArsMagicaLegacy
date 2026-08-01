@@ -206,7 +206,7 @@ public final class AMLootTableProvider extends LootTableProvider {
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(0, 2)))
                     .apply(EnchantedCountIncreaseFunction.lootingMultiplier(registries, UniformGenerator.between(0, 1))))));
             addBoss(AMEntities.WATER_GUARDIAN, AMMagic.WATER, AMItems.WATER_ORBS);
-            addBoss(AMEntities.FIRE_GUARDIAN, AMMagic.FIRE, AMItems.FIRE_ANTENNA);
+            addBoss(AMEntities.FIRE_GUARDIAN, AMMagic.FIRE, AMItems.FIRE_ANTENNAE);
             addBoss(AMEntities.EARTH_GUARDIAN, AMMagic.EARTH, AMItems.EARTH_ARMOR);
             addBoss(AMEntities.AIR_GUARDIAN, AMMagic.AIR, AMItems.AIR_SLED);
             addBoss(AMEntities.ICE_GUARDIAN, AMMagic.ICE, AMItems.WINTERS_GRASP);

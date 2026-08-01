@@ -146,7 +146,7 @@ public final class AMTagsProvider {
             tag(AMTags.Items.MAGITECH_GOGGLES_REPAIR_ITEMS).addTag(AMTags.Items.GEMS_TOPAZ);
             tag(AMTags.Items.MAGE_ARMOR_REPAIR_ITEMS).add(AMItems.BLANK_RUNE.get());
             tag(AMTags.Items.BATTLEMAGE_ARMOR_REPAIR_ITEMS).add(AMItems.BLANK_RUNE.get());
-            tag(ItemTags.HEAD_ARMOR).add(AMItems.MAGITECH_GOGGLES.get(), AMItems.MAGE_HELMET.get(), AMItems.BATTLEMAGE_HELMET.get(), AMItems.FIRE_ANTENNA.get());
+            tag(ItemTags.HEAD_ARMOR).add(AMItems.MAGITECH_GOGGLES.get(), AMItems.MAGE_HELMET.get(), AMItems.BATTLEMAGE_HELMET.get(), AMItems.FIRE_ANTENNAE.get());
             tag(ItemTags.CHEST_ARMOR).add(AMItems.MAGE_CHESTPLATE.get(), AMItems.BATTLEMAGE_CHESTPLATE.get(), AMItems.EARTH_ARMOR.get());
             tag(ItemTags.LEG_ARMOR).add(AMItems.MAGE_LEGGINGS.get(), AMItems.BATTLEMAGE_LEGGINGS.get(), AMItems.WATER_ORBS.get());
             tag(ItemTags.FOOT_ARMOR).add(AMItems.MAGE_BOOTS.get(), AMItems.BATTLEMAGE_BOOTS.get(), AMItems.ENDER_BOOTS.get());
@@ -161,7 +161,7 @@ public final class AMTagsProvider {
             tag(AMTags.Items.SHOWS_SPELL_VISUALS).add(AMItems.SPELL.get(), AMItems.SPELL_BOOK.get());
             tag(AMTags.Items.SPELLCRAFTING_START).add(AMItems.BLANK_RUNE.get());
             tag(AMTags.Items.SPELLCRAFTING_END).add(AMItems.SPELL_PARCHMENT.get());
-            tag(CuriosTags.HEAD).add(AMItems.MAGITECH_GOGGLES.get(), AMItems.FIRE_ANTENNA.get());
+            tag(CuriosTags.HEAD).add(AMItems.MAGITECH_GOGGLES.get(), AMItems.FIRE_ANTENNAE.get());
             tag(CuriosTags.BELT).add(AMItems.WATER_ORBS.get());
             tag(CuriosTags.CHARM).add(AMItems.LIGHTNING_CHARM.get(), AMItems.LIFE_SHIELD.get());
         }

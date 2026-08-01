@@ -28,8 +28,12 @@ public class ManaArmorItem extends AMArmorItem {
         super(properties.component(AMDataComponents.MANA_REPAIR_COST, manaRepairCost), slot, equipSound, assetId, attributes);
     }
 
-    private ManaArmorItem(Properties properties, EquipmentSlot slot, Holder<SoundEvent> equipSound, ResourceKey<EquipmentAsset> assetId, int defense, float toughness, int durability, int enchantmentValue, TagKey<Item> repairItems, double manaRepairCost) {
-        super(properties.component(AMDataComponents.MANA_REPAIR_COST, manaRepairCost).durability(durability).enchantable(enchantmentValue).repairable(repairItems), slot, equipSound, assetId, defense, toughness);
+    public ManaArmorItem(Properties properties, EquipmentSlot slot, Holder<SoundEvent> equipSound, ResourceKey<EquipmentAsset> assetId, int defense, float toughness, double manaRepairCost) {
+        super(properties.component(AMDataComponents.MANA_REPAIR_COST, manaRepairCost), slot, equipSound, assetId, defense, toughness);
+    }
+
+    public ManaArmorItem(Properties properties, EquipmentSlot slot, Holder<SoundEvent> equipSound, ResourceKey<EquipmentAsset> assetId, int defense, float toughness, int durability, int enchantmentValue, TagKey<Item> repairItems, double manaRepairCost) {
+        this(properties.durability(durability).enchantable(enchantmentValue).repairable(repairItems), slot, equipSound, assetId, defense, toughness, manaRepairCost);
     }
 
     public static ManaArmorItem mage(Properties properties, ArmorType type, int defense) {

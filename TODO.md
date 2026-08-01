@@ -19,10 +19,15 @@
     - Right-click to mount
     - Creative-like flight
     - Shift-right-click to break
+    - Custom model
+  - Winter's Grasp
+    - Custom model
   - Lightning Charm
     - Activate in inventory if Curios is not present
     - Config option to still activate in inventory if Curios is present
     - Item magnet in a 16 block radius
+  - Nature Scythe
+    - Custom model
   - Life Shield
     - Activate in inventory if Curios is not present
     - Config option to still activate in inventory if Curios is present
@@ -31,6 +36,7 @@
     - Like regular spell book
     - Boosts spell stats - TODO check amount in 1.10
     - Reduces mana costs - TODO check amount in 1.10
+    - Custom model
   - Ender Boots
     - Flip gravity when jumping
 - Reduce sound volumes

@@ -274,7 +274,7 @@ public final class AMModelProvider extends AbstractModelProvider {
         basicItem(itemModels, AMItems.WINTERS_GRASP);
         basicItem(itemModels, AMItems.LIGHTNING_CHARM);
         basicItem(itemModels, AMItems.NATURE_SCYTHE);
-        basicItem(itemModels, AMItems.LIFE_SHIELD);
+        basicItem(itemModels, AMItems.LIFE_WARD);
         basicItem(itemModels, AMItems.ARCANE_SPELL_BOOK);
         basicItem(itemModels, AMItems.ENDER_BOOTS);
         itemWithVariants(itemModels, AMItems.AFFINITY_ESSENCE, new DataComponentOverridesModel.Unbaked<>(

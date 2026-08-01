@@ -10,9 +10,6 @@
     - Enable swimming in lava
     - Custom model
   - Earth Armor
-    - 16 armor points
-    - Extra attack damage - TODO check amount in 1.10
-    - Repairs itself using mana - lower durability requires more mana to heal
     - Custom model
   - Air Sled
     - Right-click item to place
@@ -28,16 +25,17 @@
     - Item magnet in a 16 block radius
   - Nature Scythe
     - Custom model
-  - Life Shield
+  - Life Ward
     - Activate in inventory if Curios is not present
     - Config option to still activate in inventory if Curios is present
-    - Extra Health - TODO check amount in 1.10
+    - Shield of up to 20 health
   - Arcane Spell Book
     - Like regular spell book
     - Boosts spell stats - TODO check amount in 1.10
     - Reduces mana costs - TODO check amount in 1.10
     - Custom model
   - Ender Boots
+    - Check attributes and durability in 1.10
     - Flip gravity when jumping
 - Reduce sound volumes
 - Fix Render Pipelines

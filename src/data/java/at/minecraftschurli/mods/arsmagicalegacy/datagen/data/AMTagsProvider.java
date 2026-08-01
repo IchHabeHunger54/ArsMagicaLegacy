@@ -163,7 +163,7 @@ public final class AMTagsProvider {
             tag(AMTags.Items.SPELLCRAFTING_END).add(AMItems.SPELL_PARCHMENT.get());
             tag(CuriosTags.HEAD).add(AMItems.MAGITECH_GOGGLES.get(), AMItems.FIRE_ANTENNAE.get());
             tag(CuriosTags.BELT).add(AMItems.WATER_ORBS.get());
-            tag(CuriosTags.CHARM).add(AMItems.LIGHTNING_CHARM.get(), AMItems.LIFE_SHIELD.get());
+            tag(CuriosTags.CHARM).add(AMItems.LIGHTNING_CHARM.get(), AMItems.LIFE_WARD.get());
         }
     }
 

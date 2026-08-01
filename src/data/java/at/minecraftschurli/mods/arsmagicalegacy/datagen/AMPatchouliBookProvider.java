@@ -330,7 +330,7 @@ public final class AMPatchouliBookProvider extends PatchouliBookProvider {
             .addEntityPage(AMEntities.LIFE_GUARDIAN.getId()).setText("Recommended magic level: 50").build()
             .addSimpleMultiblockPage("Life Guardian Ritual", AMMultiblocks.LIFE_GUARDIAN_SPAWN_RITUAL)
             .addSimpleTextPage("To summon the Life Guardian, build the structure seen on the previous page in any biome. Then, during a full moon night, kill a villager child at the center of the circle.$(br2)The Life Guardian cannot be damaged directly. Defeat its minions, and the guardian will be hurt.")
-            .addSimpleSpotlightPage(new ItemStackTemplate(AMItems.LIFE_SHIELD), "The Life Ward is dropped from the Life Guardian. When in your inventory, you will slowly generate a shield equal to up to 20 hit points around you that will absorb incoming damage. The hit points remain if the Life Ward is removed from your inventory, but will not replenish themselves without it.")
+            .addSimpleSpotlightPage(new ItemStackTemplate(AMItems.LIFE_WARD), "The Life Ward is dropped from the Life Guardian. When in your inventory, you will slowly generate a shield equal to up to 20 hit points around you that will absorb incoming damage. The hit points remain if the Life Ward is removed from your inventory, but will not replenish themselves without it.")
             .build()
             .addEntry("arcane_guardian", "Arcane Guardian", new ItemStackTemplate(AMItems.ARCANE_GUARDIAN_SPAWN_EGG))
             .addSimpleTextPage("A mage of ancient times, the Arcane Guardian has access to a wide variety of spells. From attacks to buffs to debuffs to self-healing, prepare for a magical duel that will test your counter-spell knowledge.")

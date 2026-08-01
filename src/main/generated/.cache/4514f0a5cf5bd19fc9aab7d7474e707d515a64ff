@@ -1,4 +1,4 @@
-// 26.1.2	2026-08-01T15:23:12.293249093	vanilla/Tags for minecraft:item mod id arsmagicalegacy
+// 26.1.2	2026-08-01T19:13:13.697784409	vanilla/Tags for minecraft:item mod id arsmagicalegacy
 2e0ada6a835e8b0f902f82a72452d5602a6064e5 data/arsmagicalegacy/tags/item/arcane_compendium_books.json
 c4dd173177d64629d95c113ecc569a6ff6a78016 data/arsmagicalegacy/tags/item/inscription_table_books.json
 23e87de731409e520ca6ab442c9e3172dd91c0a5 data/arsmagicalegacy/tags/item/occulus_forget_all.json
@@ -36,7 +36,7 @@ a5efaf624ecc4e7aa79239bfda857f660c06c552 data/c/tags/item/storage_blocks/chimeri
 76df3f25234406bbe4c797c04449e8b9683eefcd data/c/tags/item/storage_blocks/topaz.json
 1b98676a20688653887cd8966162861777356e7e data/c/tags/item/storage_blocks/vinteum.json
 7b55d13e6224c0822d909adaa4f164ae752311ad data/curios/tags/item/belt.json
-535dca8e2eba941bd2f4661d30cb7b2118612ba6 data/curios/tags/item/charm.json
+51888bd311e8033f73a1179d4326a9d8717f3e48 data/curios/tags/item/charm.json
 83109b8aff9f15b4885f1841b276723bfdbfa3b2 data/curios/tags/item/head.json
 86bc66d8aaea025789c3353a18f546524f385111 data/minecraft/tags/item/boats.json
 08289cf9d6ce7ee9c225150e53ad52657225f72f data/minecraft/tags/item/bookshelf_books.json

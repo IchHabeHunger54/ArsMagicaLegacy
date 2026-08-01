@@ -67,7 +67,7 @@ public interface AMCreativeTabs {
             output.accept(AMItems.WINTERS_GRASP);
             output.accept(AMItems.LIGHTNING_CHARM);
             output.accept(AMItems.NATURE_SCYTHE);
-            output.accept(AMItems.LIFE_SHIELD);
+            output.accept(AMItems.LIFE_WARD);
             output.accept(AMItems.ARCANE_SPELL_BOOK);
             output.accept(AMItems.ENDER_BOOTS);
             acceptVariants(display, output, AMItems.AFFINITY_ESSENCE, AMRegistries.Keys.AFFINITY, (stack, holder) -> stack.set(AMDataComponents.AFFINITY, holder), Affinity.NONE);

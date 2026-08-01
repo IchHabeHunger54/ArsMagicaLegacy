@@ -16,7 +16,7 @@ import at.minecraftschurli.mods.arsmagicalegacy.item.FireAntennaeItem;
 import at.minecraftschurli.mods.arsmagicalegacy.item.HolderDataComponentItem;
 import at.minecraftschurli.mods.arsmagicalegacy.item.InfinityOrbItem;
 import at.minecraftschurli.mods.arsmagicalegacy.item.InscriptionTableUpgradeItem;
-import at.minecraftschurli.mods.arsmagicalegacy.item.LifeShieldItem;
+import at.minecraftschurli.mods.arsmagicalegacy.item.LifeWardItem;
 import at.minecraftschurli.mods.arsmagicalegacy.item.LightningCharmItem;
 import at.minecraftschurli.mods.arsmagicalegacy.item.ManaArmorItem;
 import at.minecraftschurli.mods.arsmagicalegacy.item.NatureScytheItem;
@@ -96,7 +96,7 @@ public interface AMItems {
     DeferredItem<WintersGraspItem>                      WINTERS_GRASP                    = ITEMS.registerItem("winters_grasp", p -> new WintersGraspItem(p.stacksTo(1)));
     DeferredItem<LightningCharmItem>                    LIGHTNING_CHARM                  = ITEMS.registerItem("lightning_charm", LightningCharmItem::new);
     DeferredItem<NatureScytheItem>                      NATURE_SCYTHE                    = ITEMS.registerItem("nature_scythe", p -> new NatureScytheItem(p.stacksTo(1)));
-    DeferredItem<LifeShieldItem>                        LIFE_SHIELD                      = ITEMS.registerItem("life_shield", LifeShieldItem::new);
+    DeferredItem<LifeWardItem>                          LIFE_WARD                        = ITEMS.registerItem("life_ward", LifeWardItem::new);
     DeferredItem<ArcaneSpellBookItem>                   ARCANE_SPELL_BOOK                = ITEMS.registerItem("arcane_spell_book", ArcaneSpellBookItem::new);
     DeferredItem<EnderBootsItem>                        ENDER_BOOTS                      = ITEMS.registerItem("ender_boots", EnderBootsItem::new);
     DeferredItem<HolderDataComponentItem<Affinity>>     AFFINITY_ESSENCE                 = ITEMS.registerItem("affinity_essence", p -> new HolderDataComponentItem<>(p, AMDataComponents.AFFINITY.get()));

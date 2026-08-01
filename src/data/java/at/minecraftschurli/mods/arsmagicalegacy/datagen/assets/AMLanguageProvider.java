@@ -98,7 +98,7 @@ public final class AMLanguageProvider extends LanguageProvider {
         addItem(AMItems.WINTERS_GRASP, "Winter's Grasp");
         itemIdTranslation(AMItems.LIGHTNING_CHARM);
         itemIdTranslation(AMItems.NATURE_SCYTHE);
-        itemIdTranslation(AMItems.LIFE_SHIELD);
+        itemIdTranslation(AMItems.LIFE_WARD);
         itemIdTranslation(AMItems.ARCANE_SPELL_BOOK);
         itemIdTranslation(AMItems.ENDER_BOOTS);
         itemWithVariantTranslation(AMItems.AFFINITY_ESSENCE, Affinity.NONE.identifier(), "Affinity Essence");

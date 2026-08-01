@@ -1,4 +1,4 @@
-// 26.1.2	2026-08-01T15:23:12.295148415	vanilla/Loot Tables
+// 26.1.2	2026-08-01T19:13:13.69977945	vanilla/Loot Tables
 f0e4c8134bf2f68e1425a328c83498f858e1e26c data/arsmagicalegacy/loot_table/blocks/altar_core.json
 32900dde32312718365d978d0183dc6f16140e5e data/arsmagicalegacy/loot_table/blocks/aum.json
 eb1a581730e7ef2fb1b34eee0ad85fd9cbf9024f data/arsmagicalegacy/loot_table/blocks/black_aurem.json
@@ -86,7 +86,7 @@ a6e2b54631db34a112b10dc68a36e468a97ea3c8 data/arsmagicalegacy/loot_table/entitie
 c31496a0970e96666d2e140d1e536fb1d70f37be data/arsmagicalegacy/loot_table/entities/ender_guardian.json
 a6713e07b6c2c3ab3ddeeb4a5e3aff01bdcf22b9 data/arsmagicalegacy/loot_table/entities/fire_guardian.json
 3200c744182dad66c3778d6112e260b02f7892c3 data/arsmagicalegacy/loot_table/entities/ice_guardian.json
-f4d5734f437dd53327a13baecfb3b41b9f6f1974 data/arsmagicalegacy/loot_table/entities/life_guardian.json
+8f48713f6e5c3f132c2ed4e536d94370f2411c00 data/arsmagicalegacy/loot_table/entities/life_guardian.json
 34fe060cc28d952527495111a821ddd3e9fb01ae data/arsmagicalegacy/loot_table/entities/lightning_guardian.json
 abc4c16563bad3589d5f0be2083221e5c9ccb1f4 data/arsmagicalegacy/loot_table/entities/mana_creeper.json
 c3b940968d1a09c7b9793037b80b6ba3950212af data/arsmagicalegacy/loot_table/entities/modify/creeper_dismembering.json

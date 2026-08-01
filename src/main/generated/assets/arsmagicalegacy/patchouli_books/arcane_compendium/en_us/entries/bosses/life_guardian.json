@@ -23,7 +23,7 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "arsmagicalegacy:life_shield",
+      "item": "arsmagicalegacy:life_ward",
       "text": "item.arsmagicalegacy.arcane_compendium.bosses.life_guardian.page4.text"
     }
   ]

@@ -212,7 +212,7 @@ public final class AMLootTableProvider extends LootTableProvider {
             addBoss(AMEntities.ICE_GUARDIAN, AMMagic.ICE, AMItems.WINTERS_GRASP);
             addBoss(AMEntities.LIGHTNING_GUARDIAN, AMMagic.LIGHTNING, AMItems.LIGHTNING_CHARM);
             addBoss(AMEntities.NATURE_GUARDIAN, AMMagic.NATURE, AMItems.NATURE_SCYTHE);
-            addBoss(AMEntities.LIFE_GUARDIAN, AMMagic.LIFE, AMItems.LIFE_SHIELD);
+            addBoss(AMEntities.LIFE_GUARDIAN, AMMagic.LIFE, AMItems.LIFE_WARD);
             addBoss(AMEntities.ARCANE_GUARDIAN, AMMagic.ARCANE, AMItems.ARCANE_SPELL_BOOK);
             addBoss(AMEntities.ENDER_GUARDIAN, AMMagic.ENDER, AMItems.ENDER_BOOTS);
         }

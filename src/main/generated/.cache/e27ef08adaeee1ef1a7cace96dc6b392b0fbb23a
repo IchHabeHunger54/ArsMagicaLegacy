@@ -1,4 +1,4 @@
-// 26.1.2	2026-08-01T15:23:12.297100148	vanilla/Model Definitions - arsmagicalegacy
+// 26.1.2	2026-08-01T19:13:13.703443805	vanilla/Model Definitions - arsmagicalegacy
 04e3c603d8be1db1c7bdb4348fd34850a52becf7 assets/arsmagicalegacy/blockstates/altar_core.json
 beb7ab7de7f6ae890282ef38e36400685d083d78 assets/arsmagicalegacy/blockstates/aum.json
 30af4342d085e8fb94bdc195acfdc2f95908074c assets/arsmagicalegacy/blockstates/black_aurem.json
@@ -135,7 +135,7 @@ fd01a25bffbe8b9ed8b7eb4cca82df79b463b998 assets/arsmagicalegacy/items/inscriptio
 7c8ef1725b1b1ebcf7a6bdc8d3ac126f84117e03 assets/arsmagicalegacy/items/inscription_table_upgrade_tier_3.json
 8ebfb48eef2f1137b28fe0ea784bec8fdfb36dbf assets/arsmagicalegacy/items/iron_inlay.json
 64db747c4dc302fa84cd83be736ecdc99b8797f3 assets/arsmagicalegacy/items/life_guardian_spawn_egg.json
-892be85f782361fcfda83c93e6e9e7df835fd9f9 assets/arsmagicalegacy/items/life_shield.json
+a249a13ebed7ba6f04ccd58c81390243472e2a69 assets/arsmagicalegacy/items/life_ward.json
 2acf51374cc3db40c93815c4675d39e842d1f011 assets/arsmagicalegacy/items/light_blue_rune.json
 e7f5ef7fd92b328a2eed58b0a2110fc2d20e5a37 assets/arsmagicalegacy/items/light_gray_rune.json
 0fbeed93039586bf684f816b94c97483e663bac4 assets/arsmagicalegacy/items/lightning_charm.json
@@ -398,7 +398,7 @@ a97d8f349dbb1f1c3acd894d9e618214c93a77c6 assets/arsmagicalegacy/models/item/insc
 e5ab563b4ffb87d5a0bc7e67d4f7bb089f5c93ec assets/arsmagicalegacy/models/item/inscription_table_upgrade_tier_3.json
 10524e7f6ce8b24b1aeeb89d8069e40f8e9da0cd assets/arsmagicalegacy/models/item/iron_inlay.json
 65fae0750d493fe77446ec4ea04a93247a1a3876 assets/arsmagicalegacy/models/item/life_guardian_spawn_egg.json
-1583cc2c9705d4fc52578d23a7dfc2a42437fed2 assets/arsmagicalegacy/models/item/life_shield.json
+5468fe89b3549c16ac556bbc15a35d0677bf4455 assets/arsmagicalegacy/models/item/life_ward.json
 3e3d968958428483ce14a4b63ebfef6f55f9a27f assets/arsmagicalegacy/models/item/light_blue_rune.json
 f23802e331e186775bfb9211aab6c426820e1f6a assets/arsmagicalegacy/models/item/light_gray_rune.json
 da80930ba071cd40e4ed34b521211b9316b3aeeb assets/arsmagicalegacy/models/item/lightning_charm.json

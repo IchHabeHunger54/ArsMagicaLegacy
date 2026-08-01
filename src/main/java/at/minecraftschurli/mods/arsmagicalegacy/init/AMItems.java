@@ -93,9 +93,9 @@ public interface AMItems {
     DeferredItem<FireAntennaeItem>                      FIRE_ANTENNAE                    = ITEMS.registerItem("fire_antennae", FireAntennaeItem::new);
     DeferredItem<EarthArmorItem>                        EARTH_ARMOR                      = ITEMS.registerItem("earth_armor", EarthArmorItem::new);
     DeferredItem<AirSledItem>                           AIR_SLED                         = ITEMS.registerItem("air_sled", AirSledItem::new);
-    DeferredItem<WintersGraspItem>                      WINTERS_GRASP                    = ITEMS.registerItem("winters_grasp", p -> new WintersGraspItem(p.stacksTo(1)));
+    DeferredItem<WintersGraspItem>                      WINTERS_GRASP                    = ITEMS.registerItem("winters_grasp", WintersGraspItem::new);
     DeferredItem<LightningCharmItem>                    LIGHTNING_CHARM                  = ITEMS.registerItem("lightning_charm", LightningCharmItem::new);
-    DeferredItem<NatureScytheItem>                      NATURE_SCYTHE                    = ITEMS.registerItem("nature_scythe", p -> new NatureScytheItem(p.stacksTo(1)));
+    DeferredItem<NatureScytheItem>                      NATURE_SCYTHE                    = ITEMS.registerItem("nature_scythe", NatureScytheItem::new);
     DeferredItem<LifeWardItem>                          LIFE_WARD                        = ITEMS.registerItem("life_ward", LifeWardItem::new);
     DeferredItem<ArcaneSpellBookItem>                   ARCANE_SPELL_BOOK                = ITEMS.registerItem("arcane_spell_book", ArcaneSpellBookItem::new);
     DeferredItem<EnderBootsItem>                        ENDER_BOOTS                      = ITEMS.registerItem("ender_boots", EnderBootsItem::new);
